@@ -43,7 +43,11 @@ layout: default
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/test/aplusb.test.cpp.html">test/aplusb.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/associative_array.test.cpp.html">test/associative_array.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/many_aplusb.test.cpp.html">test/many_aplusb.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
 
 
 ## Code
