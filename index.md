@@ -38,6 +38,8 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/associative_array.test.cpp.html">test/associative_array.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/many_aplusb.test.cpp.html">test/many_aplusb.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
