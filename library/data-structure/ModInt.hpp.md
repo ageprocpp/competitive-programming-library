@@ -25,23 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/point_set_range_composite.test.cpp
+# :heavy_check_mark: data-structure/ModInt.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/point_set_range_composite.test.cpp">View this file on GitHub</a>
+* category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
+* <a href="{{ site.github.repository_url }}/blob/master/data-structure/ModInt.hpp">View this file on GitHub</a>
     - Last commit date: 2020-07-11 01:15:49+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/ModInt.hpp.html">data-structure/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
 
 
 ## Code
@@ -49,42 +51,69 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
+#pragma once
 #include "../other/template.hpp"
-#include "../data-structure/ModInt.hpp"
-#include "../data-structure/SegTree.hpp"
-const unsigned int ModInt::modulo=998244353;
-class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
+class ModInt {
+    lint value;
 public:
-	MySeg(int size):SegTree<mp>(size,{0,0},{1,0}){}
+    static const unsigned int modulo;
+    ModInt() : value(0) {}
+    template<typename T>
+    ModInt(T value = 0) : value(value) {
+        if (value < 0)value = -(lint)(-value % modulo) + modulo;
+        this->value = value % modulo;
+    }
+    inline operator int()const { return value; }
+    inline ModInt& operator+=(const ModInt& x) {
+        value += x.value;
+        if (value >= modulo)value -= modulo;
+        return *this;
+    }
+    inline ModInt& operator++() {
+        if (value == modulo - 1)value = 0;
+        else value++;
+        return *this;
+    }
+    inline ModInt operator-()const {
+        return ModInt(0) -= *this;
+    }
+    inline ModInt& operator-=(const ModInt& x) {
+        value -= x.value;
+        if (value < 0)value += modulo;
+        return *this;
+    }
+    inline ModInt& operator--() {
+        if (value == 0)value = modulo - 1;
+        else value--;
+        return *this;
+    }
+    inline ModInt& operator*=(const ModInt& x) {
+        value = value * x.value % modulo;
+        return *this;
+    }
+    inline ModInt& operator/=(ModInt rhs) {
+        int exp = modulo - 2;
+        while (exp) {
+            if (exp & 1)*this *= rhs;
+            rhs *= rhs;
+            exp >>= 1;
+        }
+        return *this;
+    }
+    template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
+    template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }
+    template<typename T> ModInt operator-(const T& rhs)const { return ModInt(*this) -= rhs; }
+    template<typename T> ModInt& operator-=(const T& rhs) { return operator-=(ModInt(rhs)); }
+    template<typename T> ModInt operator*(const T& rhs)const { return ModInt(*this) *= rhs; }
+    template<typename T> ModInt& operator*=(const T& rhs) { return operator*=(ModInt(rhs)); }
+    template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
+    template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
 };
-lint n,q;
-int main(){
-	std::cin>>n>>q;
-	MySeg st(n);
-	rep(i,n){
-		lint a,b;
-		std::cin>>a>>b;
-		st.update(i,{a,b});
-	}
-	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
-			int p,c,d;
-			std::cin>>p>>c>>d;
-			st.update(p,{c,d});
-		}
-		else{
-			int l,r,x;
-			std::cin>>l>>r>>x;
-			auto p=st.query(l,r);
-			std::cout<<p.first*x+p.second<<std::endl;
-		}
-	}
-	return 0;
+std::istream& operator>>(std::istream& ist, ModInt& x) {
+    lint a;
+    ist >> a;
+    x = a;
+    return ist;
 }
 ```
 {% endraw %}
@@ -92,8 +121,6 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/point_set_range_composite.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx")
@@ -259,121 +286,6 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
     ist >> a;
     x = a;
     return ist;
-}
-#line 2 "data-structure/SegTree.hpp"
-template<typename T>
-class SegTree {
-protected:
-	unsigned int n = 1, rank = 0;
-	std::vector<T> node;
-	T nodee;
-	virtual T nodef(const T&, const T&)const = 0;
-public:
-	SegTree(unsigned int m, T init, T nodee):nodee(nodee) {
-		while (n < m) {
-			n *= 2;
-			rank++;
-		}
-		node.resize(2 * n);
-		for (unsigned int i = n; i < 2 * n; i++)node[i] = init;
-	}
-	SegTree(const std::vector<T>& initvec, T nodee):nodee(nodee) {
-		unsigned int m = initvec.size();
-		while (n < m) {
-			n *= 2;
-			rank++;
-		}
-		node.resize(2 * n);
-		for (unsigned int i = n; i < 2 * n; i++) {
-			if (i - n < m)node[i] = initvec[i - n];
-		}
-	}
-	virtual void update(int i, T x) {
-		i += n;
-		node[i] = x;
-		while (i != 1) {
-			i >>= 1;
-			node[i] = nodef(node[2 * i], node[2 * i + 1]);
-		}
-	}
-	virtual T query(int l, int r) {
-		l += n; r += n;
-		T ls = nodee, rs = nodee;
-		while (l < r) {
-			if (l & 1) {
-				ls = nodef(ls, node[l]);
-				l++;
-			}
-			if (r & 1) {
-				r--;
-				rs = nodef(node[r], rs);
-			}
-			l >>= 1; r >>= 1;
-		}
-		return nodef(ls, rs);
-	}
-	virtual T operator[](const int& x) {
-		return node[n + x];
-	}
-	void fill(T x) {
-		std::fill(all(node), x);
-	}
-	void print() {
-		rep(i, n)std::cout << operator[](i) << " ";
-		std::cout << std::endl;
-	}
-};
-class RSQ :public SegTree<lint> {
-	lint nodef(const lint& lhs,const lint& rhs)const{return lhs+rhs;}
-public:
-	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {}
-	RSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {}
-};
-class RMiQ :public SegTree<lint> {
-	lint nodef(const lint& lhs,const lint& rhs)const{return std::min(lhs,rhs);}
-public:
-	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {}
-	RMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {}
-};
-class RMaQ :public SegTree<lint> {
-	lint nodef(const lint& lhs,const lint& rhs)const{return std::max(lhs,rhs);}
-public:
-	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {}
-	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {}
-};
-#line 5 "test/point_set_range_composite.test.cpp"
-const unsigned int ModInt::modulo=998244353;
-class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
-public:
-	MySeg(int size):SegTree<mp>(size,{0,0},{1,0}){}
-};
-lint n,q;
-int main(){
-	std::cin>>n>>q;
-	MySeg st(n);
-	rep(i,n){
-		lint a,b;
-		std::cin>>a>>b;
-		st.update(i,{a,b});
-	}
-	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
-			int p,c,d;
-			std::cin>>p>>c>>d;
-			st.update(p,{c,d});
-		}
-		else{
-			int l,r,x;
-			std::cin>>l>>r>>x;
-			auto p=st.query(l,r);
-			std::cout<<p.first*x+p.second<<std::endl;
-		}
-	}
-	return 0;
 }
 
 ```
