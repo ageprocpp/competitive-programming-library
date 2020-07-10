@@ -2,5 +2,8 @@
 "test/aplusb.test.cpp": "2020-07-10 19:58:19 +0900",
 "test/associative_array.test.cpp": "2020-07-10 21:30:37 +0900",
 "test/many_aplusb.test.cpp": "2020-07-10 19:58:19 +0900",
+"test/point_add_range_sum.test.cpp": "2020-07-10 21:53:07 +0900",
+"test/static_range_sum.test.cpp": "2020-07-10 21:53:07 +0900",
+"test/staticrmq.test.cpp": "2020-07-10 21:53:07 +0900",
 "test/unionfind.test.cpp": "2020-07-10 21:30:37 +0900"
 }
