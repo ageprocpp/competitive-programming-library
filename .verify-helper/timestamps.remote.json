@@ -1,11 +1,7 @@
 {
-"test/aplusb.test.cpp": "2020-07-10 19:58:19 +0900",
-"test/associative_array.test.cpp": "2020-07-10 21:30:37 +0900",
-"test/many_aplusb.test.cpp": "2020-07-10 19:58:19 +0900",
-"test/point_add_range_sum.test.cpp": "2020-07-10 21:53:07 +0900",
+"test/aplusb.test.cpp": "2020-07-11 01:38:39 +0900",
+"test/associative_array.test.cpp": "2020-07-11 01:38:39 +0900",
+"test/many_aplusb.test.cpp": "2020-07-11 01:38:39 +0900",
 "test/point_set_range_composite.test.cpp": "2020-07-11 01:15:49 +0900",
-"test/range_affine_range_sum.test.cpp": "2020-07-11 00:39:43 +0900",
-"test/static_range_sum.test.cpp": "2020-07-10 21:53:07 +0900",
-"test/staticrmq.test.cpp": "2020-07-10 21:53:07 +0900",
-"test/unionfind.test.cpp": "2020-07-10 21:30:37 +0900"
+"test/static_range_sum.test.cpp": "2020-07-11 01:38:39 +0900"
 }
