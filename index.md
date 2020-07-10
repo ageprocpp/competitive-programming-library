@@ -35,6 +35,8 @@ layout: default
 ## Verify Files
 
 * :heavy_check_mark: <a href="verify/test/aplusb.test.cpp.html">test/aplusb.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/associative_array.test.cpp.html">test/associative_array.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/many_aplusb.test.cpp.html">test/many_aplusb.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
 
 
