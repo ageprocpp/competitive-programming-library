@@ -1,4 +1,5 @@
 #pragma once
+#include "../other/template.hpp"
 template<typename T>
 class SegTree {
 protected:
