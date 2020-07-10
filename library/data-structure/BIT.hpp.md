@@ -25,22 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/point_add_range_sum.test.cpp
+# :heavy_check_mark: data-structure/BIT.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/point_add_range_sum.test.cpp">View this file on GitHub</a>
+* category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
+* <a href="{{ site.github.repository_url }}/blob/master/data-structure/BIT.hpp">View this file on GitHub</a>
     - Last commit date: 2020-07-11 01:46:56+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
 
 
 ## Code
@@ -48,43 +51,63 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+#pragma once
 #include "../other/template.hpp"
-#include "../data-structure/BIT.hpp"
-lint n,q,a;
-int main(){
-	std::cin>>n>>q;
-	BIT bit(n);
-	REP(i,n){
-		std::cin>>a;
-		bit.add(i,a);
+class BIT {
+	unsigned int n;
+	std::vector<lint> bit;
+public:
+	BIT(unsigned int n) :n(n) {
+		bit.resize(n + 1, 0);
 	}
-	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
-			lint p,x;
-			std::cin>>p>>x;
-			p++;
-			bit.add(p,x);
-		}
-		else{
-			int l,r;
-			std::cin>>l>>r;
-			l++;r++;
-			std::cout<<bit.query(r-1)-(l==1?0:bit.query(l-1))<<std::endl;
+	void add(int a, lint x) {
+		while (a <= n) {
+			bit[a] += x;
+			a += a & -a;
 		}
 	}
-	return 0;
-}
+	lint query(int a) {
+		lint cnt = 0;
+		while (a > 0) {
+			cnt += bit[a];
+			a -= a & -a;
+		}
+		return cnt;
+	}
+	void clear() {
+		bit.assign(n + 1, 0);
+	}
+	unsigned int lower_bound(int x){
+		int p=0,k=1;
+		while(k*2<=n)k*=2;
+		while(k>0){
+			if(p+k<=n&&bit[p+k]<x){
+				x-=bit[p+k];
+				p+=k;
+			}
+			k/=2;
+		}
+		return p+1;
+	}
+	unsigned int upper_bound(int x){
+		int p=0,k=1;
+		while(k*2<=n)k*=2;
+		while(k>0){
+			if(p+k<=n&&bit[p+k]<=x){
+				x-=bit[p+k];
+				p+=k;
+			}
+			k/=2;
+		}
+		return p+1;
+	}
+};
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/point_add_range_sum.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx")
@@ -238,33 +261,6 @@ public:
 		return p+1;
 	}
 };
-#line 4 "test/point_add_range_sum.test.cpp"
-lint n,q,a;
-int main(){
-	std::cin>>n>>q;
-	BIT bit(n);
-	REP(i,n){
-		std::cin>>a;
-		bit.add(i,a);
-	}
-	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
-			lint p,x;
-			std::cin>>p>>x;
-			p++;
-			bit.add(p,x);
-		}
-		else{
-			int l,r;
-			std::cin>>l>>r;
-			l++;r++;
-			std::cout<<bit.query(r-1)-(l==1?0:bit.query(l-1))<<std::endl;
-		}
-	}
-	return 0;
-}
 
 ```
 {% endraw %}

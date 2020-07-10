@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/point_set_range_composite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-11 01:15:49+09:00
+    - Last commit date: 2020-07-11 01:46:56+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -260,7 +260,7 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
     x = a;
     return ist;
 }
-#line 2 "data-structure/SegTree.hpp"
+#line 3 "data-structure/SegTree.hpp"
 template<typename T>
 class SegTree {
 protected:

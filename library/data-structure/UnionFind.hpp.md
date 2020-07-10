@@ -25,22 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/unionfind.test.cpp
+# :heavy_check_mark: data-structure/UnionFind.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/unionfind.test.cpp">View this file on GitHub</a>
+* category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
+* <a href="{{ site.github.repository_url }}/blob/master/data-structure/UnionFind.hpp">View this file on GitHub</a>
     - Last commit date: 2020-07-11 01:46:56+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/unionfind">https://judge.yosupo.jp/problem/unionfind</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/UnionFind.hpp.html">data-structure/UnionFind.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
 
 
 ## Code
@@ -48,28 +51,102 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/unionfind"
+#pragma once
 #include "../other/template.hpp"
-#include "../data-structure/UnionFind.hpp"
-int n,q,t,u,v;
-int main(){
-	std::cin>>n>>q;
-	UnionFind uf(n);
-	rep(i,q){
-		std::cin>>t>>u>>v;
-		if(t==0)uf.unite(u,v);
-		else std::cout<<uf.same(u,v)<<std::endl;
+class UnionFind {
+protected:
+	std::vector<int> par, rank, size;
+public:
+	UnionFind(unsigned int size) {
+		par.resize(size); rank.resize(size, 0); this->size.resize(size, 1);
+		rep(i, size) {
+			par[i] = i;
+		}
 	}
-	return 0;
-}
+	int find(int n) {
+		if (par[n] == n)return n;
+		return par[n] = find(par[n]);
+	}
+	void unite(int n, int m) {
+		n = find(n);
+		m = find(m);
+		if (n == m)return;
+		if (rank[n] < rank[m]) {
+			par[n] = m;
+			size[m] += size[n];
+		}
+		else {
+			par[m] = n;
+			size[n] += size[m];
+			if (rank[n] == rank[m])rank[n]++;
+		}
+	}
+	bool same(int n, int m) {
+		return find(n) == find(m);
+	}
+	int getsize(int n) {
+		return size[find(n)];
+	}
+};
+class PersistantUnionFind :UnionFind {
+	std::vector<P> notparent;
+	std::vector<std::vector<std::pair<int, int>>> sizevec;
+	int opcount = 0;
+public:
+	PersistantUnionFind(unsigned int size) :UnionFind(size) {
+		notparent.resize(size); sizevec.resize(size);
+		rep(i, size) {
+			par[i] = i;
+			rank[i] = 0;
+			sizevec[i].push_back(std::make_pair(-1, 1));
+			notparent[i] = std::make_pair(INF, i);
+		}
+	}
+	int find(int n, int t = INF) {
+		if (opcount <= t) {
+			if (par[n] == n)return n;
+			return par[n] = find(par[n]);
+		}
+		if (notparent[n].first <= t)return find(notparent[n].second, t);
+		return n;
+	}
+	void unite(int n, int m) {
+		n = find(n);
+		m = find(m);
+		if (n == m) {
+			opcount++;
+			return;
+		}
+		if (rank[n] < rank[m]) {
+			par[n] = m;
+			notparent[n] = std::make_pair(opcount, m);
+			sizevec[m].emplace_back(opcount, sizevec[m].back().second + sizevec[n].back().second);
+		}
+		else {
+			par[m] = n;
+			notparent[m] = std::make_pair(opcount, n);
+			sizevec[n].emplace_back(opcount, sizevec[n].back().second + sizevec[m].back().second);
+			if (rank[n] == rank[m])rank[n]++;
+		}
+		opcount++;
+	}
+	bool same(int n, int m, int t = INF) {
+		return find(n, t) == find(m, t);
+	}
+	int getsize(int n, int t = INF) {
+		n = find(n, t);
+		auto ite = std::lower_bound(all(sizevec[n]), std::make_pair(t, 0));
+		if (ite == sizevec[n].end())ite--;
+		if (t < (*ite).first)ite--;
+		return (*ite).second;
+	}
+};
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/unionfind.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/unionfind"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx")
@@ -262,18 +339,6 @@ public:
 		return (*ite).second;
 	}
 };
-#line 4 "test/unionfind.test.cpp"
-int n,q,t,u,v;
-int main(){
-	std::cin>>n>>q;
-	UnionFind uf(n);
-	rep(i,q){
-		std::cin>>t>>u>>v;
-		if(t==0)uf.unite(u,v);
-		else std::cout<<uf.same(u,v)<<std::endl;
-	}
-	return 0;
-}
 
 ```
 {% endraw %}
