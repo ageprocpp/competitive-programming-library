@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/unionfind"
 #include "../other/template.hpp"
-#include "../data-structure/UnionFind.hpp"
+#include "../graph/UnionFind.hpp"
 int n,q,t,u,v;
 int main(){
 	std::cin>>n>>q;
