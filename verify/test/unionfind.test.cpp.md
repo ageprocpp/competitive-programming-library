@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/unionfind.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-11 01:46:56+09:00
+    - Last commit date: 2020-07-11 13:46:31+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/unionfind">https://judge.yosupo.jp/problem/unionfind</a>
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/UnionFind.hpp.html">data-structure/UnionFind.hpp</a>
+* :heavy_check_mark: <a href="../../library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
 * :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
@@ -50,7 +50,7 @@ layout: default
 ```cpp
 #define PROBLEM "https://judge.yosupo.jp/problem/unionfind"
 #include "../other/template.hpp"
-#include "../data-structure/UnionFind.hpp"
+#include "../graph/UnionFind.hpp"
 int n,q,t,u,v;
 int main(){
 	std::cin>>n>>q;
@@ -173,7 +173,7 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
-#line 3 "data-structure/UnionFind.hpp"
+#line 3 "graph/UnionFind.hpp"
 class UnionFind {
 protected:
 	std::vector<int> par, rank, size;

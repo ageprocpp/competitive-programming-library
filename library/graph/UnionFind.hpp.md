@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data-structure/UnionFind.hpp
+# :heavy_check_mark: graph/UnionFind.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data-structure/UnionFind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-11 01:46:56+09:00
+* category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
+* <a href="{{ site.github.repository_url }}/blob/master/graph/UnionFind.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-07-11 13:46:31+09:00
 
 
 
@@ -250,7 +250,7 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
-#line 3 "data-structure/UnionFind.hpp"
+#line 3 "graph/UnionFind.hpp"
 class UnionFind {
 protected:
 	std::vector<int> par, rank, size;

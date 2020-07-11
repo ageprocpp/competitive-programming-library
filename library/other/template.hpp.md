@@ -44,7 +44,7 @@ layout: default
 * :heavy_check_mark: <a href="../data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
 * :heavy_check_mark: <a href="../data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
 * :heavy_check_mark: <a href="../data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
-* :heavy_check_mark: <a href="../data-structure/UnionFind.hpp.html">data-structure/UnionFind.hpp</a>
+* :heavy_check_mark: <a href="../graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
 
 
 ## Verified with
