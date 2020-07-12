@@ -50,6 +50,7 @@ layout: default
 
 ### graph
 
+* :warning: <a href="library/graph/PersistentUnionFind.hpp.html">graph/PersistentUnionFind.hpp</a>
 * :heavy_check_mark: <a href="library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
 
 

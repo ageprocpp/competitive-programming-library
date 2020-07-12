@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: graph/UnionFind.hpp
+# :warning: graph/PersistentUnionFind.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/graph/UnionFind.hpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/graph/PersistentUnionFind.hpp">View this file on GitHub</a>
     - Last commit date: 2020-07-12 16:43:23+09:00
 
 
@@ -41,11 +41,6 @@ layout: default
 * :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
-
-
 ## Code
 
 <a id="unbundled"></a>
@@ -53,39 +48,57 @@ layout: default
 ```cpp
 #pragma once
 #include "../other/template.hpp"
-class UnionFind {
-protected:
-	std::vector<int> par, rank, size;
+class PersistantUnionFind :UnionFind {
+	std::vector<P> notparent;
+	std::vector<std::vector<std::pair<int, int>>> sizevec;
+	int opcount = 0;
 public:
-	UnionFind(unsigned int size) {
-		par.resize(size); rank.resize(size, 0); this->size.resize(size, 1);
+	PersistantUnionFind(unsigned int size) :UnionFind(size) {
+		notparent.resize(size); sizevec.resize(size);
 		rep(i, size) {
 			par[i] = i;
+			rank[i] = 0;
+			sizevec[i].push_back(std::make_pair(-1, 1));
+			notparent[i] = std::make_pair(INF, i);
 		}
 	}
-	int find(int n) {
-		if (par[n] == n)return n;
-		return par[n] = find(par[n]);
+	int find(int n, int t = INF) {
+		if (opcount <= t) {
+			if (par[n] == n)return n;
+			return par[n] = find(par[n]);
+		}
+		if (notparent[n].first <= t)return find(notparent[n].second, t);
+		return n;
 	}
 	void unite(int n, int m) {
 		n = find(n);
 		m = find(m);
-		if (n == m)return;
+		if (n == m) {
+			opcount++;
+			return;
+		}
 		if (rank[n] < rank[m]) {
 			par[n] = m;
-			size[m] += size[n];
+			notparent[n] = std::make_pair(opcount, m);
+			sizevec[m].emplace_back(opcount, sizevec[m].back().second + sizevec[n].back().second);
 		}
 		else {
 			par[m] = n;
-			size[n] += size[m];
+			notparent[m] = std::make_pair(opcount, n);
+			sizevec[n].emplace_back(opcount, sizevec[n].back().second + sizevec[m].back().second);
 			if (rank[n] == rank[m])rank[n]++;
 		}
+		opcount++;
 	}
-	bool same(int n, int m) {
-		return find(n) == find(m);
+	bool same(int n, int m, int t = INF) {
+		return find(n, t) == find(m, t);
 	}
-	int getsize(int n) {
-		return size[find(n)];
+	int getsize(int n, int t = INF) {
+		n = find(n, t);
+		auto ite = std::lower_bound(all(sizevec[n]), std::make_pair(t, 0));
+		if (ite == sizevec[n].end())ite--;
+		if (t < (*ite).first)ite--;
+		return (*ite).second;
 	}
 };
 ```
@@ -197,40 +210,58 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
-#line 3 "graph/UnionFind.hpp"
-class UnionFind {
-protected:
-	std::vector<int> par, rank, size;
+#line 3 "graph/PersistentUnionFind.hpp"
+class PersistantUnionFind :UnionFind {
+	std::vector<P> notparent;
+	std::vector<std::vector<std::pair<int, int>>> sizevec;
+	int opcount = 0;
 public:
-	UnionFind(unsigned int size) {
-		par.resize(size); rank.resize(size, 0); this->size.resize(size, 1);
+	PersistantUnionFind(unsigned int size) :UnionFind(size) {
+		notparent.resize(size); sizevec.resize(size);
 		rep(i, size) {
 			par[i] = i;
+			rank[i] = 0;
+			sizevec[i].push_back(std::make_pair(-1, 1));
+			notparent[i] = std::make_pair(INF, i);
 		}
 	}
-	int find(int n) {
-		if (par[n] == n)return n;
-		return par[n] = find(par[n]);
+	int find(int n, int t = INF) {
+		if (opcount <= t) {
+			if (par[n] == n)return n;
+			return par[n] = find(par[n]);
+		}
+		if (notparent[n].first <= t)return find(notparent[n].second, t);
+		return n;
 	}
 	void unite(int n, int m) {
 		n = find(n);
 		m = find(m);
-		if (n == m)return;
+		if (n == m) {
+			opcount++;
+			return;
+		}
 		if (rank[n] < rank[m]) {
 			par[n] = m;
-			size[m] += size[n];
+			notparent[n] = std::make_pair(opcount, m);
+			sizevec[m].emplace_back(opcount, sizevec[m].back().second + sizevec[n].back().second);
 		}
 		else {
 			par[m] = n;
-			size[n] += size[m];
+			notparent[m] = std::make_pair(opcount, n);
+			sizevec[n].emplace_back(opcount, sizevec[n].back().second + sizevec[m].back().second);
 			if (rank[n] == rank[m])rank[n]++;
 		}
+		opcount++;
 	}
-	bool same(int n, int m) {
-		return find(n) == find(m);
+	bool same(int n, int m, int t = INF) {
+		return find(n, t) == find(m, t);
 	}
-	int getsize(int n) {
-		return size[find(n)];
+	int getsize(int n, int t = INF) {
+		n = find(n, t);
+		auto ite = std::lower_bound(all(sizevec[n]), std::make_pair(t, 0));
+		if (ite == sizevec[n].end())ite--;
+		if (t < (*ite).first)ite--;
+		return (*ite).second;
 	}
 };
 
