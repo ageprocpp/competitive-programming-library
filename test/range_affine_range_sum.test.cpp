@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
 #include "../other/template.hpp"
-#include "../data-structure/ModInt.hpp"
+#include "../algebraic/ModInt.hpp"
 #include "../data-structure/IntervalSegTree.hpp"
 const unsigned int ModInt::modulo=998244353;
 class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{

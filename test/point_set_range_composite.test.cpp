@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
 #include "../other/template.hpp"
-#include "../data-structure/ModInt.hpp"
+#include "../algebraic/ModInt.hpp"
 #include "../data-structure/SegTree.hpp"
 const unsigned int ModInt::modulo=998244353;
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
