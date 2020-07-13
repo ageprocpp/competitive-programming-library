@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data-structure/ModInt.hpp
+# :heavy_check_mark: algebraic/ModInt.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data-structure/ModInt.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-11 01:15:49+09:00
+* category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
+* <a href="{{ site.github.repository_url }}/blob/master/algebraic/ModInt.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-07-13 16:15:50+09:00
 
 
 
@@ -225,7 +225,7 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
-#line 3 "data-structure/ModInt.hpp"
+#line 3 "algebraic/ModInt.hpp"
 class ModInt {
     lint value;
 public:

@@ -34,16 +34,23 @@ layout: default
 
 ## Library Files
 
+<div id="c7f6ad568392380a8f4b4cecbaccb64c"></div>
+
+### algebraic
+
+* :heavy_check_mark: <a href="library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+
+
 <div id="36397fe12f935090ad150c6ce0c258d4"></div>
 
 ### data-structure
 
 * :heavy_check_mark: <a href="library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
-* :heavy_check_mark: <a href="library/data-structure/ModInt.hpp.html">data-structure/ModInt.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
+* :heavy_check_mark: <a href="library/data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
 
 
 <div id="f8b0b924ebd7046dbfa85a856e4682c8"></div>
@@ -70,6 +77,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/range_chmin_chmax_add_range_sum.test.cpp.html">test/range_chmin_chmax_add_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/range_kth_smallest.test.cpp.html">test/range_kth_smallest.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/point_set_range_composite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-11 01:46:56+09:00
+    - Last commit date: 2020-07-13 16:15:50+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/ModInt.hpp.html">data-structure/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
 * :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
@@ -51,7 +51,7 @@ layout: default
 ```cpp
 #define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
 #include "../other/template.hpp"
-#include "../data-structure/ModInt.hpp"
+#include "../algebraic/ModInt.hpp"
 #include "../data-structure/SegTree.hpp"
 const unsigned int ModInt::modulo=998244353;
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
@@ -197,7 +197,7 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
-#line 3 "data-structure/ModInt.hpp"
+#line 3 "algebraic/ModInt.hpp"
 class ModInt {
     lint value;
 public:
