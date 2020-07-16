@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/LagrangeInterpolation.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-16 14:38:03+09:00
+    - Last commit date: 2020-07-17 00:38:24+09:00
 
 
 
@@ -50,15 +50,16 @@ layout: default
 #pragma once
 #include "../other/template.hpp"
 #include "ModInt.hpp"
-ModInt arithmetic_lagrange_interpolation(ModInt a,ModInt d,std::vector<ModInt> y,ModInt t){
+ModInt arithmetic_lagrange_interpolation(const ModInt& a,const ModInt& d,const std::vector<ModInt>& y,const ModInt& t){
     const int n=y.size()-1;
     ModInt res=0,ft=1;
     rep(i,n+1)ft*=t-(a+d*i);
     ModInt f=1;
-    REP(i,n+1)f*=-d*i;
+    REP(i,n)f*=-d*i;
     res+=y[0]/f*ft/(t-a);
     rep(i,n){
-        f*=d*(i+1)/(d*(i-n));
+        f*=i+1;
+		f/=i-n;
         res+=y[i+1]/f*ft/(t-(a+d*(i+1)));
     }
     return res;
@@ -236,15 +237,16 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
     return ist;
 }
 #line 4 "algebraic/LagrangeInterpolation.hpp"
-ModInt arithmetic_lagrange_interpolation(ModInt a,ModInt d,std::vector<ModInt> y,ModInt t){
+ModInt arithmetic_lagrange_interpolation(const ModInt& a,const ModInt& d,const std::vector<ModInt>& y,const ModInt& t){
     const int n=y.size()-1;
     ModInt res=0,ft=1;
     rep(i,n+1)ft*=t-(a+d*i);
     ModInt f=1;
-    REP(i,n+1)f*=-d*i;
+    REP(i,n)f*=-d*i;
     res+=y[0]/f*ft/(t-a);
     rep(i,n){
-        f*=d*(i+1)/(d*(i-n));
+        f*=i+1;
+		f/=i-n;
         res+=y[i+1]/f*ft/(t-(a+d*(i+1)));
     }
     return res;
