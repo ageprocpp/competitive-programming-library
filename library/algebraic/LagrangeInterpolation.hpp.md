@@ -25,31 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: algebraic/ModInt.hpp
+# :warning: algebraic/LagrangeInterpolation.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
-* <a href="{{ site.github.repository_url }}/blob/master/algebraic/ModInt.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-13 16:15:50+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/algebraic/LagrangeInterpolation.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-07-16 14:38:03+09:00
 
 
 
 
 ## Depends on
 
+* :heavy_check_mark: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
-
-
-## Required by
-
-* :warning: <a href="LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 
 
 ## Code
@@ -59,67 +49,19 @@ layout: default
 ```cpp
 #pragma once
 #include "../other/template.hpp"
-class ModInt {
-    lint value;
-public:
-    static const unsigned int modulo;
-    ModInt() : value(0) {}
-    template<typename T>
-    ModInt(T value = 0) : value(value) {
-        if (value < 0)value = -(lint)(-value % modulo) + modulo;
-        this->value = value % modulo;
+#include "ModInt.hpp"
+ModInt arithmetic_lagrange_interpolation(ModInt a,ModInt d,std::vector<ModInt> y,ModInt t){
+    const int n=y.size()-1;
+    ModInt res=0,ft=1;
+    rep(i,n+1)ft*=t-(a+d*i);
+    ModInt f=1;
+    REP(i,n+1)f*=-d*i;
+    res+=y[0]/f*ft/(t-a);
+    rep(i,n){
+        f*=d*(i+1)/(d*(i-n));
+        res+=y[i+1]/f*ft/(t-(a+d*(i+1)));
     }
-    inline operator int()const { return value; }
-    inline ModInt& operator+=(const ModInt& x) {
-        value += x.value;
-        if (value >= modulo)value -= modulo;
-        return *this;
-    }
-    inline ModInt& operator++() {
-        if (value == modulo - 1)value = 0;
-        else value++;
-        return *this;
-    }
-    inline ModInt operator-()const {
-        return ModInt(0) -= *this;
-    }
-    inline ModInt& operator-=(const ModInt& x) {
-        value -= x.value;
-        if (value < 0)value += modulo;
-        return *this;
-    }
-    inline ModInt& operator--() {
-        if (value == 0)value = modulo - 1;
-        else value--;
-        return *this;
-    }
-    inline ModInt& operator*=(const ModInt& x) {
-        value = value * x.value % modulo;
-        return *this;
-    }
-    inline ModInt& operator/=(ModInt rhs) {
-        int exp = modulo - 2;
-        while (exp) {
-            if (exp & 1)*this *= rhs;
-            rhs *= rhs;
-            exp >>= 1;
-        }
-        return *this;
-    }
-    template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
-    template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }
-    template<typename T> ModInt operator-(const T& rhs)const { return ModInt(*this) -= rhs; }
-    template<typename T> ModInt& operator-=(const T& rhs) { return operator-=(ModInt(rhs)); }
-    template<typename T> ModInt operator*(const T& rhs)const { return ModInt(*this) *= rhs; }
-    template<typename T> ModInt& operator*=(const T& rhs) { return operator*=(ModInt(rhs)); }
-    template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
-    template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
-};
-std::istream& operator>>(std::istream& ist, ModInt& x) {
-    lint a;
-    ist >> a;
-    x = a;
-    return ist;
+    return res;
 }
 ```
 {% endraw %}
@@ -292,6 +234,20 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
     ist >> a;
     x = a;
     return ist;
+}
+#line 4 "algebraic/LagrangeInterpolation.hpp"
+ModInt arithmetic_lagrange_interpolation(ModInt a,ModInt d,std::vector<ModInt> y,ModInt t){
+    const int n=y.size()-1;
+    ModInt res=0,ft=1;
+    rep(i,n+1)ft*=t-(a+d*i);
+    ModInt f=1;
+    REP(i,n+1)f*=-d*i;
+    res+=y[0]/f*ft/(t-a);
+    rep(i,n){
+        f*=d*(i+1)/(d*(i-n));
+        res+=y[i+1]/f*ft/(t-(a+d*(i+1)));
+    }
+    return res;
 }
 
 ```

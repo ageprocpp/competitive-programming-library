@@ -38,6 +38,7 @@ layout: default
 
 ### algebraic
 
+* :warning: <a href="library/algebraic/LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
 * :heavy_check_mark: <a href="library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 
 
