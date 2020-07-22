@@ -3,7 +3,7 @@
 #include "../data-structure/LiChaoTree.hpp"
 int n,q;
 lint a[200010],b[200010];
-std::vector<P> vec;
+std::vector<LP> vec;
 std::vector<lint> cord;
 int main(){
     std::cin>>n>>q;
