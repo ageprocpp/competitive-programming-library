@@ -54,9 +54,6 @@ public:
 	virtual T operator[](const int& x) {
 		return node[n + x];
 	}
-	void fill(T x) {
-		std::fill(all(node), x);
-	}
 	void print() {
 		rep(i, n)std::cout << operator[](i) << " ";
 		std::cout << std::endl;

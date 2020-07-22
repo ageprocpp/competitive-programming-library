@@ -3,9 +3,9 @@
 class LiChaoTree{
     int n=1;
     std::vector<std::tuple<lint,lint,lint>> interval;
-    std::vector<P> node;
+    std::vector<LP> node;
     std::vector<lint> cord;
-    lint calc(P l,lint x){
+    lint calc(LP l,lint x){
         return l.first*x+l.second;
     }
 public:
@@ -37,7 +37,7 @@ public:
                 break;
             }
             if(calc(node[cnt],m)>calc({a,b},m)){
-                P memo=node[cnt];
+                LP memo=node[cnt];
                 node[cnt]={a,b};
                 a=memo.first;b=memo.second;
             }

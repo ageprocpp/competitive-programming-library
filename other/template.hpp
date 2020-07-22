@@ -34,7 +34,8 @@
 #define all(V) V.begin(),V.end()
 typedef long long lint;
 typedef unsigned long long ulint;
-typedef std::pair<lint, lint> P;
+typedef std::pair<int, int> P;
+typedef std::pair<lint, lint> LP;
 constexpr int INF = INT_MAX/2;
 constexpr lint LINF = LLONG_MAX/2;
 constexpr double eps = DBL_EPSILON;
