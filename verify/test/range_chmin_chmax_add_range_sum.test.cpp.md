@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/range_chmin_chmax_add_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-11 09:33:55+09:00
+    - Last commit date: 2020-07-22 15:32:27+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum">https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum</a>
@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../library/data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -127,7 +127,8 @@ int main(){
 #define all(V) V.begin(),V.end()
 typedef long long lint;
 typedef unsigned long long ulint;
-typedef std::pair<lint, lint> P;
+typedef std::pair<int, int> P;
+typedef std::pair<lint, lint> LP;
 constexpr int INF = INT_MAX/2;
 constexpr lint LINF = LLONG_MAX/2;
 constexpr double eps = DBL_EPSILON;

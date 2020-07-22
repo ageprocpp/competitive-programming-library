@@ -25,25 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data-structure/LiChaoTree.hpp
+# :x: data-structure/LiChaoTree.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/LiChaoTree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-20 16:20:57+09:00
+    - Last commit date: 2020-07-22 15:32:27+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
+* :x: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
 
 
 ## Code
@@ -56,9 +56,9 @@ layout: default
 class LiChaoTree{
     int n=1;
     std::vector<std::tuple<lint,lint,lint>> interval;
-    std::vector<P> node;
+    std::vector<LP> node;
     std::vector<lint> cord;
-    lint calc(P l,lint x){
+    lint calc(LP l,lint x){
         return l.first*x+l.second;
     }
 public:
@@ -90,7 +90,7 @@ public:
                 break;
             }
             if(calc(node[cnt],m)>calc({a,b},m)){
-                P memo=node[cnt];
+                LP memo=node[cnt];
                 node[cnt]={a,b};
                 a=memo.first;b=memo.second;
             }
@@ -151,7 +151,8 @@ public:
 #define all(V) V.begin(),V.end()
 typedef long long lint;
 typedef unsigned long long ulint;
-typedef std::pair<lint, lint> P;
+typedef std::pair<int, int> P;
+typedef std::pair<lint, lint> LP;
 constexpr int INF = INT_MAX/2;
 constexpr lint LINF = LLONG_MAX/2;
 constexpr double eps = DBL_EPSILON;
@@ -222,9 +223,9 @@ void printArray(T l, T r) {
 class LiChaoTree{
     int n=1;
     std::vector<std::tuple<lint,lint,lint>> interval;
-    std::vector<P> node;
+    std::vector<LP> node;
     std::vector<lint> cord;
-    lint calc(P l,lint x){
+    lint calc(LP l,lint x){
         return l.first*x+l.second;
     }
 public:
@@ -256,7 +257,7 @@ public:
                 break;
             }
             if(calc(node[cnt],m)>calc({a,b},m)){
-                P memo=node[cnt];
+                LP memo=node[cnt];
                 node[cnt]={a,b};
                 a=memo.first;b=memo.second;
             }

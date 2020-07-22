@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/line_add_get_min.test.cpp
+# :x: test/line_add_get_min.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/line_add_get_min.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-20 16:20:57+09:00
+    - Last commit date: 2020-07-22 15:32:27+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/line_add_get_min">https://judge.yosupo.jp/problem/line_add_get_min</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :x: <a href="../../library/data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
+* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -126,7 +126,8 @@ int main(){
 #define all(V) V.begin(),V.end()
 typedef long long lint;
 typedef unsigned long long ulint;
-typedef std::pair<lint, lint> P;
+typedef std::pair<int, int> P;
+typedef std::pair<lint, lint> LP;
 constexpr int INF = INT_MAX/2;
 constexpr lint LINF = LLONG_MAX/2;
 constexpr double eps = DBL_EPSILON;
@@ -197,9 +198,9 @@ void printArray(T l, T r) {
 class LiChaoTree{
     int n=1;
     std::vector<std::tuple<lint,lint,lint>> interval;
-    std::vector<P> node;
+    std::vector<LP> node;
     std::vector<lint> cord;
-    lint calc(P l,lint x){
+    lint calc(LP l,lint x){
         return l.first*x+l.second;
     }
 public:
@@ -231,7 +232,7 @@ public:
                 break;
             }
             if(calc(node[cnt],m)>calc({a,b},m)){
-                P memo=node[cnt];
+                LP memo=node[cnt];
                 node[cnt]={a,b};
                 a=memo.first;b=memo.second;
             }
