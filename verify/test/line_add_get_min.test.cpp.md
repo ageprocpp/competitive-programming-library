@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/line_add_get_min.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-22 16:19:40+09:00
+    - Last commit date: 2020-07-24 01:00:40+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/line_add_get_min">https://judge.yosupo.jp/problem/line_add_get_min</a>
@@ -207,8 +207,8 @@ class LiChaoTree{
 public:
     LiChaoTree(std::vector<lint> vec){
         vec.emplace_back(vec.back()+1);
-        while(n<vec.size())n*=2;
-        while(vec.size()<n+1)vec.emplace_back(vec.back()+1);
+        while(n<(int)vec.size())n*=2;
+        while((int)vec.size()<n+1)vec.emplace_back(vec.back()+1);
         node.assign(2*n,{0,LINF});
         interval.emplace_back(0,0,0);
         for(int range=n;range;range>>=1){
