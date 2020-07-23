@@ -11,8 +11,8 @@ class LiChaoTree{
 public:
     LiChaoTree(std::vector<lint> vec){
         vec.emplace_back(vec.back()+1);
-        while(n<vec.size())n*=2;
-        while(vec.size()<n+1)vec.emplace_back(vec.back()+1);
+        while(n<(int)vec.size())n*=2;
+        while((int)vec.size()<n+1)vec.emplace_back(vec.back()+1);
         node.assign(2*n,{0,LINF});
         interval.emplace_back(0,0,0);
         for(int range=n;range;range>>=1){
