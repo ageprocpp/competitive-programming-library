@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/PersistentUnionFind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-22 15:32:27+09:00
+    - Last commit date: 2020-07-24 22:42:36+09:00
 
 
 
@@ -48,12 +48,12 @@ layout: default
 ```cpp
 #pragma once
 #include "../other/template.hpp"
-class PersistantUnionFind :UnionFind {
+class PersistentUnionFind :UnionFind {
 	std::vector<P> notparent;
 	std::vector<std::vector<std::pair<int, int>>> sizevec;
 	int opcount = 0;
 public:
-	PersistantUnionFind(unsigned int size) :UnionFind(size) {
+	PersistentUnionFind(unsigned int size) :UnionFind(size) {
 		notparent.resize(size); sizevec.resize(size);
 		rep(i, size) {
 			par[i] = i;
@@ -212,12 +212,12 @@ void printArray(T l, T r) {
 	std::cout << *rprev << std::endl;
 }
 #line 3 "graph/PersistentUnionFind.hpp"
-class PersistantUnionFind :UnionFind {
+class PersistentUnionFind :UnionFind {
 	std::vector<P> notparent;
 	std::vector<std::vector<std::pair<int, int>>> sizevec;
 	int opcount = 0;
 public:
-	PersistantUnionFind(unsigned int size) :UnionFind(size) {
+	PersistentUnionFind(unsigned int size) :UnionFind(size) {
 		notparent.resize(size); sizevec.resize(size);
 		rep(i, size) {
 			par[i] = i;
