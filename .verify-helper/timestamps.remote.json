@@ -4,6 +4,7 @@
 "test/line_add_get_min.test.cpp": "2020-07-24 01:00:40 +0900",
 "test/many_aplusb.test.cpp": "2020-07-22 15:32:27 +0900",
 "test/maximum_flow_ford_fulkerson.test.cpp": "2020-07-24 01:08:52 +0900",
+"test/min_cost_flow.test.cpp": "2020-07-24 10:53:24 +0900",
 "test/point_add_range_sum.test.cpp": "2020-07-22 15:32:27 +0900",
 "test/point_set_range_composite.test.cpp": "2020-07-22 15:32:27 +0900",
 "test/range_affine_range_sum.test.cpp": "2020-07-22 15:32:27 +0900",
