@@ -1,11 +1,11 @@
 #pragma once
 #include "../other/template.hpp"
-class PersistantUnionFind :UnionFind {
+class PersistentUnionFind :UnionFind {
 	std::vector<P> notparent;
 	std::vector<std::vector<std::pair<int, int>>> sizevec;
 	int opcount = 0;
 public:
-	PersistantUnionFind(unsigned int size) :UnionFind(size) {
+	PersistentUnionFind(unsigned int size) :UnionFind(size) {
 		notparent.resize(size); sizevec.resize(size);
 		rep(i, size) {
 			par[i] = i;
