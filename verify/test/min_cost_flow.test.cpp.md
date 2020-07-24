@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/min_cost_flow.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-24 10:53:24+09:00
+    - Last commit date: 2020-07-24 12:22:50+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B</a>
@@ -178,11 +178,40 @@ void printArray(T l, T r) {
 class MinCostFlow{
     class edge{
     public:
-        int to,cap,cost,rev;
+        int to,cap;
+        lint cost;
+        int rev;
     };
     int n;
     std::vector<std::vector<edge>> vec;
-    std::vector<int> h,dist,prevv,preve;
+    std::vector<int> prevv,preve;
+    std::vector<lint> h,dist;
+    bool negative=false;
+    lint BellmanFord(int s,int t){
+        dist.assign(n,LINF);
+        dist[s]=0;
+        rep(i,n-1){
+            rep(j,n){
+                rep(k,vec[j].size()){
+                    const edge &e=vec[j][k];
+                    if(e.cap>0&&chmin(dist[e.to],dist[j]+e.cost+h[j]-h[e.to])){
+                        prevv[e.to]=j;
+                        preve[e.to]=k;
+                    }
+                }
+            }
+        }
+        if(dist[t]==LINF){
+            std::cerr<<"The demand is over maximum flow."<<std::endl;
+            return -1;
+        }
+        rep(i,n)h[i]+=dist[i];
+        for(int i=t;i!=s;i=prevv[i]){
+            vec[prevv[i]][preve[i]].cap--;
+            vec[i][vec[prevv[i]][preve[i]].rev].cap++;
+        }
+        return h[t];
+    }
 public:
     MinCostFlow(int n):n(n){
         vec.resize(n);
@@ -191,20 +220,25 @@ public:
         prevv.resize(n);
         preve.resize(n);
     }
-    void add_edge(int from,int to,int cap,int cost){
+    void add_edge(int from,int to,int cap,lint cost){
+        if(cost<0)negative=true;
         vec[from].push_back({to,cap,cost,(int)vec[to].size()});
         vec[to].push_back({from,0,-cost,(int)vec[from].size()-1});
     }
-    int min_cost_flow(int s,int t,int f){
-        int res=0;
+    lint min_cost_flow(int s,int t,int f){
+        lint res=0;
         h.assign(n,0);
+        if(negative){
+            res+=BellmanFord(s,t);
+            f--;
+        }
         while(f>0){
-            dist.assign(n,INF);
+            dist.assign(n,LINF);
             dist[s]=0;
-            prique<P> que;
+            prique<LP> que;
             que.push({0,s});
             while(!que.empty()){
-                P p=que.top();
+                LP p=que.top();
                 que.pop();
                 if(dist[p.second]<p.first)continue;
                 rep(i,vec[p.second].size()){
@@ -216,7 +250,7 @@ public:
                     }
                 }
             }
-            if(dist[t]==INF){
+            if(dist[t]==LINF){
                 std::cerr<<"The demand is over maximum flow."<<std::endl;
                 return -1;
             }
@@ -226,7 +260,7 @@ public:
                 chmin(d,vec[prevv[i]][preve[i]].cap);
             }
             f-=d;
-            res+=d*h[t];
+            res+=(lint)d*h[t];
             for(int i=t;i!=s;i=prevv[i]){
                 vec[prevv[i]][preve[i]].cap-=d;
                 vec[i][vec[prevv[i]][preve[i]].rev].cap+=d;
