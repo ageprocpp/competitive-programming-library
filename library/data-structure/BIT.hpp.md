@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/BIT.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-22 15:32:27+09:00
+    - Last commit date: 2020-07-29 13:50:01+09:00
 
 
 
@@ -186,7 +186,7 @@ bool isprime(lint n) {
 	return true;
 }
 template<typename T>
-T mypow(T a, unsigned int b) {
+T mypow(T a, lint b) {
 	if (!b)return T(1);
 	if (b & 1)return mypow(a, b - 1) * a;
 	T memo = mypow(a, b >> 1);

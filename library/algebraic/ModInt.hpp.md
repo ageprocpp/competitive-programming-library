@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/ModInt.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-22 15:32:27+09:00
+    - Last commit date: 2020-07-29 13:50:01+09:00
 
 
 
@@ -205,7 +205,7 @@ bool isprime(lint n) {
 	return true;
 }
 template<typename T>
-T mypow(T a, unsigned int b) {
+T mypow(T a, lint b) {
 	if (!b)return T(1);
 	if (b & 1)return mypow(a, b - 1) * a;
 	T memo = mypow(a, b >> 1);

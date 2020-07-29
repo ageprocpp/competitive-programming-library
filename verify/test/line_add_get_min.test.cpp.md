@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/line_add_get_min.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-24 01:00:40+09:00
+    - Last commit date: 2020-07-29 13:50:01+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/line_add_get_min">https://judge.yosupo.jp/problem/line_add_get_min</a>
@@ -169,7 +169,7 @@ bool isprime(lint n) {
 	return true;
 }
 template<typename T>
-T mypow(T a, unsigned int b) {
+T mypow(T a, lint b) {
 	if (!b)return T(1);
 	if (b & 1)return mypow(a, b - 1) * a;
 	T memo = mypow(a, b >> 1);
