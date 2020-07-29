@@ -76,7 +76,7 @@ bool isprime(lint n) {
 	return true;
 }
 template<typename T>
-T mypow(T a, unsigned int b) {
+T mypow(T a, lint b) {
 	if (!b)return T(1);
 	if (b & 1)return mypow(a, b - 1) * a;
 	T memo = mypow(a, b >> 1);
