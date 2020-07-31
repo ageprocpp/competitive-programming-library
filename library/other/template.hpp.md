@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#795f3202b17cb6bc3d4b771d8c6c9eaf">other</a>
 * <a href="{{ site.github.repository_url }}/blob/master/other/template.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-29 13:50:01+09:00
+    - Last commit date: 2020-08-01 00:12:07+09:00
 
 
 
@@ -103,6 +103,7 @@ layout: default
 #include <set>
 #include <stack>
 #include <string>
+#include <string.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -213,6 +214,7 @@ void printArray(T l, T r) {
 #include <set>
 #include <stack>
 #include <string>
+#include <string.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>

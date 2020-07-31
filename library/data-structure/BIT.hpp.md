@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/BIT.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-29 13:50:01+09:00
+    - Last commit date: 2020-08-01 00:12:07+09:00
 
 
 
@@ -54,7 +54,7 @@ layout: default
 #pragma once
 #include "../other/template.hpp"
 class BIT {
-	unsigned int n;
+	int n;
 	std::vector<lint> bit;
 public:
 	BIT(unsigned int n) :n(n) {
@@ -135,6 +135,7 @@ public:
 #include <set>
 #include <stack>
 #include <string>
+#include <string.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -214,7 +215,7 @@ void printArray(T l, T r) {
 }
 #line 3 "data-structure/BIT.hpp"
 class BIT {
-	unsigned int n;
+	int n;
 	std::vector<lint> bit;
 public:
 	BIT(unsigned int n) :n(n) {

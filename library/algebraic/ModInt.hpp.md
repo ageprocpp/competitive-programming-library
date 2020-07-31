@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/ModInt.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-29 13:50:01+09:00
+    - Last commit date: 2020-08-01 00:12:07+09:00
 
 
 
@@ -154,6 +154,7 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 #include <set>
 #include <stack>
 #include <string>
+#include <string.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>

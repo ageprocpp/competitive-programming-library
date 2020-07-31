@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/point_add_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-29 13:50:01+09:00
+    - Last commit date: 2020-08-01 00:12:07+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
@@ -112,6 +112,7 @@ int main(){
 #include <set>
 #include <stack>
 #include <string>
+#include <string.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -191,7 +192,7 @@ void printArray(T l, T r) {
 }
 #line 3 "data-structure/BIT.hpp"
 class BIT {
-	unsigned int n;
+	int n;
 	std::vector<lint> bit;
 public:
 	BIT(unsigned int n) :n(n) {
