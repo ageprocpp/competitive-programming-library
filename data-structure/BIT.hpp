@@ -1,7 +1,7 @@
 #pragma once
 #include "../other/template.hpp"
 class BIT {
-	unsigned int n;
+	int n;
 	std::vector<lint> bit;
 public:
 	BIT(unsigned int n) :n(n) {
