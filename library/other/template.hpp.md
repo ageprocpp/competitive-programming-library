@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#795f3202b17cb6bc3d4b771d8c6c9eaf">other</a>
 * <a href="{{ site.github.repository_url }}/blob/master/other/template.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-01 00:12:07+09:00
+    - Last commit date: 2020-08-02 18:09:47+09:00
 
 
 
@@ -108,8 +108,8 @@ layout: default
 #include <unordered_set>
 #include <utility>
 #include <vector>
-#define rep(i,n) for(int i=0;i<(lint)(n);i++)
-#define REP(i,n) for(int i=1;i<=(lint)(n);i++)
+#define rep(i,n) for(int i=0;i<(n);i++)
+#define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
 typedef long long lint;
 typedef unsigned long long ulint;
@@ -219,8 +219,8 @@ void printArray(T l, T r) {
 #include <unordered_set>
 #include <utility>
 #include <vector>
-#define rep(i,n) for(int i=0;i<(lint)(n);i++)
-#define REP(i,n) for(int i=1;i<=(lint)(n);i++)
+#define rep(i,n) for(int i=0;i<(n);i++)
+#define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
 typedef long long lint;
 typedef unsigned long long ulint;

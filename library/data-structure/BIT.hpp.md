@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/BIT.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-01 00:12:07+09:00
+    - Last commit date: 2020-08-02 18:09:47+09:00
 
 
 
@@ -58,7 +58,7 @@ class BIT {
 	std::vector<lint> bit;
 public:
 	BIT(unsigned int n) :n(n) {
-		bit.resize(n + 1, 0);
+		bit.resize(n + 1);
 	}
 	void add(int a, lint x) {
 		while (a <= n) {
@@ -140,8 +140,8 @@ public:
 #include <unordered_set>
 #include <utility>
 #include <vector>
-#define rep(i,n) for(int i=0;i<(lint)(n);i++)
-#define REP(i,n) for(int i=1;i<=(lint)(n);i++)
+#define rep(i,n) for(int i=0;i<(n);i++)
+#define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
 typedef long long lint;
 typedef unsigned long long ulint;
@@ -219,7 +219,7 @@ class BIT {
 	std::vector<lint> bit;
 public:
 	BIT(unsigned int n) :n(n) {
-		bit.resize(n + 1, 0);
+		bit.resize(n + 1);
 	}
 	void add(int a, lint x) {
 		while (a <= n) {
