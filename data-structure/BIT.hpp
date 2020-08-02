@@ -5,7 +5,7 @@ class BIT {
 	std::vector<lint> bit;
 public:
 	BIT(unsigned int n) :n(n) {
-		bit.resize(n + 1, 0);
+		bit.resize(n + 1);
 	}
 	void add(int a, lint x) {
 		while (a <= n) {

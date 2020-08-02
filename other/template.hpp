@@ -30,8 +30,8 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
-#define rep(i,n) for(int i=0;i<(lint)(n);i++)
-#define REP(i,n) for(int i=1;i<=(lint)(n);i++)
+#define rep(i,n) for(int i=0;i<(n);i++)
+#define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
 typedef long long lint;
 typedef unsigned long long ulint;
