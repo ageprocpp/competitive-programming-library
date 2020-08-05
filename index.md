@@ -38,8 +38,11 @@ layout: default
 
 ### algebraic
 
+* :warning: <a href="library/algebraic/FastFourierTransform.hpp.html">algebraic/FastFourierTransform.hpp</a>
 * :warning: <a href="library/algebraic/LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
 * :heavy_check_mark: <a href="library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :warning: <a href="library/algebraic/MyComplex.hpp.html">algebraic/MyComplex.hpp</a>
+* :warning: <a href="library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
 
 
 <div id="36397fe12f935090ad150c6ce0c258d4"></div>
