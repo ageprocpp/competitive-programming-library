@@ -44,6 +44,7 @@ layout: default
 ## Required by
 
 * :warning: <a href="LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
+* :warning: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
 
 
 ## Verified with
