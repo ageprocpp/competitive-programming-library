@@ -2,7 +2,7 @@
 #include "MyComplex.hpp"
 class FastFourierTransform {
 private:
-    static void dft(std::vector<MyComplex>& func, int inverse) {
+    static void dft(std::vector<MyComplex>& func, const int& inverse) {
         int sz = func.size();
         if (sz == 1)return;
         std::vector<MyComplex> veca, vecb;

@@ -9,7 +9,7 @@
 const unsigned int ModInt::modulo=998244353;
 class NumberTheoreticTransform{
 	private:
-    static void ntt(std::vector<ModInt>& func, bool inverse) {
+    static void ntt(std::vector<ModInt>& func, const bool& inverse) {
         int sz = func.size();
         if (sz == 1)return;
         std::vector<ModInt> veca, vecb;
