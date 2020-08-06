@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/NumberTheoreticTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 00:53:37+09:00
+    - Last commit date: 2020-08-07 01:11:32+09:00
 
 
 
@@ -47,6 +47,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#pragma once
 #include "../other/template.hpp"
 #include "ModInt.hpp"
 //167772161,3
@@ -268,7 +269,7 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
     x = a;
     return ist;
 }
-#line 3 "algebraic/NumberTheoreticTransform.hpp"
+#line 4 "algebraic/NumberTheoreticTransform.hpp"
 //167772161,3
 //469762049,3
 //924844033,5

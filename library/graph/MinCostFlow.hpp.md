@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/MinCostFlow.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-02 18:09:47+09:00
+    - Last commit date: 2020-08-07 01:11:32+09:00
 
 
 
@@ -51,6 +51,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#pragma once
 #include "../other/template.hpp"
 class MinCostFlow{
     class edge{
@@ -257,7 +258,7 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
-#line 2 "graph/MinCostFlow.hpp"
+#line 3 "graph/MinCostFlow.hpp"
 class MinCostFlow{
     class edge{
     public:

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/min_cost_flow.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-02 18:09:47+09:00
+    - Last commit date: 2020-08-07 01:11:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B</a>
@@ -175,7 +175,7 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
-#line 2 "graph/MinCostFlow.hpp"
+#line 3 "graph/MinCostFlow.hpp"
 class MinCostFlow{
     class edge{
     public:
