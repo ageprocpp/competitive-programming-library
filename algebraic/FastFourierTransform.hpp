@@ -1,3 +1,4 @@
+#pragma once
 #include "../other/template.hpp"
 #include "MyComplex.hpp"
 class FastFourierTransform {

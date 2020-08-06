@@ -1,3 +1,4 @@
+#pragma once
 #include "../other/template.hpp"
 #include "ModInt.hpp"
 //167772161,3

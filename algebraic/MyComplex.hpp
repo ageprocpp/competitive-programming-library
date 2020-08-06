@@ -1,3 +1,4 @@
+#pragma once
 #include "../other/template.hpp"
 class MyComplex{
 	double realvalue, imagvalue;
