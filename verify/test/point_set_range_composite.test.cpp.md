@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/point_set_range_composite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-02 18:09:47+09:00
+    - Last commit date: 2020-08-07 01:20:14+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -201,66 +201,66 @@ void printArray(T l, T r) {
 }
 #line 3 "algebraic/ModInt.hpp"
 class ModInt {
-    lint value;
+	lint value;
 public:
-    static const unsigned int modulo;
-    ModInt() : value(0) {}
-    template<typename T>
-    ModInt(T value = 0) : value(value) {
-        if (value < 0)value = -(lint)(-value % modulo) + modulo;
-        this->value = value % modulo;
-    }
-    inline operator int()const { return value; }
-    inline ModInt& operator+=(const ModInt& x) {
-        value += x.value;
-        if (value >= modulo)value -= modulo;
-        return *this;
-    }
-    inline ModInt& operator++() {
-        if (value == modulo - 1)value = 0;
-        else value++;
-        return *this;
-    }
-    inline ModInt operator-()const {
-        return ModInt(0) -= *this;
-    }
-    inline ModInt& operator-=(const ModInt& x) {
-        value -= x.value;
-        if (value < 0)value += modulo;
-        return *this;
-    }
-    inline ModInt& operator--() {
-        if (value == 0)value = modulo - 1;
-        else value--;
-        return *this;
-    }
-    inline ModInt& operator*=(const ModInt& x) {
-        value = value * x.value % modulo;
-        return *this;
-    }
-    inline ModInt& operator/=(ModInt rhs) {
-        int exp = modulo - 2;
-        while (exp) {
-            if (exp & 1)*this *= rhs;
-            rhs *= rhs;
-            exp >>= 1;
-        }
-        return *this;
-    }
-    template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
-    template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }
-    template<typename T> ModInt operator-(const T& rhs)const { return ModInt(*this) -= rhs; }
-    template<typename T> ModInt& operator-=(const T& rhs) { return operator-=(ModInt(rhs)); }
-    template<typename T> ModInt operator*(const T& rhs)const { return ModInt(*this) *= rhs; }
-    template<typename T> ModInt& operator*=(const T& rhs) { return operator*=(ModInt(rhs)); }
-    template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
-    template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
+	static const unsigned int modulo;
+	ModInt() : value(0) {}
+	template<typename T>
+	ModInt(T value = 0) : value(value) {
+		if (value < 0)value = -(lint)(-value % modulo) + modulo;
+		this->value = value % modulo;
+	}
+	inline operator int()const { return value; }
+	inline ModInt& operator+=(const ModInt& x) {
+		value += x.value;
+		if (value >= modulo)value -= modulo;
+		return *this;
+	}
+	inline ModInt& operator++() {
+		if (value == modulo - 1)value = 0;
+		else value++;
+		return *this;
+	}
+	inline ModInt operator-()const {
+		return ModInt(0) -= *this;
+	}
+	inline ModInt& operator-=(const ModInt& x) {
+		value -= x.value;
+		if (value < 0)value += modulo;
+		return *this;
+	}
+	inline ModInt& operator--() {
+		if (value == 0)value = modulo - 1;
+		else value--;
+		return *this;
+	}
+	inline ModInt& operator*=(const ModInt& x) {
+		value = value * x.value % modulo;
+		return *this;
+	}
+	inline ModInt& operator/=(ModInt rhs) {
+		int exp = modulo - 2;
+		while (exp) {
+			if (exp & 1)*this *= rhs;
+			rhs *= rhs;
+			exp >>= 1;
+		}
+		return *this;
+	}
+	template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
+	template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }
+	template<typename T> ModInt operator-(const T& rhs)const { return ModInt(*this) -= rhs; }
+	template<typename T> ModInt& operator-=(const T& rhs) { return operator-=(ModInt(rhs)); }
+	template<typename T> ModInt operator*(const T& rhs)const { return ModInt(*this) *= rhs; }
+	template<typename T> ModInt& operator*=(const T& rhs) { return operator*=(ModInt(rhs)); }
+	template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
+	template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
 };
 std::istream& operator>>(std::istream& ist, ModInt& x) {
-    lint a;
-    ist >> a;
-    x = a;
-    return ist;
+	lint a;
+	ist >> a;
+	x = a;
+	return ist;
 }
 #line 3 "data-structure/SegTree.hpp"
 template<typename T>
