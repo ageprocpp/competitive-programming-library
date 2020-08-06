@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/NumberTheoreticTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 00:28:52+09:00
+    - Last commit date: 2020-08-07 00:53:37+09:00
 
 
 
@@ -58,7 +58,7 @@ layout: default
 const unsigned int ModInt::modulo=998244353;
 class NumberTheoreticTransform{
 	private:
-    static void ntt(std::vector<ModInt>& func, bool inverse) {
+    static void ntt(std::vector<ModInt>& func, const bool& inverse) {
         int sz = func.size();
         if (sz == 1)return;
         std::vector<ModInt> veca, vecb;
@@ -278,7 +278,7 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 const unsigned int ModInt::modulo=998244353;
 class NumberTheoreticTransform{
 	private:
-    static void ntt(std::vector<ModInt>& func, bool inverse) {
+    static void ntt(std::vector<ModInt>& func, const bool& inverse) {
         int sz = func.size();
         if (sz == 1)return;
         std::vector<ModInt> veca, vecb;

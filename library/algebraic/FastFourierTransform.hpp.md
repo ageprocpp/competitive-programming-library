@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/FastFourierTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-06 01:41:37+09:00
+    - Last commit date: 2020-08-07 00:53:37+09:00
 
 
 
@@ -51,7 +51,7 @@ layout: default
 #include "MyComplex.hpp"
 class FastFourierTransform {
 private:
-    static void dft(std::vector<MyComplex>& func, int inverse) {
+    static void dft(std::vector<MyComplex>& func, const int& inverse) {
         int sz = func.size();
         if (sz == 1)return;
         std::vector<MyComplex> veca, vecb;
@@ -245,7 +245,7 @@ public:
 #line 3 "algebraic/FastFourierTransform.hpp"
 class FastFourierTransform {
 private:
-    static void dft(std::vector<MyComplex>& func, int inverse) {
+    static void dft(std::vector<MyComplex>& func, const int& inverse) {
         int sz = func.size();
         if (sz == 1)return;
         std::vector<MyComplex> veca, vecb;
