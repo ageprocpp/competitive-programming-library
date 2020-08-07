@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: other/template.hpp
+# :question: other/template.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#795f3202b17cb6bc3d4b771d8c6c9eaf">other</a>
 * <a href="{{ site.github.repository_url }}/blob/master/other/template.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-02 18:09:47+09:00
+    - Last commit date: 2020-08-07 21:19:30+09:00
 
 
 
@@ -40,38 +40,39 @@ layout: default
 
 * :warning: <a href="../algebraic/FastFourierTransform.hpp.html">algebraic/FastFourierTransform.hpp</a>
 * :warning: <a href="../algebraic/LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :heavy_check_mark: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :x: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :warning: <a href="../algebraic/MyComplex.hpp.html">algebraic/MyComplex.hpp</a>
-* :warning: <a href="../algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
-* :heavy_check_mark: <a href="../data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :heavy_check_mark: <a href="../data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
-* :heavy_check_mark: <a href="../data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
-* :heavy_check_mark: <a href="../data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
-* :heavy_check_mark: <a href="../data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
-* :heavy_check_mark: <a href="../data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
-* :heavy_check_mark: <a href="../graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
-* :heavy_check_mark: <a href="../graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
+* :x: <a href="../algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :x: <a href="../data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
+* :x: <a href="../data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
+* :x: <a href="../data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
+* :x: <a href="../data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :x: <a href="../data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
+* :x: <a href="../data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
+* :x: <a href="../data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
+* :x: <a href="../graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
+* :x: <a href="../graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
 * :warning: <a href="../graph/PersistentUnionFind.hpp.html">graph/PersistentUnionFind.hpp</a>
-* :heavy_check_mark: <a href="../graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
+* :x: <a href="../graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/aplusb.test.cpp.html">test/aplusb.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/associative_array.test.cpp.html">test/associative_array.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/many_aplusb.test.cpp.html">test/many_aplusb.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/maximum_flow_ford_fulkerson.test.cpp.html">test/maximum_flow_ford_fulkerson.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/min_cost_flow.test.cpp.html">test/min_cost_flow.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/range_chmin_chmax_add_range_sum.test.cpp.html">test/range_chmin_chmax_add_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/range_kth_smallest.test.cpp.html">test/range_kth_smallest.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
+* :x: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
+* :x: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
+* :x: <a href="../../verify/test/many_aplusb.test.cpp.html">test/many_aplusb.test.cpp</a>
+* :x: <a href="../../verify/test/maximum_flow_ford_fulkerson.test.cpp.html">test/maximum_flow_ford_fulkerson.test.cpp</a>
+* :x: <a href="../../verify/test/min_cost_flow.test.cpp.html">test/min_cost_flow.test.cpp</a>
+* :x: <a href="../../verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
+* :x: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
+* :x: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
+* :x: <a href="../../verify/test/range_chmin_chmax_add_range_sum.test.cpp.html">test/range_chmin_chmax_add_range_sum.test.cpp</a>
+* :x: <a href="../../verify/test/range_kth_smallest.test.cpp.html">test/range_kth_smallest.test.cpp</a>
+* :x: <a href="../../verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
+* :x: <a href="../../verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
+* :x: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
 
 
 ## Code
@@ -159,21 +160,31 @@ bool isprime(lint n) {
 }
 template<typename T>
 T mypow(T a, lint b) {
-	if (!b)return T(1);
-	if (b & 1)return mypow(a, b - 1) * a;
-	T memo = mypow(a, b >> 1);
-	return memo * memo;
+	T res(1);
+	while(b){
+		if(b&1)res*=a;
+		a*=a;
+		b>>=1;
+	}
+	return res;
 }
 lint modpow(lint a, lint b, lint m) {
-	if (!b)return 1;
-	if (b & 1)return modpow(a, b - 1, m) * a % m;
-	lint memo = modpow(a, b >> 1, m);
-	return memo * memo % m;
+	lint res(1);
+	while(b){
+		if(b&1){
+			res*=a;res/=m;
+		}
+		a*=a;a/=m;
+		b>>=1;
+	}
+	return res;
 }
 template<typename T>
 void printArray(std::vector<T>& vec) {
-	rep(i, vec.size() - 1)std::cout << vec[i] << " ";
-	std::cout << vec.back() << std::endl;
+	rep(i, vec.size()){
+		std::cout << vec[i];
+		std::cout<<(i==(int)vec.size()-1?"\n":" ");
+	}
 }
 template<typename T>
 void printArray(T l, T r) {
@@ -270,21 +281,31 @@ bool isprime(lint n) {
 }
 template<typename T>
 T mypow(T a, lint b) {
-	if (!b)return T(1);
-	if (b & 1)return mypow(a, b - 1) * a;
-	T memo = mypow(a, b >> 1);
-	return memo * memo;
+	T res(1);
+	while(b){
+		if(b&1)res*=a;
+		a*=a;
+		b>>=1;
+	}
+	return res;
 }
 lint modpow(lint a, lint b, lint m) {
-	if (!b)return 1;
-	if (b & 1)return modpow(a, b - 1, m) * a % m;
-	lint memo = modpow(a, b >> 1, m);
-	return memo * memo % m;
+	lint res(1);
+	while(b){
+		if(b&1){
+			res*=a;res/=m;
+		}
+		a*=a;a/=m;
+		b>>=1;
+	}
+	return res;
 }
 template<typename T>
 void printArray(std::vector<T>& vec) {
-	rep(i, vec.size() - 1)std::cout << vec[i] << " ";
-	std::cout << vec.back() << std::endl;
+	rep(i, vec.size()){
+		std::cout << vec[i];
+		std::cout<<(i==(int)vec.size()-1?"\n":" ");
+	}
 }
 template<typename T>
 void printArray(T l, T r) {

@@ -25,32 +25,33 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: algebraic/ModInt.hpp
+# :x: algebraic/ModInt.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/ModInt.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 01:20:14+09:00
+    - Last commit date: 2020-08-07 21:19:30+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
 
 * :warning: <a href="LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :warning: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :x: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
+* :x: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
+* :x: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
+* :x: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 
 
 ## Code
@@ -70,6 +71,7 @@ public:
 		if (value < 0)value = -(lint)(-value % modulo) + modulo;
 		this->value = value % modulo;
 	}
+	inline ModInt inv()const{return mypow(*this,modulo-2);}
 	inline operator int()const { return value; }
 	inline ModInt& operator+=(const ModInt& x) {
 		value += x.value;
@@ -98,14 +100,8 @@ public:
 		value = value * x.value % modulo;
 		return *this;
 	}
-	inline ModInt& operator/=(ModInt rhs) {
-		int exp = modulo - 2;
-		while (exp) {
-			if (exp & 1)*this *= rhs;
-			rhs *= rhs;
-			exp >>= 1;
-		}
-		return *this;
+	inline ModInt& operator/=(const ModInt& rhs) {
+		return *this*=rhs.inv();
 	}
 	template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
 	template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }
@@ -208,21 +204,31 @@ bool isprime(lint n) {
 }
 template<typename T>
 T mypow(T a, lint b) {
-	if (!b)return T(1);
-	if (b & 1)return mypow(a, b - 1) * a;
-	T memo = mypow(a, b >> 1);
-	return memo * memo;
+	T res(1);
+	while(b){
+		if(b&1)res*=a;
+		a*=a;
+		b>>=1;
+	}
+	return res;
 }
 lint modpow(lint a, lint b, lint m) {
-	if (!b)return 1;
-	if (b & 1)return modpow(a, b - 1, m) * a % m;
-	lint memo = modpow(a, b >> 1, m);
-	return memo * memo % m;
+	lint res(1);
+	while(b){
+		if(b&1){
+			res*=a;res/=m;
+		}
+		a*=a;a/=m;
+		b>>=1;
+	}
+	return res;
 }
 template<typename T>
 void printArray(std::vector<T>& vec) {
-	rep(i, vec.size() - 1)std::cout << vec[i] << " ";
-	std::cout << vec.back() << std::endl;
+	rep(i, vec.size()){
+		std::cout << vec[i];
+		std::cout<<(i==(int)vec.size()-1?"\n":" ");
+	}
 }
 template<typename T>
 void printArray(T l, T r) {
@@ -244,6 +250,7 @@ public:
 		if (value < 0)value = -(lint)(-value % modulo) + modulo;
 		this->value = value % modulo;
 	}
+	inline ModInt inv()const{return mypow(*this,modulo-2);}
 	inline operator int()const { return value; }
 	inline ModInt& operator+=(const ModInt& x) {
 		value += x.value;
@@ -272,14 +279,8 @@ public:
 		value = value * x.value % modulo;
 		return *this;
 	}
-	inline ModInt& operator/=(ModInt rhs) {
-		int exp = modulo - 2;
-		while (exp) {
-			if (exp & 1)*this *= rhs;
-			rhs *= rhs;
-			exp >>= 1;
-		}
-		return *this;
+	inline ModInt& operator/=(const ModInt& rhs) {
+		return *this*=rhs.inv();
 	}
 	template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
 	template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }

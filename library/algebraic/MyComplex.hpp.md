@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/MyComplex.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 01:11:32+09:00
+    - Last commit date: 2020-08-07 21:19:30+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
@@ -183,21 +183,31 @@ bool isprime(lint n) {
 }
 template<typename T>
 T mypow(T a, lint b) {
-	if (!b)return T(1);
-	if (b & 1)return mypow(a, b - 1) * a;
-	T memo = mypow(a, b >> 1);
-	return memo * memo;
+	T res(1);
+	while(b){
+		if(b&1)res*=a;
+		a*=a;
+		b>>=1;
+	}
+	return res;
 }
 lint modpow(lint a, lint b, lint m) {
-	if (!b)return 1;
-	if (b & 1)return modpow(a, b - 1, m) * a % m;
-	lint memo = modpow(a, b >> 1, m);
-	return memo * memo % m;
+	lint res(1);
+	while(b){
+		if(b&1){
+			res*=a;res/=m;
+		}
+		a*=a;a/=m;
+		b>>=1;
+	}
+	return res;
 }
 template<typename T>
 void printArray(std::vector<T>& vec) {
-	rep(i, vec.size() - 1)std::cout << vec[i] << " ";
-	std::cout << vec.back() << std::endl;
+	rep(i, vec.size()){
+		std::cout << vec[i];
+		std::cout<<(i==(int)vec.size()-1?"\n":" ");
+	}
 }
 template<typename T>
 void printArray(T l, T r) {

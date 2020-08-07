@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/unionfind.test.cpp
+# :x: test/unionfind.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/unionfind.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-02 18:09:47+09:00
+    - Last commit date: 2020-08-07 21:19:30+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/unionfind">https://judge.yosupo.jp/problem/unionfind</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :x: <a href="../../library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
+* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -150,21 +150,31 @@ bool isprime(lint n) {
 }
 template<typename T>
 T mypow(T a, lint b) {
-	if (!b)return T(1);
-	if (b & 1)return mypow(a, b - 1) * a;
-	T memo = mypow(a, b >> 1);
-	return memo * memo;
+	T res(1);
+	while(b){
+		if(b&1)res*=a;
+		a*=a;
+		b>>=1;
+	}
+	return res;
 }
 lint modpow(lint a, lint b, lint m) {
-	if (!b)return 1;
-	if (b & 1)return modpow(a, b - 1, m) * a % m;
-	lint memo = modpow(a, b >> 1, m);
-	return memo * memo % m;
+	lint res(1);
+	while(b){
+		if(b&1){
+			res*=a;res/=m;
+		}
+		a*=a;a/=m;
+		b>>=1;
+	}
+	return res;
 }
 template<typename T>
 void printArray(std::vector<T>& vec) {
-	rep(i, vec.size() - 1)std::cout << vec[i] << " ";
-	std::cout << vec.back() << std::endl;
+	rep(i, vec.size()){
+		std::cout << vec[i];
+		std::cout<<(i==(int)vec.size()-1?"\n":" ");
+	}
 }
 template<typename T>
 void printArray(T l, T r) {

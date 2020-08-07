@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/range_affine_range_sum.test.cpp
+# :x: test/range_affine_range_sum.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/range_affine_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 01:20:14+09:00
+    - Last commit date: 2020-08-07 21:19:30+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
@@ -39,10 +39,10 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../../library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
-* :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :x: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :x: <a href="../../library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
+* :x: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -178,21 +178,31 @@ bool isprime(lint n) {
 }
 template<typename T>
 T mypow(T a, lint b) {
-	if (!b)return T(1);
-	if (b & 1)return mypow(a, b - 1) * a;
-	T memo = mypow(a, b >> 1);
-	return memo * memo;
+	T res(1);
+	while(b){
+		if(b&1)res*=a;
+		a*=a;
+		b>>=1;
+	}
+	return res;
 }
 lint modpow(lint a, lint b, lint m) {
-	if (!b)return 1;
-	if (b & 1)return modpow(a, b - 1, m) * a % m;
-	lint memo = modpow(a, b >> 1, m);
-	return memo * memo % m;
+	lint res(1);
+	while(b){
+		if(b&1){
+			res*=a;res/=m;
+		}
+		a*=a;a/=m;
+		b>>=1;
+	}
+	return res;
 }
 template<typename T>
 void printArray(std::vector<T>& vec) {
-	rep(i, vec.size() - 1)std::cout << vec[i] << " ";
-	std::cout << vec.back() << std::endl;
+	rep(i, vec.size()){
+		std::cout << vec[i];
+		std::cout<<(i==(int)vec.size()-1?"\n":" ");
+	}
 }
 template<typename T>
 void printArray(T l, T r) {
@@ -214,6 +224,7 @@ public:
 		if (value < 0)value = -(lint)(-value % modulo) + modulo;
 		this->value = value % modulo;
 	}
+	inline ModInt inv()const{return mypow(*this,modulo-2);}
 	inline operator int()const { return value; }
 	inline ModInt& operator+=(const ModInt& x) {
 		value += x.value;
@@ -242,14 +253,8 @@ public:
 		value = value * x.value % modulo;
 		return *this;
 	}
-	inline ModInt& operator/=(ModInt rhs) {
-		int exp = modulo - 2;
-		while (exp) {
-			if (exp & 1)*this *= rhs;
-			rhs *= rhs;
-			exp >>= 1;
-		}
-		return *this;
+	inline ModInt& operator/=(const ModInt& rhs) {
+		return *this*=rhs.inv();
 	}
 	template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
 	template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }

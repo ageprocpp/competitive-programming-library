@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/FastFourierTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 01:20:14+09:00
+    - Last commit date: 2020-08-07 21:19:30+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="MyComplex.hpp.html">algebraic/MyComplex.hpp</a>
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -52,31 +52,32 @@ layout: default
 #include "MyComplex.hpp"
 class FastFourierTransform {
 private:
-	static void dft(std::vector<MyComplex>& func, const int& inverse) {
-		int sz = func.size();
+	static void dft(std::vector<MyComplex>& poly, const int& inverse) {
+		int sz = poly.size();
 		if (sz == 1)return;
 		std::vector<MyComplex> veca, vecb;
-		rep(i, sz / 2) {
-			veca.push_back(func[2 * i]);
-			vecb.push_back(func[2 * i + 1]);
+		rep(i, sz>>1) {
+			veca[i]=poly[i<<1];
+			vecb[i]=poly[i<<1|1];
 		}
 		dft(veca, inverse); dft(vecb, inverse);
 		MyComplex now = 1, zeta = std::polar(1.0, inverse * 2.0 * acos(-1) / sz);
 		rep(i, sz) {
-			func[i] = veca[i % (sz / 2)] + now * vecb[i % (sz / 2)];
+			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
 			now *= zeta;
 		}
 	}
 public:
 	template<typename T>
-	static std::vector<double> multiply(const std::vector<T>& f, const std::vector<T>& g) {
+	static std::vector<double> multiply(std::vector<T> f, std::vector<T> g) {
+		if(f.size()<g.size())std::swap(f,g);
 		std::vector<MyComplex> nf, ng;
 		int sz = 1;
 		while (sz < f.size() + g.size())sz *= 2;
 		nf.resize(sz); ng.resize(sz);
 		rep(i, f.size()) {
 			nf[i] = f[i];
-			ng[i] = g[i];
+			if(i<g.size())ng[i] = g[i];
 		}
 		dft(nf, 1);
 		dft(ng, 1);
@@ -173,21 +174,31 @@ bool isprime(lint n) {
 }
 template<typename T>
 T mypow(T a, lint b) {
-	if (!b)return T(1);
-	if (b & 1)return mypow(a, b - 1) * a;
-	T memo = mypow(a, b >> 1);
-	return memo * memo;
+	T res(1);
+	while(b){
+		if(b&1)res*=a;
+		a*=a;
+		b>>=1;
+	}
+	return res;
 }
 lint modpow(lint a, lint b, lint m) {
-	if (!b)return 1;
-	if (b & 1)return modpow(a, b - 1, m) * a % m;
-	lint memo = modpow(a, b >> 1, m);
-	return memo * memo % m;
+	lint res(1);
+	while(b){
+		if(b&1){
+			res*=a;res/=m;
+		}
+		a*=a;a/=m;
+		b>>=1;
+	}
+	return res;
 }
 template<typename T>
 void printArray(std::vector<T>& vec) {
-	rep(i, vec.size() - 1)std::cout << vec[i] << " ";
-	std::cout << vec.back() << std::endl;
+	rep(i, vec.size()){
+		std::cout << vec[i];
+		std::cout<<(i==(int)vec.size()-1?"\n":" ");
+	}
 }
 template<typename T>
 void printArray(T l, T r) {
@@ -246,31 +257,32 @@ public:
 #line 4 "algebraic/FastFourierTransform.hpp"
 class FastFourierTransform {
 private:
-	static void dft(std::vector<MyComplex>& func, const int& inverse) {
-		int sz = func.size();
+	static void dft(std::vector<MyComplex>& poly, const int& inverse) {
+		int sz = poly.size();
 		if (sz == 1)return;
 		std::vector<MyComplex> veca, vecb;
-		rep(i, sz / 2) {
-			veca.push_back(func[2 * i]);
-			vecb.push_back(func[2 * i + 1]);
+		rep(i, sz>>1) {
+			veca[i]=poly[i<<1];
+			vecb[i]=poly[i<<1|1];
 		}
 		dft(veca, inverse); dft(vecb, inverse);
 		MyComplex now = 1, zeta = std::polar(1.0, inverse * 2.0 * acos(-1) / sz);
 		rep(i, sz) {
-			func[i] = veca[i % (sz / 2)] + now * vecb[i % (sz / 2)];
+			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
 			now *= zeta;
 		}
 	}
 public:
 	template<typename T>
-	static std::vector<double> multiply(const std::vector<T>& f, const std::vector<T>& g) {
+	static std::vector<double> multiply(std::vector<T> f, std::vector<T> g) {
+		if(f.size()<g.size())std::swap(f,g);
 		std::vector<MyComplex> nf, ng;
 		int sz = 1;
 		while (sz < f.size() + g.size())sz *= 2;
 		nf.resize(sz); ng.resize(sz);
 		rep(i, f.size()) {
 			nf[i] = f[i];
-			ng[i] = g[i];
+			if(i<g.size())ng[i] = g[i];
 		}
 		dft(nf, 1);
 		dft(ng, 1);

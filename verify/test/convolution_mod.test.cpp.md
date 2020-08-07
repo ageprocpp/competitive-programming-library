@@ -25,21 +25,23 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: algebraic/LagrangeInterpolation.hpp
+# :x: test/convolution_mod.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
-* <a href="{{ site.github.repository_url }}/blob/master/algebraic/LagrangeInterpolation.hpp">View this file on GitHub</a>
+* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/convolution_mod.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-08-07 21:19:30+09:00
 
 
+* see: <a href="https://judge.yosupo.jp/problem/convolution_mod">https://judge.yosupo.jp/problem/convolution_mod</a>
 
 
 ## Depends on
 
-* :x: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :x: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :x: <a href="../../library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -47,22 +49,19 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
+#define PROBLEM "https://judge.yosupo.jp/problem/convolution_mod"
 #include "../other/template.hpp"
-#include "ModInt.hpp"
-ModInt arithmetic_lagrange_interpolation(const ModInt& a,const ModInt& d,const std::vector<ModInt>& y,const ModInt& t){
-	const int n=y.size()-1;
-	ModInt res=0,ft=1;
-	rep(i,n+1)ft*=t-(a+d*i);
-	ModInt f=1;
-	REP(i,n)f*=-d*i;
-	res+=y[0]/f*ft/(t-a);
-	rep(i,n){
-		f*=i+1;
-		f/=i-n;
-		res+=y[i+1]/f*ft/(t-(a+d*(i+1)));
-	}
-	return res;
+#include "../algebraic/NumberTheoreticTransform.hpp"
+int n,m;
+std::vector<int> a,b;
+int main(){
+	scanf("%d%d",&n,&m);
+	a.resize(n);b.resize(m);
+	rep(i,n)scanf("%d",a.data()+i);
+	rep(i,m)scanf("%d",b.data()+i);
+	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b);
+	c.resize(n+m-1);
+	printArray(c);
 }
 ```
 {% endraw %}
@@ -70,6 +69,8 @@ ModInt arithmetic_lagrange_interpolation(const ModInt& a,const ModInt& d,const s
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "test/convolution_mod.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/convolution_mod"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx")
@@ -243,20 +244,68 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 	x = a;
 	return ist;
 }
-#line 4 "algebraic/LagrangeInterpolation.hpp"
-ModInt arithmetic_lagrange_interpolation(const ModInt& a,const ModInt& d,const std::vector<ModInt>& y,const ModInt& t){
-	const int n=y.size()-1;
-	ModInt res=0,ft=1;
-	rep(i,n+1)ft*=t-(a+d*i);
-	ModInt f=1;
-	REP(i,n)f*=-d*i;
-	res+=y[0]/f*ft/(t-a);
-	rep(i,n){
-		f*=i+1;
-		f/=i-n;
-		res+=y[i+1]/f*ft/(t-(a+d*(i+1)));
+#line 4 "algebraic/NumberTheoreticTransform.hpp"
+//167772161,3,2^25
+//469762049,3,2^26
+//924844033,5,2^21
+//998244353,3,2^23
+//1012924417,5
+//1224736769,3
+const unsigned int ModInt::modulo=998244353;
+class NumberTheoreticTransform{
+private:
+	static void ntt(std::vector<ModInt>& poly) {
+		int sz = poly.size();
+		if (sz == 1)return;
+		std::vector<ModInt> veca(sz>>1),vecb(sz>>1);
+		rep(i, sz>>1) {
+			veca[i]=poly[i<<1];
+			vecb[i]=poly[i<<1|1];
+		}
+		ntt(veca);ntt(vecb);
+		ModInt now = 1, zeta;
+		if(inverse)zeta=mypow(ModInt(3),ModInt::modulo-1-(ModInt::modulo-1)/sz);
+		else zeta=mypow(ModInt(3),(ModInt::modulo-1)/sz);
+		rep(i, sz) {
+			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
+			now*=zeta;
+		}
 	}
-	return res;
+public:
+	static bool inverse;
+	template<typename T>
+	static std::vector<ModInt> multiply(std::vector<T> f, std::vector<T> g) {
+		if(f.size()<g.size())std::swap(f,g);
+		std::vector<ModInt> nf, ng;
+		int sz=1;
+		while (sz<f.size()+g.size())sz>>=1;
+		nf.resize(sz);ng.resize(sz);
+		rep(i,f.size()) {
+			nf[i]=f[i];
+			if(i<g.size())ng[i]=g[i];
+		}
+		inverse=false;
+		ntt(nf);ntt(ng);
+		rep(i, sz)nf[i]*=ng[i];
+		inverse=true;
+		ntt(nf);
+		ModInt szinv=ModInt(sz).inv();
+		rep(i,sz)nf[i]*=szinv;
+		return nf;
+	}
+};
+bool NumberTheoreticTransform::inverse=false;
+#line 4 "test/convolution_mod.test.cpp"
+int n,m;
+std::vector<int> a,b;
+int main(){
+	scanf("%d%d",&n,&m);
+	a.resize(n);b.resize(m);
+	rep(i,n)scanf("%d",a.data()+i);
+	rep(i,m)scanf("%d",b.data()+i);
+	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b);
+	c.resize(n+m-1);
+	printArray(c);
 }
 
 ```

@@ -25,21 +25,26 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: algebraic/NumberTheoreticTransform.hpp
+# :x: algebraic/NumberTheoreticTransform.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/NumberTheoreticTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 01:20:14+09:00
+    - Last commit date: 2020-08-07 21:19:30+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :x: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+
+
+## Verified with
+
+* :x: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
 
 
 ## Code
@@ -50,51 +55,56 @@ layout: default
 #pragma once
 #include "../other/template.hpp"
 #include "ModInt.hpp"
-//167772161,3
-//469762049,3
-//924844033,5
-//998244353,3
+//167772161,3,2^25
+//469762049,3,2^26
+//924844033,5,2^21
+//998244353,3,2^23
 //1012924417,5
 //1224736769,3
 const unsigned int ModInt::modulo=998244353;
 class NumberTheoreticTransform{
-	private:
-	static void ntt(std::vector<ModInt>& func, const bool& inverse) {
-		int sz = func.size();
+private:
+	static void ntt(std::vector<ModInt>& poly) {
+		int sz = poly.size();
 		if (sz == 1)return;
-		std::vector<ModInt> veca, vecb;
-		rep(i, sz / 2) {
-			veca.push_back(func[2 * i]);
-			vecb.push_back(func[2 * i + 1]);
+		std::vector<ModInt> veca(sz>>1),vecb(sz>>1);
+		rep(i, sz>>1) {
+			veca[i]=poly[i<<1];
+			vecb[i]=poly[i<<1|1];
 		}
-		ntt(veca, inverse); ntt(vecb, inverse);
+		ntt(veca);ntt(vecb);
 		ModInt now = 1, zeta;
 		if(inverse)zeta=mypow(ModInt(3),ModInt::modulo-1-(ModInt::modulo-1)/sz);
 		else zeta=mypow(ModInt(3),(ModInt::modulo-1)/sz);
 		rep(i, sz) {
-			func[i] = veca[i % (sz / 2)] + now * vecb[i % (sz / 2)];
-			now *= zeta;
+			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
+			now*=zeta;
 		}
 	}
 public:
+	static bool inverse;
 	template<typename T>
-	static std::vector<ModInt> multiply(const std::vector<T>& f, const std::vector<T>& g) {
+	static std::vector<ModInt> multiply(std::vector<T> f, std::vector<T> g) {
+		if(f.size()<g.size())std::swap(f,g);
 		std::vector<ModInt> nf, ng;
-		int sz = 1;
-		while (sz < f.size() + g.size())sz *= 2;
-		nf.resize(sz); ng.resize(sz);
-		rep(i, f.size()) {
-			nf[i] = f[i];
-			ng[i] = g[i];
+		int sz=1;
+		while (sz<f.size()+g.size())sz>>=1;
+		nf.resize(sz);ng.resize(sz);
+		rep(i,f.size()) {
+			nf[i]=f[i];
+			if(i<g.size())ng[i]=g[i];
 		}
-		ntt(nf, false);
-		ntt(ng, false);
-		rep(i, sz)nf[i] *= ng[i];
-		ntt(nf, true);
-		rep(i,sz)nf[i]/=sz;
+		inverse=false;
+		ntt(nf);ntt(ng);
+		rep(i, sz)nf[i]*=ng[i];
+		inverse=true;
+		ntt(nf);
+		ModInt szinv=ModInt(sz).inv();
+		rep(i,sz)nf[i]*=szinv;
 		return nf;
 	}
 };
+bool NumberTheoreticTransform::inverse=false;
 ```
 {% endraw %}
 
@@ -181,21 +191,31 @@ bool isprime(lint n) {
 }
 template<typename T>
 T mypow(T a, lint b) {
-	if (!b)return T(1);
-	if (b & 1)return mypow(a, b - 1) * a;
-	T memo = mypow(a, b >> 1);
-	return memo * memo;
+	T res(1);
+	while(b){
+		if(b&1)res*=a;
+		a*=a;
+		b>>=1;
+	}
+	return res;
 }
 lint modpow(lint a, lint b, lint m) {
-	if (!b)return 1;
-	if (b & 1)return modpow(a, b - 1, m) * a % m;
-	lint memo = modpow(a, b >> 1, m);
-	return memo * memo % m;
+	lint res(1);
+	while(b){
+		if(b&1){
+			res*=a;res/=m;
+		}
+		a*=a;a/=m;
+		b>>=1;
+	}
+	return res;
 }
 template<typename T>
 void printArray(std::vector<T>& vec) {
-	rep(i, vec.size() - 1)std::cout << vec[i] << " ";
-	std::cout << vec.back() << std::endl;
+	rep(i, vec.size()){
+		std::cout << vec[i];
+		std::cout<<(i==(int)vec.size()-1?"\n":" ");
+	}
 }
 template<typename T>
 void printArray(T l, T r) {
@@ -217,6 +237,7 @@ public:
 		if (value < 0)value = -(lint)(-value % modulo) + modulo;
 		this->value = value % modulo;
 	}
+	inline ModInt inv()const{return mypow(*this,modulo-2);}
 	inline operator int()const { return value; }
 	inline ModInt& operator+=(const ModInt& x) {
 		value += x.value;
@@ -245,14 +266,8 @@ public:
 		value = value * x.value % modulo;
 		return *this;
 	}
-	inline ModInt& operator/=(ModInt rhs) {
-		int exp = modulo - 2;
-		while (exp) {
-			if (exp & 1)*this *= rhs;
-			rhs *= rhs;
-			exp >>= 1;
-		}
-		return *this;
+	inline ModInt& operator/=(const ModInt& rhs) {
+		return *this*=rhs.inv();
 	}
 	template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
 	template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }
@@ -270,51 +285,56 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 	return ist;
 }
 #line 4 "algebraic/NumberTheoreticTransform.hpp"
-//167772161,3
-//469762049,3
-//924844033,5
-//998244353,3
+//167772161,3,2^25
+//469762049,3,2^26
+//924844033,5,2^21
+//998244353,3,2^23
 //1012924417,5
 //1224736769,3
 const unsigned int ModInt::modulo=998244353;
 class NumberTheoreticTransform{
-	private:
-	static void ntt(std::vector<ModInt>& func, const bool& inverse) {
-		int sz = func.size();
+private:
+	static void ntt(std::vector<ModInt>& poly) {
+		int sz = poly.size();
 		if (sz == 1)return;
-		std::vector<ModInt> veca, vecb;
-		rep(i, sz / 2) {
-			veca.push_back(func[2 * i]);
-			vecb.push_back(func[2 * i + 1]);
+		std::vector<ModInt> veca(sz>>1),vecb(sz>>1);
+		rep(i, sz>>1) {
+			veca[i]=poly[i<<1];
+			vecb[i]=poly[i<<1|1];
 		}
-		ntt(veca, inverse); ntt(vecb, inverse);
+		ntt(veca);ntt(vecb);
 		ModInt now = 1, zeta;
 		if(inverse)zeta=mypow(ModInt(3),ModInt::modulo-1-(ModInt::modulo-1)/sz);
 		else zeta=mypow(ModInt(3),(ModInt::modulo-1)/sz);
 		rep(i, sz) {
-			func[i] = veca[i % (sz / 2)] + now * vecb[i % (sz / 2)];
-			now *= zeta;
+			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
+			now*=zeta;
 		}
 	}
 public:
+	static bool inverse;
 	template<typename T>
-	static std::vector<ModInt> multiply(const std::vector<T>& f, const std::vector<T>& g) {
+	static std::vector<ModInt> multiply(std::vector<T> f, std::vector<T> g) {
+		if(f.size()<g.size())std::swap(f,g);
 		std::vector<ModInt> nf, ng;
-		int sz = 1;
-		while (sz < f.size() + g.size())sz *= 2;
-		nf.resize(sz); ng.resize(sz);
-		rep(i, f.size()) {
-			nf[i] = f[i];
-			ng[i] = g[i];
+		int sz=1;
+		while (sz<f.size()+g.size())sz>>=1;
+		nf.resize(sz);ng.resize(sz);
+		rep(i,f.size()) {
+			nf[i]=f[i];
+			if(i<g.size())ng[i]=g[i];
 		}
-		ntt(nf, false);
-		ntt(ng, false);
-		rep(i, sz)nf[i] *= ng[i];
-		ntt(nf, true);
-		rep(i,sz)nf[i]/=sz;
+		inverse=false;
+		ntt(nf);ntt(ng);
+		rep(i, sz)nf[i]*=ng[i];
+		inverse=true;
+		ntt(nf);
+		ModInt szinv=ModInt(sz).inv();
+		rep(i,sz)nf[i]*=szinv;
 		return nf;
 	}
 };
+bool NumberTheoreticTransform::inverse=false;
 
 ```
 {% endraw %}
