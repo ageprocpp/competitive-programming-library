@@ -10,23 +10,6 @@
 const unsigned int ModInt::modulo=998244353;
 class NumberTheoreticTransform{
 private:
-	/*static void ntt(std::vector<ModInt>& poly) {
-		int sz = poly.size();
-		if (sz == 1)return;
-		std::vector<ModInt> veca(sz>>1),vecb(sz>>1);
-		rep(i, sz>>1) {
-			veca[i]=poly[i<<1];
-			vecb[i]=poly[i<<1|1];
-		}
-		ntt(veca);ntt(vecb);
-		ModInt now = 1, zeta;
-		if(inverse)zeta=mypow(ModInt(3),ModInt::modulo-1-(ModInt::modulo-1)/sz);
-		else zeta=mypow(ModInt(3),(ModInt::modulo-1)/sz);
-		rep(i, sz) {
-			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
-			now*=zeta;
-		}
-	}*/
 	static void ntt(std::vector<ModInt>& a){
 		int sz=a.size();
 		if(sz==1)return;

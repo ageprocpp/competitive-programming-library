@@ -106,8 +106,7 @@ void printArray(std::vector<T>& vec) {
 }
 template<typename T>
 void printArray(T l, T r) {
-	T rprev = r;
-	rprev--;
+	T rprev = std::prev(r);
 	for (T i = l; i != rprev; i++) {
 		std::cout << *i << " ";
 	}

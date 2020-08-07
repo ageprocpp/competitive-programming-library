@@ -9,6 +9,5 @@ int main(){
 	rep(i,n)scanf("%d",a.data()+i);
 	rep(i,m)scanf("%d",b.data()+i);
 	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b);
-	c.resize(n+m-1);
-	printArray(c);
+	rep(i,n+m-1)std::cout<<c[i]<<(i==n+m?"\n":" ");
 }
