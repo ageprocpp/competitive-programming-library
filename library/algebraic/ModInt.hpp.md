@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: algebraic/ModInt.hpp
+# :heavy_check_mark: algebraic/ModInt.hpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,20 +38,20 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
 
 * :warning: <a href="LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :x: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :heavy_check_mark: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
-* :x: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :x: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 
 
 ## Code

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :question: other/template.hpp
+# :heavy_check_mark: other/template.hpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -40,39 +40,39 @@ layout: default
 
 * :warning: <a href="../algebraic/FastFourierTransform.hpp.html">algebraic/FastFourierTransform.hpp</a>
 * :warning: <a href="../algebraic/LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :x: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :warning: <a href="../algebraic/MyComplex.hpp.html">algebraic/MyComplex.hpp</a>
-* :x: <a href="../algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
-* :x: <a href="../data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :x: <a href="../data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
-* :x: <a href="../data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
-* :x: <a href="../data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :x: <a href="../data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
-* :x: <a href="../data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
-* :x: <a href="../data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
-* :x: <a href="../graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
-* :x: <a href="../graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
+* :heavy_check_mark: <a href="../algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :heavy_check_mark: <a href="../data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
+* :heavy_check_mark: <a href="../data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
+* :heavy_check_mark: <a href="../data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
+* :heavy_check_mark: <a href="../data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :heavy_check_mark: <a href="../data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
+* :heavy_check_mark: <a href="../data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
+* :heavy_check_mark: <a href="../data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
+* :heavy_check_mark: <a href="../graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
+* :heavy_check_mark: <a href="../graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
 * :warning: <a href="../graph/PersistentUnionFind.hpp.html">graph/PersistentUnionFind.hpp</a>
-* :x: <a href="../graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
+* :heavy_check_mark: <a href="../graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/aplusb.test.cpp.html">test/aplusb.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/associative_array.test.cpp.html">test/associative_array.test.cpp</a>
-* :x: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
-* :x: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
-* :x: <a href="../../verify/test/many_aplusb.test.cpp.html">test/many_aplusb.test.cpp</a>
-* :x: <a href="../../verify/test/maximum_flow_ford_fulkerson.test.cpp.html">test/maximum_flow_ford_fulkerson.test.cpp</a>
-* :x: <a href="../../verify/test/min_cost_flow.test.cpp.html">test/min_cost_flow.test.cpp</a>
-* :x: <a href="../../verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
-* :x: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :x: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
-* :x: <a href="../../verify/test/range_chmin_chmax_add_range_sum.test.cpp.html">test/range_chmin_chmax_add_range_sum.test.cpp</a>
-* :x: <a href="../../verify/test/range_kth_smallest.test.cpp.html">test/range_kth_smallest.test.cpp</a>
-* :x: <a href="../../verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
-* :x: <a href="../../verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
-* :x: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/many_aplusb.test.cpp.html">test/many_aplusb.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/maximum_flow_ford_fulkerson.test.cpp.html">test/maximum_flow_ford_fulkerson.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/min_cost_flow.test.cpp.html">test/min_cost_flow.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/range_chmin_chmax_add_range_sum.test.cpp.html">test/range_chmin_chmax_add_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/range_kth_smallest.test.cpp.html">test/range_kth_smallest.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
 
 
 ## Code

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: test/many_aplusb.test.cpp
+# :heavy_check_mark: test/many_aplusb.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code

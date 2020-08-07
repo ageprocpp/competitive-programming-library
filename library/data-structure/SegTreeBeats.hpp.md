@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: data-structure/SegTreeBeats.hpp
+# :heavy_check_mark: data-structure/SegTreeBeats.hpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,12 +38,12 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/range_chmin_chmax_add_range_sum.test.cpp.html">test/range_chmin_chmax_add_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/range_chmin_chmax_add_range_sum.test.cpp.html">test/range_chmin_chmax_add_range_sum.test.cpp</a>
 
 
 ## Code

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: test/point_add_range_sum.test.cpp
+# :heavy_check_mark: test/point_add_range_sum.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code

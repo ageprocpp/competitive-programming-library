@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: data-structure/LiChaoTree.hpp
+# :heavy_check_mark: data-structure/LiChaoTree.hpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,12 +38,12 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
 
 
 ## Code
