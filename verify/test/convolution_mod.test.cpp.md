@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/convolution_mod.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 23:08:01+09:00
+    - Last commit date: 2020-08-07 23:42:44+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/convolution_mod">https://judge.yosupo.jp/problem/convolution_mod</a>
@@ -60,8 +60,7 @@ int main(){
 	rep(i,n)scanf("%d",a.data()+i);
 	rep(i,m)scanf("%d",b.data()+i);
 	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b);
-	c.resize(n+m-1);
-	printArray(c);
+	rep(i,n+m-1)std::cout<<c[i]<<(i==n+m?"\n":" ");
 }
 ```
 {% endraw %}
@@ -179,8 +178,7 @@ void printArray(std::vector<T>& vec) {
 }
 template<typename T>
 void printArray(T l, T r) {
-	T rprev = r;
-	rprev--;
+	T rprev = std::prev(r);
 	for (T i = l; i != rprev; i++) {
 		std::cout << *i << " ";
 	}
@@ -254,23 +252,6 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 const unsigned int ModInt::modulo=998244353;
 class NumberTheoreticTransform{
 private:
-	/*static void ntt(std::vector<ModInt>& poly) {
-		int sz = poly.size();
-		if (sz == 1)return;
-		std::vector<ModInt> veca(sz>>1),vecb(sz>>1);
-		rep(i, sz>>1) {
-			veca[i]=poly[i<<1];
-			vecb[i]=poly[i<<1|1];
-		}
-		ntt(veca);ntt(vecb);
-		ModInt now = 1, zeta;
-		if(inverse)zeta=mypow(ModInt(3),ModInt::modulo-1-(ModInt::modulo-1)/sz);
-		else zeta=mypow(ModInt(3),(ModInt::modulo-1)/sz);
-		rep(i, sz) {
-			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
-			now*=zeta;
-		}
-	}*/
 	static void ntt(std::vector<ModInt>& a){
 		int sz=a.size();
 		if(sz==1)return;
@@ -322,8 +303,7 @@ int main(){
 	rep(i,n)scanf("%d",a.data()+i);
 	rep(i,m)scanf("%d",b.data()+i);
 	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b);
-	c.resize(n+m-1);
-	printArray(c);
+	rep(i,n+m-1)std::cout<<c[i]<<(i==n+m?"\n":" ");
 }
 
 ```

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/maximum_flow_ford_fulkerson.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 21:19:30+09:00
+    - Last commit date: 2020-08-07 23:42:44+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A</a>
@@ -179,8 +179,7 @@ void printArray(std::vector<T>& vec) {
 }
 template<typename T>
 void printArray(T l, T r) {
-	T rprev = r;
-	rprev--;
+	T rprev = std::prev(r);
 	for (T i = l; i != rprev; i++) {
 		std::cout << *i << " ";
 	}

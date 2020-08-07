@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/NumberTheoreticTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 23:08:01+09:00
+    - Last commit date: 2020-08-07 23:42:44+09:00
 
 
 
@@ -64,23 +64,6 @@ layout: default
 const unsigned int ModInt::modulo=998244353;
 class NumberTheoreticTransform{
 private:
-	/*static void ntt(std::vector<ModInt>& poly) {
-		int sz = poly.size();
-		if (sz == 1)return;
-		std::vector<ModInt> veca(sz>>1),vecb(sz>>1);
-		rep(i, sz>>1) {
-			veca[i]=poly[i<<1];
-			vecb[i]=poly[i<<1|1];
-		}
-		ntt(veca);ntt(vecb);
-		ModInt now = 1, zeta;
-		if(inverse)zeta=mypow(ModInt(3),ModInt::modulo-1-(ModInt::modulo-1)/sz);
-		else zeta=mypow(ModInt(3),(ModInt::modulo-1)/sz);
-		rep(i, sz) {
-			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
-			now*=zeta;
-		}
-	}*/
 	static void ntt(std::vector<ModInt>& a){
 		int sz=a.size();
 		if(sz==1)return;
@@ -237,8 +220,7 @@ void printArray(std::vector<T>& vec) {
 }
 template<typename T>
 void printArray(T l, T r) {
-	T rprev = r;
-	rprev--;
+	T rprev = std::prev(r);
 	for (T i = l; i != rprev; i++) {
 		std::cout << *i << " ";
 	}
@@ -312,23 +294,6 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 const unsigned int ModInt::modulo=998244353;
 class NumberTheoreticTransform{
 private:
-	/*static void ntt(std::vector<ModInt>& poly) {
-		int sz = poly.size();
-		if (sz == 1)return;
-		std::vector<ModInt> veca(sz>>1),vecb(sz>>1);
-		rep(i, sz>>1) {
-			veca[i]=poly[i<<1];
-			vecb[i]=poly[i<<1|1];
-		}
-		ntt(veca);ntt(vecb);
-		ModInt now = 1, zeta;
-		if(inverse)zeta=mypow(ModInt(3),ModInt::modulo-1-(ModInt::modulo-1)/sz);
-		else zeta=mypow(ModInt(3),(ModInt::modulo-1)/sz);
-		rep(i, sz) {
-			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
-			now*=zeta;
-		}
-	}*/
 	static void ntt(std::vector<ModInt>& a){
 		int sz=a.size();
 		if(sz==1)return;

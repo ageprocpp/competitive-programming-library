@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/WaveletMatrix.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 21:19:30+09:00
+    - Last commit date: 2020-08-07 23:42:44+09:00
 
 
 
@@ -247,8 +247,7 @@ void printArray(std::vector<T>& vec) {
 }
 template<typename T>
 void printArray(T l, T r) {
-	T rprev = r;
-	rprev--;
+	T rprev = std::prev(r);
 	for (T i = l; i != rprev; i++) {
 		std::cout << *i << " ";
 	}

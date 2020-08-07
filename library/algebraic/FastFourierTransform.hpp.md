@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/FastFourierTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 21:19:30+09:00
+    - Last commit date: 2020-08-07 23:42:44+09:00
 
 
 
@@ -52,7 +52,7 @@ layout: default
 #include "MyComplex.hpp"
 class FastFourierTransform {
 private:
-	static void dft(std::vector<MyComplex>& poly, const int& inverse) {
+	/*static void dft(std::vector<MyComplex>& poly, const int& inverse) {
 		int sz = poly.size();
 		if (sz == 1)return;
 		std::vector<MyComplex> veca, vecb;
@@ -66,8 +66,25 @@ private:
 			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
 			now *= zeta;
 		}
+	}*/
+	static void dft(std::vector<MyComplex>& a){
+		int sz=a.size();
+		if(sz==1)return;
+		MyComplex root=std::polar(1.0,(inverse?-1:1)*2.0*acos(-1)/sz);
+		std::vector<MyComplex> b(sz),roots((sz>>1)+1,1);
+		rep(i,sz>>1)roots[i+1]=roots[i]*root;
+		for(int i=sz>>1,w=1;w<sz;i>>=1,w<<=1){
+			for(int j=0;j<i;j++){
+				for(int k=0;k<w;k++){
+					b[k+((w*j)<<1)]=a[k+w*j]+a[k+w*j+(sz>>1)];
+					b[k+((w*j)<<1)+w]=roots[w*j]*(a[k+w*j]-a[k+w*j+(sz>>1)]);
+				}
+			}
+			std::swap(a,b);
+		}
 	}
 public:
+	static bool inverse;
 	template<typename T>
 	static std::vector<double> multiply(std::vector<T> f, std::vector<T> g) {
 		if(f.size()<g.size())std::swap(f,g);
@@ -79,15 +96,17 @@ public:
 			nf[i] = f[i];
 			if(i<g.size())ng[i] = g[i];
 		}
-		dft(nf, 1);
-		dft(ng, 1);
+		inverse=false;
+		dft(nf);dft(ng);
 		rep(i, sz)nf[i] *= ng[i];
-		dft(nf, -1);
+		inverse=true;
+		dft(nf);
 		std::vector<double> res(sz);
 		rep(i, sz)res[i]=nf[i].real() / sz;
 		return res;
 	}
 };
+bool FastFourierTransform::inverse=false;
 ```
 {% endraw %}
 
@@ -202,8 +221,7 @@ void printArray(std::vector<T>& vec) {
 }
 template<typename T>
 void printArray(T l, T r) {
-	T rprev = r;
-	rprev--;
+	T rprev = std::prev(r);
 	for (T i = l; i != rprev; i++) {
 		std::cout << *i << " ";
 	}
@@ -257,7 +275,7 @@ public:
 #line 4 "algebraic/FastFourierTransform.hpp"
 class FastFourierTransform {
 private:
-	static void dft(std::vector<MyComplex>& poly, const int& inverse) {
+	/*static void dft(std::vector<MyComplex>& poly, const int& inverse) {
 		int sz = poly.size();
 		if (sz == 1)return;
 		std::vector<MyComplex> veca, vecb;
@@ -271,8 +289,25 @@ private:
 			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
 			now *= zeta;
 		}
+	}*/
+	static void dft(std::vector<MyComplex>& a){
+		int sz=a.size();
+		if(sz==1)return;
+		MyComplex root=std::polar(1.0,(inverse?-1:1)*2.0*acos(-1)/sz);
+		std::vector<MyComplex> b(sz),roots((sz>>1)+1,1);
+		rep(i,sz>>1)roots[i+1]=roots[i]*root;
+		for(int i=sz>>1,w=1;w<sz;i>>=1,w<<=1){
+			for(int j=0;j<i;j++){
+				for(int k=0;k<w;k++){
+					b[k+((w*j)<<1)]=a[k+w*j]+a[k+w*j+(sz>>1)];
+					b[k+((w*j)<<1)+w]=roots[w*j]*(a[k+w*j]-a[k+w*j+(sz>>1)]);
+				}
+			}
+			std::swap(a,b);
+		}
 	}
 public:
+	static bool inverse;
 	template<typename T>
 	static std::vector<double> multiply(std::vector<T> f, std::vector<T> g) {
 		if(f.size()<g.size())std::swap(f,g);
@@ -284,15 +319,17 @@ public:
 			nf[i] = f[i];
 			if(i<g.size())ng[i] = g[i];
 		}
-		dft(nf, 1);
-		dft(ng, 1);
+		inverse=false;
+		dft(nf);dft(ng);
 		rep(i, sz)nf[i] *= ng[i];
-		dft(nf, -1);
+		inverse=true;
+		dft(nf);
 		std::vector<double> res(sz);
 		rep(i, sz)res[i]=nf[i].real() / sz;
 		return res;
 	}
 };
+bool FastFourierTransform::inverse=false;
 
 ```
 {% endraw %}
