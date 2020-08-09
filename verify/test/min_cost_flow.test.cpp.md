@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/min_cost_flow.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 23:42:44+09:00
+    - Last commit date: 2020-08-09 16:53:29+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B</a>
@@ -72,7 +72,7 @@ int main(){
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
-#pragma target("avx")
+#pragma target("avx2")
 #pragma optimize("O3")
 #pragma optimize("unroll-loops")
 #include <algorithm>

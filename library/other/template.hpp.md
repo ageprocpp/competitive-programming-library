@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#795f3202b17cb6bc3d4b771d8c6c9eaf">other</a>
 * <a href="{{ site.github.repository_url }}/blob/master/other/template.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 23:42:44+09:00
+    - Last commit date: 2020-08-09 16:53:29+09:00
 
 
 
@@ -82,7 +82,7 @@ layout: default
 ```cpp
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-#pragma target("avx")
+#pragma target("avx2")
 #pragma optimize("O3")
 #pragma optimize("unroll-loops")
 #include <algorithm>
@@ -202,7 +202,7 @@ void printArray(T l, T r) {
 ```cpp
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
-#pragma target("avx")
+#pragma target("avx2")
 #pragma optimize("O3")
 #pragma optimize("unroll-loops")
 #include <algorithm>

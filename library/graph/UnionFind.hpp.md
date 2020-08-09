@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/UnionFind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-07 23:42:44+09:00
+    - Last commit date: 2020-08-09 16:53:29+09:00
 
 
 
@@ -55,10 +55,10 @@ layout: default
 #include "../other/template.hpp"
 class UnionFind {
 protected:
-	std::vector<int> par, rank, size;
+	std::vector<int> par, size;
 public:
 	UnionFind(unsigned int size) {
-		par.resize(size); rank.resize(size, 0); this->size.resize(size, 1);
+		par.resize(size); this->size.resize(size, 1);
 		rep(i, size) {
 			par[i] = i;
 		}
@@ -71,15 +71,10 @@ public:
 		n = find(n);
 		m = find(m);
 		if (n == m)return;
-		if (rank[n] < rank[m]) {
-			par[n] = m;
-			size[m] += size[n];
-		}
-		else {
-			par[m] = n;
-			size[n] += size[m];
-			if (rank[n] == rank[m])rank[n]++;
-		}
+		int a=n,b=m;
+		if(size[a]>size[b])std::swap(a,b);
+		par[a] = b;
+		size[b] += size[a];
 	}
 	bool same(int n, int m) {
 		return find(n) == find(m);
@@ -96,7 +91,7 @@ public:
 ```cpp
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
-#pragma target("avx")
+#pragma target("avx2")
 #pragma optimize("O3")
 #pragma optimize("unroll-loops")
 #include <algorithm>
@@ -211,10 +206,10 @@ void printArray(T l, T r) {
 #line 3 "graph/UnionFind.hpp"
 class UnionFind {
 protected:
-	std::vector<int> par, rank, size;
+	std::vector<int> par, size;
 public:
 	UnionFind(unsigned int size) {
-		par.resize(size); rank.resize(size, 0); this->size.resize(size, 1);
+		par.resize(size); this->size.resize(size, 1);
 		rep(i, size) {
 			par[i] = i;
 		}
@@ -227,15 +222,10 @@ public:
 		n = find(n);
 		m = find(m);
 		if (n == m)return;
-		if (rank[n] < rank[m]) {
-			par[n] = m;
-			size[m] += size[n];
-		}
-		else {
-			par[m] = n;
-			size[n] += size[m];
-			if (rank[n] == rank[m])rank[n]++;
-		}
+		int a=n,b=m;
+		if(size[a]>size[b])std::swap(a,b);
+		par[a] = b;
+		size[b] += size[a];
 	}
 	bool same(int n, int m) {
 		return find(n) == find(m);
