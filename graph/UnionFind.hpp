@@ -2,10 +2,10 @@
 #include "../other/template.hpp"
 class UnionFind {
 protected:
-	std::vector<int> par, rank, size;
+	std::vector<int> par, size;
 public:
 	UnionFind(unsigned int size) {
-		par.resize(size); rank.resize(size, 0); this->size.resize(size, 1);
+		par.resize(size); this->size.resize(size, 1);
 		rep(i, size) {
 			par[i] = i;
 		}
@@ -18,15 +18,10 @@ public:
 		n = find(n);
 		m = find(m);
 		if (n == m)return;
-		if (rank[n] < rank[m]) {
-			par[n] = m;
-			size[m] += size[n];
-		}
-		else {
-			par[m] = n;
-			size[n] += size[m];
-			if (rank[n] == rank[m])rank[n]++;
-		}
+		int a=n,b=m;
+		if(size[a]>size[b])std::swap(a,b);
+		par[a] = b;
+		size[b] += size[a];
 	}
 	bool same(int n, int m) {
 		return find(n) == find(m);

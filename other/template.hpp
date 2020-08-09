@@ -1,6 +1,6 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-#pragma target("avx")
+#pragma target("avx2")
 #pragma optimize("O3")
 #pragma optimize("unroll-loops")
 #include <algorithm>
