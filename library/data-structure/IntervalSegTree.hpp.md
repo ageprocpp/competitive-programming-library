@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/IntervalSegTree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-09 16:53:29+09:00
+    - Last commit date: 2020-08-09 19:03:27+09:00
 
 
 
@@ -143,7 +143,7 @@ public:
 	T query(int l, int r) {
 		l += n; r += n;
 		eval(l); eval(r - 1);
-		int ls = nodee, rs = nodee;
+		T ls = nodee, rs = nodee;
 		while (l < r) {
 			if (l & 1) {
 				ls = nodef(ls, node[l]);
@@ -524,7 +524,7 @@ public:
 	T query(int l, int r) {
 		l += n; r += n;
 		eval(l); eval(r - 1);
-		int ls = nodee, rs = nodee;
+		T ls = nodee, rs = nodee;
 		while (l < r) {
 			if (l & 1) {
 				ls = nodef(ls, node[l]);

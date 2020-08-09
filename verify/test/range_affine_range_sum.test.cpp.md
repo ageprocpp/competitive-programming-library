@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/range_affine_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-09 16:53:29+09:00
+    - Last commit date: 2020-08-09 19:03:27+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
@@ -437,7 +437,7 @@ public:
 	T query(int l, int r) {
 		l += n; r += n;
 		eval(l); eval(r - 1);
-		int ls = nodee, rs = nodee;
+		T ls = nodee, rs = nodee;
 		while (l < r) {
 			if (l & 1) {
 				ls = nodef(ls, node[l]);
