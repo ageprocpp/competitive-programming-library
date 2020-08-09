@@ -25,34 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: algebraic/ModInt.hpp
+# :warning: string/RollingHash.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
-* <a href="{{ site.github.repository_url }}/blob/master/algebraic/ModInt.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-09 16:53:29+09:00
+* category: <a href="../../index.html#b45cffe084dd3d20d928bee85e7b0f21">string</a>
+* <a href="{{ site.github.repository_url }}/blob/master/string/RollingHash.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-10 00:40:08+09:00
 
 
 
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
-
-
-## Required by
-
-* :warning: <a href="LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :heavy_check_mark: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
-* :warning: <a href="../string/RollingHash.hpp.html">string/RollingHash.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 
 
 ## Code
@@ -60,65 +47,48 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
 #include "../other/template.hpp"
-class ModInt {
-	lint value;
+#include "../algebraic/ModInt.hpp"
+class RollingHash {
+	std::string s;
+	int n,base;
+	std::vector<ModInt> has, power;
 public:
-	static const unsigned int modulo;
-	ModInt() : value(0) {}
-	template<typename T>
-	ModInt(T value = 0) : value(value) {
-		if (value < 0)value = -(lint)(-value % modulo) + modulo;
-		this->value = value % modulo;
+	RollingHash(std::string s, int b) : n(s.size()), base(b) { init(s, b); }
+	void init(std::string s, int b) {
+		n = s.size();
+		has.resize(n);
+		power.resize(n);
+		base = ModInt(b);
+		this->s = s;
+		rep(i, n) {
+			has[i] = ModInt(s[i]);
+			if (i) {
+				has[i] += has[i - 1]*base;
+				power[i] = power[i - 1] * base;
+			}
+			else power[i] = 1;
+		}
 	}
-	inline ModInt inv()const{return mypow(*this,modulo-2);}
-	inline operator int()const { return value; }
-	inline ModInt& operator+=(const ModInt& x) {
-		value += x.value;
-		if (value >= modulo)value -= modulo;
+	operator int() const {
+		return has.back();
+	}
+	ModInt query(int a, int b)const{
+		return has[b - 1] - power[b - a] * (!a ? ModInt(0) : has[a - 1]);
+	}
+	RollingHash& operator+=(std::string t) {
+		s += t;
+		has.resize(n + t.size());
+		power.resize(n + t.size());
+		for (int i = n; i < n + t.size(); i++) {
+			has[i] = ModInt(t[i] * base);
+			has[i] += has[i - 1]*base;
+			power[i] = power[i - 1] * base;
+		}
+		n += t.size();
 		return *this;
 	}
-	inline ModInt& operator++() {
-		if (value == modulo - 1)value = 0;
-		else value++;
-		return *this;
-	}
-	inline ModInt operator-()const {
-		return ModInt(0) -= *this;
-	}
-	inline ModInt& operator-=(const ModInt& x) {
-		value -= x.value;
-		if (value < 0)value += modulo;
-		return *this;
-	}
-	inline ModInt& operator--() {
-		if (value == 0)value = modulo - 1;
-		else value--;
-		return *this;
-	}
-	inline ModInt& operator*=(const ModInt& x) {
-		value = value * x.value % modulo;
-		return *this;
-	}
-	inline ModInt& operator/=(const ModInt& rhs) {
-		return *this*=rhs.inv();
-	}
-	template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
-	template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }
-	template<typename T> ModInt operator-(const T& rhs)const { return ModInt(*this) -= rhs; }
-	template<typename T> ModInt& operator-=(const T& rhs) { return operator-=(ModInt(rhs)); }
-	template<typename T> ModInt operator*(const T& rhs)const { return ModInt(*this) *= rhs; }
-	template<typename T> ModInt& operator*=(const T& rhs) { return operator*=(ModInt(rhs)); }
-	template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
-	template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
 };
-std::istream& operator>>(std::istream& ist, ModInt& x) {
-	lint a;
-	ist >> a;
-	x = a;
-	return ist;
-}
 ```
 {% endraw %}
 
@@ -297,6 +267,47 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 	x = a;
 	return ist;
 }
+#line 3 "string/RollingHash.hpp"
+class RollingHash {
+	std::string s;
+	int n,base;
+	std::vector<ModInt> has, power;
+public:
+	RollingHash(std::string s, int b) : n(s.size()), base(b) { init(s, b); }
+	void init(std::string s, int b) {
+		n = s.size();
+		has.resize(n);
+		power.resize(n);
+		base = ModInt(b);
+		this->s = s;
+		rep(i, n) {
+			has[i] = ModInt(s[i]);
+			if (i) {
+				has[i] += has[i - 1]*base;
+				power[i] = power[i - 1] * base;
+			}
+			else power[i] = 1;
+		}
+	}
+	operator int() const {
+		return has.back();
+	}
+	ModInt query(int a, int b)const{
+		return has[b - 1] - power[b - a] * (!a ? ModInt(0) : has[a - 1]);
+	}
+	RollingHash& operator+=(std::string t) {
+		s += t;
+		has.resize(n + t.size());
+		power.resize(n + t.size());
+		for (int i = n; i < n + t.size(); i++) {
+			has[i] = ModInt(t[i] * base);
+			has[i] += has[i - 1]*base;
+			power[i] = power[i - 1] * base;
+		}
+		n += t.size();
+		return *this;
+	}
+};
 
 ```
 {% endraw %}
