@@ -89,7 +89,7 @@ public:
 	T query(int l, int r) {
 		l += n; r += n;
 		eval(l); eval(r - 1);
-		int ls = nodee, rs = nodee;
+		T ls = nodee, rs = nodee;
 		while (l < r) {
 			if (l & 1) {
 				ls = nodef(ls, node[l]);
