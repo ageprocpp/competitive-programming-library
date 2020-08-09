@@ -79,7 +79,7 @@ layout: default
 
 ### string
 
-* :warning: <a href="library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
+* :heavy_check_mark: <a href="library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
 
 
 ## Verify Files
@@ -96,6 +96,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/range_chmin_chmax_add_range_sum.test.cpp.html">test/range_chmin_chmax_add_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/range_kth_smallest.test.cpp.html">test/range_kth_smallest.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>

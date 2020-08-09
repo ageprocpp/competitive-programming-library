@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: string/RollingHash.hpp
+# :heavy_check_mark: string/RollingHash.hpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -40,6 +40,11 @@ layout: default
 
 * :heavy_check_mark: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
 
 
 ## Code
