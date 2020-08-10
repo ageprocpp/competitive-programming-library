@@ -2,7 +2,6 @@
 #include "../other/template.hpp"
 #include "../algebraic/ModInt.hpp"
 #include "../data-structure/IntervalSegTree.hpp"
-const unsigned int ModInt::modulo=998244353;
 class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
@@ -16,6 +15,7 @@ public:
 int n,q;
 std::vector<ModInt> vec;
 int main(){
+	ModInt::setMod(998244353);
 	std::cin>>n>>q;
 	vec.resize(n);
 	rep(i,n){

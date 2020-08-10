@@ -2,7 +2,6 @@
 #include "../other/template.hpp"
 #include "../algebraic/ModInt.hpp"
 #include "../data-structure/SegTree.hpp"
-const unsigned int ModInt::modulo=998244353;
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
@@ -11,6 +10,7 @@ public:
 };
 lint n,q;
 int main(){
+	ModInt::setMod(998244353);
 	std::cin>>n>>q;
 	MySeg st(n);
 	rep(i,n){
