@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/range_kth_smallest.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-10 19:15:37+09:00
+    - Last commit date: 2020-08-11 01:33:36+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_kth_smallest">https://judge.yosupo.jp/problem/range_kth_smallest</a>
@@ -199,6 +199,12 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint tmp=(b2-b1)*p%m2;
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
+}
+template<typename F>
+inline constexpr decltype(auto) lambda_fix(F&& f){
+	return [f=std::forward<F>(f)](auto&&... args){
+		return f(f,std::forward<decltype(args)>(args)...);
+	};
 }
 #line 3 "data-structure/WaveletMatrix.hpp"
 class WaveletMatrix{
