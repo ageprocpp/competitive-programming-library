@@ -3,13 +3,14 @@
 class ModInt {
 	lint value;
 public:
-	static const unsigned int modulo;
+	static unsigned int modulo;
 	ModInt() : value(0) {}
 	template<typename T>
 	ModInt(T value = 0) : value(value) {
 		if (value < 0)value = -(lint)(-value % modulo) + modulo;
 		this->value = value % modulo;
 	}
+	static inline void setMod(const unsigned int& mod){modulo=mod;}
 	inline ModInt inv()const{return mypow(*this,modulo-2);}
 	inline operator int()const { return value; }
 	inline ModInt& operator+=(const ModInt& x) {
@@ -51,6 +52,7 @@ public:
 	template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
 	template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
 };
+unsigned int ModInt::modulo=1000000007;
 std::istream& operator>>(std::istream& ist, ModInt& x) {
 	lint a;
 	ist >> a;

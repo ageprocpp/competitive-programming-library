@@ -4,10 +4,9 @@ class MyComplex{
 	double realvalue, imagvalue;
 public:
 	MyComplex() :realvalue(0), imagvalue(0) {}
-	MyComplex(const double& realvalue, const double& imagvalue) : realvalue(realvalue), imagvalue(imagvalue) {}
-	MyComplex(const double& realvalue) : realvalue(realvalue), imagvalue(0) {}
-	MyComplex(const std::complex<double>& c) :realvalue(c.real()), imagvalue(c.imag()) {}
-	MyComplex(const MyComplex& rhs) :realvalue(rhs.realvalue), imagvalue(rhs.imagvalue) {}
+	template<typename T,typename U>MyComplex(const T& realvalue, const U& imagvalue) : realvalue(realvalue), imagvalue(imagvalue) {}
+	template<typename T>MyComplex(const T& realvalue) : realvalue(realvalue), imagvalue(0) {}
+	template<typename T>MyComplex(const std::complex<T>& c) :realvalue(c.real()), imagvalue(c.imag()) {}
 	double& real(){ return this->realvalue; }
 	double& imag(){ return this->imagvalue; }
 	double abs()const{ return hypot(realvalue, imagvalue); }

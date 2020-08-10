@@ -90,9 +90,9 @@ lint modpow(lint a, lint b, lint m) {
 	lint res(1);
 	while(b){
 		if(b&1){
-			res*=a;res/=m;
+			res*=a;res%=m;
 		}
-		a*=a;a/=m;
+		a*=a;a%=m;
 		b>>=1;
 	}
 	return res;
@@ -111,4 +111,18 @@ void printArray(T l, T r) {
 		std::cout << *i << " ";
 	}
 	std::cout << *rprev << std::endl;
+}
+LP extGcd(lint a,lint b) {
+	if(b==0)return {1,0};
+	LP s=extGcd(b,a%b);
+	std::swap(s.first,s.second);
+	s.second-=a/b*s.first;
+	return s;
+}
+LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
+	LP sol=extGcd(m1,m2);
+	lint p=sol.first,q=sol.second;
+	lint tmp=(b2-b1)*p%m2;
+	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
+	return std::make_pair(r,m1*m2);
 }
