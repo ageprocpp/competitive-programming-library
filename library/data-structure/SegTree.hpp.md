@@ -25,31 +25,31 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data-structure/SegTree.hpp
+# :x: data-structure/SegTree.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/SegTree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-09 16:53:29+09:00
+    - Last commit date: 2020-08-10 19:15:37+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
 
-* :heavy_check_mark: <a href="IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
+* :x: <a href="IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
+* :x: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
+* :x: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 
 
 ## Code
@@ -234,9 +234,9 @@ lint modpow(lint a, lint b, lint m) {
 	lint res(1);
 	while(b){
 		if(b&1){
-			res*=a;res/=m;
+			res*=a;res%=m;
 		}
-		a*=a;a/=m;
+		a*=a;a%=m;
 		b>>=1;
 	}
 	return res;
@@ -255,6 +255,20 @@ void printArray(T l, T r) {
 		std::cout << *i << " ";
 	}
 	std::cout << *rprev << std::endl;
+}
+LP extGcd(lint a,lint b) {
+	if(b==0)return {1,0};
+	LP s=extGcd(b,a%b);
+	std::swap(s.first,s.second);
+	s.second-=a/b*s.first;
+	return s;
+}
+LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
+	LP sol=extGcd(m1,m2);
+	lint p=sol.first,q=sol.second;
+	lint tmp=(b2-b1)*p%m2;
+	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
+	return std::make_pair(r,m1*m2);
 }
 #line 3 "data-structure/SegTree.hpp"
 template<typename T>

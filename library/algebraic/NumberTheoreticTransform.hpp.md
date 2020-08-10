@@ -25,26 +25,26 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: algebraic/NumberTheoreticTransform.hpp
+# :x: algebraic/NumberTheoreticTransform.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/NumberTheoreticTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-09 16:53:29+09:00
+    - Last commit date: 2020-08-10 19:15:37+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :x: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
+* :x: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
 
 
 ## Code
@@ -55,21 +55,20 @@ layout: default
 #pragma once
 #include "../other/template.hpp"
 #include "ModInt.hpp"
-//167772161,3,2^25
-//469762049,3,2^26
+//1012924417,5,2^21
 //924844033,5,2^21
 //998244353,3,2^23
-//1012924417,5
-//1224736769,3
-const unsigned int ModInt::modulo=998244353;
+//1224736769,3,2^24
+//167772161,3,2^25
+//469762049,3,2^26
 class NumberTheoreticTransform{
 private:
 	static void ntt(std::vector<ModInt>& a){
 		int sz=a.size();
 		if(sz==1)return;
-		ModInt root;
-		if(inverse)root=mypow(ModInt(3),ModInt::modulo-1-(ModInt::modulo-1)/sz);
-		else root=mypow(ModInt(3),(ModInt::modulo-1)/sz);
+		ModInt root=ModInt::modulo==924844033||ModInt::modulo==1012924417?5:3;
+		if(inverse)root=mypow(root,ModInt::modulo-1-(ModInt::modulo-1)/sz);
+		else root=mypow(root,(ModInt::modulo-1)/sz);
 		std::vector<ModInt> b(sz),roots((sz>>1)+1,1);
 		rep(i,sz>>1)roots[i+1]=roots[i]*root;
 		for(int i=sz>>1,w=1;w<sz;i>>=1,w<<=1){
@@ -85,7 +84,9 @@ private:
 public:
 	static bool inverse;
 	template<typename T>
-	static std::vector<ModInt> multiply(std::vector<T> f, std::vector<T> g) {
+	static std::vector<ModInt> multiply(std::vector<T> f, std::vector<T> g, const unsigned int& mod) {
+		unsigned int beforeMod=ModInt::modulo;
+		ModInt::setMod(mod);
 		if(f.size()<g.size())std::swap(f,g);
 		std::vector<ModInt> nf, ng;
 		int sz=1;
@@ -102,7 +103,17 @@ public:
 		ntt(nf);
 		ModInt szinv=ModInt(sz).inv();
 		rep(i,sz)nf[i]*=szinv;
+		ModInt::setMod(beforeMod);
 		return nf;
+	}
+	template<typename T>
+	static std::vector<lint> multiply_plain(std::vector<T> f,std::vector<T> g){
+		const unsigned int mod1=998244353,mod2=1224736769;
+		std::vector<ModInt> mul1=multiply(f,g,mod1);
+		std::vector<ModInt> mul2=multiply(f,g,mod2);
+		std::vector<lint> res(mul1.size());
+		rep(i,mul1.size())res[i]=ChineseRem(mul1[i],mod1,mul2[i],mod2).first;
+		return res;
 	}
 };
 bool NumberTheoreticTransform::inverse=false;
@@ -204,9 +215,9 @@ lint modpow(lint a, lint b, lint m) {
 	lint res(1);
 	while(b){
 		if(b&1){
-			res*=a;res/=m;
+			res*=a;res%=m;
 		}
-		a*=a;a/=m;
+		a*=a;a%=m;
 		b>>=1;
 	}
 	return res;
@@ -226,17 +237,32 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
+LP extGcd(lint a,lint b) {
+	if(b==0)return {1,0};
+	LP s=extGcd(b,a%b);
+	std::swap(s.first,s.second);
+	s.second-=a/b*s.first;
+	return s;
+}
+LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
+	LP sol=extGcd(m1,m2);
+	lint p=sol.first,q=sol.second;
+	lint tmp=(b2-b1)*p%m2;
+	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
+	return std::make_pair(r,m1*m2);
+}
 #line 3 "algebraic/ModInt.hpp"
 class ModInt {
 	lint value;
 public:
-	static const unsigned int modulo;
+	static unsigned int modulo;
 	ModInt() : value(0) {}
 	template<typename T>
 	ModInt(T value = 0) : value(value) {
 		if (value < 0)value = -(lint)(-value % modulo) + modulo;
 		this->value = value % modulo;
 	}
+	static inline void setMod(const unsigned int& mod){modulo=mod;}
 	inline ModInt inv()const{return mypow(*this,modulo-2);}
 	inline operator int()const { return value; }
 	inline ModInt& operator+=(const ModInt& x) {
@@ -278,6 +304,7 @@ public:
 	template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
 	template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
 };
+unsigned int ModInt::modulo=1000000007;
 std::istream& operator>>(std::istream& ist, ModInt& x) {
 	lint a;
 	ist >> a;
@@ -285,21 +312,20 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 	return ist;
 }
 #line 4 "algebraic/NumberTheoreticTransform.hpp"
-//167772161,3,2^25
-//469762049,3,2^26
+//1012924417,5,2^21
 //924844033,5,2^21
 //998244353,3,2^23
-//1012924417,5
-//1224736769,3
-const unsigned int ModInt::modulo=998244353;
+//1224736769,3,2^24
+//167772161,3,2^25
+//469762049,3,2^26
 class NumberTheoreticTransform{
 private:
 	static void ntt(std::vector<ModInt>& a){
 		int sz=a.size();
 		if(sz==1)return;
-		ModInt root;
-		if(inverse)root=mypow(ModInt(3),ModInt::modulo-1-(ModInt::modulo-1)/sz);
-		else root=mypow(ModInt(3),(ModInt::modulo-1)/sz);
+		ModInt root=ModInt::modulo==924844033||ModInt::modulo==1012924417?5:3;
+		if(inverse)root=mypow(root,ModInt::modulo-1-(ModInt::modulo-1)/sz);
+		else root=mypow(root,(ModInt::modulo-1)/sz);
 		std::vector<ModInt> b(sz),roots((sz>>1)+1,1);
 		rep(i,sz>>1)roots[i+1]=roots[i]*root;
 		for(int i=sz>>1,w=1;w<sz;i>>=1,w<<=1){
@@ -315,7 +341,9 @@ private:
 public:
 	static bool inverse;
 	template<typename T>
-	static std::vector<ModInt> multiply(std::vector<T> f, std::vector<T> g) {
+	static std::vector<ModInt> multiply(std::vector<T> f, std::vector<T> g, const unsigned int& mod) {
+		unsigned int beforeMod=ModInt::modulo;
+		ModInt::setMod(mod);
 		if(f.size()<g.size())std::swap(f,g);
 		std::vector<ModInt> nf, ng;
 		int sz=1;
@@ -332,7 +360,17 @@ public:
 		ntt(nf);
 		ModInt szinv=ModInt(sz).inv();
 		rep(i,sz)nf[i]*=szinv;
+		ModInt::setMod(beforeMod);
 		return nf;
+	}
+	template<typename T>
+	static std::vector<lint> multiply_plain(std::vector<T> f,std::vector<T> g){
+		const unsigned int mod1=998244353,mod2=1224736769;
+		std::vector<ModInt> mul1=multiply(f,g,mod1);
+		std::vector<ModInt> mul2=multiply(f,g,mod2);
+		std::vector<lint> res(mul1.size());
+		rep(i,mul1.size())res[i]=ChineseRem(mul1[i],mod1,mul2[i],mod2).first;
+		return res;
 	}
 };
 bool NumberTheoreticTransform::inverse=false;

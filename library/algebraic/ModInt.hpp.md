@@ -25,35 +25,35 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: algebraic/ModInt.hpp
+# :x: algebraic/ModInt.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/ModInt.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-09 16:53:29+09:00
+    - Last commit date: 2020-08-10 19:15:37+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
 
 * :warning: <a href="LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :heavy_check_mark: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
-* :heavy_check_mark: <a href="../string/RollingHash.hpp.html">string/RollingHash.hpp</a>
+* :x: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :x: <a href="../string/RollingHash.hpp.html">string/RollingHash.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
+* :x: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
+* :x: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
+* :x: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
+* :x: <a href="../../verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
 
 
 ## Code
@@ -66,13 +66,14 @@ layout: default
 class ModInt {
 	lint value;
 public:
-	static const unsigned int modulo;
+	static unsigned int modulo;
 	ModInt() : value(0) {}
 	template<typename T>
 	ModInt(T value = 0) : value(value) {
 		if (value < 0)value = -(lint)(-value % modulo) + modulo;
 		this->value = value % modulo;
 	}
+	static inline void setMod(const unsigned int& mod){modulo=mod;}
 	inline ModInt inv()const{return mypow(*this,modulo-2);}
 	inline operator int()const { return value; }
 	inline ModInt& operator+=(const ModInt& x) {
@@ -114,6 +115,7 @@ public:
 	template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
 	template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
 };
+unsigned int ModInt::modulo=1000000007;
 std::istream& operator>>(std::istream& ist, ModInt& x) {
 	lint a;
 	ist >> a;
@@ -218,9 +220,9 @@ lint modpow(lint a, lint b, lint m) {
 	lint res(1);
 	while(b){
 		if(b&1){
-			res*=a;res/=m;
+			res*=a;res%=m;
 		}
-		a*=a;a/=m;
+		a*=a;a%=m;
 		b>>=1;
 	}
 	return res;
@@ -240,17 +242,32 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
+LP extGcd(lint a,lint b) {
+	if(b==0)return {1,0};
+	LP s=extGcd(b,a%b);
+	std::swap(s.first,s.second);
+	s.second-=a/b*s.first;
+	return s;
+}
+LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
+	LP sol=extGcd(m1,m2);
+	lint p=sol.first,q=sol.second;
+	lint tmp=(b2-b1)*p%m2;
+	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
+	return std::make_pair(r,m1*m2);
+}
 #line 3 "algebraic/ModInt.hpp"
 class ModInt {
 	lint value;
 public:
-	static const unsigned int modulo;
+	static unsigned int modulo;
 	ModInt() : value(0) {}
 	template<typename T>
 	ModInt(T value = 0) : value(value) {
 		if (value < 0)value = -(lint)(-value % modulo) + modulo;
 		this->value = value % modulo;
 	}
+	static inline void setMod(const unsigned int& mod){modulo=mod;}
 	inline ModInt inv()const{return mypow(*this,modulo-2);}
 	inline operator int()const { return value; }
 	inline ModInt& operator+=(const ModInt& x) {
@@ -292,6 +309,7 @@ public:
 	template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
 	template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
 };
+unsigned int ModInt::modulo=1000000007;
 std::istream& operator>>(std::istream& ist, ModInt& x) {
 	lint a;
 	ist >> a;

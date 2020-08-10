@@ -40,9 +40,9 @@ layout: default
 
 * :warning: <a href="library/algebraic/FastFourierTransform.hpp.html">algebraic/FastFourierTransform.hpp</a>
 * :warning: <a href="library/algebraic/LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :heavy_check_mark: <a href="library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :x: <a href="library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :warning: <a href="library/algebraic/MyComplex.hpp.html">algebraic/MyComplex.hpp</a>
-* :heavy_check_mark: <a href="library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :x: <a href="library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
 
 
 <div id="36397fe12f935090ad150c6ce0c258d4"></div>
@@ -50,9 +50,9 @@ layout: default
 ### data-structure
 
 * :heavy_check_mark: <a href="library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :heavy_check_mark: <a href="library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
+* :x: <a href="library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
-* :heavy_check_mark: <a href="library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :x: <a href="library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
@@ -72,31 +72,31 @@ layout: default
 
 ### other
 
-* :heavy_check_mark: <a href="library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="library/other/template.hpp.html">other/template.hpp</a>
 
 
 <div id="b45cffe084dd3d20d928bee85e7b0f21"></div>
 
 ### string
 
-* :heavy_check_mark: <a href="library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
+* :x: <a href="library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
 
 
 ## Verify Files
 
 * :heavy_check_mark: <a href="verify/test/aplusb.test.cpp.html">test/aplusb.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/associative_array.test.cpp.html">test/associative_array.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
+* :x: <a href="verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/many_aplusb.test.cpp.html">test/many_aplusb.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/maximum_flow_ford_fulkerson.test.cpp.html">test/maximum_flow_ford_fulkerson.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/min_cost_flow.test.cpp.html">test/min_cost_flow.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
+* :x: <a href="verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
+* :x: <a href="verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/range_chmin_chmax_add_range_sum.test.cpp.html">test/range_chmin_chmax_add_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/range_kth_smallest.test.cpp.html">test/range_kth_smallest.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
+* :x: <a href="verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>

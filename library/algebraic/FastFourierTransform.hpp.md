@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/FastFourierTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-09 16:53:29+09:00
+    - Last commit date: 2020-08-10 19:15:37+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="MyComplex.hpp.html">algebraic/MyComplex.hpp</a>
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -52,21 +52,6 @@ layout: default
 #include "MyComplex.hpp"
 class FastFourierTransform {
 private:
-	/*static void dft(std::vector<MyComplex>& poly, const int& inverse) {
-		int sz = poly.size();
-		if (sz == 1)return;
-		std::vector<MyComplex> veca, vecb;
-		rep(i, sz>>1) {
-			veca[i]=poly[i<<1];
-			vecb[i]=poly[i<<1|1];
-		}
-		dft(veca, inverse); dft(vecb, inverse);
-		MyComplex now = 1, zeta = std::polar(1.0, inverse * 2.0 * acos(-1) / sz);
-		rep(i, sz) {
-			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
-			now *= zeta;
-		}
-	}*/
 	static void dft(std::vector<MyComplex>& a){
 		int sz=a.size();
 		if(sz==1)return;
@@ -205,9 +190,9 @@ lint modpow(lint a, lint b, lint m) {
 	lint res(1);
 	while(b){
 		if(b&1){
-			res*=a;res/=m;
+			res*=a;res%=m;
 		}
-		a*=a;a/=m;
+		a*=a;a%=m;
 		b>>=1;
 	}
 	return res;
@@ -227,15 +212,28 @@ void printArray(T l, T r) {
 	}
 	std::cout << *rprev << std::endl;
 }
+LP extGcd(lint a,lint b) {
+	if(b==0)return {1,0};
+	LP s=extGcd(b,a%b);
+	std::swap(s.first,s.second);
+	s.second-=a/b*s.first;
+	return s;
+}
+LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
+	LP sol=extGcd(m1,m2);
+	lint p=sol.first,q=sol.second;
+	lint tmp=(b2-b1)*p%m2;
+	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
+	return std::make_pair(r,m1*m2);
+}
 #line 3 "algebraic/MyComplex.hpp"
 class MyComplex{
 	double realvalue, imagvalue;
 public:
 	MyComplex() :realvalue(0), imagvalue(0) {}
-	MyComplex(const double& realvalue, const double& imagvalue) : realvalue(realvalue), imagvalue(imagvalue) {}
-	MyComplex(const double& realvalue) : realvalue(realvalue), imagvalue(0) {}
-	MyComplex(const std::complex<double>& c) :realvalue(c.real()), imagvalue(c.imag()) {}
-	MyComplex(const MyComplex& rhs) :realvalue(rhs.realvalue), imagvalue(rhs.imagvalue) {}
+	template<typename T,typename U>MyComplex(const T& realvalue, const U& imagvalue) : realvalue(realvalue), imagvalue(imagvalue) {}
+	template<typename T>MyComplex(const T& realvalue) : realvalue(realvalue), imagvalue(0) {}
+	template<typename T>MyComplex(const std::complex<T>& c) :realvalue(c.real()), imagvalue(c.imag()) {}
 	double& real(){ return this->realvalue; }
 	double& imag(){ return this->imagvalue; }
 	double abs()const{ return hypot(realvalue, imagvalue); }
@@ -275,21 +273,6 @@ public:
 #line 4 "algebraic/FastFourierTransform.hpp"
 class FastFourierTransform {
 private:
-	/*static void dft(std::vector<MyComplex>& poly, const int& inverse) {
-		int sz = poly.size();
-		if (sz == 1)return;
-		std::vector<MyComplex> veca, vecb;
-		rep(i, sz>>1) {
-			veca[i]=poly[i<<1];
-			vecb[i]=poly[i<<1|1];
-		}
-		dft(veca, inverse); dft(vecb, inverse);
-		MyComplex now = 1, zeta = std::polar(1.0, inverse * 2.0 * acos(-1) / sz);
-		rep(i, sz) {
-			poly[i]=veca[i%(sz>>1)]+now*vecb[i%(sz>>1)];
-			now *= zeta;
-		}
-	}*/
 	static void dft(std::vector<MyComplex>& a){
 		int sz=a.size();
 		if(sz==1)return;
