@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: test/rolling_hash.test.cpp
+# :heavy_check_mark: test/rolling_hash.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/rolling_hash.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-10 19:15:37+09:00
+    - Last commit date: 2020-08-11 01:24:09+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B</a>
@@ -39,9 +39,9 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
-* :x: <a href="../../library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
+* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
 
 
 ## Code
@@ -52,9 +52,9 @@ layout: default
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B"
 #include "../other/template.hpp"
 #include "../string/RollingHash.hpp"
-const unsigned int ModInt::modulo=1000000007;
 std::string t,p;
 int main(){
+	ModInt::setMod(1000000007);
 	std::cin>>t>>p;
 	if(t.size()<p.size())return 0;
 	RollingHash rt1(t,1007),rt2(t,10007),rp1(p,1007),rp2(p,10007);
@@ -300,9 +300,9 @@ public:
 	}
 };
 #line 4 "test/rolling_hash.test.cpp"
-const unsigned int ModInt::modulo=1000000007;
 std::string t,p;
 int main(){
+	ModInt::setMod(1000000007);
 	std::cin>>t>>p;
 	if(t.size()<p.size())return 0;
 	RollingHash rt1(t,1007),rt2(t,10007),rp1(p,1007),rp2(p,10007);

@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: test/point_set_range_composite.test.cpp
+# :heavy_check_mark: test/point_set_range_composite.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/point_set_range_composite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-10 19:15:37+09:00
+    - Last commit date: 2020-08-11 01:24:09+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -39,9 +39,9 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :x: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -53,7 +53,6 @@ layout: default
 #include "../other/template.hpp"
 #include "../algebraic/ModInt.hpp"
 #include "../data-structure/SegTree.hpp"
-const unsigned int ModInt::modulo=998244353;
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
@@ -62,6 +61,7 @@ public:
 };
 lint n,q;
 int main(){
+	ModInt::setMod(998244353);
 	std::cin>>n>>q;
 	MySeg st(n);
 	rep(i,n){
@@ -361,7 +361,6 @@ public:
 	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {}
 };
 #line 5 "test/point_set_range_composite.test.cpp"
-const unsigned int ModInt::modulo=998244353;
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
@@ -370,6 +369,7 @@ public:
 };
 lint n,q;
 int main(){
+	ModInt::setMod(998244353);
 	std::cin>>n>>q;
 	MySeg st(n);
 	rep(i,n){

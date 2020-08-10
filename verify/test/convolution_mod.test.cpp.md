@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: test/convolution_mod.test.cpp
+# :heavy_check_mark: test/convolution_mod.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/convolution_mod.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-10 19:15:37+09:00
+    - Last commit date: 2020-08-11 01:24:09+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/convolution_mod">https://judge.yosupo.jp/problem/convolution_mod</a>
@@ -39,9 +39,9 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :x: <a href="../../library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../../library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -59,7 +59,7 @@ int main(){
 	a.resize(n);b.resize(m);
 	rep(i,n)scanf("%d",a.data()+i);
 	rep(i,m)scanf("%d",b.data()+i);
-	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b);
+	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b,998244353);
 	rep(i,n+m-1)std::cout<<c[i]<<(i==n+m?"\n":" ");
 }
 ```
@@ -329,7 +329,7 @@ int main(){
 	a.resize(n);b.resize(m);
 	rep(i,n)scanf("%d",a.data()+i);
 	rep(i,m)scanf("%d",b.data()+i);
-	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b);
+	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b,998244353);
 	rep(i,n+m-1)std::cout<<c[i]<<(i==n+m?"\n":" ");
 }
 

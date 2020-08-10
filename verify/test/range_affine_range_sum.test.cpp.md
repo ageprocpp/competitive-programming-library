@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: test/range_affine_range_sum.test.cpp
+# :heavy_check_mark: test/range_affine_range_sum.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/range_affine_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-10 19:15:37+09:00
+    - Last commit date: 2020-08-11 01:24:09+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
@@ -39,10 +39,10 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :x: <a href="../../library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
-* :x: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../../library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
+* :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -54,7 +54,6 @@ layout: default
 #include "../other/template.hpp"
 #include "../algebraic/ModInt.hpp"
 #include "../data-structure/IntervalSegTree.hpp"
-const unsigned int ModInt::modulo=998244353;
 class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
@@ -68,6 +67,7 @@ public:
 int n,q;
 std::vector<ModInt> vec;
 int main(){
+	ModInt::setMod(998244353);
 	std::cin>>n>>q;
 	vec.resize(n);
 	rep(i,n){
@@ -548,7 +548,6 @@ public:
 	}
 };
 #line 5 "test/range_affine_range_sum.test.cpp"
-const unsigned int ModInt::modulo=998244353;
 class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
@@ -562,6 +561,7 @@ public:
 int n,q;
 std::vector<ModInt> vec;
 int main(){
+	ModInt::setMod(998244353);
 	std::cin>>n>>q;
 	vec.resize(n);
 	rep(i,n){
