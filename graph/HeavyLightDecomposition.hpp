@@ -2,8 +2,6 @@
 #include "../other/template.hpp"
 class HeavyLightDecomposition{
 	int n,index=0;
-	std::vector<std::vector<int>> vec;
-	std::vector<int> size,par,head,label;
 	void size_dfs(int node){
 		size[node]=1;
 		for(int &i:vec[node]){
@@ -24,8 +22,10 @@ class HeavyLightDecomposition{
 		}
 	}
 public:
+	std::vector<std::vector<int>> vec;
+	std::vector<int> size,par,head,label;
 	HeavyLightDecomposition(){}
-	HeavyLightDecomposition(int n):n(n){
+	HeavyLightDecomposition(int m):n(m){
 		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
 	}
 	void add_edge(int u,int v){
@@ -45,7 +45,7 @@ public:
 				if(label[u]!=label[v])func(label[u]+1,label[v]);
 				return;
 			}
-			func(label[head[v]],v);
+			func(label[head[v]],label[v]);
 			v=par[head[v]];
 		}
 	}
@@ -57,7 +57,7 @@ public:
 				func(label[u],label[v]);
 				return;
 			}
-			func(label[head[v]],v);
+			func(label[head[v]],label[v]);
 			v=par[head[v]];
 		}
 	}
