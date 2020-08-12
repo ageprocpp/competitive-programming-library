@@ -120,8 +120,7 @@ LP extGcd(lint a,lint b) {
 	return s;
 }
 LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
-	LP sol=extGcd(m1,m2);
-	lint p=sol.first,q=sol.second;
+	lint p=extGcd(m1,m2).first;
 	lint tmp=(b2-b1)*p%m2;
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
