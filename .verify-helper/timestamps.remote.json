@@ -16,5 +16,6 @@
 "test/static_range_sum.test.cpp": "2020-08-12 15:09:52 +0900",
 "test/staticrmq.test.cpp": "2020-08-12 15:09:52 +0900",
 "test/unionfind.test.cpp": "2020-08-12 15:09:52 +0900",
-"test/vertex_add_path_sum.test.cpp": "2020-08-12 17:20:13 +0900"
+"test/vertex_add_path_sum.test.cpp": "2020-08-12 17:20:13 +0900",
+"test/vertex_set_path_composite.test.cpp": "2020-08-12 17:27:35 +0900"
 }
