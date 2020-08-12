@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :question: other/template.hpp
+# :heavy_check_mark: other/template.hpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -54,8 +54,9 @@ layout: default
 * :heavy_check_mark: <a href="../graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
 * :heavy_check_mark: <a href="../graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
 * :warning: <a href="../graph/PersistentUnionFind.hpp.html">graph/PersistentUnionFind.hpp</a>
-* :x: <a href="../graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
+* :heavy_check_mark: <a href="../graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
 * :heavy_check_mark: <a href="../string/RollingHash.hpp.html">string/RollingHash.hpp</a>
+* :warning: <a href="../test/vertex_set_path_composite.cpp.html">test/vertex_set_path_composite.cpp</a>
 
 
 ## Verified with
@@ -76,7 +77,8 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
-* :x: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
 
 
 ## Code

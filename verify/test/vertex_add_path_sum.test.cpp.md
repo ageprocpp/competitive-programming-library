@@ -25,31 +25,23 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: graph/HeavyLightDecomposition.hpp
+# :heavy_check_mark: test/vertex_add_path_sum.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/graph/HeavyLightDecomposition.hpp">View this file on GitHub</a>
+* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/vertex_add_path_sum.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-08-12 17:20:13+09:00
 
 
+* see: <a href="https://judge.yosupo.jp/problem/vertex_add_path_sum">https://judge.yosupo.jp/problem/vertex_add_path_sum</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
-
-
-## Required by
-
-* :warning: <a href="../test/vertex_set_path_composite.cpp.html">test/vertex_set_path_composite.cpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/lca.test.cpp.html">test/lca.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
+* :heavy_check_mark: <a href="../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -57,86 +49,50 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
+#define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
 #include "../other/template.hpp"
-class HeavyLightDecomposition{
-	int n,index=0;
-	void size_dfs(int node){
-		size[node]=1;
-		for(int &i:vec[node]){
-			if(par[node]==i)continue;
-			par[i]=node;
-			size_dfs(i);
-			size[node]+=size[i];
-			if(size[i]>size[vec[node][0]])std::swap(i,vec[node][0]);
+#include "../graph/HeavyLightDecomposition.hpp"
+#include "../data-structure/BIT.hpp"
+int n,q,a[500010];
+int main(){
+	std::cin>>n>>q;
+	rep(i,n)std::cin>>a[i];
+	HeavyLightDecomposition hld(n);
+	BIT bit(n);
+	rep(i,n-1){
+		int u,v;
+		std::cin>>u>>v;
+		hld.add_edge(u,v);
+	}
+	hld.build(0);
+	rep(i,n)bit.add(hld.label[i]+1,a[i]);
+	rep(i,q){
+		int type;
+		std::cin>>type;
+		if(type==0){
+			int p,x;
+			std::cin>>p>>x;
+			bit.add(hld.label[p]+1,x);
+		}
+		else{
+			int u,v;
+			std::cin>>u>>v;
+			lint ans=0;
+			hld.each_vertex(u,v,[&](int l,int r){
+				ans+=bit.query(r+1)-bit.query(l);
+			});
+			std::cout<<ans<<std::endl;
 		}
 	}
-	void build_dfs(int node){
-		label[node]=index++;
-		for(int& i:vec[node]){
-			if(par[node]!=i){
-				head[i]=(i==vec[node][0]?head[node]:i);
-				build_dfs(i);
-			}
-		}
-	}
-public:
-	std::vector<std::vector<int>> vec;
-	std::vector<int> size,par,head,label;
-	HeavyLightDecomposition(){}
-	HeavyLightDecomposition(int m):n(m){
-		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
-	}
-	void add_edge(int u,int v){
-		vec[u].emplace_back(v);
-		vec[v].emplace_back(u);
-	}
-	void build(int root){
-		std::fill(all(par),-1);
-		size_dfs(root);
-		build_dfs(root);
-	}
-	template<typename F>
-	void each_edge(int u,int v,const F &func)const{
-		while(true){
-			if(label[u]>label[v])std::swap(u,v);
-			if(head[u]==head[v]){
-				if(label[u]!=label[v])func(label[u]+1,label[v]);
-				return;
-			}
-			func(label[head[v]],label[v]);
-			v=par[head[v]];
-		}
-	}
-	template<typename F>
-	void each_vertex(int u,int v,const F& func)const{
-		while(true){
-			if(label[u]>label[v])std::swap(u,v);
-			if(head[u]==head[v]){
-				func(label[u],label[v]);
-				return;
-			}
-			func(label[head[v]],label[v]);
-			v=par[head[v]];
-		}
-	}
-	int lca(int u,int v)const{
-		while(true){
-			if(label[u]>label[v])std::swap(u,v);
-			if(head[u]==head[v])return u;
-			v=par[head[v]];
-		}
-	}
-	void clear(){
-		vec.clear();size.clear();par.clear();head.clear();label.clear();
-	}
-};
+}
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "test/vertex_add_path_sum.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -343,6 +299,89 @@ public:
 		vec.clear();size.clear();par.clear();head.clear();label.clear();
 	}
 };
+#line 3 "data-structure/BIT.hpp"
+class BIT {
+	int n;
+	std::vector<lint> bit;
+public:
+	BIT(int n) :n(n) {
+		bit.resize(n + 1);
+	}
+	void add(int a, lint x) {
+		while (a <= n) {
+			bit[a] += x;
+			a += a & -a;
+		}
+	}
+	lint query(int a) {
+		lint cnt = 0;
+		while (a > 0) {
+			cnt += bit[a];
+			a -= a & -a;
+		}
+		return cnt;
+	}
+	void clear() {
+		bit.assign(n + 1, 0);
+	}
+	int lower_bound(lint x){
+		int p=0,k=1;
+		while(k*2<=n)k*=2;
+		while(k>0){
+			if(p+k<=n&&bit[p+k]<x){
+				x-=bit[p+k];
+				p+=k;
+			}
+			k/=2;
+		}
+		return p+1;
+	}
+	int upper_bound(lint x){
+		int p=0,k=1;
+		while(k*2<=n)k*=2;
+		while(k>0){
+			if(p+k<=n&&bit[p+k]<=x){
+				x-=bit[p+k];
+				p+=k;
+			}
+			k/=2;
+		}
+		return p+1;
+	}
+};
+#line 5 "test/vertex_add_path_sum.test.cpp"
+int n,q,a[500010];
+int main(){
+	std::cin>>n>>q;
+	rep(i,n)std::cin>>a[i];
+	HeavyLightDecomposition hld(n);
+	BIT bit(n);
+	rep(i,n-1){
+		int u,v;
+		std::cin>>u>>v;
+		hld.add_edge(u,v);
+	}
+	hld.build(0);
+	rep(i,n)bit.add(hld.label[i]+1,a[i]);
+	rep(i,q){
+		int type;
+		std::cin>>type;
+		if(type==0){
+			int p,x;
+			std::cin>>p>>x;
+			bit.add(hld.label[p]+1,x);
+		}
+		else{
+			int u,v;
+			std::cin>>u>>v;
+			lint ans=0;
+			hld.each_vertex(u,v,[&](int l,int r){
+				ans+=bit.query(r+1)-bit.query(l);
+			});
+			std::cout<<ans<<std::endl;
+		}
+	}
+}
 
 ```
 {% endraw %}

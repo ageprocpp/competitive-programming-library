@@ -31,19 +31,20 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/BIT.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+    - Last commit date: 2020-08-12 17:20:13+09:00
 
 
 
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
 
 
 ## Code
@@ -57,7 +58,7 @@ class BIT {
 	int n;
 	std::vector<lint> bit;
 public:
-	BIT(unsigned int n) :n(n) {
+	BIT(int n) :n(n) {
 		bit.resize(n + 1);
 	}
 	void add(int a, lint x) {
@@ -77,7 +78,7 @@ public:
 	void clear() {
 		bit.assign(n + 1, 0);
 	}
-	unsigned int lower_bound(int x){
+	int lower_bound(lint x){
 		int p=0,k=1;
 		while(k*2<=n)k*=2;
 		while(k>0){
@@ -89,7 +90,7 @@ public:
 		}
 		return p+1;
 	}
-	unsigned int upper_bound(int x){
+	int upper_bound(lint x){
 		int p=0,k=1;
 		while(k*2<=n)k*=2;
 		while(k>0){
@@ -246,7 +247,7 @@ class BIT {
 	int n;
 	std::vector<lint> bit;
 public:
-	BIT(unsigned int n) :n(n) {
+	BIT(int n) :n(n) {
 		bit.resize(n + 1);
 	}
 	void add(int a, lint x) {
@@ -266,7 +267,7 @@ public:
 	void clear() {
 		bit.assign(n + 1, 0);
 	}
-	unsigned int lower_bound(int x){
+	int lower_bound(lint x){
 		int p=0,k=1;
 		while(k*2<=n)k*=2;
 		while(k>0){
@@ -278,7 +279,7 @@ public:
 		}
 		return p+1;
 	}
-	unsigned int upper_bound(int x){
+	int upper_bound(lint x){
 		int p=0,k=1;
 		while(k*2<=n)k*=2;
 		while(k>0){

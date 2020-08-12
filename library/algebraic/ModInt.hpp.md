@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
@@ -46,6 +46,7 @@ layout: default
 * :warning: <a href="LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
 * :heavy_check_mark: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
 * :heavy_check_mark: <a href="../string/RollingHash.hpp.html">string/RollingHash.hpp</a>
+* :warning: <a href="../test/vertex_set_path_composite.cpp.html">test/vertex_set_path_composite.cpp</a>
 
 
 ## Verified with

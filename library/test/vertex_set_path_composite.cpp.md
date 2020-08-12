@@ -25,23 +25,24 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/point_set_range_composite.test.cpp
+# :warning: test/vertex_set_path_composite.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/point_set_range_composite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/test/vertex_set_path_composite.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-12 17:20:13+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
+* see: <a href="https://judge.yosupo.jp/problem/vertex_set_path_composite">https://judge.yosupo.jp/problem/vertex_set_path_composite</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :heavy_check_mark: <a href="../graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -49,42 +50,65 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
+#define PROBLEM "https://judge.yosupo.jp/problem/vertex_set_path_composite"
 #include "../other/template.hpp"
 #include "../algebraic/ModInt.hpp"
+#include "../graph/HeavyLightDecomposition.hpp"
 #include "../data-structure/SegTree.hpp"
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
+	using MP=std::pair<ModInt,ModInt>;
+	MP nodef(const MP& lhs,const MP& rhs)const{
+		return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};
+	}
 public:
-	MySeg(int size):SegTree<mp>(size,{0,0},{1,0}){}
+	MySeg(int n):SegTree<MP>(n,{1,0},{1,0}){}
 };
-lint n,q;
+int n,q;
+P a[200010];
 int main(){
 	ModInt::setMod(998244353);
 	std::cin>>n>>q;
-	MySeg st(n);
+	rep(i,n)std::cin>>a[i].first>>a[i].second;
+	HeavyLightDecomposition hld(n);
+	MySeg st1(n),st2(n);
+	rep(i,n-1){
+		int u,v;
+		std::cin>>u>>v;
+		hld.add_edge(u,v);
+	}
+	hld.build(0);
 	rep(i,n){
-		lint a,b;
-		std::cin>>a>>b;
-		st.update(i,{a,b});
+		st1.update(hld.label[i],a[i]);
+		st2.update(n-1-hld.label[i],a[i]);
 	}
 	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
+		int type;
+		std::cin>>type;
+		if(type==0){
 			int p,c,d;
 			std::cin>>p>>c>>d;
-			st.update(p,{c,d});
+			a[p]={c,d};
+			st1.update(hld.label[p],{c,d});
+			st2.update(n-1-hld.label[p],{c,d});
 		}
 		else{
-			int l,r,x;
-			std::cin>>l>>r>>x;
-			auto p=st.query(l,r);
-			std::cout<<p.first*x+p.second<<std::endl;
+			int u,v,x;
+			std::cin>>u>>v>>x;
+			int t=hld.lca(u,v);
+			std::pair<ModInt,ModInt> f1={1,0},f2={1,0};
+			hld.each_vertex(u,t,[&](int l,int r){
+				auto p=st2.query(n-1-r,n-1-l+1);
+				f1={f1.first*p.first,f1.second*p.first+p.second};
+			});
+			f1={f1.first/a[t].first,(f1.second-a[t].second)/a[t].first};
+			hld.each_vertex(t,v,[&](int l,int r){
+				auto p=st1.query(l,r+1);
+				f2={p.first*f2.first,p.second*f2.first+f2.second};
+			});
+			f1={f1.first*f2.first,f1.second*f2.first+f2.second};
+			std::cout<<ModInt(x)*f1.first+f1.second<<std::endl;
 		}
 	}
-	return 0;
 }
 ```
 {% endraw %}
@@ -92,8 +116,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/point_set_range_composite.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
+#line 1 "test/vertex_set_path_composite.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/vertex_set_path_composite"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -287,6 +311,79 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 	x = a;
 	return ist;
 }
+#line 3 "graph/HeavyLightDecomposition.hpp"
+class HeavyLightDecomposition{
+	int n,index=0;
+	void size_dfs(int node){
+		size[node]=1;
+		for(int &i:vec[node]){
+			if(par[node]==i)continue;
+			par[i]=node;
+			size_dfs(i);
+			size[node]+=size[i];
+			if(size[i]>size[vec[node][0]])std::swap(i,vec[node][0]);
+		}
+	}
+	void build_dfs(int node){
+		label[node]=index++;
+		for(int& i:vec[node]){
+			if(par[node]!=i){
+				head[i]=(i==vec[node][0]?head[node]:i);
+				build_dfs(i);
+			}
+		}
+	}
+public:
+	std::vector<std::vector<int>> vec;
+	std::vector<int> size,par,head,label;
+	HeavyLightDecomposition(){}
+	HeavyLightDecomposition(int m):n(m){
+		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
+	}
+	void add_edge(int u,int v){
+		vec[u].emplace_back(v);
+		vec[v].emplace_back(u);
+	}
+	void build(int root){
+		std::fill(all(par),-1);
+		size_dfs(root);
+		build_dfs(root);
+	}
+	template<typename F>
+	void each_edge(int u,int v,const F &func)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v]){
+				if(label[u]!=label[v])func(label[u]+1,label[v]);
+				return;
+			}
+			func(label[head[v]],label[v]);
+			v=par[head[v]];
+		}
+	}
+	template<typename F>
+	void each_vertex(int u,int v,const F& func)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v]){
+				func(label[u],label[v]);
+				return;
+			}
+			func(label[head[v]],label[v]);
+			v=par[head[v]];
+		}
+	}
+	int lca(int u,int v)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v])return u;
+			v=par[head[v]];
+		}
+	}
+	void clear(){
+		vec.clear();size.clear();par.clear();head.clear();label.clear();
+	}
+};
 #line 3 "data-structure/SegTree.hpp"
 template<typename T>
 class SegTree {
@@ -365,39 +462,61 @@ public:
 	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {}
 	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {}
 };
-#line 5 "test/point_set_range_composite.test.cpp"
+#line 6 "test/vertex_set_path_composite.cpp"
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
+	using MP=std::pair<ModInt,ModInt>;
+	MP nodef(const MP& lhs,const MP& rhs)const{
+		return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};
+	}
 public:
-	MySeg(int size):SegTree<mp>(size,{0,0},{1,0}){}
+	MySeg(int n):SegTree<MP>(n,{1,0},{1,0}){}
 };
-lint n,q;
+int n,q;
+P a[200010];
 int main(){
 	ModInt::setMod(998244353);
 	std::cin>>n>>q;
-	MySeg st(n);
+	rep(i,n)std::cin>>a[i].first>>a[i].second;
+	HeavyLightDecomposition hld(n);
+	MySeg st1(n),st2(n);
+	rep(i,n-1){
+		int u,v;
+		std::cin>>u>>v;
+		hld.add_edge(u,v);
+	}
+	hld.build(0);
 	rep(i,n){
-		lint a,b;
-		std::cin>>a>>b;
-		st.update(i,{a,b});
+		st1.update(hld.label[i],a[i]);
+		st2.update(n-1-hld.label[i],a[i]);
 	}
 	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
+		int type;
+		std::cin>>type;
+		if(type==0){
 			int p,c,d;
 			std::cin>>p>>c>>d;
-			st.update(p,{c,d});
+			a[p]={c,d};
+			st1.update(hld.label[p],{c,d});
+			st2.update(n-1-hld.label[p],{c,d});
 		}
 		else{
-			int l,r,x;
-			std::cin>>l>>r>>x;
-			auto p=st.query(l,r);
-			std::cout<<p.first*x+p.second<<std::endl;
+			int u,v,x;
+			std::cin>>u>>v>>x;
+			int t=hld.lca(u,v);
+			std::pair<ModInt,ModInt> f1={1,0},f2={1,0};
+			hld.each_vertex(u,t,[&](int l,int r){
+				auto p=st2.query(n-1-r,n-1-l+1);
+				f1={f1.first*p.first,f1.second*p.first+p.second};
+			});
+			f1={f1.first/a[t].first,(f1.second-a[t].second)/a[t].first};
+			hld.each_vertex(t,v,[&](int l,int r){
+				auto p=st1.query(l,r+1);
+				f2={p.first*f2.first,p.second*f2.first+f2.second};
+			});
+			f1={f1.first*f2.first,f1.second*f2.first+f2.second};
+			std::cout<<ModInt(x)*f1.first+f1.second<<std::endl;
 		}
 	}
-	return 0;
 }
 
 ```

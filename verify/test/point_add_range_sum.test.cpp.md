@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/point_add_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+    - Last commit date: 2020-08-12 17:20:13+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -223,7 +223,7 @@ class BIT {
 	int n;
 	std::vector<lint> bit;
 public:
-	BIT(unsigned int n) :n(n) {
+	BIT(int n) :n(n) {
 		bit.resize(n + 1);
 	}
 	void add(int a, lint x) {
@@ -243,7 +243,7 @@ public:
 	void clear() {
 		bit.assign(n + 1, 0);
 	}
-	unsigned int lower_bound(int x){
+	int lower_bound(lint x){
 		int p=0,k=1;
 		while(k*2<=n)k*=2;
 		while(k>0){
@@ -255,7 +255,7 @@ public:
 		}
 		return p+1;
 	}
-	unsigned int upper_bound(int x){
+	int upper_bound(lint x){
 		int p=0,k=1;
 		while(k*2<=n)k*=2;
 		while(k>0){

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/lca.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+    - Last commit date: 2020-08-12 17:20:13+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/lca">https://judge.yosupo.jp/problem/lca</a>
@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -211,8 +211,6 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 #line 3 "graph/HeavyLightDecomposition.hpp"
 class HeavyLightDecomposition{
 	int n,index=0;
-	std::vector<std::vector<int>> vec;
-	std::vector<int> size,par,head,label;
 	void size_dfs(int node){
 		size[node]=1;
 		for(int &i:vec[node]){
@@ -233,8 +231,10 @@ class HeavyLightDecomposition{
 		}
 	}
 public:
+	std::vector<std::vector<int>> vec;
+	std::vector<int> size,par,head,label;
 	HeavyLightDecomposition(){}
-	HeavyLightDecomposition(int n):n(n){
+	HeavyLightDecomposition(int m):n(m){
 		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
 	}
 	void add_edge(int u,int v){
@@ -254,7 +254,7 @@ public:
 				if(label[u]!=label[v])func(label[u]+1,label[v]);
 				return;
 			}
-			func(label[head[v]],v);
+			func(label[head[v]],label[v]);
 			v=par[head[v]];
 		}
 	}
@@ -266,7 +266,7 @@ public:
 				func(label[u],label[v]);
 				return;
 			}
-			func(label[head[v]],v);
+			func(label[head[v]],label[v]);
 			v=par[head[v]];
 		}
 	}

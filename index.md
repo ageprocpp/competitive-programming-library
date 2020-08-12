@@ -66,14 +66,14 @@ layout: default
 * :heavy_check_mark: <a href="library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
 * :heavy_check_mark: <a href="library/graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
 * :warning: <a href="library/graph/PersistentUnionFind.hpp.html">graph/PersistentUnionFind.hpp</a>
-* :x: <a href="library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
+* :heavy_check_mark: <a href="library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
 
 
 <div id="795f3202b17cb6bc3d4b771d8c6c9eaf"></div>
 
 ### other
 
-* :question: <a href="library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="library/other/template.hpp.html">other/template.hpp</a>
 
 
 <div id="b45cffe084dd3d20d928bee85e7b0f21"></div>
@@ -81,6 +81,13 @@ layout: default
 ### string
 
 * :heavy_check_mark: <a href="library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
+
+
+<div id="098f6bcd4621d373cade4e832627b4f6"></div>
+
+### test
+
+* :warning: <a href="library/test/vertex_set_path_composite.cpp.html">test/vertex_set_path_composite.cpp</a>
 
 
 ## Verify Files
@@ -101,6 +108,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/static_range_sum.test.cpp.html">test/static_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
-* :x: <a href="verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
 
 

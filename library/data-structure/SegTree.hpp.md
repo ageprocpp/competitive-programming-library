@@ -38,12 +38,13 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
 
 * :heavy_check_mark: <a href="IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
+* :warning: <a href="../test/vertex_set_path_composite.cpp.html">test/vertex_set_path_composite.cpp</a>
 
 
 ## Verified with
