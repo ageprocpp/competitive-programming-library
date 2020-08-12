@@ -44,13 +44,13 @@ layout: default
 ## Required by
 
 * :heavy_check_mark: <a href="IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
-* :warning: <a href="../test/vertex_set_path_composite.cpp.html">test/vertex_set_path_composite.cpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/vertex_set_path_composite.test.cpp.html">test/vertex_set_path_composite.test.cpp</a>
 
 
 ## Code

@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: test/vertex_set_path_composite.cpp
+# :heavy_check_mark: test/vertex_set_path_composite.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/vertex_set_path_composite.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 17:20:13+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/test/vertex_set_path_composite.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-12 17:27:35+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/vertex_set_path_composite">https://judge.yosupo.jp/problem/vertex_set_path_composite</a>
@@ -39,10 +39,10 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :heavy_check_mark: <a href="../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -116,7 +116,7 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/vertex_set_path_composite.cpp"
+#line 1 "test/vertex_set_path_composite.test.cpp"
 #define PROBLEM "https://judge.yosupo.jp/problem/vertex_set_path_composite"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
@@ -462,7 +462,7 @@ public:
 	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {}
 	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {}
 };
-#line 6 "test/vertex_set_path_composite.cpp"
+#line 6 "test/vertex_set_path_composite.test.cpp"
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
 	using MP=std::pair<ModInt,ModInt>;
 	MP nodef(const MP& lhs,const MP& rhs)const{

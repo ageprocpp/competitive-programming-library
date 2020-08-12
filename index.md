@@ -83,13 +83,6 @@ layout: default
 * :heavy_check_mark: <a href="library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
 
 
-<div id="098f6bcd4621d373cade4e832627b4f6"></div>
-
-### test
-
-* :warning: <a href="library/test/vertex_set_path_composite.cpp.html">test/vertex_set_path_composite.cpp</a>
-
-
 ## Verify Files
 
 * :heavy_check_mark: <a href="verify/test/aplusb.test.cpp.html">test/aplusb.test.cpp</a>
@@ -110,5 +103,6 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/staticrmq.test.cpp.html">test/staticrmq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/vertex_set_path_composite.test.cpp.html">test/vertex_set_path_composite.test.cpp</a>
 
 
