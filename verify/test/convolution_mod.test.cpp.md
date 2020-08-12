@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/convolution_mod.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-11 01:33:36+09:00
+    - Last commit date: 2020-08-12 15:09:52+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/convolution_mod">https://judge.yosupo.jp/problem/convolution_mod</a>
@@ -41,7 +41,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :heavy_check_mark: <a href="../../library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -192,8 +192,7 @@ LP extGcd(lint a,lint b) {
 	return s;
 }
 LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
-	LP sol=extGcd(m1,m2);
-	lint p=sol.first,q=sol.second;
+	lint p=extGcd(m1,m2).first;
 	lint tmp=(b2-b1)*p%m2;
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);

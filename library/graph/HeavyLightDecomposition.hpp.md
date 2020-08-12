@@ -25,22 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/point_add_range_sum.test.cpp
+# :heavy_check_mark: graph/HeavyLightDecomposition.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/point_add_range_sum.test.cpp">View this file on GitHub</a>
+* category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
+* <a href="{{ site.github.repository_url }}/blob/master/graph/HeavyLightDecomposition.hpp">View this file on GitHub</a>
     - Last commit date: 2020-08-12 15:09:52+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../verify/test/lca.test.cpp.html">test/lca.test.cpp</a>
 
 
 ## Code
@@ -48,43 +51,86 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+#pragma once
 #include "../other/template.hpp"
-#include "../data-structure/BIT.hpp"
-lint n,q,a;
-int main(){
-	std::cin>>n>>q;
-	BIT bit(n);
-	REP(i,n){
-		std::cin>>a;
-		bit.add(i,a);
-	}
-	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
-			lint p,x;
-			std::cin>>p>>x;
-			p++;
-			bit.add(p,x);
-		}
-		else{
-			int l,r;
-			std::cin>>l>>r;
-			l++;r++;
-			std::cout<<bit.query(r-1)-(l==1?0:bit.query(l-1))<<std::endl;
+class HeavyLightDecomposition{
+	int n,index=0;
+	std::vector<std::vector<int>> vec;
+	std::vector<int> size,par,head,label;
+	void size_dfs(int node){
+		size[node]=1;
+		for(int &i:vec[node]){
+			if(par[node]==i)continue;
+			par[i]=node;
+			size_dfs(i);
+			size[node]+=size[i];
+			if(size[i]>size[vec[node][0]])std::swap(i,vec[node][0]);
 		}
 	}
-	return 0;
-}
+	void build_dfs(int node){
+		label[node]=index++;
+		for(int& i:vec[node]){
+			if(par[node]!=i){
+				head[i]=(i==vec[node][0]?head[node]:i);
+				build_dfs(i);
+			}
+		}
+	}
+public:
+	HeavyLightDecomposition(){}
+	HeavyLightDecomposition(int n):n(n){
+		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
+	}
+	void add_edge(int u,int v){
+		vec[u].emplace_back(v);
+		vec[v].emplace_back(u);
+	}
+	void build(int root){
+		std::fill(all(par),-1);
+		size_dfs(root);
+		build_dfs(root);
+	}
+	template<typename F>
+	void each_edge(int u,int v,const F &func)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v]){
+				if(label[u]!=label[v])func(label[u]+1,label[v]);
+				return;
+			}
+			func(label[head[v]],v);
+			v=par[head[v]];
+		}
+	}
+	template<typename F>
+	void each_vertex(int u,int v,const F& func)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v]){
+				func(label[u],label[v]);
+				return;
+			}
+			func(label[head[v]],v);
+			v=par[head[v]];
+		}
+	}
+	int lca(int u,int v)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v])return u;
+			v=par[head[v]];
+		}
+	}
+	void clear(){
+		vec.clear();size.clear();par.clear();head.clear();label.clear();
+	}
+};
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/point_add_range_sum.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -218,83 +264,79 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }
-#line 3 "data-structure/BIT.hpp"
-class BIT {
-	int n;
-	std::vector<lint> bit;
+#line 3 "graph/HeavyLightDecomposition.hpp"
+class HeavyLightDecomposition{
+	int n,index=0;
+	std::vector<std::vector<int>> vec;
+	std::vector<int> size,par,head,label;
+	void size_dfs(int node){
+		size[node]=1;
+		for(int &i:vec[node]){
+			if(par[node]==i)continue;
+			par[i]=node;
+			size_dfs(i);
+			size[node]+=size[i];
+			if(size[i]>size[vec[node][0]])std::swap(i,vec[node][0]);
+		}
+	}
+	void build_dfs(int node){
+		label[node]=index++;
+		for(int& i:vec[node]){
+			if(par[node]!=i){
+				head[i]=(i==vec[node][0]?head[node]:i);
+				build_dfs(i);
+			}
+		}
+	}
 public:
-	BIT(unsigned int n) :n(n) {
-		bit.resize(n + 1);
+	HeavyLightDecomposition(){}
+	HeavyLightDecomposition(int n):n(n){
+		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
 	}
-	void add(int a, lint x) {
-		while (a <= n) {
-			bit[a] += x;
-			a += a & -a;
-		}
+	void add_edge(int u,int v){
+		vec[u].emplace_back(v);
+		vec[v].emplace_back(u);
 	}
-	lint query(int a) {
-		lint cnt = 0;
-		while (a > 0) {
-			cnt += bit[a];
-			a -= a & -a;
-		}
-		return cnt;
+	void build(int root){
+		std::fill(all(par),-1);
+		size_dfs(root);
+		build_dfs(root);
 	}
-	void clear() {
-		bit.assign(n + 1, 0);
-	}
-	unsigned int lower_bound(int x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<x){
-				x-=bit[p+k];
-				p+=k;
+	template<typename F>
+	void each_edge(int u,int v,const F &func)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v]){
+				if(label[u]!=label[v])func(label[u]+1,label[v]);
+				return;
 			}
-			k/=2;
+			func(label[head[v]],v);
+			v=par[head[v]];
 		}
-		return p+1;
 	}
-	unsigned int upper_bound(int x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<=x){
-				x-=bit[p+k];
-				p+=k;
+	template<typename F>
+	void each_vertex(int u,int v,const F& func)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v]){
+				func(label[u],label[v]);
+				return;
 			}
-			k/=2;
+			func(label[head[v]],v);
+			v=par[head[v]];
 		}
-		return p+1;
+	}
+	int lca(int u,int v)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v])return u;
+			v=par[head[v]];
+		}
+	}
+	void clear(){
+		vec.clear();size.clear();par.clear();head.clear();label.clear();
 	}
 };
-#line 4 "test/point_add_range_sum.test.cpp"
-lint n,q,a;
-int main(){
-	std::cin>>n>>q;
-	BIT bit(n);
-	REP(i,n){
-		std::cin>>a;
-		bit.add(i,a);
-	}
-	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
-			lint p,x;
-			std::cin>>p>>x;
-			p++;
-			bit.add(p,x);
-		}
-		else{
-			int l,r;
-			std::cin>>l>>r;
-			l++;r++;
-			std::cout<<bit.query(r-1)-(l==1?0:bit.query(l-1))<<std::endl;
-		}
-	}
-	return 0;
-}
 
 ```
 {% endraw %}

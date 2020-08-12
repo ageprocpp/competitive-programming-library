@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/FordFulkerson.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-11 01:33:36+09:00
+    - Last commit date: 2020-08-12 15:09:52+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
@@ -223,8 +223,7 @@ LP extGcd(lint a,lint b) {
 	return s;
 }
 LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
-	LP sol=extGcd(m1,m2);
-	lint p=sol.first,q=sol.second;
+	lint p=extGcd(m1,m2).first;
 	lint tmp=(b2-b1)*p%m2;
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
