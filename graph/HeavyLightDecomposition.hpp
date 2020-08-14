@@ -20,13 +20,14 @@ class HeavyLightDecomposition{
 				build_dfs(i);
 			}
 		}
+		last[node]=index;
 	}
 public:
 	std::vector<std::vector<int>> vec;
-	std::vector<int> size,par,head,label;
+	std::vector<int> size,par,head,label,last;
 	HeavyLightDecomposition(){}
 	HeavyLightDecomposition(int m):n(m){
-		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
+		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);last.resize(n);
 	}
 	void add_edge(int u,int v){
 		vec[u].emplace_back(v);
@@ -69,6 +70,6 @@ public:
 		}
 	}
 	void clear(){
-		vec.clear();size.clear();par.clear();head.clear();label.clear();
+		vec.clear();size.clear();par.clear();head.clear();label.clear();last.clear();
 	}
 };

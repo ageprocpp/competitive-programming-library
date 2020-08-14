@@ -3,17 +3,19 @@
 class FordFulkerson{
 	class edge{
 	public:
-		int to,cap,rev;
+		int to;
+		lint cap;
+		int rev;
 	};
 	int n;
 	std::vector<std::vector<edge>> vec;
 	std::vector<bool> used;
-	int dfs(int v,int t,int f){
+	lint dfs(int v,int t,lint f){
 		if(v==t)return f;
 		used[v]=true;
 		for(edge& e:vec[v]){
 			if(!used[e.to]&&e.cap>0){
-				int d=dfs(e.to,t,std::min(f,e.cap));
+				lint d=dfs(e.to,t,std::min(f,e.cap));
 				if(d){
 					e.cap-=d;
 					vec[e.to][e.rev].cap+=d;
@@ -28,15 +30,15 @@ public:
 		vec.resize(n);
 		used.resize(n);
 	}
-	void add_edge(int from,int to,int cap){
+	void add_edge(int from,int to,lint cap){
 		vec[from].push_back({to,cap,(int)vec[to].size()});
 		vec[to].push_back({from,0,(int)vec[from].size()-1});
 	}
-	int max_flow(int s,int t){
-		int res=0;
+	lint max_flow(int s,int t){
+		lint res=0;
 		while(true){
 			used.assign(n,false);
-			int f=dfs(s,t,INF);
+			lint f=dfs(s,t,LINF);
 			if(!f)return res;
 			res+=f;
 		}
