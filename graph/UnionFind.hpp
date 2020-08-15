@@ -4,7 +4,9 @@ class UnionFind {
 protected:
 	std::vector<int> par, size;
 public:
-	UnionFind(unsigned int size) {
+	UnionFind(){}
+	UnionFind(int size) {init(size);}
+	void init(int size){
 		par.resize(size); this->size.resize(size, 1);
 		rep(i, size) {
 			par[i] = i;

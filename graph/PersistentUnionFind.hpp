@@ -1,5 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
+#include "UnionFind.hpp"
 class PersistentUnionFind :UnionFind {
 	std::vector<P> notparent;
 	std::vector<std::vector<std::pair<int, int>>> sizevec;
@@ -9,7 +10,6 @@ public:
 		notparent.resize(size); sizevec.resize(size);
 		rep(i, size) {
 			par[i] = i;
-			rank[i] = 0;
 			sizevec[i].push_back(std::make_pair(-1, 1));
 			notparent[i] = std::make_pair(INF, i);
 		}
@@ -29,17 +29,10 @@ public:
 			opcount++;
 			return;
 		}
-		if (rank[n] < rank[m]) {
-			par[n] = m;
-			notparent[n] = std::make_pair(opcount, m);
-			sizevec[m].emplace_back(opcount, sizevec[m].back().second + sizevec[n].back().second);
-		}
-		else {
-			par[m] = n;
-			notparent[m] = std::make_pair(opcount, n);
-			sizevec[n].emplace_back(opcount, sizevec[n].back().second + sizevec[m].back().second);
-			if (rank[n] == rank[m])rank[n]++;
-		}
+		if(size[n]>size[m])std::swap(n,m);
+		par[n] = m;
+		notparent[n] = std::make_pair(opcount, m);
+		sizevec[m].emplace_back(opcount, sizevec[m].back().second + sizevec[n].back().second);
 		opcount++;
 	}
 	bool same(int n, int m, int t = INF) {
