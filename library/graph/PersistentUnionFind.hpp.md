@@ -31,14 +31,15 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/PersistentUnionFind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+    - Last commit date: 2020-08-15 20:58:53+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :x: <a href="UnionFind.hpp.html">graph/UnionFind.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -48,6 +49,7 @@ layout: default
 ```cpp
 #pragma once
 #include "../other/template.hpp"
+#include "UnionFind.hpp"
 class PersistentUnionFind :UnionFind {
 	std::vector<P> notparent;
 	std::vector<std::vector<std::pair<int, int>>> sizevec;
@@ -57,7 +59,6 @@ public:
 		notparent.resize(size); sizevec.resize(size);
 		rep(i, size) {
 			par[i] = i;
-			rank[i] = 0;
 			sizevec[i].push_back(std::make_pair(-1, 1));
 			notparent[i] = std::make_pair(INF, i);
 		}
@@ -77,17 +78,10 @@ public:
 			opcount++;
 			return;
 		}
-		if (rank[n] < rank[m]) {
-			par[n] = m;
-			notparent[n] = std::make_pair(opcount, m);
-			sizevec[m].emplace_back(opcount, sizevec[m].back().second + sizevec[n].back().second);
-		}
-		else {
-			par[m] = n;
-			notparent[m] = std::make_pair(opcount, n);
-			sizevec[n].emplace_back(opcount, sizevec[n].back().second + sizevec[m].back().second);
-			if (rank[n] == rank[m])rank[n]++;
-		}
+		if(size[n]>size[m])std::swap(n,m);
+		par[n] = m;
+		notparent[n] = std::make_pair(opcount, m);
+		sizevec[m].emplace_back(opcount, sizevec[m].back().second + sizevec[n].back().second);
 		opcount++;
 	}
 	bool same(int n, int m, int t = INF) {
@@ -234,13 +228,46 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-template<typename F>
+/*template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}
-#line 3 "graph/PersistentUnionFind.hpp"
+}*/
+#line 3 "graph/UnionFind.hpp"
+class UnionFind {
+protected:
+	std::vector<int> par, size;
+public:
+	UnionFind(){}
+	UnionFind(int size) {init(size);}
+	void init(int size){
+		par.resize(size); this->size.resize(size, 1);
+		rep(i, size) {
+			par[i] = i;
+		}
+	}
+	int find(int n) {
+		if (par[n] == n)return n;
+		return par[n] = find(par[n]);
+	}
+	void unite(int n, int m) {
+		n = find(n);
+		m = find(m);
+		if (n == m)return;
+		int a=n,b=m;
+		if(size[a]>size[b])std::swap(a,b);
+		par[a] = b;
+		size[b] += size[a];
+	}
+	bool same(int n, int m) {
+		return find(n) == find(m);
+	}
+	int getsize(int n) {
+		return size[find(n)];
+	}
+};
+#line 4 "graph/PersistentUnionFind.hpp"
 class PersistentUnionFind :UnionFind {
 	std::vector<P> notparent;
 	std::vector<std::vector<std::pair<int, int>>> sizevec;
@@ -250,7 +277,6 @@ public:
 		notparent.resize(size); sizevec.resize(size);
 		rep(i, size) {
 			par[i] = i;
-			rank[i] = 0;
 			sizevec[i].push_back(std::make_pair(-1, 1));
 			notparent[i] = std::make_pair(INF, i);
 		}
@@ -270,17 +296,10 @@ public:
 			opcount++;
 			return;
 		}
-		if (rank[n] < rank[m]) {
-			par[n] = m;
-			notparent[n] = std::make_pair(opcount, m);
-			sizevec[m].emplace_back(opcount, sizevec[m].back().second + sizevec[n].back().second);
-		}
-		else {
-			par[m] = n;
-			notparent[m] = std::make_pair(opcount, n);
-			sizevec[n].emplace_back(opcount, sizevec[n].back().second + sizevec[m].back().second);
-			if (rank[n] == rank[m])rank[n]++;
-		}
+		if(size[n]>size[m])std::swap(n,m);
+		par[n] = m;
+		notparent[n] = std::make_pair(opcount, m);
+		sizevec[m].emplace_back(opcount, sizevec[m].back().second + sizevec[n].back().second);
 		opcount++;
 	}
 	bool same(int n, int m, int t = INF) {

@@ -25,20 +25,20 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: algebraic/ModInt.hpp
+# :question: algebraic/ModInt.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/ModInt.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+    - Last commit date: 2020-08-14 20:28:30+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
@@ -54,7 +54,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/vertex_set_path_composite.test.cpp.html">test/vertex_set_path_composite.test.cpp</a>
+* :x: <a href="../../verify/test/vertex_set_path_composite.test.cpp.html">test/vertex_set_path_composite.test.cpp</a>
 
 
 ## Code
@@ -256,12 +256,12 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-template<typename F>
+/*template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}
+}*/
 #line 3 "algebraic/ModInt.hpp"
 class ModInt {
 	lint value;

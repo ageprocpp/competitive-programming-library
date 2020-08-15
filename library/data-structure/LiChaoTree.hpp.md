@@ -25,25 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data-structure/LiChaoTree.hpp
+# :x: data-structure/LiChaoTree.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/LiChaoTree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+    - Last commit date: 2020-08-14 20:28:30+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
+* :x: <a href="../../verify/test/line_add_get_min.test.cpp.html">test/line_add_get_min.test.cpp</a>
 
 
 ## Code
@@ -54,59 +54,64 @@ layout: default
 #pragma once
 #include "../other/template.hpp"
 class LiChaoTree{
-    int n=1;
+    int n,id;
     std::vector<std::tuple<lint,lint,lint>> interval;
-    std::vector<LP> node;
+    std::vector<std::pair<LP,int>> node;
     std::vector<lint> cord;
-    lint calc(LP l,lint x){
-        return l.first*x+l.second;
+    lint calc(std::pair<LP,int> l,lint x){
+        return l.first.first*x+l.first.second;
     }
 public:
-    LiChaoTree(std::vector<lint> vec){
-        vec.emplace_back(vec.back()+1);
-        while(n<(int)vec.size())n*=2;
-        while((int)vec.size()<n+1)vec.emplace_back(vec.back()+1);
-        node.assign(2*n,{0,LINF});
+    LiChaoTree(){}
+    template<class T> LiChaoTree(T vec){init(vec);}
+    template<class T> void init(T con){
+        interval.clear();node.clear();cord.clear();
+        n=1;id=0;
+        con.emplace_back(con.back()+1);
+        while(n<(int)con.size())n*=2;
+        while((int)con.size()<n+1)con.emplace_back(con.back()+1);
+        node.assign(2*n,{{0,LINF},-1});
         interval.emplace_back(0,0,0);
         for(int range=n;range;range>>=1){
             for(int i=0;i<n;i+=range){
-                if(range==1)interval.emplace_back(vec[i],0,vec[i+range]);
-                else interval.emplace_back(vec[i],vec[i+range/2],vec[i+range]);
+                if(range==1)interval.emplace_back(con[i],0,con[i+range]);
+                else interval.emplace_back(con[i],con[i+range/2],con[i+range]);
             }
         }
-        cord=std::move(vec);
+        cord=std::move(con);
     }
     void addLine(lint a,lint b){
         int cnt=1;
+        std::pair<LP,int> newLine={{a,b},id};
         while(true){
             lint l=std::get<0>(interval[cnt]),m=std::get<1>(interval[cnt]),r=std::get<2>(interval[cnt]);
             if(n<=cnt){
-                if(calc(node[cnt],l)>calc({a,b},l))node[cnt]={a,b};
+                if(calc(node[cnt],l)>calc(newLine,l))node[cnt]=newLine;
                 break;
             }
-            if(calc(node[cnt],l)<calc({a,b},l)&&calc(node[cnt],r)<calc({a,b},r))break;
-            if(calc(node[cnt],l)>calc({a,b},l)&&calc(node[cnt],r)>calc({a,b},r)){
-                node[cnt]={a,b};
+            if(calc(node[cnt],l)<calc(newLine,l)&&calc(node[cnt],r)<calc(newLine,r))break;
+            if(calc(node[cnt],l)>calc(newLine,l)&&calc(node[cnt],r)>calc(newLine,r)){
+                node[cnt]=newLine;
                 break;
             }
-            if(calc(node[cnt],m)>calc({a,b},m)){
-                LP memo=node[cnt];
-                node[cnt]={a,b};
-                a=memo.first;b=memo.second;
-            }
-            if(calc(node[cnt],l)>calc({a,b},l))cnt=cnt<<1;
+            if(calc(node[cnt],m)>calc(newLine,m))std::swap(node[cnt],newLine);
+            if(calc(node[cnt],l)>calc(newLine,l))cnt=cnt<<1;
             else cnt=cnt<<1|1;
         }
+        id++;
     }
-    lint query(int idx){
+    std::pair<lint,int> query(int idx){
         lint x=cord[idx];
         idx+=n;
-        lint res=LINF;
+        std::pair<lint,int> res={LINF,-1};
         while(idx){
-            chmin(res,calc(node[idx],x));
+            if(chmin(res.first,calc(node[idx],x)))res.second=node[idx].second;
             idx>>=1;
         }
         return res;
+    }
+    void clear(){
+        id=0;node.assign(2*n,{{0,LINF},-1});
     }
 };
 ```
@@ -242,67 +247,72 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-template<typename F>
+/*template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}
+}*/
 #line 3 "data-structure/LiChaoTree.hpp"
 class LiChaoTree{
-    int n=1;
+    int n,id;
     std::vector<std::tuple<lint,lint,lint>> interval;
-    std::vector<LP> node;
+    std::vector<std::pair<LP,int>> node;
     std::vector<lint> cord;
-    lint calc(LP l,lint x){
-        return l.first*x+l.second;
+    lint calc(std::pair<LP,int> l,lint x){
+        return l.first.first*x+l.first.second;
     }
 public:
-    LiChaoTree(std::vector<lint> vec){
-        vec.emplace_back(vec.back()+1);
-        while(n<(int)vec.size())n*=2;
-        while((int)vec.size()<n+1)vec.emplace_back(vec.back()+1);
-        node.assign(2*n,{0,LINF});
+    LiChaoTree(){}
+    template<class T> LiChaoTree(T vec){init(vec);}
+    template<class T> void init(T con){
+        interval.clear();node.clear();cord.clear();
+        n=1;id=0;
+        con.emplace_back(con.back()+1);
+        while(n<(int)con.size())n*=2;
+        while((int)con.size()<n+1)con.emplace_back(con.back()+1);
+        node.assign(2*n,{{0,LINF},-1});
         interval.emplace_back(0,0,0);
         for(int range=n;range;range>>=1){
             for(int i=0;i<n;i+=range){
-                if(range==1)interval.emplace_back(vec[i],0,vec[i+range]);
-                else interval.emplace_back(vec[i],vec[i+range/2],vec[i+range]);
+                if(range==1)interval.emplace_back(con[i],0,con[i+range]);
+                else interval.emplace_back(con[i],con[i+range/2],con[i+range]);
             }
         }
-        cord=std::move(vec);
+        cord=std::move(con);
     }
     void addLine(lint a,lint b){
         int cnt=1;
+        std::pair<LP,int> newLine={{a,b},id};
         while(true){
             lint l=std::get<0>(interval[cnt]),m=std::get<1>(interval[cnt]),r=std::get<2>(interval[cnt]);
             if(n<=cnt){
-                if(calc(node[cnt],l)>calc({a,b},l))node[cnt]={a,b};
+                if(calc(node[cnt],l)>calc(newLine,l))node[cnt]=newLine;
                 break;
             }
-            if(calc(node[cnt],l)<calc({a,b},l)&&calc(node[cnt],r)<calc({a,b},r))break;
-            if(calc(node[cnt],l)>calc({a,b},l)&&calc(node[cnt],r)>calc({a,b},r)){
-                node[cnt]={a,b};
+            if(calc(node[cnt],l)<calc(newLine,l)&&calc(node[cnt],r)<calc(newLine,r))break;
+            if(calc(node[cnt],l)>calc(newLine,l)&&calc(node[cnt],r)>calc(newLine,r)){
+                node[cnt]=newLine;
                 break;
             }
-            if(calc(node[cnt],m)>calc({a,b},m)){
-                LP memo=node[cnt];
-                node[cnt]={a,b};
-                a=memo.first;b=memo.second;
-            }
-            if(calc(node[cnt],l)>calc({a,b},l))cnt=cnt<<1;
+            if(calc(node[cnt],m)>calc(newLine,m))std::swap(node[cnt],newLine);
+            if(calc(node[cnt],l)>calc(newLine,l))cnt=cnt<<1;
             else cnt=cnt<<1|1;
         }
+        id++;
     }
-    lint query(int idx){
+    std::pair<lint,int> query(int idx){
         lint x=cord[idx];
         idx+=n;
-        lint res=LINF;
+        std::pair<lint,int> res={LINF,-1};
         while(idx){
-            chmin(res,calc(node[idx],x));
+            if(chmin(res.first,calc(node[idx],x)))res.second=node[idx].second;
             idx>>=1;
         }
         return res;
+    }
+    void clear(){
+        id=0;node.assign(2*n,{{0,LINF},-1});
     }
 };
 

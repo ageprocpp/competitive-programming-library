@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/maximum_flow_ford_fulkerson.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+    - Last commit date: 2020-08-14 20:28:30+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A</a>
@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../library/graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -198,27 +198,29 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-template<typename F>
+/*template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}
+}*/
 #line 3 "graph/FordFulkerson.hpp"
 class FordFulkerson{
 	class edge{
 	public:
-		int to,cap,rev;
+		int to;
+		lint cap;
+		int rev;
 	};
 	int n;
 	std::vector<std::vector<edge>> vec;
 	std::vector<bool> used;
-	int dfs(int v,int t,int f){
+	lint dfs(int v,int t,lint f){
 		if(v==t)return f;
 		used[v]=true;
 		for(edge& e:vec[v]){
 			if(!used[e.to]&&e.cap>0){
-				int d=dfs(e.to,t,std::min(f,e.cap));
+				lint d=dfs(e.to,t,std::min(f,e.cap));
 				if(d){
 					e.cap-=d;
 					vec[e.to][e.rev].cap+=d;
@@ -233,15 +235,15 @@ public:
 		vec.resize(n);
 		used.resize(n);
 	}
-	void add_edge(int from,int to,int cap){
+	void add_edge(int from,int to,lint cap){
 		vec[from].push_back({to,cap,(int)vec[to].size()});
 		vec[to].push_back({from,0,(int)vec[from].size()-1});
 	}
-	int max_flow(int s,int t){
-		int res=0;
+	lint max_flow(int s,int t){
+		lint res=0;
 		while(true){
 			used.assign(n,false);
-			int f=dfs(s,t,INF);
+			lint f=dfs(s,t,LINF);
 			if(!f)return res;
 			res+=f;
 		}

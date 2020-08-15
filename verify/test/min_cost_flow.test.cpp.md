@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/min_cost_flow.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+    - Last commit date: 2020-08-14 20:28:30+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B</a>
@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../library/graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -197,12 +197,12 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-template<typename F>
+/*template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}
+}*/
 #line 3 "graph/MinCostFlow.hpp"
 class MinCostFlow{
     class edge{

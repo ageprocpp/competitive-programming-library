@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/vertex_set_path_composite.test.cpp
+# :x: test/vertex_set_path_composite.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/vertex_set_path_composite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 17:27:35+09:00
+    - Last commit date: 2020-08-15 20:58:53+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/vertex_set_path_composite">https://judge.yosupo.jp/problem/vertex_set_path_composite</a>
@@ -39,10 +39,10 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :question: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :question: <a href="../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
+* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -245,12 +245,12 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-template<typename F>
+/*template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}
+}*/
 #line 3 "algebraic/ModInt.hpp"
 class ModInt {
 	lint value;
@@ -332,13 +332,14 @@ class HeavyLightDecomposition{
 				build_dfs(i);
 			}
 		}
+		last[node]=index;
 	}
 public:
 	std::vector<std::vector<int>> vec;
-	std::vector<int> size,par,head,label;
+	std::vector<int> size,par,head,label,last;
 	HeavyLightDecomposition(){}
 	HeavyLightDecomposition(int m):n(m){
-		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
+		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);last.resize(n);
 	}
 	void add_edge(int u,int v){
 		vec[u].emplace_back(v);
@@ -381,7 +382,7 @@ public:
 		}
 	}
 	void clear(){
-		vec.clear();size.clear();par.clear();head.clear();label.clear();
+		vec.clear();size.clear();par.clear();head.clear();label.clear();last.clear();
 	}
 };
 #line 3 "data-structure/SegTree.hpp"
@@ -398,7 +399,7 @@ public:
 			n *= 2;
 			rank++;
 		}
-		node.resize(2 * n);
+		node.resize(2 * n, nodee);
 		for (unsigned int i = n; i < 2 * n; i++)node[i] = init;
 	}
 	SegTree(const std::vector<T>& initvec, T nodee):nodee(nodee) {
@@ -407,7 +408,7 @@ public:
 			n *= 2;
 			rank++;
 		}
-		node.resize(2 * n);
+		node.resize(2 * n, nodee);
 		for (unsigned int i = n; i < 2 * n; i++) {
 			if (i - n < m)node[i] = initvec[i - n];
 		}
@@ -448,19 +449,25 @@ class RSQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return lhs+rhs;}
 public:
 	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {}
-	RSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {}
+	RSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 };
 class RMiQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::min(lhs,rhs);}
 public:
 	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {}
-	RMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {}
+	RMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 };
 class RMaQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::max(lhs,rhs);}
 public:
 	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {}
-	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {}
+	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 };
 #line 6 "test/vertex_set_path_composite.test.cpp"
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{

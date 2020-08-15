@@ -25,25 +25,30 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: graph/UnionFind.hpp
+# :x: graph/UnionFind.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/UnionFind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 15:09:52+09:00
+    - Last commit date: 2020-08-15 20:58:53+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+
+
+## Required by
+
+* :warning: <a href="PersistentUnionFind.hpp.html">graph/PersistentUnionFind.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
+* :x: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
 
 
 ## Code
@@ -57,7 +62,9 @@ class UnionFind {
 protected:
 	std::vector<int> par, size;
 public:
-	UnionFind(unsigned int size) {
+	UnionFind(){}
+	UnionFind(int size) {init(size);}
+	void init(int size){
 		par.resize(size); this->size.resize(size, 1);
 		rep(i, size) {
 			par[i] = i;
@@ -216,18 +223,20 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-template<typename F>
+/*template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}
+}*/
 #line 3 "graph/UnionFind.hpp"
 class UnionFind {
 protected:
 	std::vector<int> par, size;
 public:
-	UnionFind(unsigned int size) {
+	UnionFind(){}
+	UnionFind(int size) {init(size);}
+	void init(int size){
 		par.resize(size); this->size.resize(size, 1);
 		rep(i, size) {
 			par[i] = i;

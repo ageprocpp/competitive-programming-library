@@ -25,27 +25,28 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: graph/HeavyLightDecomposition.hpp
+# :question: graph/HeavyLightDecomposition.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/HeavyLightDecomposition.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-12 17:20:13+09:00
+    - Last commit date: 2020-08-14 20:28:30+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/lca.test.cpp.html">test/lca.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/vertex_set_path_composite.test.cpp.html">test/vertex_set_path_composite.test.cpp</a>
+* :x: <a href="../../verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
+* :x: <a href="../../verify/test/vertex_add_subtree_sum.test.cpp.html">test/vertex_add_subtree_sum.test.cpp</a>
+* :x: <a href="../../verify/test/vertex_set_path_composite.test.cpp.html">test/vertex_set_path_composite.test.cpp</a>
 
 
 ## Code
@@ -75,13 +76,14 @@ class HeavyLightDecomposition{
 				build_dfs(i);
 			}
 		}
+		last[node]=index;
 	}
 public:
 	std::vector<std::vector<int>> vec;
-	std::vector<int> size,par,head,label;
+	std::vector<int> size,par,head,label,last;
 	HeavyLightDecomposition(){}
 	HeavyLightDecomposition(int m):n(m){
-		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
+		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);last.resize(n);
 	}
 	void add_edge(int u,int v){
 		vec[u].emplace_back(v);
@@ -124,7 +126,7 @@ public:
 		}
 	}
 	void clear(){
-		vec.clear();size.clear();par.clear();head.clear();label.clear();
+		vec.clear();size.clear();par.clear();head.clear();label.clear();last.clear();
 	}
 };
 ```
@@ -260,12 +262,12 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-template<typename F>
+/*template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}
+}*/
 #line 3 "graph/HeavyLightDecomposition.hpp"
 class HeavyLightDecomposition{
 	int n,index=0;
@@ -287,13 +289,14 @@ class HeavyLightDecomposition{
 				build_dfs(i);
 			}
 		}
+		last[node]=index;
 	}
 public:
 	std::vector<std::vector<int>> vec;
-	std::vector<int> size,par,head,label;
+	std::vector<int> size,par,head,label,last;
 	HeavyLightDecomposition(){}
 	HeavyLightDecomposition(int m):n(m){
-		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);
+		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);last.resize(n);
 	}
 	void add_edge(int u,int v){
 		vec[u].emplace_back(v);
@@ -336,7 +339,7 @@ public:
 		}
 	}
 	void clear(){
-		vec.clear();size.clear();par.clear();head.clear();label.clear();
+		vec.clear();size.clear();par.clear();head.clear();label.clear();last.clear();
 	}
 };
 

@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: graph/FordFulkerson.hpp
+# :warning: data-structure/ConvexHullTrick.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/graph/FordFulkerson.hpp">View this file on GitHub</a>
+* category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
+* <a href="{{ site.github.repository_url }}/blob/master/data-structure/ConvexHullTrick.hpp">View this file on GitHub</a>
     - Last commit date: 2020-08-14 20:28:30+09:00
 
 
@@ -41,60 +41,81 @@ layout: default
 * :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/maximum_flow_ford_fulkerson.test.cpp.html">test/maximum_flow_ford_fulkerson.test.cpp</a>
-
-
 ## Code
 
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
 #include "../other/template.hpp"
-class FordFulkerson{
-	class edge{
+template<typename T,bool isMin>
+class ConvexHullTrick{
+	static constexpr double INF=DBL_MAX;
+	class Line{
 	public:
-		int to;
-		lint cap;
-		int rev;
-	};
-	int n;
-	std::vector<std::vector<edge>> vec;
-	std::vector<bool> used;
-	lint dfs(int v,int t,lint f){
-		if(v==t)return f;
-		used[v]=true;
-		for(edge& e:vec[v]){
-			if(!used[e.to]&&e.cap>0){
-				lint d=dfs(e.to,t,std::min(f,e.cap));
-				if(d){
-					e.cap-=d;
-					vec[e.to][e.rev].cap+=d;
-					return d;
-				}
-			}
+		T m,b,val;
+		int id;
+		double x;
+		bool isQuery;
+		inline Line(int id=-1,T m=0,T b=0):id(id),m(m),b(b),isQuery(false){}
+		T eval(T x)const{return m*x+b;}
+		bool parallel(const Line& l)const{return m==l.m;}
+		double intersect(const Line& l)const{
+			return parallel(l)?INF:(l.b-b)/(m-l.m);
 		}
-		return 0;
+		inline bool operator<(const Line &l)const{
+			if(l.isQuery)return x<l.val;
+			return m<l.m;
+		}
+	};
+	int index=1;
+	std::set<Line> st;
+	using iter=typename std::set<Line>::iterator;
+	inline bool cPrev(iter it)const{return it!=st.begin();}
+	inline bool cNext(iter it)const{return it!=st.end()&&std::next(it)!=st.end();}
+	bool bad(const Line& l1,const Line& l2,const Line& l3)const{
+		return l1.intersect(l3)<=l1.intersect(l2);
+	}
+	bool bad(iter it)const{
+		return cPrev(it)&&cNext(it)&&bad(*std::prev(it),*it,*std::next(it));
+	}
+	iter update(iter it){
+		if(!cPrev(it))return it;
+		double x=it->intersect(*std::prev(it));
+		Line tmp(*it);
+		tmp.x=x;
+		it=st.erase(it);
+		return st.insert(it,tmp);
 	}
 public:
-	FordFulkerson(int n):n(n){
-		vec.resize(n);
-		used.resize(n);
-	}
-	void add_edge(int from,int to,lint cap){
-		vec[from].push_back({to,cap,(int)vec[to].size()});
-		vec[to].push_back({from,0,(int)vec[from].size()-1});
-	}
-	lint max_flow(int s,int t){
-		lint res=0;
-		while(true){
-			used.assign(n,false);
-			lint f=dfs(s,t,LINF);
-			if(!f)return res;
-			res+=f;
+	void addLine(T m,T b){
+		if(isMin)m=-m,b=-b;
+		Line l(index++,m,b);
+		if(st.empty())l.x=-INF;
+		iter it=st.lower_bound(l);
+		if(it!=st.end()&&l.parallel(*it)){
+			if(it->b<b)it=st.erase(it);
+			else return;
 		}
+		it=st.insert(it,l);
+		if(bad(it)){
+			st.erase(it);
+			return;
+		}
+		while(cPrev(it)&&bad(std::prev(it)))st.erase(std::prev(it));
+		while(cNext(it)&&bad(std::next(it)))st.erase(std::next(it));
+		it=update(it);
+		if(cPrev(it))update(std::prev(it));
+		if(cNext(it))update(std::next(it));
+	}
+	std::pair<T,int> query(T x){
+		Line q;
+		q.val=x;q.isQuery=true;
+		iter it=--st.lower_bound(q);
+		if(isMin)return {-it->eval(x),it->id};
+		return {it->eval(x),it->id};
+	}
+	void clear(){
+		st.clear();index=0;
 	}
 };
 ```
@@ -236,49 +257,76 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }*/
-#line 3 "graph/FordFulkerson.hpp"
-class FordFulkerson{
-	class edge{
+#line 2 "data-structure/ConvexHullTrick.hpp"
+template<typename T,bool isMin>
+class ConvexHullTrick{
+	static constexpr double INF=DBL_MAX;
+	class Line{
 	public:
-		int to;
-		lint cap;
-		int rev;
-	};
-	int n;
-	std::vector<std::vector<edge>> vec;
-	std::vector<bool> used;
-	lint dfs(int v,int t,lint f){
-		if(v==t)return f;
-		used[v]=true;
-		for(edge& e:vec[v]){
-			if(!used[e.to]&&e.cap>0){
-				lint d=dfs(e.to,t,std::min(f,e.cap));
-				if(d){
-					e.cap-=d;
-					vec[e.to][e.rev].cap+=d;
-					return d;
-				}
-			}
+		T m,b,val;
+		int id;
+		double x;
+		bool isQuery;
+		inline Line(int id=-1,T m=0,T b=0):id(id),m(m),b(b),isQuery(false){}
+		T eval(T x)const{return m*x+b;}
+		bool parallel(const Line& l)const{return m==l.m;}
+		double intersect(const Line& l)const{
+			return parallel(l)?INF:(l.b-b)/(m-l.m);
 		}
-		return 0;
+		inline bool operator<(const Line &l)const{
+			if(l.isQuery)return x<l.val;
+			return m<l.m;
+		}
+	};
+	int index=1;
+	std::set<Line> st;
+	using iter=typename std::set<Line>::iterator;
+	inline bool cPrev(iter it)const{return it!=st.begin();}
+	inline bool cNext(iter it)const{return it!=st.end()&&std::next(it)!=st.end();}
+	bool bad(const Line& l1,const Line& l2,const Line& l3)const{
+		return l1.intersect(l3)<=l1.intersect(l2);
+	}
+	bool bad(iter it)const{
+		return cPrev(it)&&cNext(it)&&bad(*std::prev(it),*it,*std::next(it));
+	}
+	iter update(iter it){
+		if(!cPrev(it))return it;
+		double x=it->intersect(*std::prev(it));
+		Line tmp(*it);
+		tmp.x=x;
+		it=st.erase(it);
+		return st.insert(it,tmp);
 	}
 public:
-	FordFulkerson(int n):n(n){
-		vec.resize(n);
-		used.resize(n);
-	}
-	void add_edge(int from,int to,lint cap){
-		vec[from].push_back({to,cap,(int)vec[to].size()});
-		vec[to].push_back({from,0,(int)vec[from].size()-1});
-	}
-	lint max_flow(int s,int t){
-		lint res=0;
-		while(true){
-			used.assign(n,false);
-			lint f=dfs(s,t,LINF);
-			if(!f)return res;
-			res+=f;
+	void addLine(T m,T b){
+		if(isMin)m=-m,b=-b;
+		Line l(index++,m,b);
+		if(st.empty())l.x=-INF;
+		iter it=st.lower_bound(l);
+		if(it!=st.end()&&l.parallel(*it)){
+			if(it->b<b)it=st.erase(it);
+			else return;
 		}
+		it=st.insert(it,l);
+		if(bad(it)){
+			st.erase(it);
+			return;
+		}
+		while(cPrev(it)&&bad(std::prev(it)))st.erase(std::prev(it));
+		while(cNext(it)&&bad(std::next(it)))st.erase(std::next(it));
+		it=update(it);
+		if(cPrev(it))update(std::prev(it));
+		if(cNext(it))update(std::next(it));
+	}
+	std::pair<T,int> query(T x){
+		Line q;
+		q.val=x;q.isQuery=true;
+		iter it=--st.lower_bound(q);
+		if(isMin)return {-it->eval(x),it->id};
+		return {it->eval(x),it->id};
+	}
+	void clear(){
+		st.clear();index=0;
 	}
 };
 
