@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/FordFulkerson.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-14 20:28:30+09:00
+    - Last commit date: 2020-08-16 18:26:54+09:00
 
 
 
@@ -230,12 +230,12 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-/*template<typename F>
+template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}*/
+}
 #line 3 "graph/FordFulkerson.hpp"
 class FordFulkerson{
 	class edge{

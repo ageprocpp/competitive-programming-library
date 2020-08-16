@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/range_affine_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-15 20:58:53+09:00
+    - Last commit date: 2020-08-16 18:26:54+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
@@ -225,12 +225,12 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-/*template<typename F>
+template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}*/
+}
 #line 3 "algebraic/ModInt.hpp"
 class ModInt {
 	lint value;
@@ -354,7 +354,9 @@ public:
 class RSQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return lhs+rhs;}
 public:
-	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {}
+	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -362,7 +364,9 @@ public:
 class RMiQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::min(lhs,rhs);}
 public:
-	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {}
+	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -370,7 +374,9 @@ public:
 class RMaQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::max(lhs,rhs);}
 public:
-	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {}
+	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -527,7 +533,7 @@ class RUQRSQ :public IntervalSegTree<lint, lint> {
 	void lazyf(lint& a, const lint& b) { a = b; }
 	void updf(lint& a, const lint& b, const unsigned int& width) { a = width * b; }
 public:
-	RUQRSQ(int size, const int& def = 0) :IntervalSegTree<lint, lint>(size, def, 0) {
+	RUQRSQ(int size, const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, 0) {
 		for (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);
 	}
 	RUQRSQ(const std::vector<lint>& initvec) :IntervalSegTree<lint, lint>((lint)0, initvec) {
@@ -535,9 +541,9 @@ public:
 	}
 };
 class RUQRMiQ :public IntervalSegTree<lint, lint> {
-	lint nodef(const int& a, const int& b)const { return std::min(a, b); }
-	void lazyf(int& a, const int& b) { a = b; }
-	void updf(int& a, const int& b, const unsigned int& width) { a = b; }
+	lint nodef(const lint& a, const lint& b)const { return std::min(a, b); }
+	void lazyf(lint& a, const lint& b) { a = b; }
+	void updf(lint& a, const lint& b, const unsigned int& width) { a = b; }
 public:
 	RUQRMiQ(int size, const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, LINF) {
 		for (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);

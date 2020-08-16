@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/SegTree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-15 20:58:53+09:00
+    - Last commit date: 2020-08-16 18:26:54+09:00
 
 
 
@@ -122,7 +122,9 @@ public:
 class RSQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return lhs+rhs;}
 public:
-	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {}
+	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -130,7 +132,9 @@ public:
 class RMiQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::min(lhs,rhs);}
 public:
-	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {}
+	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -138,7 +142,9 @@ public:
 class RMaQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::max(lhs,rhs);}
 public:
-	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {}
+	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -276,12 +282,12 @@ LP ChineseRem(const lint& b1,const lint& m1,const lint& b2,const lint& m2) {
 	lint r=(b1+m1*tmp+m1*m2)%(m1*m2);
 	return std::make_pair(r,m1*m2);
 }
-/*template<typename F>
+template<typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}*/
+}
 #line 3 "data-structure/SegTree.hpp"
 template<typename T>
 class SegTree {
@@ -345,7 +351,9 @@ public:
 class RSQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return lhs+rhs;}
 public:
-	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {}
+	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -353,7 +361,9 @@ public:
 class RMiQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::min(lhs,rhs);}
 public:
-	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {}
+	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -361,7 +371,9 @@ public:
 class RMaQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::max(lhs,rhs);}
 public:
-	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {}
+	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
