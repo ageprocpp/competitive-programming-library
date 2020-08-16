@@ -28,7 +28,7 @@ int main(){
     LiChaoTree lct(cord);
     rep(i,n)lct.addLine(a[i],b[i]);
     for(auto i:vec){
-        if(i.second==LINF)std::cout<<lct.query(std::lower_bound(all(cord),i.first)-cord.begin())<<std::endl;
+        if(i.second==LINF)std::cout<<lct.query(std::lower_bound(all(cord),i.first)-cord.begin()).first<<std::endl;
         else lct.addLine(i.first,i.second);
     }
 }
