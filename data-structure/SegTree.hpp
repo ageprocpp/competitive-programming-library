@@ -62,7 +62,9 @@ public:
 class RSQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return lhs+rhs;}
 public:
-	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {}
+	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -70,7 +72,9 @@ public:
 class RMiQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::min(lhs,rhs);}
 public:
-	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {}
+	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}
@@ -78,7 +82,9 @@ public:
 class RMaQ :public SegTree<lint> {
 	lint nodef(const lint& lhs,const lint& rhs)const{return std::max(lhs,rhs);}
 public:
-	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {}
+	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {
+		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	}
 	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {
 		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
 	}

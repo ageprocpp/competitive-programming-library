@@ -26,7 +26,9 @@ public:
 	std::vector<std::vector<int>> vec;
 	std::vector<int> size,par,head,label,last;
 	HeavyLightDecomposition(){}
-	HeavyLightDecomposition(int m):n(m){
+	HeavyLightDecomposition(int m):n(m){init(n);}
+	void init(int m){
+		n=m;
 		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);last.resize(n);
 	}
 	void add_edge(int u,int v){

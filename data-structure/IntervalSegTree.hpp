@@ -152,7 +152,7 @@ class RUQRSQ :public IntervalSegTree<lint, lint> {
 	void lazyf(lint& a, const lint& b) { a = b; }
 	void updf(lint& a, const lint& b, const unsigned int& width) { a = width * b; }
 public:
-	RUQRSQ(int size, const int& def = 0) :IntervalSegTree<lint, lint>(size, def, 0) {
+	RUQRSQ(int size, const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, 0) {
 		for (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);
 	}
 	RUQRSQ(const std::vector<lint>& initvec) :IntervalSegTree<lint, lint>((lint)0, initvec) {
@@ -160,9 +160,9 @@ public:
 	}
 };
 class RUQRMiQ :public IntervalSegTree<lint, lint> {
-	lint nodef(const int& a, const int& b)const { return std::min(a, b); }
-	void lazyf(int& a, const int& b) { a = b; }
-	void updf(int& a, const int& b, const unsigned int& width) { a = b; }
+	lint nodef(const lint& a, const lint& b)const { return std::min(a, b); }
+	void lazyf(lint& a, const lint& b) { a = b; }
+	void updf(lint& a, const lint& b, const unsigned int& width) { a = b; }
 public:
 	RUQRMiQ(int size, const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, LINF) {
 		for (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);
