@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: test/line_add_get_min.test.cpp
+# :heavy_check_mark: test/line_add_get_min.test.cpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/line_add_get_min.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+    - Last commit date: 2020-08-16 18:47:33+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/line_add_get_min">https://judge.yosupo.jp/problem/line_add_get_min</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../library/data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
-* :question: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../library/data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
+* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -78,7 +78,7 @@ int main(){
     LiChaoTree lct(cord);
     rep(i,n)lct.addLine(a[i],b[i]);
     for(auto i:vec){
-        if(i.second==LINF)std::cout<<lct.query(std::lower_bound(all(cord),i.first)-cord.begin())<<std::endl;
+        if(i.second==LINF)std::cout<<lct.query(std::lower_bound(all(cord),i.first)-cord.begin()).first<<std::endl;
         else lct.addLine(i.first,i.second);
     }
 }
@@ -314,7 +314,7 @@ int main(){
     LiChaoTree lct(cord);
     rep(i,n)lct.addLine(a[i],b[i]);
     for(auto i:vec){
-        if(i.second==LINF)std::cout<<lct.query(std::lower_bound(all(cord),i.first)-cord.begin())<<std::endl;
+        if(i.second==LINF)std::cout<<lct.query(std::lower_bound(all(cord),i.first)-cord.begin()).first<<std::endl;
         else lct.addLine(i.first,i.second);
     }
 }

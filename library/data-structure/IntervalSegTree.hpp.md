@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with

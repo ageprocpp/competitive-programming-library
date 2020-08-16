@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :question: data-structure/BIT.hpp
+# :heavy_check_mark: data-structure/BIT.hpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,14 +38,14 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
-* :x: <a href="../../verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
-* :x: <a href="../../verify/test/vertex_add_subtree_sum.test.cpp.html">test/vertex_add_subtree_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/vertex_add_subtree_sum.test.cpp.html">test/vertex_add_subtree_sum.test.cpp</a>
 
 
 ## Code

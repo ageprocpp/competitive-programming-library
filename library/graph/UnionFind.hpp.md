@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: graph/UnionFind.hpp
+# :heavy_check_mark: graph/UnionFind.hpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
@@ -48,7 +48,7 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
 
 
 ## Code
