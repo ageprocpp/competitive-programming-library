@@ -1,18 +1,19 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/associative_array"
-#include "../other/template.hpp"
+#include "../../other/template.hpp"
 int main(){
-	lint q,type,k,v;
+	int q,type;
+	lint k,v;
 	std::map<lint,lint> mp;
-	std::cin>>q;
+	scanf("%d",&q);
 	rep(i,q){
-		std::cin>>type;
+		scanf("%d",&type);
 		if(type==0){
-			std::cin>>k>>v;
+			scanf("%lld%lld",&k,&v);
 			mp[k]=v;
 		}
 		else{
-			std::cin>>k;
-			std::cout<<mp[k]<<std::endl;
+			scanf("%lld",&k);
+			printf("%lld\n",mp[k]);
 		}
 	}
 	return 0;

@@ -39,14 +39,8 @@ public:
 		l += n; r += n;
 		T ls = nodee, rs = nodee;
 		while (l < r) {
-			if (l & 1) {
-				ls = nodef(ls, node[l]);
-				l++;
-			}
-			if (r & 1) {
-				r--;
-				rs = nodef(node[r], rs);
-			}
+			if (l & 1) ls = nodef(ls, node[l++]);
+			if (r & 1) rs = nodef(node[--r], rs);
 			l >>= 1; r >>= 1;
 		}
 		return nodef(ls, rs);

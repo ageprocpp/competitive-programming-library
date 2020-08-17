@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
-#include "../other/template.hpp"
-#include "../algebraic/ModInt.hpp"
-#include "../data-structure/IntervalSegTree.hpp"
+#include "../../other/template.hpp"
+#include "../../algebraic/ModInt.hpp"
+#include "../../data-structure/IntervalSegTree.hpp"
 class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
@@ -16,24 +16,26 @@ int n,q;
 std::vector<ModInt> vec;
 int main(){
 	ModInt::setMod(998244353);
-	std::cin>>n>>q;
+	scanf("%d%d",&n,&q);
 	vec.resize(n);
 	rep(i,n){
-		std::cin>>vec[i];
+		int tmp;
+		scanf("%d",&tmp);
+		vec[i]=tmp;
 	}
 	MySeg st(vec);
 	rep(i,q){
 		int t;
-		std::cin>>t;
+		scanf("%d",&t);
 		if(t==0){
 			int l,r,b,c;
-			std::cin>>l>>r>>b>>c;
+			scanf("%d%d%d%d",&l,&r,&b,&c);
 			st.update(l,r,{b,c});
 		}
 		else{
 			int l,r;
-			std::cin>>l>>r;
-			std::cout<<st.query(l,r)<<std::endl;
+			scanf("%d%d",&l,&r);
+			printf("%d\n",st.query(l,r));
 		}
 	}
 	return 0;

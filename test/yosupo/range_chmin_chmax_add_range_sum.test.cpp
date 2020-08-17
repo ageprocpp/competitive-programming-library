@@ -1,9 +1,9 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum"
-#include "../other/template.hpp"
-#include "../data-structure/SegTreeBeats.hpp"
+#include "../../other/template.hpp"
+#include "../../data-structure/SegTreeBeats.hpp"
 int n,q;
 int main(){
-	scanf("%d %d",&n,&q);
+	scanf("%d%d",&n,&q);
 	std::vector<lint> vec(n);
 	rep(i,n)scanf("%lld",vec.data()+i);
 	SegTreeBeats beats(vec);
@@ -12,22 +12,22 @@ int main(){
 		scanf("%d",&t);
 		if(t==0){
 			lint l,r,b;
-			scanf("%lld %lld %lld",&l,&r,&b);
+			scanf("%lld%lld%lld",&l,&r,&b);
 			beats.update_chmin(l,r,b);
 		}
 		else if(t==1){
 			lint l,r,b;
-			scanf("%lld %lld %lld",&l,&r,&b);
+			scanf("%lld%lld%lld",&l,&r,&b);
 			beats.update_chmax(l,r,b);
 		}
 		else if(t==2){
 			lint l,r,b;
-			scanf("%lld %lld %lld",&l,&r,&b);
+			scanf("%lld%lld%lld",&l,&r,&b);
 			beats.update_add(l,r,b);
 		}
 		else{
 			lint l,r;
-			scanf("%lld %lld",&l,&r);
+			scanf("%lld%lld",&l,&r);
 			printf("%lld\n",beats.query_sum(l,r));
 		}
 	}

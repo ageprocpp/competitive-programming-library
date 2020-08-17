@@ -1,11 +1,11 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/many_aplusb"
-#include "../other/template.hpp"
+#include "../../other/template.hpp"
 int main(){
 	lint t,a,b;
-	std::cin>>t;
+	scanf("%lld",&t);
 	rep(i,t){
-		std::cin>>a>>b;
-		std::cout<<a+b<<std::endl;
+		scanf("%lld%lld",&a,&b);
+		printf("%lld\n",a+b);
 	}
 	return 0;
 }
