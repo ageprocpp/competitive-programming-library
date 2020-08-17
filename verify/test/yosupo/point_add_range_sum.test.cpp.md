@@ -21,26 +21,26 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/staticrmq.test.cpp
+# :heavy_check_mark: test/yosupo/point_add_range_sum.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/staticrmq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/point_add_range_sum.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/staticrmq">https://judge.yosupo.jp/problem/staticrmq</a>
+* see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -48,21 +48,30 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
-#include "../other/template.hpp"
-#include "../data-structure/SparseTable.hpp"
-lint n,q,l,r;
-std::vector<int> vec;
+#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+#include "../../other/template.hpp"
+#include "../../data-structure/BIT.hpp"
+int n,q,a;
 int main(){
-	std::cin>>n>>q;
-	vec.resize(n);
-	rep(i,n){
-		std::cin>>vec[i];
+	scanf("%d%d",&n,&q);
+	BIT bit(n);
+	REP(i,n){
+		scanf("%d",&a);
+		bit.add(i,a);
 	}
-	SparseTable<int> st(vec);
 	rep(i,q){
-		std::cin>>l>>r;
-		std::cout<<st.query(l,r)<<std::endl;
+		int t;
+		scanf("%d",&t);
+		if(t==0){
+			int p,x;
+			scanf("%d%d",&p,&x);
+			bit.add(p+1,x);
+		}
+		else{
+			int l,r;
+			scanf("%d%d",&l,&r);
+			printf("%lld\n",bit.query(r)-(l==0?0:bit.query(l)));
+		}
 	}
 	return 0;
 }
@@ -72,8 +81,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/staticrmq.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
+#line 1 "test/yosupo/point_add_range_sum.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -207,55 +216,78 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }
-#line 3 "data-structure/SparseTable.hpp"
-template<typename T>
-class SparseTable {
-	std::vector<std::vector<T>> table;
-	std::vector<int> logtable;
+#line 3 "data-structure/BIT.hpp"
+class BIT {
+	int n;
+	std::vector<lint> bit;
 public:
-	SparseTable(std::vector<T> vec) {
-		int maxlength = 0;
-		while ((1 << (maxlength + 1)) <= vec.size())maxlength++;
-		table.resize(maxlength + 1, std::vector<T>(vec.size()));
-		logtable.resize(vec.size() + 1);
-		rep(i, maxlength + 1) {
-			rep(j, vec.size() - (1 << i) + 1) {
-				if (i) {
-					table[i][j] = std::min(table[i - 1][j], table[i - 1][j + (1 << (i - 1))]);
-				}
-				else table[i][j] = vec[j];
+	BIT(int n) :n(n) {
+		bit.resize(n + 1);
+	}
+	void add(int a, lint x) {
+		while (a <= n) {
+			bit[a] += x;
+			a += a & -a;
+		}
+	}
+	lint query(int a) {
+		lint cnt = 0;
+		while (a > 0) {
+			cnt += bit[a];
+			a -= a & -a;
+		}
+		return cnt;
+	}
+	void clear() {
+		bit.assign(n + 1, 0);
+	}
+	int lower_bound(lint x){
+		int p=0,k=1;
+		while(k*2<=n)k*=2;
+		while(k>0){
+			if(p+k<=n&&bit[p+k]<x){
+				x-=bit[p+k];
+				p+=k;
 			}
+			k/=2;
 		}
-		logtable[1] = 0;
-		for (int i = 2; i <= vec.size(); i++) {
-			logtable[i] = logtable[i >> 1] + 1;
-		}
+		return p+1;
 	}
-	template<class InputIter>
-	SparseTable(InputIter first,InputIter last){
-		std::vector<T> vec;
-		while(first!=last){
-			vec.emplace_back(*first);
+	int upper_bound(lint x){
+		int p=0,k=1;
+		while(k*2<=n)k*=2;
+		while(k>0){
+			if(p+k<=n&&bit[p+k]<=x){
+				x-=bit[p+k];
+				p+=k;
+			}
+			k/=2;
 		}
-	}
-	T query(int l, int r) {
-		int length = r - l;
-		return std::min(table[logtable[length]][l], table[logtable[length]][r - (1 << logtable[length])]);
+		return p+1;
 	}
 };
-#line 4 "test/staticrmq.test.cpp"
-lint n,q,l,r;
-std::vector<int> vec;
+#line 4 "test/yosupo/point_add_range_sum.test.cpp"
+int n,q,a;
 int main(){
-	std::cin>>n>>q;
-	vec.resize(n);
-	rep(i,n){
-		std::cin>>vec[i];
+	scanf("%d%d",&n,&q);
+	BIT bit(n);
+	REP(i,n){
+		scanf("%d",&a);
+		bit.add(i,a);
 	}
-	SparseTable<int> st(vec);
 	rep(i,q){
-		std::cin>>l>>r;
-		std::cout<<st.query(l,r)<<std::endl;
+		int t;
+		scanf("%d",&t);
+		if(t==0){
+			int p,x;
+			scanf("%d%d",&p,&x);
+			bit.add(p+1,x);
+		}
+		else{
+			int l,r;
+			scanf("%d%d",&l,&r);
+			printf("%lld\n",bit.query(r)-(l==0?0:bit.query(l)));
+		}
 	}
 	return 0;
 }
@@ -263,5 +295,5 @@ int main(){
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

@@ -21,25 +21,25 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/associative_array.test.cpp
+# :heavy_check_mark: test/yosupo/many_aplusb.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/associative_array.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/many_aplusb.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/associative_array">https://judge.yosupo.jp/problem/associative_array</a>
+* see: <a href="https://judge.yosupo.jp/problem/many_aplusb">https://judge.yosupo.jp/problem/many_aplusb</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -47,22 +47,14 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/associative_array"
-#include "../other/template.hpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/many_aplusb"
+#include "../../other/template.hpp"
 int main(){
-	lint q,type,k,v;
-	std::map<lint,lint> mp;
-	std::cin>>q;
-	rep(i,q){
-		std::cin>>type;
-		if(type==0){
-			std::cin>>k>>v;
-			mp[k]=v;
-		}
-		else{
-			std::cin>>k;
-			std::cout<<mp[k]<<std::endl;
-		}
+	lint t,a,b;
+	scanf("%lld",&t);
+	rep(i,t){
+		scanf("%lld%lld",&a,&b);
+		printf("%lld\n",a+b);
 	}
 	return 0;
 }
@@ -72,8 +64,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/associative_array.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/associative_array"
+#line 1 "test/yosupo/many_aplusb.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/many_aplusb"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -207,21 +199,13 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }
-#line 3 "test/associative_array.test.cpp"
+#line 3 "test/yosupo/many_aplusb.test.cpp"
 int main(){
-	lint q,type,k,v;
-	std::map<lint,lint> mp;
-	std::cin>>q;
-	rep(i,q){
-		std::cin>>type;
-		if(type==0){
-			std::cin>>k>>v;
-			mp[k]=v;
-		}
-		else{
-			std::cin>>k;
-			std::cout<<mp[k]<<std::endl;
-		}
+	lint t,a,b;
+	scanf("%lld",&t);
+	rep(i,t){
+		scanf("%lld%lld",&a,&b);
+		printf("%lld\n",a+b);
 	}
 	return 0;
 }
@@ -229,5 +213,5 @@ int main(){
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

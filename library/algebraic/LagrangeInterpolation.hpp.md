@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code

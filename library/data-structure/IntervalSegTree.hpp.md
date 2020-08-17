@@ -31,20 +31,20 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/IntervalSegTree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/range_affine_range_sum.test.cpp.html">test/yosupo/range_affine_range_sum.test.cpp</a>
 
 
 ## Code
@@ -416,14 +416,8 @@ public:
 		l += n; r += n;
 		T ls = nodee, rs = nodee;
 		while (l < r) {
-			if (l & 1) {
-				ls = nodef(ls, node[l]);
-				l++;
-			}
-			if (r & 1) {
-				r--;
-				rs = nodef(node[r], rs);
-			}
+			if (l & 1) ls = nodef(ls, node[l++]);
+			if (r & 1) rs = nodef(node[--r], rs);
 			l >>= 1; r >>= 1;
 		}
 		return nodef(ls, rs);

@@ -38,12 +38,12 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/min_cost_flow.test.cpp.html">test/min_cost_flow.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/min_cost_flow.test.cpp.html">test/aoj/min_cost_flow.test.cpp</a>
 
 
 ## Code

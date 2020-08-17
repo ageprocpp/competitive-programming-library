@@ -21,26 +21,27 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/point_add_range_sum.test.cpp
+# :heavy_check_mark: test/yosupo/vertex_add_subtree_sum.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/point_add_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/vertex_add_subtree_sum.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
+* see: <a href="https://judge.yosupo.jp/problem/vertex_add_subtree_sum">https://judge.yosupo.jp/problem/vertex_add_subtree_sum</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
+* :question: <a href="../../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -48,34 +49,37 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
-#include "../other/template.hpp"
-#include "../data-structure/BIT.hpp"
-lint n,q,a;
+#define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_subtree_sum"
+#include "../../other/template.hpp"
+#include "../../graph/HeavyLightDecomposition.hpp"
+#include "../../data-structure/BIT.hpp"
+int n,q,a[500010];
 int main(){
-	std::cin>>n>>q;
+	scanf("%d%d",&n,&q);
+	rep(i,n)scanf("%d",a+i);
+	HeavyLightDecomposition hld(n);
 	BIT bit(n);
-	REP(i,n){
-		std::cin>>a;
-		bit.add(i,a);
+	REP(i,n-1){
+		int p;
+		scanf("%d",&p);
+		hld.add_edge(i,p);
 	}
+	hld.build(0);
+	rep(i,n)bit.add(hld.label[i]+1,a[i]);
 	rep(i,q){
 		int t;
-		std::cin>>t;
+		scanf("%d",&t);
 		if(t==0){
-			lint p,x;
-			std::cin>>p>>x;
-			p++;
-			bit.add(p,x);
+			int u,x;
+			scanf("%d%d",&u,&x);
+			bit.add(hld.label[u]+1,x);
 		}
 		else{
-			int l,r;
-			std::cin>>l>>r;
-			l++;r++;
-			std::cout<<bit.query(r-1)-(l==1?0:bit.query(l-1))<<std::endl;
+			int u;
+			scanf("%d",&u);
+			printf("%lld\n",bit.query(hld.last[u])-bit.query(hld.label[u]));
 		}
 	}
-	return 0;
 }
 ```
 {% endraw %}
@@ -83,8 +87,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/point_add_range_sum.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+#line 1 "test/yosupo/vertex_add_subtree_sum.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_subtree_sum"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -218,6 +222,82 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }
+#line 3 "graph/HeavyLightDecomposition.hpp"
+class HeavyLightDecomposition{
+	int n,index=0;
+	void size_dfs(int node){
+		size[node]=1;
+		for(int &i:vec[node]){
+			if(par[node]==i)continue;
+			par[i]=node;
+			size_dfs(i);
+			size[node]+=size[i];
+			if(size[i]>size[vec[node][0]])std::swap(i,vec[node][0]);
+		}
+	}
+	void build_dfs(int node){
+		label[node]=index++;
+		for(int& i:vec[node]){
+			if(par[node]!=i){
+				head[i]=(i==vec[node][0]?head[node]:i);
+				build_dfs(i);
+			}
+		}
+		last[node]=index;
+	}
+public:
+	std::vector<std::vector<int>> vec;
+	std::vector<int> size,par,head,label,last;
+	HeavyLightDecomposition(){}
+	HeavyLightDecomposition(int m):n(m){init(n);}
+	void init(int m){
+		n=m;
+		vec.resize(n);size.resize(n);par.resize(n);head.resize(n);label.resize(n);last.resize(n);
+	}
+	void add_edge(int u,int v){
+		vec[u].emplace_back(v);
+		vec[v].emplace_back(u);
+	}
+	void build(int root){
+		std::fill(all(par),-1);
+		size_dfs(root);
+		build_dfs(root);
+	}
+	template<typename F>
+	void each_edge(int u,int v,const F &func)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v]){
+				if(label[u]!=label[v])func(label[u]+1,label[v]);
+				return;
+			}
+			func(label[head[v]],label[v]);
+			v=par[head[v]];
+		}
+	}
+	template<typename F>
+	void each_vertex(int u,int v,const F& func)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v]){
+				func(label[u],label[v]);
+				return;
+			}
+			func(label[head[v]],label[v]);
+			v=par[head[v]];
+		}
+	}
+	int lca(int u,int v)const{
+		while(true){
+			if(label[u]>label[v])std::swap(u,v);
+			if(head[u]==head[v])return u;
+			v=par[head[v]];
+		}
+	}
+	void clear(){
+		vec.clear();size.clear();par.clear();head.clear();label.clear();last.clear();
+	}
+};
 #line 3 "data-structure/BIT.hpp"
 class BIT {
 	int n;
@@ -268,36 +348,38 @@ public:
 		return p+1;
 	}
 };
-#line 4 "test/point_add_range_sum.test.cpp"
-lint n,q,a;
+#line 5 "test/yosupo/vertex_add_subtree_sum.test.cpp"
+int n,q,a[500010];
 int main(){
-	std::cin>>n>>q;
+	scanf("%d%d",&n,&q);
+	rep(i,n)scanf("%d",a+i);
+	HeavyLightDecomposition hld(n);
 	BIT bit(n);
-	REP(i,n){
-		std::cin>>a;
-		bit.add(i,a);
+	REP(i,n-1){
+		int p;
+		scanf("%d",&p);
+		hld.add_edge(i,p);
 	}
+	hld.build(0);
+	rep(i,n)bit.add(hld.label[i]+1,a[i]);
 	rep(i,q){
 		int t;
-		std::cin>>t;
+		scanf("%d",&t);
 		if(t==0){
-			lint p,x;
-			std::cin>>p>>x;
-			p++;
-			bit.add(p,x);
+			int u,x;
+			scanf("%d%d",&u,&x);
+			bit.add(hld.label[u]+1,x);
 		}
 		else{
-			int l,r;
-			std::cin>>l>>r;
-			l++;r++;
-			std::cout<<bit.query(r-1)-(l==1?0:bit.query(l-1))<<std::endl;
+			int u;
+			scanf("%d",&u);
+			printf("%lld\n",bit.query(hld.last[u])-bit.query(hld.label[u]));
 		}
 	}
-	return 0;
 }
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

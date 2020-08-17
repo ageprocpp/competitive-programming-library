@@ -21,17 +21,17 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/min_cost_flow.test.cpp
+# :heavy_check_mark: test/aoj/min_cost_flow.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/min_cost_flow.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/min_cost_flow.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../../library/graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -49,18 +49,18 @@ layout: default
 {% raw %}
 ```cpp
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B"
-#include "../other/template.hpp"
-#include "../graph/MinCostFlow.hpp"
+#include "../../other/template.hpp"
+#include "../../graph/MinCostFlow.hpp"
 int n,m,f;
 int main(){
-    std::cin>>n>>m>>f;
+    scanf("%d%d%d",&n,&m,&f);
     MinCostFlow mcf(n);
     rep(i,m){
         int u,v,c,d;
-        std::cin>>u>>v>>c>>d;
+        scanf("%d%d%d%d",&u,&v,&c,&d);
         mcf.add_edge(u,v,c,d);
     }
-    std::cout<<mcf.min_cost_flow(0,n-1,f)<<std::endl;
+    printf("%d\n",mcf.min_cost_flow(0,n-1,f));
 }
 ```
 {% endraw %}
@@ -68,7 +68,7 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/min_cost_flow.test.cpp"
+#line 1 "test/aoj/min_cost_flow.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
@@ -298,21 +298,21 @@ public:
         return res;
     }
 };
-#line 4 "test/min_cost_flow.test.cpp"
+#line 4 "test/aoj/min_cost_flow.test.cpp"
 int n,m,f;
 int main(){
-    std::cin>>n>>m>>f;
+    scanf("%d%d%d",&n,&m,&f);
     MinCostFlow mcf(n);
     rep(i,m){
         int u,v,c,d;
-        std::cin>>u>>v>>c>>d;
+        scanf("%d%d%d%d",&u,&v,&c,&d);
         mcf.add_edge(u,v,c,d);
     }
-    std::cout<<mcf.min_cost_flow(0,n-1,f)<<std::endl;
+    printf("%d\n",mcf.min_cost_flow(0,n-1,f));
 }
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

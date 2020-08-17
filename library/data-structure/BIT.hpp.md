@@ -38,14 +38,14 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/point_add_range_sum.test.cpp.html">test/point_add_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/vertex_add_path_sum.test.cpp.html">test/vertex_add_path_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/vertex_add_subtree_sum.test.cpp.html">test/vertex_add_subtree_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/point_add_range_sum.test.cpp.html">test/yosupo/point_add_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/vertex_add_path_sum.test.cpp.html">test/yosupo/vertex_add_path_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/vertex_add_subtree_sum.test.cpp.html">test/yosupo/vertex_add_subtree_sum.test.cpp</a>
 
 
 ## Code

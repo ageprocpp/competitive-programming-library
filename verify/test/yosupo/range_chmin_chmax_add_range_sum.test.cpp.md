@@ -21,17 +21,17 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/range_chmin_chmax_add_range_sum.test.cpp
+# :heavy_check_mark: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/range_chmin_chmax_add_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/range_chmin_chmax_add_range_sum.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum">https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -49,11 +49,11 @@ layout: default
 {% raw %}
 ```cpp
 #define PROBLEM "https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum"
-#include "../other/template.hpp"
-#include "../data-structure/SegTreeBeats.hpp"
+#include "../../other/template.hpp"
+#include "../../data-structure/SegTreeBeats.hpp"
 int n,q;
 int main(){
-	scanf("%d %d",&n,&q);
+	scanf("%d%d",&n,&q);
 	std::vector<lint> vec(n);
 	rep(i,n)scanf("%lld",vec.data()+i);
 	SegTreeBeats beats(vec);
@@ -62,22 +62,22 @@ int main(){
 		scanf("%d",&t);
 		if(t==0){
 			lint l,r,b;
-			scanf("%lld %lld %lld",&l,&r,&b);
+			scanf("%lld%lld%lld",&l,&r,&b);
 			beats.update_chmin(l,r,b);
 		}
 		else if(t==1){
 			lint l,r,b;
-			scanf("%lld %lld %lld",&l,&r,&b);
+			scanf("%lld%lld%lld",&l,&r,&b);
 			beats.update_chmax(l,r,b);
 		}
 		else if(t==2){
 			lint l,r,b;
-			scanf("%lld %lld %lld",&l,&r,&b);
+			scanf("%lld%lld%lld",&l,&r,&b);
 			beats.update_add(l,r,b);
 		}
 		else{
 			lint l,r;
-			scanf("%lld %lld",&l,&r);
+			scanf("%lld%lld",&l,&r);
 			printf("%lld\n",beats.query_sum(l,r));
 		}
 	}
@@ -89,7 +89,7 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/range_chmin_chmax_add_range_sum.test.cpp"
+#line 1 "test/yosupo/range_chmin_chmax_add_range_sum.test.cpp"
 #define PROBLEM "https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
@@ -393,10 +393,10 @@ public:
         return std::max(vl,vr);
     }
 };
-#line 4 "test/range_chmin_chmax_add_range_sum.test.cpp"
+#line 4 "test/yosupo/range_chmin_chmax_add_range_sum.test.cpp"
 int n,q;
 int main(){
-	scanf("%d %d",&n,&q);
+	scanf("%d%d",&n,&q);
 	std::vector<lint> vec(n);
 	rep(i,n)scanf("%lld",vec.data()+i);
 	SegTreeBeats beats(vec);
@@ -405,22 +405,22 @@ int main(){
 		scanf("%d",&t);
 		if(t==0){
 			lint l,r,b;
-			scanf("%lld %lld %lld",&l,&r,&b);
+			scanf("%lld%lld%lld",&l,&r,&b);
 			beats.update_chmin(l,r,b);
 		}
 		else if(t==1){
 			lint l,r,b;
-			scanf("%lld %lld %lld",&l,&r,&b);
+			scanf("%lld%lld%lld",&l,&r,&b);
 			beats.update_chmax(l,r,b);
 		}
 		else if(t==2){
 			lint l,r,b;
-			scanf("%lld %lld %lld",&l,&r,&b);
+			scanf("%lld%lld%lld",&l,&r,&b);
 			beats.update_add(l,r,b);
 		}
 		else{
 			lint l,r;
-			scanf("%lld %lld",&l,&r);
+			scanf("%lld%lld",&l,&r);
 			printf("%lld\n",beats.query_sum(l,r));
 		}
 	}
@@ -430,5 +430,5 @@ int main(){
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

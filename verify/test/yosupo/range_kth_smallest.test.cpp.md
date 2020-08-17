@@ -21,17 +21,17 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/range_kth_smallest.test.cpp
+# :heavy_check_mark: test/yosupo/range_kth_smallest.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/range_kth_smallest.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/range_kth_smallest.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_kth_smallest">https://judge.yosupo.jp/problem/range_kth_smallest</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -49,19 +49,19 @@ layout: default
 {% raw %}
 ```cpp
 #define PROBLEM "https://judge.yosupo.jp/problem/range_kth_smallest"
-#include "../other/template.hpp"
-#include "../data-structure/WaveletMatrix.hpp"
+#include "../../other/template.hpp"
+#include "../../data-structure/WaveletMatrix.hpp"
 int n,q;
 std::vector<int> a;
 int main(){
-    std::cin>>n>>q;
+    scanf("%d%d",&n,&q);
     a.resize(n);
-    rep(i,n)std::cin>>a[i];
+    rep(i,n)scanf("%d",a.data()+i);
     WaveletMatrix wm(a);
     rep(i,q){
         int l,r,k;
-        std::cin>>l>>r>>k;
-        std::cout<<wm.quantile(l,r,k+1)<<std::endl;
+        scanf("%d%d%d",&l,&r,&k);
+        printf("%d\n",wm.quantile(l,r,k+1));
     }
 }
 ```
@@ -70,7 +70,7 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/range_kth_smallest.test.cpp"
+#line 1 "test/yosupo/range_kth_smallest.test.cpp"
 #define PROBLEM "https://judge.yosupo.jp/problem/range_kth_smallest"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
@@ -286,23 +286,23 @@ public:
         return fvec[l];
     }
 };
-#line 4 "test/range_kth_smallest.test.cpp"
+#line 4 "test/yosupo/range_kth_smallest.test.cpp"
 int n,q;
 std::vector<int> a;
 int main(){
-    std::cin>>n>>q;
+    scanf("%d%d",&n,&q);
     a.resize(n);
-    rep(i,n)std::cin>>a[i];
+    rep(i,n)scanf("%d",a.data()+i);
     WaveletMatrix wm(a);
     rep(i,q){
         int l,r,k;
-        std::cin>>l>>r>>k;
-        std::cout<<wm.quantile(l,r,k+1)<<std::endl;
+        scanf("%d%d%d",&l,&r,&k);
+        printf("%d\n",wm.quantile(l,r,k+1));
     }
 }
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

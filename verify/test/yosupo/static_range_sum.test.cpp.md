@@ -21,26 +21,25 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/unionfind.test.cpp
+# :heavy_check_mark: test/yosupo/static_range_sum.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/unionfind.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/static_range_sum.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/unionfind">https://judge.yosupo.jp/problem/unionfind</a>
+* see: <a href="https://judge.yosupo.jp/problem/static_range_sum">https://judge.yosupo.jp/problem/static_range_sum</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -48,17 +47,19 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/unionfind"
-#include "../other/template.hpp"
-#include "../graph/UnionFind.hpp"
-int n,q,t,u,v;
+#define PROBLEM "https://judge.yosupo.jp/problem/static_range_sum"
+#include "../../other/template.hpp"
+int n,q,l,r;
+lint a[500010];
 int main(){
-	std::cin>>n>>q;
-	UnionFind uf(n);
+	scanf("%d%d",&n,&q);
+	rep(i,n){
+		scanf("%lld",a+i);
+		if(i)a[i]+=a[i-1];
+	}
 	rep(i,q){
-		std::cin>>t>>u>>v;
-		if(t==0)uf.unite(u,v);
-		else std::cout<<uf.same(u,v)<<std::endl;
+		scanf("%d%d",&l,&r);
+		printf("%lld\n",a[r-1]-(l==0?0:a[l-1]));
 	}
 	return 0;
 }
@@ -68,8 +69,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/unionfind.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/unionfind"
+#line 1 "test/yosupo/static_range_sum.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/static_range_sum"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -203,48 +204,18 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }
-#line 3 "graph/UnionFind.hpp"
-class UnionFind {
-protected:
-	std::vector<int> par, size;
-public:
-	UnionFind(){}
-	UnionFind(int size) {init(size);}
-	void init(int size){
-		par.resize(size); this->size.resize(size, 1);
-		rep(i, size) {
-			par[i] = i;
-		}
-	}
-	int find(int n) {
-		if (par[n] == n)return n;
-		return par[n] = find(par[n]);
-	}
-	void unite(int n, int m) {
-		n = find(n);
-		m = find(m);
-		if (n == m)return;
-		int a=n,b=m;
-		if(size[a]>size[b])std::swap(a,b);
-		par[a] = b;
-		size[b] += size[a];
-	}
-	bool same(int n, int m) {
-		return find(n) == find(m);
-	}
-	int getsize(int n) {
-		return size[find(n)];
-	}
-};
-#line 4 "test/unionfind.test.cpp"
-int n,q,t,u,v;
+#line 3 "test/yosupo/static_range_sum.test.cpp"
+int n,q,l,r;
+lint a[500010];
 int main(){
-	std::cin>>n>>q;
-	UnionFind uf(n);
+	scanf("%d%d",&n,&q);
+	rep(i,n){
+		scanf("%lld",a+i);
+		if(i)a[i]+=a[i-1];
+	}
 	rep(i,q){
-		std::cin>>t>>u>>v;
-		if(t==0)uf.unite(u,v);
-		else std::cout<<uf.same(u,v)<<std::endl;
+		scanf("%d%d",&l,&r);
+		printf("%lld\n",a[r-1]-(l==0?0:a[l-1]));
 	}
 	return 0;
 }
@@ -252,5 +223,5 @@ int main(){
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

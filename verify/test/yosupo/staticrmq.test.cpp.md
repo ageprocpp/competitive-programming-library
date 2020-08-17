@@ -21,25 +21,26 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/static_range_sum.test.cpp
+# :heavy_check_mark: test/yosupo/staticrmq.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/static_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/staticrmq.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/static_range_sum">https://judge.yosupo.jp/problem/static_range_sum</a>
+* see: <a href="https://judge.yosupo.jp/problem/staticrmq">https://judge.yosupo.jp/problem/staticrmq</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -47,18 +48,19 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/static_range_sum"
-#include "../other/template.hpp"
-lint n,q,a[500010],l,r;
+#define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
+#include "../../other/template.hpp"
+#include "../../data-structure/SparseTable.hpp"
+int n,q,l,r;
+std::vector<int> vec;
 int main(){
-	std::cin>>n>>q;
-	rep(i,n){
-		std::cin>>a[i];
-		if(i)a[i]+=a[i-1];
-	}
+	scanf("%d%d",&n,&q);
+	vec.resize(n);
+	rep(i,n)scanf("%d",vec.data()+i);
+	SparseTable<int> st(vec);
 	rep(i,q){
-		std::cin>>l>>r;
-		std::cout<<a[r-1]-(l==0?0:a[l-1])<<std::endl;
+		scanf("%d%d",&l,&r);
+		printf("%d\n",st.query(l,r));
 	}
 	return 0;
 }
@@ -68,8 +70,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/static_range_sum.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/static_range_sum"
+#line 1 "test/yosupo/staticrmq.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -203,17 +205,53 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }
-#line 3 "test/static_range_sum.test.cpp"
-lint n,q,a[500010],l,r;
-int main(){
-	std::cin>>n>>q;
-	rep(i,n){
-		std::cin>>a[i];
-		if(i)a[i]+=a[i-1];
+#line 3 "data-structure/SparseTable.hpp"
+template<typename T>
+class SparseTable {
+	std::vector<std::vector<T>> table;
+	std::vector<int> logtable;
+public:
+	SparseTable(std::vector<T> vec) {
+		int maxlength = 0;
+		while ((1 << (maxlength + 1)) <= vec.size())maxlength++;
+		table.resize(maxlength + 1, std::vector<T>(vec.size()));
+		logtable.resize(vec.size() + 1);
+		rep(i, maxlength + 1) {
+			rep(j, vec.size() - (1 << i) + 1) {
+				if (i) {
+					table[i][j] = std::min(table[i - 1][j], table[i - 1][j + (1 << (i - 1))]);
+				}
+				else table[i][j] = vec[j];
+			}
+		}
+		logtable[1] = 0;
+		for (int i = 2; i <= vec.size(); i++) {
+			logtable[i] = logtable[i >> 1] + 1;
+		}
 	}
+	template<class InputIter>
+	SparseTable(InputIter first,InputIter last){
+		std::vector<T> vec;
+		while(first!=last){
+			vec.emplace_back(*first);
+		}
+	}
+	T query(int l, int r) {
+		int length = r - l;
+		return std::min(table[logtable[length]][l], table[logtable[length]][r - (1 << logtable[length])]);
+	}
+};
+#line 4 "test/yosupo/staticrmq.test.cpp"
+int n,q,l,r;
+std::vector<int> vec;
+int main(){
+	scanf("%d%d",&n,&q);
+	vec.resize(n);
+	rep(i,n)scanf("%d",vec.data()+i);
+	SparseTable<int> st(vec);
 	rep(i,q){
-		std::cin>>l>>r;
-		std::cout<<a[r-1]-(l==0?0:a[l-1])<<std::endl;
+		scanf("%d%d",&l,&r);
+		printf("%d\n",st.query(l,r));
 	}
 	return 0;
 }
@@ -221,5 +259,5 @@ int main(){
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

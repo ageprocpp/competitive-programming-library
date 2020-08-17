@@ -21,17 +21,17 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/maximum_flow_ford_fulkerson.test.cpp
+# :heavy_check_mark: test/aoj/maximum_flow_ford_fulkerson.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/maximum_flow_ford_fulkerson.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/maximum_flow_ford_fulkerson.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../../library/graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -49,18 +49,18 @@ layout: default
 {% raw %}
 ```cpp
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A"
-#include "../other/template.hpp"
-#include "../graph/FordFulkerson.hpp"
+#include "../../other/template.hpp"
+#include "../../graph/FordFulkerson.hpp"
 int v,e;
 int main() {
-	std::cin>>v>>e;
+	scanf("%d%d",&v,&e);
 	FordFulkerson flow(v);
 	rep(i,e){
 		int a,b,c;
-		std::cin>>a>>b>>c;
+		scanf("%d%d%d",&a,&b,&c);
 		flow.add_edge(a,b,c);
 	}
-	std::cout<<flow.max_flow(0,v-1)<<std::endl;
+	printf("%d",flow.max_flow(0,v-1));
 	return 0;
 }
 ```
@@ -69,7 +69,7 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/maximum_flow_ford_fulkerson.test.cpp"
+#line 1 "test/aoj/maximum_flow_ford_fulkerson.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
@@ -249,22 +249,22 @@ public:
 		}
 	}
 };
-#line 4 "test/maximum_flow_ford_fulkerson.test.cpp"
+#line 4 "test/aoj/maximum_flow_ford_fulkerson.test.cpp"
 int v,e;
 int main() {
-	std::cin>>v>>e;
+	scanf("%d%d",&v,&e);
 	FordFulkerson flow(v);
 	rep(i,e){
 		int a,b,c;
-		std::cin>>a>>b>>c;
+		scanf("%d%d%d",&a,&b,&c);
 		flow.add_edge(a,b,c);
 	}
-	std::cout<<flow.max_flow(0,v-1)<<std::endl;
+	printf("%d",flow.max_flow(0,v-1));
 	return 0;
 }
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

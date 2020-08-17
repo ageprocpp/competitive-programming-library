@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
@@ -48,7 +48,7 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/unionfind.test.cpp.html">test/unionfind.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/unionfind.test.cpp.html">test/yosupo/unionfind.test.cpp</a>
 
 
 ## Code

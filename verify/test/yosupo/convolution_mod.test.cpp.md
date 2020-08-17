@@ -21,27 +21,27 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/point_set_range_composite.test.cpp
+# :heavy_check_mark: test/yosupo/convolution_mod.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/point_set_range_composite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/convolution_mod.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
+* see: <a href="https://judge.yosupo.jp/problem/convolution_mod">https://judge.yosupo.jp/problem/convolution_mod</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../../../library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -49,42 +49,18 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
-#include "../other/template.hpp"
-#include "../algebraic/ModInt.hpp"
-#include "../data-structure/SegTree.hpp"
-class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
-public:
-	MySeg(int size):SegTree<mp>(size,{0,0},{1,0}){}
-};
-lint n,q;
+#define PROBLEM "https://judge.yosupo.jp/problem/convolution_mod"
+#include "../../other/template.hpp"
+#include "../../algebraic/NumberTheoreticTransform.hpp"
+int n,m;
+std::vector<int> a,b;
 int main(){
-	ModInt::setMod(998244353);
-	std::cin>>n>>q;
-	MySeg st(n);
-	rep(i,n){
-		lint a,b;
-		std::cin>>a>>b;
-		st.update(i,{a,b});
-	}
-	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
-			int p,c,d;
-			std::cin>>p>>c>>d;
-			st.update(p,{c,d});
-		}
-		else{
-			int l,r,x;
-			std::cin>>l>>r>>x;
-			auto p=st.query(l,r);
-			std::cout<<p.first*x+p.second<<std::endl;
-		}
-	}
-	return 0;
+	scanf("%d%d",&n,&m);
+	a.resize(n);b.resize(m);
+	rep(i,n)scanf("%d",a.data()+i);
+	rep(i,m)scanf("%d",b.data()+i);
+	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b,998244353);
+	rep(i,n+m-1)printf((i==n+m?"%d\n":"%d "),c[i]);
 }
 ```
 {% endraw %}
@@ -92,8 +68,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/point_set_range_composite.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
+#line 1 "test/yosupo/convolution_mod.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/convolution_mod"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -287,133 +263,83 @@ std::istream& operator>>(std::istream& ist, ModInt& x) {
 	x = a;
 	return ist;
 }
-#line 3 "data-structure/SegTree.hpp"
-template<typename T>
-class SegTree {
-protected:
-	unsigned int n = 1, rank = 0;
-	std::vector<T> node;
-	T nodee;
-	virtual T nodef(const T&, const T&)const = 0;
-public:
-	SegTree(unsigned int m, T init, T nodee):nodee(nodee) {
-		while (n < m) {
-			n *= 2;
-			rank++;
-		}
-		node.resize(2 * n, nodee);
-		for (unsigned int i = n; i < 2 * n; i++)node[i] = init;
-	}
-	SegTree(const std::vector<T>& initvec, T nodee):nodee(nodee) {
-		unsigned int m = initvec.size();
-		while (n < m) {
-			n *= 2;
-			rank++;
-		}
-		node.resize(2 * n, nodee);
-		for (unsigned int i = n; i < 2 * n; i++) {
-			if (i - n < m)node[i] = initvec[i - n];
-		}
-	}
-	virtual void update(int i, T x) {
-		i += n;
-		node[i] = x;
-		while (i != 1) {
-			i >>= 1;
-			node[i] = nodef(node[2 * i], node[2 * i + 1]);
-		}
-	}
-	virtual T query(int l, int r) {
-		l += n; r += n;
-		T ls = nodee, rs = nodee;
-		while (l < r) {
-			if (l & 1) {
-				ls = nodef(ls, node[l]);
-				l++;
+#line 4 "algebraic/NumberTheoreticTransform.hpp"
+//1012924417,5,2^21
+//924844033,5,2^21
+//998244353,3,2^23
+//1224736769,3,2^24
+//167772161,3,2^25
+//469762049,3,2^26
+class NumberTheoreticTransform{
+private:
+	static void ntt(std::vector<ModInt>& a){
+		int sz=a.size();
+		if(sz==1)return;
+		ModInt root=ModInt::modulo==924844033||ModInt::modulo==1012924417?5:3;
+		if(inverse)root=mypow(root,ModInt::modulo-1-(ModInt::modulo-1)/sz);
+		else root=mypow(root,(ModInt::modulo-1)/sz);
+		std::vector<ModInt> b(sz),roots((sz>>1)+1,1);
+		rep(i,sz>>1)roots[i+1]=roots[i]*root;
+		for(int i=sz>>1,w=1;w<sz;i>>=1,w<<=1){
+			for(int j=0;j<i;j++){
+				for(int k=0;k<w;k++){
+					b[k+((w*j)<<1)]=a[k+w*j]+a[k+w*j+(sz>>1)];
+					b[k+((w*j)<<1)+w]=roots[w*j]*(a[k+w*j]-a[k+w*j+(sz>>1)]);
+				}
 			}
-			if (r & 1) {
-				r--;
-				rs = nodef(node[r], rs);
-			}
-			l >>= 1; r >>= 1;
+			std::swap(a,b);
 		}
-		return nodef(ls, rs);
 	}
-	virtual T operator[](const int& x) {
-		return node[n + x];
-	}
-	void print() {
-		rep(i, n)std::cout << operator[](i) << " ";
-		std::cout << std::endl;
-	}
-};
-class RSQ :public SegTree<lint> {
-	lint nodef(const lint& lhs,const lint& rhs)const{return lhs+rhs;}
 public:
-	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	static bool inverse;
+	template<typename T>
+	static std::vector<ModInt> multiply(std::vector<T> f, std::vector<T> g, const unsigned int& mod) {
+		unsigned int beforeMod=ModInt::modulo;
+		ModInt::setMod(mod);
+		if(f.size()<g.size())std::swap(f,g);
+		std::vector<ModInt> nf, ng;
+		int sz=1;
+		while (sz<f.size()+g.size())sz<<=1;
+		nf.resize(sz);ng.resize(sz);
+		rep(i,f.size()) {
+			nf[i]=f[i];
+			if(i<g.size())ng[i]=g[i];
+		}
+		inverse=false;
+		ntt(nf);ntt(ng);
+		rep(i, sz)nf[i]*=ng[i];
+		inverse=true;
+		ntt(nf);
+		ModInt szinv=ModInt(sz).inv();
+		rep(i,sz)nf[i]*=szinv;
+		ModInt::setMod(beforeMod);
+		return nf;
 	}
-	RSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
+	template<typename T>
+	static std::vector<lint> multiply_plain(std::vector<T> f,std::vector<T> g){
+		const unsigned int mod1=998244353,mod2=1224736769;
+		std::vector<ModInt> mul1=multiply(f,g,mod1);
+		std::vector<ModInt> mul2=multiply(f,g,mod2);
+		std::vector<lint> res(mul1.size());
+		rep(i,mul1.size())res[i]=ChineseRem(mul1[i],mod1,mul2[i],mod2).first;
+		return res;
 	}
 };
-class RMiQ :public SegTree<lint> {
-	lint nodef(const lint& lhs,const lint& rhs)const{return std::min(lhs,rhs);}
-public:
-	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
-	RMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
-};
-class RMaQ :public SegTree<lint> {
-	lint nodef(const lint& lhs,const lint& rhs)const{return std::max(lhs,rhs);}
-public:
-	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
-	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
-};
-#line 5 "test/point_set_range_composite.test.cpp"
-class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
-public:
-	MySeg(int size):SegTree<mp>(size,{0,0},{1,0}){}
-};
-lint n,q;
+bool NumberTheoreticTransform::inverse=false;
+#line 4 "test/yosupo/convolution_mod.test.cpp"
+int n,m;
+std::vector<int> a,b;
 int main(){
-	ModInt::setMod(998244353);
-	std::cin>>n>>q;
-	MySeg st(n);
-	rep(i,n){
-		lint a,b;
-		std::cin>>a>>b;
-		st.update(i,{a,b});
-	}
-	rep(i,q){
-		int t;
-		std::cin>>t;
-		if(t==0){
-			int p,c,d;
-			std::cin>>p>>c>>d;
-			st.update(p,{c,d});
-		}
-		else{
-			int l,r,x;
-			std::cin>>l>>r>>x;
-			auto p=st.query(l,r);
-			std::cout<<p.first*x+p.second<<std::endl;
-		}
-	}
-	return 0;
+	scanf("%d%d",&n,&m);
+	a.resize(n);b.resize(m);
+	rep(i,n)scanf("%d",a.data()+i);
+	rep(i,m)scanf("%d",b.data()+i);
+	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b,998244353);
+	rep(i,n+m-1)printf((i==n+m?"%d\n":"%d "),c[i]);
 }
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: algebraic/ModInt.hpp
+# :question: algebraic/ModInt.hpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
@@ -50,11 +50,11 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/convolution_mod.test.cpp.html">test/convolution_mod.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/point_set_range_composite.test.cpp.html">test/point_set_range_composite.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/range_affine_range_sum.test.cpp.html">test/range_affine_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/vertex_set_path_composite.test.cpp.html">test/vertex_set_path_composite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/rolling_hash.test.cpp.html">test/aoj/rolling_hash.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/convolution_mod.test.cpp.html">test/yosupo/convolution_mod.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/point_set_range_composite.test.cpp.html">test/yosupo/point_set_range_composite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/range_affine_range_sum.test.cpp.html">test/yosupo/range_affine_range_sum.test.cpp</a>
+* :x: <a href="../../verify/test/yosupo/vertex_set_path_composite.test.cpp.html">test/yosupo/vertex_set_path_composite.test.cpp</a>
 
 
 ## Code

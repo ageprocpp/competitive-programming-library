@@ -38,12 +38,12 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/range_kth_smallest.test.cpp.html">test/range_kth_smallest.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/range_kth_smallest.test.cpp.html">test/yosupo/range_kth_smallest.test.cpp</a>
 
 
 ## Code

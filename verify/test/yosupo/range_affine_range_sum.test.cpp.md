@@ -21,17 +21,17 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/range_affine_range_sum.test.cpp
+# :heavy_check_mark: test/yosupo/range_affine_range_sum.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/range_affine_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/range_affine_range_sum.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
@@ -39,10 +39,10 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../../library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
-* :heavy_check_mark: <a href="../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
+* :question: <a href="../../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -51,9 +51,9 @@ layout: default
 {% raw %}
 ```cpp
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
-#include "../other/template.hpp"
-#include "../algebraic/ModInt.hpp"
-#include "../data-structure/IntervalSegTree.hpp"
+#include "../../other/template.hpp"
+#include "../../algebraic/ModInt.hpp"
+#include "../../data-structure/IntervalSegTree.hpp"
 class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
@@ -68,24 +68,26 @@ int n,q;
 std::vector<ModInt> vec;
 int main(){
 	ModInt::setMod(998244353);
-	std::cin>>n>>q;
+	scanf("%d%d",&n,&q);
 	vec.resize(n);
 	rep(i,n){
-		std::cin>>vec[i];
+		int tmp;
+		scanf("%d",&tmp);
+		vec[i]=tmp;
 	}
 	MySeg st(vec);
 	rep(i,q){
 		int t;
-		std::cin>>t;
+		scanf("%d",&t);
 		if(t==0){
 			int l,r,b,c;
-			std::cin>>l>>r>>b>>c;
+			scanf("%d%d%d%d",&l,&r,&b,&c);
 			st.update(l,r,{b,c});
 		}
 		else{
 			int l,r;
-			std::cin>>l>>r;
-			std::cout<<st.query(l,r)<<std::endl;
+			scanf("%d%d",&l,&r);
+			printf("%d\n",st.query(l,r));
 		}
 	}
 	return 0;
@@ -96,7 +98,7 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/range_affine_range_sum.test.cpp"
+#line 1 "test/yosupo/range_affine_range_sum.test.cpp"
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
@@ -331,14 +333,8 @@ public:
 		l += n; r += n;
 		T ls = nodee, rs = nodee;
 		while (l < r) {
-			if (l & 1) {
-				ls = nodef(ls, node[l]);
-				l++;
-			}
-			if (r & 1) {
-				r--;
-				rs = nodef(node[r], rs);
-			}
+			if (l & 1) ls = nodef(ls, node[l++]);
+			if (r & 1) rs = nodef(node[--r], rs);
 			l >>= 1; r >>= 1;
 		}
 		return nodef(ls, rs);
@@ -564,7 +560,7 @@ public:
 		for (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);
 	}
 };
-#line 5 "test/range_affine_range_sum.test.cpp"
+#line 5 "test/yosupo/range_affine_range_sum.test.cpp"
 class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
@@ -579,24 +575,26 @@ int n,q;
 std::vector<ModInt> vec;
 int main(){
 	ModInt::setMod(998244353);
-	std::cin>>n>>q;
+	scanf("%d%d",&n,&q);
 	vec.resize(n);
 	rep(i,n){
-		std::cin>>vec[i];
+		int tmp;
+		scanf("%d",&tmp);
+		vec[i]=tmp;
 	}
 	MySeg st(vec);
 	rep(i,q){
 		int t;
-		std::cin>>t;
+		scanf("%d",&t);
 		if(t==0){
 			int l,r,b,c;
-			std::cin>>l>>r>>b>>c;
+			scanf("%d%d%d%d",&l,&r,&b,&c);
 			st.update(l,r,{b,c});
 		}
 		else{
 			int l,r;
-			std::cin>>l>>r;
-			std::cout<<st.query(l,r)<<std::endl;
+			scanf("%d%d",&l,&r);
+			printf("%d\n",st.query(l,r));
 		}
 	}
 	return 0;
@@ -605,5 +603,5 @@ int main(){
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

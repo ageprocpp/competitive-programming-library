@@ -21,27 +21,26 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/vertex_add_path_sum.test.cpp
+# :heavy_check_mark: test/yosupo/lca.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#098f6bcd4621d373cade4e832627b4f6">test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/vertex_add_path_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/lca.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-17 21:30:40+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/vertex_add_path_sum">https://judge.yosupo.jp/problem/vertex_add_path_sum</a>
+* see: <a href="https://judge.yosupo.jp/problem/lca">https://judge.yosupo.jp/problem/lca</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :heavy_check_mark: <a href="../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
-* :heavy_check_mark: <a href="../../library/other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -49,40 +48,23 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
-#include "../other/template.hpp"
-#include "../graph/HeavyLightDecomposition.hpp"
-#include "../data-structure/BIT.hpp"
-int n,q,a[500010];
+#define PROBLEM "https://judge.yosupo.jp/problem/lca"
+#include "../../other/template.hpp"
+#include "../../graph/HeavyLightDecomposition.hpp"
+int n,q;
 int main(){
-	std::cin>>n>>q;
-	rep(i,n)std::cin>>a[i];
+	scanf("%d%d",&n,&q);
 	HeavyLightDecomposition hld(n);
-	BIT bit(n);
-	rep(i,n-1){
-		int u,v;
-		std::cin>>u>>v;
-		hld.add_edge(u,v);
+	REP(i,n-1){
+		int p;
+		scanf("%d",&p);
+		hld.add_edge(i,p);
 	}
 	hld.build(0);
-	rep(i,n)bit.add(hld.label[i]+1,a[i]);
 	rep(i,q){
-		int type;
-		std::cin>>type;
-		if(type==0){
-			int p,x;
-			std::cin>>p>>x;
-			bit.add(hld.label[p]+1,x);
-		}
-		else{
-			int u,v;
-			std::cin>>u>>v;
-			lint ans=0;
-			hld.each_vertex(u,v,[&](int l,int r){
-				ans+=bit.query(r+1)-bit.query(l);
-			});
-			std::cout<<ans<<std::endl;
-		}
+		int u,v;
+		scanf("%d%d",&u,&v);
+		printf("%d\n",hld.lca(u,v));
 	}
 }
 ```
@@ -91,8 +73,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/vertex_add_path_sum.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
+#line 1 "test/yosupo/lca.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/lca"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -302,92 +284,26 @@ public:
 		vec.clear();size.clear();par.clear();head.clear();label.clear();last.clear();
 	}
 };
-#line 3 "data-structure/BIT.hpp"
-class BIT {
-	int n;
-	std::vector<lint> bit;
-public:
-	BIT(int n) :n(n) {
-		bit.resize(n + 1);
-	}
-	void add(int a, lint x) {
-		while (a <= n) {
-			bit[a] += x;
-			a += a & -a;
-		}
-	}
-	lint query(int a) {
-		lint cnt = 0;
-		while (a > 0) {
-			cnt += bit[a];
-			a -= a & -a;
-		}
-		return cnt;
-	}
-	void clear() {
-		bit.assign(n + 1, 0);
-	}
-	int lower_bound(lint x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p+1;
-	}
-	int upper_bound(lint x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<=x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p+1;
-	}
-};
-#line 5 "test/vertex_add_path_sum.test.cpp"
-int n,q,a[500010];
+#line 4 "test/yosupo/lca.test.cpp"
+int n,q;
 int main(){
-	std::cin>>n>>q;
-	rep(i,n)std::cin>>a[i];
+	scanf("%d%d",&n,&q);
 	HeavyLightDecomposition hld(n);
-	BIT bit(n);
-	rep(i,n-1){
-		int u,v;
-		std::cin>>u>>v;
-		hld.add_edge(u,v);
+	REP(i,n-1){
+		int p;
+		scanf("%d",&p);
+		hld.add_edge(i,p);
 	}
 	hld.build(0);
-	rep(i,n)bit.add(hld.label[i]+1,a[i]);
 	rep(i,q){
-		int type;
-		std::cin>>type;
-		if(type==0){
-			int p,x;
-			std::cin>>p>>x;
-			bit.add(hld.label[p]+1,x);
-		}
-		else{
-			int u,v;
-			std::cin>>u>>v;
-			lint ans=0;
-			hld.each_vertex(u,v,[&](int l,int r){
-				ans+=bit.query(r+1)-bit.query(l);
-			});
-			std::cout<<ans<<std::endl;
-		}
+		int u,v;
+		scanf("%d%d",&u,&v);
+		printf("%d\n",hld.lca(u,v));
 	}
 }
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

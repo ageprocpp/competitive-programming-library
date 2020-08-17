@@ -21,30 +21,26 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data-structure/LiChaoTree.hpp
+# :heavy_check_mark: test/yosupo/segment_add_get_min.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data-structure/LiChaoTree.hpp">View this file on GitHub</a>
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/segment_add_get_min.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-08-17 21:30:40+09:00
 
 
+* see: <a href="https://judge.yosupo.jp/problem/segment_add_get_min">https://judge.yosupo.jp/problem/segment_add_get_min</a>
 
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/yosupo/line_add_get_min.test.cpp.html">test/yosupo/line_add_get_min.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/segment_add_get_min.test.cpp.html">test/yosupo/segment_add_get_min.test.cpp</a>
+* :heavy_check_mark: <a href="../../../library/data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
+* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -52,99 +48,68 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
-#include "../other/template.hpp"
-template<bool isMin>
-class LiChaoTree{
-	int n,id;
-	std::vector<std::tuple<lint,lint,lint>> interval;
-	std::vector<std::pair<LP,int>> node;
-	std::vector<lint> cord;
-	lint calc(std::pair<LP,int> l,lint x){
-		return l.first.first*x+l.first.second;
+#define PROBLEM "https://judge.yosupo.jp/problem/segment_add_get_min"
+#include "../../other/template.hpp"
+#include "../../data-structure/LiChaoTree.hpp"
+int n,q,l[200010],r[200010],a[200010];
+lint b[200010];
+std::vector<std::pair<P,std::pair<int,lint>>> vec;
+std::vector<lint> cord;
+int main(){
+	scanf("%d%d",&n,&q);
+	rep(i,n){
+		scanf("%d%d%d%lld",l+i,r+i,a+i,b+i);
+		cord.emplace_back(l[i]);
+		cord.emplace_back(r[i]);
 	}
-	void addSegment(std::pair<LP,int>& newLine,lint cnt){
-		lint l=std::get<0>(interval[cnt]),m=std::get<1>(interval[cnt]),r=std::get<2>(interval[cnt]);
-		if(n<=cnt){
-			if(calc(node[cnt],l)>calc(newLine,l))node[cnt]=newLine;
-			return;
+	rep(i,q){
+		int type;
+		scanf("%d",&type);
+		if(type==0){
+			int l,r,a;
+			lint b;
+			scanf("%d%d%d%lld",&l,&r,&a,&b);
+			vec.push_back({{l,r},{a,b}});
+			cord.emplace_back(l);
+			cord.emplace_back(r);
 		}
-		if(calc(node[cnt],l)<calc(newLine,l)&&calc(node[cnt],r)<calc(newLine,r))return;
-		if(calc(node[cnt],l)>calc(newLine,l)&&calc(node[cnt],r)>calc(newLine,r)){
-			node[cnt]=newLine;
-			return;
-		}
-		if(calc(node[cnt],m)>calc(newLine,m))std::swap(node[cnt],newLine);
-		if(calc(node[cnt],l)>calc(newLine,l))addSegment(newLine,cnt<<1);
-		else addSegment(newLine,cnt<<1|1);
-	}
-public:
-	LiChaoTree(){}
-	LiChaoTree(std::vector<lint> vec){init(vec);}
-	void init(std::vector<lint> con){
-		interval.clear();node.clear();cord.clear();
-		n=1;id=0;
-		con.emplace_back(con.back()+1);
-		while(n<(int)con.size())n*=2;
-		while((int)con.size()<n+1)con.emplace_back(con.back()+1);
-		node.assign(2*n,{{0,LINF},-1});
-		interval.emplace_back(0,0,0);
-		for(int range=n;range;range>>=1){
-			for(int i=0;i<n;i+=range){
-				if(range==1)interval.emplace_back(con[i],0,con[i+range]);
-				else interval.emplace_back(con[i],con[i+range/2],con[i+range]);
-			}
-		}
-		cord=con;
-	}
-	void addLine(lint a,lint b){
-		std::pair<LP,int> newLine={{a,b},id++};
-		if(!isMin){
-			newLine.first.first*=-1;
-			newLine.first.second*=-1;
-		}
-		addSegment(newLine,1);
-	}
-	void addSegment(int l,int r,lint a,lint b){
-		l+=n;r+=n;
-		std::pair<LP,int> newLine={{a,b},id++};
-		if(!isMin){
-			newLine.first.first*=-1;
-			newLine.first.second*=-1;
-		}
-		while(l<r){
-			if(l&1){
-				auto tmp=newLine;
-				addSegment(tmp,l++);
-			}
-			if(r&1){
-				auto tmp=newLine;
-				addSegment(tmp,--r);
-			}
-			l>>=1;r>>=1;
+		else{
+			int p;
+			scanf("%d",&p);
+			vec.push_back({{p,INF},{0,0}});
+			cord.emplace_back(p);
 		}
 	}
-	std::pair<lint,int> query(int idx){
-		lint x=cord[idx];
-		idx+=n;
-		std::pair<lint,int> res={LINF,-1};
-		while(idx){
-			if(chmin(res.first,calc(node[idx],x)))res.second=node[idx].second;
-			idx>>=1;
+	std::sort(all(cord));
+	cord.erase(std::unique(all(cord)),cord.end());
+	rep(i,n){
+		l[i]=std::lower_bound(all(cord),l[i])-cord.begin();
+		r[i]=std::lower_bound(all(cord),r[i])-cord.begin();
+	}
+	for(auto& i:vec){
+		i.first.first=std::lower_bound(all(cord),i.first.first)-cord.begin();
+		if(i.first.second!=INF)i.first.second=std::lower_bound(all(cord),i.first.second)-cord.begin();
+	}
+	LiChaoTree<true> lct(cord);
+	rep(i,n)lct.addSegment(l[i],r[i],a[i],b[i]);
+	for(auto i:vec){
+		if(i.first.second==INF){
+			lint ans=lct.query(i.first.first).first;
+			if(ans==LINF)puts("INFINITY");
+			else printf("%lld\n",ans);
 		}
-		if(!isMin)res.first=-res.first;
-		return res;
+		else lct.addSegment(i.first.first,i.first.second,i.second.first,i.second.second);
 	}
-	void clear(){
-		id=0;node.assign(2*n,{{0,LINF},-1});
-	}
-};
+}
+
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "test/yosupo/segment_add_get_min.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/segment_add_get_min"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -364,9 +329,60 @@ public:
 		id=0;node.assign(2*n,{{0,LINF},-1});
 	}
 };
+#line 4 "test/yosupo/segment_add_get_min.test.cpp"
+int n,q,l[200010],r[200010],a[200010];
+lint b[200010];
+std::vector<std::pair<P,std::pair<int,lint>>> vec;
+std::vector<lint> cord;
+int main(){
+	scanf("%d%d",&n,&q);
+	rep(i,n){
+		scanf("%d%d%d%lld",l+i,r+i,a+i,b+i);
+		cord.emplace_back(l[i]);
+		cord.emplace_back(r[i]);
+	}
+	rep(i,q){
+		int type;
+		scanf("%d",&type);
+		if(type==0){
+			int l,r,a;
+			lint b;
+			scanf("%d%d%d%lld",&l,&r,&a,&b);
+			vec.push_back({{l,r},{a,b}});
+			cord.emplace_back(l);
+			cord.emplace_back(r);
+		}
+		else{
+			int p;
+			scanf("%d",&p);
+			vec.push_back({{p,INF},{0,0}});
+			cord.emplace_back(p);
+		}
+	}
+	std::sort(all(cord));
+	cord.erase(std::unique(all(cord)),cord.end());
+	rep(i,n){
+		l[i]=std::lower_bound(all(cord),l[i])-cord.begin();
+		r[i]=std::lower_bound(all(cord),r[i])-cord.begin();
+	}
+	for(auto& i:vec){
+		i.first.first=std::lower_bound(all(cord),i.first.first)-cord.begin();
+		if(i.first.second!=INF)i.first.second=std::lower_bound(all(cord),i.first.second)-cord.begin();
+	}
+	LiChaoTree<true> lct(cord);
+	rep(i,n)lct.addSegment(l[i],r[i],a[i],b[i]);
+	for(auto i:vec){
+		if(i.first.second==INF){
+			lint ans=lct.query(i.first.first).first;
+			if(ans==LINF)puts("INFINITY");
+			else printf("%lld\n",ans);
+		}
+		else lct.addSegment(i.first.first,i.first.second,i.second.first,i.second.second);
+	}
+}
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

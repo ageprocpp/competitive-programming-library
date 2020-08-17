@@ -38,12 +38,12 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/maximum_flow_ford_fulkerson.test.cpp.html">test/maximum_flow_ford_fulkerson.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/maximum_flow_ford_fulkerson.test.cpp.html">test/aoj/maximum_flow_ford_fulkerson.test.cpp</a>
 
 
 ## Code

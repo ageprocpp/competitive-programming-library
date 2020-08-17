@@ -38,13 +38,13 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/rolling_hash.test.cpp.html">test/rolling_hash.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/rolling_hash.test.cpp.html">test/aoj/rolling_hash.test.cpp</a>
 
 
 ## Code
