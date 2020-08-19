@@ -31,20 +31,20 @@ layout: default
 
 * category: <a href="../../index.html#b45cffe084dd3d20d928bee85e7b0f21">string</a>
 * <a href="{{ site.github.repository_url }}/blob/master/string/RollingHash.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+    - Last commit date: 2020-08-19 11:02:47+09:00
 
 
 
 
 ## Depends on
 
-* :question: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/rolling_hash.test.cpp.html">test/aoj/rolling_hash.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/ALDS1_14_B.test.cpp.html">test/aoj/ALDS1_14_B.test.cpp</a>
 
 
 ## Code
@@ -135,6 +135,7 @@ public:
 #define rep(i,n) for(int i=0;i<(n);i++)
 #define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
+typedef unsigned int uint;
 typedef long long lint;
 typedef unsigned long long ulint;
 typedef std::pair<int, int> P;

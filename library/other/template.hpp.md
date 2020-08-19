@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :question: other/template.hpp
+# :heavy_check_mark: other/template.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#795f3202b17cb6bc3d4b771d8c6c9eaf">other</a>
 * <a href="{{ site.github.repository_url }}/blob/master/other/template.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+    - Last commit date: 2020-08-19 11:02:47+09:00
 
 
 
@@ -40,7 +40,7 @@ layout: default
 
 * :warning: <a href="../algebraic/FastFourierTransform.hpp.html">algebraic/FastFourierTransform.hpp</a>
 * :warning: <a href="../algebraic/LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :question: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :warning: <a href="../algebraic/MyComplex.hpp.html">algebraic/MyComplex.hpp</a>
 * :heavy_check_mark: <a href="../algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
 * :heavy_check_mark: <a href="../data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
@@ -48,12 +48,14 @@ layout: default
 * :heavy_check_mark: <a href="../data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
 * :heavy_check_mark: <a href="../data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
 * :warning: <a href="../data-structure/MonotoneConvexHullTrick.hpp.html">data-structure/MonotoneConvexHullTrick.hpp</a>
-* :question: <a href="../data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :warning: <a href="../data-structure/RBST.hpp.html">data-structure/RBST.hpp</a>
+* :warning: <a href="../data-structure/RBSTset.hpp.html">data-structure/RBSTset.hpp</a>
+* :heavy_check_mark: <a href="../data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
 * :heavy_check_mark: <a href="../data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
 * :heavy_check_mark: <a href="../data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
 * :heavy_check_mark: <a href="../data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
 * :heavy_check_mark: <a href="../graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
-* :question: <a href="../graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
+* :heavy_check_mark: <a href="../graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
 * :heavy_check_mark: <a href="../graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
 * :warning: <a href="../graph/PersistentUnionFind.hpp.html">graph/PersistentUnionFind.hpp</a>
 * :heavy_check_mark: <a href="../graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
@@ -62,9 +64,9 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/maximum_flow_ford_fulkerson.test.cpp.html">test/aoj/maximum_flow_ford_fulkerson.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/min_cost_flow.test.cpp.html">test/aoj/min_cost_flow.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/aoj/rolling_hash.test.cpp.html">test/aoj/rolling_hash.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/ALDS1_14_B.test.cpp.html">test/aoj/ALDS1_14_B.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/GRL_6_A.test.cpp.html">test/aoj/GRL_6_A.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/GRL_6_B.test.cpp.html">test/aoj/GRL_6_B.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/aplusb.test.cpp.html">test/yosupo/aplusb.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/associative_array.test.cpp.html">test/yosupo/associative_array.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/convolution_mod.test.cpp.html">test/yosupo/convolution_mod.test.cpp</a>
@@ -82,7 +84,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/yosupo/unionfind.test.cpp.html">test/yosupo/unionfind.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/vertex_add_path_sum.test.cpp.html">test/yosupo/vertex_add_path_sum.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/vertex_add_subtree_sum.test.cpp.html">test/yosupo/vertex_add_subtree_sum.test.cpp</a>
-* :x: <a href="../../verify/test/yosupo/vertex_set_path_composite.test.cpp.html">test/yosupo/vertex_set_path_composite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/vertex_set_path_composite.test.cpp.html">test/yosupo/vertex_set_path_composite.test.cpp</a>
 
 
 ## Code
@@ -125,6 +127,7 @@ layout: default
 #define rep(i,n) for(int i=0;i<(n);i++)
 #define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
+typedef unsigned int uint;
 typedef long long lint;
 typedef unsigned long long ulint;
 typedef std::pair<int, int> P;
@@ -264,6 +267,7 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 #define rep(i,n) for(int i=0;i<(n);i++)
 #define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
+typedef unsigned int uint;
 typedef long long lint;
 typedef unsigned long long ulint;
 typedef std::pair<int, int> P;

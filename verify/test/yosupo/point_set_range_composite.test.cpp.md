@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/point_set_range_composite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-17 21:30:40+09:00
+    - Last commit date: 2020-08-19 11:02:47+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
@@ -39,9 +39,9 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :question: <a href="../../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :heavy_check_mark: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -129,6 +129,7 @@ int main(){
 #define rep(i,n) for(int i=0;i<(n);i++)
 #define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
+typedef unsigned int uint;
 typedef long long lint;
 typedef unsigned long long ulint;
 typedef std::pair<int, int> P;

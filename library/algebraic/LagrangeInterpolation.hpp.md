@@ -31,15 +31,15 @@ layout: default
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/LagrangeInterpolation.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+    - Last commit date: 2020-08-19 11:02:47+09:00
 
 
 
 
 ## Depends on
 
-* :question: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -105,6 +105,7 @@ ModInt arithmetic_lagrange_interpolation(const ModInt& a,const ModInt& d,const s
 #define rep(i,n) for(int i=0;i<(n);i++)
 #define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
+typedef unsigned int uint;
 typedef long long lint;
 typedef unsigned long long ulint;
 typedef std::pair<int, int> P;

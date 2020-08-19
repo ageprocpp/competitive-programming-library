@@ -31,19 +31,19 @@ layout: default
 
 * category: <a href="../../index.html#f8b0b924ebd7046dbfa85a856e4682c8">graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/graph/FordFulkerson.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-16 18:26:54+09:00
+    - Last commit date: 2020-08-19 11:02:47+09:00
 
 
 
 
 ## Depends on
 
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/aoj/maximum_flow_ford_fulkerson.test.cpp.html">test/aoj/maximum_flow_ford_fulkerson.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/GRL_6_A.test.cpp.html">test/aoj/GRL_6_A.test.cpp</a>
 
 
 ## Code
@@ -138,6 +138,7 @@ public:
 #define rep(i,n) for(int i=0;i<(n);i++)
 #define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
+typedef unsigned int uint;
 typedef long long lint;
 typedef unsigned long long ulint;
 typedef std::pair<int, int> P;

@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/maximum_flow_ford_fulkerson.test.cpp
+# :heavy_check_mark: test/aoj/GRL_6_A.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/maximum_flow_ford_fulkerson.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-17 21:30:40+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/GRL_6_A.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-19 11:02:47+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A</a>
@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
-* :question: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -69,7 +69,7 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/aoj/maximum_flow_ford_fulkerson.test.cpp"
+#line 1 "test/aoj/GRL_6_A.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
@@ -106,6 +106,7 @@ int main() {
 #define rep(i,n) for(int i=0;i<(n);i++)
 #define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
+typedef unsigned int uint;
 typedef long long lint;
 typedef unsigned long long ulint;
 typedef std::pair<int, int> P;
@@ -249,7 +250,7 @@ public:
 		}
 	}
 };
-#line 4 "test/aoj/maximum_flow_ford_fulkerson.test.cpp"
+#line 4 "test/aoj/GRL_6_A.test.cpp"
 int v,e;
 int main() {
 	scanf("%d%d",&v,&e);

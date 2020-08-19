@@ -31,15 +31,15 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/IntervalSegTree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-17 21:30:40+09:00
+    - Last commit date: 2020-08-19 11:02:47+09:00
 
 
 
 
 ## Depends on
 
-* :question: <a href="SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
@@ -278,6 +278,7 @@ public:
 #define rep(i,n) for(int i=0;i<(n);i++)
 #define REP(i,n) for(int i=1;i<=(n);i++)
 #define all(V) V.begin(),V.end()
+typedef unsigned int uint;
 typedef long long lint;
 typedef unsigned long long ulint;
 typedef std::pair<int, int> P;

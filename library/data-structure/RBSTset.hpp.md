@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: data-structure/ConvexHullTrick.hpp
+# :warning: data-structure/RBSTset.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data-structure/ConvexHullTrick.hpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/data-structure/RBSTset.hpp">View this file on GitHub</a>
     - Last commit date: 2020-08-19 11:02:47+09:00
 
 
@@ -38,6 +38,7 @@ layout: default
 
 ## Depends on
 
+* :warning: <a href="RBST.hpp.html">data-structure/RBST.hpp</a>
 * :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
@@ -46,77 +47,21 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#pragma once
 #include "../other/template.hpp"
-template<typename T,bool isMin>
-class ConvexHullTrick{
-	static constexpr double INF=DBL_MAX;
-	class Line{
-	public:
-		T m,b,val;
-		int id;
-		double x;
-		bool isQuery;
-		inline Line(int id=-1,T m=0,T b=0):id(id),m(m),b(b),isQuery(false){}
-		T eval(T x)const{return m*x+b;}
-		bool parallel(const Line& l)const{return m==l.m;}
-		double intersect(const Line& l)const{
-			return parallel(l)?INF:(l.b-b)/(m-l.m);
-		}
-		inline bool operator<(const Line &l)const{
-			if(l.isQuery)return x<l.val;
-			return m<l.m;
-		}
-	};
-	int index=1;
-	std::set<Line> st;
-	using iter=typename std::set<Line>::iterator;
-	inline bool cPrev(iter it)const{return it!=st.begin();}
-	inline bool cNext(iter it)const{return it!=st.end()&&std::next(it)!=st.end();}
-	bool bad(const Line& l1,const Line& l2,const Line& l3)const{
-		return l1.intersect(l3)<=l1.intersect(l2);
-	}
-	bool bad(iter it)const{
-		return cPrev(it)&&cNext(it)&&bad(*std::prev(it),*it,*std::next(it));
-	}
-	iter update(iter it){
-		if(!cPrev(it))return it;
-		double x=it->intersect(*std::prev(it));
-		Line tmp(*it);
-		tmp.x=x;
-		it=st.erase(it);
-		return st.insert(it,tmp);
-	}
+#include "RBST.hpp"
+template<typename T>
+class RBSTset{
+	RBST<int> rbst;
 public:
-	void addLine(T m,T b){
-		if(isMin)m=-m,b=-b;
-		Line l(index++,m,b);
-		if(st.empty())l.x=-INF;
-		iter it=st.lower_bound(l);
-		if(it!=st.end()&&l.parallel(*it)){
-			if(it->b<b)it=st.erase(it);
-			else return;
-		}
-		it=st.insert(it,l);
-		if(bad(it)){
-			st.erase(it);
-			return;
-		}
-		while(cPrev(it)&&bad(std::prev(it)))st.erase(std::prev(it));
-		while(cNext(it)&&bad(std::next(it)))st.erase(std::next(it));
-		it=update(it);
-		if(cPrev(it))update(std::prev(it));
-		if(cNext(it))update(std::next(it));
-	}
-	std::pair<T,int> query(T x){
-		Line q;
-		q.val=x;q.isQuery=true;
-		iter it=--st.lower_bound(q);
-		if(isMin)return {-it->eval(x),it->id};
-		return {it->eval(x),it->id};
-	}
-	void clear(){
-		st.clear();index=0;
-	}
+	RBSTset(){}
+	const T& quantile(int idx)const{return rbst.find(idx);}
+	bool contains(const T& val)const{return rbst.lower_bound(val)!=rbst.upper_bound(val);}
+	void insert(const T& val){rbst.insert(rbst.lower_bound(val),val);}
+	void erase(const T& val){rbst.erase(rbst.lower_bound(val));}
+	void clear(){rbst.clear();}
+	int size()const{return rbst.size();}
+	bool empty()const{return rbst.empty();}
 };
 ```
 {% endraw %}
@@ -258,77 +203,139 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }
-#line 2 "data-structure/ConvexHullTrick.hpp"
-template<typename T,bool isMin>
-class ConvexHullTrick{
-	static constexpr double INF=DBL_MAX;
-	class Line{
+#line 3 "data-structure/RBST.hpp"
+template<typename T>
+class RBST{
+	class Node{
 	public:
-		T m,b,val;
-		int id;
-		double x;
-		bool isQuery;
-		inline Line(int id=-1,T m=0,T b=0):id(id),m(m),b(b),isQuery(false){}
-		T eval(T x)const{return m*x+b;}
-		bool parallel(const Line& l)const{return m==l.m;}
-		double intersect(const Line& l)const{
-			return parallel(l)?INF:(l.b-b)/(m-l.m);
-		}
-		inline bool operator<(const Line &l)const{
-			if(l.isQuery)return x<l.val;
-			return m<l.m;
-		}
+		Node *left=nullptr,*right=nullptr;
+		T value;
+		int size;
 	};
-	int index=1;
-	std::set<Line> st;
-	using iter=typename std::set<Line>::iterator;
-	inline bool cPrev(iter it)const{return it!=st.begin();}
-	inline bool cNext(iter it)const{return it!=st.end()&&std::next(it)!=st.end();}
-	bool bad(const Line& l1,const Line& l2,const Line& l3)const{
-		return l1.intersect(l3)<=l1.intersect(l2);
+	Node* root=nullptr;
+	RBST(Node* r):root(r){}
+	static ulint engine(){
+		static ulint cur=std::clock();
+		cur^=cur<<13;
+		cur^=cur>>17;
+		cur^=cur<<5;
+		return cur;
 	}
-	bool bad(iter it)const{
-		return cPrev(it)&&cNext(it)&&bad(*std::prev(it),*it,*std::next(it));
+	static int size(Node* trg){return trg?trg->size:0;}
+	static Node* apply(Node* trg){
+		trg->size=size(trg->left)+size(trg->right)+1;
+		return trg;
 	}
-	iter update(iter it){
-		if(!cPrev(it))return it;
-		double x=it->intersect(*std::prev(it));
-		Line tmp(*it);
-		tmp.x=x;
-		it=st.erase(it);
-		return st.insert(it,tmp);
+	static Node* merge(Node* left,Node* right){
+		if(!left)return right;
+		if(!right)return left;
+		if(engine()%(size(left)+size(right))<size(left)){
+			left->right=merge(left->right,right);
+			return apply(left);
+		}
+		else{
+			right->left=merge(left,right->left);
+			return apply(right);
+		}
+	}
+	static std::pair<Node*,Node*> split(Node* trg,int pos){
+		if(!trg)return {nullptr,nullptr};
+		if(pos<=size(trg->left)){
+			auto tmp=split(trg->left,pos);
+			trg->left=tmp.second;
+			return {tmp.first,apply(trg)};
+		}
+		else{
+			auto tmp=split(trg->right,pos-size(trg->left)-1);
+			trg->right=tmp.first;
+			return {apply(trg),tmp.second};
+		}
+	}
+	static Node* insert(Node* node,int idx,const T& val){
+		auto tmp=split(node,idx);
+		return merge(merge(tmp.first,new Node{nullptr,nullptr,val,1}),tmp.second);
+	}
+	static Node* erase(Node* node,int idx){
+		auto left=split(node,idx);
+		auto right=split(left.second,1);
+		delete right.first;
+		return merge(left.first,right.second);
+	}
+	static Node* build(const std::vector<T> &data,int l,int r){
+		if(r==-1)r=data.size();
+		if(data.empty()||l>=r)return nullptr;
+		int idx=engine()%(r-l)+l;
+		return apply(new Node{build(data,l,idx),build(data,idx+1,r),data[idx],1});
+	}
+	void clear(Node* trg){
+		if(!trg)return;
+		clear(trg->left);
+		clear(trg->right);
+		delete trg;
 	}
 public:
-	void addLine(T m,T b){
-		if(isMin)m=-m,b=-b;
-		Line l(index++,m,b);
-		if(st.empty())l.x=-INF;
-		iter it=st.lower_bound(l);
-		if(it!=st.end()&&l.parallel(*it)){
-			if(it->b<b)it=st.erase(it);
-			else return;
+	RBST(){}
+	RBST(const std::vector<T> &data){this->build(data);}
+	RBST merge(const RBST& trg){return RBST(merge(root,trg.root));}
+	std::pair<RBST,RBST> split(int pos){
+		auto tmp=split(root,pos);
+		return {RBST(tmp.first),RBST(tmp.second)};
+	}
+	T& find(int idx)const{
+		Node* cur=root;
+		int cnt=0;
+		while(true){
+			if(cnt+size(cur->left)==idx)return cur->value;
+			else if(cnt+size(cur->left)>idx)cur=cur->left;
+			else cnt+=size(cur->left)+1,cur=cur->right;
 		}
-		it=st.insert(it,l);
-		if(bad(it)){
-			st.erase(it);
-			return;
+	}
+	void insert(int idx,const T& val){root=insert(root,idx,val);}
+	void erase(int idx){root=erase(root,idx);}
+	int upper_bound(int val)const{
+		Node* cur=root;
+		int res=0,cnt=0;
+		while(cur){
+			if(cur->value<=val)cnt+=size(cur->left)+1,cur=cur->right;
+			else{
+				res+=cnt;
+				cnt=0;
+				cur=cur->left;
+			}
 		}
-		while(cPrev(it)&&bad(std::prev(it)))st.erase(std::prev(it));
-		while(cNext(it)&&bad(std::next(it)))st.erase(std::next(it));
-		it=update(it);
-		if(cPrev(it))update(std::prev(it));
-		if(cNext(it))update(std::next(it));
+		return res+cnt;
 	}
-	std::pair<T,int> query(T x){
-		Line q;
-		q.val=x;q.isQuery=true;
-		iter it=--st.lower_bound(q);
-		if(isMin)return {-it->eval(x),it->id};
-		return {it->eval(x),it->id};
+	int lower_bound(int val)const{
+		Node* cur=root;
+		int res=0,cnt=0;
+		while(cur){
+			if(cur->value<val)cnt+=size(cur->left)+1,cur=cur->right;
+			else{
+				res+=cnt;
+				cnt=0;
+				cur=cur->left;
+			}
+		}
+		return res+cnt;
 	}
-	void clear(){
-		st.clear();index=0;
-	}
+	void build(const std::vector<T> &data){root=build(data,0,-1);}
+	void clear(){clear(root);root=nullptr;}
+	int size()const{return empty()?0:root->size;}
+	bool empty()const{return !root;}
+};
+#line 4 "data-structure/RBSTset.hpp"
+template<typename T>
+class RBSTset{
+	RBST<int> rbst;
+public:
+	RBSTset(){}
+	const T& quantile(int idx)const{return rbst.find(idx);}
+	bool contains(const T& val)const{return rbst.lower_bound(val)!=rbst.upper_bound(val);}
+	void insert(const T& val){rbst.insert(rbst.lower_bound(val),val);}
+	void erase(const T& val){rbst.erase(rbst.lower_bound(val));}
+	void clear(){rbst.clear();}
+	int size()const{return rbst.size();}
+	bool empty()const{return rbst.empty();}
 };
 
 ```
