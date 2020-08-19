@@ -1,4 +1,4 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B"
 #include "../../other/template.hpp"
 #include "../../string/RollingHash.hpp"
 std::string t,p;
