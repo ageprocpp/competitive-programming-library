@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/IntervalSegTree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-19 11:02:47+09:00
+    - Last commit date: 2020-08-21 00:06:21+09:00
 
 
 
@@ -44,6 +44,12 @@ layout: default
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/test/aoj/DSL_2_D.test.cpp.html">test/aoj/DSL_2_D.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/DSL_2_E.test.cpp.html">test/aoj/DSL_2_E.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/DSL_2_F.test.cpp.html">test/aoj/DSL_2_F.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/DSL_2_G.test.cpp.html">test/aoj/DSL_2_G.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/DSL_2_H.test.cpp.html">test/aoj/DSL_2_H.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/DSL_2_I.test.cpp.html">test/aoj/DSL_2_I.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/yosupo/range_affine_range_sum.test.cpp.html">test/yosupo/range_affine_range_sum.test.cpp</a>
 
 
@@ -145,14 +151,8 @@ public:
 		eval(l); eval(r - 1);
 		T ls = nodee, rs = nodee;
 		while (l < r) {
-			if (l & 1) {
-				ls = nodef(ls, node[l]);
-				l++;
-			}
-			if (r & 1) {
-				r--;
-				rs = nodef(node[r], rs);
-			}
+			if (l & 1)ls = nodef(ls, node[l++]);
+			if (r & 1)rs = nodef(node[--r], rs);
 			l >>= 1; r >>= 1;
 		}
 		return nodef(ls, rs);
@@ -552,14 +552,8 @@ public:
 		eval(l); eval(r - 1);
 		T ls = nodee, rs = nodee;
 		while (l < r) {
-			if (l & 1) {
-				ls = nodef(ls, node[l]);
-				l++;
-			}
-			if (r & 1) {
-				r--;
-				rs = nodef(node[r], rs);
-			}
+			if (l & 1)ls = nodef(ls, node[l++]);
+			if (r & 1)rs = nodef(node[--r], rs);
 			l >>= 1; r >>= 1;
 		}
 		return nodef(ls, rs);

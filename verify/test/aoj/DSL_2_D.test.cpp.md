@@ -25,21 +25,20 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/yosupo/range_affine_range_sum.test.cpp
+# :heavy_check_mark: test/aoj/DSL_2_D.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/range_affine_range_sum.test.cpp">View this file on GitHub</a>
+* category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/DSL_2_D.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-08-21 00:06:21+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/range_affine_range_sum">https://judge.yosupo.jp/problem/range_affine_range_sum</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D">https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :heavy_check_mark: <a href="../../../library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
 * :heavy_check_mark: <a href="../../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
 * :heavy_check_mark: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
@@ -50,47 +49,27 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D"
 #include "../../other/template.hpp"
-#include "../../algebraic/ModInt.hpp"
 #include "../../data-structure/IntervalSegTree.hpp"
-class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
-	void lazyf(mp& a,const mp& b){a={a.first*b.first,a.second*b.first+b.second};}
-	void updf(ModInt& a,const mp& b,const unsigned int& width){a=b.first*a+b.second*width;}
-public:
-	MySeg(const std::vector<ModInt>& initvec):IntervalSegTree<ModInt,mp>(0,initvec){
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[2*i],node[2*i+1]);
-	}
-};
 int n,q;
-std::vector<ModInt> vec;
 int main(){
-	ModInt::setMod(998244353);
 	scanf("%d%d",&n,&q);
-	vec.resize(n);
-	rep(i,n){
-		int tmp;
-		scanf("%d",&tmp);
-		vec[i]=tmp;
-	}
-	MySeg st(vec);
+	RUQRSQ st(n,INT_MAX);
 	rep(i,q){
 		int t;
 		scanf("%d",&t);
 		if(t==0){
-			int l,r,b,c;
-			scanf("%d%d%d%d",&l,&r,&b,&c);
-			st.update(l,r,{b,c});
+			int s,t,x;
+			scanf("%d%d%d",&s,&t,&x);
+			st.update(s,t+1,x);
 		}
 		else{
-			int l,r;
-			scanf("%d%d",&l,&r);
-			printf("%d\n",st.query(l,r));
+			int p;
+			scanf("%d",&p);
+			printf("%d\n",st[p]);
 		}
 	}
-	return 0;
 }
 ```
 {% endraw %}
@@ -98,8 +77,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/yosupo/range_affine_range_sum.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
+#line 1 "test/aoj/DSL_2_D.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_D"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -233,66 +212,6 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 	return [f=std::forward<F>(f)](auto&&... args){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
-}
-#line 3 "algebraic/ModInt.hpp"
-class ModInt {
-	lint value;
-public:
-	static unsigned int modulo;
-	ModInt() : value(0) {}
-	template<typename T>
-	ModInt(T value = 0) : value(value) {
-		if (value < 0)value = -(lint)(-value % modulo) + modulo;
-		this->value = value % modulo;
-	}
-	static inline void setMod(const unsigned int& mod){modulo=mod;}
-	inline ModInt inv()const{return mypow(*this,modulo-2);}
-	inline operator int()const { return value; }
-	inline ModInt& operator+=(const ModInt& x) {
-		value += x.value;
-		if (value >= modulo)value -= modulo;
-		return *this;
-	}
-	inline ModInt& operator++() {
-		if (value == modulo - 1)value = 0;
-		else value++;
-		return *this;
-	}
-	inline ModInt operator-()const {
-		return ModInt(0) -= *this;
-	}
-	inline ModInt& operator-=(const ModInt& x) {
-		value -= x.value;
-		if (value < 0)value += modulo;
-		return *this;
-	}
-	inline ModInt& operator--() {
-		if (value == 0)value = modulo - 1;
-		else value--;
-		return *this;
-	}
-	inline ModInt& operator*=(const ModInt& x) {
-		value = value * x.value % modulo;
-		return *this;
-	}
-	inline ModInt& operator/=(const ModInt& rhs) {
-		return *this*=rhs.inv();
-	}
-	template<typename T> ModInt operator+(const T& rhs)const { return ModInt(*this) += rhs; }
-	template<typename T> ModInt& operator+=(const T& rhs) { return operator+=(ModInt(rhs)); }
-	template<typename T> ModInt operator-(const T& rhs)const { return ModInt(*this) -= rhs; }
-	template<typename T> ModInt& operator-=(const T& rhs) { return operator-=(ModInt(rhs)); }
-	template<typename T> ModInt operator*(const T& rhs)const { return ModInt(*this) *= rhs; }
-	template<typename T> ModInt& operator*=(const T& rhs) { return operator*=(ModInt(rhs)); }
-	template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
-	template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
-};
-unsigned int ModInt::modulo=1000000007;
-std::istream& operator>>(std::istream& ist, ModInt& x) {
-	lint a;
-	ist >> a;
-	x = a;
-	return ist;
 }
 #line 3 "data-structure/SegTree.hpp"
 template<typename T>
@@ -555,44 +474,25 @@ public:
 		for (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);
 	}
 };
-#line 5 "test/yosupo/range_affine_range_sum.test.cpp"
-class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
-	void lazyf(mp& a,const mp& b){a={a.first*b.first,a.second*b.first+b.second};}
-	void updf(ModInt& a,const mp& b,const unsigned int& width){a=b.first*a+b.second*width;}
-public:
-	MySeg(const std::vector<ModInt>& initvec):IntervalSegTree<ModInt,mp>(0,initvec){
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[2*i],node[2*i+1]);
-	}
-};
+#line 4 "test/aoj/DSL_2_D.test.cpp"
 int n,q;
-std::vector<ModInt> vec;
 int main(){
-	ModInt::setMod(998244353);
 	scanf("%d%d",&n,&q);
-	vec.resize(n);
-	rep(i,n){
-		int tmp;
-		scanf("%d",&tmp);
-		vec[i]=tmp;
-	}
-	MySeg st(vec);
+	RUQRSQ st(n,INT_MAX);
 	rep(i,q){
 		int t;
 		scanf("%d",&t);
 		if(t==0){
-			int l,r,b,c;
-			scanf("%d%d%d%d",&l,&r,&b,&c);
-			st.update(l,r,{b,c});
+			int s,t,x;
+			scanf("%d%d%d",&s,&t,&x);
+			st.update(s,t+1,x);
 		}
 		else{
-			int l,r;
-			scanf("%d%d",&l,&r);
-			printf("%d\n",st.query(l,r));
+			int p;
+			scanf("%d",&p);
+			printf("%d\n",st[p]);
 		}
 	}
-	return 0;
 }
 
 ```
