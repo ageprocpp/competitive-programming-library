@@ -16,7 +16,7 @@ class MonotoneConvexHullTrick{
 	}
 public:
 	void addLine(T m,T b){
-		if(!isMin)m=-m;b=-b;
+		if(!isMin)m=-m,b=-b;
 		TP line={{m,b},index++};
 		if(empty()){
 			deq.emplace_front(line);
