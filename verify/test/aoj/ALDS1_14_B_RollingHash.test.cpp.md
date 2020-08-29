@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/ALDS1_14_B.test.cpp
+# :heavy_check_mark: test/aoj/ALDS1_14_B_RollingHash.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/ALDS1_14_B.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-19 11:02:47+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/test/aoj/ALDS1_14_B_RollingHash.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-29 19:53:43+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B">https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B</a>
@@ -68,7 +68,7 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/aoj/ALDS1_14_B.test.cpp"
+#line 1 "test/aoj/ALDS1_14_B_RollingHash.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
@@ -305,7 +305,7 @@ public:
 		return *this;
 	}
 };
-#line 4 "test/aoj/ALDS1_14_B.test.cpp"
+#line 4 "test/aoj/ALDS1_14_B_RollingHash.test.cpp"
 std::string t,p;
 int main(){
 	ModInt::setMod(1000000007);

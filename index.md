@@ -85,11 +85,13 @@ layout: default
 ### string
 
 * :heavy_check_mark: <a href="library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
+* :heavy_check_mark: <a href="library/string/SuffixArray.hpp.html">string/SuffixArray.hpp</a>
 
 
 ## Verify Files
 
-* :heavy_check_mark: <a href="verify/test/aoj/ALDS1_14_B.test.cpp.html">test/aoj/ALDS1_14_B.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/ALDS1_14_B_RollingHash.test.cpp.html">test/aoj/ALDS1_14_B_RollingHash.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/aoj/ALDS1_14_B_SuffixArray.test.cpp.html">test/aoj/ALDS1_14_B_SuffixArray.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/DSL_2_A.test.cpp.html">test/aoj/DSL_2_A.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/DSL_2_B.test.cpp.html">test/aoj/DSL_2_B.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/aoj/DSL_2_D.test.cpp.html">test/aoj/DSL_2_D.test.cpp</a>
