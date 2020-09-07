@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#b45cffe084dd3d20d928bee85e7b0f21">string</a>
 * <a href="{{ site.github.repository_url }}/blob/master/string/SuffixArray.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-29 19:53:43+09:00
+    - Last commit date: 2020-09-08 00:12:26+09:00
 
 
 
@@ -56,7 +56,7 @@ layout: default
 class SuffixArray{
 	std::string S;
 	std::vector<int> SA;
-	std::vector<int> InducedSorting(std::vector<int> &S,int count){
+	std::vector<int> InducedSorting(const std::vector<int> &S,int count){
 		std::vector<int> SA(S.size(),-1);
 		std::vector<char> type=AssignType(S);
 		std::vector<int> bucket=GetBucket(S,count);
@@ -332,7 +332,7 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 class SuffixArray{
 	std::string S;
 	std::vector<int> SA;
-	std::vector<int> InducedSorting(std::vector<int> &S,int count){
+	std::vector<int> InducedSorting(const std::vector<int> &S,int count){
 		std::vector<int> SA(S.size(),-1);
 		std::vector<char> type=AssignType(S);
 		std::vector<int> bucket=GetBucket(S,count);

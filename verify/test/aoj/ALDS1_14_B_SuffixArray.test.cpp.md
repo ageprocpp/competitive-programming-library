@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/ALDS1_14_B_SuffixArray.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-29 19:53:43+09:00
+    - Last commit date: 2020-09-08 00:12:26+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B">https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B</a>
@@ -56,7 +56,7 @@ int main(){
 	std::cin>>t>>p;
 	SuffixArray sa(t);
 	std::vector<int> vec=sa.locate(p);
-	for(int i:vec)std::cout<<i<<std::endl;
+	for(int i:vec)printf("%d\n",i);
 }
 ```
 {% endraw %}
@@ -204,7 +204,7 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 class SuffixArray{
 	std::string S;
 	std::vector<int> SA;
-	std::vector<int> InducedSorting(std::vector<int> &S,int count){
+	std::vector<int> InducedSorting(const std::vector<int> &S,int count){
 		std::vector<int> SA(S.size(),-1);
 		std::vector<char> type=AssignType(S);
 		std::vector<int> bucket=GetBucket(S,count);
@@ -342,7 +342,7 @@ int main(){
 	std::cin>>t>>p;
 	SuffixArray sa(t);
 	std::vector<int> vec=sa.locate(p);
-	for(int i:vec)std::cout<<i<<std::endl;
+	for(int i:vec)printf("%d\n",i);
 }
 
 ```

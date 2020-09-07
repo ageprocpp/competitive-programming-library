@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/point_add_range_sum.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-19 11:02:47+09:00
+    - Last commit date: 2020-09-08 00:12:26+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
@@ -55,7 +55,7 @@ int n,q,a;
 int main(){
 	scanf("%d%d",&n,&q);
 	BIT bit(n);
-	REP(i,n){
+	rep(i,n){
 		scanf("%d",&a);
 		bit.add(i,a);
 	}
@@ -65,12 +65,12 @@ int main(){
 		if(t==0){
 			int p,x;
 			scanf("%d%d",&p,&x);
-			bit.add(p+1,x);
+			bit.add(p,x);
 		}
 		else{
 			int l,r;
 			scanf("%d%d",&l,&r);
-			printf("%lld\n",bit.query(r)-(l==0?0:bit.query(l)));
+			printf("%lld\n",bit.query(l,r));
 		}
 	}
 	return 0;
@@ -221,16 +221,7 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 class BIT {
 	int n;
 	std::vector<lint> bit;
-public:
-	BIT(int n) :n(n) {
-		bit.resize(n + 1);
-	}
-	void add(int a, lint x) {
-		while (a <= n) {
-			bit[a] += x;
-			a += a & -a;
-		}
-	}
+private:
 	lint query(int a) {
 		lint cnt = 0;
 		while (a > 0) {
@@ -239,6 +230,18 @@ public:
 		}
 		return cnt;
 	}
+public:
+	BIT(int n) :n(n) {
+		bit.resize(n + 1);
+	}
+	void add(int a, lint x) {
+		a++;
+		while (a <= n) {
+			bit[a] += x;
+			a += a & -a;
+		}
+	}
+	lint query(int l, int r) {return query(r) - query(l);}
 	void clear() {
 		bit.assign(n + 1, 0);
 	}
@@ -252,7 +255,7 @@ public:
 			}
 			k/=2;
 		}
-		return p+1;
+		return p;
 	}
 	int upper_bound(lint x){
 		int p=0,k=1;
@@ -264,7 +267,7 @@ public:
 			}
 			k/=2;
 		}
-		return p+1;
+		return p;
 	}
 };
 #line 4 "test/yosupo/point_add_range_sum.test.cpp"
@@ -272,7 +275,7 @@ int n,q,a;
 int main(){
 	scanf("%d%d",&n,&q);
 	BIT bit(n);
-	REP(i,n){
+	rep(i,n){
 		scanf("%d",&a);
 		bit.add(i,a);
 	}
@@ -282,12 +285,12 @@ int main(){
 		if(t==0){
 			int p,x;
 			scanf("%d%d",&p,&x);
-			bit.add(p+1,x);
+			bit.add(p,x);
 		}
 		else{
 			int l,r;
 			scanf("%d%d",&l,&r);
-			printf("%lld\n",bit.query(r)-(l==0?0:bit.query(l)));
+			printf("%lld\n",bit.query(l,r));
 		}
 	}
 	return 0;
