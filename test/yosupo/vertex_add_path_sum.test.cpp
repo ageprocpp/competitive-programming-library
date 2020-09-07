@@ -14,21 +14,21 @@ int main(){
 		hld.add_edge(u,v);
 	}
 	hld.build(0);
-	rep(i,n)bit.add(hld.label[i]+1,a[i]);
+	rep(i,n)bit.add(hld.label[i],a[i]);
 	rep(i,q){
 		int t;
 		scanf("%d",&t);
 		if(t==0){
 			int p,x;
 			scanf("%d%d",&p,&x);
-			bit.add(hld.label[p]+1,x);
+			bit.add(hld.label[p],x);
 		}
 		else{
 			int u,v;
 			scanf("%d%d",&u,&v);
 			lint ans=0;
 			hld.each_vertex(u,v,[&](int l,int r){
-				ans+=bit.query(r+1)-bit.query(l);
+				ans+=bit.query(l,r+1);
 			});
 			printf("%lld\n",ans);
 		}

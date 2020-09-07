@@ -3,16 +3,7 @@
 class BIT {
 	int n;
 	std::vector<lint> bit;
-public:
-	BIT(int n) :n(n) {
-		bit.resize(n + 1);
-	}
-	void add(int a, lint x) {
-		while (a <= n) {
-			bit[a] += x;
-			a += a & -a;
-		}
-	}
+private:
 	lint query(int a) {
 		lint cnt = 0;
 		while (a > 0) {
@@ -21,6 +12,18 @@ public:
 		}
 		return cnt;
 	}
+public:
+	BIT(int n) :n(n) {
+		bit.resize(n + 1);
+	}
+	void add(int a, lint x) {
+		a++;
+		while (a <= n) {
+			bit[a] += x;
+			a += a & -a;
+		}
+	}
+	lint query(int l, int r) {return query(r) - query(l);}
 	void clear() {
 		bit.assign(n + 1, 0);
 	}
@@ -34,7 +37,7 @@ public:
 			}
 			k/=2;
 		}
-		return p+1;
+		return p;
 	}
 	int upper_bound(lint x){
 		int p=0,k=1;
@@ -46,6 +49,6 @@ public:
 			}
 			k/=2;
 		}
-		return p+1;
+		return p;
 	}
 };

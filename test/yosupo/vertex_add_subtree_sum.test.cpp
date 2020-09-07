@@ -14,19 +14,19 @@ int main(){
 		hld.add_edge(i,p);
 	}
 	hld.build(0);
-	rep(i,n)bit.add(hld.label[i]+1,a[i]);
+	rep(i,n)bit.add(hld.label[i],a[i]);
 	rep(i,q){
 		int t;
 		scanf("%d",&t);
 		if(t==0){
 			int u,x;
 			scanf("%d%d",&u,&x);
-			bit.add(hld.label[u]+1,x);
+			bit.add(hld.label[u],x);
 		}
 		else{
 			int u;
 			scanf("%d",&u);
-			printf("%lld\n",bit.query(hld.last[u])-bit.query(hld.label[u]));
+			printf("%lld\n",bit.query(hld.label[u],hld.last[u]));
 		}
 	}
 }

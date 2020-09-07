@@ -5,7 +5,7 @@ int n,q,a;
 int main(){
 	scanf("%d%d",&n,&q);
 	BIT bit(n);
-	REP(i,n){
+	rep(i,n){
 		scanf("%d",&a);
 		bit.add(i,a);
 	}
@@ -15,12 +15,12 @@ int main(){
 		if(t==0){
 			int p,x;
 			scanf("%d%d",&p,&x);
-			bit.add(p+1,x);
+			bit.add(p,x);
 		}
 		else{
 			int l,r;
 			scanf("%d%d",&l,&r);
-			printf("%lld\n",bit.query(r)-(l==0?0:bit.query(l)));
+			printf("%lld\n",bit.query(l,r));
 		}
 	}
 	return 0;

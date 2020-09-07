@@ -3,7 +3,7 @@
 class SuffixArray{
 	std::string S;
 	std::vector<int> SA;
-	std::vector<int> InducedSorting(std::vector<int> &S,int count){
+	std::vector<int> InducedSorting(const std::vector<int> &S,int count){
 		std::vector<int> SA(S.size(),-1);
 		std::vector<char> type=AssignType(S);
 		std::vector<int> bucket=GetBucket(S,count);

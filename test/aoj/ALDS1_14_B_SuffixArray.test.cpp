@@ -6,5 +6,5 @@ int main(){
 	std::cin>>t>>p;
 	SuffixArray sa(t);
 	std::vector<int> vec=sa.locate(p);
-	for(int i:vec)std::cout<<i<<std::endl;
+	for(int i:vec)printf("%d\n",i);
 }
