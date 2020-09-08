@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/data-structure/BIT.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-09-08 00:12:26+09:00
+    - Last commit date: 2020-09-08 21:42:24+09:00
 
 
 
@@ -68,9 +68,7 @@ private:
 		return cnt;
 	}
 public:
-	BIT(int n) :n(n) {
-		bit.resize(n + 1);
-	}
+	BIT(int n) :n(n) {bit.resize(n + 1);}
 	void add(int a, lint x) {
 		a++;
 		while (a <= n) {
@@ -79,9 +77,7 @@ public:
 		}
 	}
 	lint query(int l, int r) {return query(r) - query(l);}
-	void clear() {
-		bit.assign(n + 1, 0);
-	}
+	void clear() {bit.assign(n + 1, 0);}
 	int lower_bound(lint x){
 		int p=0,k=1;
 		while(k*2<=n)k*=2;
@@ -261,9 +257,7 @@ private:
 		return cnt;
 	}
 public:
-	BIT(int n) :n(n) {
-		bit.resize(n + 1);
-	}
+	BIT(int n) :n(n) {bit.resize(n + 1);}
 	void add(int a, lint x) {
 		a++;
 		while (a <= n) {
@@ -272,9 +266,7 @@ public:
 		}
 	}
 	lint query(int l, int r) {return query(r) - query(l);}
-	void clear() {
-		bit.assign(n + 1, 0);
-	}
+	void clear() {bit.assign(n + 1, 0);}
 	int lower_bound(lint x){
 		int p=0,k=1;
 		while(k*2<=n)k*=2;

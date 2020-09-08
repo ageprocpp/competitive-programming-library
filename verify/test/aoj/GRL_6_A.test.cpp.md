@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/GRL_6_A.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-19 11:02:47+09:00
+    - Last commit date: 2020-09-08 21:42:24+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A">https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A</a>
@@ -60,7 +60,7 @@ int main() {
 		scanf("%d%d%d",&a,&b,&c);
 		flow.add_edge(a,b,c);
 	}
-	printf("%d",flow.max_flow(0,v-1));
+	printf("%d\n",flow.max_flow(0,v-1));
 	return 0;
 }
 ```
@@ -211,9 +211,10 @@ class FordFulkerson{
 	public:
 		int to;
 		lint cap;
-		int rev;
+		int rev,id;
+		bool isrev;
 	};
-	int n;
+	int n,idx=0;
 	std::vector<std::vector<edge>> vec;
 	std::vector<bool> used;
 	lint dfs(int v,int t,lint f){
@@ -237,8 +238,8 @@ public:
 		used.resize(n);
 	}
 	void add_edge(int from,int to,lint cap){
-		vec[from].push_back({to,cap,(int)vec[to].size()});
-		vec[to].push_back({from,0,(int)vec[from].size()-1});
+		vec[from].push_back({to,cap,(int)vec[to].size(),idx,false});
+		vec[to].push_back({from,0,(int)vec[from].size()-1,idx++,true});
 	}
 	lint max_flow(int s,int t){
 		lint res=0;
@@ -248,6 +249,15 @@ public:
 			if(!f)return res;
 			res+=f;
 		}
+	}
+	std::vector<lint> restore(){
+		std::vector<lint> res(idx);
+		rep(i,n){
+			for(const auto& j:vec[i]){
+				if(j.isrev)res[j.id]=j.cap;
+			}
+		}
+		return res;
 	}
 };
 #line 4 "test/aoj/GRL_6_A.test.cpp"
@@ -260,7 +270,7 @@ int main() {
 		scanf("%d%d%d",&a,&b,&c);
 		flow.add_edge(a,b,c);
 	}
-	printf("%d",flow.max_flow(0,v-1));
+	printf("%d\n",flow.max_flow(0,v-1));
 	return 0;
 }
 

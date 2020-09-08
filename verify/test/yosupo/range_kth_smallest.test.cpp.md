@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/range_kth_smallest.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-19 11:02:47+09:00
+    - Last commit date: 2020-09-08 21:42:24+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/range_kth_smallest">https://judge.yosupo.jp/problem/range_kth_smallest</a>
@@ -269,7 +269,7 @@ public:
         }
         return r-head[r];
     }
-    int quantile(int l,int r,int k){
+    int quantile(int l,int r,int k)const{
         for(int i=bit.size()-1;i>=0;i--){
             int zeroc=bit[i].rank(false,r-1),onec=bit[i].rank(true,r-1);
             zeroc-=l==0?0:bit[i].rank(false,l-1);
