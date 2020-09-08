@@ -5,9 +5,10 @@ class FordFulkerson{
 	public:
 		int to;
 		lint cap;
-		int rev;
+		int rev,id;
+		bool isrev;
 	};
-	int n;
+	int n,idx=0;
 	std::vector<std::vector<edge>> vec;
 	std::vector<bool> used;
 	lint dfs(int v,int t,lint f){
@@ -31,8 +32,8 @@ public:
 		used.resize(n);
 	}
 	void add_edge(int from,int to,lint cap){
-		vec[from].push_back({to,cap,(int)vec[to].size()});
-		vec[to].push_back({from,0,(int)vec[from].size()-1});
+		vec[from].push_back({to,cap,(int)vec[to].size(),idx,false});
+		vec[to].push_back({from,0,(int)vec[from].size()-1,idx++,true});
 	}
 	lint max_flow(int s,int t){
 		lint res=0;
@@ -42,5 +43,14 @@ public:
 			if(!f)return res;
 			res+=f;
 		}
+	}
+	std::vector<lint> restore(){
+		std::vector<lint> res(idx);
+		rep(i,n){
+			for(const auto& j:vec[i]){
+				if(j.isrev)res[j.id]=j.cap;
+			}
+		}
+		return res;
 	}
 };

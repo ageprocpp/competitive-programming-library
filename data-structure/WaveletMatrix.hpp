@@ -62,7 +62,7 @@ public:
         }
         return r-head[r];
     }
-    int quantile(int l,int r,int k){
+    int quantile(int l,int r,int k)const{
         for(int i=bit.size()-1;i>=0;i--){
             int zeroc=bit[i].rank(false,r-1),onec=bit[i].rank(true,r-1);
             zeroc-=l==0?0:bit[i].rank(false,l-1);

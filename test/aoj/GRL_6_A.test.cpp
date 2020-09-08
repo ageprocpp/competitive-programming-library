@@ -10,6 +10,6 @@ int main() {
 		scanf("%d%d%d",&a,&b,&c);
 		flow.add_edge(a,b,c);
 	}
-	printf("%d",flow.max_flow(0,v-1));
+	printf("%d\n",flow.max_flow(0,v-1));
 	return 0;
 }
