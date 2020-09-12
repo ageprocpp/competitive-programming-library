@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="UnionFind.hpp.html">graph/UnionFind.hpp</a>
-* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="UnionFind.hpp.html">graph/UnionFind.hpp</a>
+* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code

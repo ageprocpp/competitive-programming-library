@@ -39,8 +39,9 @@ layout: default
 ### algebraic
 
 * :warning: <a href="library/algebraic/FastFourierTransform.hpp.html">algebraic/FastFourierTransform.hpp</a>
+* :heavy_check_mark: <a href="library/algebraic/FloorSum.hpp.html">algebraic/FloorSum.hpp</a>
 * :warning: <a href="library/algebraic/LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :question: <a href="library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :heavy_check_mark: <a href="library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
 * :warning: <a href="library/algebraic/MyComplex.hpp.html">algebraic/MyComplex.hpp</a>
 * :heavy_check_mark: <a href="library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
 
@@ -49,14 +50,14 @@ layout: default
 
 ### data-structure
 
-* :question: <a href="library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
+* :heavy_check_mark: <a href="library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
 * :warning: <a href="library/data-structure/ConvexHullTrick.hpp.html">data-structure/ConvexHullTrick.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
 * :warning: <a href="library/data-structure/MonotoneConvexHullTrick.hpp.html">data-structure/MonotoneConvexHullTrick.hpp</a>
 * :warning: <a href="library/data-structure/RBST.hpp.html">data-structure/RBST.hpp</a>
 * :warning: <a href="library/data-structure/RBSTset.hpp.html">data-structure/RBSTset.hpp</a>
-* :question: <a href="library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :heavy_check_mark: <a href="library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
 * :heavy_check_mark: <a href="library/data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
@@ -67,17 +68,17 @@ layout: default
 ### graph
 
 * :heavy_check_mark: <a href="library/graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
-* :question: <a href="library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
+* :heavy_check_mark: <a href="library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
 * :heavy_check_mark: <a href="library/graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
 * :warning: <a href="library/graph/PersistentUnionFind.hpp.html">graph/PersistentUnionFind.hpp</a>
-* :x: <a href="library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
+* :heavy_check_mark: <a href="library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
 
 
 <div id="795f3202b17cb6bc3d4b771d8c6c9eaf"></div>
 
 ### other
 
-* :question: <a href="library/other/template.hpp.html">other/template.hpp</a>
+* :heavy_check_mark: <a href="library/other/template.hpp.html">other/template.hpp</a>
 
 
 <div id="b45cffe084dd3d20d928bee85e7b0f21"></div>
@@ -116,9 +117,10 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/yosupo/segment_add_get_min.test.cpp.html">test/yosupo/segment_add_get_min.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/static_range_sum.test.cpp.html">test/yosupo/static_range_sum.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/yosupo/staticrmq.test.cpp.html">test/yosupo/staticrmq.test.cpp</a>
-* :x: <a href="verify/test/yosupo/unionfind.test.cpp.html">test/yosupo/unionfind.test.cpp</a>
-* :x: <a href="verify/test/yosupo/vertex_add_path_sum.test.cpp.html">test/yosupo/vertex_add_path_sum.test.cpp</a>
-* :x: <a href="verify/test/yosupo/vertex_add_subtree_sum.test.cpp.html">test/yosupo/vertex_add_subtree_sum.test.cpp</a>
-* :x: <a href="verify/test/yosupo/vertex_set_path_composite.test.cpp.html">test/yosupo/vertex_set_path_composite.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/sum_of_floor_of_linear.test.cpp.html">test/yosupo/sum_of_floor_of_linear.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/unionfind.test.cpp.html">test/yosupo/unionfind.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/vertex_add_path_sum.test.cpp.html">test/yosupo/vertex_add_path_sum.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/vertex_add_subtree_sum.test.cpp.html">test/yosupo/vertex_add_subtree_sum.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/yosupo/vertex_set_path_composite.test.cpp.html">test/yosupo/vertex_set_path_composite.test.cpp</a>
 
 

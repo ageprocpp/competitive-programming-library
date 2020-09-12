@@ -21,31 +21,26 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data-structure/BIT.hpp
+# :heavy_check_mark: test/yosupo/sum_of_floor_of_linear.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data-structure/BIT.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-09-12 16:29:29+09:00
+* category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/sum_of_floor_of_linear.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-09-12 17:08:27+09:00
 
 
+* see: <a href="https://judge.yosupo.jp/problem/sum_of_floor_of_linear">https://judge.yosupo.jp/problem/sum_of_floor_of_linear</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../other/template.hpp.html">other/template.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/test/yosupo/point_add_range_sum.test.cpp.html">test/yosupo/point_add_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/vertex_add_path_sum.test.cpp.html">test/yosupo/vertex_add_path_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/vertex_add_subtree_sum.test.cpp.html">test/yosupo/vertex_add_subtree_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../../library/algebraic/FloorSum.hpp.html">algebraic/FloorSum.hpp</a>
+* :heavy_check_mark: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -53,63 +48,25 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
-#include "../other/template.hpp"
-template<typename T>
-class BIT {
-	int n;
-	std::vector<T> bit;
-private:
-	T query(int a) {
-		T cnt = 0;
-		while (a > 0) {
-			cnt += bit[a];
-			a -= a & -a;
-		}
-		return cnt;
+#define PROBLEM "https://judge.yosupo.jp/problem/sum_of_floor_of_linear"
+#include "../../other/template.hpp"
+#include "../../algebraic/FloorSum.hpp"
+int main(){
+	int T,N,M,A,B;
+	scanf("%d",&T);
+	rep(_,T){
+		scanf("%d%d%d%d",&N,&M,&A,&B);
+		printf("%lld\n",FloorSum(N,M,A,B));
 	}
-public:
-	BIT(int n) :n(n) {bit.resize(n + 1);}
-	void add(int a, T x) {
-		a++;
-		while (a <= n) {
-			bit[a] += x;
-			a += a & -a;
-		}
-	}
-	T query(int l, int r) {return query(r) - query(l);}
-	void clear() {bit.assign(n + 1, 0);}
-	int lower_bound(T x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p;
-	}
-	int upper_bound(T x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<=x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p;
-	}
-};
+}
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "test/yosupo/sum_of_floor_of_linear.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/sum_of_floor_of_linear"
 #line 2 "other/template.hpp"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma target("avx2")
@@ -244,59 +201,35 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }
-#line 3 "data-structure/BIT.hpp"
-template<typename T>
-class BIT {
-	int n;
-	std::vector<T> bit;
-private:
-	T query(int a) {
-		T cnt = 0;
-		while (a > 0) {
-			cnt += bit[a];
-			a -= a & -a;
-		}
-		return cnt;
+#line 2 "algebraic/FloorSum.hpp"
+lint FloorSum(lint N,lint M,lint A,lint B){
+	lint ans=0;
+	if(A>=M){
+		ans+=(N-1)*N/2*(A/M);
+		A%=M;
 	}
-public:
-	BIT(int n) :n(n) {bit.resize(n + 1);}
-	void add(int a, T x) {
-		a++;
-		while (a <= n) {
-			bit[a] += x;
-			a += a & -a;
-		}
+	if(B>=M){
+		ans+=B/M*N;
+		B%=M;
 	}
-	T query(int l, int r) {return query(r) - query(l);}
-	void clear() {bit.assign(n + 1, 0);}
-	int lower_bound(T x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p;
+	lint ymax=(A*N+B)/M,xmax=ymax*M-B;
+	if(ymax==0)return ans;
+	ans+=(N-(xmax+A-1)/A)*ymax;
+	ans+=FloorSum(ymax,A,M,(A-xmax%A)%A);
+	return ans;
+}
+#line 4 "test/yosupo/sum_of_floor_of_linear.test.cpp"
+int main(){
+	int T,N,M,A,B;
+	scanf("%d",&T);
+	rep(_,T){
+		scanf("%d%d%d%d",&N,&M,&A,&B);
+		printf("%lld\n",FloorSum(N,M,A,B));
 	}
-	int upper_bound(T x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<=x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p;
-	}
-};
+}
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

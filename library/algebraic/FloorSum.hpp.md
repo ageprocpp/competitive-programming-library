@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data-structure/BIT.hpp
+# :heavy_check_mark: algebraic/FloorSum.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#36397fe12f935090ad150c6ce0c258d4">data-structure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data-structure/BIT.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-09-12 16:29:29+09:00
+* category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
+* <a href="{{ site.github.repository_url }}/blob/master/algebraic/FloorSum.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-09-12 17:08:27+09:00
 
 
 
@@ -43,9 +43,7 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/test/yosupo/point_add_range_sum.test.cpp.html">test/yosupo/point_add_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/vertex_add_path_sum.test.cpp.html">test/yosupo/vertex_add_path_sum.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/yosupo/vertex_add_subtree_sum.test.cpp.html">test/yosupo/vertex_add_subtree_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/sum_of_floor_of_linear.test.cpp.html">test/yosupo/sum_of_floor_of_linear.test.cpp</a>
 
 
 ## Code
@@ -53,57 +51,23 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
 #include "../other/template.hpp"
-template<typename T>
-class BIT {
-	int n;
-	std::vector<T> bit;
-private:
-	T query(int a) {
-		T cnt = 0;
-		while (a > 0) {
-			cnt += bit[a];
-			a -= a & -a;
-		}
-		return cnt;
+lint FloorSum(lint N,lint M,lint A,lint B){
+	lint ans=0;
+	if(A>=M){
+		ans+=(N-1)*N/2*(A/M);
+		A%=M;
 	}
-public:
-	BIT(int n) :n(n) {bit.resize(n + 1);}
-	void add(int a, T x) {
-		a++;
-		while (a <= n) {
-			bit[a] += x;
-			a += a & -a;
-		}
+	if(B>=M){
+		ans+=B/M*N;
+		B%=M;
 	}
-	T query(int l, int r) {return query(r) - query(l);}
-	void clear() {bit.assign(n + 1, 0);}
-	int lower_bound(T x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p;
-	}
-	int upper_bound(T x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<=x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p;
-	}
-};
+	lint ymax=(A*N+B)/M,xmax=ymax*M-B;
+	if(ymax==0)return ans;
+	ans+=(N-(xmax+A-1)/A)*ymax;
+	ans+=FloorSum(ymax,A,M,(A-xmax%A)%A);
+	return ans;
+}
 ```
 {% endraw %}
 
@@ -244,56 +208,23 @@ inline constexpr decltype(auto) lambda_fix(F&& f){
 		return f(f,std::forward<decltype(args)>(args)...);
 	};
 }
-#line 3 "data-structure/BIT.hpp"
-template<typename T>
-class BIT {
-	int n;
-	std::vector<T> bit;
-private:
-	T query(int a) {
-		T cnt = 0;
-		while (a > 0) {
-			cnt += bit[a];
-			a -= a & -a;
-		}
-		return cnt;
+#line 2 "algebraic/FloorSum.hpp"
+lint FloorSum(lint N,lint M,lint A,lint B){
+	lint ans=0;
+	if(A>=M){
+		ans+=(N-1)*N/2*(A/M);
+		A%=M;
 	}
-public:
-	BIT(int n) :n(n) {bit.resize(n + 1);}
-	void add(int a, T x) {
-		a++;
-		while (a <= n) {
-			bit[a] += x;
-			a += a & -a;
-		}
+	if(B>=M){
+		ans+=B/M*N;
+		B%=M;
 	}
-	T query(int l, int r) {return query(r) - query(l);}
-	void clear() {bit.assign(n + 1, 0);}
-	int lower_bound(T x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p;
-	}
-	int upper_bound(T x){
-		int p=0,k=1;
-		while(k*2<=n)k*=2;
-		while(k>0){
-			if(p+k<=n&&bit[p+k]<=x){
-				x-=bit[p+k];
-				p+=k;
-			}
-			k/=2;
-		}
-		return p;
-	}
-};
+	lint ymax=(A*N+B)/M,xmax=ymax*M-B;
+	if(ymax==0)return ans;
+	ans+=(N-(xmax+A-1)/A)*ymax;
+	ans+=FloorSum(ymax,A,M,(A-xmax%A)%A);
+	return ans;
+}
 
 ```
 {% endraw %}
