@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/yosupo/vertex_set_path_composite.test.cpp
+# :x: test/yosupo/vertex_set_path_composite.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#0b58406058f6619a0f31a172defc0230">test/yosupo</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/yosupo/vertex_set_path_composite.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-19 11:02:47+09:00
+    - Last commit date: 2020-09-12 16:11:04+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/vertex_set_path_composite">https://judge.yosupo.jp/problem/vertex_set_path_composite</a>
@@ -39,10 +39,10 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :heavy_check_mark: <a href="../../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
-* :heavy_check_mark: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
+* :x: <a href="../../../library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :x: <a href="../../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :x: <a href="../../../library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
+* :x: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -161,7 +161,7 @@ typedef std::pair<lint, lint> LP;
 constexpr int INF = INT_MAX/2;
 constexpr lint LINF = LLONG_MAX/2;
 constexpr double eps = DBL_EPSILON;
-constexpr double PI=3.141592653589793238462643383279;
+constexpr double PI=acos(-1);
 template<class T>
 class prique :public std::priority_queue<T, std::vector<T>, std::greater<T>> {};
 template <class T, class U>

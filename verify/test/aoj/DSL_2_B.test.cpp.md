@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/aoj/DSL_2_B.test.cpp
+# :x: test/aoj/DSL_2_B.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/DSL_2_B.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-21 00:06:21+09:00
+    - Last commit date: 2020-09-12 16:11:04+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_B</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
+* :x: <a href="../../../library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
+* :x: <a href="../../../library/other/template.hpp.html">other/template.hpp</a>
 
 
 ## Code
@@ -113,7 +113,7 @@ typedef std::pair<lint, lint> LP;
 constexpr int INF = INT_MAX/2;
 constexpr lint LINF = LLONG_MAX/2;
 constexpr double eps = DBL_EPSILON;
-constexpr double PI=3.141592653589793238462643383279;
+constexpr double PI=acos(-1);
 template<class T>
 class prique :public std::priority_queue<T, std::vector<T>, std::greater<T>> {};
 template <class T, class U>
