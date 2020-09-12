@@ -41,7 +41,7 @@ typedef std::pair<lint, lint> LP;
 constexpr int INF = INT_MAX/2;
 constexpr lint LINF = LLONG_MAX/2;
 constexpr double eps = DBL_EPSILON;
-constexpr double PI=3.141592653589793238462643383279;
+constexpr double PI=acos(-1);
 template<class T>
 class prique :public std::priority_queue<T, std::vector<T>, std::greater<T>> {};
 template <class T, class U>
