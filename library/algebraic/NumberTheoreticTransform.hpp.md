@@ -25,26 +25,26 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: algebraic/NumberTheoreticTransform.hpp
+# :heavy_check_mark: algebraic/NumberTheoreticTransform.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/NumberTheoreticTransform.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-09-12 16:11:04+09:00
+    - Last commit date: 2020-09-12 16:29:29+09:00
 
 
 
 
 ## Depends on
 
-* :x: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :x: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="ModInt.hpp.html">algebraic/ModInt.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/yosupo/convolution_mod.test.cpp.html">test/yosupo/convolution_mod.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/convolution_mod.test.cpp.html">test/yosupo/convolution_mod.test.cpp</a>
 
 
 ## Code
@@ -166,7 +166,7 @@ typedef std::pair<lint, lint> LP;
 constexpr int INF = INT_MAX/2;
 constexpr lint LINF = LLONG_MAX/2;
 constexpr double eps = DBL_EPSILON;
-constexpr double PI=acos(-1);
+constexpr double PI=3.141592653589793238462643383279;
 template<class T>
 class prique :public std::priority_queue<T, std::vector<T>, std::greater<T>> {};
 template <class T, class U>

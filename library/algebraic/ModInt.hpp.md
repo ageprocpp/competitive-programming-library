@@ -25,35 +25,35 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :x: algebraic/ModInt.hpp
+# :question: algebraic/ModInt.hpp
 
 <a href="../../index.html">Back to top page</a>
 
 * category: <a href="../../index.html#c7f6ad568392380a8f4b4cecbaccb64c">algebraic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/algebraic/ModInt.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-09-12 16:11:04+09:00
+    - Last commit date: 2020-09-12 16:29:29+09:00
 
 
 
 
 ## Depends on
 
-* :x: <a href="../other/template.hpp.html">other/template.hpp</a>
+* :question: <a href="../other/template.hpp.html">other/template.hpp</a>
 
 
 ## Required by
 
 * :warning: <a href="LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :x: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
-* :x: <a href="../string/RollingHash.hpp.html">string/RollingHash.hpp</a>
+* :heavy_check_mark: <a href="NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
+* :heavy_check_mark: <a href="../string/RollingHash.hpp.html">string/RollingHash.hpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../verify/test/aoj/ALDS1_14_B_RollingHash.test.cpp.html">test/aoj/ALDS1_14_B_RollingHash.test.cpp</a>
-* :x: <a href="../../verify/test/yosupo/convolution_mod.test.cpp.html">test/yosupo/convolution_mod.test.cpp</a>
-* :x: <a href="../../verify/test/yosupo/point_set_range_composite.test.cpp.html">test/yosupo/point_set_range_composite.test.cpp</a>
-* :x: <a href="../../verify/test/yosupo/range_affine_range_sum.test.cpp.html">test/yosupo/range_affine_range_sum.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/aoj/ALDS1_14_B_RollingHash.test.cpp.html">test/aoj/ALDS1_14_B_RollingHash.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/convolution_mod.test.cpp.html">test/yosupo/convolution_mod.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/point_set_range_composite.test.cpp.html">test/yosupo/point_set_range_composite.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/yosupo/range_affine_range_sum.test.cpp.html">test/yosupo/range_affine_range_sum.test.cpp</a>
 * :x: <a href="../../verify/test/yosupo/vertex_set_path_composite.test.cpp.html">test/yosupo/vertex_set_path_composite.test.cpp</a>
 
 
@@ -172,7 +172,7 @@ typedef std::pair<lint, lint> LP;
 constexpr int INF = INT_MAX/2;
 constexpr lint LINF = LLONG_MAX/2;
 constexpr double eps = DBL_EPSILON;
-constexpr double PI=acos(-1);
+constexpr double PI=3.141592653589793238462643383279;
 template<class T>
 class prique :public std::priority_queue<T, std::vector<T>, std::greater<T>> {};
 template <class T, class U>
