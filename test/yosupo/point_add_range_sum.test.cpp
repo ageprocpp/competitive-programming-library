@@ -4,7 +4,7 @@
 int n,q,a;
 int main(){
 	scanf("%d%d",&n,&q);
-	BIT bit(n);
+	BIT<lint> bit(n);
 	rep(i,n){
 		scanf("%d",&a);
 		bit.add(i,a);

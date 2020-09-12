@@ -7,7 +7,7 @@ int main(){
 	scanf("%d%d",&n,&q);
 	rep(i,n)scanf("%d",a+i);
 	HeavyLightDecomposition hld(n);
-	BIT bit(n);
+	BIT<lint> bit(n);
 	rep(i,n-1){
 		int u,v;
 		scanf("%d%d",&u,&v);
