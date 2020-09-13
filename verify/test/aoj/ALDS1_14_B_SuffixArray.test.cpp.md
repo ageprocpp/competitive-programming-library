@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#0d0c91c0cca30af9c1c9faef0cf04aa9">test/aoj</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/aoj/ALDS1_14_B_SuffixArray.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-09-12 16:29:29+09:00
+    - Last commit date: 2020-09-13 14:10:50+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B">https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B</a>
@@ -335,6 +335,7 @@ public:
 		}
 		return res;
 	}
+	operator std::vector<int>()const{return SA;}
 };
 #line 4 "test/aoj/ALDS1_14_B_SuffixArray.test.cpp"
 std::string t,p;
