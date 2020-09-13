@@ -134,4 +134,5 @@ public:
 		}
 		return res;
 	}
+	operator std::vector<int>()const{return SA;}
 };
