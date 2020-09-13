@@ -1,6 +1,6 @@
 {
 "test/aoj/ALDS1_14_B_RollingHash.test.cpp": "2020-09-12 16:29:29 +0900",
-"test/aoj/ALDS1_14_B_SuffixArray.test.cpp": "2020-09-12 16:29:29 +0900",
+"test/aoj/ALDS1_14_B_SuffixArray.test.cpp": "2020-09-13 14:10:50 +0900",
 "test/aoj/DSL_2_A.test.cpp": "2020-09-12 16:29:29 +0900",
 "test/aoj/DSL_2_B.test.cpp": "2020-09-12 16:29:29 +0900",
 "test/aoj/DSL_2_D.test.cpp": "2020-09-12 16:29:29 +0900",
@@ -25,7 +25,9 @@
 "test/yosupo/segment_add_get_min.test.cpp": "2020-09-12 16:29:29 +0900",
 "test/yosupo/static_range_sum.test.cpp": "2020-09-12 16:29:29 +0900",
 "test/yosupo/staticrmq.test.cpp": "2020-09-12 16:29:29 +0900",
+"test/yosupo/suffixarray.test.cpp": "2020-09-13 14:10:50 +0900",
 "test/yosupo/sum_of_floor_of_linear.test.cpp": "2020-09-12 17:08:27 +0900",
+"test/yosupo/tree_diameter.test.cpp": "2020-09-13 14:10:50 +0900",
 "test/yosupo/unionfind.test.cpp": "2020-09-12 16:29:29 +0900",
 "test/yosupo/vertex_add_path_sum.test.cpp": "2020-09-12 16:29:29 +0900",
 "test/yosupo/vertex_add_subtree_sum.test.cpp": "2020-09-12 16:29:29 +0900",
