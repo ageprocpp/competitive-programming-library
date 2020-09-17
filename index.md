@@ -1,129 +1,206 @@
 ---
-layout: default
+data:
+  libraryCategories:
+  - name: algebraic
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: algebraic/DynamicModInt.hpp
+      title: algebraic/DynamicModInt.hpp
+    - icon: ':warning:'
+      path: algebraic/FastFourierTransform.hpp
+      title: algebraic/FastFourierTransform.hpp
+    - icon: ':heavy_check_mark:'
+      path: algebraic/FloorSum.hpp
+      title: algebraic/FloorSum.hpp
+    - icon: ':warning:'
+      path: algebraic/LagrangeInterpolation.hpp
+      title: algebraic/LagrangeInterpolation.hpp
+    - icon: ':warning:'
+      path: algebraic/MyComplex.hpp
+      title: algebraic/MyComplex.hpp
+    - icon: ':heavy_check_mark:'
+      path: algebraic/NumberTheoreticTransform.hpp
+      title: algebraic/NumberTheoreticTransform.hpp
+    - icon: ':heavy_check_mark:'
+      path: algebraic/StaticModInt.hpp
+      title: algebraic/StaticModInt.hpp
+  - name: data-structure
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: data-structure/BIT.hpp
+      title: data-structure/BIT.hpp
+    - icon: ':warning:'
+      path: data-structure/ConvexHullTrick.hpp
+      title: data-structure/ConvexHullTrick.hpp
+    - icon: ':heavy_check_mark:'
+      path: data-structure/IntervalSegTree.hpp
+      title: data-structure/IntervalSegTree.hpp
+    - icon: ':heavy_check_mark:'
+      path: data-structure/LiChaoTree.hpp
+      title: data-structure/LiChaoTree.hpp
+    - icon: ':warning:'
+      path: data-structure/MonotoneConvexHullTrick.hpp
+      title: data-structure/MonotoneConvexHullTrick.hpp
+    - icon: ':warning:'
+      path: data-structure/RBST.hpp
+      title: data-structure/RBST.hpp
+    - icon: ':warning:'
+      path: data-structure/RBSTset.hpp
+      title: data-structure/RBSTset.hpp
+    - icon: ':heavy_check_mark:'
+      path: data-structure/SegTree.hpp
+      title: data-structure/SegTree.hpp
+    - icon: ':heavy_check_mark:'
+      path: data-structure/SegTreeBeats.hpp
+      title: data-structure/SegTreeBeats.hpp
+    - icon: ':heavy_check_mark:'
+      path: data-structure/SparseTable.hpp
+      title: data-structure/SparseTable.hpp
+    - icon: ':heavy_check_mark:'
+      path: data-structure/WaveletMatrix.hpp
+      title: data-structure/WaveletMatrix.hpp
+  - name: graph
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: graph/FordFulkerson.hpp
+      title: graph/FordFulkerson.hpp
+    - icon: ':heavy_check_mark:'
+      path: graph/HeavyLightDecomposition.hpp
+      title: graph/HeavyLightDecomposition.hpp
+    - icon: ':heavy_check_mark:'
+      path: graph/MinCostFlow.hpp
+      title: graph/MinCostFlow.hpp
+    - icon: ':warning:'
+      path: graph/PersistentUnionFind.hpp
+      title: graph/PersistentUnionFind.hpp
+    - icon: ':heavy_check_mark:'
+      path: graph/Tree.hpp
+      title: graph/Tree.hpp
+    - icon: ':heavy_check_mark:'
+      path: graph/UnionFind.hpp
+      title: graph/UnionFind.hpp
+  - name: other
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: other/template.hpp
+      title: other/template.hpp
+    - icon: ':warning:'
+      path: other/testlib.h
+      title: other/testlib.h
+  - name: string
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: string/RollingHash.hpp
+      title: string/RollingHash.hpp
+    - icon: ':heavy_check_mark:'
+      path: string/SuffixArray.hpp
+      title: string/SuffixArray.hpp
+    - icon: ':warning:'
+      path: string/Trie.hpp
+      title: string/Trie.hpp
+  verificationCategories:
+  - name: test/aoj
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
+      title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
+      title: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/DSL_2_A.test.cpp
+      title: test/aoj/DSL_2_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/DSL_2_B.test.cpp
+      title: test/aoj/DSL_2_B.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/DSL_2_D.test.cpp
+      title: test/aoj/DSL_2_D.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/DSL_2_E.test.cpp
+      title: test/aoj/DSL_2_E.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/DSL_2_F.test.cpp
+      title: test/aoj/DSL_2_F.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/DSL_2_G.test.cpp
+      title: test/aoj/DSL_2_G.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/DSL_2_H.test.cpp
+      title: test/aoj/DSL_2_H.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/DSL_2_I.test.cpp
+      title: test/aoj/DSL_2_I.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/GRL_6_A.test.cpp
+      title: test/aoj/GRL_6_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/GRL_6_B.test.cpp
+      title: test/aoj/GRL_6_B.test.cpp
+  - name: test/yosupo
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/aplusb.test.cpp
+      title: test/yosupo/aplusb.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/associative_array.test.cpp
+      title: test/yosupo/associative_array.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/convolution_mod.test.cpp
+      title: test/yosupo/convolution_mod.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/lca.test.cpp
+      title: test/yosupo/lca.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/line_add_get_min.test.cpp
+      title: test/yosupo/line_add_get_min.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/many_aplusb.test.cpp
+      title: test/yosupo/many_aplusb.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/point_add_range_sum.test.cpp
+      title: test/yosupo/point_add_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/point_set_range_composite.test.cpp
+      title: test/yosupo/point_set_range_composite.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/range_affine_range_sum.test.cpp
+      title: test/yosupo/range_affine_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
+      title: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/range_kth_smallest.test.cpp
+      title: test/yosupo/range_kth_smallest.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/segment_add_get_min.test.cpp
+      title: test/yosupo/segment_add_get_min.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/static_range_sum.test.cpp
+      title: test/yosupo/static_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/staticrmq.test.cpp
+      title: test/yosupo/staticrmq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/suffixarray.test.cpp
+      title: test/yosupo/suffixarray.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/sum_of_floor_of_linear.test.cpp
+      title: test/yosupo/sum_of_floor_of_linear.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/tree_diameter.test.cpp
+      title: test/yosupo/tree_diameter.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/unionfind.test.cpp
+      title: test/yosupo/unionfind.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/vertex_add_path_sum.test.cpp
+      title: test/yosupo/vertex_add_path_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/vertex_add_subtree_sum.test.cpp
+      title: test/yosupo/vertex_add_subtree_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/vertex_set_path_composite.test.cpp
+      title: test/yosupo/vertex_set_path_composite.test.cpp
+layout: toppage
 ---
-
-<!-- mathjax config similar to math.stackexchange -->
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    TeX: { equationNumbers: { autoNumber: "AMS" }},
-    tex2jax: {
-      inlineMath: [ ['$','$'] ],
-      processEscapes: true
-    },
-    "HTML-CSS": { matchFontHeight: false },
-    displayAlign: "left",
-    displayIndent: "2em"
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="assets/css/copy-button.css" />
-
-
-# {{ site.title }}
-
-[![Actions Status]({{ site.github.repository_url }}/workflows/verify/badge.svg)]({{ site.github.repository_url }}/actions)
-<a href="{{ site.github.repository_url }}"><img src="https://img.shields.io/github/last-commit/{{ site.github.owner_name }}/{{ site.github.repository_name }}" /></a>
-
-{% if site.github.project_tagline %}{{ site.github.project_tagline }}{% else %}This documentation is automatically generated by <a href="https://github.com/online-judge-tools/verification-helper">online-judge-tools/verification-helper</a>.{% endif %}
-
-## Library Files
-
-<div id="c7f6ad568392380a8f4b4cecbaccb64c"></div>
-
-### algebraic
-
-* :warning: <a href="library/algebraic/FastFourierTransform.hpp.html">algebraic/FastFourierTransform.hpp</a>
-* :heavy_check_mark: <a href="library/algebraic/FloorSum.hpp.html">algebraic/FloorSum.hpp</a>
-* :warning: <a href="library/algebraic/LagrangeInterpolation.hpp.html">algebraic/LagrangeInterpolation.hpp</a>
-* :heavy_check_mark: <a href="library/algebraic/ModInt.hpp.html">algebraic/ModInt.hpp</a>
-* :warning: <a href="library/algebraic/MyComplex.hpp.html">algebraic/MyComplex.hpp</a>
-* :heavy_check_mark: <a href="library/algebraic/NumberTheoreticTransform.hpp.html">algebraic/NumberTheoreticTransform.hpp</a>
-
-
-<div id="36397fe12f935090ad150c6ce0c258d4"></div>
-
-### data-structure
-
-* :heavy_check_mark: <a href="library/data-structure/BIT.hpp.html">data-structure/BIT.hpp</a>
-* :warning: <a href="library/data-structure/ConvexHullTrick.hpp.html">data-structure/ConvexHullTrick.hpp</a>
-* :heavy_check_mark: <a href="library/data-structure/IntervalSegTree.hpp.html">data-structure/IntervalSegTree.hpp</a>
-* :heavy_check_mark: <a href="library/data-structure/LiChaoTree.hpp.html">data-structure/LiChaoTree.hpp</a>
-* :warning: <a href="library/data-structure/MonotoneConvexHullTrick.hpp.html">data-structure/MonotoneConvexHullTrick.hpp</a>
-* :warning: <a href="library/data-structure/RBST.hpp.html">data-structure/RBST.hpp</a>
-* :warning: <a href="library/data-structure/RBSTset.hpp.html">data-structure/RBSTset.hpp</a>
-* :heavy_check_mark: <a href="library/data-structure/SegTree.hpp.html">data-structure/SegTree.hpp</a>
-* :heavy_check_mark: <a href="library/data-structure/SegTreeBeats.hpp.html">data-structure/SegTreeBeats.hpp</a>
-* :heavy_check_mark: <a href="library/data-structure/SparseTable.hpp.html">data-structure/SparseTable.hpp</a>
-* :heavy_check_mark: <a href="library/data-structure/WaveletMatrix.hpp.html">data-structure/WaveletMatrix.hpp</a>
-
-
-<div id="f8b0b924ebd7046dbfa85a856e4682c8"></div>
-
-### graph
-
-* :heavy_check_mark: <a href="library/graph/FordFulkerson.hpp.html">graph/FordFulkerson.hpp</a>
-* :heavy_check_mark: <a href="library/graph/HeavyLightDecomposition.hpp.html">graph/HeavyLightDecomposition.hpp</a>
-* :heavy_check_mark: <a href="library/graph/MinCostFlow.hpp.html">graph/MinCostFlow.hpp</a>
-* :warning: <a href="library/graph/PersistentUnionFind.hpp.html">graph/PersistentUnionFind.hpp</a>
-* :heavy_check_mark: <a href="library/graph/Tree.hpp.html">graph/Tree.hpp</a>
-* :heavy_check_mark: <a href="library/graph/UnionFind.hpp.html">graph/UnionFind.hpp</a>
-
-
-<div id="795f3202b17cb6bc3d4b771d8c6c9eaf"></div>
-
-### other
-
-* :heavy_check_mark: <a href="library/other/template.hpp.html">other/template.hpp</a>
-
-
-<div id="b45cffe084dd3d20d928bee85e7b0f21"></div>
-
-### string
-
-* :heavy_check_mark: <a href="library/string/RollingHash.hpp.html">string/RollingHash.hpp</a>
-* :heavy_check_mark: <a href="library/string/SuffixArray.hpp.html">string/SuffixArray.hpp</a>
-
-
-## Verify Files
-
-* :heavy_check_mark: <a href="verify/test/aoj/ALDS1_14_B_RollingHash.test.cpp.html">test/aoj/ALDS1_14_B_RollingHash.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/ALDS1_14_B_SuffixArray.test.cpp.html">test/aoj/ALDS1_14_B_SuffixArray.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/DSL_2_A.test.cpp.html">test/aoj/DSL_2_A.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/DSL_2_B.test.cpp.html">test/aoj/DSL_2_B.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/DSL_2_D.test.cpp.html">test/aoj/DSL_2_D.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/DSL_2_E.test.cpp.html">test/aoj/DSL_2_E.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/DSL_2_F.test.cpp.html">test/aoj/DSL_2_F.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/DSL_2_G.test.cpp.html">test/aoj/DSL_2_G.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/DSL_2_H.test.cpp.html">test/aoj/DSL_2_H.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/DSL_2_I.test.cpp.html">test/aoj/DSL_2_I.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/GRL_6_A.test.cpp.html">test/aoj/GRL_6_A.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/aoj/GRL_6_B.test.cpp.html">test/aoj/GRL_6_B.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/aplusb.test.cpp.html">test/yosupo/aplusb.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/associative_array.test.cpp.html">test/yosupo/associative_array.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/convolution_mod.test.cpp.html">test/yosupo/convolution_mod.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/lca.test.cpp.html">test/yosupo/lca.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/line_add_get_min.test.cpp.html">test/yosupo/line_add_get_min.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/many_aplusb.test.cpp.html">test/yosupo/many_aplusb.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/point_add_range_sum.test.cpp.html">test/yosupo/point_add_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/point_set_range_composite.test.cpp.html">test/yosupo/point_set_range_composite.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/range_affine_range_sum.test.cpp.html">test/yosupo/range_affine_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/range_chmin_chmax_add_range_sum.test.cpp.html">test/yosupo/range_chmin_chmax_add_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/range_kth_smallest.test.cpp.html">test/yosupo/range_kth_smallest.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/segment_add_get_min.test.cpp.html">test/yosupo/segment_add_get_min.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/static_range_sum.test.cpp.html">test/yosupo/static_range_sum.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/staticrmq.test.cpp.html">test/yosupo/staticrmq.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/suffixarray.test.cpp.html">test/yosupo/suffixarray.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/sum_of_floor_of_linear.test.cpp.html">test/yosupo/sum_of_floor_of_linear.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/tree_diameter.test.cpp.html">test/yosupo/tree_diameter.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/unionfind.test.cpp.html">test/yosupo/unionfind.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/vertex_add_path_sum.test.cpp.html">test/yosupo/vertex_add_path_sum.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/vertex_add_subtree_sum.test.cpp.html">test/yosupo/vertex_add_subtree_sum.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/yosupo/vertex_set_path_composite.test.cpp.html">test/yosupo/vertex_set_path_composite.test.cpp</a>
-
-
