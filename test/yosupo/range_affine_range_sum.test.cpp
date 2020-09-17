@@ -1,7 +1,8 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
 #include "../../other/template.hpp"
-#include "../../algebraic/ModInt.hpp"
+#include "../../algebraic/StaticModInt.hpp"
 #include "../../data-structure/IntervalSegTree.hpp"
+using ModInt=StaticModInt<998244353>;
 class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
@@ -15,7 +16,6 @@ public:
 int n,q;
 std::vector<ModInt> vec;
 int main(){
-	ModInt::setMod(998244353);
 	scanf("%d%d",&n,&q);
 	vec.resize(n);
 	rep(i,n){

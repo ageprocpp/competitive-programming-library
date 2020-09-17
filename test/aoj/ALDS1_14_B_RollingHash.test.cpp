@@ -3,7 +3,7 @@
 #include "../../string/RollingHash.hpp"
 std::string t,p;
 int main(){
-	ModInt::setMod(1000000007);
+	DynamicModInt::setMod(1000000007);
 	std::cin>>t>>p;
 	if(t.size()<p.size())return 0;
 	RollingHash rt1(t,1007),rt2(t,10007),rp1(p,1007),rp2(p,10007);

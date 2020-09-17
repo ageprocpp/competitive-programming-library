@@ -1,7 +1,8 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
 #include "../../other/template.hpp"
-#include "../../algebraic/ModInt.hpp"
+#include "../../algebraic/StaticModInt.hpp"
 #include "../../data-structure/SegTree.hpp"
+using ModInt=StaticModInt<998244353>;
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
 	using mp=std::pair<ModInt,ModInt>;
 	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
@@ -10,7 +11,6 @@ public:
 };
 int n,q;
 int main(){
-	ModInt::setMod(998244353);
 	scanf("%d%d",&n,&q);
 	MySeg st(n);
 	rep(i,n){

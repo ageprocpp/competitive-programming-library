@@ -1,8 +1,9 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/vertex_set_path_composite"
 #include "../../other/template.hpp"
-#include "../../algebraic/ModInt.hpp"
+#include "../../algebraic/StaticModInt.hpp"
 #include "../../graph/HeavyLightDecomposition.hpp"
 #include "../../data-structure/SegTree.hpp"
+using ModInt=StaticModInt<998244353>;
 class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
 	using MP=std::pair<ModInt,ModInt>;
 	MP nodef(const MP& lhs,const MP& rhs)const{
@@ -14,7 +15,6 @@ public:
 int n,q;
 P a[200010];
 int main(){
-	ModInt::setMod(998244353);
 	scanf("%d%d",&n,&q);
 	rep(i,n)scanf("%d%d",&a[i].first,&a[i].second);
 	HeavyLightDecomposition hld(n);

@@ -8,6 +8,6 @@ int main(){
 	a.resize(n);b.resize(m);
 	rep(i,n)scanf("%d",a.data()+i);
 	rep(i,m)scanf("%d",b.data()+i);
-	std::vector<ModInt> c=NumberTheoreticTransform::multiply(a,b,998244353);
+	std::vector<StaticModInt<998244353>> c=NumberTheoreticTransform::multiply<998244353>(a,b);
 	rep(i,n+m-1)printf((i==n+m?"%d\n":"%d "),c[i]);
 }

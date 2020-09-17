@@ -1,11 +1,11 @@
 #pragma once
 #include "../other/template.hpp"
-#include "ModInt.hpp"
-ModInt arithmetic_lagrange_interpolation(const ModInt& a,const ModInt& d,const std::vector<ModInt>& y,const ModInt& t){
+#include "DynamicModInt.hpp"
+DynamicModInt arithmetic_lagrange_interpolation(const DynamicModInt& a,const DynamicModInt& d,const std::vector<DynamicModInt>& y,const DynamicModInt& t){
 	const int n=y.size()-1;
-	ModInt res=0,ft=1;
+	DynamicModInt res=0,ft=1;
 	rep(i,n+1)ft*=t-(a+d*i);
-	ModInt f=1;
+	DynamicModInt f=1;
 	REP(i,n)f*=-d*i;
 	res+=y[0]/f*ft/(t-a);
 	rep(i,n){
