@@ -4,11 +4,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: graph/TwoSat.hpp
+    title: graph/TwoSat.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/scc.test.cpp
     title: test/yosupo/scc.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/two_sat.test.cpp
+    title: test/yosupo/two_sat.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
@@ -53,7 +59,7 @@ data:
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
     \ 3 \"graph/StronglyConnectedComponents.hpp\"\nclass StronglyConnectedComponents{\n\
     \tint N;\n\tstd::vector<std::vector<int>> vec,rvec;\npublic:\n\tStronglyConnectedComponents(int\
-    \ N):N(N){\n\t\tvec.resize(N);rvec.resize(N);\n\t}\n\tvoid add_edge(int from,int\
+    \ N_):N(N_){\n\t\tvec.resize(N);rvec.resize(N);\n\t}\n\tvoid add_edge(int from,int\
     \ to){\n\t\tvec[from].emplace_back(to);\n\t\trvec[to].emplace_back(from);\n\t\
     }\n\tstd::vector<std::vector<int>> get_scc(){\n\t\tstd::vector<bool> used(N);\n\
     \t\tstd::vector<int> vs;\n\t\tstd::vector<std::vector<int>> res;\n\t\tauto dfs=lambda_fix([&](auto\
@@ -64,10 +70,12 @@ data:
     \t\tif(!used[i])self(self,i);\n\t\t\t}\n\t\t});\n\t\trep(i,N){\n\t\t\tif(!used[i])dfs(i);\n\
     \t\t}\n\t\tused.assign(N,false);\n\t\tfor(int i=N-1;i>=0;i--){\n\t\t\tif(!used[vs[i]]){\n\
     \t\t\t\tres.emplace_back();\n\t\t\t\trdfs(vs[i]);\n\t\t\t}\n\t\t}\n\t\treturn\
-    \ res;\n\t}\n};\n"
+    \ res;\n\t}\n\tstd::vector<int> get_ids(){\n\t\tauto vec=get_scc();\n\t\tstd::vector<int>\
+    \ res(N);\n\t\trep(i,vec.size()){\n\t\t\tfor(const auto& j:vec[i])res[j]=i;\n\t\
+    \t}\n\t\treturn res;\n\t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nclass StronglyConnectedComponents{\n\
     \tint N;\n\tstd::vector<std::vector<int>> vec,rvec;\npublic:\n\tStronglyConnectedComponents(int\
-    \ N):N(N){\n\t\tvec.resize(N);rvec.resize(N);\n\t}\n\tvoid add_edge(int from,int\
+    \ N_):N(N_){\n\t\tvec.resize(N);rvec.resize(N);\n\t}\n\tvoid add_edge(int from,int\
     \ to){\n\t\tvec[from].emplace_back(to);\n\t\trvec[to].emplace_back(from);\n\t\
     }\n\tstd::vector<std::vector<int>> get_scc(){\n\t\tstd::vector<bool> used(N);\n\
     \t\tstd::vector<int> vs;\n\t\tstd::vector<std::vector<int>> res;\n\t\tauto dfs=lambda_fix([&](auto\
@@ -78,16 +86,20 @@ data:
     \t\tif(!used[i])self(self,i);\n\t\t\t}\n\t\t});\n\t\trep(i,N){\n\t\t\tif(!used[i])dfs(i);\n\
     \t\t}\n\t\tused.assign(N,false);\n\t\tfor(int i=N-1;i>=0;i--){\n\t\t\tif(!used[vs[i]]){\n\
     \t\t\t\tres.emplace_back();\n\t\t\t\trdfs(vs[i]);\n\t\t\t}\n\t\t}\n\t\treturn\
-    \ res;\n\t}\n};"
+    \ res;\n\t}\n\tstd::vector<int> get_ids(){\n\t\tauto vec=get_scc();\n\t\tstd::vector<int>\
+    \ res(N);\n\t\trep(i,vec.size()){\n\t\t\tfor(const auto& j:vec[i])res[j]=i;\n\t\
+    \t}\n\t\treturn res;\n\t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: graph/StronglyConnectedComponents.hpp
-  requiredBy: []
-  timestamp: '2020-09-20 14:20:48+09:00'
+  requiredBy:
+  - graph/TwoSat.hpp
+  timestamp: '2020-09-20 20:52:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/scc.test.cpp
+  - test/yosupo/two_sat.test.cpp
 documentation_of: graph/StronglyConnectedComponents.hpp
 layout: document
 redirect_from:

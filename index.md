@@ -80,6 +80,9 @@ data:
       path: graph/Tree.hpp
       title: graph/Tree.hpp
     - icon: ':heavy_check_mark:'
+      path: graph/TwoSat.hpp
+      title: graph/TwoSat.hpp
+    - icon: ':heavy_check_mark:'
       path: graph/UnionFind.hpp
       title: graph/UnionFind.hpp
   - name: other
@@ -196,6 +199,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/tree_diameter.test.cpp
       title: test/yosupo/tree_diameter.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/two_sat.test.cpp
+      title: test/yosupo/two_sat.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/unionfind.test.cpp
       title: test/yosupo/unionfind.test.cpp

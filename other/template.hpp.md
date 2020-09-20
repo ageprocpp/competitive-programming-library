@@ -72,6 +72,9 @@ data:
     path: graph/Tree.hpp
     title: graph/Tree.hpp
   - icon: ':heavy_check_mark:'
+    path: graph/TwoSat.hpp
+    title: graph/TwoSat.hpp
+  - icon: ':heavy_check_mark:'
     path: graph/StronglyConnectedComponents.hpp
     title: graph/StronglyConnectedComponents.hpp
   - icon: ':warning:'
@@ -184,6 +187,9 @@ data:
     path: test/yosupo/vertex_set_path_composite.test.cpp
     title: test/yosupo/vertex_set_path_composite.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/two_sat.test.cpp
+    title: test/yosupo/two_sat.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/static_range_sum.test.cpp
     title: test/yosupo/static_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
@@ -295,6 +301,7 @@ data:
   - algebraic/FastFourierTransform.hpp
   - graph/HeavyLightDecomposition.hpp
   - graph/Tree.hpp
+  - graph/TwoSat.hpp
   - graph/StronglyConnectedComponents.hpp
   - graph/PersistentUnionFind.hpp
   - graph/FordFulkerson.hpp
@@ -335,6 +342,7 @@ data:
   - test/yosupo/vertex_add_subtree_sum.test.cpp
   - test/yosupo/unionfind.test.cpp
   - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/two_sat.test.cpp
   - test/yosupo/static_range_sum.test.cpp
   - test/yosupo/point_add_range_sum.test.cpp
 documentation_of: other/template.hpp

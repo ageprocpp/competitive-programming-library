@@ -8,19 +8,19 @@ data:
     path: graph/StronglyConnectedComponents.hpp
     title: graph/StronglyConnectedComponents.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _pathExtension: cpp
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/two_sat.test.cpp
+    title: test/yosupo/two_sat.test.cpp
+  _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/scc
-    links:
-    - https://judge.yosupo.jp/problem/scc
-  bundledCode: "#line 1 \"test/yosupo/scc.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/scc\"\
-    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"\
-    avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\")\n#include\
-    \ <algorithm>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
-    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
+    links: []
+  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+    #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
+    )\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n\
+    #include <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
     \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
     \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
     #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
@@ -69,31 +69,34 @@ data:
     \t\t\t\tres.emplace_back();\n\t\t\t\trdfs(vs[i]);\n\t\t\t}\n\t\t}\n\t\treturn\
     \ res;\n\t}\n\tstd::vector<int> get_ids(){\n\t\tauto vec=get_scc();\n\t\tstd::vector<int>\
     \ res(N);\n\t\trep(i,vec.size()){\n\t\t\tfor(const auto& j:vec[i])res[j]=i;\n\t\
-    \t}\n\t\treturn res;\n\t}\n};\n#line 4 \"test/yosupo/scc.test.cpp\"\nint N,M;\n\
-    int main(){\n\tscanf(\"%d%d\",&N,&M);\n\tStronglyConnectedComponents scc(N);\n\
-    \trep(i,M){\n\t\tint a,b;\n\t\tscanf(\"%d%d\",&a,&b);\n\t\tscc.add_edge(a,b);\n\
-    \t}\n\tauto vec=scc.get_scc();\n\tprintf(\"%d\\n\",vec.size());\n\trep(i,vec.size()){\n\
-    \t\tprintf(\"%d \",vec[i].size());\n\t\tprintArray(vec[i]);\n\t}\n\treturn 0;\n\
-    }\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/scc\"\n#include \"../../other/template.hpp\"\
-    \n#include \"../../graph/StronglyConnectedComponents.hpp\"\nint N,M;\nint main(){\n\
-    \tscanf(\"%d%d\",&N,&M);\n\tStronglyConnectedComponents scc(N);\n\trep(i,M){\n\
-    \t\tint a,b;\n\t\tscanf(\"%d%d\",&a,&b);\n\t\tscc.add_edge(a,b);\n\t}\n\tauto\
-    \ vec=scc.get_scc();\n\tprintf(\"%d\\n\",vec.size());\n\trep(i,vec.size()){\n\t\
-    \tprintf(\"%d \",vec[i].size());\n\t\tprintArray(vec[i]);\n\t}\n\treturn 0;\n}"
+    \t}\n\t\treturn res;\n\t}\n};\n#line 4 \"graph/TwoSat.hpp\"\nclass TwoSat{\n\t\
+    int N;\n\tStronglyConnectedComponents scc;\n\tstd::vector<int> ans;\npublic:\n\
+    \tTwoSat(int N_):N(N_),scc(2*N_),ans(N_){}\n\tvoid add_clause(int i,bool f,int\
+    \ j,bool g){\n\t\tscc.add_edge(2*i+int(!f),2*j+int(g));\n\t\tscc.add_edge(2*j+int(!g),2*i+int(f));\n\
+    \t}\n\tbool satisfiable(){\n\t\tauto ids=scc.get_ids();\n\t\trep(i,N){\n\t\t\t\
+    if(ids[2*i]==ids[2*i+1])return false;\n\t\t\tans[i]=ids[2*i]<ids[2*i+1];\n\t\t\
+    }\n\t\treturn true;\n\t}\n\tstd::vector<int> answer(){return ans;}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"StronglyConnectedComponents.hpp\"\
+    \nclass TwoSat{\n\tint N;\n\tStronglyConnectedComponents scc;\n\tstd::vector<int>\
+    \ ans;\npublic:\n\tTwoSat(int N_):N(N_),scc(2*N_),ans(N_){}\n\tvoid add_clause(int\
+    \ i,bool f,int j,bool g){\n\t\tscc.add_edge(2*i+int(!f),2*j+int(g));\n\t\tscc.add_edge(2*j+int(!g),2*i+int(f));\n\
+    \t}\n\tbool satisfiable(){\n\t\tauto ids=scc.get_ids();\n\t\trep(i,N){\n\t\t\t\
+    if(ids[2*i]==ids[2*i+1])return false;\n\t\t\tans[i]=ids[2*i]<ids[2*i+1];\n\t\t\
+    }\n\t\treturn true;\n\t}\n\tstd::vector<int> answer(){return ans;}\n};"
   dependsOn:
   - other/template.hpp
   - graph/StronglyConnectedComponents.hpp
-  isVerificationFile: true
-  path: test/yosupo/scc.test.cpp
+  isVerificationFile: false
+  path: graph/TwoSat.hpp
   requiredBy: []
   timestamp: '2020-09-20 20:52:39+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: test/yosupo/scc.test.cpp
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/two_sat.test.cpp
+documentation_of: graph/TwoSat.hpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/scc.test.cpp
-- /verify/test/yosupo/scc.test.cpp.html
-title: test/yosupo/scc.test.cpp
+- /library/graph/TwoSat.hpp
+- /library/graph/TwoSat.hpp.html
+title: graph/TwoSat.hpp
 ---
