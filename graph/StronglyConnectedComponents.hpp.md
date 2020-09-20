@@ -5,12 +5,9 @@ data:
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/GRL_6_A.test.cpp
-    title: test/aoj/GRL_6_A.test.cpp
+  _extendedVerifiedWith: []
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     links: []
@@ -51,48 +48,46 @@ data:
     \tlint r=(b1+m1*tmp+m1*m2)%(m1*m2);\n\treturn std::make_pair(r,m1*m2);\n}\ntemplate<typename\
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
-    \ 3 \"graph/FordFulkerson.hpp\"\nclass FordFulkerson{\n\tclass edge{\n\tpublic:\n\
-    \t\tint to;\n\t\tlint cap;\n\t\tint rev,id;\n\t};\n\tint n,idx=0;\n\tstd::vector<std::vector<edge>>\
-    \ vec;\n\tstd::vector<bool> used;\n\tlint dfs(int v,int t,lint f){\n\t\tif(v==t)return\
-    \ f;\n\t\tused[v]=true;\n\t\tfor(edge& e:vec[v]){\n\t\t\tif(!used[e.to]&&e.cap>0){\n\
-    \t\t\t\tlint d=dfs(e.to,t,std::min(f,e.cap));\n\t\t\t\tif(d){\n\t\t\t\t\te.cap-=d;\n\
-    \t\t\t\t\tvec[e.to][e.rev].cap+=d;\n\t\t\t\t\treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\
-    \t}\n\t\treturn 0;\n\t}\npublic:\n\tFordFulkerson(int n):n(n){\n\t\tvec.resize(n);\n\
-    \t\tused.resize(n);\n\t}\n\tvoid add_edge(int from,int to,lint cap){\n\t\tvec[from].push_back({to,cap,(int)vec[to].size(),-1});\n\
-    \t\tvec[to].push_back({from,0,(int)vec[from].size()-1,idx++});\n\t}\n\tlint max_flow(int\
-    \ s,int t){\n\t\tlint res=0;\n\t\twhile(true){\n\t\t\tused.assign(n,false);\n\t\
-    \t\tlint f=dfs(s,t,LINF);\n\t\t\tif(!f)return res;\n\t\t\tres+=f;\n\t\t}\n\t}\n\
-    \tstd::vector<lint> restore()const{\n\t\tstd::vector<lint> res(idx);\n\t\trep(i,n){\n\
-    \t\t\tfor(const auto& j:vec[i]){\n\t\t\t\tif(j.id!=-1)res[j.id]=j.cap;\n\t\t\t\
-    }\n\t\t}\n\t\treturn res;\n\t}\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass FordFulkerson{\n\t\
-    class edge{\n\tpublic:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev,id;\n\t};\n\t\
-    int n,idx=0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<bool> used;\n\
-    \tlint dfs(int v,int t,lint f){\n\t\tif(v==t)return f;\n\t\tused[v]=true;\n\t\t\
-    for(edge& e:vec[v]){\n\t\t\tif(!used[e.to]&&e.cap>0){\n\t\t\t\tlint d=dfs(e.to,t,std::min(f,e.cap));\n\
-    \t\t\t\tif(d){\n\t\t\t\t\te.cap-=d;\n\t\t\t\t\tvec[e.to][e.rev].cap+=d;\n\t\t\t\
-    \t\treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\npublic:\n\tFordFulkerson(int\
-    \ n):n(n){\n\t\tvec.resize(n);\n\t\tused.resize(n);\n\t}\n\tvoid add_edge(int\
-    \ from,int to,lint cap){\n\t\tvec[from].push_back({to,cap,(int)vec[to].size(),-1});\n\
-    \t\tvec[to].push_back({from,0,(int)vec[from].size()-1,idx++});\n\t}\n\tlint max_flow(int\
-    \ s,int t){\n\t\tlint res=0;\n\t\twhile(true){\n\t\t\tused.assign(n,false);\n\t\
-    \t\tlint f=dfs(s,t,LINF);\n\t\t\tif(!f)return res;\n\t\t\tres+=f;\n\t\t}\n\t}\n\
-    \tstd::vector<lint> restore()const{\n\t\tstd::vector<lint> res(idx);\n\t\trep(i,n){\n\
-    \t\t\tfor(const auto& j:vec[i]){\n\t\t\t\tif(j.id!=-1)res[j.id]=j.cap;\n\t\t\t\
-    }\n\t\t}\n\t\treturn res;\n\t}\n};"
+    \ 3 \"graph/StronglyConnectedComponents.hpp\"\nclass StronglyConnectedComponents{\n\
+    \tint N;\n\tstd::vector<std::vector<int>> vec,rvec;\npublic:\n\tStronglyConnectedComponents(int\
+    \ N):N(N){\n\t\tvec.resize(N);rvec.resize(N);\n\t}\n\tvoid add_edge(int from,int\
+    \ to){\n\t\tvec[from].emplace_back(to);\n\t\trvec[to].emplace_back(from);\n\t\
+    }\n\tstd::vector<std::vector<int>> get_scc(){\n\t\tstd::vector<bool> used(N);\n\
+    \t\tstd::vector<int> vs;\n\t\tstd::vector<std::vector<int>> res;\n\t\tauto dfs=lambda_fix([&](auto\
+    \ self,int node)->void{\n\t\t\tused[node]=true;\n\t\t\tfor(const int& i:vec[node]){\n\
+    \t\t\t\tif(!used[i])self(self,i);\n\t\t\t}\n\t\t\tvs.emplace_back(node);\n\t\t\
+    });\n\t\tauto rdfs=lambda_fix([&](auto self,int node)->void{\n\t\t\tused[node]=true;\n\
+    \t\t\tres.back().emplace_back(node);\n\t\t\tfor(const int& i:rvec[node]){\n\t\t\
+    \t\tif(!used[i])self(self,i);\n\t\t\t}\n\t\t});\n\t\trep(i,N){\n\t\t\tif(!used[i])dfs(i);\n\
+    \t\t}\n\t\tused.assign(N,false);\n\t\tfor(int i=N-1;i>=0;i--){\n\t\t\tif(!used[vs[i]]){\n\
+    \t\t\t\tres.emplace_back();\n\t\t\t\trdfs(vs[i]);\n\t\t\t}\n\t\t}\n\t\treturn\
+    \ res;\n\t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\nclass StronglyConnectedComponents{\n\
+    \tint N;\n\tstd::vector<std::vector<int>> vec,rvec;\npublic:\n\tStronglyConnectedComponents(int\
+    \ N):N(N){\n\t\tvec.resize(N);rvec.resize(N);\n\t}\n\tvoid add_edge(int from,int\
+    \ to){\n\t\tvec[from].emplace_back(to);\n\t\trvec[to].emplace_back(from);\n\t\
+    }\n\tstd::vector<std::vector<int>> get_scc(){\n\t\tstd::vector<bool> used(N);\n\
+    \t\tstd::vector<int> vs;\n\t\tstd::vector<std::vector<int>> res;\n\t\tauto dfs=lambda_fix([&](auto\
+    \ self,int node)->void{\n\t\t\tused[node]=true;\n\t\t\tfor(const int& i:vec[node]){\n\
+    \t\t\t\tif(!used[i])self(self,i);\n\t\t\t}\n\t\t\tvs.emplace_back(node);\n\t\t\
+    });\n\t\tauto rdfs=lambda_fix([&](auto self,int node)->void{\n\t\t\tused[node]=true;\n\
+    \t\t\tres.back().emplace_back(node);\n\t\t\tfor(const int& i:rvec[node]){\n\t\t\
+    \t\tif(!used[i])self(self,i);\n\t\t\t}\n\t\t});\n\t\trep(i,N){\n\t\t\tif(!used[i])dfs(i);\n\
+    \t\t}\n\t\tused.assign(N,false);\n\t\tfor(int i=N-1;i>=0;i--){\n\t\t\tif(!used[vs[i]]){\n\
+    \t\t\t\tres.emplace_back();\n\t\t\t\trdfs(vs[i]);\n\t\t\t}\n\t\t}\n\t\treturn\
+    \ res;\n\t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: graph/FordFulkerson.hpp
+  path: graph/StronglyConnectedComponents.hpp
   requiredBy: []
   timestamp: '2020-09-20 14:20:48+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/GRL_6_A.test.cpp
-documentation_of: graph/FordFulkerson.hpp
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: graph/StronglyConnectedComponents.hpp
 layout: document
 redirect_from:
-- /library/graph/FordFulkerson.hpp
-- /library/graph/FordFulkerson.hpp.html
-title: graph/FordFulkerson.hpp
+- /library/graph/StronglyConnectedComponents.hpp
+- /library/graph/StronglyConnectedComponents.hpp.html
+title: graph/StronglyConnectedComponents.hpp
 ---

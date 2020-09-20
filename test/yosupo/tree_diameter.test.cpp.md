@@ -55,7 +55,7 @@ data:
     \tlint r=(b1+m1*tmp+m1*m2)%(m1*m2);\n\treturn std::make_pair(r,m1*m2);\n}\ntemplate<typename\
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
-    \ 2 \"graph/Tree.hpp\"\nclass Tree{\n\tusing ET=std::pair<int,lint>;\nprivate:\n\
+    \ 3 \"graph/Tree.hpp\"\nclass Tree{\n\tusing ET=std::pair<int,lint>;\nprivate:\n\
     \tint N;\n\tstd::vector<std::vector<ET>> vec;\npublic:\n\ttemplate<typename T,typename\
     \ U>\n\tTree(int M,const std::vector<std::pair<T,U>> es):N(M){\n\t\tvec.resize(N+1);\n\
     \t\tfor(const auto& e:es){\n\t\t\tvec[e.first].emplace_back(e.second,1);\n\t\t\
@@ -96,7 +96,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/tree_diameter.test.cpp
   requiredBy: []
-  timestamp: '2020-09-13 14:10:50+09:00'
+  timestamp: '2020-09-20 14:20:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree_diameter.test.cpp

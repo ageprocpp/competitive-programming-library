@@ -55,19 +55,18 @@ data:
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
     \ 3 \"graph/FordFulkerson.hpp\"\nclass FordFulkerson{\n\tclass edge{\n\tpublic:\n\
-    \t\tint to;\n\t\tlint cap;\n\t\tint rev,id;\n\t\tbool isrev;\n\t};\n\tint n,idx=0;\n\
-    \tstd::vector<std::vector<edge>> vec;\n\tstd::vector<bool> used;\n\tlint dfs(int\
-    \ v,int t,lint f){\n\t\tif(v==t)return f;\n\t\tused[v]=true;\n\t\tfor(edge& e:vec[v]){\n\
-    \t\t\tif(!used[e.to]&&e.cap>0){\n\t\t\t\tlint d=dfs(e.to,t,std::min(f,e.cap));\n\
-    \t\t\t\tif(d){\n\t\t\t\t\te.cap-=d;\n\t\t\t\t\tvec[e.to][e.rev].cap+=d;\n\t\t\t\
-    \t\treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\npublic:\n\tFordFulkerson(int\
-    \ n):n(n){\n\t\tvec.resize(n);\n\t\tused.resize(n);\n\t}\n\tvoid add_edge(int\
-    \ from,int to,lint cap){\n\t\tvec[from].push_back({to,cap,(int)vec[to].size(),idx,false});\n\
-    \t\tvec[to].push_back({from,0,(int)vec[from].size()-1,idx++,true});\n\t}\n\tlint\
-    \ max_flow(int s,int t){\n\t\tlint res=0;\n\t\twhile(true){\n\t\t\tused.assign(n,false);\n\
-    \t\t\tlint f=dfs(s,t,LINF);\n\t\t\tif(!f)return res;\n\t\t\tres+=f;\n\t\t}\n\t\
-    }\n\tstd::vector<lint> restore(){\n\t\tstd::vector<lint> res(idx);\n\t\trep(i,n){\n\
-    \t\t\tfor(const auto& j:vec[i]){\n\t\t\t\tif(j.isrev)res[j.id]=j.cap;\n\t\t\t\
+    \t\tint to;\n\t\tlint cap;\n\t\tint rev,id;\n\t};\n\tint n,idx=0;\n\tstd::vector<std::vector<edge>>\
+    \ vec;\n\tstd::vector<bool> used;\n\tlint dfs(int v,int t,lint f){\n\t\tif(v==t)return\
+    \ f;\n\t\tused[v]=true;\n\t\tfor(edge& e:vec[v]){\n\t\t\tif(!used[e.to]&&e.cap>0){\n\
+    \t\t\t\tlint d=dfs(e.to,t,std::min(f,e.cap));\n\t\t\t\tif(d){\n\t\t\t\t\te.cap-=d;\n\
+    \t\t\t\t\tvec[e.to][e.rev].cap+=d;\n\t\t\t\t\treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\
+    \t}\n\t\treturn 0;\n\t}\npublic:\n\tFordFulkerson(int n):n(n){\n\t\tvec.resize(n);\n\
+    \t\tused.resize(n);\n\t}\n\tvoid add_edge(int from,int to,lint cap){\n\t\tvec[from].push_back({to,cap,(int)vec[to].size(),-1});\n\
+    \t\tvec[to].push_back({from,0,(int)vec[from].size()-1,idx++});\n\t}\n\tlint max_flow(int\
+    \ s,int t){\n\t\tlint res=0;\n\t\twhile(true){\n\t\t\tused.assign(n,false);\n\t\
+    \t\tlint f=dfs(s,t,LINF);\n\t\t\tif(!f)return res;\n\t\t\tres+=f;\n\t\t}\n\t}\n\
+    \tstd::vector<lint> restore()const{\n\t\tstd::vector<lint> res(idx);\n\t\trep(i,n){\n\
+    \t\t\tfor(const auto& j:vec[i]){\n\t\t\t\tif(j.id!=-1)res[j.id]=j.cap;\n\t\t\t\
     }\n\t\t}\n\t\treturn res;\n\t}\n};\n#line 4 \"test/aoj/GRL_6_A.test.cpp\"\nint\
     \ v,e;\nint main() {\n\tscanf(\"%d%d\",&v,&e);\n\tFordFulkerson flow(v);\n\trep(i,e){\n\
     \t\tint a,b,c;\n\t\tscanf(\"%d%d%d\",&a,&b,&c);\n\t\tflow.add_edge(a,b,c);\n\t\
@@ -83,7 +82,7 @@ data:
   isVerificationFile: true
   path: test/aoj/GRL_6_A.test.cpp
   requiredBy: []
-  timestamp: '2020-09-12 16:29:29+09:00'
+  timestamp: '2020-09-20 14:20:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/GRL_6_A.test.cpp

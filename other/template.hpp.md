@@ -72,6 +72,9 @@ data:
     path: graph/Tree.hpp
     title: graph/Tree.hpp
   - icon: ':warning:'
+    path: graph/StronglyConnectedComponents.hpp
+    title: graph/StronglyConnectedComponents.hpp
+  - icon: ':warning:'
     path: graph/PersistentUnionFind.hpp
     title: graph/PersistentUnionFind.hpp
   - icon: ':heavy_check_mark:'
@@ -289,6 +292,7 @@ data:
   - algebraic/FastFourierTransform.hpp
   - graph/HeavyLightDecomposition.hpp
   - graph/Tree.hpp
+  - graph/StronglyConnectedComponents.hpp
   - graph/PersistentUnionFind.hpp
   - graph/FordFulkerson.hpp
   - graph/UnionFind.hpp

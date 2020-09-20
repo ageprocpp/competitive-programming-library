@@ -73,6 +73,9 @@ data:
     - icon: ':warning:'
       path: graph/PersistentUnionFind.hpp
       title: graph/PersistentUnionFind.hpp
+    - icon: ':warning:'
+      path: graph/StronglyConnectedComponents.hpp
+      title: graph/StronglyConnectedComponents.hpp
     - icon: ':heavy_check_mark:'
       path: graph/Tree.hpp
       title: graph/Tree.hpp

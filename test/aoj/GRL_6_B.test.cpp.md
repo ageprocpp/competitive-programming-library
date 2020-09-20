@@ -55,49 +55,55 @@ data:
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
     \ 3 \"graph/MinCostFlow.hpp\"\nclass MinCostFlow{\n    class edge{\n    public:\n\
-    \        int to,cap;\n        lint cost;\n        int rev;\n    };\n    int n;\n\
-    \    std::vector<std::vector<edge>> vec;\n    std::vector<int> prevv,preve;\n\
-    \    std::vector<lint> h,dist;\n    bool negative=false;\n    lint BellmanFord(int\
-    \ s,int t){\n        dist.assign(n,LINF);\n        dist[s]=0;\n        rep(i,n-1){\n\
-    \            rep(j,n){\n                rep(k,vec[j].size()){\n              \
-    \      const edge &e=vec[j][k];\n                    if(e.cap>0&&chmin(dist[e.to],dist[j]+e.cost+h[j]-h[e.to])){\n\
+    \        int to,cap;\n        lint cost;\n        int rev,id;\n    };\n    int\
+    \ n,idx=0,s,t;\n    lint curres=0;\n    std::vector<std::vector<edge>> vec;\n\
+    \    std::vector<int> prevv,preve;\n    std::vector<lint> h,dist;\n    bool negative=false;\n\
+    \    lint BellmanFord(){\n        dist.assign(n,LINF);\n        dist[s]=0;\n \
+    \       rep(i,n-1){\n            rep(j,n){\n                rep(k,vec[j].size()){\n\
+    \                    const edge &e=vec[j][k];\n                    if(e.cap>0&&chmin(dist[e.to],dist[j]+e.cost+h[j]-h[e.to])){\n\
     \                        prevv[e.to]=j;\n                        preve[e.to]=k;\n\
     \                    }\n                }\n            }\n        }\n        if(dist[t]==LINF){\n\
     \            std::cerr<<\"The demand is over maximum flow.\"<<std::endl;\n   \
     \         return -1;\n        }\n        rep(i,n)h[i]+=dist[i];\n        for(int\
     \ i=t;i!=s;i=prevv[i]){\n            vec[prevv[i]][preve[i]].cap--;\n        \
     \    vec[i][vec[prevv[i]][preve[i]].rev].cap++;\n        }\n        return h[t];\n\
-    \    }\npublic:\n    MinCostFlow(int n):n(n){\n        vec.resize(n);\n      \
-    \  h.resize(n);\n        dist.resize(n);\n        prevv.resize(n);\n        preve.resize(n);\n\
-    \    }\n    void add_edge(int from,int to,int cap,lint cost){\n        if(cost<0)negative=true;\n\
-    \        vec[from].push_back({to,cap,cost,(int)vec[to].size()});\n        vec[to].push_back({from,0,-cost,(int)vec[from].size()-1});\n\
-    \    }\n    lint min_cost_flow(int s,int t,int f){\n        lint res=0;\n    \
-    \    h.assign(n,0);\n        if(negative){\n            res+=BellmanFord(s,t);\n\
-    \            f--;\n        }\n        while(f>0){\n            dist.assign(n,LINF);\n\
-    \            dist[s]=0;\n            prique<LP> que;\n            que.push({0,s});\n\
-    \            while(!que.empty()){\n                LP p=que.top();\n         \
-    \       que.pop();\n                if(dist[p.second]<p.first)continue;\n    \
-    \            rep(i,vec[p.second].size()){\n                    edge &e=vec[p.second][i];\n\
+    \    }\npublic:\n    MinCostFlow(int n,int s,int t):n(n),s(s),t(t){\n        vec.resize(n);\n\
+    \        h.resize(n);\n        dist.resize(n);\n        prevv.resize(n);\n   \
+    \     preve.resize(n);\n    }\n    void add_edge(int from,int to,int cap,lint\
+    \ cost){\n        if(cost<0)negative=true;\n        vec[from].push_back({to,cap,cost,(int)vec[to].size(),-1});\n\
+    \        vec[to].push_back({from,0,-cost,(int)vec[from].size()-1,idx++});\n  \
+    \  }\n    lint add_flow(int f){\n        if(negative){\n            curres+=BellmanFord();\n\
+    \            f--;\n            negative=false;\n        }\n        while(f>0){\n\
+    \            dist.assign(n,LINF);\n            dist[s]=0;\n            prique<LP>\
+    \ que;\n            que.push({0,s});\n            while(!que.empty()){\n     \
+    \           LP p=que.top();\n                que.pop();\n                if(dist[p.second]<p.first)continue;\n\
+    \                rep(i,vec[p.second].size()){\n                    edge &e=vec[p.second][i];\n\
     \                    if(e.cap>0&&chmin(dist[e.to],dist[p.second]+e.cost+h[p.second]-h[e.to])){\n\
     \                        prevv[e.to]=p.second;\n                        preve[e.to]=i;\n\
     \                        que.push({dist[e.to],e.to});\n                    }\n\
     \                }\n            }\n            if(dist[t]==LINF){\n          \
-    \      std::cerr<<\"The demand is over maximum flow.\"<<std::endl;\n         \
-    \       return -1;\n            }\n            rep(i,n)h[i]+=dist[i];\n      \
-    \      int d=f;\n            for(int i=t;i!=s;i=prevv[i]){\n                chmin(d,vec[prevv[i]][preve[i]].cap);\n\
-    \            }\n            f-=d;\n            res+=(lint)d*h[t];\n          \
-    \  for(int i=t;i!=s;i=prevv[i]){\n                vec[prevv[i]][preve[i]].cap-=d;\n\
-    \                vec[i][vec[prevv[i]][preve[i]].rev].cap+=d;\n            }\n\
-    \        }\n        return res;\n    }\n};\n#line 4 \"test/aoj/GRL_6_B.test.cpp\"\
-    \nint n,m,f;\nint main(){\n    scanf(\"%d%d%d\",&n,&m,&f);\n    MinCostFlow mcf(n);\n\
+    \      std::cerr<<\"The demand is over the maximum flow.\"<<std::endl;\n     \
+    \           return -1;\n            }\n            rep(i,n)h[i]+=dist[i];\n  \
+    \          int d=f;\n            for(int i=t;i!=s;i=prevv[i]){\n             \
+    \   chmin(d,vec[prevv[i]][preve[i]].cap);\n            }\n            f-=d;\n\
+    \            curres+=(lint)d*h[t];\n            for(int i=t;i!=s;i=prevv[i]){\n\
+    \                vec[prevv[i]][preve[i]].cap-=d;\n                vec[i][vec[prevv[i]][preve[i]].rev].cap+=d;\n\
+    \            }\n        }\n        return curres;\n    }\n    std::vector<lint>\
+    \ restore(){\n        std::vector<lint> res(idx);\n        rep(i,n){\n       \
+    \     for(const auto& j:vec[i]){\n                if(j.id!=-1)res[j.id]=j.cap;\n\
+    \            }\n        }\n        return res;\n    }\n    void reset(){\n   \
+    \     rep(i,n){\n            for(auto& j:vec[i]){\n                if(j.id!=-1){\n\
+    \                    vec[j.to][j.rev].cap+=j.cap;\n                    j.cap=0;\n\
+    \                }\n            }\n        }\n    }\n};\n#line 4 \"test/aoj/GRL_6_B.test.cpp\"\
+    \nint n,m,f;\nint main(){\n    scanf(\"%d%d%d\",&n,&m,&f);\n    MinCostFlow mcf(n,0,n-1);\n\
     \    rep(i,m){\n        int u,v,c,d;\n        scanf(\"%d%d%d%d\",&u,&v,&c,&d);\n\
-    \        mcf.add_edge(u,v,c,d);\n    }\n    printf(\"%d\\n\",mcf.min_cost_flow(0,n-1,f));\n\
+    \        mcf.add_edge(u,v,c,d);\n    }\n    printf(\"%d\\n\",mcf.add_flow(f));\n\
     }\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B\"\n#include\
     \ \"../../other/template.hpp\"\n#include \"../../graph/MinCostFlow.hpp\"\nint\
-    \ n,m,f;\nint main(){\n    scanf(\"%d%d%d\",&n,&m,&f);\n    MinCostFlow mcf(n);\n\
+    \ n,m,f;\nint main(){\n    scanf(\"%d%d%d\",&n,&m,&f);\n    MinCostFlow mcf(n,0,n-1);\n\
     \    rep(i,m){\n        int u,v,c,d;\n        scanf(\"%d%d%d%d\",&u,&v,&c,&d);\n\
-    \        mcf.add_edge(u,v,c,d);\n    }\n    printf(\"%d\\n\",mcf.min_cost_flow(0,n-1,f));\n\
+    \        mcf.add_edge(u,v,c,d);\n    }\n    printf(\"%d\\n\",mcf.add_flow(f));\n\
     }"
   dependsOn:
   - other/template.hpp
@@ -105,7 +111,7 @@ data:
   isVerificationFile: true
   path: test/aoj/GRL_6_B.test.cpp
   requiredBy: []
-  timestamp: '2020-09-12 16:29:29+09:00'
+  timestamp: '2020-09-20 14:20:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/GRL_6_B.test.cpp

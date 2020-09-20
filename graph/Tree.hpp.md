@@ -51,7 +51,7 @@ data:
     \tlint r=(b1+m1*tmp+m1*m2)%(m1*m2);\n\treturn std::make_pair(r,m1*m2);\n}\ntemplate<typename\
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
-    \ 2 \"graph/Tree.hpp\"\nclass Tree{\n\tusing ET=std::pair<int,lint>;\nprivate:\n\
+    \ 3 \"graph/Tree.hpp\"\nclass Tree{\n\tusing ET=std::pair<int,lint>;\nprivate:\n\
     \tint N;\n\tstd::vector<std::vector<ET>> vec;\npublic:\n\ttemplate<typename T,typename\
     \ U>\n\tTree(int M,const std::vector<std::pair<T,U>> es):N(M){\n\t\tvec.resize(N+1);\n\
     \t\tfor(const auto& e:es){\n\t\t\tvec[e.first].emplace_back(e.second,1);\n\t\t\
@@ -73,7 +73,7 @@ data:
     \ auto& e:vec[node]){\n\t\t\t\tif(!used[e.first]){\n\t\t\t\t\tself(self,e.first);\n\
     \t\t\t\t\tif(f)break;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif(f)res.push_back(node);\n\t\
     \t})(x);\n\t\tstd::reverse(all(res));\n\t\treturn {res,dist};\n\t}\n};\n"
-  code: "#include \"../other/template.hpp\"\nclass Tree{\n\tusing ET=std::pair<int,lint>;\n\
+  code: "#pragma once\n#include \"../other/template.hpp\"\nclass Tree{\n\tusing ET=std::pair<int,lint>;\n\
     private:\n\tint N;\n\tstd::vector<std::vector<ET>> vec;\npublic:\n\ttemplate<typename\
     \ T,typename U>\n\tTree(int M,const std::vector<std::pair<T,U>> es):N(M){\n\t\t\
     vec.resize(N+1);\n\t\tfor(const auto& e:es){\n\t\t\tvec[e.first].emplace_back(e.second,1);\n\
@@ -100,7 +100,7 @@ data:
   isVerificationFile: false
   path: graph/Tree.hpp
   requiredBy: []
-  timestamp: '2020-09-13 14:10:50+09:00'
+  timestamp: '2020-09-20 14:20:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/tree_diameter.test.cpp
