@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/scc"
-#include "../../../library/other/template.hpp"
-#include "../../../library/graph/StronglyConnectedComponents.hpp"
+#include "../../other/template.hpp"
+#include "../../graph/StronglyConnectedComponents.hpp"
 int N,M;
 int main(){
 	scanf("%d%d",&N,&M);
