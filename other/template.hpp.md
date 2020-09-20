@@ -71,7 +71,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/Tree.hpp
     title: graph/Tree.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: graph/StronglyConnectedComponents.hpp
     title: graph/StronglyConnectedComponents.hpp
   - icon: ':warning:'
@@ -156,6 +156,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/range_affine_range_sum.test.cpp
     title: test/yosupo/range_affine_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/scc.test.cpp
+    title: test/yosupo/scc.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/suffixarray.test.cpp
     title: test/yosupo/suffixarray.test.cpp
@@ -323,6 +326,7 @@ data:
   - test/yosupo/range_kth_smallest.test.cpp
   - test/yosupo/segment_add_get_min.test.cpp
   - test/yosupo/range_affine_range_sum.test.cpp
+  - test/yosupo/scc.test.cpp
   - test/yosupo/suffixarray.test.cpp
   - test/yosupo/point_set_range_composite.test.cpp
   - test/yosupo/tree_diameter.test.cpp
