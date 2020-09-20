@@ -4,7 +4,7 @@ class StronglyConnectedComponents{
 	int N;
 	std::vector<std::vector<int>> vec,rvec;
 public:
-	StronglyConnectedComponents(int N):N(N){
+	StronglyConnectedComponents(int N_):N(N_){
 		vec.resize(N);rvec.resize(N);
 	}
 	void add_edge(int from,int to){
@@ -38,6 +38,14 @@ public:
 				res.emplace_back();
 				rdfs(vs[i]);
 			}
+		}
+		return res;
+	}
+	std::vector<int> get_ids(){
+		auto vec=get_scc();
+		std::vector<int> res(N);
+		rep(i,vec.size()){
+			for(const auto& j:vec[i])res[j]=i;
 		}
 		return res;
 	}
