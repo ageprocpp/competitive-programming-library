@@ -4,11 +4,11 @@
 int n,m,f;
 int main(){
     scanf("%d%d%d",&n,&m,&f);
-    MinCostFlow mcf(n);
+    MinCostFlow mcf(n,0,n-1);
     rep(i,m){
         int u,v,c,d;
         scanf("%d%d%d%d",&u,&v,&c,&d);
         mcf.add_edge(u,v,c,d);
     }
-    printf("%d\n",mcf.min_cost_flow(0,n-1,f));
+    printf("%d\n",mcf.add_flow(f));
 }

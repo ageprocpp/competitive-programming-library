@@ -1,3 +1,4 @@
+#pragma once
 #include "../other/template.hpp"
 class Tree{
 	using ET=std::pair<int,lint>;
