@@ -5,6 +5,7 @@ template<unsigned int modulo>
 class StaticModInt {
 	lint value;
 public:
+	static constexpr unsigned int mod_value = modulo;
 	StaticModInt() : value(0) {}
 	template<typename T>
 	StaticModInt(T value = 0) : value(value) {
