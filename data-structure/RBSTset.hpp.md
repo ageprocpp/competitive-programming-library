@@ -1,18 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
   - icon: ':warning:'
     path: data-structure/RBST.hpp
     title: data-structure/RBST.hpp
+  - icon: ':heavy_check_mark:'
+    path: other/template.hpp
+    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\

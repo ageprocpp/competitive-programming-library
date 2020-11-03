@@ -2,20 +2,20 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+    path: algebraic/DynamicModInt.hpp
+    title: algebraic/DynamicModInt.hpp
   - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
     title: algebraic/StaticModInt.hpp
   - icon: ':heavy_check_mark:'
-    path: algebraic/DynamicModInt.hpp
-    title: algebraic/DynamicModInt.hpp
+    path: data-structure/SegTree.hpp
+    title: data-structure/SegTree.hpp
   - icon: ':heavy_check_mark:'
     path: graph/HeavyLightDecomposition.hpp
     title: graph/HeavyLightDecomposition.hpp
   - icon: ':heavy_check_mark:'
-    path: data-structure/SegTree.hpp
-    title: data-structure/SegTree.hpp
+    path: other/template.hpp
+    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
@@ -96,39 +96,40 @@ data:
     \ }\n};\nunsigned int DynamicModInt::modulo=1000000007;\nstd::istream& operator>>(std::istream&\
     \ ist, DynamicModInt& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n\
     }\n#line 4 \"algebraic/StaticModInt.hpp\"\ntemplate<unsigned int modulo>\nclass\
-    \ StaticModInt {\n\tlint value;\npublic:\n\tStaticModInt() : value(0) {}\n\ttemplate<typename\
-    \ T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\tif (value < 0)value =\
-    \ -(lint)(-value % modulo) + modulo;\n\t\tthis->value = value % modulo;\n\t}\n\
-    \tinline StaticModInt inv()const{return mypow(*this,modulo-2);}\n\tinline operator\
-    \ int()const { return value; }\n\tinline StaticModInt& operator+=(const StaticModInt&\
-    \ x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo)value -= modulo;\n\t\t\
-    return *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\tif (value == modulo\
-    \ - 1)value = 0;\n\t\telse value++;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
-    \ operator++(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\
-    \t}\n\tinline StaticModInt operator-()const {\n\t\treturn StaticModInt(0) -= *this;\n\
-    \t}\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\t\tvalue -=\
-    \ x.value;\n\t\tif (value < 0)value += modulo;\n\t\treturn *this;\n\t}\n\tinline\
-    \ StaticModInt& operator--() {\n\t\tif (value == 0)value = modulo - 1;\n\t\telse\
-    \ value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt operator--(int){\n\t\
-    \tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt&\
-    \ operator*=(const StaticModInt& x) {\n\t\tvalue = value * x.value % modulo;\n\
-    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const StaticModInt&\
-    \ rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename T> StaticModInt\
-    \ operator+(const T& rhs)const { return StaticModInt(*this) += rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator+=(const T& rhs) { return operator+=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator-(const T& rhs)const { return\
-    \ StaticModInt(*this) -= rhs; }\n\ttemplate<typename T> StaticModInt& operator-=(const\
-    \ T& rhs) { return operator-=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
-    \ operator*(const T& rhs)const { return StaticModInt(*this) *= rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator*=(const T& rhs) { return operator*=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator/(const T& rhs)const { return\
-    \ StaticModInt(*this) /= rhs; }\n\ttemplate<typename T> StaticModInt& operator/=(const\
-    \ T& rhs) { return operator/=(StaticModInt(rhs)); }\n};\ntemplate<unsigned int\
-    \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
-    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"graph/HeavyLightDecomposition.hpp\"\
-    \nclass HeavyLightDecomposition{\n\tint n,index=0;\n\tvoid size_dfs(int node){\n\
-    \t\tsize[node]=1;\n\t\tfor(int &i:vec[node]){\n\t\t\tif(par[node]==i)continue;\n\
-    \t\t\tpar[i]=node;\n\t\t\tsize_dfs(i);\n\t\t\tsize[node]+=size[i];\n\t\t\tif(size[i]>size[vec[node][0]])std::swap(i,vec[node][0]);\n\
+    \ StaticModInt {\n\tlint value;\npublic:\n\tstatic constexpr unsigned int mod_value\
+    \ = modulo;\n\tStaticModInt() : value(0) {}\n\ttemplate<typename T>\n\tStaticModInt(T\
+    \ value = 0) : value(value) {\n\t\tif (value < 0)value = -(lint)(-value % modulo)\
+    \ + modulo;\n\t\tthis->value = value % modulo;\n\t}\n\tinline StaticModInt inv()const{return\
+    \ mypow(*this,modulo-2);}\n\tinline operator int()const { return value; }\n\t\
+    inline StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\
+    \t\tif (value >= modulo)value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt&\
+    \ operator++() {\n\t\tif (value == modulo - 1)value = 0;\n\t\telse value++;\n\t\
+    \treturn *this;\n\t}\n\tinline StaticModInt operator++(int){\n\t\tStaticModInt\
+    \ res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()const\
+    \ {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\tinline StaticModInt& operator-=(const\
+    \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
+    \ 0)value = modulo - 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
+    \ operator--(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\
+    \t}\n\tinline StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = value\
+    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const\
+    \ StaticModInt& rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename\
+    \ T> StaticModInt operator+(const T& rhs)const { return StaticModInt(*this) +=\
+    \ rhs; }\n\ttemplate<typename T> StaticModInt& operator+=(const T& rhs) { return\
+    \ operator+=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt operator-(const\
+    \ T& rhs)const { return StaticModInt(*this) -= rhs; }\n\ttemplate<typename T>\
+    \ StaticModInt& operator-=(const T& rhs) { return operator-=(StaticModInt(rhs));\
+    \ }\n\ttemplate<typename T> StaticModInt operator*(const T& rhs)const { return\
+    \ StaticModInt(*this) *= rhs; }\n\ttemplate<typename T> StaticModInt& operator*=(const\
+    \ T& rhs) { return operator*=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
+    \ operator/(const T& rhs)const { return StaticModInt(*this) /= rhs; }\n\ttemplate<typename\
+    \ T> StaticModInt& operator/=(const T& rhs) { return operator/=(StaticModInt(rhs));\
+    \ }\n};\ntemplate<unsigned int modulo>\nstd::istream& operator>>(std::istream&\
+    \ ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn\
+    \ ist;\n}\n#line 3 \"graph/HeavyLightDecomposition.hpp\"\nclass HeavyLightDecomposition{\n\
+    \tint n,index=0;\n\tvoid size_dfs(int node){\n\t\tsize[node]=1;\n\t\tfor(int &i:vec[node]){\n\
+    \t\t\tif(par[node]==i)continue;\n\t\t\tpar[i]=node;\n\t\t\tsize_dfs(i);\n\t\t\t\
+    size[node]+=size[i];\n\t\t\tif(size[i]>size[vec[node][0]])std::swap(i,vec[node][0]);\n\
     \t\t}\n\t}\n\tvoid build_dfs(int node){\n\t\tlabel[node]=index++;\n\t\tfor(int&\
     \ i:vec[node]){\n\t\t\tif(par[node]!=i){\n\t\t\t\thead[i]=(i==vec[node][0]?head[node]:i);\n\
     \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node]=index;\n\t}\npublic:\n\t\
@@ -229,7 +230,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/vertex_set_path_composite.test.cpp
   requiredBy: []
-  timestamp: '2020-09-18 00:46:45+09:00'
+  timestamp: '2020-11-03 18:11:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/vertex_set_path_composite.test.cpp

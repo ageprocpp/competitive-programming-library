@@ -7,18 +7,17 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/yosupo/point_add_range_sum.test.cpp
+    title: test/yosupo/point_add_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_add_path_sum.test.cpp
     title: test/yosupo/vertex_add_path_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_add_subtree_sum.test.cpp
     title: test/yosupo/vertex_add_subtree_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/point_add_range_sum.test.cpp
-    title: test/yosupo/point_add_range_sum.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
@@ -89,9 +88,9 @@ data:
   timestamp: '2020-09-12 16:29:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/point_add_range_sum.test.cpp
   - test/yosupo/vertex_add_path_sum.test.cpp
   - test/yosupo/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/point_add_range_sum.test.cpp
 documentation_of: data-structure/BIT.hpp
 layout: document
 redirect_from:

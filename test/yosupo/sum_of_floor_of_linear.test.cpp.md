@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  - icon: ':heavy_check_mark:'
     path: algebraic/FloorSum.hpp
     title: algebraic/FloorSum.hpp
+  - icon: ':heavy_check_mark:'
+    path: other/template.hpp
+    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

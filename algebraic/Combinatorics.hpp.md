@@ -2,42 +2,18 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: algebraic/Combinatorics.hpp
-    title: algebraic/Combinatorics.hpp
-  - icon: ':warning:'
-    path: algebraic/LagrangeInterpolation.hpp
-    title: algebraic/LagrangeInterpolation.hpp
-  - icon: ':heavy_check_mark:'
-    path: algebraic/NumberTheoreticTransform.hpp
-    title: algebraic/NumberTheoreticTransform.hpp
+    path: algebraic/DynamicModInt.hpp
+    title: algebraic/DynamicModInt.hpp
   - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
     title: algebraic/StaticModInt.hpp
   - icon: ':heavy_check_mark:'
-    path: string/RollingHash.hpp
-    title: string/RollingHash.hpp
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
-    title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod.test.cpp
-    title: test/yosupo/convolution_mod.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/point_set_range_composite.test.cpp
-    title: test/yosupo/point_set_range_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_affine_range_sum.test.cpp
-    title: test/yosupo/range_affine_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_set_path_composite.test.cpp
-    title: test/yosupo/vertex_set_path_composite.test.cpp
+    path: other/template.hpp
+    title: other/template.hpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -108,61 +84,82 @@ data:
     \ T> DynamicModInt& operator/=(const T& rhs) { return operator/=(DynamicModInt(rhs));\
     \ }\n};\nunsigned int DynamicModInt::modulo=1000000007;\nstd::istream& operator>>(std::istream&\
     \ ist, DynamicModInt& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n\
-    }\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass DynamicModInt {\n\
-    \tlint value;\npublic:\n\tstatic unsigned int modulo;\n\tDynamicModInt() : value(0)\
-    \ {}\n\ttemplate<typename T>\n\tDynamicModInt(T value = 0) : value(value) {\n\t\
-    \tif (value < 0)value = -(lint)(-value % modulo) + modulo;\n\t\tthis->value =\
-    \ value % modulo;\n\t}\n\tstatic inline void setMod(const unsigned int& mod){modulo=mod;}\n\
-    \tinline DynamicModInt inv()const{return mypow(*this,modulo-2);}\n\tinline operator\
-    \ int()const { return value; }\n\tinline DynamicModInt& operator+=(const DynamicModInt&\
-    \ x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo)value -= modulo;\n\t\t\
-    return *this;\n\t}\n\tinline DynamicModInt& operator++() {\n\t\tif (value == modulo\
-    \ - 1)value = 0;\n\t\telse value++;\n\t\treturn *this;\n\t}\n\tinline DynamicModInt\
-    \ operator++(int){\n\t\tDynamicModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\
-    \t}\n\tinline DynamicModInt operator-()const {\n\t\treturn DynamicModInt(0) -=\
-    \ *this;\n\t}\n\tinline DynamicModInt& operator-=(const DynamicModInt& x) {\n\t\
-    \tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\t\treturn *this;\n\t\
-    }\n\tinline DynamicModInt& operator--() {\n\t\tif (value == 0)value = modulo -\
-    \ 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline DynamicModInt operator--(int){\n\
-    \t\tDynamicModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline DynamicModInt&\
-    \ operator*=(const DynamicModInt& x) {\n\t\tvalue = value * x.value % modulo;\n\
-    \t\treturn *this;\n\t}\n\tinline DynamicModInt& operator/=(const DynamicModInt&\
-    \ rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename T> DynamicModInt\
-    \ operator+(const T& rhs)const { return DynamicModInt(*this) += rhs; }\n\ttemplate<typename\
-    \ T> DynamicModInt& operator+=(const T& rhs) { return operator+=(DynamicModInt(rhs));\
-    \ }\n\ttemplate<typename T> DynamicModInt operator-(const T& rhs)const { return\
-    \ DynamicModInt(*this) -= rhs; }\n\ttemplate<typename T> DynamicModInt& operator-=(const\
-    \ T& rhs) { return operator-=(DynamicModInt(rhs)); }\n\ttemplate<typename T> DynamicModInt\
-    \ operator*(const T& rhs)const { return DynamicModInt(*this) *= rhs; }\n\ttemplate<typename\
-    \ T> DynamicModInt& operator*=(const T& rhs) { return operator*=(DynamicModInt(rhs));\
-    \ }\n\ttemplate<typename T> DynamicModInt operator/(const T& rhs)const { return\
-    \ DynamicModInt(*this) /= rhs; }\n\ttemplate<typename T> DynamicModInt& operator/=(const\
-    \ T& rhs) { return operator/=(DynamicModInt(rhs)); }\n};\nunsigned int DynamicModInt::modulo=1000000007;\n\
-    std::istream& operator>>(std::istream& ist, DynamicModInt& x) {\n\tlint a;\n\t\
-    ist >> a;\n\tx = a;\n\treturn ist;\n}"
+    }\n#line 4 \"algebraic/StaticModInt.hpp\"\ntemplate<unsigned int modulo>\nclass\
+    \ StaticModInt {\n\tlint value;\npublic:\n\tstatic constexpr unsigned int mod_value\
+    \ = modulo;\n\tStaticModInt() : value(0) {}\n\ttemplate<typename T>\n\tStaticModInt(T\
+    \ value = 0) : value(value) {\n\t\tif (value < 0)value = -(lint)(-value % modulo)\
+    \ + modulo;\n\t\tthis->value = value % modulo;\n\t}\n\tinline StaticModInt inv()const{return\
+    \ mypow(*this,modulo-2);}\n\tinline operator int()const { return value; }\n\t\
+    inline StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\
+    \t\tif (value >= modulo)value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt&\
+    \ operator++() {\n\t\tif (value == modulo - 1)value = 0;\n\t\telse value++;\n\t\
+    \treturn *this;\n\t}\n\tinline StaticModInt operator++(int){\n\t\tStaticModInt\
+    \ res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()const\
+    \ {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\tinline StaticModInt& operator-=(const\
+    \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
+    \ 0)value = modulo - 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
+    \ operator--(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\
+    \t}\n\tinline StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = value\
+    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const\
+    \ StaticModInt& rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename\
+    \ T> StaticModInt operator+(const T& rhs)const { return StaticModInt(*this) +=\
+    \ rhs; }\n\ttemplate<typename T> StaticModInt& operator+=(const T& rhs) { return\
+    \ operator+=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt operator-(const\
+    \ T& rhs)const { return StaticModInt(*this) -= rhs; }\n\ttemplate<typename T>\
+    \ StaticModInt& operator-=(const T& rhs) { return operator-=(StaticModInt(rhs));\
+    \ }\n\ttemplate<typename T> StaticModInt operator*(const T& rhs)const { return\
+    \ StaticModInt(*this) *= rhs; }\n\ttemplate<typename T> StaticModInt& operator*=(const\
+    \ T& rhs) { return operator*=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
+    \ operator/(const T& rhs)const { return StaticModInt(*this) /= rhs; }\n\ttemplate<typename\
+    \ T> StaticModInt& operator/=(const T& rhs) { return operator/=(StaticModInt(rhs));\
+    \ }\n};\ntemplate<unsigned int modulo>\nstd::istream& operator>>(std::istream&\
+    \ ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn\
+    \ ist;\n}\n#line 5 \"algebraic/Combinatorics.hpp\"\ntemplate<typename T>\nclass\
+    \ Combinatorics{\nprotected:\n\tstd::vector<T> factorial;\n\tvoid append(int n){\n\
+    \t\twhile(factorial.size()<=n){\n\t\t\tfactorial.emplace_back(factorial.back()*factorial.size());\n\
+    \t\t}\n\t}\npublic:\n\tCombinatorics():factorial(1,1){}\n\tCombinatorics(int n):factorial(1,1){append(n);}\n\
+    \tvirtual T getComb(int a,int b){\n\t\tappend(a);\n\t\treturn factorial[a]/factorial[a-b]/factorial[b];\n\
+    \t}\n\tvirtual T getDcomb(int a,int b){\n\t\treturn getComb(a+b-1,b);\n\t}\n};\n\
+    template<typename T>\nclass ModCombinatorics:Combinatorics<T>{\n\tstatic_assert(std::is_same<T,StaticModInt<T::mod_value>>::value\n\
+    \t\t||std::is_same<T,DynamicModInt>::value);\n\tusing Combinatorics<T>::factorial;\n\
+    \tstd::vector<T> inv;\n\tvoid append(int n){\n\t\tint tmp=factorial.size();\n\t\
+    \tif(n<tmp)return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n+1);\n\t\
+    \tinv[n]=T(1)/factorial.back();\n\t\tfor(int i=n;i>tmp;i--)inv[i-1]=inv[i]*i;\n\
+    \t}\npublic:\n\tModCombinatorics():Combinatorics<T>(),inv(1,1){}\n\tModCombinatorics(int\
+    \ n):Combinatorics<T>(n),inv(1,1){append(n);}\n\tT getComb(int a,int b)override{\n\
+    \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b]*inv[b];\n\t}\n\tT getDcomb(int\
+    \ a,int b)override{\n\t\treturn getComb(a+b-1,b);\n\t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"StaticModInt.hpp\"\
+    \n#include \"DynamicModInt.hpp\"\ntemplate<typename T>\nclass Combinatorics{\n\
+    protected:\n\tstd::vector<T> factorial;\n\tvoid append(int n){\n\t\twhile(factorial.size()<=n){\n\
+    \t\t\tfactorial.emplace_back(factorial.back()*factorial.size());\n\t\t}\n\t}\n\
+    public:\n\tCombinatorics():factorial(1,1){}\n\tCombinatorics(int n):factorial(1,1){append(n);}\n\
+    \tvirtual T getComb(int a,int b){\n\t\tappend(a);\n\t\treturn factorial[a]/factorial[a-b]/factorial[b];\n\
+    \t}\n\tvirtual T getDcomb(int a,int b){\n\t\treturn getComb(a+b-1,b);\n\t}\n};\n\
+    template<typename T>\nclass ModCombinatorics:Combinatorics<T>{\n\tstatic_assert(std::is_same<T,StaticModInt<T::mod_value>>::value\n\
+    \t\t||std::is_same<T,DynamicModInt>::value);\n\tusing Combinatorics<T>::factorial;\n\
+    \tstd::vector<T> inv;\n\tvoid append(int n){\n\t\tint tmp=factorial.size();\n\t\
+    \tif(n<tmp)return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n+1);\n\t\
+    \tinv[n]=T(1)/factorial.back();\n\t\tfor(int i=n;i>tmp;i--)inv[i-1]=inv[i]*i;\n\
+    \t}\npublic:\n\tModCombinatorics():Combinatorics<T>(),inv(1,1){}\n\tModCombinatorics(int\
+    \ n):Combinatorics<T>(n),inv(1,1){append(n);}\n\tT getComb(int a,int b)override{\n\
+    \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b]*inv[b];\n\t}\n\tT getDcomb(int\
+    \ a,int b)override{\n\t\treturn getComb(a+b-1,b);\n\t}\n};"
   dependsOn:
   - other/template.hpp
-  isVerificationFile: false
-  path: algebraic/DynamicModInt.hpp
-  requiredBy:
-  - string/RollingHash.hpp
-  - algebraic/Combinatorics.hpp
-  - algebraic/NumberTheoreticTransform.hpp
-  - algebraic/LagrangeInterpolation.hpp
   - algebraic/StaticModInt.hpp
-  timestamp: '2020-09-18 00:46:45+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/ALDS1_14_B_RollingHash.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
-documentation_of: algebraic/DynamicModInt.hpp
+  - algebraic/DynamicModInt.hpp
+  isVerificationFile: false
+  path: algebraic/Combinatorics.hpp
+  requiredBy: []
+  timestamp: '2020-11-03 18:11:36+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: algebraic/Combinatorics.hpp
 layout: document
 redirect_from:
-- /library/algebraic/DynamicModInt.hpp
-- /library/algebraic/DynamicModInt.hpp.html
-title: algebraic/DynamicModInt.hpp
+- /library/algebraic/Combinatorics.hpp
+- /library/algebraic/Combinatorics.hpp.html
+title: algebraic/Combinatorics.hpp
 ---

@@ -2,14 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: algebraic/DynamicModInt.hpp
+    title: algebraic/DynamicModInt.hpp
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
     title: string/RollingHash.hpp
-  - icon: ':heavy_check_mark:'
-    path: algebraic/DynamicModInt.hpp
-    title: algebraic/DynamicModInt.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

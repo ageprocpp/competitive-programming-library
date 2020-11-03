@@ -2,12 +2,15 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  - icon: ':heavy_check_mark:'
     path: algebraic/DynamicModInt.hpp
     title: algebraic/DynamicModInt.hpp
+  - icon: ':heavy_check_mark:'
+    path: other/template.hpp
+    title: other/template.hpp
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: algebraic/Combinatorics.hpp
+    title: algebraic/Combinatorics.hpp
   - icon: ':heavy_check_mark:'
     path: algebraic/NumberTheoreticTransform.hpp
     title: algebraic/NumberTheoreticTransform.hpp
@@ -16,18 +19,17 @@ data:
     path: test/yosupo/convolution_mod.test.cpp
     title: test/yosupo/convolution_mod.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_affine_range_sum.test.cpp
-    title: test/yosupo/range_affine_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/point_set_range_composite.test.cpp
     title: test/yosupo/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/range_affine_range_sum.test.cpp
+    title: test/yosupo/range_affine_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_set_path_composite.test.cpp
     title: test/yosupo/vertex_set_path_composite.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
@@ -98,41 +100,10 @@ data:
     \ }\n};\nunsigned int DynamicModInt::modulo=1000000007;\nstd::istream& operator>>(std::istream&\
     \ ist, DynamicModInt& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n\
     }\n#line 4 \"algebraic/StaticModInt.hpp\"\ntemplate<unsigned int modulo>\nclass\
-    \ StaticModInt {\n\tlint value;\npublic:\n\tStaticModInt() : value(0) {}\n\ttemplate<typename\
-    \ T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\tif (value < 0)value =\
-    \ -(lint)(-value % modulo) + modulo;\n\t\tthis->value = value % modulo;\n\t}\n\
-    \tinline StaticModInt inv()const{return mypow(*this,modulo-2);}\n\tinline operator\
-    \ int()const { return value; }\n\tinline StaticModInt& operator+=(const StaticModInt&\
-    \ x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo)value -= modulo;\n\t\t\
-    return *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\tif (value == modulo\
-    \ - 1)value = 0;\n\t\telse value++;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
-    \ operator++(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\
-    \t}\n\tinline StaticModInt operator-()const {\n\t\treturn StaticModInt(0) -= *this;\n\
-    \t}\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\t\tvalue -=\
-    \ x.value;\n\t\tif (value < 0)value += modulo;\n\t\treturn *this;\n\t}\n\tinline\
-    \ StaticModInt& operator--() {\n\t\tif (value == 0)value = modulo - 1;\n\t\telse\
-    \ value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt operator--(int){\n\t\
-    \tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt&\
-    \ operator*=(const StaticModInt& x) {\n\t\tvalue = value * x.value % modulo;\n\
-    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const StaticModInt&\
-    \ rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename T> StaticModInt\
-    \ operator+(const T& rhs)const { return StaticModInt(*this) += rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator+=(const T& rhs) { return operator+=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator-(const T& rhs)const { return\
-    \ StaticModInt(*this) -= rhs; }\n\ttemplate<typename T> StaticModInt& operator-=(const\
-    \ T& rhs) { return operator-=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
-    \ operator*(const T& rhs)const { return StaticModInt(*this) *= rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator*=(const T& rhs) { return operator*=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator/(const T& rhs)const { return\
-    \ StaticModInt(*this) /= rhs; }\n\ttemplate<typename T> StaticModInt& operator/=(const\
-    \ T& rhs) { return operator/=(StaticModInt(rhs)); }\n};\ntemplate<unsigned int\
-    \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
-    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"DynamicModInt.hpp\"\
-    \ntemplate<unsigned int modulo>\nclass StaticModInt {\n\tlint value;\npublic:\n\
-    \tStaticModInt() : value(0) {}\n\ttemplate<typename T>\n\tStaticModInt(T value\
-    \ = 0) : value(value) {\n\t\tif (value < 0)value = -(lint)(-value % modulo) +\
-    \ modulo;\n\t\tthis->value = value % modulo;\n\t}\n\tinline StaticModInt inv()const{return\
+    \ StaticModInt {\n\tlint value;\npublic:\n\tstatic constexpr unsigned int mod_value\
+    \ = modulo;\n\tStaticModInt() : value(0) {}\n\ttemplate<typename T>\n\tStaticModInt(T\
+    \ value = 0) : value(value) {\n\t\tif (value < 0)value = -(lint)(-value % modulo)\
+    \ + modulo;\n\t\tthis->value = value % modulo;\n\t}\n\tinline StaticModInt inv()const{return\
     \ mypow(*this,modulo-2);}\n\tinline operator int()const { return value; }\n\t\
     inline StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\
     \t\tif (value >= modulo)value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt&\
@@ -159,21 +130,54 @@ data:
     \ T> StaticModInt& operator/=(const T& rhs) { return operator/=(StaticModInt(rhs));\
     \ }\n};\ntemplate<unsigned int modulo>\nstd::istream& operator>>(std::istream&\
     \ ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn\
-    \ ist;\n}"
+    \ ist;\n}\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"DynamicModInt.hpp\"\
+    \ntemplate<unsigned int modulo>\nclass StaticModInt {\n\tlint value;\npublic:\n\
+    \tstatic constexpr unsigned int mod_value = modulo;\n\tStaticModInt() : value(0)\
+    \ {}\n\ttemplate<typename T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\
+    \tif (value < 0)value = -(lint)(-value % modulo) + modulo;\n\t\tthis->value =\
+    \ value % modulo;\n\t}\n\tinline StaticModInt inv()const{return mypow(*this,modulo-2);}\n\
+    \tinline operator int()const { return value; }\n\tinline StaticModInt& operator+=(const\
+    \ StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo)value -=\
+    \ modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\t\
+    if (value == modulo - 1)value = 0;\n\t\telse value++;\n\t\treturn *this;\n\t}\n\
+    \tinline StaticModInt operator++(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\
+    \t\treturn res;\n\t}\n\tinline StaticModInt operator-()const {\n\t\treturn StaticModInt(0)\
+    \ -= *this;\n\t}\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\
+    \t\tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\t\treturn *this;\n\
+    \t}\n\tinline StaticModInt& operator--() {\n\t\tif (value == 0)value = modulo\
+    \ - 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt operator--(int){\n\
+    \t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt&\
+    \ operator*=(const StaticModInt& x) {\n\t\tvalue = value * x.value % modulo;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const StaticModInt&\
+    \ rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename T> StaticModInt\
+    \ operator+(const T& rhs)const { return StaticModInt(*this) += rhs; }\n\ttemplate<typename\
+    \ T> StaticModInt& operator+=(const T& rhs) { return operator+=(StaticModInt(rhs));\
+    \ }\n\ttemplate<typename T> StaticModInt operator-(const T& rhs)const { return\
+    \ StaticModInt(*this) -= rhs; }\n\ttemplate<typename T> StaticModInt& operator-=(const\
+    \ T& rhs) { return operator-=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
+    \ operator*(const T& rhs)const { return StaticModInt(*this) *= rhs; }\n\ttemplate<typename\
+    \ T> StaticModInt& operator*=(const T& rhs) { return operator*=(StaticModInt(rhs));\
+    \ }\n\ttemplate<typename T> StaticModInt operator/(const T& rhs)const { return\
+    \ StaticModInt(*this) /= rhs; }\n\ttemplate<typename T> StaticModInt& operator/=(const\
+    \ T& rhs) { return operator/=(StaticModInt(rhs)); }\n};\ntemplate<unsigned int\
+    \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
+    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}"
   dependsOn:
   - other/template.hpp
   - algebraic/DynamicModInt.hpp
   isVerificationFile: false
   path: algebraic/StaticModInt.hpp
   requiredBy:
+  - algebraic/Combinatorics.hpp
   - algebraic/NumberTheoreticTransform.hpp
-  timestamp: '2020-09-18 00:46:45+09:00'
+  timestamp: '2020-11-03 18:11:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
   - test/yosupo/point_set_range_composite.test.cpp
   - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/range_affine_range_sum.test.cpp
 documentation_of: algebraic/StaticModInt.hpp
 layout: document
 redirect_from:

@@ -18,7 +18,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
@@ -98,8 +97,8 @@ data:
   timestamp: '2020-09-20 20:52:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/scc.test.cpp
   - test/yosupo/two_sat.test.cpp
+  - test/yosupo/scc.test.cpp
 documentation_of: graph/StronglyConnectedComponents.hpp
 layout: document
 redirect_from:

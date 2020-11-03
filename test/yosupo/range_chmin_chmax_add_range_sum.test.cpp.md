@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  - icon: ':heavy_check_mark:'
     path: data-structure/SegTreeBeats.hpp
     title: data-structure/SegTreeBeats.hpp
+  - icon: ':heavy_check_mark:'
+    path: other/template.hpp
+    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

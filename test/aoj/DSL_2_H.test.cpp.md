@@ -2,14 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  - icon: ':heavy_check_mark:'
     path: data-structure/IntervalSegTree.hpp
     title: data-structure/IntervalSegTree.hpp
   - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: data-structure/SegTree.hpp
+  - icon: ':heavy_check_mark:'
+    path: other/template.hpp
+    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

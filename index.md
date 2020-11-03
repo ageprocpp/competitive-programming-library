@@ -3,6 +3,9 @@ data:
   libraryCategories:
   - name: algebraic
     pages:
+    - icon: ':warning:'
+      path: algebraic/Combinatorics.hpp
+      title: algebraic/Combinatorics.hpp
     - icon: ':heavy_check_mark:'
       path: algebraic/DynamicModInt.hpp
       title: algebraic/DynamicModInt.hpp

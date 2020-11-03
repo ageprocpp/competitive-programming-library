@@ -10,42 +10,41 @@ data:
     title: data-structure/IntervalSegTree.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_I.test.cpp
-    title: test/aoj/DSL_2_I.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_H.test.cpp
-    title: test/aoj/DSL_2_H.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_G.test.cpp
-    title: test/aoj/DSL_2_G.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_D.test.cpp
-    title: test/aoj/DSL_2_D.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/aoj/DSL_2_A.test.cpp
     title: test/aoj/DSL_2_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_E.test.cpp
-    title: test/aoj/DSL_2_E.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/DSL_2_B.test.cpp
     title: test/aoj/DSL_2_B.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_D.test.cpp
+    title: test/aoj/DSL_2_D.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_E.test.cpp
+    title: test/aoj/DSL_2_E.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/aoj/DSL_2_F.test.cpp
     title: test/aoj/DSL_2_F.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_affine_range_sum.test.cpp
-    title: test/yosupo/range_affine_range_sum.test.cpp
+    path: test/aoj/DSL_2_G.test.cpp
+    title: test/aoj/DSL_2_G.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_H.test.cpp
+    title: test/aoj/DSL_2_H.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_I.test.cpp
+    title: test/aoj/DSL_2_I.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/point_set_range_composite.test.cpp
     title: test/yosupo/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/range_affine_range_sum.test.cpp
+    title: test/yosupo/range_affine_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_set_path_composite.test.cpp
     title: test/yosupo/vertex_set_path_composite.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
@@ -157,17 +156,17 @@ data:
   timestamp: '2020-09-12 16:29:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/DSL_2_I.test.cpp
-  - test/aoj/DSL_2_H.test.cpp
+  - test/aoj/DSL_2_F.test.cpp
   - test/aoj/DSL_2_G.test.cpp
-  - test/aoj/DSL_2_D.test.cpp
+  - test/aoj/DSL_2_B.test.cpp
   - test/aoj/DSL_2_A.test.cpp
   - test/aoj/DSL_2_E.test.cpp
-  - test/aoj/DSL_2_B.test.cpp
-  - test/aoj/DSL_2_F.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
+  - test/aoj/DSL_2_D.test.cpp
+  - test/aoj/DSL_2_H.test.cpp
+  - test/aoj/DSL_2_I.test.cpp
   - test/yosupo/point_set_range_composite.test.cpp
   - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/range_affine_range_sum.test.cpp
 documentation_of: data-structure/SegTree.hpp
 layout: document
 redirect_from:

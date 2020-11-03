@@ -6,7 +6,6 @@ data:
   _pathExtension: h
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links:
     - https://github.com/MikeMirzayanov/testlib/
   bundledCode: "#line 1 \"other/testlib.h\"\n/* \n * It is strictly recommended to\

@@ -7,15 +7,14 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/segment_add_get_min.test.cpp
-    title: test/yosupo/segment_add_get_min.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/yosupo/line_add_get_min.test.cpp
     title: test/yosupo/line_add_get_min.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/segment_add_get_min.test.cpp
+    title: test/yosupo/segment_add_get_min.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\

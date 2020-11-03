@@ -2,14 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+    path: data-structure/BIT.hpp
+    title: data-structure/BIT.hpp
   - icon: ':heavy_check_mark:'
     path: graph/HeavyLightDecomposition.hpp
     title: graph/HeavyLightDecomposition.hpp
   - icon: ':heavy_check_mark:'
-    path: data-structure/BIT.hpp
-    title: data-structure/BIT.hpp
+    path: other/template.hpp
+    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

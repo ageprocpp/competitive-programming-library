@@ -2,14 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+    path: graph/StronglyConnectedComponents.hpp
+    title: graph/StronglyConnectedComponents.hpp
   - icon: ':heavy_check_mark:'
     path: graph/TwoSat.hpp
     title: graph/TwoSat.hpp
   - icon: ':heavy_check_mark:'
-    path: graph/StronglyConnectedComponents.hpp
-    title: graph/StronglyConnectedComponents.hpp
+    path: other/template.hpp
+    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

@@ -2,17 +2,17 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+    path: algebraic/DynamicModInt.hpp
+    title: algebraic/DynamicModInt.hpp
   - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
     title: algebraic/StaticModInt.hpp
   - icon: ':heavy_check_mark:'
-    path: algebraic/DynamicModInt.hpp
-    title: algebraic/DynamicModInt.hpp
-  - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: data-structure/SegTree.hpp
+  - icon: ':heavy_check_mark:'
+    path: other/template.hpp
+    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
@@ -93,60 +93,61 @@ data:
     \ }\n};\nunsigned int DynamicModInt::modulo=1000000007;\nstd::istream& operator>>(std::istream&\
     \ ist, DynamicModInt& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n\
     }\n#line 4 \"algebraic/StaticModInt.hpp\"\ntemplate<unsigned int modulo>\nclass\
-    \ StaticModInt {\n\tlint value;\npublic:\n\tStaticModInt() : value(0) {}\n\ttemplate<typename\
-    \ T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\tif (value < 0)value =\
-    \ -(lint)(-value % modulo) + modulo;\n\t\tthis->value = value % modulo;\n\t}\n\
-    \tinline StaticModInt inv()const{return mypow(*this,modulo-2);}\n\tinline operator\
-    \ int()const { return value; }\n\tinline StaticModInt& operator+=(const StaticModInt&\
-    \ x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo)value -= modulo;\n\t\t\
-    return *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\tif (value == modulo\
-    \ - 1)value = 0;\n\t\telse value++;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
-    \ operator++(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\
-    \t}\n\tinline StaticModInt operator-()const {\n\t\treturn StaticModInt(0) -= *this;\n\
-    \t}\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\t\tvalue -=\
-    \ x.value;\n\t\tif (value < 0)value += modulo;\n\t\treturn *this;\n\t}\n\tinline\
-    \ StaticModInt& operator--() {\n\t\tif (value == 0)value = modulo - 1;\n\t\telse\
-    \ value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt operator--(int){\n\t\
-    \tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt&\
-    \ operator*=(const StaticModInt& x) {\n\t\tvalue = value * x.value % modulo;\n\
-    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const StaticModInt&\
-    \ rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename T> StaticModInt\
-    \ operator+(const T& rhs)const { return StaticModInt(*this) += rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator+=(const T& rhs) { return operator+=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator-(const T& rhs)const { return\
-    \ StaticModInt(*this) -= rhs; }\n\ttemplate<typename T> StaticModInt& operator-=(const\
-    \ T& rhs) { return operator-=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
-    \ operator*(const T& rhs)const { return StaticModInt(*this) *= rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator*=(const T& rhs) { return operator*=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator/(const T& rhs)const { return\
-    \ StaticModInt(*this) /= rhs; }\n\ttemplate<typename T> StaticModInt& operator/=(const\
-    \ T& rhs) { return operator/=(StaticModInt(rhs)); }\n};\ntemplate<unsigned int\
-    \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
-    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"data-structure/SegTree.hpp\"\
-    \ntemplate<typename T>\nclass SegTree {\nprotected:\n\tunsigned int n = 1, rank\
-    \ = 0;\n\tstd::vector<T> node;\n\tT nodee;\n\tvirtual T nodef(const T&, const\
-    \ T&)const = 0;\npublic:\n\tSegTree(unsigned int m, T init, T nodee):nodee(nodee)\
-    \ {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2\
-    \ * n, nodee);\n\t\tfor (unsigned int i = n; i < 2 * n; i++)node[i] = init;\n\t\
-    }\n\tSegTree(const std::vector<T>& initvec, T nodee):nodee(nodee) {\n\t\tunsigned\
-    \ int m = initvec.size();\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\
-    \t\t}\n\t\tnode.resize(2 * n, nodee);\n\t\tfor (unsigned int i = n; i < 2 * n;\
-    \ i++) {\n\t\t\tif (i - n < m)node[i] = initvec[i - n];\n\t\t}\n\t}\n\tvirtual\
-    \ void update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i != 1)\
-    \ {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t\t\
-    }\n\t}\n\tvirtual T query(int l, int r) {\n\t\tl += n; r += n;\n\t\tT ls = nodee,\
-    \ rs = nodee;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\
-    \t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1; r >>= 1;\n\t\t}\n\t\
-    \treturn nodef(ls, rs);\n\t}\n\tvirtual T operator[](const int& x) {\n\t\treturn\
-    \ node[n + x];\n\t}\n\tvoid print() {\n\t\trep(i, n)std::cout << operator[](i)\
-    \ << \" \";\n\t\tstd::cout << std::endl;\n\t}\n};\nclass RSQ :public SegTree<lint>\
-    \ {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return lhs+rhs;}\npublic:\n\
-    \tRSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {\n\t\tfor(int\
-    \ i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\t}\n\tRSQ(const std::vector<lint>&\
-    \ initvec) :SegTree<lint>(initvec, 0) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
-    \t}\n};\nclass RMiQ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const\
-    \ lint& rhs)const{return std::min(lhs,rhs);}\npublic:\n\tRMiQ(int size, const\
-    \ lint& def = 0) :SegTree<lint>(size, def, LINF) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
+    \ StaticModInt {\n\tlint value;\npublic:\n\tstatic constexpr unsigned int mod_value\
+    \ = modulo;\n\tStaticModInt() : value(0) {}\n\ttemplate<typename T>\n\tStaticModInt(T\
+    \ value = 0) : value(value) {\n\t\tif (value < 0)value = -(lint)(-value % modulo)\
+    \ + modulo;\n\t\tthis->value = value % modulo;\n\t}\n\tinline StaticModInt inv()const{return\
+    \ mypow(*this,modulo-2);}\n\tinline operator int()const { return value; }\n\t\
+    inline StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\
+    \t\tif (value >= modulo)value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt&\
+    \ operator++() {\n\t\tif (value == modulo - 1)value = 0;\n\t\telse value++;\n\t\
+    \treturn *this;\n\t}\n\tinline StaticModInt operator++(int){\n\t\tStaticModInt\
+    \ res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()const\
+    \ {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\tinline StaticModInt& operator-=(const\
+    \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
+    \ 0)value = modulo - 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
+    \ operator--(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\
+    \t}\n\tinline StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = value\
+    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const\
+    \ StaticModInt& rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename\
+    \ T> StaticModInt operator+(const T& rhs)const { return StaticModInt(*this) +=\
+    \ rhs; }\n\ttemplate<typename T> StaticModInt& operator+=(const T& rhs) { return\
+    \ operator+=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt operator-(const\
+    \ T& rhs)const { return StaticModInt(*this) -= rhs; }\n\ttemplate<typename T>\
+    \ StaticModInt& operator-=(const T& rhs) { return operator-=(StaticModInt(rhs));\
+    \ }\n\ttemplate<typename T> StaticModInt operator*(const T& rhs)const { return\
+    \ StaticModInt(*this) *= rhs; }\n\ttemplate<typename T> StaticModInt& operator*=(const\
+    \ T& rhs) { return operator*=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
+    \ operator/(const T& rhs)const { return StaticModInt(*this) /= rhs; }\n\ttemplate<typename\
+    \ T> StaticModInt& operator/=(const T& rhs) { return operator/=(StaticModInt(rhs));\
+    \ }\n};\ntemplate<unsigned int modulo>\nstd::istream& operator>>(std::istream&\
+    \ ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn\
+    \ ist;\n}\n#line 3 \"data-structure/SegTree.hpp\"\ntemplate<typename T>\nclass\
+    \ SegTree {\nprotected:\n\tunsigned int n = 1, rank = 0;\n\tstd::vector<T> node;\n\
+    \tT nodee;\n\tvirtual T nodef(const T&, const T&)const = 0;\npublic:\n\tSegTree(unsigned\
+    \ int m, T init, T nodee):nodee(nodee) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\
+    \t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, nodee);\n\t\tfor (unsigned int i\
+    \ = n; i < 2 * n; i++)node[i] = init;\n\t}\n\tSegTree(const std::vector<T>& initvec,\
+    \ T nodee):nodee(nodee) {\n\t\tunsigned int m = initvec.size();\n\t\twhile (n\
+    \ < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, nodee);\n\
+    \t\tfor (unsigned int i = n; i < 2 * n; i++) {\n\t\t\tif (i - n < m)node[i] =\
+    \ initvec[i - n];\n\t\t}\n\t}\n\tvirtual void update(int i, T x) {\n\t\ti += n;\n\
+    \t\tnode[i] = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2\
+    \ * i], node[2 * i + 1]);\n\t\t}\n\t}\n\tvirtual T query(int l, int r) {\n\t\t\
+    l += n; r += n;\n\t\tT ls = nodee, rs = nodee;\n\t\twhile (l < r) {\n\t\t\tif\
+    \ (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\
+    \t\t\tl >>= 1; r >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tvirtual T operator[](const\
+    \ int& x) {\n\t\treturn node[n + x];\n\t}\n\tvoid print() {\n\t\trep(i, n)std::cout\
+    \ << operator[](i) << \" \";\n\t\tstd::cout << std::endl;\n\t}\n};\nclass RSQ\
+    \ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return\
+    \ lhs+rhs;}\npublic:\n\tRSQ(int size, const lint& def = 0) :SegTree<lint>(size,\
+    \ def, 0) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
+    \t}\n\tRSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {\n\t\t\
+    for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\t}\n};\nclass\
+    \ RMiQ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return\
+    \ std::min(lhs,rhs);}\npublic:\n\tRMiQ(int size, const lint& def = 0) :SegTree<lint>(size,\
+    \ def, LINF) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
     \t}\n\tRMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {\n\
     \t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\t}\n};\nclass\
     \ RMaQ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return\
@@ -184,7 +185,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2020-09-18 00:46:45+09:00'
+  timestamp: '2020-11-03 18:11:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/point_set_range_composite.test.cpp
