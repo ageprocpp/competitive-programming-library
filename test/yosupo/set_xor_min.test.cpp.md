@@ -82,20 +82,20 @@ data:
     }\n\t\t\telse node_id=nodes[node_id].next[c];\n\t\t}\n\t\treturn res;\n\t}\n};\n\
     #line 4 \"test/yosupo/set_xor_min.test.cpp\"\nint Q,t,x;\nint main(){\n\tscanf(\"\
     %d\",&Q);\n\tBinaryTrie<30> trie;\n\trep(i,Q){\n\t\tscanf(\"%d%d\",&t,&x);\n\t\
-    \tif(t==0&&!trie.search(x))trie.insert(x);\n\t\tif(t==1)trie.erase(x);\n\t\tif(t==2)std::cout<<trie.xor_min(x)<<std::endl;\n\
-    \t}\n}\n"
+    \tif(t==0&&!trie.search(x))trie.insert(x);\n\t\tif(t==1)trie.erase(x);\n\t\tif(t==2)printf(\"\
+    %d\\n\",trie.xor_min(x));\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/set_xor_min\"\n#include\
     \ \"../../other/template.hpp\"\n#include \"../../string/Trie.hpp\"\nint Q,t,x;\n\
     int main(){\n\tscanf(\"%d\",&Q);\n\tBinaryTrie<30> trie;\n\trep(i,Q){\n\t\tscanf(\"\
     %d%d\",&t,&x);\n\t\tif(t==0&&!trie.search(x))trie.insert(x);\n\t\tif(t==1)trie.erase(x);\n\
-    \t\tif(t==2)std::cout<<trie.xor_min(x)<<std::endl;\n\t}\n}"
+    \t\tif(t==2)printf(\"%d\\n\",trie.xor_min(x));\n\t}\n}"
   dependsOn:
   - other/template.hpp
   - string/Trie.hpp
   isVerificationFile: true
   path: test/yosupo/set_xor_min.test.cpp
   requiredBy: []
-  timestamp: '2020-11-04 13:30:50+09:00'
+  timestamp: '2020-11-04 13:38:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/set_xor_min.test.cpp
