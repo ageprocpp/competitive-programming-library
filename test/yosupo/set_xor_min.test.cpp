@@ -9,6 +9,6 @@ int main(){
 		scanf("%d%d",&t,&x);
 		if(t==0&&!trie.search(x))trie.insert(x);
 		if(t==1)trie.erase(x);
-		if(t==2)std::cout<<trie.xor_min(x)<<std::endl;
+		if(t==2)printf("%d\n",trie.xor_min(x));
 	}
 }
