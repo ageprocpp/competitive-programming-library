@@ -60,10 +60,10 @@ public:
         while(f>0){
             dist.assign(n,LINF);
             dist[s]=0;
-            prique<LP> que;
+            prique<std::pair<lint,int>> que;
             que.push({0,s});
             while(!que.empty()){
-                LP p=que.top();
+                auto p=que.top();
                 que.pop();
                 if(dist[p.second]<p.first)continue;
                 rep(i,vec[p.second].size()){

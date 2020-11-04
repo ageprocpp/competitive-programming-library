@@ -1,3 +1,4 @@
+#pragma once
 #include "../other/template.hpp"
 template<int char_size,int base>
 class Trie{
