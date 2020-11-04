@@ -89,7 +89,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: string/SuffixArray.hpp
     title: string/SuffixArray.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: string/Trie.hpp
     title: string/Trie.hpp
   _extendedVerifiedWith:
@@ -168,6 +168,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/segment_add_get_min.test.cpp
     title: test/yosupo/segment_add_get_min.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/set_xor_min.test.cpp
+    title: test/yosupo/set_xor_min.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/static_range_sum.test.cpp
     title: test/yosupo/static_range_sum.test.cpp
@@ -332,6 +335,7 @@ data:
   - test/yosupo/tree_diameter.test.cpp
   - test/yosupo/suffixarray.test.cpp
   - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
+  - test/yosupo/set_xor_min.test.cpp
   - test/yosupo/vertex_add_path_sum.test.cpp
   - test/yosupo/associative_array.test.cpp
   - test/yosupo/vertex_add_subtree_sum.test.cpp

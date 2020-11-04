@@ -4,19 +4,23 @@ data:
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  _extendedRequiredBy: []
-  _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/set_xor_min.test.cpp
-    title: test/yosupo/set_xor_min.test.cpp
-  _pathExtension: hpp
+    path: string/Trie.hpp
+    title: string/Trie.hpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
-    #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
-    )\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n\
-    #include <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/set_xor_min
+    links:
+    - https://judge.yosupo.jp/problem/set_xor_min
+  bundledCode: "#line 1 \"test/yosupo/set_xor_min.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/set_xor_min\"\
+    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"\
+    avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\")\n#include\
+    \ <algorithm>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
+    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
     \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
     \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
     #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
@@ -75,46 +79,29 @@ data:
     \tint xor_min(int n)const{\n\t\tint node_id=0,res=0;\n\t\tstd::string binary=std::bitset<bit>(n).to_string();\n\
     \t\trep(i,bit){\n\t\t\tint c=binary[i]-'0';\n\t\t\tif(nodes[node_id].next[c]==-1||nodes[nodes[node_id].next[c]].cnt==0){\n\
     \t\t\t\tres+=1<<(bit-i-1);\n\t\t\t\tnode_id=nodes[node_id].next[1-c];\n\t\t\t\
-    }\n\t\t\telse node_id=nodes[node_id].next[c];\n\t\t}\n\t\treturn res;\n\t}\n};\n"
-  code: "#include \"../other/template.hpp\"\ntemplate<int char_size,int base>\nclass\
-    \ Trie{\n\tclass Node{\n\tpublic:\n\t\tstd::vector<int> next;\n\t\tint c,cnt=0,lastcnt=0;\n\
-    \t\tNode(int c_):c(c_){next.assign(char_size,-1);}\n\t};\nprotected:\n\tstd::vector<Node>\
-    \ nodes;\npublic:\n\tTrie():nodes(1,0){}\n\tvoid insert(const std::string &word,int\
-    \ word_id){\n\t\tint node_id=0;\n\t\tfor(char i:word){\n\t\t\tint c=i-base;\n\t\
-    \t\tint &next_id=nodes[node_id].next[c];\n\t\t\tif(next_id==-1){\n\t\t\t\tnext_id=nodes.size();\n\
-    \t\t\t\tnodes.push_back(Node(c));\n\t\t\t}\n\t\t\tnodes[node_id].cnt++;\n\t\t\t\
-    node_id=next_id;\n\t\t}\n\t\tnodes[node_id].cnt++;\n\t\tnodes[node_id].lastcnt++;\n\
-    \t}\n\tvoid insert(const std::string &word){insert(word,nodes[0].cnt);}\n\tvoid\
-    \ erase(const std::string &word){\n\t\tstd::vector<int> path;\n\t\tpath.reserve(word.size());\n\
-    \t\tint node_id=0;\n\t\tfor(char i:word){\n\t\t\tint c=i-base;\n\t\t\tif(nodes[node_id].next[c]==-1||nodes[node_id].cnt==0)return;\n\
-    \t\t\tpath.emplace_back(node_id);\n\t\t\tnode_id=nodes[node_id].next[c];\n\t\t\
-    }\n\t\tnodes[node_id].lastcnt--;\n\t\tnodes[node_id].cnt--;\n\t\tfor(int i:path)nodes[i].cnt--;\n\
-    \t}\n\tbool search(const std::string &word,bool prefix=false)const{\n\t\tint node_id=0;\n\
-    \t\tfor(char i:word){\n\t\t\tint c=i-base;\n\t\t\tif(nodes[node_id].next[c]==-1||nodes[node_id].cnt==0)return\
-    \ false;\n\t\t\tnode_id=nodes[node_id].next[c];\n\t\t}\n\t\treturn prefix||nodes[node_id].lastcnt;\n\
-    \t}\n\tbool start_with(const std::string& prefix)const{return search(prefix,true);}\n\
-    \tint size()const{return nodes[0].cnt;}\n};\ntemplate<unsigned int bit>\nclass\
-    \ BinaryTrie:public Trie<2,'0'>{\npublic:\n\tvoid insert(int n){Trie<2,'0'>::insert(std::bitset<bit>(n).to_string());}\n\
-    \tvoid erase(int n){Trie<2,'0'>::erase(std::bitset<bit>(n).to_string());}\n\t\
-    bool search(int n,bool prefix=false)const{return Trie<2,'0'>::search(std::bitset<bit>(n).to_string());}\n\
-    \tbool start_with(int n)const{return Trie<2,'0'>::start_with(std::bitset<bit>(n).to_string());}\n\
-    \tint xor_min(int n)const{\n\t\tint node_id=0,res=0;\n\t\tstd::string binary=std::bitset<bit>(n).to_string();\n\
-    \t\trep(i,bit){\n\t\t\tint c=binary[i]-'0';\n\t\t\tif(nodes[node_id].next[c]==-1||nodes[nodes[node_id].next[c]].cnt==0){\n\
-    \t\t\t\tres+=1<<(bit-i-1);\n\t\t\t\tnode_id=nodes[node_id].next[1-c];\n\t\t\t\
-    }\n\t\t\telse node_id=nodes[node_id].next[c];\n\t\t}\n\t\treturn res;\n\t}\n};"
+    }\n\t\t\telse node_id=nodes[node_id].next[c];\n\t\t}\n\t\treturn res;\n\t}\n};\n\
+    #line 4 \"test/yosupo/set_xor_min.test.cpp\"\nint Q,t,x;\nint main(){\n\tscanf(\"\
+    %d\",&Q);\n\tBinaryTrie<30> trie;\n\trep(i,Q){\n\t\tscanf(\"%d%d\",&t,&x);\n\t\
+    \tif(t==0&&!trie.search(x))trie.insert(x);\n\t\tif(t==1)trie.erase(x);\n\t\tif(t==2)std::cout<<trie.xor_min(x)<<std::endl;\n\
+    \t}\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/set_xor_min\"\n#include\
+    \ \"../../other/template.hpp\"\n#include \"../../string/Trie.hpp\"\nint Q,t,x;\n\
+    int main(){\n\tscanf(\"%d\",&Q);\n\tBinaryTrie<30> trie;\n\trep(i,Q){\n\t\tscanf(\"\
+    %d%d\",&t,&x);\n\t\tif(t==0&&!trie.search(x))trie.insert(x);\n\t\tif(t==1)trie.erase(x);\n\
+    \t\tif(t==2)std::cout<<trie.xor_min(x)<<std::endl;\n\t}\n}"
   dependsOn:
   - other/template.hpp
-  isVerificationFile: false
-  path: string/Trie.hpp
+  - string/Trie.hpp
+  isVerificationFile: true
+  path: test/yosupo/set_xor_min.test.cpp
   requiredBy: []
   timestamp: '2020-11-04 13:30:50+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/set_xor_min.test.cpp
-documentation_of: string/Trie.hpp
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/yosupo/set_xor_min.test.cpp
 layout: document
 redirect_from:
-- /library/string/Trie.hpp
-- /library/string/Trie.hpp.html
-title: string/Trie.hpp
+- /verify/test/yosupo/set_xor_min.test.cpp
+- /verify/test/yosupo/set_xor_min.test.cpp.html
+title: test/yosupo/set_xor_min.test.cpp
 ---
