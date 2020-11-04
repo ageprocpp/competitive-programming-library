@@ -54,7 +54,7 @@ data:
     \tlint r=(b1+m1*tmp+m1*m2)%(m1*m2);\n\treturn std::make_pair(r,m1*m2);\n}\ntemplate<typename\
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
-    \ 2 \"string/Trie.hpp\"\ntemplate<int char_size,int base>\nclass Trie{\n\tclass\
+    \ 3 \"string/Trie.hpp\"\ntemplate<int char_size,int base>\nclass Trie{\n\tclass\
     \ Node{\n\tpublic:\n\t\tstd::vector<int> next;\n\t\tint c,cnt=0,lastcnt=0;\n\t\
     \tNode(int c_):c(c_){next.assign(char_size,-1);}\n\t};\nprotected:\n\tstd::vector<Node>\
     \ nodes;\npublic:\n\tTrie():nodes(1,0){}\n\tvoid insert(const std::string &word,int\
@@ -95,7 +95,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/set_xor_min.test.cpp
   requiredBy: []
-  timestamp: '2020-11-04 13:38:48+09:00'
+  timestamp: '2020-11-04 15:01:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/set_xor_min.test.cpp

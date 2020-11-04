@@ -50,7 +50,7 @@ data:
     \tlint r=(b1+m1*tmp+m1*m2)%(m1*m2);\n\treturn std::make_pair(r,m1*m2);\n}\ntemplate<typename\
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
-    \ 2 \"string/Trie.hpp\"\ntemplate<int char_size,int base>\nclass Trie{\n\tclass\
+    \ 3 \"string/Trie.hpp\"\ntemplate<int char_size,int base>\nclass Trie{\n\tclass\
     \ Node{\n\tpublic:\n\t\tstd::vector<int> next;\n\t\tint c,cnt=0,lastcnt=0;\n\t\
     \tNode(int c_):c(c_){next.assign(char_size,-1);}\n\t};\nprotected:\n\tstd::vector<Node>\
     \ nodes;\npublic:\n\tTrie():nodes(1,0){}\n\tvoid insert(const std::string &word,int\
@@ -76,16 +76,16 @@ data:
     \t\trep(i,bit){\n\t\t\tint c=binary[i]-'0';\n\t\t\tif(nodes[node_id].next[c]==-1||nodes[nodes[node_id].next[c]].cnt==0){\n\
     \t\t\t\tres+=1<<(bit-i-1);\n\t\t\t\tnode_id=nodes[node_id].next[1-c];\n\t\t\t\
     }\n\t\t\telse node_id=nodes[node_id].next[c];\n\t\t}\n\t\treturn res;\n\t}\n};\n"
-  code: "#include \"../other/template.hpp\"\ntemplate<int char_size,int base>\nclass\
-    \ Trie{\n\tclass Node{\n\tpublic:\n\t\tstd::vector<int> next;\n\t\tint c,cnt=0,lastcnt=0;\n\
-    \t\tNode(int c_):c(c_){next.assign(char_size,-1);}\n\t};\nprotected:\n\tstd::vector<Node>\
-    \ nodes;\npublic:\n\tTrie():nodes(1,0){}\n\tvoid insert(const std::string &word,int\
-    \ word_id){\n\t\tint node_id=0;\n\t\tfor(char i:word){\n\t\t\tint c=i-base;\n\t\
-    \t\tint &next_id=nodes[node_id].next[c];\n\t\t\tif(next_id==-1){\n\t\t\t\tnext_id=nodes.size();\n\
-    \t\t\t\tnodes.push_back(Node(c));\n\t\t\t}\n\t\t\tnodes[node_id].cnt++;\n\t\t\t\
-    node_id=next_id;\n\t\t}\n\t\tnodes[node_id].cnt++;\n\t\tnodes[node_id].lastcnt++;\n\
-    \t}\n\tvoid insert(const std::string &word){insert(word,nodes[0].cnt);}\n\tvoid\
-    \ erase(const std::string &word){\n\t\tstd::vector<int> path;\n\t\tpath.reserve(word.size());\n\
+  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate<int char_size,int\
+    \ base>\nclass Trie{\n\tclass Node{\n\tpublic:\n\t\tstd::vector<int> next;\n\t\
+    \tint c,cnt=0,lastcnt=0;\n\t\tNode(int c_):c(c_){next.assign(char_size,-1);}\n\
+    \t};\nprotected:\n\tstd::vector<Node> nodes;\npublic:\n\tTrie():nodes(1,0){}\n\
+    \tvoid insert(const std::string &word,int word_id){\n\t\tint node_id=0;\n\t\t\
+    for(char i:word){\n\t\t\tint c=i-base;\n\t\t\tint &next_id=nodes[node_id].next[c];\n\
+    \t\t\tif(next_id==-1){\n\t\t\t\tnext_id=nodes.size();\n\t\t\t\tnodes.push_back(Node(c));\n\
+    \t\t\t}\n\t\t\tnodes[node_id].cnt++;\n\t\t\tnode_id=next_id;\n\t\t}\n\t\tnodes[node_id].cnt++;\n\
+    \t\tnodes[node_id].lastcnt++;\n\t}\n\tvoid insert(const std::string &word){insert(word,nodes[0].cnt);}\n\
+    \tvoid erase(const std::string &word){\n\t\tstd::vector<int> path;\n\t\tpath.reserve(word.size());\n\
     \t\tint node_id=0;\n\t\tfor(char i:word){\n\t\t\tint c=i-base;\n\t\t\tif(nodes[node_id].next[c]==-1||nodes[node_id].cnt==0)return;\n\
     \t\t\tpath.emplace_back(node_id);\n\t\t\tnode_id=nodes[node_id].next[c];\n\t\t\
     }\n\t\tnodes[node_id].lastcnt--;\n\t\tnodes[node_id].cnt--;\n\t\tfor(int i:path)nodes[i].cnt--;\n\
@@ -107,7 +107,7 @@ data:
   isVerificationFile: false
   path: string/Trie.hpp
   requiredBy: []
-  timestamp: '2020-11-04 13:30:50+09:00'
+  timestamp: '2020-11-04 15:01:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/set_xor_min.test.cpp

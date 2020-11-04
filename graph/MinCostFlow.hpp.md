@@ -70,9 +70,9 @@ data:
     \        vec[to].push_back({from,0,-cost,(int)vec[from].size()-1,idx++});\n  \
     \  }\n    lint add_flow(int f){\n        if(negative){\n            curres+=BellmanFord();\n\
     \            f--;\n            negative=false;\n        }\n        while(f>0){\n\
-    \            dist.assign(n,LINF);\n            dist[s]=0;\n            prique<LP>\
+    \            dist.assign(n,LINF);\n            dist[s]=0;\n            prique<std::pair<lint,int>>\
     \ que;\n            que.push({0,s});\n            while(!que.empty()){\n     \
-    \           LP p=que.top();\n                que.pop();\n                if(dist[p.second]<p.first)continue;\n\
+    \           auto p=que.top();\n                que.pop();\n                if(dist[p.second]<p.first)continue;\n\
     \                rep(i,vec[p.second].size()){\n                    edge &e=vec[p.second][i];\n\
     \                    if(e.cap>0&&chmin(dist[e.to],dist[p.second]+e.cost+h[p.second]-h[e.to])){\n\
     \                        prevv[e.to]=p.second;\n                        preve[e.to]=i;\n\
@@ -112,9 +112,9 @@ data:
     \        vec[to].push_back({from,0,-cost,(int)vec[from].size()-1,idx++});\n  \
     \  }\n    lint add_flow(int f){\n        if(negative){\n            curres+=BellmanFord();\n\
     \            f--;\n            negative=false;\n        }\n        while(f>0){\n\
-    \            dist.assign(n,LINF);\n            dist[s]=0;\n            prique<LP>\
+    \            dist.assign(n,LINF);\n            dist[s]=0;\n            prique<std::pair<lint,int>>\
     \ que;\n            que.push({0,s});\n            while(!que.empty()){\n     \
-    \           LP p=que.top();\n                que.pop();\n                if(dist[p.second]<p.first)continue;\n\
+    \           auto p=que.top();\n                que.pop();\n                if(dist[p.second]<p.first)continue;\n\
     \                rep(i,vec[p.second].size()){\n                    edge &e=vec[p.second][i];\n\
     \                    if(e.cap>0&&chmin(dist[e.to],dist[p.second]+e.cost+h[p.second]-h[e.to])){\n\
     \                        prevv[e.to]=p.second;\n                        preve[e.to]=i;\n\
@@ -138,7 +138,7 @@ data:
   isVerificationFile: false
   path: graph/MinCostFlow.hpp
   requiredBy: []
-  timestamp: '2020-09-20 14:20:48+09:00'
+  timestamp: '2020-11-04 15:01:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/GRL_6_B.test.cpp

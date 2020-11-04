@@ -60,6 +60,9 @@ data:
     path: data-structure/WaveletMatrix.hpp
     title: data-structure/WaveletMatrix.hpp
   - icon: ':heavy_check_mark:'
+    path: graph/Dijkstra.hpp
+    title: graph/Dijkstra.hpp
+  - icon: ':heavy_check_mark:'
     path: graph/FordFulkerson.hpp
     title: graph/FordFulkerson.hpp
   - icon: ':heavy_check_mark:'
@@ -171,6 +174,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/set_xor_min.test.cpp
     title: test/yosupo/set_xor_min.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/shortest_path.test.cpp
+    title: test/yosupo/shortest_path.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/static_range_sum.test.cpp
     title: test/yosupo/static_range_sum.test.cpp
@@ -304,6 +310,7 @@ data:
   - graph/TwoSat.hpp
   - graph/HeavyLightDecomposition.hpp
   - graph/MinCostFlow.hpp
+  - graph/Dijkstra.hpp
   - graph/Tree.hpp
   - algebraic/FloorSum.hpp
   - algebraic/Combinatorics.hpp
@@ -336,6 +343,7 @@ data:
   - test/yosupo/suffixarray.test.cpp
   - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
   - test/yosupo/set_xor_min.test.cpp
+  - test/yosupo/shortest_path.test.cpp
   - test/yosupo/vertex_add_path_sum.test.cpp
   - test/yosupo/associative_array.test.cpp
   - test/yosupo/vertex_add_subtree_sum.test.cpp

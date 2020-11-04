@@ -65,6 +65,9 @@ data:
   - name: graph
     pages:
     - icon: ':heavy_check_mark:'
+      path: graph/Dijkstra.hpp
+      title: graph/Dijkstra.hpp
+    - icon: ':heavy_check_mark:'
       path: graph/FordFulkerson.hpp
       title: graph/FordFulkerson.hpp
     - icon: ':heavy_check_mark:'
@@ -190,6 +193,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/set_xor_min.test.cpp
       title: test/yosupo/set_xor_min.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/shortest_path.test.cpp
+      title: test/yosupo/shortest_path.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/static_range_sum.test.cpp
       title: test/yosupo/static_range_sum.test.cpp
