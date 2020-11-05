@@ -51,6 +51,9 @@ data:
       path: data-structure/RBSTset.hpp
       title: data-structure/RBSTset.hpp
     - icon: ':heavy_check_mark:'
+      path: data-structure/SWAG.hpp
+      title: data-structure/SWAG.hpp
+    - icon: ':heavy_check_mark:'
       path: data-structure/SegTree.hpp
       title: data-structure/SegTree.hpp
     - icon: ':heavy_check_mark:'
@@ -175,6 +178,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/point_set_range_composite.test.cpp
       title: test/yosupo/point_set_range_composite.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/queue_operate_all_composite.test.cpp
+      title: test/yosupo/queue_operate_all_composite.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/range_affine_range_sum.test.cpp
       title: test/yosupo/range_affine_range_sum.test.cpp

@@ -5,39 +5,29 @@ data:
     path: algebraic/DynamicModInt.hpp
     title: algebraic/DynamicModInt.hpp
   - icon: ':heavy_check_mark:'
+    path: algebraic/StaticModInt.hpp
+    title: algebraic/StaticModInt.hpp
+  - icon: ':heavy_check_mark:'
+    path: data-structure/SWAG.hpp
+    title: data-structure/SWAG.hpp
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: algebraic/Combinatorics.hpp
-    title: algebraic/Combinatorics.hpp
-  - icon: ':heavy_check_mark:'
-    path: algebraic/NumberTheoreticTransform.hpp
-    title: algebraic/NumberTheoreticTransform.hpp
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod.test.cpp
-    title: test/yosupo/convolution_mod.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/point_set_range_composite.test.cpp
-    title: test/yosupo/point_set_range_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/queue_operate_all_composite.test.cpp
-    title: test/yosupo/queue_operate_all_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_affine_range_sum.test.cpp
-    title: test/yosupo/range_affine_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_set_path_composite.test.cpp
-    title: test/yosupo/vertex_set_path_composite.test.cpp
-  _pathExtension: hpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
-    #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
-    )\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n\
-    #include <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/queue_operate_all_composite
+    links:
+    - https://judge.yosupo.jp/problem/queue_operate_all_composite
+  bundledCode: "#line 1 \"test/yosupo/queue_operate_all_composite.test.cpp\"\n#define\
+    \ PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\n#line\
+    \ 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"\
+    avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\")\n#include\
+    \ <algorithm>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
+    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
     \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
     \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
     #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
@@ -133,59 +123,53 @@ data:
     \ T> StaticModInt& operator/=(const T& rhs) { return operator/=(StaticModInt(rhs));\
     \ }\n};\ntemplate<unsigned int modulo>\nstd::istream& operator>>(std::istream&\
     \ ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn\
-    \ ist;\n}\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"DynamicModInt.hpp\"\
-    \ntemplate<unsigned int modulo>\nclass StaticModInt {\n\tlint value;\npublic:\n\
-    \tstatic constexpr unsigned int mod_value = modulo;\n\tStaticModInt() : value(0)\
-    \ {}\n\ttemplate<typename T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\
-    \tif (value < 0)value = -(lint)(-value % modulo) + modulo;\n\t\tthis->value =\
-    \ value % modulo;\n\t}\n\tinline StaticModInt inv()const{return mypow(*this,modulo-2);}\n\
-    \tinline operator int()const { return value; }\n\tinline StaticModInt& operator+=(const\
-    \ StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo)value -=\
-    \ modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\t\
-    if (value == modulo - 1)value = 0;\n\t\telse value++;\n\t\treturn *this;\n\t}\n\
-    \tinline StaticModInt operator++(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\
-    \t\treturn res;\n\t}\n\tinline StaticModInt operator-()const {\n\t\treturn StaticModInt(0)\
-    \ -= *this;\n\t}\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\
-    \t\tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\t\treturn *this;\n\
-    \t}\n\tinline StaticModInt& operator--() {\n\t\tif (value == 0)value = modulo\
-    \ - 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt operator--(int){\n\
-    \t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt&\
-    \ operator*=(const StaticModInt& x) {\n\t\tvalue = value * x.value % modulo;\n\
-    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const StaticModInt&\
-    \ rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename T> StaticModInt\
-    \ operator+(const T& rhs)const { return StaticModInt(*this) += rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator+=(const T& rhs) { return operator+=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator-(const T& rhs)const { return\
-    \ StaticModInt(*this) -= rhs; }\n\ttemplate<typename T> StaticModInt& operator-=(const\
-    \ T& rhs) { return operator-=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
-    \ operator*(const T& rhs)const { return StaticModInt(*this) *= rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator*=(const T& rhs) { return operator*=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator/(const T& rhs)const { return\
-    \ StaticModInt(*this) /= rhs; }\n\ttemplate<typename T> StaticModInt& operator/=(const\
-    \ T& rhs) { return operator/=(StaticModInt(rhs)); }\n};\ntemplate<unsigned int\
-    \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
-    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}"
+    \ ist;\n}\n#line 3 \"data-structure/SWAG.hpp\"\ntemplate<typename T,T (*op)(const\
+    \ T&,const T&)>\nclass SWAG{\n\tstd::stack<std::pair<T,T>> front,back;\npublic:\n\
+    \tSWAG(){}\n\tSWAG(const std::vector<T> vec){\n\t\tfor(const T& i:vec){\n\t\t\t\
+    back.emplace(i,op(back.top().second,i));\n\t\t}\n\t}\n\tvoid push(const T& x){\n\
+    \t\tif(back.empty())back.emplace(x,x);\n\t\telse back.emplace(x,op(back.top().second,x));\n\
+    \t}\n\tvoid pop(){\n\t\tif(!front.empty())front.pop();\n\t\telse{\n\t\t\tauto\
+    \ btop=back.top();\n\t\t\tfront.emplace(btop.first,btop.first);\n\t\t\tback.pop();\n\
+    \t\t\twhile(!back.empty()){\n\t\t\t\tbtop=back.top();\n\t\t\t\tfront.emplace(btop.first,op(btop.first,front.top().second));\n\
+    \t\t\t\tback.pop();\n\t\t\t}\n\t\t\tfront.pop();\n\t\t}\n\t}\n\tT fold()const{\n\
+    \t\tif(front.empty())return back.top().second;\n\t\tif(back.empty())return front.top().second;\n\
+    \t\treturn op(front.top().second,back.top().second);\n\t}\n\tunsigned int size()const{return\
+    \ front.size()+back.size();}\n\tbool empty()const{return front.empty()&&back.empty();}\n\
+    };\n#line 5 \"test/yosupo/queue_operate_all_composite.test.cpp\"\nusing ModInt=StaticModInt<998244353>;\n\
+    using MP=std::pair<ModInt,ModInt>;\nMP op(const MP& lhs,const MP& rhs){\n\treturn\
+    \ MP{lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};\n}\nint Q;\nint main(){\n\
+    \tscanf(\"%d\",&Q);\n\tSWAG<MP,op> swag;\n\trep(i,Q){\n\t\tint t;\n\t\tscanf(\"\
+    %d\",&t);\n\t\tif(t==0){\n\t\t\tint a,b;\n\t\t\tscanf(\"%d%d\",&a,&b);\n\t\t\t\
+    swag.push(MP{a,b});\n\t\t}\n\t\tif(t==1)swag.pop();\n\t\tif(t==2){\n\t\t\tint\
+    \ x;\n\t\t\tscanf(\"%d\",&x);\n\t\t\tif(swag.empty())printf(\"%d\\n\",x);\n\t\t\
+    \telse{\n\t\t\t\tauto res=swag.fold();\n\t\t\t\tprintf(\"%d\\n\",res.first*x+res.second);\n\
+    \t\t\t}\n\t\t}\n\t}\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\
+    \n#include \"../../other/template.hpp\"\n#include \"../../algebraic/StaticModInt.hpp\"\
+    \n#include \"../../data-structure/SWAG.hpp\"\nusing ModInt=StaticModInt<998244353>;\n\
+    using MP=std::pair<ModInt,ModInt>;\nMP op(const MP& lhs,const MP& rhs){\n\treturn\
+    \ MP{lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};\n}\nint Q;\nint main(){\n\
+    \tscanf(\"%d\",&Q);\n\tSWAG<MP,op> swag;\n\trep(i,Q){\n\t\tint t;\n\t\tscanf(\"\
+    %d\",&t);\n\t\tif(t==0){\n\t\t\tint a,b;\n\t\t\tscanf(\"%d%d\",&a,&b);\n\t\t\t\
+    swag.push(MP{a,b});\n\t\t}\n\t\tif(t==1)swag.pop();\n\t\tif(t==2){\n\t\t\tint\
+    \ x;\n\t\t\tscanf(\"%d\",&x);\n\t\t\tif(swag.empty())printf(\"%d\\n\",x);\n\t\t\
+    \telse{\n\t\t\t\tauto res=swag.fold();\n\t\t\t\tprintf(\"%d\\n\",res.first*x+res.second);\n\
+    \t\t\t}\n\t\t}\n\t}\n}"
   dependsOn:
   - other/template.hpp
+  - algebraic/StaticModInt.hpp
   - algebraic/DynamicModInt.hpp
-  isVerificationFile: false
-  path: algebraic/StaticModInt.hpp
-  requiredBy:
-  - algebraic/Combinatorics.hpp
-  - algebraic/NumberTheoreticTransform.hpp
-  timestamp: '2020-11-03 18:11:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/queue_operate_all_composite.test.cpp
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
-documentation_of: algebraic/StaticModInt.hpp
+  - data-structure/SWAG.hpp
+  isVerificationFile: true
+  path: test/yosupo/queue_operate_all_composite.test.cpp
+  requiredBy: []
+  timestamp: '2020-11-05 18:33:13+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/yosupo/queue_operate_all_composite.test.cpp
 layout: document
 redirect_from:
-- /library/algebraic/StaticModInt.hpp
-- /library/algebraic/StaticModInt.hpp.html
-title: algebraic/StaticModInt.hpp
+- /verify/test/yosupo/queue_operate_all_composite.test.cpp
+- /verify/test/yosupo/queue_operate_all_composite.test.cpp.html
+title: test/yosupo/queue_operate_all_composite.test.cpp
 ---

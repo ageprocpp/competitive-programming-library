@@ -48,6 +48,9 @@ data:
     path: data-structure/RBSTset.hpp
     title: data-structure/RBSTset.hpp
   - icon: ':heavy_check_mark:'
+    path: data-structure/SWAG.hpp
+    title: data-structure/SWAG.hpp
+  - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: data-structure/SegTree.hpp
   - icon: ':heavy_check_mark:'
@@ -156,6 +159,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/point_set_range_composite.test.cpp
     title: test/yosupo/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/queue_operate_all_composite.test.cpp
+    title: test/yosupo/queue_operate_all_composite.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/range_affine_range_sum.test.cpp
     title: test/yosupo/range_affine_range_sum.test.cpp
@@ -302,6 +308,7 @@ data:
   - data-structure/WaveletMatrix.hpp
   - data-structure/LiChaoTree.hpp
   - data-structure/SparseTable.hpp
+  - data-structure/SWAG.hpp
   - data-structure/ConvexHullTrick.hpp
   - graph/FordFulkerson.hpp
   - graph/StronglyConnectedComponents.hpp
@@ -356,6 +363,7 @@ data:
   - test/yosupo/aplusb.test.cpp
   - test/yosupo/line_add_get_min.test.cpp
   - test/yosupo/many_aplusb.test.cpp
+  - test/yosupo/queue_operate_all_composite.test.cpp
   - test/yosupo/convolution_mod.test.cpp
   - test/yosupo/range_affine_range_sum.test.cpp
   - test/yosupo/scc.test.cpp
