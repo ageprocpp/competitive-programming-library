@@ -19,6 +19,7 @@
 "test/yosupo/many_aplusb.test.cpp": "2020-09-12 16:29:29 +0900",
 "test/yosupo/point_add_range_sum.test.cpp": "2020-09-12 16:29:29 +0900",
 "test/yosupo/point_set_range_composite.test.cpp": "2020-11-03 18:11:36 +0900",
+"test/yosupo/queue_operate_all_composite.test.cpp": "2020-11-05 18:33:13 +0900",
 "test/yosupo/range_affine_range_sum.test.cpp": "2020-11-03 18:11:36 +0900",
 "test/yosupo/range_chmin_chmax_add_range_sum.test.cpp": "2020-09-12 16:29:29 +0900",
 "test/yosupo/range_kth_smallest.test.cpp": "2020-09-12 16:29:29 +0900",
