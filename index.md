@@ -45,6 +45,9 @@ data:
       path: data-structure/MonotoneConvexHullTrick.hpp
       title: data-structure/MonotoneConvexHullTrick.hpp
     - icon: ':warning:'
+      path: data-structure/PersistentStack.hpp
+      title: data-structure/PersistentStack.hpp
+    - icon: ':warning:'
       path: data-structure/RBST.hpp
       title: data-structure/RBST.hpp
     - icon: ':warning:'
