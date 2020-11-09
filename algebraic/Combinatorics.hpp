@@ -46,4 +46,8 @@ public:
 	T getDcomb(int a,int b)override{
 		return getComb(a+b-1,b);
 	}
+	T perm(int a,int b){
+		append(a);
+		return factorial[a]*inv[a-b];
+	}
 };
