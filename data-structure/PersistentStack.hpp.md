@@ -50,25 +50,27 @@ data:
     \ 3 \"data-structure/PersistentStack.hpp\"\ntemplate<typename T>\nclass PersistentStack{\n\
     \tclass Node;\n\tusing ptr=std::shared_ptr<Node>;\n\tclass Node{\n\tpublic:\n\t\
     \tT value;\n\t\tptr prev;\n\t};\n\tptr last=nullptr;\n\tPersistentStack(const\
-    \ ptr& p):last(p){}\npublic:\n\texplicit PersistentStack()noexcept{}\n\tT top(){return\
-    \ last->value;}\n\tPersistentStack push(T x)noexcept{\n\t\tptr p(new Node);\n\t\
-    \t*p=Node{x,last};\n\t\treturn PersistentStack(p);\n\t}\n\tT top()const noexcept{return\
-    \ last->value;}\n\tPersistentStack pop()const noexcept{\n\t\treturn PersistentStack(last->prev);\n\
-    \t}\n};\n"
+    \ ptr& p):last(p){}\npublic:\n\texplicit PersistentStack()noexcept{}\n\tPersistentStack\
+    \ push(T x)const noexcept{\n\t\tptr p(new Node);\n\t\t*p=Node{x,last};\n\t\treturn\
+    \ PersistentStack(p);\n\t}\n\tT top()const noexcept{return last->value;}\n\tPersistentStack\
+    \ pop()const noexcept{\n\t\treturn PersistentStack(last->prev);\n\t}\n\tbool empty()const\
+    \ noexcept{return !last.get();}\n\tbool operator<(const PersistentStack<T>& ps)const\
+    \ noexcept{return false;}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate<typename T>\n\
     class PersistentStack{\n\tclass Node;\n\tusing ptr=std::shared_ptr<Node>;\n\t\
     class Node{\n\tpublic:\n\t\tT value;\n\t\tptr prev;\n\t};\n\tptr last=nullptr;\n\
     \tPersistentStack(const ptr& p):last(p){}\npublic:\n\texplicit PersistentStack()noexcept{}\n\
-    \tT top(){return last->value;}\n\tPersistentStack push(T x)noexcept{\n\t\tptr\
-    \ p(new Node);\n\t\t*p=Node{x,last};\n\t\treturn PersistentStack(p);\n\t}\n\t\
-    T top()const noexcept{return last->value;}\n\tPersistentStack pop()const noexcept{\n\
-    \t\treturn PersistentStack(last->prev);\n\t}\n};"
+    \tPersistentStack push(T x)const noexcept{\n\t\tptr p(new Node);\n\t\t*p=Node{x,last};\n\
+    \t\treturn PersistentStack(p);\n\t}\n\tT top()const noexcept{return last->value;}\n\
+    \tPersistentStack pop()const noexcept{\n\t\treturn PersistentStack(last->prev);\n\
+    \t}\n\tbool empty()const noexcept{return !last.get();}\n\tbool operator<(const\
+    \ PersistentStack<T>& ps)const noexcept{return false;}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/PersistentStack.hpp
   requiredBy: []
-  timestamp: '2020-11-07 13:48:42+09:00'
+  timestamp: '2020-11-10 00:04:41+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/PersistentStack.hpp

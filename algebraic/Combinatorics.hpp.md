@@ -129,7 +129,8 @@ data:
     \t}\npublic:\n\tModCombinatorics():Combinatorics<T>(),inv(1,1){}\n\tModCombinatorics(int\
     \ n):Combinatorics<T>(n),inv(1,1){append(n);}\n\tT getComb(int a,int b)override{\n\
     \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b]*inv[b];\n\t}\n\tT getDcomb(int\
-    \ a,int b)override{\n\t\treturn getComb(a+b-1,b);\n\t}\n};\n"
+    \ a,int b)override{\n\t\treturn getComb(a+b-1,b);\n\t}\n\tT perm(int a,int b){\n\
+    \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b];\n\t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"StaticModInt.hpp\"\
     \n#include \"DynamicModInt.hpp\"\ntemplate<typename T>\nclass Combinatorics{\n\
     protected:\n\tstd::vector<T> factorial;\n\tvoid append(int n){\n\t\twhile(factorial.size()<=n){\n\
@@ -145,7 +146,8 @@ data:
     \t}\npublic:\n\tModCombinatorics():Combinatorics<T>(),inv(1,1){}\n\tModCombinatorics(int\
     \ n):Combinatorics<T>(n),inv(1,1){append(n);}\n\tT getComb(int a,int b)override{\n\
     \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b]*inv[b];\n\t}\n\tT getDcomb(int\
-    \ a,int b)override{\n\t\treturn getComb(a+b-1,b);\n\t}\n};"
+    \ a,int b)override{\n\t\treturn getComb(a+b-1,b);\n\t}\n\tT perm(int a,int b){\n\
+    \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b];\n\t}\n};"
   dependsOn:
   - other/template.hpp
   - algebraic/StaticModInt.hpp
@@ -153,7 +155,7 @@ data:
   isVerificationFile: false
   path: algebraic/Combinatorics.hpp
   requiredBy: []
-  timestamp: '2020-11-03 18:11:36+09:00'
+  timestamp: '2020-11-10 00:04:41+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/Combinatorics.hpp
