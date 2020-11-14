@@ -116,38 +116,41 @@ data:
     \ }\n};\ntemplate<unsigned int modulo>\nstd::istream& operator>>(std::istream&\
     \ ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn\
     \ ist;\n}\n#line 5 \"algebraic/Combinatorics.hpp\"\ntemplate<typename T>\nclass\
-    \ Combinatorics{\nprotected:\n\tstd::vector<T> factorial;\n\tvoid append(int n){\n\
+    \ Combinatorics{\nprotected:\n\tstd::vector<T> factorial;\n\tvoid append(int n)noexcept{\n\
     \t\twhile(factorial.size()<=n){\n\t\t\tfactorial.emplace_back(factorial.back()*factorial.size());\n\
-    \t\t}\n\t}\npublic:\n\tCombinatorics():factorial(1,1){}\n\tCombinatorics(int n):factorial(1,1){append(n);}\n\
-    \tvirtual T getComb(int a,int b){\n\t\tappend(a);\n\t\treturn factorial[a]/factorial[a-b]/factorial[b];\n\
-    \t}\n\tvirtual T getDcomb(int a,int b){\n\t\treturn getComb(a+b-1,b);\n\t}\n};\n\
-    template<typename T>\nclass ModCombinatorics:Combinatorics<T>{\n\tstatic_assert(std::is_same<T,StaticModInt<T::mod_value>>::value\n\
+    \t\t}\n\t}\npublic:\n\tCombinatorics()noexcept:factorial(1,1){}\n\tCombinatorics(int\
+    \ n)noexcept:factorial(1,1){append(n);}\n\tvirtual T getComb(int a,int b)noexcept{\n\
+    \t\tappend(a);\n\t\treturn factorial[a]/factorial[a-b]/factorial[b];\n\t}\n\t\
+    virtual T getDcomb(int a,int b)noexcept{\n\t\treturn getComb(a+b-1,b);\n\t}\n\
+    };\ntemplate<typename T>\nclass ModCombinatorics:Combinatorics<T>{\n\tstatic_assert(std::is_same<T,StaticModInt<T::mod_value>>::value\n\
     \t\t||std::is_same<T,DynamicModInt>::value);\n\tusing Combinatorics<T>::factorial;\n\
-    \tstd::vector<T> inv;\n\tvoid append(int n){\n\t\tint tmp=factorial.size();\n\t\
-    \tif(n<tmp)return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n+1);\n\t\
-    \tinv[n]=T(1)/factorial.back();\n\t\tfor(int i=n;i>tmp;i--)inv[i-1]=inv[i]*i;\n\
-    \t}\npublic:\n\tModCombinatorics():Combinatorics<T>(),inv(1,1){}\n\tModCombinatorics(int\
-    \ n):Combinatorics<T>(n),inv(1,1){append(n);}\n\tT getComb(int a,int b)override{\n\
-    \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b]*inv[b];\n\t}\n\tT getDcomb(int\
-    \ a,int b)override{\n\t\treturn getComb(a+b-1,b);\n\t}\n\tT perm(int a,int b){\n\
-    \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b];\n\t}\n};\n"
+    \tstd::vector<T> inv;\n\tvoid append(int n)noexcept{\n\t\tint tmp=factorial.size();\n\
+    \t\tif(n<tmp)return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n+1);\n\
+    \t\tinv[n]=T(1)/factorial.back();\n\t\tfor(int i=n;i>tmp;i--)inv[i-1]=inv[i]*i;\n\
+    \t}\npublic:\n\tModCombinatorics()noexcept:Combinatorics<T>(),inv(1,1){}\n\tModCombinatorics(int\
+    \ n)noexcept:Combinatorics<T>(n),inv(1,1){append(n);}\n\tT getComb(int a,int b)noexcept\
+    \ override{\n\t\tappend(a);\n\t\treturn factorial[a]*inv[a-b]*inv[b];\n\t}\n\t\
+    T getDcomb(int a,int b)noexcept override{\n\t\treturn getComb(a+b-1,b);\n\t}\n\
+    \tT perm(int a,int b)noexcept{\n\t\tappend(a);\n\t\treturn factorial[a]*inv[a-b];\n\
+    \t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"StaticModInt.hpp\"\
     \n#include \"DynamicModInt.hpp\"\ntemplate<typename T>\nclass Combinatorics{\n\
-    protected:\n\tstd::vector<T> factorial;\n\tvoid append(int n){\n\t\twhile(factorial.size()<=n){\n\
+    protected:\n\tstd::vector<T> factorial;\n\tvoid append(int n)noexcept{\n\t\twhile(factorial.size()<=n){\n\
     \t\t\tfactorial.emplace_back(factorial.back()*factorial.size());\n\t\t}\n\t}\n\
-    public:\n\tCombinatorics():factorial(1,1){}\n\tCombinatorics(int n):factorial(1,1){append(n);}\n\
-    \tvirtual T getComb(int a,int b){\n\t\tappend(a);\n\t\treturn factorial[a]/factorial[a-b]/factorial[b];\n\
-    \t}\n\tvirtual T getDcomb(int a,int b){\n\t\treturn getComb(a+b-1,b);\n\t}\n};\n\
-    template<typename T>\nclass ModCombinatorics:Combinatorics<T>{\n\tstatic_assert(std::is_same<T,StaticModInt<T::mod_value>>::value\n\
+    public:\n\tCombinatorics()noexcept:factorial(1,1){}\n\tCombinatorics(int n)noexcept:factorial(1,1){append(n);}\n\
+    \tvirtual T getComb(int a,int b)noexcept{\n\t\tappend(a);\n\t\treturn factorial[a]/factorial[a-b]/factorial[b];\n\
+    \t}\n\tvirtual T getDcomb(int a,int b)noexcept{\n\t\treturn getComb(a+b-1,b);\n\
+    \t}\n};\ntemplate<typename T>\nclass ModCombinatorics:Combinatorics<T>{\n\tstatic_assert(std::is_same<T,StaticModInt<T::mod_value>>::value\n\
     \t\t||std::is_same<T,DynamicModInt>::value);\n\tusing Combinatorics<T>::factorial;\n\
-    \tstd::vector<T> inv;\n\tvoid append(int n){\n\t\tint tmp=factorial.size();\n\t\
-    \tif(n<tmp)return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n+1);\n\t\
-    \tinv[n]=T(1)/factorial.back();\n\t\tfor(int i=n;i>tmp;i--)inv[i-1]=inv[i]*i;\n\
-    \t}\npublic:\n\tModCombinatorics():Combinatorics<T>(),inv(1,1){}\n\tModCombinatorics(int\
-    \ n):Combinatorics<T>(n),inv(1,1){append(n);}\n\tT getComb(int a,int b)override{\n\
-    \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b]*inv[b];\n\t}\n\tT getDcomb(int\
-    \ a,int b)override{\n\t\treturn getComb(a+b-1,b);\n\t}\n\tT perm(int a,int b){\n\
-    \t\tappend(a);\n\t\treturn factorial[a]*inv[a-b];\n\t}\n};"
+    \tstd::vector<T> inv;\n\tvoid append(int n)noexcept{\n\t\tint tmp=factorial.size();\n\
+    \t\tif(n<tmp)return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n+1);\n\
+    \t\tinv[n]=T(1)/factorial.back();\n\t\tfor(int i=n;i>tmp;i--)inv[i-1]=inv[i]*i;\n\
+    \t}\npublic:\n\tModCombinatorics()noexcept:Combinatorics<T>(),inv(1,1){}\n\tModCombinatorics(int\
+    \ n)noexcept:Combinatorics<T>(n),inv(1,1){append(n);}\n\tT getComb(int a,int b)noexcept\
+    \ override{\n\t\tappend(a);\n\t\treturn factorial[a]*inv[a-b]*inv[b];\n\t}\n\t\
+    T getDcomb(int a,int b)noexcept override{\n\t\treturn getComb(a+b-1,b);\n\t}\n\
+    \tT perm(int a,int b)noexcept{\n\t\tappend(a);\n\t\treturn factorial[a]*inv[a-b];\n\
+    \t}\n};"
   dependsOn:
   - other/template.hpp
   - algebraic/StaticModInt.hpp
@@ -155,7 +158,7 @@ data:
   isVerificationFile: false
   path: algebraic/Combinatorics.hpp
   requiredBy: []
-  timestamp: '2020-11-10 00:04:41+09:00'
+  timestamp: '2020-11-14 20:52:06+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/Combinatorics.hpp
