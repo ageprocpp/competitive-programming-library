@@ -9,8 +9,7 @@ public:
 	StaticModInt() : value(0) {}
 	template<typename T>
 	StaticModInt(T value = 0) : value(value) {
-		if (value < 0)value = -(lint)(-value % modulo) + modulo;
-		this->value = value % modulo;
+		this -> value = (value < 0 ? -(-value % modulo) + modulo : value) % modulo;
 	}
 	inline StaticModInt inv()const{return mypow(*this,modulo-2);}
 	inline operator int()const { return value; }

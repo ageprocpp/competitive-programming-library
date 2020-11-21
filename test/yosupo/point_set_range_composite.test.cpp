@@ -2,12 +2,13 @@
 #include "../../other/template.hpp"
 #include "../../algebraic/StaticModInt.hpp"
 #include "../../data-structure/SegTree.hpp"
-using ModInt=StaticModInt<998244353>;
-class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	mp nodef(const mp& lhs,const mp& rhs)const{return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};}
+using ModInt = StaticModInt<998244353>;
+using MP = std::pair<ModInt, ModInt>;
+MP nodef(const MP& lhs, const MP& rhs){return {lhs.first * rhs.first, lhs.second * rhs.first + rhs.second};}
+class MySeg:public SegTree<MP, nodef>{
+	using Base = SegTree<MP, nodef>;
 public:
-	MySeg(int size):SegTree<mp>(size,{0,0},{1,0}){}
+	MySeg(int n):Base(n, {0,0}, {1,0}){}
 };
 int n,q;
 int main(){

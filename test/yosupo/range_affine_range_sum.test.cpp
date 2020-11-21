@@ -3,15 +3,14 @@
 #include "../../algebraic/StaticModInt.hpp"
 #include "../../data-structure/IntervalSegTree.hpp"
 using ModInt=StaticModInt<998244353>;
-class MySeg:public IntervalSegTree<ModInt,std::pair<ModInt,ModInt>>{
-	using mp=std::pair<ModInt,ModInt>;
-	ModInt nodef(const ModInt& a,const ModInt& b)const{return a+b;}
-	void lazyf(mp& a,const mp& b){a={a.first*b.first,a.second*b.first+b.second};}
-	void updf(ModInt& a,const mp& b,const unsigned int& width){a=b.first*a+b.second*width;}
+using MP = std::pair<ModInt, ModInt>;
+ModInt nodef(const ModInt& a,const ModInt& b){return a+b;}
+void lazyf(MP& a,const MP& b){a={a.first*b.first,a.second*b.first+b.second};}
+void updf(ModInt& a,const MP& b,const unsigned int& width){a=b.first*a+b.second*width;}
+class MySeg:public IntervalSegTree<ModInt, MP, nodef, lazyf, updf>{
+	using Base = IntervalSegTree<ModInt, MP, nodef, lazyf, updf>;
 public:
-	MySeg(const std::vector<ModInt>& initvec):IntervalSegTree<ModInt,mp>(0,initvec){
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[2*i],node[2*i+1]);
-	}
+	MySeg(const std::vector<ModInt>& initvec):Base(initvec, 0){}
 };
 int n,q;
 std::vector<ModInt> vec;

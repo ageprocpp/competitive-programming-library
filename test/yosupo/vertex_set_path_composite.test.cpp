@@ -4,13 +4,14 @@
 #include "../../graph/HeavyLightDecomposition.hpp"
 #include "../../data-structure/SegTree.hpp"
 using ModInt=StaticModInt<998244353>;
-class MySeg:public SegTree<std::pair<ModInt,ModInt>>{
-	using MP=std::pair<ModInt,ModInt>;
-	MP nodef(const MP& lhs,const MP& rhs)const{
-		return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};
-	}
+using MP=std::pair<ModInt,ModInt>;
+MP nodef(const MP& lhs,const MP& rhs){
+	return {lhs.first*rhs.first,lhs.second*rhs.first+rhs.second};
+}
+class MySeg:public SegTree<MP, nodef>{
+	using Base = SegTree<MP, nodef>;
 public:
-	MySeg(int n):SegTree<MP>(n,{1,0},{1,0}){}
+	MySeg(int n):Base(n,{1,0},{1,0}){}
 };
 int n,q;
 P a[200010];

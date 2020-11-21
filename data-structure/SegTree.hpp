@@ -1,31 +1,32 @@
 #pragma once
 #include "../other/template.hpp"
-template<typename T>
+template<class T, T (*nodef)(const T&, const T&)>
 class SegTree {
 protected:
 	unsigned int n = 1, rank = 0;
 	std::vector<T> node;
-	T nodee;
-	virtual T nodef(const T&, const T&)const = 0;
+	T ident;
 public:
-	SegTree(unsigned int m, T init, T nodee):nodee(nodee) {
+	SegTree(unsigned int m, T init, T e_):ident(e_) {
 		while (n < m) {
 			n *= 2;
 			rank++;
 		}
-		node.resize(2 * n, nodee);
+		node.resize(2 * n, ident);
 		for (unsigned int i = n; i < 2 * n; i++)node[i] = init;
+		for (unsigned int i = n - 1; i > 0; i--)node[i] = nodef(node[i << 1], node[i << 1 | 1]);
 	}
-	SegTree(const std::vector<T>& initvec, T nodee):nodee(nodee) {
+	SegTree(const std::vector<T>& initvec, T e_):ident(e_) {
 		unsigned int m = initvec.size();
 		while (n < m) {
 			n *= 2;
 			rank++;
 		}
-		node.resize(2 * n, nodee);
+		node.resize(2 * n, ident);
 		for (unsigned int i = n; i < 2 * n; i++) {
 			if (i - n < m)node[i] = initvec[i - n];
 		}
+		for (unsigned int i = n - 1; i > 0; i--)node[i] = nodef(node[i << 1], node[i << 1 | 1]);
 	}
 	virtual void update(int i, T x) {
 		i += n;
@@ -37,7 +38,7 @@ public:
 	}
 	virtual T query(int l, int r) {
 		l += n; r += n;
-		T ls = nodee, rs = nodee;
+		T ls = ident, rs = ident;
 		while (l < r) {
 			if (l & 1) ls = nodef(ls, node[l++]);
 			if (r & 1) rs = nodef(node[--r], rs);
@@ -53,33 +54,24 @@ public:
 		std::cout << std::endl;
 	}
 };
-class RSQ :public SegTree<lint> {
-	lint nodef(const lint& lhs,const lint& rhs)const{return lhs+rhs;}
+static lint RSQ_nodef(const lint& lhs, const lint& rhs){return lhs + rhs;}
+class RSQ :public SegTree<lint, RSQ_nodef> {
+	using Base = SegTree<lint, RSQ_nodef>;
 public:
-	RSQ(int size, const lint& def = 0) :SegTree<lint>(size, def, 0) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
-	RSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
+	template<class... Args>
+	RSQ(Args... args):Base(args..., 0){}
 };
-class RMiQ :public SegTree<lint> {
-	lint nodef(const lint& lhs,const lint& rhs)const{return std::min(lhs,rhs);}
+static lint RMiQ_nodef(const lint& lhs, const lint& rhs){return std::min(lhs, rhs);}
+class RMiQ :public SegTree<lint, RMiQ_nodef> {
+	using Base = SegTree<lint, RMiQ_nodef>;
 public:
-	RMiQ(int size, const lint& def = 0) :SegTree<lint>(size, def, LINF) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
-	RMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
+	template<class... Args>
+	RMiQ(Args... args):Base(args..., LINF){}
 };
-class RMaQ :public SegTree<lint> {
-	lint nodef(const lint& lhs,const lint& rhs)const{return std::max(lhs,rhs);}
+static lint RMaQ_nodef(const lint& lhs, const lint& rhs){return std::max(lhs,rhs);}
+class RMaQ :public SegTree<lint, RMaQ_nodef> {
+	using Base = SegTree<lint, RMaQ_nodef>;
 public:
-	RMaQ(int size, const lint& def = 0) :SegTree<lint>(size, def, -LINF) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
-	RMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {
-		for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);
-	}
+	template<class... Args>
+	RMaQ(Args... args):Base(args..., -LINF){}
 };
