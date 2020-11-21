@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-template<class T, T (*nodef)(const T&, const T&)>
+template<typename T, T (*nodef)(const T&, const T&)>
 class SegTree {
 protected:
 	unsigned int n = 1, rank = 0;
@@ -16,7 +16,8 @@ public:
 		for (unsigned int i = n; i < 2 * n; i++)node[i] = init;
 		for (unsigned int i = n - 1; i > 0; i--)node[i] = nodef(node[i << 1], node[i << 1 | 1]);
 	}
-	SegTree(const std::vector<T>& initvec, T e_):ident(e_) {
+	template<typename U>
+	SegTree(const std::vector<U>& initvec, T e_):ident(e_) {
 		unsigned int m = initvec.size();
 		while (n < m) {
 			n *= 2;
@@ -36,7 +37,7 @@ public:
 			node[i] = nodef(node[2 * i], node[2 * i + 1]);
 		}
 	}
-	virtual T query(int l, int r) {
+	virtual T query(int l, int r)const{
 		l += n; r += n;
 		T ls = ident, rs = ident;
 		while (l < r) {
@@ -46,12 +47,39 @@ public:
 		}
 		return nodef(ls, rs);
 	}
-	virtual T operator[](const int& x) {
+	virtual T operator[](const int& x)const{
 		return node[n + x];
 	}
-	void print() {
-		rep(i, n)std::cout << operator[](i) << " ";
-		std::cout << std::endl;
+	T queryForAll()const{
+		return node[1];
+	}
+private:
+	template<typename F>
+	int max_right(int st, F &check, T &acc, int k, int l, int r)const{
+		if(l + 1 == r){
+			acc = nodef(acc, node[k]);
+			return check(acc) ? -1 : k - n;
+		}
+		int m = (l + r) >> 1;
+		if(m <= st)return max_right(st, check, acc, (k << 1) | 1, m, r);
+		if(st <= l && check(nodef(acc, node[k]))){
+			acc = nodef(acc, node[k]);
+			return -1;
+		}
+		int vl = max_right(st, check, acc, k << 1, l, m);
+		if(vl != -1)return vl;
+		return max_right(st, check, acc, (k << 1) | 1, m, r);
+	}
+public:
+	template<typename F>
+	int max_right(int st, F check)const{
+		T acc = ident;
+		return max_right(st, check, acc, 1, 0, n);
+	}
+	template<bool (*check)(const T&)>
+	int max_right(int st)const{
+		T acc = ident;
+		return max_right(st, check, acc, 1, 0, n);
 	}
 };
 static lint RSQ_nodef(const lint& lhs, const lint& rhs){return lhs + rhs;}

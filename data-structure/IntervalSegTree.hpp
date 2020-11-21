@@ -102,8 +102,34 @@ public:
 		eval(n + x);
 		return node[n + x];
 	}
-	T queryForAll() {
-		return node[1];
+private:
+	template<typename F>
+	int max_right(int st, F &check, T &acc, int k, int l, int r)const{
+		eval(k);
+		if(l + 1 == r){
+			acc = nodef(acc, node[k]);
+			return check(acc) ? -1 : k - n;
+		}
+		int m = (l + r) >> 1;
+		if(m <= st)return max_right(st, check, acc, (k << 1) | 1, m, r);
+		if(st <= l && check(nodef(acc, node[k]))){
+			acc = nodef(acc, node[k]);
+			return -1;
+		}
+		int vl = max_right(st, check, acc, k << 1, l, m);
+		if(vl != -1)return vl;
+		return max_right(st, check, acc, (k << 1) | 1, m, r);
+	}
+public:
+	template<typename F>
+	int max_right(int st, F check)const{
+		T acc = ident;
+		return max_right(st, check, acc, 1, 0, n);
+	}
+	template<bool (*check)(const T&)>
+	int max_right(int st)const{
+		T acc = ident;
+		return max_right(st, check, acc, 1, 0, n);
 	}
 };
 static lint RAQRSQ_nodef(const lint& a, const lint& b){return a + b;}
