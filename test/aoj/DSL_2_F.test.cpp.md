@@ -57,56 +57,52 @@ data:
     \tlint r=(b1+m1*tmp+m1*m2)%(m1*m2);\n\treturn std::make_pair(r,m1*m2);\n}\ntemplate<typename\
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
-    \ 3 \"data-structure/SegTree.hpp\"\ntemplate<typename T>\nclass SegTree {\nprotected:\n\
-    \tunsigned int n = 1, rank = 0;\n\tstd::vector<T> node;\n\tT nodee;\n\tvirtual\
-    \ T nodef(const T&, const T&)const = 0;\npublic:\n\tSegTree(unsigned int m, T\
-    \ init, T nodee):nodee(nodee) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\
-    \t\t}\n\t\tnode.resize(2 * n, nodee);\n\t\tfor (unsigned int i = n; i < 2 * n;\
-    \ i++)node[i] = init;\n\t}\n\tSegTree(const std::vector<T>& initvec, T nodee):nodee(nodee)\
-    \ {\n\t\tunsigned int m = initvec.size();\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\
-    \t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, nodee);\n\t\tfor (unsigned int i\
-    \ = n; i < 2 * n; i++) {\n\t\t\tif (i - n < m)node[i] = initvec[i - n];\n\t\t\
-    }\n\t}\n\tvirtual void update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\
-    \twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2\
-    \ * i + 1]);\n\t\t}\n\t}\n\tvirtual T query(int l, int r) {\n\t\tl += n; r +=\
-    \ n;\n\t\tT ls = nodee, rs = nodee;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls\
-    \ = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\t\
-    l >>= 1; r >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tvirtual T operator[](const\
+    \ 3 \"data-structure/SegTree.hpp\"\ntemplate<class T, T (*nodef)(const T&, const\
+    \ T&)>\nclass SegTree {\nprotected:\n\tunsigned int n = 1, rank = 0;\n\tstd::vector<T>\
+    \ node;\n\tT ident;\npublic:\n\tSegTree(unsigned int m, T init, T e_):ident(e_)\
+    \ {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2\
+    \ * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++)node[i] = init;\n\t\
+    \tfor (unsigned int i = n - 1; i > 0; i--)node[i] = nodef(node[i << 1], node[i\
+    \ << 1 | 1]);\n\t}\n\tSegTree(const std::vector<T>& initvec, T e_):ident(e_) {\n\
+    \t\tunsigned int m = initvec.size();\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\
+    \trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n;\
+    \ i < 2 * n; i++) {\n\t\t\tif (i - n < m)node[i] = initvec[i - n];\n\t\t}\n\t\t\
+    for (unsigned int i = n - 1; i > 0; i--)node[i] = nodef(node[i << 1], node[i <<\
+    \ 1 | 1]);\n\t}\n\tvirtual void update(int i, T x) {\n\t\ti += n;\n\t\tnode[i]\
+    \ = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i],\
+    \ node[2 * i + 1]);\n\t\t}\n\t}\n\tvirtual T query(int l, int r) {\n\t\tl += n;\
+    \ r += n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1)\
+    \ ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\
+    \tl >>= 1; r >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tvirtual T operator[](const\
     \ int& x) {\n\t\treturn node[n + x];\n\t}\n\tvoid print() {\n\t\trep(i, n)std::cout\
-    \ << operator[](i) << \" \";\n\t\tstd::cout << std::endl;\n\t}\n};\nclass RSQ\
-    \ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return\
-    \ lhs+rhs;}\npublic:\n\tRSQ(int size, const lint& def = 0) :SegTree<lint>(size,\
-    \ def, 0) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
-    \t}\n\tRSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {\n\t\t\
-    for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\t}\n};\nclass\
-    \ RMiQ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return\
-    \ std::min(lhs,rhs);}\npublic:\n\tRMiQ(int size, const lint& def = 0) :SegTree<lint>(size,\
-    \ def, LINF) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
-    \t}\n\tRMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {\n\
-    \t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\t}\n};\nclass\
-    \ RMaQ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return\
-    \ std::max(lhs,rhs);}\npublic:\n\tRMaQ(int size, const lint& def = 0) :SegTree<lint>(size,\
-    \ def, -LINF) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
-    \t}\n\tRMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {\n\
-    \t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\t}\n};\n#line\
-    \ 4 \"data-structure/IntervalSegTree.hpp\"\ntemplate<typename T, typename U>\n\
-    class IntervalSegTree :public SegTree<T> {\nprotected:\n\tusing SegTree<T>::n;\n\
-    \tusing SegTree<T>::rank;\n\tusing SegTree<T>::node;\n\tusing SegTree<T>::nodef;\n\
-    \tusing SegTree<T>::nodee;\n\tstd::vector<U> lazy;\n\tstd::vector<bool> lazyflag;\n\
-    \tstd::vector<int> width;\n\tvirtual void lazyf(U&, const U&) = 0;\n\tvirtual\
-    \ void updf(T&, const U&, const unsigned int&) = 0;\n\tvoid eval(int k) {\n\t\t\
-    for (int i = rank; i > 0; i--) {\n\t\t\tint nk = k >> i;\n\t\t\tif (lazyflag[nk])\
-    \ {\n\t\t\t\tupdf(node[2 * nk], lazy[nk], width[2 * nk]);\n\t\t\t\tupdf(node[2\
-    \ * nk + 1], lazy[nk], width[2 * nk + 1]);\n\t\t\t\tif (lazyflag[2 * nk])lazyf(lazy[2\
-    \ * nk], lazy[nk]);\n\t\t\t\telse lazy[2 * nk] = lazy[nk];\n\t\t\t\tif (lazyflag[2\
-    \ * nk + 1])lazyf(lazy[2 * nk + 1], lazy[nk]);\n\t\t\t\telse lazy[2 * nk + 1]\
-    \ = lazy[nk];\n\t\t\t\tlazyflag[2 * nk] = lazyflag[2 * nk + 1] = true;\n\t\t\t\
-    \tlazyflag[nk] = false;\n\t\t\t}\n\t\t}\n\t}\npublic:\n\tIntervalSegTree(unsigned\
-    \ int m, T init, T nodee) :SegTree<T>(m, init, nodee) {\n\t\tlazy.resize(2 * n);\
-    \ lazyflag.resize(2 * n); width.resize(2 * n);\n\t\twidth[1] = n;\n\t\tfor (unsigned\
-    \ int i = 2; i < 2 * n; i++) {\n\t\t\twidth[i] = width[i >> 1] >> 1;\n\t\t}\n\t\
-    }\n\tIntervalSegTree(T nodee, const std::vector<T>& initvec) :SegTree<T>(initvec,\
-    \ nodee) {\n\t\tlazy.resize(2 * n); lazyflag.resize(2 * n); width.resize(2 * n);\n\
+    \ << operator[](i) << \" \";\n\t\tstd::cout << std::endl;\n\t}\n};\nstatic lint\
+    \ RSQ_nodef(const lint& lhs, const lint& rhs){return lhs + rhs;}\nclass RSQ :public\
+    \ SegTree<lint, RSQ_nodef> {\n\tusing Base = SegTree<lint, RSQ_nodef>;\npublic:\n\
+    \ttemplate<class... Args>\n\tRSQ(Args... args):Base(args..., 0){}\n};\nstatic\
+    \ lint RMiQ_nodef(const lint& lhs, const lint& rhs){return std::min(lhs, rhs);}\n\
+    class RMiQ :public SegTree<lint, RMiQ_nodef> {\n\tusing Base = SegTree<lint, RMiQ_nodef>;\n\
+    public:\n\ttemplate<class... Args>\n\tRMiQ(Args... args):Base(args..., LINF){}\n\
+    };\nstatic lint RMaQ_nodef(const lint& lhs, const lint& rhs){return std::max(lhs,rhs);}\n\
+    class RMaQ :public SegTree<lint, RMaQ_nodef> {\n\tusing Base = SegTree<lint, RMaQ_nodef>;\n\
+    public:\n\ttemplate<class... Args>\n\tRMaQ(Args... args):Base(args..., -LINF){}\n\
+    };\n#line 4 \"data-structure/IntervalSegTree.hpp\"\ntemplate<typename T, typename\
+    \ U,\n\tT (*nodef)(const T&, const T&),\n\tvoid (*lazyf)(U&, const U&),\n\tvoid\
+    \ (*updf)(T&, const U&, const unsigned int&)>\nclass IntervalSegTree :public SegTree<T,\
+    \ nodef> {\n\tusing Base = SegTree<T, nodef>;\nprotected:\n\tusing Base::n;\n\t\
+    using Base::rank;\n\tusing Base::node;\n\tusing Base::ident;\n\tstd::vector<U>\
+    \ lazy;\n\tstd::vector<bool> lazyflag;\n\tstd::vector<int> width;\n\tvoid eval(int\
+    \ k) {\n\t\tfor (int i = rank; i > 0; i--) {\n\t\t\tint nk = k >> i;\n\t\t\tif\
+    \ (lazyflag[nk]) {\n\t\t\t\tupdf(node[2 * nk], lazy[nk], width[2 * nk]);\n\t\t\
+    \t\tupdf(node[2 * nk + 1], lazy[nk], width[2 * nk + 1]);\n\t\t\t\tif (lazyflag[2\
+    \ * nk])lazyf(lazy[2 * nk], lazy[nk]);\n\t\t\t\telse lazy[2 * nk] = lazy[nk];\n\
+    \t\t\t\tif (lazyflag[2 * nk + 1])lazyf(lazy[2 * nk + 1], lazy[nk]);\n\t\t\t\t\
+    else lazy[2 * nk + 1] = lazy[nk];\n\t\t\t\tlazyflag[2 * nk] = lazyflag[2 * nk\
+    \ + 1] = true;\n\t\t\t\tlazyflag[nk] = false;\n\t\t\t}\n\t\t}\n\t}\npublic:\n\t\
+    IntervalSegTree(unsigned int m, T init, T e_) :Base(m, init, e_) {\n\t\tlazy.resize(2\
+    \ * n); lazyflag.resize(2 * n); width.resize(2 * n);\n\t\twidth[1] = n;\n\t\t\
+    for (unsigned int i = 2; i < 2 * n; i++) {\n\t\t\twidth[i] = width[i >> 1] >>\
+    \ 1;\n\t\t}\n\t}\n\tIntervalSegTree(const std::vector<T>& initvec, T e_) :Base(initvec,\
+    \ e_) {\n\t\tlazy.resize(2 * n); lazyflag.resize(2 * n); width.resize(2 * n);\n\
     \t\twidth[1] = n;\n\t\tfor (unsigned int i = 2; i < 2 * n; i++) {\n\t\t\twidth[i]\
     \ = width[i >> 1] >> 1;\n\t\t}\n\t}\n\tvoid update(int i, U x) {\n\t\ti += n;\n\
     \t\teval(i);\n\t\tupdf(node[i], x, width[i]);\n\t\tif (lazyflag[i])lazyf(lazy[i],\
@@ -122,60 +118,48 @@ data:
     \t\t\t\t}\n\t\t\t}\n\t\t\tl >>= 1; r >>= 1;\n\t\t}\n\t\twhile (nl >>= 1)node[nl]\
     \ = nodef(node[2 * nl], node[2 * nl + 1]);\n\t\twhile (nr >>= 1)node[nr] = nodef(node[2\
     \ * nr], node[2 * nr + 1]);\n\t}\n\tT query(int l, int r) {\n\t\tl += n; r +=\
-    \ n;\n\t\teval(l); eval(r - 1);\n\t\tT ls = nodee, rs = nodee;\n\t\twhile (l <\
+    \ n;\n\t\teval(l); eval(r - 1);\n\t\tT ls = ident, rs = ident;\n\t\twhile (l <\
     \ r) {\n\t\t\tif (l & 1)ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1)rs = nodef(node[--r],\
     \ rs);\n\t\t\tl >>= 1; r >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tT operator[](const\
     \ int& x) {\n\t\teval(n + x);\n\t\treturn node[n + x];\n\t}\n\tT queryForAll()\
-    \ {\n\t\treturn node[1];\n\t}\n};\nclass RAQRSQ :public IntervalSegTree<lint,\
-    \ lint> {\n\tlint nodef(const lint& a, const lint& b)const { return a + b; }\n\
-    \tvoid lazyf(lint& a, const lint& b) { a += b; }\n\tvoid updf(lint& a, const lint&\
-    \ b, const unsigned int& width) { a += width * b; }\npublic:\n\tRAQRSQ(int size,\
-    \ const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, 0) {\n\t\tfor (int\
-    \ i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t}\n\t\
-    RAQRSQ(const std::vector<lint>& initvec) :IntervalSegTree<lint, lint>((lint)0,\
-    \ initvec) {\n\t\tfor (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i],\
-    \ node[2 * i + 1]);\n\t}\n};\nclass RAQRMiQ :public IntervalSegTree<lint, lint>\
-    \ {\n\tlint nodef(const lint& a, const lint& b)const { return std::min(a, b);\
-    \ }\n\tvoid lazyf(lint& a, const lint& b) { a += b; }\n\tvoid updf(lint& a, const\
-    \ lint& b, const unsigned int& width) { a += b; }\npublic:\n\tRAQRMiQ(int size,\
-    \ const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, LINF) {\n\t\tfor\
-    \ (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t\
-    }\n\tRAQRMiQ(const std::vector<lint>& initvec) :IntervalSegTree<lint, lint>(LINF,\
-    \ initvec) {\n\t\tfor (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i],\
-    \ node[2 * i + 1]);\n\t}\n};\nclass RAQRMaQ :public IntervalSegTree<lint, lint>\
-    \ {\n\tlint nodef(const lint& a, const lint& b)const { return std::max(a, b);\
-    \ }\n\tvoid lazyf(lint& a, const lint& b) { a += b; }\n\tvoid updf(lint& a, const\
-    \ lint& b, const unsigned int& width) { a += b; }\npublic:\n\tRAQRMaQ(unsigned\
-    \ int size, const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, -LINF)\
-    \ {\n\t\tfor (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 *\
-    \ i + 1]);\n\t}\n\tRAQRMaQ(const std::vector<lint>& initvec) :IntervalSegTree<lint,\
-    \ lint>(-LINF, initvec) {\n\t\tfor (int i = n - 1; i > 0; i--)node[i] = nodef(node[2\
-    \ * i], node[2 * i + 1]);\n\t}\n};\nclass RUQRSQ :public IntervalSegTree<lint,\
-    \ lint> {\n\tlint nodef(const lint& a, const lint& b)const { return a + b; }\n\
-    \tvoid lazyf(lint& a, const lint& b) { a = b; }\n\tvoid updf(lint& a, const lint&\
-    \ b, const unsigned int& width) { a = width * b; }\npublic:\n\tRUQRSQ(int size,\
-    \ const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, 0) {\n\t\tfor (int\
-    \ i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t}\n\t\
-    RUQRSQ(const std::vector<lint>& initvec) :IntervalSegTree<lint, lint>((lint)0,\
-    \ initvec) {\n\t\tfor (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i],\
-    \ node[2 * i + 1]);\n\t}\n};\nclass RUQRMiQ :public IntervalSegTree<lint, lint>\
-    \ {\n\tlint nodef(const lint& a, const lint& b)const { return std::min(a, b);\
-    \ }\n\tvoid lazyf(lint& a, const lint& b) { a = b; }\n\tvoid updf(lint& a, const\
-    \ lint& b, const unsigned int& width) { a = b; }\npublic:\n\tRUQRMiQ(int size,\
-    \ const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, LINF) {\n\t\tfor\
-    \ (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t\
-    }\n\tRUQRMiQ(const std::vector<lint>& initvec) :IntervalSegTree<lint, lint>(LINF,\
-    \ initvec) {\n\t\tfor (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i],\
-    \ node[2 * i + 1]);\n\t}\n};\nclass RUQRMaQ :public IntervalSegTree<lint, lint>\
-    \ {\n\tlint nodef(const lint& a, const lint& b)const { return std::max(a, b);\
-    \ }\n\tvoid lazyf(lint& a, const lint& b) { a = b; }\n\tvoid updf(lint& a, const\
-    \ lint& b, const unsigned int& width) { a = b; }\npublic:\n\tRUQRMaQ(int size,\
-    \ const lint& def = 0) :IntervalSegTree<lint, lint>(size, def, -LINF) {\n\t\t\
-    for (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i], node[2 * i + 1]);\n\
-    \t}\n\tRUQRMaQ(const std::vector<lint>& initvec) :IntervalSegTree<lint, lint>(-LINF,\
-    \ initvec) {\n\t\tfor (int i = n - 1; i > 0; i--)node[i] = nodef(node[2 * i],\
-    \ node[2 * i + 1]);\n\t}\n};\n#line 4 \"test/aoj/DSL_2_F.test.cpp\"\nint n,q;\n\
-    int main(){\n\tscanf(\"%d%d\",&n,&q);\n\tRUQRMiQ st(n,INT_MAX);\n\trep(i,q){\n\
+    \ {\n\t\treturn node[1];\n\t}\n};\nstatic lint RAQRSQ_nodef(const lint& a, const\
+    \ lint& b){return a + b;}\nstatic void RAQRSQ_lazyf(lint& a, const lint& b){a\
+    \ += b;}\nstatic void RAQRSQ_updf(lint& a, const lint& b, const unsigned int&\
+    \ width){a += width * b;}\nclass RAQRSQ :public IntervalSegTree<lint, lint, RAQRSQ_nodef,\
+    \ RAQRSQ_lazyf, RAQRSQ_updf> {\n\tusing Base = IntervalSegTree<lint, lint, RAQRSQ_nodef,\
+    \ RAQRSQ_lazyf, RAQRSQ_updf>;\npublic:\n\ttemplate<class... Args> RAQRSQ(Args...\
+    \ args):Base(args..., 0){}\n};\nstatic lint RAQRMiQ_nodef(const lint& a, const\
+    \ lint& b){return std::min(a, b);}\nstatic void RAQRMiQ_lazyf(lint& a, const lint&\
+    \ b){a += b;}\nstatic void RAQRMiQ_updf(lint& a, const lint& b, const unsigned\
+    \ int& width){a += b;}\nclass RAQRMiQ :public IntervalSegTree<lint, lint, RAQRMiQ_nodef,\
+    \ RAQRMiQ_lazyf, RAQRMiQ_updf> {\n\tusing Base = IntervalSegTree<lint, lint, RAQRMiQ_nodef,\
+    \ RAQRMiQ_lazyf, RAQRMiQ_updf>;\npublic:\n\ttemplate<class... Args> RAQRMiQ(Args...\
+    \ args):Base(args..., LINF){}\n};\nstatic lint RAQRMaQ_nodef(const lint& a, const\
+    \ lint& b){return std::max(a, b);}\nstatic void RAQRMaQ_lazyf(lint& a, const lint&\
+    \ b){a += b;}\nstatic void RAQRMaQ_updf(lint& a, const lint& b, const unsigned\
+    \ int& width){a += b;}\nclass RAQRMaQ :public IntervalSegTree<lint, lint, RAQRMaQ_nodef,\
+    \ RAQRMaQ_lazyf, RAQRMaQ_updf> {\n\tusing Base = IntervalSegTree<lint, lint, RAQRMaQ_nodef,\
+    \ RAQRMaQ_lazyf, RAQRMaQ_updf>;\npublic:\n\ttemplate<class... Args> RAQRMaQ(Args...\
+    \ args):Base(args..., -LINF){}\n};\nstatic lint RUQRSQ_nodef(const lint& a, const\
+    \ lint& b){return a + b;}\nstatic void RUQRSQ_lazyf(lint& a, const lint& b){a\
+    \ = b;}\nstatic void RUQRSQ_updf(lint& a, const lint& b, const unsigned int& width){a\
+    \ = width * b;}\nclass RUQRSQ :public IntervalSegTree<lint, lint, RUQRSQ_nodef,\
+    \ RUQRSQ_lazyf, RUQRSQ_updf> {\n\tusing Base = IntervalSegTree<lint, lint, RUQRSQ_nodef,\
+    \ RUQRSQ_lazyf, RUQRSQ_updf>;\npublic:\n\ttemplate<class... Args> RUQRSQ(Args...\
+    \ args):Base(args..., 0){}\n};\nstatic lint RUQRMiQ_nodef(const lint& a, const\
+    \ lint& b){return std::min(a, b);}\nstatic void RUQRMiQ_lazyf(lint& a, const lint&\
+    \ b){a = b;}\nstatic void RUQRMiQ_updf(lint& a, const lint& b, const unsigned\
+    \ int& width){a = b;}\nclass RUQRMiQ :public IntervalSegTree<lint, lint, RUQRMiQ_nodef,\
+    \ RUQRMiQ_lazyf, RUQRMiQ_updf> {\n\tusing Base = IntervalSegTree<lint, lint, RUQRMiQ_nodef,\
+    \ RUQRMiQ_lazyf, RUQRMiQ_updf>;\npublic:\n\ttemplate<class... Args> RUQRMiQ(Args...\
+    \ args):Base(args..., LINF){}\n};\nstatic lint RUQRMaQ_nodef(const lint& a, const\
+    \ lint& b){return std::max(a, b);}\nstatic void RUQRMaQ_lazyf(lint& a, const lint&\
+    \ b){a = b;}\nstatic void RUQRMaQ_updf(lint& a, const lint& b, const unsigned\
+    \ int& width){a = b;}\nclass RUQRMaQ :public IntervalSegTree<lint, lint, RUQRMaQ_nodef,\
+    \ RUQRMaQ_lazyf, RUQRMaQ_updf> {\n\tusing Base = IntervalSegTree<lint, lint, RUQRMaQ_nodef,\
+    \ RUQRMaQ_lazyf, RUQRMaQ_updf>;\npublic:\n\ttemplate<class... Args> RUQRMaQ(Args...\
+    \ args):Base(args..., -LINF){}\n};\n#line 4 \"test/aoj/DSL_2_F.test.cpp\"\nint\
+    \ n,q;\nint main(){\n\tscanf(\"%d%d\",&n,&q);\n\tRUQRMiQ st(n,INT_MAX);\n\trep(i,q){\n\
     \t\tint t;\n\t\tscanf(\"%d\",&t);\n\t\tif(t==0){\n\t\t\tint s,t,x;\n\t\t\tscanf(\"\
     %d%d%d\",&s,&t,&x);\n\t\t\tst.update(s,t+1,x);\n\t\t}\n\t\telse{\n\t\t\tint s,t;\n\
     \t\t\tscanf(\"%d%d\",&s,&t);\n\t\t\tprintf(\"%d\\n\",st.query(s,t+1));\n\t\t}\n\
@@ -194,7 +178,7 @@ data:
   isVerificationFile: true
   path: test/aoj/DSL_2_F.test.cpp
   requiredBy: []
-  timestamp: '2020-09-12 16:29:29+09:00'
+  timestamp: '2020-11-21 16:06:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/DSL_2_F.test.cpp

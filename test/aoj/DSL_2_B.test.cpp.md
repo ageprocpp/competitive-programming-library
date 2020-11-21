@@ -54,42 +54,38 @@ data:
     \tlint r=(b1+m1*tmp+m1*m2)%(m1*m2);\n\treturn std::make_pair(r,m1*m2);\n}\ntemplate<typename\
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
     \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
-    \ 3 \"data-structure/SegTree.hpp\"\ntemplate<typename T>\nclass SegTree {\nprotected:\n\
-    \tunsigned int n = 1, rank = 0;\n\tstd::vector<T> node;\n\tT nodee;\n\tvirtual\
-    \ T nodef(const T&, const T&)const = 0;\npublic:\n\tSegTree(unsigned int m, T\
-    \ init, T nodee):nodee(nodee) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\
-    \t\t}\n\t\tnode.resize(2 * n, nodee);\n\t\tfor (unsigned int i = n; i < 2 * n;\
-    \ i++)node[i] = init;\n\t}\n\tSegTree(const std::vector<T>& initvec, T nodee):nodee(nodee)\
-    \ {\n\t\tunsigned int m = initvec.size();\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\
-    \t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, nodee);\n\t\tfor (unsigned int i\
-    \ = n; i < 2 * n; i++) {\n\t\t\tif (i - n < m)node[i] = initvec[i - n];\n\t\t\
-    }\n\t}\n\tvirtual void update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\
-    \twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2\
-    \ * i + 1]);\n\t\t}\n\t}\n\tvirtual T query(int l, int r) {\n\t\tl += n; r +=\
-    \ n;\n\t\tT ls = nodee, rs = nodee;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls\
-    \ = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\t\
-    l >>= 1; r >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tvirtual T operator[](const\
+    \ 3 \"data-structure/SegTree.hpp\"\ntemplate<class T, T (*nodef)(const T&, const\
+    \ T&)>\nclass SegTree {\nprotected:\n\tunsigned int n = 1, rank = 0;\n\tstd::vector<T>\
+    \ node;\n\tT ident;\npublic:\n\tSegTree(unsigned int m, T init, T e_):ident(e_)\
+    \ {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2\
+    \ * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++)node[i] = init;\n\t\
+    \tfor (unsigned int i = n - 1; i > 0; i--)node[i] = nodef(node[i << 1], node[i\
+    \ << 1 | 1]);\n\t}\n\tSegTree(const std::vector<T>& initvec, T e_):ident(e_) {\n\
+    \t\tunsigned int m = initvec.size();\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\
+    \trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n;\
+    \ i < 2 * n; i++) {\n\t\t\tif (i - n < m)node[i] = initvec[i - n];\n\t\t}\n\t\t\
+    for (unsigned int i = n - 1; i > 0; i--)node[i] = nodef(node[i << 1], node[i <<\
+    \ 1 | 1]);\n\t}\n\tvirtual void update(int i, T x) {\n\t\ti += n;\n\t\tnode[i]\
+    \ = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i],\
+    \ node[2 * i + 1]);\n\t\t}\n\t}\n\tvirtual T query(int l, int r) {\n\t\tl += n;\
+    \ r += n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1)\
+    \ ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\
+    \tl >>= 1; r >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tvirtual T operator[](const\
     \ int& x) {\n\t\treturn node[n + x];\n\t}\n\tvoid print() {\n\t\trep(i, n)std::cout\
-    \ << operator[](i) << \" \";\n\t\tstd::cout << std::endl;\n\t}\n};\nclass RSQ\
-    \ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return\
-    \ lhs+rhs;}\npublic:\n\tRSQ(int size, const lint& def = 0) :SegTree<lint>(size,\
-    \ def, 0) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
-    \t}\n\tRSQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, 0) {\n\t\t\
-    for(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\t}\n};\nclass\
-    \ RMiQ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return\
-    \ std::min(lhs,rhs);}\npublic:\n\tRMiQ(int size, const lint& def = 0) :SegTree<lint>(size,\
-    \ def, LINF) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
-    \t}\n\tRMiQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, LINF) {\n\
-    \t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\t}\n};\nclass\
-    \ RMaQ :public SegTree<lint> {\n\tlint nodef(const lint& lhs,const lint& rhs)const{return\
-    \ std::max(lhs,rhs);}\npublic:\n\tRMaQ(int size, const lint& def = 0) :SegTree<lint>(size,\
-    \ def, -LINF) {\n\t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\
-    \t}\n\tRMaQ(const std::vector<lint>& initvec) :SegTree<lint>(initvec, -LINF) {\n\
-    \t\tfor(int i=n-1;i>0;i--)node[i]=nodef(node[i<<1],node[i<<1|1]);\n\t}\n};\n#line\
-    \ 4 \"test/aoj/DSL_2_B.test.cpp\"\nint n,q;\nint main(){\n\tscanf(\"%d%d\",&n,&q);\n\
-    \tRSQ st(n,0);\n\trep(i,q){\n\t\tint com,x,y;\n\t\tscanf(\"%d%d%d\",&com,&x,&y);\n\
-    \t\tif(com==0)st.update(x-1,st[x-1]+y);\n\t\telse printf(\"%d\\n\",st.query(x-1,y));\n\
-    \t}\n}\n"
+    \ << operator[](i) << \" \";\n\t\tstd::cout << std::endl;\n\t}\n};\nstatic lint\
+    \ RSQ_nodef(const lint& lhs, const lint& rhs){return lhs + rhs;}\nclass RSQ :public\
+    \ SegTree<lint, RSQ_nodef> {\n\tusing Base = SegTree<lint, RSQ_nodef>;\npublic:\n\
+    \ttemplate<class... Args>\n\tRSQ(Args... args):Base(args..., 0){}\n};\nstatic\
+    \ lint RMiQ_nodef(const lint& lhs, const lint& rhs){return std::min(lhs, rhs);}\n\
+    class RMiQ :public SegTree<lint, RMiQ_nodef> {\n\tusing Base = SegTree<lint, RMiQ_nodef>;\n\
+    public:\n\ttemplate<class... Args>\n\tRMiQ(Args... args):Base(args..., LINF){}\n\
+    };\nstatic lint RMaQ_nodef(const lint& lhs, const lint& rhs){return std::max(lhs,rhs);}\n\
+    class RMaQ :public SegTree<lint, RMaQ_nodef> {\n\tusing Base = SegTree<lint, RMaQ_nodef>;\n\
+    public:\n\ttemplate<class... Args>\n\tRMaQ(Args... args):Base(args..., -LINF){}\n\
+    };\n#line 4 \"test/aoj/DSL_2_B.test.cpp\"\nint n,q;\nint main(){\n\tscanf(\"%d%d\"\
+    ,&n,&q);\n\tRSQ st(n,0);\n\trep(i,q){\n\t\tint com,x,y;\n\t\tscanf(\"%d%d%d\"\
+    ,&com,&x,&y);\n\t\tif(com==0)st.update(x-1,st[x-1]+y);\n\t\telse printf(\"%d\\\
+    n\",st.query(x-1,y));\n\t}\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_B\"\n#include\
     \ \"../../other/template.hpp\"\n#include \"../../data-structure/SegTree.hpp\"\n\
     int n,q;\nint main(){\n\tscanf(\"%d%d\",&n,&q);\n\tRSQ st(n,0);\n\trep(i,q){\n\
@@ -101,7 +97,7 @@ data:
   isVerificationFile: true
   path: test/aoj/DSL_2_B.test.cpp
   requiredBy: []
-  timestamp: '2020-09-12 16:29:29+09:00'
+  timestamp: '2020-11-21 16:06:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/DSL_2_B.test.cpp

@@ -113,9 +113,9 @@ data:
   timestamp: '2020-09-12 16:29:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/vertex_set_path_composite.test.cpp
   - test/yosupo/vertex_add_path_sum.test.cpp
   - test/yosupo/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
   - test/yosupo/lca.test.cpp
 documentation_of: graph/HeavyLightDecomposition.hpp
 layout: document

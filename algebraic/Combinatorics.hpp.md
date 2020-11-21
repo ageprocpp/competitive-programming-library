@@ -87,37 +87,36 @@ data:
     }\n#line 4 \"algebraic/StaticModInt.hpp\"\ntemplate<unsigned int modulo>\nclass\
     \ StaticModInt {\n\tlint value;\npublic:\n\tstatic constexpr unsigned int mod_value\
     \ = modulo;\n\tStaticModInt() : value(0) {}\n\ttemplate<typename T>\n\tStaticModInt(T\
-    \ value = 0) : value(value) {\n\t\tif (value < 0)value = -(lint)(-value % modulo)\
-    \ + modulo;\n\t\tthis->value = value % modulo;\n\t}\n\tinline StaticModInt inv()const{return\
-    \ mypow(*this,modulo-2);}\n\tinline operator int()const { return value; }\n\t\
-    inline StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\
-    \t\tif (value >= modulo)value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt&\
-    \ operator++() {\n\t\tif (value == modulo - 1)value = 0;\n\t\telse value++;\n\t\
-    \treturn *this;\n\t}\n\tinline StaticModInt operator++(int){\n\t\tStaticModInt\
-    \ res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()const\
-    \ {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\tinline StaticModInt& operator-=(const\
-    \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\
-    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
-    \ 0)value = modulo - 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
-    \ operator--(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\
-    \t}\n\tinline StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = value\
-    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const\
-    \ StaticModInt& rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename\
-    \ T> StaticModInt operator+(const T& rhs)const { return StaticModInt(*this) +=\
-    \ rhs; }\n\ttemplate<typename T> StaticModInt& operator+=(const T& rhs) { return\
-    \ operator+=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt operator-(const\
-    \ T& rhs)const { return StaticModInt(*this) -= rhs; }\n\ttemplate<typename T>\
-    \ StaticModInt& operator-=(const T& rhs) { return operator-=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator*(const T& rhs)const { return\
-    \ StaticModInt(*this) *= rhs; }\n\ttemplate<typename T> StaticModInt& operator*=(const\
-    \ T& rhs) { return operator*=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
-    \ operator/(const T& rhs)const { return StaticModInt(*this) /= rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator/=(const T& rhs) { return operator/=(StaticModInt(rhs));\
-    \ }\n};\ntemplate<unsigned int modulo>\nstd::istream& operator>>(std::istream&\
-    \ ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn\
-    \ ist;\n}\n#line 5 \"algebraic/Combinatorics.hpp\"\ntemplate<typename T>\nclass\
-    \ Combinatorics{\nprotected:\n\tstd::vector<T> factorial;\n\tvoid append(int n)noexcept{\n\
-    \t\twhile(factorial.size()<=n){\n\t\t\tfactorial.emplace_back(factorial.back()*factorial.size());\n\
+    \ value = 0) : value(value) {\n\t\tthis -> value = (value < 0 ? -(-value % modulo)\
+    \ + modulo : value) % modulo;\n\t}\n\tinline StaticModInt inv()const{return mypow(*this,modulo-2);}\n\
+    \tinline operator int()const { return value; }\n\tinline StaticModInt& operator+=(const\
+    \ StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo)value -=\
+    \ modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\t\
+    if (value == modulo - 1)value = 0;\n\t\telse value++;\n\t\treturn *this;\n\t}\n\
+    \tinline StaticModInt operator++(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\
+    \t\treturn res;\n\t}\n\tinline StaticModInt operator-()const {\n\t\treturn StaticModInt(0)\
+    \ -= *this;\n\t}\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\
+    \t\tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\t\treturn *this;\n\
+    \t}\n\tinline StaticModInt& operator--() {\n\t\tif (value == 0)value = modulo\
+    \ - 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt operator--(int){\n\
+    \t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt&\
+    \ operator*=(const StaticModInt& x) {\n\t\tvalue = value * x.value % modulo;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const StaticModInt&\
+    \ rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename T> StaticModInt\
+    \ operator+(const T& rhs)const { return StaticModInt(*this) += rhs; }\n\ttemplate<typename\
+    \ T> StaticModInt& operator+=(const T& rhs) { return operator+=(StaticModInt(rhs));\
+    \ }\n\ttemplate<typename T> StaticModInt operator-(const T& rhs)const { return\
+    \ StaticModInt(*this) -= rhs; }\n\ttemplate<typename T> StaticModInt& operator-=(const\
+    \ T& rhs) { return operator-=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
+    \ operator*(const T& rhs)const { return StaticModInt(*this) *= rhs; }\n\ttemplate<typename\
+    \ T> StaticModInt& operator*=(const T& rhs) { return operator*=(StaticModInt(rhs));\
+    \ }\n\ttemplate<typename T> StaticModInt operator/(const T& rhs)const { return\
+    \ StaticModInt(*this) /= rhs; }\n\ttemplate<typename T> StaticModInt& operator/=(const\
+    \ T& rhs) { return operator/=(StaticModInt(rhs)); }\n};\ntemplate<unsigned int\
+    \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
+    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 5 \"algebraic/Combinatorics.hpp\"\
+    \ntemplate<typename T>\nclass Combinatorics{\nprotected:\n\tstd::vector<T> factorial;\n\
+    \tvoid append(int n)noexcept{\n\t\twhile(factorial.size()<=n){\n\t\t\tfactorial.emplace_back(factorial.back()*factorial.size());\n\
     \t\t}\n\t}\npublic:\n\tCombinatorics()noexcept:factorial(1,1){}\n\tCombinatorics(int\
     \ n)noexcept:factorial(1,1){append(n);}\n\tvirtual T getComb(int a,int b)noexcept{\n\
     \t\tappend(a);\n\t\treturn factorial[a]/factorial[a-b]/factorial[b];\n\t}\n\t\
@@ -158,7 +157,7 @@ data:
   isVerificationFile: false
   path: algebraic/Combinatorics.hpp
   requiredBy: []
-  timestamp: '2020-11-14 20:52:06+09:00'
+  timestamp: '2020-11-21 16:06:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/Combinatorics.hpp

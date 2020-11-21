@@ -95,39 +95,38 @@ data:
     }\n#line 4 \"algebraic/StaticModInt.hpp\"\ntemplate<unsigned int modulo>\nclass\
     \ StaticModInt {\n\tlint value;\npublic:\n\tstatic constexpr unsigned int mod_value\
     \ = modulo;\n\tStaticModInt() : value(0) {}\n\ttemplate<typename T>\n\tStaticModInt(T\
-    \ value = 0) : value(value) {\n\t\tif (value < 0)value = -(lint)(-value % modulo)\
-    \ + modulo;\n\t\tthis->value = value % modulo;\n\t}\n\tinline StaticModInt inv()const{return\
-    \ mypow(*this,modulo-2);}\n\tinline operator int()const { return value; }\n\t\
-    inline StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\
-    \t\tif (value >= modulo)value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt&\
-    \ operator++() {\n\t\tif (value == modulo - 1)value = 0;\n\t\telse value++;\n\t\
-    \treturn *this;\n\t}\n\tinline StaticModInt operator++(int){\n\t\tStaticModInt\
-    \ res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()const\
-    \ {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\tinline StaticModInt& operator-=(const\
-    \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\
-    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
-    \ 0)value = modulo - 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
-    \ operator--(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\
-    \t}\n\tinline StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = value\
-    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const\
-    \ StaticModInt& rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename\
-    \ T> StaticModInt operator+(const T& rhs)const { return StaticModInt(*this) +=\
-    \ rhs; }\n\ttemplate<typename T> StaticModInt& operator+=(const T& rhs) { return\
-    \ operator+=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt operator-(const\
-    \ T& rhs)const { return StaticModInt(*this) -= rhs; }\n\ttemplate<typename T>\
-    \ StaticModInt& operator-=(const T& rhs) { return operator-=(StaticModInt(rhs));\
-    \ }\n\ttemplate<typename T> StaticModInt operator*(const T& rhs)const { return\
-    \ StaticModInt(*this) *= rhs; }\n\ttemplate<typename T> StaticModInt& operator*=(const\
-    \ T& rhs) { return operator*=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
-    \ operator/(const T& rhs)const { return StaticModInt(*this) /= rhs; }\n\ttemplate<typename\
-    \ T> StaticModInt& operator/=(const T& rhs) { return operator/=(StaticModInt(rhs));\
-    \ }\n};\ntemplate<unsigned int modulo>\nstd::istream& operator>>(std::istream&\
-    \ ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn\
-    \ ist;\n}\n#line 3 \"data-structure/SWAG.hpp\"\ntemplate<typename T,T (*op)(const\
-    \ T&,const T&)>\nclass SWAG{\n\tstd::stack<std::pair<T,T>> front,back;\npublic:\n\
-    \tSWAG(){}\n\tSWAG(const std::vector<T> vec){\n\t\tfor(const T& i:vec){\n\t\t\t\
-    back.emplace(i,op(back.top().second,i));\n\t\t}\n\t}\n\tvoid push(const T& x){\n\
-    \t\tif(back.empty())back.emplace(x,x);\n\t\telse back.emplace(x,op(back.top().second,x));\n\
+    \ value = 0) : value(value) {\n\t\tthis -> value = (value < 0 ? -(-value % modulo)\
+    \ + modulo : value) % modulo;\n\t}\n\tinline StaticModInt inv()const{return mypow(*this,modulo-2);}\n\
+    \tinline operator int()const { return value; }\n\tinline StaticModInt& operator+=(const\
+    \ StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo)value -=\
+    \ modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\t\
+    if (value == modulo - 1)value = 0;\n\t\telse value++;\n\t\treturn *this;\n\t}\n\
+    \tinline StaticModInt operator++(int){\n\t\tStaticModInt res=*this;\n\t\t--*this;\n\
+    \t\treturn res;\n\t}\n\tinline StaticModInt operator-()const {\n\t\treturn StaticModInt(0)\
+    \ -= *this;\n\t}\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\
+    \t\tvalue -= x.value;\n\t\tif (value < 0)value += modulo;\n\t\treturn *this;\n\
+    \t}\n\tinline StaticModInt& operator--() {\n\t\tif (value == 0)value = modulo\
+    \ - 1;\n\t\telse value--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt operator--(int){\n\
+    \t\tStaticModInt res=*this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt&\
+    \ operator*=(const StaticModInt& x) {\n\t\tvalue = value * x.value % modulo;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const StaticModInt&\
+    \ rhs) {\n\t\treturn *this*=rhs.inv();\n\t}\n\ttemplate<typename T> StaticModInt\
+    \ operator+(const T& rhs)const { return StaticModInt(*this) += rhs; }\n\ttemplate<typename\
+    \ T> StaticModInt& operator+=(const T& rhs) { return operator+=(StaticModInt(rhs));\
+    \ }\n\ttemplate<typename T> StaticModInt operator-(const T& rhs)const { return\
+    \ StaticModInt(*this) -= rhs; }\n\ttemplate<typename T> StaticModInt& operator-=(const\
+    \ T& rhs) { return operator-=(StaticModInt(rhs)); }\n\ttemplate<typename T> StaticModInt\
+    \ operator*(const T& rhs)const { return StaticModInt(*this) *= rhs; }\n\ttemplate<typename\
+    \ T> StaticModInt& operator*=(const T& rhs) { return operator*=(StaticModInt(rhs));\
+    \ }\n\ttemplate<typename T> StaticModInt operator/(const T& rhs)const { return\
+    \ StaticModInt(*this) /= rhs; }\n\ttemplate<typename T> StaticModInt& operator/=(const\
+    \ T& rhs) { return operator/=(StaticModInt(rhs)); }\n};\ntemplate<unsigned int\
+    \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
+    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"data-structure/SWAG.hpp\"\
+    \ntemplate<typename T,T (*op)(const T&,const T&)>\nclass SWAG{\n\tstd::stack<std::pair<T,T>>\
+    \ front,back;\npublic:\n\tSWAG(){}\n\tSWAG(const std::vector<T> vec){\n\t\tfor(const\
+    \ T& i:vec){\n\t\t\tback.emplace(i,op(back.top().second,i));\n\t\t}\n\t}\n\tvoid\
+    \ push(const T& x){\n\t\tif(back.empty())back.emplace(x,x);\n\t\telse back.emplace(x,op(back.top().second,x));\n\
     \t}\n\tvoid pop(){\n\t\tif(!front.empty())front.pop();\n\t\telse{\n\t\t\tauto\
     \ btop=back.top();\n\t\t\tfront.emplace(btop.first,btop.first);\n\t\t\tback.pop();\n\
     \t\t\twhile(!back.empty()){\n\t\t\t\tbtop=back.top();\n\t\t\t\tfront.emplace(btop.first,op(btop.first,front.top().second));\n\
@@ -163,7 +162,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/queue_operate_all_composite.test.cpp
   requiredBy: []
-  timestamp: '2020-11-05 18:33:13+09:00'
+  timestamp: '2020-11-21 16:06:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/queue_operate_all_composite.test.cpp
