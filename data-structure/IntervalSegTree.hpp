@@ -7,7 +7,6 @@ template<typename T, typename U,
 	void (*updf)(T&, const U&, const unsigned int&)>
 class IntervalSegTree :public SegTree<T, nodef> {
 	using Base = SegTree<T, nodef>;
-protected:
 	using Base::n;
 	using Base::rank;
 	using Base::node;
@@ -31,6 +30,13 @@ protected:
 		}
 	}
 public:
+	IntervalSegTree(unsigned int m, T e_) :Base(m, T(), e_) {
+		lazy.resize(2 * n); lazyflag.resize(2 * n); width.resize(2 * n);
+		width[1] = n;
+		for (unsigned int i = 2; i < 2 * n; i++) {
+			width[i] = width[i >> 1] >> 1;
+		}
+	}
 	IntervalSegTree(unsigned int m, T init, T e_) :Base(m, init, e_) {
 		lazy.resize(2 * n); lazyflag.resize(2 * n); width.resize(2 * n);
 		width[1] = n;
@@ -104,7 +110,7 @@ public:
 	}
 private:
 	template<typename F>
-	int max_right(int st, F &check, T &acc, int k, int l, int r)const{
+	int max_right(int st, F &check, T &acc, int k, int l, int r){
 		eval(k);
 		if(l + 1 == r){
 			acc = nodef(acc, node[k]);
@@ -122,12 +128,12 @@ private:
 	}
 public:
 	template<typename F>
-	int max_right(int st, F check)const{
+	int max_right(int st, F check){
 		T acc = ident;
 		return max_right(st, check, acc, 1, 0, n);
 	}
 	template<bool (*check)(const T&)>
-	int max_right(int st)const{
+	int max_right(int st){
 		T acc = ident;
 		return max_right(st, check, acc, 1, 0, n);
 	}

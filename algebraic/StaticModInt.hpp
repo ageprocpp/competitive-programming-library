@@ -1,11 +1,11 @@
 #pragma once
 #include "../other/template.hpp"
 #include "DynamicModInt.hpp"
-template<unsigned int modulo>
+template<uint modulo>
 class StaticModInt {
 	lint value;
 public:
-	static constexpr unsigned int mod_value = modulo;
+	static constexpr uint mod_value = modulo;
 	StaticModInt() : value(0) {}
 	template<typename T>
 	StaticModInt(T value = 0) : value(value) {
@@ -25,7 +25,7 @@ public:
 	}
 	inline StaticModInt operator++(int){
 		StaticModInt res=*this;
-		--*this;
+		++*this;
 		return res;
 	}
 	inline StaticModInt operator-()const {
@@ -62,7 +62,7 @@ public:
 	template<typename T> StaticModInt operator/(const T& rhs)const { return StaticModInt(*this) /= rhs; }
 	template<typename T> StaticModInt& operator/=(const T& rhs) { return operator/=(StaticModInt(rhs)); }
 };
-template<unsigned int modulo>
+template<uint modulo>
 std::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x) {
 	lint a;
 	ist >> a;

@@ -29,7 +29,7 @@ public:
 		}
 		for (unsigned int i = n - 1; i > 0; i--)node[i] = nodef(node[i << 1], node[i << 1 | 1]);
 	}
-	virtual void update(int i, T x) {
+	void update(int i, T x) {
 		i += n;
 		node[i] = x;
 		while (i != 1) {
@@ -37,7 +37,7 @@ public:
 			node[i] = nodef(node[2 * i], node[2 * i + 1]);
 		}
 	}
-	virtual T query(int l, int r)const{
+	T query(int l, int r)const{
 		l += n; r += n;
 		T ls = ident, rs = ident;
 		while (l < r) {
@@ -47,7 +47,7 @@ public:
 		}
 		return nodef(ls, rs);
 	}
-	virtual T operator[](const int& x)const{
+	T operator[](const int& x)const{
 		return node[n + x];
 	}
 	T queryForAll()const{
