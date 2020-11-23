@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/SegTreeBeats.hpp
     title: data-structure/SegTreeBeats.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -31,42 +31,47 @@ data:
     \ unsigned int uint;\ntypedef long long lint;\ntypedef unsigned long long ulint;\n\
     typedef std::pair<int, int> P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int\
     \ INF = INT_MAX/2;\nconstexpr lint LINF = LLONG_MAX/2;\nconstexpr double eps =\
-    \ DBL_EPSILON;\nconstexpr double PI=3.141592653589793238462643383279;\ntemplate<class\
-    \ T>\nclass prique :public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\ntemplate\
+    \ <class T>\nclass prique :public std::priority_queue<T, std::vector<T>, std::greater<T>>\
     \ {};\ntemplate <class T, class U>\ninline bool chmax(T& lhs, const U& rhs) {\n\
-    \tif (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn 1;\n\t}\n\treturn 0;\n}\ntemplate\
-    \ <class T, class U>\ninline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs > rhs)\
-    \ {\n\t\tlhs = rhs;\n\t\treturn 1;\n\t}\n\treturn 0;\n}\ninline lint gcd(lint\
-    \ a, lint b) {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b; b = c % b;\n\t}\n\t\
-    return a;\n}\ninline lint lcm(lint a, lint b) {\n\treturn a / gcd(a, b) * b;\n\
-    }\nbool isprime(lint n) {\n\tif (n == 1)return false;\n\tfor (int i = 2; i * i\
-    \ <= n; i++) {\n\t\tif (n % i == 0)return false;\n\t}\n\treturn true;\n}\ntemplate<typename\
-    \ T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile(b){\n\t\tif(b&1)res*=a;\n\t\
-    \ta*=a;\n\t\tb>>=1;\n\t}\n\treturn res;\n}\nlint modpow(lint a, lint b, lint m)\
-    \ {\n\tlint res(1);\n\twhile(b){\n\t\tif(b&1){\n\t\t\tres*=a;res%=m;\n\t\t}\n\t\
-    \ta*=a;a%=m;\n\t\tb>>=1;\n\t}\n\treturn res;\n}\ntemplate<typename T>\nvoid printArray(std::vector<T>&\
-    \ vec) {\n\trep(i, vec.size()){\n\t\tstd::cout << vec[i];\n\t\tstd::cout<<(i==(int)vec.size()-1?\"\
-    \\n\":\" \");\n\t}\n}\ntemplate<typename T>\nvoid printArray(T l, T r) {\n\tT\
-    \ rprev = std::prev(r);\n\tfor (T i = l; i != rprev; i++) {\n\t\tstd::cout <<\
-    \ *i << \" \";\n\t}\n\tstd::cout << *rprev << std::endl;\n}\nLP extGcd(lint a,lint\
-    \ b) {\n\tif(b==0)return {1,0};\n\tLP s=extGcd(b,a%b);\n\tstd::swap(s.first,s.second);\n\
-    \ts.second-=a/b*s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1,const lint&\
-    \ m1,const lint& b2,const lint& m2) {\n\tlint p=extGcd(m1,m2).first;\n\tlint tmp=(b2-b1)*p%m2;\n\
-    \tlint r=(b1+m1*tmp+m1*m2)%(m1*m2);\n\treturn std::make_pair(r,m1*m2);\n}\ntemplate<typename\
-    \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f){\n\treturn [f=std::forward<F>(f)](auto&&...\
-    \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\n#line\
-    \ 3 \"data-structure/SegTreeBeats.hpp\"\nclass SegTreeBeats{\n    unsigned int\
-    \ n;\n    std::vector<lint> width,min[2],minc,max[2],maxc,sum,lazy;\n    void\
-    \ eval(int k){\n        if(n-1<=k)return;\n        if(lazy[k]){\n            update_node_add(2*k+1,lazy[k]);\n\
-    \            update_node_add(2*k+2,lazy[k]);\n            lazy[k]=0;\n       \
-    \ }\n        if(max[0][k]<max[0][2*k+1]){\n            update_node_max(2*k+1,max[0][k]);\n\
-    \        }\n        if(min[0][k]>min[0][2*k+1]){\n            update_node_min(2*k+1,min[0][k]);\n\
-    \        }\n        if(max[0][k]<max[0][2*k+2]){\n            update_node_max(2*k+2,max[0][k]);\n\
-    \        }\n        if(min[0][k]>min[0][2*k+2]){\n            update_node_min(2*k+2,min[0][k]);\n\
-    \        }\n    }\n    void combine(int k){\n        sum[k]=sum[2*k+1]+sum[2*k+2];\n\
-    \        if(min[0][2*k+1]<min[0][2*k+2]){\n            min[0][k]=min[0][2*k+1];\n\
-    \            minc[k]=minc[2*k+1];\n            min[1][k]=std::min(min[1][2*k+1],min[0][2*k+2]);\n\
-    \        }\n        else if(min[0][2*k+1]>min[0][2*k+2]){\n            min[0][k]=min[0][2*k+2];\n\
+    \tif (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\n\
+    template <class T, class U>\ninline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs\
+    \ > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ninline\
+    \ lint gcd(lint a, lint b) {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b; b = c\
+    \ % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) {\n\treturn a / gcd(a,\
+    \ b) * b;\n}\nbool isprime(lint n) {\n\tif (n == 1)return false;\n\tfor (int i\
+    \ = 2; i * i <= n; i++) {\n\t\tif (n % i == 0)return false;\n\t}\n\treturn true;\n\
+    }\ntemplate<typename T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile(b){\n\t\t\
+    if(b & 1)res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\nlint modpow(lint\
+    \ a, lint b, lint m) {\n\tlint res(1);\n\twhile(b){\n\t\tif(b & 1){\n\t\t\tres\
+    \ *= a;res %= m;\n\t\t}\n\t\ta *= a;a %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n\
+    }\ntemplate<typename T>\nvoid printArray(std::vector<T> &vec) {\n\trep(i, vec.size()){\n\
+    \t\tstd::cout << vec[i];\n\t\tstd::cout << (i == (int)vec.size() - 1 ? \"\\n\"\
+    \ : \" \");\n\t}\n}\ntemplate<typename T>\nvoid printArray(T l, T r) {\n\tT rprev\
+    \ = std::prev(r);\n\tfor (T i = l; i != rprev; i++) {\n\t\tstd::cout << *i;\n\t\
+    \tstd::cout << (i == std::prev(rprev) ? \"\\n\" : \" \");\n\t}\n}\nLP extGcd(lint\
+    \ a, lint b) {\n\tif(b == 0)return {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first,\
+    \ s.second);\n\ts.second -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const\
+    \ lint& b1, const lint& m1, const lint& b2, const lint& m2) {\n\tlint p = extGcd(m1,m2).first;\n\
+    \tlint tmp = (b2 - b1) * p % m2;\n\tlint r = (b1 + m1 * tmp + m1 * m2) % (m1 *\
+    \ m2);\n\treturn std::make_pair(r, m1*m2);\n}\ntemplate<typename F>\ninline constexpr\
+    \ decltype(auto) lambda_fix(F&& f){\n\treturn [f = std::forward<F>(f)](auto&&...\
+    \ args){\n\t\treturn f(f,std::forward<decltype(args)>(args)...);\n\t};\n}\ntemplate<typename\
+    \ T>\nstd::vector<T> make_vec(size_t n){\n\treturn std::vector<T>(n);\n}\ntemplate<typename\
+    \ T, class... Args>\nauto make_vec(size_t n, Args&&... args){\n\treturn std::vector<decltype(make_vec<T>(args...))>(n,\
+    \ make_vec<T>(std::forward<Args>(args)...));\n}\n#line 3 \"data-structure/SegTreeBeats.hpp\"\
+    \nclass SegTreeBeats{\n    unsigned int n;\n    std::vector<lint> width,min[2],minc,max[2],maxc,sum,lazy;\n\
+    \    void eval(int k){\n        if(n-1<=k)return;\n        if(lazy[k]){\n    \
+    \        update_node_add(2*k+1,lazy[k]);\n            update_node_add(2*k+2,lazy[k]);\n\
+    \            lazy[k]=0;\n        }\n        if(max[0][k]<max[0][2*k+1]){\n   \
+    \         update_node_max(2*k+1,max[0][k]);\n        }\n        if(min[0][k]>min[0][2*k+1]){\n\
+    \            update_node_min(2*k+1,min[0][k]);\n        }\n        if(max[0][k]<max[0][2*k+2]){\n\
+    \            update_node_max(2*k+2,max[0][k]);\n        }\n        if(min[0][k]>min[0][2*k+2]){\n\
+    \            update_node_min(2*k+2,min[0][k]);\n        }\n    }\n    void combine(int\
+    \ k){\n        sum[k]=sum[2*k+1]+sum[2*k+2];\n        if(min[0][2*k+1]<min[0][2*k+2]){\n\
+    \            min[0][k]=min[0][2*k+1];\n            minc[k]=minc[2*k+1];\n    \
+    \        min[1][k]=std::min(min[1][2*k+1],min[0][2*k+2]);\n        }\n       \
+    \ else if(min[0][2*k+1]>min[0][2*k+2]){\n            min[0][k]=min[0][2*k+2];\n\
     \            minc[k]=minc[2*k+2];\n            min[1][k]=std::min(min[0][2*k+1],min[1][2*k+2]);\n\
     \        }\n        else{\n            min[0][k]=min[0][2*k+1];\n            minc[k]=minc[2*k+1]+minc[2*k+2];\n\
     \            min[1][k]=std::min(min[1][2*k+1],min[1][2*k+2]);\n        }\n   \
@@ -144,7 +149,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2020-09-12 16:29:29+09:00'
+  timestamp: '2020-11-24 01:15:40+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
