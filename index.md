@@ -38,7 +38,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/IntervalSegTree.hpp
       title: data-structure/IntervalSegTree.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: data-structure/LiChaoTree.hpp
       title: data-structure/LiChaoTree.hpp
     - icon: ':warning:'
@@ -85,7 +85,7 @@ data:
     - icon: ':warning:'
       path: graph/PersistentUnionFind.hpp
       title: graph/PersistentUnionFind.hpp
-    - icon: ':question:'
+    - icon: ':x:'
       path: graph/StronglyConnectedComponents.hpp
       title: graph/StronglyConnectedComponents.hpp
     - icon: ':x:'
@@ -113,7 +113,7 @@ data:
     - icon: ':question:'
       path: string/SuffixArray.hpp
       title: string/SuffixArray.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: string/Trie.hpp
       title: string/Trie.hpp
   verificationCategories:
@@ -193,13 +193,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/range_kth_smallest.test.cpp
       title: test/yosupo/range_kth_smallest.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/scc.test.cpp
       title: test/yosupo/scc.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/segment_add_get_min.test.cpp
       title: test/yosupo/segment_add_get_min.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/set_xor_min.test.cpp
       title: test/yosupo/set_xor_min.test.cpp
     - icon: ':x:'
