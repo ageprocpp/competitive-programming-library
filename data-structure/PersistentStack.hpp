@@ -1,27 +1,28 @@
 #pragma once
 #include "../other/template.hpp"
-template<typename T>
-class PersistentStack{
+template <typename T>
+class PersistentStack {
 	class Node;
-	using ptr=std::shared_ptr<Node>;
-	class Node{
-	public:
+	using ptr = std::shared_ptr<Node>;
+	class Node {
+	  public:
 		T value;
 		ptr prev;
 	};
-	ptr last=nullptr;
-	PersistentStack(const ptr& p):last(p){}
-public:
-	explicit PersistentStack()noexcept{}
-	PersistentStack push(T x)const noexcept{
+	ptr last = nullptr;
+	PersistentStack(const ptr& p) : last(p) {}
+
+  public:
+	explicit PersistentStack() noexcept {}
+	PersistentStack push(T x) const noexcept {
 		ptr p(new Node);
-		*p=Node{x,last};
+		*p = Node{x, last};
 		return PersistentStack(p);
 	}
-	T top()const noexcept{return last->value;}
-	PersistentStack pop()const noexcept{
-		return PersistentStack(last->prev);
+	T top() const noexcept { return last->value; }
+	PersistentStack pop() const noexcept { return PersistentStack(last->prev); }
+	bool empty() const noexcept { return !last.get(); }
+	bool operator<(const PersistentStack<T>& ps) const noexcept {
+		return false;
 	}
-	bool empty()const noexcept{return !last.get();}
-	bool operator<(const PersistentStack<T>& ps)const noexcept{return false;}
 };

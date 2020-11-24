@@ -3,6 +3,8 @@
 #pragma target("avx2")
 #pragma optimize("O3")
 #pragma optimize("unroll-loops")
+#include <string.h>
+
 #include <algorithm>
 #include <bitset>
 #include <cassert>
@@ -25,25 +27,25 @@
 #include <set>
 #include <stack>
 #include <string>
-#include <string.h>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
 #include <vector>
-#define rep(i,n) for(int i=0;i<(n);i++)
-#define REP(i,n) for(int i=1;i<=(n);i++)
-#define all(V) V.begin(),V.end()
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define REP(i, n) for (int i = 1; i <= (n); i++)
+#define all(V) V.begin(), V.end()
 typedef unsigned int uint;
 typedef long long lint;
 typedef unsigned long long ulint;
 typedef std::pair<int, int> P;
 typedef std::pair<lint, lint> LP;
-constexpr int INF = INT_MAX/2;
-constexpr lint LINF = LLONG_MAX/2;
+constexpr int INF = INT_MAX / 2;
+constexpr lint LINF = LLONG_MAX / 2;
 constexpr double eps = DBL_EPSILON;
 constexpr double PI = 3.141592653589793238462643383279;
 template <class T>
-class prique :public std::priority_queue<T, std::vector<T>, std::greater<T>> {};
+class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>> {
+};
 template <class T, class U>
 inline bool chmax(T& lhs, const U& rhs) {
 	if (lhs < rhs) {
@@ -63,25 +65,24 @@ inline bool chmin(T& lhs, const U& rhs) {
 inline lint gcd(lint a, lint b) {
 	while (b) {
 		lint c = a;
-		a = b; b = c % b;
+		a = b;
+		b = c % b;
 	}
 	return a;
 }
-inline lint lcm(lint a, lint b) {
-	return a / gcd(a, b) * b;
-}
+inline lint lcm(lint a, lint b) { return a / gcd(a, b) * b; }
 bool isprime(lint n) {
-	if (n == 1)return false;
+	if (n == 1) return false;
 	for (int i = 2; i * i <= n; i++) {
-		if (n % i == 0)return false;
+		if (n % i == 0) return false;
 	}
 	return true;
 }
-template<typename T>
+template <typename T>
 T mypow(T a, lint b) {
 	T res(1);
-	while(b){
-		if(b & 1)res *= a;
+	while (b) {
+		if (b & 1) res *= a;
 		a *= a;
 		b >>= 1;
 	}
@@ -89,23 +90,25 @@ T mypow(T a, lint b) {
 }
 lint modpow(lint a, lint b, lint m) {
 	lint res(1);
-	while(b){
-		if(b & 1){
-			res *= a;res %= m;
+	while (b) {
+		if (b & 1) {
+			res *= a;
+			res %= m;
 		}
-		a *= a;a %= m;
+		a *= a;
+		a %= m;
 		b >>= 1;
 	}
 	return res;
 }
-template<typename T>
-void printArray(std::vector<T> &vec) {
-	rep(i, vec.size()){
+template <typename T>
+void printArray(std::vector<T>& vec) {
+	rep(i, vec.size()) {
 		std::cout << vec[i];
 		std::cout << (i == (int)vec.size() - 1 ? "\n" : " ");
 	}
 }
-template<typename T>
+template <typename T>
 void printArray(T l, T r) {
 	T rprev = std::prev(r);
 	for (T i = l; i != rprev; i++) {
@@ -114,29 +117,30 @@ void printArray(T l, T r) {
 	}
 }
 LP extGcd(lint a, lint b) {
-	if(b == 0)return {1, 0};
+	if (b == 0) return {1, 0};
 	LP s = extGcd(b, a % b);
 	std::swap(s.first, s.second);
 	s.second -= a / b * s.first;
 	return s;
 }
 LP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const lint& m2) {
-	lint p = extGcd(m1,m2).first;
+	lint p = extGcd(m1, m2).first;
 	lint tmp = (b2 - b1) * p % m2;
 	lint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);
-	return std::make_pair(r, m1*m2);
+	return std::make_pair(r, m1 * m2);
 }
-template<typename F>
-inline constexpr decltype(auto) lambda_fix(F&& f){
-	return [f = std::forward<F>(f)](auto&&... args){
-		return f(f,std::forward<decltype(args)>(args)...);
+template <typename F>
+inline constexpr decltype(auto) lambda_fix(F&& f) {
+	return [f = std::forward<F>(f)](auto&&... args) {
+		return f(f, std::forward<decltype(args)>(args)...);
 	};
 }
-template<typename T>
-std::vector<T> make_vec(size_t n){
+template <typename T>
+std::vector<T> make_vec(size_t n) {
 	return std::vector<T>(n);
 }
-template<typename T, class... Args>
-auto make_vec(size_t n, Args&&... args){
-	return std::vector<decltype(make_vec<T>(args...))>(n, make_vec<T>(std::forward<Args>(args)...));
+template <typename T, class... Args>
+auto make_vec(size_t n, Args&&... args) {
+	return std::vector<decltype(make_vec<T>(args...))>(
+		n, make_vec<T>(std::forward<Args>(args)...));
 }
