@@ -1,10 +1,10 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B"
-#include "../../graph/MinCostFlow.hpp"
+#include "../../graph/PrimalDual.hpp"
 #include "../../other/template.hpp"
 int n, m, f;
 int main() {
 	scanf("%d%d%d", &n, &m, &f);
-	MinCostFlow mcf(n, 0, n - 1);
+	PrimalDual mcf(n, 0, n - 1);
 	rep(i, m) {
 		int u, v, c, d;
 		scanf("%d%d%d%d", &u, &v, &c, &d);

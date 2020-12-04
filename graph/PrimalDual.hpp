@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-class MinCostFlow {
+class PrimalDual {
 	class edge {
 	  public:
 		int to, cap;
@@ -41,7 +41,7 @@ class MinCostFlow {
 	}
 
   public:
-	MinCostFlow(int n, int s, int t) : n(n), s(s), t(t) {
+	PrimalDual(int n, int s, int t) : n(n), s(s), t(t) {
 		vec.resize(n);
 		h.resize(n);
 		dist.resize(n);
