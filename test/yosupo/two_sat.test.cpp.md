@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: graph/StronglyConnectedComponents.hpp
     title: graph/StronglyConnectedComponents.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: graph/TwoSat.hpp
     title: graph/TwoSat.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/two_sat
@@ -111,7 +111,7 @@ data:
   path: test/yosupo/two_sat.test.cpp
   requiredBy: []
   timestamp: '2020-11-24 22:27:37+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/two_sat.test.cpp
 layout: document

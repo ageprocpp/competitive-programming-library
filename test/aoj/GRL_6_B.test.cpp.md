@@ -2,9 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: graph/MinCostFlow.hpp
-    title: graph/MinCostFlow.hpp
-  - icon: ':question:'
+    path: graph/PrimalDual.hpp
+    title: graph/PrimalDual.hpp
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -61,20 +61,20 @@ data:
     template <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <typename T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
-    }\n#line 3 \"graph/MinCostFlow.hpp\"\nclass MinCostFlow {\n\tclass edge {\n\t\
-    \  public:\n\t\tint to, cap;\n\t\tlint cost;\n\t\tint rev, id;\n\t};\n\tint n,\
-    \ idx = 0, s, t;\n\tlint curres = 0;\n\tstd::vector<std::vector<edge>> vec;\n\t\
-    std::vector<int> prevv, preve;\n\tstd::vector<lint> h, dist;\n\tbool negative\
-    \ = false;\n\tlint BellmanFord() {\n\t\tdist.assign(n, LINF);\n\t\tdist[s] = 0;\n\
-    \t\trep(i, n - 1) {\n\t\t\trep(j, n) {\n\t\t\t\trep(k, vec[j].size()) {\n\t\t\t\
-    \t\tconst edge& e = vec[j][k];\n\t\t\t\t\tif (e.cap > 0 &&\n\t\t\t\t\t\tchmin(dist[e.to],\
-    \ dist[j] + e.cost + h[j] - h[e.to])) {\n\t\t\t\t\t\tprevv[e.to] = j;\n\t\t\t\t\
-    \t\tpreve[e.to] = k;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif (dist[t]\
-    \ == LINF) {\n\t\t\tstd::cerr << \"The demand is over maximum flow.\" << std::endl;\n\
-    \t\t\treturn -1;\n\t\t}\n\t\trep(i, n) h[i] += dist[i];\n\t\tfor (int i = t; i\
-    \ != s; i = prevv[i]) {\n\t\t\tvec[prevv[i]][preve[i]].cap--;\n\t\t\tvec[i][vec[prevv[i]][preve[i]].rev].cap++;\n\
-    \t\t}\n\t\treturn h[t];\n\t}\n\n  public:\n\tMinCostFlow(int n, int s, int t)\
-    \ : n(n), s(s), t(t) {\n\t\tvec.resize(n);\n\t\th.resize(n);\n\t\tdist.resize(n);\n\
+    }\n#line 3 \"graph/PrimalDual.hpp\"\nclass PrimalDual {\n\tclass edge {\n\t  public:\n\
+    \t\tint to, cap;\n\t\tlint cost;\n\t\tint rev, id;\n\t};\n\tint n, idx = 0, s,\
+    \ t;\n\tlint curres = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int>\
+    \ prevv, preve;\n\tstd::vector<lint> h, dist;\n\tbool negative = false;\n\tlint\
+    \ BellmanFord() {\n\t\tdist.assign(n, LINF);\n\t\tdist[s] = 0;\n\t\trep(i, n -\
+    \ 1) {\n\t\t\trep(j, n) {\n\t\t\t\trep(k, vec[j].size()) {\n\t\t\t\t\tconst edge&\
+    \ e = vec[j][k];\n\t\t\t\t\tif (e.cap > 0 &&\n\t\t\t\t\t\tchmin(dist[e.to], dist[j]\
+    \ + e.cost + h[j] - h[e.to])) {\n\t\t\t\t\t\tprevv[e.to] = j;\n\t\t\t\t\t\tpreve[e.to]\
+    \ = k;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif (dist[t] == LINF) {\n\t\
+    \t\tstd::cerr << \"The demand is over maximum flow.\" << std::endl;\n\t\t\treturn\
+    \ -1;\n\t\t}\n\t\trep(i, n) h[i] += dist[i];\n\t\tfor (int i = t; i != s; i =\
+    \ prevv[i]) {\n\t\t\tvec[prevv[i]][preve[i]].cap--;\n\t\t\tvec[i][vec[prevv[i]][preve[i]].rev].cap++;\n\
+    \t\t}\n\t\treturn h[t];\n\t}\n\n  public:\n\tPrimalDual(int n, int s, int t) :\
+    \ n(n), s(s), t(t) {\n\t\tvec.resize(n);\n\t\th.resize(n);\n\t\tdist.resize(n);\n\
     \t\tprevv.resize(n);\n\t\tpreve.resize(n);\n\t}\n\tvoid add_edge(int from, int\
     \ to, int cap, lint cost) {\n\t\tif (cost < 0) negative = true;\n\t\tvec[from].push_back({to,\
     \ cap, cost, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, -cost,\
@@ -100,23 +100,23 @@ data:
     \treturn res;\n\t}\n\tvoid reset() {\n\t\trep(i, n) {\n\t\t\tfor (auto& j : vec[i])\
     \ {\n\t\t\t\tif (j.id != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\
     \t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n};\n#line 4 \"test/aoj/GRL_6_B.test.cpp\"\
-    \nint n, m, f;\nint main() {\n\tscanf(\"%d%d%d\", &n, &m, &f);\n\tMinCostFlow\
-    \ mcf(n, 0, n - 1);\n\trep(i, m) {\n\t\tint u, v, c, d;\n\t\tscanf(\"%d%d%d%d\"\
-    , &u, &v, &c, &d);\n\t\tmcf.add_edge(u, v, c, d);\n\t}\n\tprintf(\"%d\\n\", mcf.add_flow(f));\n\
-    }\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B\"\n#include\
-    \ \"../../graph/MinCostFlow.hpp\"\n#include \"../../other/template.hpp\"\nint\
-    \ n, m, f;\nint main() {\n\tscanf(\"%d%d%d\", &n, &m, &f);\n\tMinCostFlow mcf(n,\
+    \nint n, m, f;\nint main() {\n\tscanf(\"%d%d%d\", &n, &m, &f);\n\tPrimalDual mcf(n,\
     \ 0, n - 1);\n\trep(i, m) {\n\t\tint u, v, c, d;\n\t\tscanf(\"%d%d%d%d\", &u,\
     \ &v, &c, &d);\n\t\tmcf.add_edge(u, v, c, d);\n\t}\n\tprintf(\"%d\\n\", mcf.add_flow(f));\n\
+    }\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B\"\n#include\
+    \ \"../../graph/PrimalDual.hpp\"\n#include \"../../other/template.hpp\"\nint n,\
+    \ m, f;\nint main() {\n\tscanf(\"%d%d%d\", &n, &m, &f);\n\tPrimalDual mcf(n, 0,\
+    \ n - 1);\n\trep(i, m) {\n\t\tint u, v, c, d;\n\t\tscanf(\"%d%d%d%d\", &u, &v,\
+    \ &c, &d);\n\t\tmcf.add_edge(u, v, c, d);\n\t}\n\tprintf(\"%d\\n\", mcf.add_flow(f));\n\
     }"
   dependsOn:
-  - graph/MinCostFlow.hpp
+  - graph/PrimalDual.hpp
   - other/template.hpp
   isVerificationFile: true
   path: test/aoj/GRL_6_B.test.cpp
   requiredBy: []
-  timestamp: '2020-11-24 22:27:37+09:00'
+  timestamp: '2020-12-04 16:48:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/GRL_6_B.test.cpp
