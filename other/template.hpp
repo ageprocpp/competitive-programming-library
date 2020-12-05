@@ -70,7 +70,9 @@ inline lint gcd(lint a, lint b) {
 	}
 	return a;
 }
-inline lint lcm(lint a, lint b) { return a / gcd(a, b) * b; }
+inline lint lcm(lint a, lint b) {
+	return a / gcd(a, b) * b;
+}
 bool isprime(lint n) {
 	if (n == 1) return false;
 	for (int i = 2; i * i <= n; i++) {
@@ -111,9 +113,9 @@ void printArray(std::vector<T>& vec) {
 template <typename T>
 void printArray(T l, T r) {
 	T rprev = std::prev(r);
-	for (T i = l; i != rprev; i++) {
+	for (T i = l; i != r; i++) {
 		std::cout << *i;
-		std::cout << (i == std::prev(rprev) ? "\n" : " ");
+		std::cout << (i == rprev ? "\n" : " ");
 	}
 }
 LP extGcd(lint a, lint b) {
