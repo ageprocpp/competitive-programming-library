@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -9,17 +9,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/lca.test.cpp
     title: test/yosupo/lca.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_add_path_sum.test.cpp
     title: test/yosupo/vertex_add_path_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_add_subtree_sum.test.cpp
     title: test/yosupo/vertex_add_subtree_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_set_path_composite.test.cpp
     title: test/yosupo/vertex_set_path_composite.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -126,7 +126,7 @@ data:
   path: graph/HeavyLightDecomposition.hpp
   requiredBy: []
   timestamp: '2020-12-08 15:45:19+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/vertex_add_path_sum.test.cpp
   - test/yosupo/vertex_add_subtree_sum.test.cpp

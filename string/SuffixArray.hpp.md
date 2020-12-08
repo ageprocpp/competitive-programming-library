@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -9,11 +9,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
     title: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/suffixarray.test.cpp
     title: test/yosupo/suffixarray.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -181,7 +181,7 @@ data:
   path: string/SuffixArray.hpp
   requiredBy: []
   timestamp: '2020-12-08 15:45:19+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
   - test/yosupo/suffixarray.test.cpp

@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: algebraic/DynamicModInt.hpp
     title: algebraic/DynamicModInt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
     title: algebraic/StaticModInt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
     title: string/RollingHash.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B
@@ -135,36 +135,35 @@ data:
     \ {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint modulo>\n\
     std::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint\
     \ a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"string/RollingHash.hpp\"\
-    \ntemplate <unsigned int mod>\nclass RollingHash {\n\tusing M = StaticModInt<mod>;\n\
-    \tstd::string s;\n\tint n, base;\n\tstd::vector<M> has, power;\n\n  public:\n\t\
-    RollingHash(const std::string& s, int b) {\n\t\tinit(s, b);\n\t}\n\tvoid init(const\
-    \ std::string& s, int b) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\t\tpower.resize(n);\n\
-    \t\tbase = b;\n\t\tthis->s = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\t\t\t\
-    if (i) {\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1]\
-    \ * base;\n\t\t\t} else\n\t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M() const\
-    \ {\n\t\treturn has.back();\n\t}\n\toperator int() const {\n\t\treturn has.back();\n\
-    \t}\n\tM query(int a, int b) const {\n\t\treturn has[b - 1] - power[b - a] * (!a\
-    \ ? M(0) : has[a - 1]);\n\t}\n\tM operator+(const std::string& t) const {\n\t\t\
-    RollingHash tmp(t, base);\n\t\tif (n == 0)\n\t\t\treturn tmp;\n\t\telse\n\t\t\t\
-    return has.back() * mypow(M(base), t.size()) + tmp;\n\t}\n\tRollingHash& operator+=(const\
-    \ std::string& t) {\n\t\tif (n == 0) {\n\t\t\t*this = RollingHash(t, base);\n\t\
-    \t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n + t.size());\n\t\t\tpower.resize(n\
-    \ + t.size());\n\t\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\t\t\thas[i]\
-    \ = t[i - n];\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
-    \ - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n\
-    };\n#line 4 \"test/aoj/ALDS1_14_B_RollingHash.test.cpp\"\nstd::string t, p;\n\
-    int main() {\n\tDynamicModInt::setMod(1000000007);\n\tstd::cin >> t >> p;\n\t\
-    if (t.size() < p.size()) return 0;\n\tRollingHash rt1(t, 1007), rt2(t, 10007),\
-    \ rp1(p, 1007), rp2(p, 10007);\n\trep(i, t.size() - p.size() + 1) {\n\t\tif (rt1.query(i,\
+    \ntemplate <unsigned int mod, unsigned int base>\nclass RollingHash {\n\tusing\
+    \ M = StaticModInt<mod>;\n\tstd::string s;\n\tint n;\n\tstd::vector<M> has, power;\n\
+    \n  public:\n\tRollingHash(const std::string& s) {\n\t\tinit(s);\n\t}\n\tvoid\
+    \ init(const std::string& s) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\t\tpower.resize(n);\n\
+    \t\tthis->s = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\t\t\tif (i) {\n\t\t\t\
+    \thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t\
+    } else\n\t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M() const {\n\t\treturn\
+    \ has.back();\n\t}\n\toperator int() const {\n\t\treturn has.back();\n\t}\n\t\
+    M query(int l, int r) const {\n\t\treturn has[r - 1] - power[r - l] * (!l ? M(0)\
+    \ : has[l - 1]);\n\t}\n\tM operator+(const std::string& t) const {\n\t\tRollingHash\
+    \ tmp(t, base);\n\t\tif (n == 0)\n\t\t\treturn tmp;\n\t\telse\n\t\t\treturn has.back()\
+    \ * mypow(M(base), t.size()) + tmp;\n\t}\n\tRollingHash& operator+=(const std::string&\
+    \ t) {\n\t\tif (n == 0) {\n\t\t\t*this = RollingHash(t, base);\n\t\t} else {\n\
+    \t\t\ts += t;\n\t\t\thas.resize(n + t.size());\n\t\t\tpower.resize(n + t.size());\n\
+    \t\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\t\t\thas[i] = t[i - n];\n\t\
+    \t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\
+    \t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n};\n#line 4 \"test/aoj/ALDS1_14_B_RollingHash.test.cpp\"\
+    \nstd::string t, p;\nint main() {\n\tstd::cin >> t >> p;\n\tif (t.size() < p.size())\
+    \ return 0;\n\tRollingHash<1000000007, 1007> rt1(t), rp1(p);\n\tRollingHash<1000000007,\
+    \ 10007> rt2(t), rp2(p);\n\trep(i, t.size() - p.size() + 1) {\n\t\tif (rt1.query(i,\
     \ i + p.size()) == rp1 &&\n\t\t\trt2.query(i, i + p.size()) == rp2)\n\t\t\tprintf(\"\
     %d\\n\", i);\n\t}\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B\"\n\
     #include \"../../other/template.hpp\"\n#include \"../../string/RollingHash.hpp\"\
-    \nstd::string t, p;\nint main() {\n\tDynamicModInt::setMod(1000000007);\n\tstd::cin\
-    \ >> t >> p;\n\tif (t.size() < p.size()) return 0;\n\tRollingHash rt1(t, 1007),\
-    \ rt2(t, 10007), rp1(p, 1007), rp2(p, 10007);\n\trep(i, t.size() - p.size() +\
-    \ 1) {\n\t\tif (rt1.query(i, i + p.size()) == rp1 &&\n\t\t\trt2.query(i, i + p.size())\
-    \ == rp2)\n\t\t\tprintf(\"%d\\n\", i);\n\t}\n}"
+    \nstd::string t, p;\nint main() {\n\tstd::cin >> t >> p;\n\tif (t.size() < p.size())\
+    \ return 0;\n\tRollingHash<1000000007, 1007> rt1(t), rp1(p);\n\tRollingHash<1000000007,\
+    \ 10007> rt2(t), rp2(p);\n\trep(i, t.size() - p.size() + 1) {\n\t\tif (rt1.query(i,\
+    \ i + p.size()) == rp1 &&\n\t\t\trt2.query(i, i + p.size()) == rp2)\n\t\t\tprintf(\"\
+    %d\\n\", i);\n\t}\n}"
   dependsOn:
   - other/template.hpp
   - string/RollingHash.hpp
@@ -173,8 +172,8 @@ data:
   isVerificationFile: true
   path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
   requiredBy: []
-  timestamp: '2020-12-08 15:45:19+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2020-12-08 16:31:12+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ALDS1_14_B_RollingHash.test.cpp
 layout: document

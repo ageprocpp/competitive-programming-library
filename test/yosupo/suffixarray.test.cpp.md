@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: string/SuffixArray.hpp
     title: string/SuffixArray.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/suffixarray
@@ -131,7 +131,7 @@ data:
   path: test/yosupo/suffixarray.test.cpp
   requiredBy: []
   timestamp: '2020-12-08 15:45:19+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/suffixarray.test.cpp
 layout: document

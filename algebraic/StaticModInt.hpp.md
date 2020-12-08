@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: algebraic/DynamicModInt.hpp
     title: algebraic/DynamicModInt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy:
@@ -14,11 +14,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: algebraic/NumberTheoreticTransform.hpp
     title: algebraic/NumberTheoreticTransform.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
     title: string/RollingHash.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
     title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -33,11 +33,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/range_affine_range_sum.test.cpp
     title: test/yosupo/range_affine_range_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_set_path_composite.test.cpp
     title: test/yosupo/vertex_set_path_composite.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -195,7 +195,7 @@ data:
   - algebraic/NumberTheoreticTransform.hpp
   - string/RollingHash.hpp
   timestamp: '2020-12-08 15:45:19+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/ALDS1_14_B_RollingHash.test.cpp
   - test/yosupo/range_affine_range_sum.test.cpp
