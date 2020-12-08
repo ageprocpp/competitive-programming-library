@@ -19,7 +19,7 @@ data:
   bundledCode: "#line 1 \"test/yosupo/shortest_path.test.cpp\"\n#define PROBLEM \"\
     https://judge.yosupo.jp/problem/shortest_path\"\n#line 2 \"other/template.hpp\"\
     \n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"avx2\")\n#pragma optimize(\"\
-    O3\")\n#pragma optimize(\"unroll-loops\")\n#include <string.h>\n\n#include <algorithm>\n\
+    O3\")\n#pragma optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
     #include <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n\
     #include <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include\
     \ <fstream>\n#include <functional>\n#include <iomanip>\n#include <iostream>\n\
@@ -69,24 +69,25 @@ data:
     if (dist[p.second] < p.first) continue;\n\t\t\tfor (auto i : vec[p.second]) {\n\
     \t\t\t\tif (chmin(dist[i.first], p.first + i.second)) {\n\t\t\t\t\tque.push({dist[i.first],\
     \ i.first});\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn dist[t] != std::numeric_limits<T>::max();\n\
-    \t}\n\n  public:\n\tDijkstra(int N) : N(N), vec(N), rev(N) {}\n\tvoid add_edge(int\
+    \t}\n\n  public:\n\tDijkstra(int N) : N(N), vec(N), rev(N) {\n\t}\n\tvoid add_edge(int\
     \ from, int to, T cost) {\n\t\tvec[from].emplace_back(std::pair<int, T>{to, cost});\n\
     \t\trev[to].emplace_back(std::pair<int, T>{from, cost});\n\t}\n\tT get_dist(int\
-    \ s, int t) { return get_dist_and_path(s, t).first; }\n\tstd::vector<int> get_path(int\
-    \ s, int t) {\n\t\treturn get_dist_and_path(s, t).second;\n\t}\n\tstd::pair<T,\
-    \ std::vector<int>> get_dist_and_path(int s, int t) {\n\t\tstd::vector<T> dist;\n\
-    \t\tstd::vector<int> res = {t};\n\t\tstd::vector<bool> used(N);\n\t\tif (!exec(s,\
-    \ t, dist)) return {-1, {}};\n\t\tused[t] = true;\n\t\tint head = t;\n\t\twhile\
-    \ (head != s) {\n\t\t\tfor (auto i : rev[head]) {\n\t\t\t\tif (!used[i.first]\
+    \ s, int t) {\n\t\treturn get_dist_and_path(s, t).first;\n\t}\n\tstd::vector<int>\
+    \ get_path(int s, int t) {\n\t\treturn get_dist_and_path(s, t).second;\n\t}\n\t\
+    std::pair<T, std::vector<int>> get_dist_and_path(int s, int t) {\n\t\tstd::vector<T>\
+    \ dist;\n\t\tstd::vector<int> res = {t};\n\t\tstd::vector<bool> used(N);\n\t\t\
+    if (!exec(s, t, dist)) return {-1, {}};\n\t\tused[t] = true;\n\t\tint head = t;\n\
+    \t\twhile (head != s) {\n\t\t\tfor (auto i : rev[head]) {\n\t\t\t\tif (!used[i.first]\
     \ && dist[i.first] + i.second == dist[head]) {\n\t\t\t\t\tused[i.first] = true;\n\
     \t\t\t\t\thead = i.first;\n\t\t\t\t\tres.emplace_back(head);\n\t\t\t\t\tbreak;\n\
     \t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tstd::reverse(all(res));\n\t\treturn {dist[t], res};\n\
-    \t}\n};\n#line 4 \"test/yosupo/shortest_path.test.cpp\"\nint N, M, s, t, a, b,\
-    \ c;\nint main() {\n\tscanf(\"%d%d%d%d\", &N, &M, &s, &t);\n\tDijkstra<lint> d(N);\n\
-    \trep(i, M) {\n\t\tscanf(\"%d%d%d\", &a, &b, &c);\n\t\td.add_edge(a, b, c);\n\t\
-    }\n\tauto res = d.get_dist_and_path(s, t);\n\tif (res.first == -1)\n\t\tputs(\"\
-    -1\");\n\telse {\n\t\tprintf(\"%lld %d\\n\", res.first, res.second.size() - 1);\n\
-    \t\trep(i, res.second.size() - 1) {\n\t\t\tprintf(\"%d %d\\n\", res.second[i],\
+    \t}\n\tstd::vector<T> get_dists(int s) {\n\t\tstd::vector<T> dist;\n\t\texec(s,\
+    \ s, dist);\n\t\treturn dist;\n\t}\n};\n#line 4 \"test/yosupo/shortest_path.test.cpp\"\
+    \nint N, M, s, t, a, b, c;\nint main() {\n\tscanf(\"%d%d%d%d\", &N, &M, &s, &t);\n\
+    \tDijkstra<lint> d(N);\n\trep(i, M) {\n\t\tscanf(\"%d%d%d\", &a, &b, &c);\n\t\t\
+    d.add_edge(a, b, c);\n\t}\n\tauto res = d.get_dist_and_path(s, t);\n\tif (res.first\
+    \ == -1)\n\t\tputs(\"-1\");\n\telse {\n\t\tprintf(\"%lld %d\\n\", res.first, res.second.size()\
+    \ - 1);\n\t\trep(i, res.second.size() - 1) {\n\t\t\tprintf(\"%d %d\\n\", res.second[i],\
     \ res.second[i + 1]);\n\t\t}\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/shortest_path\"\n#include\
     \ \"../../graph/Dijkstra.hpp\"\n#include \"../../other/template.hpp\"\nint N,\
@@ -102,7 +103,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2020-12-05 13:29:53+09:00'
+  timestamp: '2020-12-08 15:45:19+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/shortest_path.test.cpp

@@ -62,7 +62,7 @@ data:
   - icon: ':x:'
     path: data-structure/SparseTable.hpp
     title: data-structure/SparseTable.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: data-structure/WaveletMatrix.hpp
     title: data-structure/WaveletMatrix.hpp
   - icon: ':x:'
@@ -92,7 +92,7 @@ data:
   - icon: ':x:'
     path: graph/UnionFind.hpp
     title: graph/UnionFind.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: string/RollingHash.hpp
     title: string/RollingHash.hpp
   - icon: ':question:'
@@ -102,7 +102,7 @@ data:
     path: string/Trie.hpp
     title: string/Trie.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
     title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -171,7 +171,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
     title: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/range_kth_smallest.test.cpp
     title: test/yosupo/range_kth_smallest.test.cpp
   - icon: ':x:'
@@ -222,7 +222,7 @@ data:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
+    )\n#include <string.h>\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
     #include <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n\
     #include <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n\
     #include <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n\
@@ -266,7 +266,7 @@ data:
     \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\n"
   code: "#pragma once\n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"avx2\")\n\
     #pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\")\n#include <string.h>\n\
-    \n#include <algorithm>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n\
+    #include <algorithm>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n\
     #include <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
     \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
     \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
@@ -345,7 +345,7 @@ data:
   - string/Trie.hpp
   - string/SuffixArray.hpp
   - string/RollingHash.hpp
-  timestamp: '2020-12-05 13:29:53+09:00'
+  timestamp: '2020-12-08 15:45:19+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/ALDS1_14_B_RollingHash.test.cpp

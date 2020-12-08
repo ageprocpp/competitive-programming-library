@@ -5,20 +5,23 @@ data:
     path: algebraic/DynamicModInt.hpp
     title: algebraic/DynamicModInt.hpp
   - icon: ':question:'
+    path: algebraic/StaticModInt.hpp
+    title: algebraic/StaticModInt.hpp
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
     title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
+    )\n#include <string.h>\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
     #include <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n\
     #include <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n\
     #include <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n\
@@ -93,43 +96,86 @@ data:
     \ operator/=(const T& rhs) {\n\t\treturn operator/=(DynamicModInt(rhs));\n\t}\n\
     };\nuint DynamicModInt::modulo = 1000000007;\nstd::istream& operator>>(std::istream&\
     \ ist, DynamicModInt& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n\
-    }\n#line 3 \"string/RollingHash.hpp\"\nclass RollingHash {\n\tstd::string s;\n\
-    \tint n, base;\n\tstd::vector<DynamicModInt> has, power;\n\n  public:\n\tRollingHash(std::string\
-    \ s, int b) : n(s.size()), base(b) { init(s, b); }\n\tvoid init(std::string s,\
-    \ int b) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\t\tpower.resize(n);\n\t\t\
-    base = DynamicModInt(b);\n\t\tthis->s = s;\n\t\trep(i, n) {\n\t\t\thas[i] = DynamicModInt(s[i]);\n\
-    \t\t\tif (i) {\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
-    \ - 1] * base;\n\t\t\t} else\n\t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator int()\
-    \ const { return has.back(); }\n\tDynamicModInt query(int a, int b) const {\n\t\
-    \treturn has[b - 1] - power[b - a] * (!a ? DynamicModInt(0) : has[a - 1]);\n\t\
-    }\n\tRollingHash& operator+=(std::string t) {\n\t\ts += t;\n\t\thas.resize(n +\
-    \ t.size());\n\t\tpower.resize(n + t.size());\n\t\tfor (int i = n; i < n + t.size();\
-    \ i++) {\n\t\t\thas[i] = DynamicModInt(t[i] * base);\n\t\t\thas[i] += has[i -\
-    \ 1] * base;\n\t\t\tpower[i] = power[i - 1] * base;\n\t\t}\n\t\tn += t.size();\n\
-    \t\treturn *this;\n\t}\n};\n"
-  code: "#include \"../algebraic/DynamicModInt.hpp\"\n#include \"../other/template.hpp\"\
-    \nclass RollingHash {\n\tstd::string s;\n\tint n, base;\n\tstd::vector<DynamicModInt>\
-    \ has, power;\n\n  public:\n\tRollingHash(std::string s, int b) : n(s.size()),\
-    \ base(b) { init(s, b); }\n\tvoid init(std::string s, int b) {\n\t\tn = s.size();\n\
-    \t\thas.resize(n);\n\t\tpower.resize(n);\n\t\tbase = DynamicModInt(b);\n\t\tthis->s\
-    \ = s;\n\t\trep(i, n) {\n\t\t\thas[i] = DynamicModInt(s[i]);\n\t\t\tif (i) {\n\
-    \t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\
-    \t\t\t} else\n\t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator int() const { return\
-    \ has.back(); }\n\tDynamicModInt query(int a, int b) const {\n\t\treturn has[b\
-    \ - 1] - power[b - a] * (!a ? DynamicModInt(0) : has[a - 1]);\n\t}\n\tRollingHash&\
-    \ operator+=(std::string t) {\n\t\ts += t;\n\t\thas.resize(n + t.size());\n\t\t\
-    power.resize(n + t.size());\n\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\t\
-    \thas[i] = DynamicModInt(t[i] * base);\n\t\t\thas[i] += has[i - 1] * base;\n\t\
-    \t\tpower[i] = power[i - 1] * base;\n\t\t}\n\t\tn += t.size();\n\t\treturn *this;\n\
-    \t}\n};"
+    }\n#line 4 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
+    \ {\n\tlint value;\n\n  public:\n\tstatic constexpr uint mod_value = modulo;\n\
+    \tStaticModInt() : value(0) {\n\t}\n\ttemplate <typename T>\n\tStaticModInt(T\
+    \ value = 0) : value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value\
+    \ % modulo) + modulo : value) % modulo;\n\t}\n\tinline StaticModInt inv() const\
+    \ {\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline operator int() const\
+    \ {\n\t\treturn value;\n\t}\n\tinline StaticModInt& operator+=(const StaticModInt&\
+    \ x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo) value -= modulo;\n\t\t\
+    return *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\tif (value == modulo\
+    \ - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn *this;\n\t}\n\t\
+    inline StaticModInt operator++(int) {\n\t\tStaticModInt res = *this;\n\t\t++*this;\n\
+    \t\treturn res;\n\t}\n\tinline StaticModInt operator-() const {\n\t\treturn StaticModInt(0)\
+    \ -= *this;\n\t}\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\
+    \t\tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\t\treturn *this;\n\
+    \t}\n\tinline StaticModInt& operator--() {\n\t\tif (value == 0)\n\t\t\tvalue =\
+    \ modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
+    \ operator--(int) {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\t\treturn res;\n\
+    \t}\n\tinline StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = value\
+    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const\
+    \ StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\ttemplate <typename\
+    \ T>\n\tStaticModInt operator+(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ += rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt& operator+=(const T& rhs)\
+    \ {\n\t\treturn operator+=(StaticModInt(rhs));\n\t}\n\ttemplate <typename T>\n\
+    \tStaticModInt operator-(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ -= rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt& operator-=(const T& rhs)\
+    \ {\n\t\treturn operator-=(StaticModInt(rhs));\n\t}\n\ttemplate <typename T>\n\
+    \tStaticModInt operator*(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ *= rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt& operator*=(const T& rhs)\
+    \ {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <typename T>\n\
+    \tStaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ /= rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt& operator/=(const T& rhs)\
+    \ {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint modulo>\n\
+    std::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint\
+    \ a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"string/RollingHash.hpp\"\
+    \ntemplate <unsigned int mod>\nclass RollingHash {\n\tusing M = StaticModInt<mod>;\n\
+    \tstd::string s;\n\tint n, base;\n\tstd::vector<M> has, power;\n\n  public:\n\t\
+    RollingHash(const std::string& s, int b) {\n\t\tinit(s, b);\n\t}\n\tvoid init(const\
+    \ std::string& s, int b) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\t\tpower.resize(n);\n\
+    \t\tbase = b;\n\t\tthis->s = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\t\t\t\
+    if (i) {\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1]\
+    \ * base;\n\t\t\t} else\n\t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M() const\
+    \ {\n\t\treturn has.back();\n\t}\n\toperator int() const {\n\t\treturn has.back();\n\
+    \t}\n\tM query(int a, int b) const {\n\t\treturn has[b - 1] - power[b - a] * (!a\
+    \ ? M(0) : has[a - 1]);\n\t}\n\tM operator+(const std::string& t) const {\n\t\t\
+    RollingHash tmp(t, base);\n\t\tif (n == 0)\n\t\t\treturn tmp;\n\t\telse\n\t\t\t\
+    return has.back() * mypow(M(base), t.size()) + tmp;\n\t}\n\tRollingHash& operator+=(const\
+    \ std::string& t) {\n\t\tif (n == 0) {\n\t\t\t*this = RollingHash(t, base);\n\t\
+    \t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n + t.size());\n\t\t\tpower.resize(n\
+    \ + t.size());\n\t\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\t\t\thas[i]\
+    \ = t[i - n];\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
+    \ - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n\
+    };\n"
+  code: "#include \"../algebraic/StaticModInt.hpp\"\n#include \"../other/template.hpp\"\
+    \ntemplate <unsigned int mod>\nclass RollingHash {\n\tusing M = StaticModInt<mod>;\n\
+    \tstd::string s;\n\tint n, base;\n\tstd::vector<M> has, power;\n\n  public:\n\t\
+    RollingHash(const std::string& s, int b) {\n\t\tinit(s, b);\n\t}\n\tvoid init(const\
+    \ std::string& s, int b) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\t\tpower.resize(n);\n\
+    \t\tbase = b;\n\t\tthis->s = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\t\t\t\
+    if (i) {\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1]\
+    \ * base;\n\t\t\t} else\n\t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M() const\
+    \ {\n\t\treturn has.back();\n\t}\n\toperator int() const {\n\t\treturn has.back();\n\
+    \t}\n\tM query(int a, int b) const {\n\t\treturn has[b - 1] - power[b - a] * (!a\
+    \ ? M(0) : has[a - 1]);\n\t}\n\tM operator+(const std::string& t) const {\n\t\t\
+    RollingHash tmp(t, base);\n\t\tif (n == 0)\n\t\t\treturn tmp;\n\t\telse\n\t\t\t\
+    return has.back() * mypow(M(base), t.size()) + tmp;\n\t}\n\tRollingHash& operator+=(const\
+    \ std::string& t) {\n\t\tif (n == 0) {\n\t\t\t*this = RollingHash(t, base);\n\t\
+    \t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n + t.size());\n\t\t\tpower.resize(n\
+    \ + t.size());\n\t\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\t\t\thas[i]\
+    \ = t[i - n];\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
+    \ - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n\
+    };"
   dependsOn:
-  - algebraic/DynamicModInt.hpp
+  - algebraic/StaticModInt.hpp
   - other/template.hpp
+  - algebraic/DynamicModInt.hpp
   isVerificationFile: false
   path: string/RollingHash.hpp
   requiredBy: []
-  timestamp: '2020-12-05 13:29:53+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2020-12-08 15:45:19+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/aoj/ALDS1_14_B_RollingHash.test.cpp
 documentation_of: string/RollingHash.hpp

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: data-structure/WaveletMatrix.hpp
     title: data-structure/WaveletMatrix.hpp
   - icon: ':question:'
@@ -10,7 +10,7 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/range_kth_smallest
@@ -19,7 +19,7 @@ data:
   bundledCode: "#line 1 \"test/yosupo/range_kth_smallest.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.yosupo.jp/problem/range_kth_smallest\"\n#line 2 \"other/template.hpp\"\
     \n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"avx2\")\n#pragma optimize(\"\
-    O3\")\n#pragma optimize(\"unroll-loops\")\n#include <string.h>\n\n#include <algorithm>\n\
+    O3\")\n#pragma optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
     #include <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n\
     #include <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include\
     \ <fstream>\n#include <functional>\n#include <iomanip>\n#include <iostream>\n\
@@ -110,8 +110,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/range_kth_smallest.test.cpp
   requiredBy: []
-  timestamp: '2020-12-05 13:29:53+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2020-12-08 15:45:19+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/range_kth_smallest.test.cpp
 layout: document

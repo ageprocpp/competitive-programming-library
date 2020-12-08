@@ -15,7 +15,7 @@ data:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
+    )\n#include <string.h>\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
     #include <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n\
     #include <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n\
     #include <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n\
@@ -207,7 +207,7 @@ data:
   isVerificationFile: false
   path: data-structure/SegTreeBeats.hpp
   requiredBy: []
-  timestamp: '2020-12-05 13:29:53+09:00'
+  timestamp: '2020-12-08 15:45:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp

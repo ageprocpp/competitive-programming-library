@@ -17,11 +17,11 @@ data:
   - icon: ':question:'
     path: algebraic/StaticModInt.hpp
     title: algebraic/StaticModInt.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: string/RollingHash.hpp
     title: string/RollingHash.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
     title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
   - icon: ':heavy_check_mark:'
@@ -45,7 +45,7 @@ data:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
+    )\n#include <string.h>\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
     #include <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n\
     #include <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n\
     #include <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n\
@@ -165,7 +165,7 @@ data:
   - algebraic/Combinatorics.hpp
   - algebraic/NumberTheoreticTransform.hpp
   - string/RollingHash.hpp
-  timestamp: '2020-12-05 13:29:53+09:00'
+  timestamp: '2020-12-08 15:45:19+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/ALDS1_14_B_RollingHash.test.cpp

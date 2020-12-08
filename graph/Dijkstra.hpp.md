@@ -15,7 +15,7 @@ data:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #pragma target(\"avx2\")\n#pragma optimize(\"O3\")\n#pragma optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
+    )\n#include <string.h>\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
     #include <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n\
     #include <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n\
     #include <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n\
@@ -65,10 +65,10 @@ data:
     \ i : vec[p.second]) {\n\t\t\t\tif (chmin(dist[i.first], p.first + i.second))\
     \ {\n\t\t\t\t\tque.push({dist[i.first], i.first});\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\
     \t\treturn dist[t] != std::numeric_limits<T>::max();\n\t}\n\n  public:\n\tDijkstra(int\
-    \ N) : N(N), vec(N), rev(N) {}\n\tvoid add_edge(int from, int to, T cost) {\n\t\
-    \tvec[from].emplace_back(std::pair<int, T>{to, cost});\n\t\trev[to].emplace_back(std::pair<int,\
-    \ T>{from, cost});\n\t}\n\tT get_dist(int s, int t) { return get_dist_and_path(s,\
-    \ t).first; }\n\tstd::vector<int> get_path(int s, int t) {\n\t\treturn get_dist_and_path(s,\
+    \ N) : N(N), vec(N), rev(N) {\n\t}\n\tvoid add_edge(int from, int to, T cost)\
+    \ {\n\t\tvec[from].emplace_back(std::pair<int, T>{to, cost});\n\t\trev[to].emplace_back(std::pair<int,\
+    \ T>{from, cost});\n\t}\n\tT get_dist(int s, int t) {\n\t\treturn get_dist_and_path(s,\
+    \ t).first;\n\t}\n\tstd::vector<int> get_path(int s, int t) {\n\t\treturn get_dist_and_path(s,\
     \ t).second;\n\t}\n\tstd::pair<T, std::vector<int>> get_dist_and_path(int s, int\
     \ t) {\n\t\tstd::vector<T> dist;\n\t\tstd::vector<int> res = {t};\n\t\tstd::vector<bool>\
     \ used(N);\n\t\tif (!exec(s, t, dist)) return {-1, {}};\n\t\tused[t] = true;\n\
@@ -76,7 +76,8 @@ data:
     \t\t\t\tif (!used[i.first] && dist[i.first] + i.second == dist[head]) {\n\t\t\t\
     \t\tused[i.first] = true;\n\t\t\t\t\thead = i.first;\n\t\t\t\t\tres.emplace_back(head);\n\
     \t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tstd::reverse(all(res));\n\t\t\
-    return {dist[t], res};\n\t}\n};\n"
+    return {dist[t], res};\n\t}\n\tstd::vector<T> get_dists(int s) {\n\t\tstd::vector<T>\
+    \ dist;\n\t\texec(s, s, dist);\n\t\treturn dist;\n\t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <typename T>\n\
     class Dijkstra {\n\tint N;\n\tstd::vector<std::vector<std::pair<int, T>>> vec,\
     \ rev;\n\tbool exec(int s, int t, std::vector<T> &dist) {\n\t\tdist.assign(N,\
@@ -86,10 +87,10 @@ data:
     \ i : vec[p.second]) {\n\t\t\t\tif (chmin(dist[i.first], p.first + i.second))\
     \ {\n\t\t\t\t\tque.push({dist[i.first], i.first});\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\
     \t\treturn dist[t] != std::numeric_limits<T>::max();\n\t}\n\n  public:\n\tDijkstra(int\
-    \ N) : N(N), vec(N), rev(N) {}\n\tvoid add_edge(int from, int to, T cost) {\n\t\
-    \tvec[from].emplace_back(std::pair<int, T>{to, cost});\n\t\trev[to].emplace_back(std::pair<int,\
-    \ T>{from, cost});\n\t}\n\tT get_dist(int s, int t) { return get_dist_and_path(s,\
-    \ t).first; }\n\tstd::vector<int> get_path(int s, int t) {\n\t\treturn get_dist_and_path(s,\
+    \ N) : N(N), vec(N), rev(N) {\n\t}\n\tvoid add_edge(int from, int to, T cost)\
+    \ {\n\t\tvec[from].emplace_back(std::pair<int, T>{to, cost});\n\t\trev[to].emplace_back(std::pair<int,\
+    \ T>{from, cost});\n\t}\n\tT get_dist(int s, int t) {\n\t\treturn get_dist_and_path(s,\
+    \ t).first;\n\t}\n\tstd::vector<int> get_path(int s, int t) {\n\t\treturn get_dist_and_path(s,\
     \ t).second;\n\t}\n\tstd::pair<T, std::vector<int>> get_dist_and_path(int s, int\
     \ t) {\n\t\tstd::vector<T> dist;\n\t\tstd::vector<int> res = {t};\n\t\tstd::vector<bool>\
     \ used(N);\n\t\tif (!exec(s, t, dist)) return {-1, {}};\n\t\tused[t] = true;\n\
@@ -97,13 +98,14 @@ data:
     \t\t\t\tif (!used[i.first] && dist[i.first] + i.second == dist[head]) {\n\t\t\t\
     \t\tused[i.first] = true;\n\t\t\t\t\thead = i.first;\n\t\t\t\t\tres.emplace_back(head);\n\
     \t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tstd::reverse(all(res));\n\t\t\
-    return {dist[t], res};\n\t}\n};"
+    return {dist[t], res};\n\t}\n\tstd::vector<T> get_dists(int s) {\n\t\tstd::vector<T>\
+    \ dist;\n\t\texec(s, s, dist);\n\t\treturn dist;\n\t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: graph/Dijkstra.hpp
   requiredBy: []
-  timestamp: '2020-12-05 13:29:53+09:00'
+  timestamp: '2020-12-08 15:45:19+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/yosupo/shortest_path.test.cpp
