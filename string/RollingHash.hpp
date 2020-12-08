@@ -1,21 +1,20 @@
 #include "../algebraic/StaticModInt.hpp"
 #include "../other/template.hpp"
-template <unsigned int mod>
+template <unsigned int mod, unsigned int base>
 class RollingHash {
 	using M = StaticModInt<mod>;
 	std::string s;
-	int n, base;
+	int n;
 	std::vector<M> has, power;
 
   public:
-	RollingHash(const std::string& s, int b) {
-		init(s, b);
+	RollingHash(const std::string& s) {
+		init(s);
 	}
-	void init(const std::string& s, int b) {
+	void init(const std::string& s) {
 		n = s.size();
 		has.resize(n);
 		power.resize(n);
-		base = b;
 		this->s = s;
 		rep(i, n) {
 			has[i] = s[i];
@@ -32,8 +31,8 @@ class RollingHash {
 	operator int() const {
 		return has.back();
 	}
-	M query(int a, int b) const {
-		return has[b - 1] - power[b - a] * (!a ? M(0) : has[a - 1]);
+	M query(int l, int r) const {
+		return has[r - 1] - power[r - l] * (!l ? M(0) : has[l - 1]);
 	}
 	M operator+(const std::string& t) const {
 		RollingHash tmp(t, base);
