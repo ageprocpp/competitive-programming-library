@@ -4,7 +4,6 @@
 #pragma optimize("O3")
 #pragma optimize("unroll-loops")
 #include <string.h>
-
 #include <algorithm>
 #include <bitset>
 #include <cassert>

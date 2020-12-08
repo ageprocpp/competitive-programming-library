@@ -7,14 +7,19 @@ class StaticModInt {
 
   public:
 	static constexpr uint mod_value = modulo;
-	StaticModInt() : value(0) {}
+	StaticModInt() : value(0) {
+	}
 	template <typename T>
 	StaticModInt(T value = 0) : value(value) {
 		this->value =
 			(value < 0 ? -(-value % modulo) + modulo : value) % modulo;
 	}
-	inline StaticModInt inv() const { return mypow(*this, modulo - 2); }
-	inline operator int() const { return value; }
+	inline StaticModInt inv() const {
+		return mypow(*this, modulo - 2);
+	}
+	inline operator int() const {
+		return value;
+	}
 	inline StaticModInt& operator+=(const StaticModInt& x) {
 		value += x.value;
 		if (value >= modulo) value -= modulo;
@@ -32,7 +37,9 @@ class StaticModInt {
 		++*this;
 		return res;
 	}
-	inline StaticModInt operator-() const { return StaticModInt(0) -= *this; }
+	inline StaticModInt operator-() const {
+		return StaticModInt(0) -= *this;
+	}
 	inline StaticModInt& operator-=(const StaticModInt& x) {
 		value -= x.value;
 		if (value < 0) value += modulo;

@@ -1,20 +1,24 @@
-#include "../algebraic/DynamicModInt.hpp"
+#include "../algebraic/StaticModInt.hpp"
 #include "../other/template.hpp"
+template <unsigned int mod>
 class RollingHash {
+	using M = StaticModInt<mod>;
 	std::string s;
 	int n, base;
-	std::vector<DynamicModInt> has, power;
+	std::vector<M> has, power;
 
   public:
-	RollingHash(std::string s, int b) : n(s.size()), base(b) { init(s, b); }
-	void init(std::string s, int b) {
+	RollingHash(const std::string& s, int b) {
+		init(s, b);
+	}
+	void init(const std::string& s, int b) {
 		n = s.size();
 		has.resize(n);
 		power.resize(n);
-		base = DynamicModInt(b);
+		base = b;
 		this->s = s;
 		rep(i, n) {
-			has[i] = DynamicModInt(s[i]);
+			has[i] = s[i];
 			if (i) {
 				has[i] += has[i - 1] * base;
 				power[i] = power[i - 1] * base;
@@ -22,20 +26,36 @@ class RollingHash {
 				power[i] = 1;
 		}
 	}
-	operator int() const { return has.back(); }
-	DynamicModInt query(int a, int b) const {
-		return has[b - 1] - power[b - a] * (!a ? DynamicModInt(0) : has[a - 1]);
+	operator M() const {
+		return has.back();
 	}
-	RollingHash& operator+=(std::string t) {
-		s += t;
-		has.resize(n + t.size());
-		power.resize(n + t.size());
-		for (int i = n; i < n + t.size(); i++) {
-			has[i] = DynamicModInt(t[i] * base);
-			has[i] += has[i - 1] * base;
-			power[i] = power[i - 1] * base;
+	operator int() const {
+		return has.back();
+	}
+	M query(int a, int b) const {
+		return has[b - 1] - power[b - a] * (!a ? M(0) : has[a - 1]);
+	}
+	M operator+(const std::string& t) const {
+		RollingHash tmp(t, base);
+		if (n == 0)
+			return tmp;
+		else
+			return has.back() * mypow(M(base), t.size()) + tmp;
+	}
+	RollingHash& operator+=(const std::string& t) {
+		if (n == 0) {
+			*this = RollingHash(t, base);
+		} else {
+			s += t;
+			has.resize(n + t.size());
+			power.resize(n + t.size());
+			for (int i = n; i < n + t.size(); i++) {
+				has[i] = t[i - n];
+				has[i] += has[i - 1] * base;
+				power[i] = power[i - 1] * base;
+			}
+			n += t.size();
 		}
-		n += t.size();
 		return *this;
 	}
 };
