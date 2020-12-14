@@ -61,31 +61,31 @@ data:
     \ n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
     \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\n#line 3 \"graph/UnionFind.hpp\"\
     \nclass UnionFind {\n  protected:\n\tstd::vector<int> par, size;\n\n  public:\n\
-    \tUnionFind() {}\n\tUnionFind(int size) { init(size); }\n\tvoid init(int size)\
-    \ {\n\t\tpar.resize(size);\n\t\tthis->size.resize(size, 1);\n\t\trep(i, size)\
-    \ { par[i] = i; }\n\t}\n\tint find(int n) {\n\t\tif (par[n] == n) return n;\n\t\
-    \treturn par[n] = find(par[n]);\n\t}\n\tvoid unite(int n, int m) {\n\t\tn = find(n);\n\
-    \t\tm = find(m);\n\t\tif (n == m) return;\n\t\tint a = n, b = m;\n\t\tif (size[a]\
+    \tUnionFind() {}\n\tUnionFind(int size) {\n\t\tinit(size);\n\t}\n\tvoid init(int\
+    \ size) {\n\t\tpar.resize(size);\n\t\tthis->size.resize(size, 1);\n\t\tstd::iota(all(par),\
+    \ 0);\n\t}\n\tint find(int n) {\n\t\tif (par[n] == n) return n;\n\t\treturn par[n]\
+    \ = find(par[n]);\n\t}\n\tvoid unite(int n, int m) {\n\t\tn = find(n);\n\t\tm\
+    \ = find(m);\n\t\tif (n == m) return;\n\t\tint a = n, b = m;\n\t\tif (size[a]\
     \ > size[b]) std::swap(a, b);\n\t\tpar[a] = b;\n\t\tsize[b] += size[a];\n\t}\n\
-    \tbool same(int n, int m) { return find(n) == find(m); }\n\tint getsize(int n)\
-    \ { return size[find(n)]; }\n};\n"
+    \tbool same(int n, int m) {\n\t\treturn find(n) == find(m);\n\t}\n\tint getsize(int\
+    \ n) {\n\t\treturn size[find(n)];\n\t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nclass UnionFind {\n  protected:\n\
     \tstd::vector<int> par, size;\n\n  public:\n\tUnionFind() {}\n\tUnionFind(int\
-    \ size) { init(size); }\n\tvoid init(int size) {\n\t\tpar.resize(size);\n\t\t\
-    this->size.resize(size, 1);\n\t\trep(i, size) { par[i] = i; }\n\t}\n\tint find(int\
+    \ size) {\n\t\tinit(size);\n\t}\n\tvoid init(int size) {\n\t\tpar.resize(size);\n\
+    \t\tthis->size.resize(size, 1);\n\t\tstd::iota(all(par), 0);\n\t}\n\tint find(int\
     \ n) {\n\t\tif (par[n] == n) return n;\n\t\treturn par[n] = find(par[n]);\n\t\
     }\n\tvoid unite(int n, int m) {\n\t\tn = find(n);\n\t\tm = find(m);\n\t\tif (n\
     \ == m) return;\n\t\tint a = n, b = m;\n\t\tif (size[a] > size[b]) std::swap(a,\
     \ b);\n\t\tpar[a] = b;\n\t\tsize[b] += size[a];\n\t}\n\tbool same(int n, int m)\
-    \ { return find(n) == find(m); }\n\tint getsize(int n) { return size[find(n)];\
-    \ }\n};"
+    \ {\n\t\treturn find(n) == find(m);\n\t}\n\tint getsize(int n) {\n\t\treturn size[find(n)];\n\
+    \t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: graph/UnionFind.hpp
   requiredBy:
   - graph/PersistentUnionFind.hpp
-  timestamp: '2020-12-08 15:45:19+09:00'
+  timestamp: '2020-12-14 22:34:57+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/unionfind.test.cpp

@@ -152,40 +152,41 @@ data:
     \ += n;\n\t\tr += n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\
     \tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r],\
     \ rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\
-    \tT operator[](const int& x) const { return node[n + x]; }\n\tT queryForAll()\
-    \ const { return node[1]; }\n\n  private:\n\ttemplate <typename F>\n\tint max_right(int\
-    \ st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\
-    \t\tacc = nodef(acc, node[k]);\n\t\t\treturn check(acc) ? -1 : k - n;\n\t\t}\n\
-    \t\tint m = (l + r) >> 1;\n\t\tif (m <= st) return max_right(st, check, acc, (k\
-    \ << 1) | 1, m, r);\n\t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\t\t\
-    acc = nodef(acc, node[k]);\n\t\t\treturn -1;\n\t\t}\n\t\tint vl = max_right(st,\
+    \tT operator[](const int& x) const {\n\t\treturn node[n + x];\n\t}\n\tT queryForAll()\
+    \ const {\n\t\treturn node[1];\n\t}\n\n  private:\n\ttemplate <typename F>\n\t\
+    int max_right(int st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l\
+    \ + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\treturn check(acc) ? -1\
+    \ : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\tif (m <= st) return max_right(st,\
+    \ check, acc, (k << 1) | 1, m, r);\n\t\tif (st <= l && check(nodef(acc, node[k])))\
+    \ {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\treturn -1;\n\t\t}\n\t\tint vl = max_right(st,\
     \ check, acc, k << 1, l, m);\n\t\tif (vl != -1) return vl;\n\t\treturn max_right(st,\
     \ check, acc, (k << 1) | 1, m, r);\n\t}\n\n  public:\n\ttemplate <typename F>\n\
     \tint max_right(int st, F check) const {\n\t\tT acc = ident;\n\t\treturn max_right(st,\
     \ check, acc, 1, 0, n);\n\t}\n\ttemplate <bool (*check)(const T&)>\n\tint max_right(int\
     \ st) const {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0,\
-    \ n);\n\t}\n};\nstatic lint RSQ_nodef(const lint& lhs, const lint& rhs) { return\
-    \ lhs + rhs; }\nclass RSQ : public SegTree<lint, RSQ_nodef> {\n\tusing Base =\
-    \ SegTree<lint, RSQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRSQ(Args...\
-    \ args) : Base(args..., 0) {}\n};\nstatic lint RMiQ_nodef(const lint& lhs, const\
-    \ lint& rhs) {\n\treturn std::min(lhs, rhs);\n}\nclass RMiQ : public SegTree<lint,\
-    \ RMiQ_nodef> {\n\tusing Base = SegTree<lint, RMiQ_nodef>;\n\n  public:\n\ttemplate\
-    \ <class... Args>\n\tRMiQ(Args... args) : Base(args..., LINF) {}\n};\nstatic lint\
-    \ RMaQ_nodef(const lint& lhs, const lint& rhs) {\n\treturn std::max(lhs, rhs);\n\
-    }\nclass RMaQ : public SegTree<lint, RMaQ_nodef> {\n\tusing Base = SegTree<lint,\
-    \ RMaQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMaQ(Args... args)\
-    \ : Base(args..., -LINF) {}\n};\n#line 5 \"test/yosupo/point_set_range_composite.test.cpp\"\
-    \nusing ModInt = StaticModInt<998244353>;\nusing MP = std::pair<ModInt, ModInt>;\n\
-    MP nodef(const MP& lhs, const MP& rhs) {\n\treturn {lhs.first * rhs.first, lhs.second\
-    \ * rhs.first + rhs.second};\n}\nclass MySeg : public SegTree<MP, nodef> {\n\t\
-    using Base = SegTree<MP, nodef>;\n\n  public:\n\tMySeg(int n) : Base(n, {0, 0},\
-    \ {1, 0}) {}\n};\nint n, q;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tMySeg\
-    \ st(n);\n\trep(i, n) {\n\t\tint a, b;\n\t\tscanf(\"%d%d\", &a, &b);\n\t\tst.update(i,\
-    \ {a, b});\n\t}\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t\
-    \ == 0) {\n\t\t\tint p, c, d;\n\t\t\tscanf(\"%d%d%d\", &p, &c, &d);\n\t\t\tst.update(p,\
-    \ {c, d});\n\t\t} else {\n\t\t\tint l, r, x;\n\t\t\tscanf(\"%d%d%d\", &l, &r,\
-    \ &x);\n\t\t\tauto p = st.query(l, r);\n\t\t\tprintf(\"%d\\n\", p.first * x +\
-    \ p.second);\n\t\t}\n\t}\n\treturn 0;\n}\n"
+    \ n);\n\t}\n};\nstatic lint RSQ_nodef(const lint& lhs, const lint& rhs) {\n\t\
+    return lhs + rhs;\n}\nclass RSQ : public SegTree<lint, RSQ_nodef> {\n\tusing Base\
+    \ = SegTree<lint, RSQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRSQ(Args&&...\
+    \ args) : Base(std::forward<Args>(args)..., 0) {}\n};\nstatic lint RMiQ_nodef(const\
+    \ lint& lhs, const lint& rhs) {\n\treturn std::min(lhs, rhs);\n}\nclass RMiQ :\
+    \ public SegTree<lint, RMiQ_nodef> {\n\tusing Base = SegTree<lint, RMiQ_nodef>;\n\
+    \n  public:\n\ttemplate <class... Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)...,\
+    \ LINF) {}\n};\nstatic lint RMaQ_nodef(const lint& lhs, const lint& rhs) {\n\t\
+    return std::max(lhs, rhs);\n}\nclass RMaQ : public SegTree<lint, RMaQ_nodef> {\n\
+    \tusing Base = SegTree<lint, RMaQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\
+    \tRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}\n};\n#line\
+    \ 5 \"test/yosupo/point_set_range_composite.test.cpp\"\nusing ModInt = StaticModInt<998244353>;\n\
+    using MP = std::pair<ModInt, ModInt>;\nMP nodef(const MP& lhs, const MP& rhs)\
+    \ {\n\treturn {lhs.first * rhs.first, lhs.second * rhs.first + rhs.second};\n\
+    }\nclass MySeg : public SegTree<MP, nodef> {\n\tusing Base = SegTree<MP, nodef>;\n\
+    \n  public:\n\tMySeg(int n) : Base(n, {0, 0}, {1, 0}) {}\n};\nint n, q;\nint main()\
+    \ {\n\tscanf(\"%d%d\", &n, &q);\n\tMySeg st(n);\n\trep(i, n) {\n\t\tint a, b;\n\
+    \t\tscanf(\"%d%d\", &a, &b);\n\t\tst.update(i, {a, b});\n\t}\n\trep(i, q) {\n\t\
+    \tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint p, c, d;\n\t\t\t\
+    scanf(\"%d%d%d\", &p, &c, &d);\n\t\t\tst.update(p, {c, d});\n\t\t} else {\n\t\t\
+    \tint l, r, x;\n\t\t\tscanf(\"%d%d%d\", &l, &r, &x);\n\t\t\tauto p = st.query(l,\
+    \ r);\n\t\t\tprintf(\"%d\\n\", p.first * x + p.second);\n\t\t}\n\t}\n\treturn\
+    \ 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_set_range_composite\"\
     \n#include \"../../algebraic/StaticModInt.hpp\"\n#include \"../../data-structure/SegTree.hpp\"\
     \n#include \"../../other/template.hpp\"\nusing ModInt = StaticModInt<998244353>;\n\
@@ -208,7 +209,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2020-12-08 15:45:19+09:00'
+  timestamp: '2020-12-14 22:34:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/point_set_range_composite.test.cpp

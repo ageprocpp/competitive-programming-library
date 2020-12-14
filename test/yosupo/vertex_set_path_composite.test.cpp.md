@@ -155,65 +155,65 @@ data:
     \ += n;\n\t\tr += n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\
     \tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r],\
     \ rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\
-    \tT operator[](const int& x) const { return node[n + x]; }\n\tT queryForAll()\
-    \ const { return node[1]; }\n\n  private:\n\ttemplate <typename F>\n\tint max_right(int\
-    \ st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\
-    \t\tacc = nodef(acc, node[k]);\n\t\t\treturn check(acc) ? -1 : k - n;\n\t\t}\n\
-    \t\tint m = (l + r) >> 1;\n\t\tif (m <= st) return max_right(st, check, acc, (k\
-    \ << 1) | 1, m, r);\n\t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\t\t\
-    acc = nodef(acc, node[k]);\n\t\t\treturn -1;\n\t\t}\n\t\tint vl = max_right(st,\
+    \tT operator[](const int& x) const {\n\t\treturn node[n + x];\n\t}\n\tT queryForAll()\
+    \ const {\n\t\treturn node[1];\n\t}\n\n  private:\n\ttemplate <typename F>\n\t\
+    int max_right(int st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l\
+    \ + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\treturn check(acc) ? -1\
+    \ : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\tif (m <= st) return max_right(st,\
+    \ check, acc, (k << 1) | 1, m, r);\n\t\tif (st <= l && check(nodef(acc, node[k])))\
+    \ {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\treturn -1;\n\t\t}\n\t\tint vl = max_right(st,\
     \ check, acc, k << 1, l, m);\n\t\tif (vl != -1) return vl;\n\t\treturn max_right(st,\
     \ check, acc, (k << 1) | 1, m, r);\n\t}\n\n  public:\n\ttemplate <typename F>\n\
     \tint max_right(int st, F check) const {\n\t\tT acc = ident;\n\t\treturn max_right(st,\
     \ check, acc, 1, 0, n);\n\t}\n\ttemplate <bool (*check)(const T&)>\n\tint max_right(int\
     \ st) const {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0,\
-    \ n);\n\t}\n};\nstatic lint RSQ_nodef(const lint& lhs, const lint& rhs) { return\
-    \ lhs + rhs; }\nclass RSQ : public SegTree<lint, RSQ_nodef> {\n\tusing Base =\
-    \ SegTree<lint, RSQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRSQ(Args...\
-    \ args) : Base(args..., 0) {}\n};\nstatic lint RMiQ_nodef(const lint& lhs, const\
-    \ lint& rhs) {\n\treturn std::min(lhs, rhs);\n}\nclass RMiQ : public SegTree<lint,\
-    \ RMiQ_nodef> {\n\tusing Base = SegTree<lint, RMiQ_nodef>;\n\n  public:\n\ttemplate\
-    \ <class... Args>\n\tRMiQ(Args... args) : Base(args..., LINF) {}\n};\nstatic lint\
-    \ RMaQ_nodef(const lint& lhs, const lint& rhs) {\n\treturn std::max(lhs, rhs);\n\
-    }\nclass RMaQ : public SegTree<lint, RMaQ_nodef> {\n\tusing Base = SegTree<lint,\
-    \ RMaQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMaQ(Args... args)\
-    \ : Base(args..., -LINF) {}\n};\n#line 3 \"graph/HeavyLightDecomposition.hpp\"\
-    \nclass HeavyLightDecomposition {\n\tint n, index = 0;\n\tvoid size_dfs(int node)\
-    \ {\n\t\tsize[node] = 1;\n\t\tfor (int& i : vec[node]) {\n\t\t\tif (par[node]\
-    \ == i) continue;\n\t\t\tpar[i] = node;\n\t\t\tsize_dfs(i);\n\t\t\tsize[node]\
-    \ += size[i];\n\t\t\tif (size[i] > size[vec[node][0]]) std::swap(i, vec[node][0]);\n\
-    \t\t}\n\t}\n\tvoid build_dfs(int node) {\n\t\tlabel[node] = index++;\n\t\tfor\
-    \ (int& i : vec[node]) {\n\t\t\tif (par[node] != i) {\n\t\t\t\thead[i] = (i ==\
-    \ vec[node][0] ? head[node] : i);\n\t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\t\
-    last[node] = index;\n\t}\n\n  public:\n\tstd::vector<std::vector<int>> vec;\n\t\
-    std::vector<int> size, par, head, label, last;\n\tHeavyLightDecomposition() {}\n\
-    \tHeavyLightDecomposition(int m) : n(m) { init(n); }\n\tvoid init(int m) {\n\t\
-    \tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\t\tpar.resize(n);\n\t\thead.resize(n);\n\
-    \t\tlabel.resize(n);\n\t\tlast.resize(n);\n\t}\n\tvoid add_edge(int u, int v)\
-    \ {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\t}\n\tvoid build(int\
-    \ root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\t\tbuild_dfs(root);\n\
-    \t}\n\ttemplate <typename F>\n\tvoid each_edge(int u, int v, const F& func) const\
+    \ n);\n\t}\n};\nstatic lint RSQ_nodef(const lint& lhs, const lint& rhs) {\n\t\
+    return lhs + rhs;\n}\nclass RSQ : public SegTree<lint, RSQ_nodef> {\n\tusing Base\
+    \ = SegTree<lint, RSQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRSQ(Args&&...\
+    \ args) : Base(std::forward<Args>(args)..., 0) {}\n};\nstatic lint RMiQ_nodef(const\
+    \ lint& lhs, const lint& rhs) {\n\treturn std::min(lhs, rhs);\n}\nclass RMiQ :\
+    \ public SegTree<lint, RMiQ_nodef> {\n\tusing Base = SegTree<lint, RMiQ_nodef>;\n\
+    \n  public:\n\ttemplate <class... Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)...,\
+    \ LINF) {}\n};\nstatic lint RMaQ_nodef(const lint& lhs, const lint& rhs) {\n\t\
+    return std::max(lhs, rhs);\n}\nclass RMaQ : public SegTree<lint, RMaQ_nodef> {\n\
+    \tusing Base = SegTree<lint, RMaQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\
+    \tRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}\n};\n#line\
+    \ 3 \"graph/HeavyLightDecomposition.hpp\"\nclass HeavyLightDecomposition {\n\t\
+    int n, index = 0;\n\tvoid size_dfs(int node) {\n\t\tsize[node] = 1;\n\t\tfor (int&\
+    \ i : vec[node]) {\n\t\t\tif (par[node] == i) continue;\n\t\t\tpar[i] = node;\n\
+    \t\t\tsize_dfs(i);\n\t\t\tsize[node] += size[i];\n\t\t\tif (size[i] > size[vec[node][0]])\
+    \ std::swap(i, vec[node][0]);\n\t\t}\n\t}\n\tvoid build_dfs(int node) {\n\t\t\
+    label[node] = index++;\n\t\tfor (int& i : vec[node]) {\n\t\t\tif (par[node] !=\
+    \ i) {\n\t\t\t\thead[i] = (i == vec[node][0] ? head[node] : i);\n\t\t\t\tbuild_dfs(i);\n\
+    \t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\tstd::vector<std::vector<int>>\
+    \ vec;\n\tstd::vector<int> size, par, head, label, last;\n\tHeavyLightDecomposition()\
+    \ {}\n\tHeavyLightDecomposition(int m) : n(m) { init(n); }\n\tvoid init(int m)\
+    \ {\n\t\tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\t\tpar.resize(n);\n\
+    \t\thead.resize(n);\n\t\tlabel.resize(n);\n\t\tlast.resize(n);\n\t}\n\tvoid add_edge(int\
+    \ u, int v) {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\t}\n\
+    \tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\t\
+    \tbuild_dfs(root);\n\t}\n\ttemplate <typename F>\n\tvoid each_edge(int u, int\
+    \ v, const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v])\
+    \ std::swap(u, v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v])\
+    \ func(label[u] + 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]],\
+    \ label[v]);\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\ttemplate <typename F>\n\t\
+    void each_vertex(int u, int v, const F& func) const {\n\t\twhile (true) {\n\t\t\
+    \tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif (head[u] == head[v]) {\n\
+    \t\t\t\tfunc(label[u], label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]],\
+    \ label[v]);\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tint lca(int u, int v) const\
     \ {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\
-    \tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u] +\
-    \ 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
-    \t\t\tv = par[head[v]];\n\t\t}\n\t}\n\ttemplate <typename F>\n\tvoid each_vertex(int\
-    \ u, int v, const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v])\
-    \ std::swap(u, v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tfunc(label[u], label[v]);\n\
-    \t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\t\t\tv = par[head[v]];\n\
-    \t\t}\n\t}\n\tint lca(int u, int v) const {\n\t\twhile (true) {\n\t\t\tif (label[u]\
-    \ > label[v]) std::swap(u, v);\n\t\t\tif (head[u] == head[v]) return u;\n\t\t\t\
-    v = par[head[v]];\n\t\t}\n\t}\n\tvoid clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\
-    \t\tpar.clear();\n\t\thead.clear();\n\t\tlabel.clear();\n\t\tlast.clear();\n\t\
-    }\n};\n#line 6 \"test/yosupo/vertex_set_path_composite.test.cpp\"\nusing ModInt\
-    \ = StaticModInt<998244353>;\nusing MP = std::pair<ModInt, ModInt>;\nMP nodef(const\
-    \ MP& lhs, const MP& rhs) {\n\treturn {lhs.first * rhs.first, lhs.second * rhs.first\
-    \ + rhs.second};\n}\nclass MySeg : public SegTree<MP, nodef> {\n\tusing Base =\
-    \ SegTree<MP, nodef>;\n\n  public:\n\tMySeg(int n) : Base(n, {1, 0}, {1, 0}) {}\n\
-    };\nint n, q;\nP a[200010];\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i,\
-    \ n) scanf(\"%d%d\", &a[i].first, &a[i].second);\n\tHeavyLightDecomposition hld(n);\n\
-    \tMySeg st1(n), st2(n);\n\trep(i, n - 1) {\n\t\tint u, v;\n\t\tscanf(\"%d%d\"\
-    , &u, &v);\n\t\thld.add_edge(u, v);\n\t}\n\thld.build(0);\n\trep(i, n) {\n\t\t\
-    st1.update(hld.label[i], a[i]);\n\t\tst2.update(n - 1 - hld.label[i], a[i]);\n\
+    \tif (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
+    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
+    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n#line 6 \"test/yosupo/vertex_set_path_composite.test.cpp\"\
+    \nusing ModInt = StaticModInt<998244353>;\nusing MP = std::pair<ModInt, ModInt>;\n\
+    MP nodef(const MP& lhs, const MP& rhs) {\n\treturn {lhs.first * rhs.first, lhs.second\
+    \ * rhs.first + rhs.second};\n}\nclass MySeg : public SegTree<MP, nodef> {\n\t\
+    using Base = SegTree<MP, nodef>;\n\n  public:\n\tMySeg(int n) : Base(n, {1, 0},\
+    \ {1, 0}) {}\n};\nint n, q;\nP a[200010];\nint main() {\n\tscanf(\"%d%d\", &n,\
+    \ &q);\n\trep(i, n) scanf(\"%d%d\", &a[i].first, &a[i].second);\n\tHeavyLightDecomposition\
+    \ hld(n);\n\tMySeg st1(n), st2(n);\n\trep(i, n - 1) {\n\t\tint u, v;\n\t\tscanf(\"\
+    %d%d\", &u, &v);\n\t\thld.add_edge(u, v);\n\t}\n\thld.build(0);\n\trep(i, n) {\n\
+    \t\tst1.update(hld.label[i], a[i]);\n\t\tst2.update(n - 1 - hld.label[i], a[i]);\n\
     \t}\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\
     \tint p, c, d;\n\t\t\tscanf(\"%d%d%d\", &p, &c, &d);\n\t\t\ta[p] = {c, d};\n\t\
     \t\tst1.update(hld.label[p], {c, d});\n\t\t\tst2.update(n - 1 - hld.label[p],\
@@ -261,7 +261,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/vertex_set_path_composite.test.cpp
   requiredBy: []
-  timestamp: '2020-12-08 15:45:19+09:00'
+  timestamp: '2020-12-14 22:34:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/vertex_set_path_composite.test.cpp
