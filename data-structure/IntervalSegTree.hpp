@@ -171,7 +171,7 @@ class RAQRSQ : public IntervalSegTree<lint, lint, RAQRSQ_nodef, RAQRSQ_lazyf,
 
   public:
 	template <class... Args>
-	RAQRSQ(Args... args) : Base(args..., 0) {}
+	RAQRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}
 };
 static lint RAQRMiQ_nodef(const lint& a, const lint& b) {
 	return std::min(a, b);
@@ -187,7 +187,7 @@ class RAQRMiQ : public IntervalSegTree<lint, lint, RAQRMiQ_nodef, RAQRMiQ_lazyf,
 
   public:
 	template <class... Args>
-	RAQRMiQ(Args... args) : Base(args..., LINF) {}
+	RAQRMiQ(Args&&... args) : Base(std::forward<Args>(args)..., LINF) {}
 };
 static lint RAQRMaQ_nodef(const lint& a, const lint& b) {
 	return std::max(a, b);
@@ -203,7 +203,7 @@ class RAQRMaQ : public IntervalSegTree<lint, lint, RAQRMaQ_nodef, RAQRMaQ_lazyf,
 
   public:
 	template <class... Args>
-	RAQRMaQ(Args... args) : Base(args..., -LINF) {}
+	RAQRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}
 };
 static lint RUQRSQ_nodef(const lint& a, const lint& b) { return a + b; }
 static void RUQRSQ_lazyf(lint& a, const lint& b) { a = b; }
@@ -217,7 +217,7 @@ class RUQRSQ : public IntervalSegTree<lint, lint, RUQRSQ_nodef, RUQRSQ_lazyf,
 
   public:
 	template <class... Args>
-	RUQRSQ(Args... args) : Base(args..., 0) {}
+	RUQRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}
 };
 static lint RUQRMiQ_nodef(const lint& a, const lint& b) {
 	return std::min(a, b);
@@ -233,7 +233,7 @@ class RUQRMiQ : public IntervalSegTree<lint, lint, RUQRMiQ_nodef, RUQRMiQ_lazyf,
 
   public:
 	template <class... Args>
-	RUQRMiQ(Args... args) : Base(args..., LINF) {}
+	RUQRMiQ(Args&&... args) : Base(std::forward<Args>(args)..., LINF) {}
 };
 static lint RUQRMaQ_nodef(const lint& a, const lint& b) {
 	return std::max(a, b);
@@ -249,5 +249,5 @@ class RUQRMaQ : public IntervalSegTree<lint, lint, RUQRMaQ_nodef, RUQRMaQ_lazyf,
 
   public:
 	template <class... Args>
-	RUQRMaQ(Args... args) : Base(args..., -LINF) {}
+	RUQRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}
 };

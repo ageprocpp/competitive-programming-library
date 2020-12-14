@@ -52,8 +52,12 @@ class SegTree {
 		}
 		return nodef(ls, rs);
 	}
-	T operator[](const int& x) const { return node[n + x]; }
-	T queryForAll() const { return node[1]; }
+	T operator[](const int& x) const {
+		return node[n + x];
+	}
+	T queryForAll() const {
+		return node[1];
+	}
 
   private:
 	template <typename F>
@@ -85,13 +89,15 @@ class SegTree {
 		return max_right(st, check, acc, 1, 0, n);
 	}
 };
-static lint RSQ_nodef(const lint& lhs, const lint& rhs) { return lhs + rhs; }
+static lint RSQ_nodef(const lint& lhs, const lint& rhs) {
+	return lhs + rhs;
+}
 class RSQ : public SegTree<lint, RSQ_nodef> {
 	using Base = SegTree<lint, RSQ_nodef>;
 
   public:
 	template <class... Args>
-	RSQ(Args... args) : Base(args..., 0) {}
+	RSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}
 };
 static lint RMiQ_nodef(const lint& lhs, const lint& rhs) {
 	return std::min(lhs, rhs);
@@ -101,7 +107,7 @@ class RMiQ : public SegTree<lint, RMiQ_nodef> {
 
   public:
 	template <class... Args>
-	RMiQ(Args... args) : Base(args..., LINF) {}
+	RMiQ(Args&&... args) : Base(std::forward<Args>(args)..., LINF) {}
 };
 static lint RMaQ_nodef(const lint& lhs, const lint& rhs) {
 	return std::max(lhs, rhs);
@@ -111,5 +117,5 @@ class RMaQ : public SegTree<lint, RMaQ_nodef> {
 
   public:
 	template <class... Args>
-	RMaQ(Args... args) : Base(args..., -LINF) {}
+	RMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}
 };

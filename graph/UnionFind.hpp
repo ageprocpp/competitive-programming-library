@@ -6,11 +6,13 @@ class UnionFind {
 
   public:
 	UnionFind() {}
-	UnionFind(int size) { init(size); }
+	UnionFind(int size) {
+		init(size);
+	}
 	void init(int size) {
 		par.resize(size);
 		this->size.resize(size, 1);
-		rep(i, size) { par[i] = i; }
+		std::iota(all(par), 0);
 	}
 	int find(int n) {
 		if (par[n] == n) return n;
@@ -25,6 +27,10 @@ class UnionFind {
 		par[a] = b;
 		size[b] += size[a];
 	}
-	bool same(int n, int m) { return find(n) == find(m); }
-	int getsize(int n) { return size[find(n)]; }
+	bool same(int n, int m) {
+		return find(n) == find(m);
+	}
+	int getsize(int n) {
+		return size[find(n)];
+	}
 };
