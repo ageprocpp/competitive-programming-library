@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':x:'
     path: data-structure/LiChaoTree.hpp
     title: data-structure/LiChaoTree.hpp
   - icon: ':question:'
@@ -10,14 +10,12 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/line_add_get_min
     links:
     - https://judge.yosupo.jp/problem/line_add_get_min
-  bundledCode: "#line 1 \"test/yosupo/line_add_get_min.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.yosupo.jp/problem/line_add_get_min\"\n#line 2 \"other/template.hpp\"\
+  bundledCode: "#line 1 \"test/yosupo/line_add_get_min.test_LiChaoTree.cpp\"\n#define\
+    \ PROBLEM \"https://judge.yosupo.jp/problem/line_add_get_min\"\n#line 2 \"other/template.hpp\"\
     \n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"avx2\")\n#pragma optimize(\"\
     O3\")\n#pragma optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
     #include <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n\
@@ -32,9 +30,9 @@ data:
     \ std::pair<int, int> P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int INF\
     \ = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps =\
     \ DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\ntemplate\
-    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\n\
-    {};\ntemplate <typename F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
-    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <typename F>\ninline constexpr decltype(auto) lambda_fix(F&&\
+    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn\
     \ std::vector<T>(n);\n}\ntemplate <typename T, class... Args>\nauto make_vec(size_t\
     \ n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
@@ -44,7 +42,7 @@ data:
     inline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\
     \t\treturn true;\n\t}\n\treturn false;\n}\ninline lint gcd(lint a, lint b) {\n\
     \twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n\
-    }\ninline lint lcm(lint a, lint b) {\n\treturn a / gcd(a, b) * b;\n}\nbool isprime(lint\
+    }\ninline lint lcm(lint a, lint b) { return a / gcd(a, b) * b; }\nbool isprime(lint\
     \ n) {\n\tif (n == 1) return false;\n\tfor (int i = 2; i * i <= n; i++) {\n\t\t\
     if (n % i == 0) return false;\n\t}\n\treturn true;\n}\ntemplate <typename T>\n\
     T mypow(T a, lint b) {\n\tT res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a;\n\
@@ -102,7 +100,7 @@ data:
     \ int> res = {LINF, -1};\n\t\twhile (idx) {\n\t\t\tif (chmin(res.first, calc(node[idx],\
     \ x)))\n\t\t\t\tres.second = node[idx].second;\n\t\t\tidx >>= 1;\n\t\t}\n\t\t\
     if (!isMin) res.first = -res.first;\n\t\treturn res;\n\t}\n\tvoid clear() {\n\t\
-    \tid = 0;\n\t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t}\n};\n#line 4 \"test/yosupo/line_add_get_min.test.cpp\"\
+    \tid = 0;\n\t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t}\n};\n#line 4 \"test/yosupo/line_add_get_min.test_LiChaoTree.cpp\"\
     \nint n, q;\nlint a[200010], b[200010];\nstd::vector<std::pair<int, lint>> vec;\n\
     std::vector<lint> cord;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i, n)\
     \ scanf(\"%lld%lld\", a + i, b + i);\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"\
@@ -130,16 +128,16 @@ data:
   dependsOn:
   - data-structure/LiChaoTree.hpp
   - other/template.hpp
-  isVerificationFile: true
-  path: test/yosupo/line_add_get_min.test.cpp
+  isVerificationFile: false
+  path: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
   requiredBy: []
-  timestamp: '2020-12-15 14:01:09+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2020-12-15 16:49:04+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: test/yosupo/line_add_get_min.test.cpp
+documentation_of: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/line_add_get_min.test.cpp
-- /verify/test/yosupo/line_add_get_min.test.cpp.html
-title: test/yosupo/line_add_get_min.test.cpp
+- /library/test/yosupo/line_add_get_min.test_LiChaoTree.cpp
+- /library/test/yosupo/line_add_get_min.test_LiChaoTree.cpp.html
+title: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
 ---

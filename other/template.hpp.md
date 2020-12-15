@@ -29,13 +29,13 @@ data:
   - icon: ':question:'
     path: data-structure/BIT.hpp
     title: data-structure/BIT.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/ConvexHullTrick.hpp
     title: data-structure/ConvexHullTrick.hpp
   - icon: ':heavy_check_mark:'
     path: data-structure/IntervalSegTree.hpp
     title: data-structure/IntervalSegTree.hpp
-  - icon: ':question:'
+  - icon: ':x:'
     path: data-structure/LiChaoTree.hpp
     title: data-structure/LiChaoTree.hpp
   - icon: ':warning:'
@@ -104,6 +104,9 @@ data:
   - icon: ':x:'
     path: string/Trie.hpp
     title: string/Trie.hpp
+  - icon: ':warning:'
+    path: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
+    title: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
@@ -160,8 +163,8 @@ data:
     path: test/yosupo/lca.test.cpp
     title: test/yosupo/lca.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/line_add_get_min.test.cpp
-    title: test/yosupo/line_add_get_min.test.cpp
+    path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
+    title: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/many_aplusb.test.cpp
     title: test/yosupo/many_aplusb.test.cpp
@@ -244,7 +247,7 @@ data:
     \ std::pair<lint, lint> LP;\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint\
     \ LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double\
     \ PI = 3.141592653589793238462643383279;\ntemplate <class T>\nclass prique : public\
-    \ std::priority_queue<T, std::vector<T>, std::greater<T>>\n{};\ntemplate <typename\
+    \ std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate <typename\
     \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
     \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
     template <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
@@ -255,14 +258,14 @@ data:
     template <class T, class U>\ninline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs\
     \ > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ninline\
     \ lint gcd(lint a, lint b) {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\t\
-    b = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) {\n\treturn a\
-    \ / gcd(a, b) * b;\n}\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\t\
-    for (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\t\
-    return true;\n}\ntemplate <typename T>\nT mypow(T a, lint b) {\n\tT res(1);\n\t\
-    while (b) {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn\
-    \ res;\n}\nlint modpow(lint a, lint b, lint m) {\n\tlint res(1);\n\twhile (b)\
-    \ {\n\t\tif (b & 1) {\n\t\t\tres *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\
-    \ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>&\
+    b = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) { return a /\
+    \ gcd(a, b) * b; }\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\tfor\
+    \ (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn\
+    \ true;\n}\ntemplate <typename T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile\
+    \ (b) {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n\
+    }\nlint modpow(lint a, lint b, lint m) {\n\tlint res(1);\n\twhile (b) {\n\t\t\
+    if (b & 1) {\n\t\t\tres *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\ta %= m;\n\
+    \t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>&\
     \ vec) {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i\
     \ == (int)vec.size() - 1 ? \"\\n\" : \" \");\n\t}\n}\ntemplate <typename T>\n\
     void printArray(T l, T r) {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r;\
@@ -293,9 +296,9 @@ data:
     typedef std::pair<int, int> P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int\
     \ INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps\
     \ = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\ntemplate\
-    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\n\
-    {};\ntemplate <typename F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
-    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <typename F>\ninline constexpr decltype(auto) lambda_fix(F&&\
+    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn\
     \ std::vector<T>(n);\n}\ntemplate <typename T, class... Args>\nauto make_vec(size_t\
     \ n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
@@ -305,7 +308,7 @@ data:
     inline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\
     \t\treturn true;\n\t}\n\treturn false;\n}\ninline lint gcd(lint a, lint b) {\n\
     \twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n\
-    }\ninline lint lcm(lint a, lint b) {\n\treturn a / gcd(a, b) * b;\n}\nbool isprime(lint\
+    }\ninline lint lcm(lint a, lint b) { return a / gcd(a, b) * b; }\nbool isprime(lint\
     \ n) {\n\tif (n == 1) return false;\n\tfor (int i = 2; i * i <= n; i++) {\n\t\t\
     if (n % i == 0) return false;\n\t}\n\treturn true;\n}\ntemplate <typename T>\n\
     T mypow(T a, lint b) {\n\tT res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a;\n\
@@ -363,10 +366,11 @@ data:
   - data-structure/IntervalSegTree.hpp
   - data-structure/LiChaoTree.hpp
   - data-structure/MonotoneConvexHullTrick.hpp
+  - test/yosupo/line_add_get_min.test_LiChaoTree.cpp
   - string/SuffixArray.hpp
   - string/Trie.hpp
   - string/RollingHash.hpp
-  timestamp: '2020-12-15 14:01:09+09:00'
+  timestamp: '2020-12-15 16:49:04+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/yosupo/shortest_path.test.cpp
@@ -375,10 +379,10 @@ data:
   - test/yosupo/tree_diameter.test.cpp
   - test/yosupo/range_kth_smallest.test.cpp
   - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/line_add_get_min.test.cpp
   - test/yosupo/bipartitematching.test.cpp
   - test/yosupo/lca.test.cpp
   - test/yosupo/associative_array.test.cpp
+  - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
   - test/yosupo/queue_operate_all_composite.test.cpp
   - test/yosupo/aplusb.test.cpp
   - test/yosupo/range_affine_range_sum.test.cpp

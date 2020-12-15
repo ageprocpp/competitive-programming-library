@@ -32,9 +32,9 @@ data:
     \ std::pair<int, int> P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int INF\
     \ = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps =\
     \ DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\ntemplate\
-    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\n\
-    {};\ntemplate <typename F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
-    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <typename F>\ninline constexpr decltype(auto) lambda_fix(F&&\
+    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn\
     \ std::vector<T>(n);\n}\ntemplate <typename T, class... Args>\nauto make_vec(size_t\
     \ n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
@@ -44,7 +44,7 @@ data:
     inline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\
     \t\treturn true;\n\t}\n\treturn false;\n}\ninline lint gcd(lint a, lint b) {\n\
     \twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n\
-    }\ninline lint lcm(lint a, lint b) {\n\treturn a / gcd(a, b) * b;\n}\nbool isprime(lint\
+    }\ninline lint lcm(lint a, lint b) { return a / gcd(a, b) * b; }\nbool isprime(lint\
     \ n) {\n\tif (n == 1) return false;\n\tfor (int i = 2; i * i <= n; i++) {\n\t\t\
     if (n % i == 0) return false;\n\t}\n\treturn true;\n}\ntemplate <typename T>\n\
     T mypow(T a, lint b) {\n\tT res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a;\n\
@@ -75,10 +75,10 @@ data:
     \ i : vec[p.second]) {\n\t\t\t\tif (chmin(dist[i.first], p.first + i.second))\
     \ {\n\t\t\t\t\tque.push({dist[i.first], i.first});\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\
     \t\treturn dist[t] != std::numeric_limits<T>::max();\n\t}\n\n  public:\n\tDijkstra(int\
-    \ N) : N(N), vec(N), rev(N) {\n\t}\n\tvoid add_edge(int from, int to, T cost)\
-    \ {\n\t\tvec[from].emplace_back(std::pair<int, T>{to, cost});\n\t\trev[to].emplace_back(std::pair<int,\
-    \ T>{from, cost});\n\t}\n\tT get_dist(int s, int t) {\n\t\treturn get_dist_and_path(s,\
-    \ t).first;\n\t}\n\tstd::vector<int> get_path(int s, int t) {\n\t\treturn get_dist_and_path(s,\
+    \ N) : N(N), vec(N), rev(N) {}\n\tvoid add_edge(int from, int to, T cost) {\n\t\
+    \tvec[from].emplace_back(std::pair<int, T>{to, cost});\n\t\trev[to].emplace_back(std::pair<int,\
+    \ T>{from, cost});\n\t}\n\tT get_dist(int s, int t) { return get_dist_and_path(s,\
+    \ t).first; }\n\tstd::vector<int> get_path(int s, int t) {\n\t\treturn get_dist_and_path(s,\
     \ t).second;\n\t}\n\tstd::pair<T, std::vector<int>> get_dist_and_path(int s, int\
     \ t) {\n\t\tstd::vector<T> dist;\n\t\tstd::vector<int> res = {t};\n\t\tstd::vector<bool>\
     \ used(N);\n\t\tif (!exec(s, t, dist)) return {-1, {}};\n\t\tused[t] = true;\n\
@@ -108,7 +108,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2020-12-15 14:01:09+09:00'
+  timestamp: '2020-12-15 16:49:04+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/shortest_path.test.cpp

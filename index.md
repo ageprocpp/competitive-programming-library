@@ -32,13 +32,13 @@ data:
     - icon: ':question:'
       path: data-structure/BIT.hpp
       title: data-structure/BIT.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/ConvexHullTrick.hpp
       title: data-structure/ConvexHullTrick.hpp
     - icon: ':heavy_check_mark:'
       path: data-structure/IntervalSegTree.hpp
       title: data-structure/IntervalSegTree.hpp
-    - icon: ':question:'
+    - icon: ':x:'
       path: data-structure/LiChaoTree.hpp
       title: data-structure/LiChaoTree.hpp
     - icon: ':warning:'
@@ -119,6 +119,11 @@ data:
     - icon: ':x:'
       path: string/Trie.hpp
       title: string/Trie.hpp
+  - name: test/yosupo
+    pages:
+    - icon: ':warning:'
+      path: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
+      title: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
   verificationCategories:
   - name: test/aoj
     pages:
@@ -179,8 +184,8 @@ data:
       path: test/yosupo/lca.test.cpp
       title: test/yosupo/lca.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/yosupo/line_add_get_min.test.cpp
-      title: test/yosupo/line_add_get_min.test.cpp
+      path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
+      title: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/many_aplusb.test.cpp
       title: test/yosupo/many_aplusb.test.cpp

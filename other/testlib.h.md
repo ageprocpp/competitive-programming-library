@@ -287,17 +287,17 @@ data:
     \ [0, n-1]. */\n\tint next(int n) {\n\t\tif (n <= 0) __testlib_fail(\"random_t::next(int\
     \ n): n must be positive\");\n\n\t\tif ((n & -n) == n)\t// n is a power of 2\n\
     \t\t\treturn (int)((n * (long long)nextBits(31)) >> 31);\n\n\t\tconst long long\
-    \ limit = INT_MAX / n * n;\n\n\t\tlong long bits;\n\t\tdo { bits = nextBits(31);\
-    \ } while (bits >= limit);\n\n\t\treturn int(bits % n);\n\t}\n\n\t/* Random value\
-    \ in range [0, n-1]. */\n\tunsigned int next(unsigned int n) {\n\t\tif (n >= INT_MAX)\n\
-    \t\t\t__testlib_fail(\n\t\t\t\t\"random_t::next(unsigned int n): n must be less\
-    \ INT_MAX\");\n\t\treturn (unsigned int)next(int(n));\n\t}\n\n\t/* Random value\
-    \ in range [0, n-1]. */\n\tlong long next(long long n) {\n\t\tif (n <= 0)\n\t\t\
-    \t__testlib_fail(\"random_t::next(long long n): n must be positive\");\n\n\t\t\
-    const long long limit = __TESTLIB_LONGLONG_MAX / n * n;\n\n\t\tlong long bits;\n\
-    \t\tdo { bits = nextBits(63); } while (bits >= limit);\n\n\t\treturn bits % n;\n\
-    \t}\n\n\t/* Random value in range [0, n-1]. */\n\tunsigned long long next(unsigned\
-    \ long long n) {\n\t\tif (n >= (unsigned long long)(__TESTLIB_LONGLONG_MAX))\n\
+    \ limit = INT_MAX / n * n;\n\n\t\tlong long bits;\n\t\tdo {\n\t\t\tbits = nextBits(31);\n\
+    \t\t} while (bits >= limit);\n\n\t\treturn int(bits % n);\n\t}\n\n\t/* Random\
+    \ value in range [0, n-1]. */\n\tunsigned int next(unsigned int n) {\n\t\tif (n\
+    \ >= INT_MAX)\n\t\t\t__testlib_fail(\n\t\t\t\t\"random_t::next(unsigned int n):\
+    \ n must be less INT_MAX\");\n\t\treturn (unsigned int)next(int(n));\n\t}\n\n\t\
+    /* Random value in range [0, n-1]. */\n\tlong long next(long long n) {\n\t\tif\
+    \ (n <= 0)\n\t\t\t__testlib_fail(\"random_t::next(long long n): n must be positive\"\
+    );\n\n\t\tconst long long limit = __TESTLIB_LONGLONG_MAX / n * n;\n\n\t\tlong\
+    \ long bits;\n\t\tdo {\n\t\t\tbits = nextBits(63);\n\t\t} while (bits >= limit);\n\
+    \n\t\treturn bits % n;\n\t}\n\n\t/* Random value in range [0, n-1]. */\n\tunsigned\
+    \ long long next(unsigned long long n) {\n\t\tif (n >= (unsigned long long)(__TESTLIB_LONGLONG_MAX))\n\
     \t\t\t__testlib_fail(\n\t\t\t\t\"random_t::next(unsigned long long n): n must\
     \ be less \"\n\t\t\t\t\"LONGLONG_MAX\");\n\t\treturn (unsigned long long)next((long\
     \ long)(n));\n\t}\n\n\t/* Random value in range [0, n-1]. */\n\tlong next(long\
@@ -1504,8 +1504,8 @@ data:
     );\n}\n\nvoid InStream::readEof() {\n\tlastLine = reader->getLine();\n\tif (!eof())\
     \ quit(_pe, \"Expected EOF\");\n\n\tif (TestlibFinalizeGuard::alive && this ==\
     \ &inf)\n\t\ttestlibFinalizeGuard.readEofCount++;\n}\n\nbool InStream::seekEoln()\
-    \ {\n\tif (!strict && NULL == reader) return true;\n\n\tint cur;\n\tdo { cur =\
-    \ reader->nextChar(); } while (cur == SPACE || cur == TAB);\n\n\treader->unreadChar(cur);\n\
+    \ {\n\tif (!strict && NULL == reader) return true;\n\n\tint cur;\n\tdo {\n\t\t\
+    cur = reader->nextChar();\n\t} while (cur == SPACE || cur == TAB);\n\n\treader->unreadChar(cur);\n\
     \treturn eoln();\n}\n\nvoid InStream::nextLine() { readLine(); }\n\nvoid InStream::readStringTo(std::string\
     \ &result) {\n\tif (NULL == reader) quit(_pe, \"Expected line\");\n\n\tresult.clear();\n\
     \n\tfor (;;) {\n\t\tint cur = reader->curChar();\n\n\t\tif (cur == LF || cur ==\
@@ -1702,10 +1702,10 @@ data:
     \ be run with the following arguments: \") +\n\t\t\t\t \"<input-file> <output-file>\
     \ <answer-file> [<report-file> \"\n\t\t\t\t \"[<-appes>]]\");\n\n\tchar **argv\
     \ = new char *[argc + 1];\n\n\tva_list ap;\n\tva_start(ap, argc);\n\targv[0] =\
-    \ NULL;\n\tfor (int i = 0; i < argc; i++) { argv[i + 1] = va_arg(ap, char *);\
-    \ }\n\tva_end(ap);\n\n\tregisterTestlibCmd(argc + 1, argv);\n\tdelete[] argv;\n\
-    }\n\nstatic inline void __testlib_ensure(bool cond, const std::string &msg) {\n\
-    \tif (!cond) quit(_fail, msg.c_str());\n}\n\n#ifdef __GNUC__\n__attribute__((unused))\n\
+    \ NULL;\n\tfor (int i = 0; i < argc; i++) {\n\t\targv[i + 1] = va_arg(ap, char\
+    \ *);\n\t}\n\tva_end(ap);\n\n\tregisterTestlibCmd(argc + 1, argv);\n\tdelete[]\
+    \ argv;\n}\n\nstatic inline void __testlib_ensure(bool cond, const std::string\
+    \ &msg) {\n\tif (!cond) quit(_fail, msg.c_str());\n}\n\n#ifdef __GNUC__\n__attribute__((unused))\n\
     #endif\nstatic inline void\n__testlib_ensure(bool cond, const char *msg) {\n\t\
     if (!cond) quit(_fail, msg);\n}\n\n#define ensure(cond) __testlib_ensure(cond,\
     \ \"Condition failed: \\\"\" #cond \"\\\"\")\n#define STRINGIZE_DETAIL(x) #x\n\
@@ -2284,17 +2284,17 @@ data:
     \ [0, n-1]. */\n\tint next(int n) {\n\t\tif (n <= 0) __testlib_fail(\"random_t::next(int\
     \ n): n must be positive\");\n\n\t\tif ((n & -n) == n)\t// n is a power of 2\n\
     \t\t\treturn (int)((n * (long long)nextBits(31)) >> 31);\n\n\t\tconst long long\
-    \ limit = INT_MAX / n * n;\n\n\t\tlong long bits;\n\t\tdo { bits = nextBits(31);\
-    \ } while (bits >= limit);\n\n\t\treturn int(bits % n);\n\t}\n\n\t/* Random value\
-    \ in range [0, n-1]. */\n\tunsigned int next(unsigned int n) {\n\t\tif (n >= INT_MAX)\n\
-    \t\t\t__testlib_fail(\n\t\t\t\t\"random_t::next(unsigned int n): n must be less\
-    \ INT_MAX\");\n\t\treturn (unsigned int)next(int(n));\n\t}\n\n\t/* Random value\
-    \ in range [0, n-1]. */\n\tlong long next(long long n) {\n\t\tif (n <= 0)\n\t\t\
-    \t__testlib_fail(\"random_t::next(long long n): n must be positive\");\n\n\t\t\
-    const long long limit = __TESTLIB_LONGLONG_MAX / n * n;\n\n\t\tlong long bits;\n\
-    \t\tdo { bits = nextBits(63); } while (bits >= limit);\n\n\t\treturn bits % n;\n\
-    \t}\n\n\t/* Random value in range [0, n-1]. */\n\tunsigned long long next(unsigned\
-    \ long long n) {\n\t\tif (n >= (unsigned long long)(__TESTLIB_LONGLONG_MAX))\n\
+    \ limit = INT_MAX / n * n;\n\n\t\tlong long bits;\n\t\tdo {\n\t\t\tbits = nextBits(31);\n\
+    \t\t} while (bits >= limit);\n\n\t\treturn int(bits % n);\n\t}\n\n\t/* Random\
+    \ value in range [0, n-1]. */\n\tunsigned int next(unsigned int n) {\n\t\tif (n\
+    \ >= INT_MAX)\n\t\t\t__testlib_fail(\n\t\t\t\t\"random_t::next(unsigned int n):\
+    \ n must be less INT_MAX\");\n\t\treturn (unsigned int)next(int(n));\n\t}\n\n\t\
+    /* Random value in range [0, n-1]. */\n\tlong long next(long long n) {\n\t\tif\
+    \ (n <= 0)\n\t\t\t__testlib_fail(\"random_t::next(long long n): n must be positive\"\
+    );\n\n\t\tconst long long limit = __TESTLIB_LONGLONG_MAX / n * n;\n\n\t\tlong\
+    \ long bits;\n\t\tdo {\n\t\t\tbits = nextBits(63);\n\t\t} while (bits >= limit);\n\
+    \n\t\treturn bits % n;\n\t}\n\n\t/* Random value in range [0, n-1]. */\n\tunsigned\
+    \ long long next(unsigned long long n) {\n\t\tif (n >= (unsigned long long)(__TESTLIB_LONGLONG_MAX))\n\
     \t\t\t__testlib_fail(\n\t\t\t\t\"random_t::next(unsigned long long n): n must\
     \ be less \"\n\t\t\t\t\"LONGLONG_MAX\");\n\t\treturn (unsigned long long)next((long\
     \ long)(n));\n\t}\n\n\t/* Random value in range [0, n-1]. */\n\tlong next(long\
@@ -3501,8 +3501,8 @@ data:
     );\n}\n\nvoid InStream::readEof() {\n\tlastLine = reader->getLine();\n\tif (!eof())\
     \ quit(_pe, \"Expected EOF\");\n\n\tif (TestlibFinalizeGuard::alive && this ==\
     \ &inf)\n\t\ttestlibFinalizeGuard.readEofCount++;\n}\n\nbool InStream::seekEoln()\
-    \ {\n\tif (!strict && NULL == reader) return true;\n\n\tint cur;\n\tdo { cur =\
-    \ reader->nextChar(); } while (cur == SPACE || cur == TAB);\n\n\treader->unreadChar(cur);\n\
+    \ {\n\tif (!strict && NULL == reader) return true;\n\n\tint cur;\n\tdo {\n\t\t\
+    cur = reader->nextChar();\n\t} while (cur == SPACE || cur == TAB);\n\n\treader->unreadChar(cur);\n\
     \treturn eoln();\n}\n\nvoid InStream::nextLine() { readLine(); }\n\nvoid InStream::readStringTo(std::string\
     \ &result) {\n\tif (NULL == reader) quit(_pe, \"Expected line\");\n\n\tresult.clear();\n\
     \n\tfor (;;) {\n\t\tint cur = reader->curChar();\n\n\t\tif (cur == LF || cur ==\
@@ -3699,10 +3699,10 @@ data:
     \ be run with the following arguments: \") +\n\t\t\t\t \"<input-file> <output-file>\
     \ <answer-file> [<report-file> \"\n\t\t\t\t \"[<-appes>]]\");\n\n\tchar **argv\
     \ = new char *[argc + 1];\n\n\tva_list ap;\n\tva_start(ap, argc);\n\targv[0] =\
-    \ NULL;\n\tfor (int i = 0; i < argc; i++) { argv[i + 1] = va_arg(ap, char *);\
-    \ }\n\tva_end(ap);\n\n\tregisterTestlibCmd(argc + 1, argv);\n\tdelete[] argv;\n\
-    }\n\nstatic inline void __testlib_ensure(bool cond, const std::string &msg) {\n\
-    \tif (!cond) quit(_fail, msg.c_str());\n}\n\n#ifdef __GNUC__\n__attribute__((unused))\n\
+    \ NULL;\n\tfor (int i = 0; i < argc; i++) {\n\t\targv[i + 1] = va_arg(ap, char\
+    \ *);\n\t}\n\tva_end(ap);\n\n\tregisterTestlibCmd(argc + 1, argv);\n\tdelete[]\
+    \ argv;\n}\n\nstatic inline void __testlib_ensure(bool cond, const std::string\
+    \ &msg) {\n\tif (!cond) quit(_fail, msg.c_str());\n}\n\n#ifdef __GNUC__\n__attribute__((unused))\n\
     #endif\nstatic inline void\n__testlib_ensure(bool cond, const char *msg) {\n\t\
     if (!cond) quit(_fail, msg);\n}\n\n#define ensure(cond) __testlib_ensure(cond,\
     \ \"Condition failed: \\\"\" #cond \"\\\"\")\n#define STRINGIZE_DETAIL(x) #x\n\
@@ -4006,7 +4006,7 @@ data:
   isVerificationFile: false
   path: other/testlib.h
   requiredBy: []
-  timestamp: '2020-11-24 22:27:37+09:00'
+  timestamp: '2020-12-15 16:49:04+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: other/testlib.h

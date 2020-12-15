@@ -39,7 +39,7 @@ data:
     \ LP;\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\n\
     constexpr double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
     template <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
-    \ std::greater<T>>\n{};\ntemplate <typename F>\ninline constexpr decltype(auto)\
+    \ std::greater<T>> {\n};\ntemplate <typename F>\ninline constexpr decltype(auto)\
     \ lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\
     \treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\ntemplate <typename\
     \ T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n}\ntemplate\
@@ -50,14 +50,14 @@ data:
     template <class T, class U>\ninline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs\
     \ > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ninline\
     \ lint gcd(lint a, lint b) {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\t\
-    b = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) {\n\treturn a\
-    \ / gcd(a, b) * b;\n}\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\t\
-    for (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\t\
-    return true;\n}\ntemplate <typename T>\nT mypow(T a, lint b) {\n\tT res(1);\n\t\
-    while (b) {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn\
-    \ res;\n}\nlint modpow(lint a, lint b, lint m) {\n\tlint res(1);\n\twhile (b)\
-    \ {\n\t\tif (b & 1) {\n\t\t\tres *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\
-    \ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>&\
+    b = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) { return a /\
+    \ gcd(a, b) * b; }\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\tfor\
+    \ (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn\
+    \ true;\n}\ntemplate <typename T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile\
+    \ (b) {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n\
+    }\nlint modpow(lint a, lint b, lint m) {\n\tlint res(1);\n\twhile (b) {\n\t\t\
+    if (b & 1) {\n\t\t\tres *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\ta %= m;\n\
+    \t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>&\
     \ vec) {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i\
     \ == (int)vec.size() - 1 ? \"\\n\" : \" \");\n\t}\n}\ntemplate <typename T>\n\
     void printArray(T l, T r) {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r;\
@@ -109,45 +109,44 @@ data:
     \ ist, DynamicModInt& x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n\
     }\n#line 4 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
     \ {\n\tlint value;\n\n  public:\n\tstatic constexpr uint mod_value = modulo;\n\
-    \tStaticModInt() : value(0) {\n\t}\n\ttemplate <typename T>\n\tStaticModInt(T\
-    \ value = 0) : value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value\
-    \ % modulo) + modulo : value) % modulo;\n\t}\n\tinline StaticModInt inv() const\
-    \ {\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline operator int() const\
-    \ {\n\t\treturn value;\n\t}\n\tinline StaticModInt& operator+=(const StaticModInt&\
-    \ x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo) value -= modulo;\n\t\t\
-    return *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\tif (value == modulo\
-    \ - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn *this;\n\t}\n\t\
-    inline StaticModInt operator++(int) {\n\t\tStaticModInt res = *this;\n\t\t++*this;\n\
-    \t\treturn res;\n\t}\n\tinline StaticModInt operator-() const {\n\t\treturn StaticModInt(0)\
-    \ -= *this;\n\t}\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\
-    \t\tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\t\treturn *this;\n\
-    \t}\n\tinline StaticModInt& operator--() {\n\t\tif (value == 0)\n\t\t\tvalue =\
-    \ modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
-    \ operator--(int) {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\t\treturn res;\n\
-    \t}\n\tinline StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = value\
-    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const\
-    \ StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\ttemplate <typename\
-    \ T>\n\tStaticModInt operator+(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ += rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt& operator+=(const T& rhs)\
-    \ {\n\t\treturn operator+=(StaticModInt(rhs));\n\t}\n\ttemplate <typename T>\n\
-    \tStaticModInt operator-(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ -= rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt& operator-=(const T& rhs)\
-    \ {\n\t\treturn operator-=(StaticModInt(rhs));\n\t}\n\ttemplate <typename T>\n\
-    \tStaticModInt operator*(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ *= rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt& operator*=(const T& rhs)\
-    \ {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <typename T>\n\
-    \tStaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ /= rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt& operator/=(const T& rhs)\
-    \ {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint modulo>\n\
-    std::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint\
-    \ a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"data-structure/SWAG.hpp\"\
+    \tStaticModInt() : value(0) {}\n\ttemplate <typename T>\n\tStaticModInt(T value\
+    \ = 0) : value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value % modulo)\
+    \ + modulo : value) % modulo;\n\t}\n\tinline StaticModInt inv() const { return\
+    \ mypow(*this, modulo - 2); }\n\tinline operator int() const { return value; }\n\
+    \tinline StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\
+    \t\tif (value >= modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt&\
+    \ operator++() {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\
+    \t\tvalue++;\n\t\treturn *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\
+    \t\tStaticModInt res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt\
+    \ operator-() const { return StaticModInt(0) -= *this; }\n\tinline StaticModInt&\
+    \ operator-=(const StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value <\
+    \ 0) value += modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator--()\
+    \ {\n\t\tif (value == 0)\n\t\t\tvalue = modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt operator--(int) {\n\t\tStaticModInt\
+    \ res = *this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt& operator*=(const\
+    \ StaticModInt& x) {\n\t\tvalue = value * x.value % modulo;\n\t\treturn *this;\n\
+    \t}\n\tinline StaticModInt& operator/=(const StaticModInt& rhs) {\n\t\treturn\
+    \ *this *= rhs.inv();\n\t}\n\ttemplate <typename T>\n\tStaticModInt operator+(const\
+    \ T& rhs) const {\n\t\treturn StaticModInt(*this) += rhs;\n\t}\n\ttemplate <typename\
+    \ T>\n\tStaticModInt& operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <typename T>\n\tStaticModInt operator-(const T& rhs) const {\n\
+    \t\treturn StaticModInt(*this) -= rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt&\
+    \ operator-=(const T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\t}\n\
+    \ttemplate <typename T>\n\tStaticModInt operator*(const T& rhs) const {\n\t\t\
+    return StaticModInt(*this) *= rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt&\
+    \ operator*=(const T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\
+    \ttemplate <typename T>\n\tStaticModInt operator/(const T& rhs) const {\n\t\t\
+    return StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <typename T>\n\tStaticModInt&\
+    \ operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n\
+    };\ntemplate <uint modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
+    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"data-structure/SWAG.hpp\"\
     \ntemplate <typename T, T (*op)(const T&, const T&)>\nclass SWAG {\n\tstd::stack<std::pair<T,\
     \ T>> front, back;\n\n  public:\n\tSWAG() {}\n\tSWAG(const std::vector<T> vec)\
-    \ {\n\t\tfor (const T& i : vec) { back.emplace(i, op(back.top().second, i)); }\n\
-    \t}\n\tvoid push(const T& x) {\n\t\tif (back.empty())\n\t\t\tback.emplace(x, x);\n\
-    \t\telse\n\t\t\tback.emplace(x, op(back.top().second, x));\n\t}\n\tvoid pop()\
-    \ {\n\t\tif (!front.empty())\n\t\t\tfront.pop();\n\t\telse {\n\t\t\tauto btop\
-    \ = back.top();\n\t\t\tfront.emplace(btop.first, btop.first);\n\t\t\tback.pop();\n\
+    \ {\n\t\tfor (const T& i : vec) {\n\t\t\tback.emplace(i, op(back.top().second,\
+    \ i));\n\t\t}\n\t}\n\tvoid push(const T& x) {\n\t\tif (back.empty())\n\t\t\tback.emplace(x,\
+    \ x);\n\t\telse\n\t\t\tback.emplace(x, op(back.top().second, x));\n\t}\n\tvoid\
+    \ pop() {\n\t\tif (!front.empty())\n\t\t\tfront.pop();\n\t\telse {\n\t\t\tauto\
+    \ btop = back.top();\n\t\t\tfront.emplace(btop.first, btop.first);\n\t\t\tback.pop();\n\
     \t\t\twhile (!back.empty()) {\n\t\t\t\tbtop = back.top();\n\t\t\t\tfront.emplace(btop.first,\
     \ op(btop.first, front.top().second));\n\t\t\t\tback.pop();\n\t\t\t}\n\t\t\tfront.pop();\n\
     \t\t}\n\t}\n\tT fold() const {\n\t\tif (front.empty()) return back.top().second;\n\
@@ -184,7 +183,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/queue_operate_all_composite.test.cpp
   requiredBy: []
-  timestamp: '2020-12-15 14:01:09+09:00'
+  timestamp: '2020-12-15 16:49:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/queue_operate_all_composite.test.cpp
