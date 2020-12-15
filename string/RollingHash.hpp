@@ -8,9 +8,7 @@ class RollingHash {
 	std::vector<M> has, power;
 
   public:
-	RollingHash(const std::string& s) {
-		init(s);
-	}
+	RollingHash(const std::string& s) { init(s); }
 	void init(const std::string& s) {
 		n = s.size();
 		has.resize(n);
@@ -25,12 +23,8 @@ class RollingHash {
 				power[i] = 1;
 		}
 	}
-	operator M() const {
-		return has.back();
-	}
-	operator int() const {
-		return has.back();
-	}
+	operator M() const { return has.back(); }
+	operator int() const { return has.back(); }
 	M query(int l, int r) const {
 		return has[r - 1] - power[r - l] * (!l ? M(0) : has[l - 1]);
 	}

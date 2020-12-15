@@ -52,12 +52,8 @@ class SegTree {
 		}
 		return nodef(ls, rs);
 	}
-	T operator[](const int& x) const {
-		return node[n + x];
-	}
-	T queryForAll() const {
-		return node[1];
-	}
+	T operator[](const int& x) const { return node[n + x]; }
+	T queryForAll() const { return node[1]; }
 
   private:
 	template <typename F>
@@ -89,9 +85,7 @@ class SegTree {
 		return max_right(st, check, acc, 1, 0, n);
 	}
 };
-static lint RSQ_nodef(const lint& lhs, const lint& rhs) {
-	return lhs + rhs;
-}
+static lint RSQ_nodef(const lint& lhs, const lint& rhs) { return lhs + rhs; }
 class RSQ : public SegTree<lint, RSQ_nodef> {
 	using Base = SegTree<lint, RSQ_nodef>;
 

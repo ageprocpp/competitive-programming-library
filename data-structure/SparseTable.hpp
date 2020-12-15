@@ -28,7 +28,9 @@ class SparseTable {
 	template <class InputIter>
 	SparseTable(InputIter first, InputIter last) {
 		std::vector<T> vec;
-		while (first != last) { vec.emplace_back(*first); }
+		while (first != last) {
+			vec.emplace_back(*first);
+		}
 	}
 	T query(int l, int r) {
 		int length = r - l;

@@ -1,22 +1,23 @@
 #include "../other/template.hpp"
 template <typename T, bool isMin>
 class ConvexHullTrick {
-	static constexpr double INF = DBL_MAX;
+	static constexpr double DBL_INF = DBL_MAX;
 	class Line {
 	  public:
-		T m, b, val;
+		T m, b;
 		int id;
 		double x;
 		bool isQuery;
 		inline Line(int id = -1, T m = 0, T b = 0)
-			: id(id), m(m), b(b), isQuery(false) {}
+			: m(m), b(b), id(id), isQuery(false) {}
 		T eval(T x) const { return m * x + b; }
 		bool parallel(const Line& l) const { return m == l.m; }
 		double intersect(const Line& l) const {
-			return parallel(l) ? INF : (l.b - b) / (m - l.m);
+			return parallel(l) ? DBL_INF : double(l.b - b) / (m - l.m);
 		}
 		inline bool operator<(const Line& l) const {
-			if (l.isQuery) return x < l.val;
+			if (l.isQuery) return x < l.m;
+			if (isQuery) return m < l.x;
 			return m < l.m;
 		}
 	};
@@ -35,8 +36,11 @@ class ConvexHullTrick {
 			   bad(*std::prev(it), *it, *std::next(it));
 	}
 	iter update(iter it) {
-		if (!cPrev(it)) return it;
-		double x = it->intersect(*std::prev(it));
+		double x;
+		if (!cPrev(it))
+			x = -DBL_INF;
+		else
+			x = it->intersect(*std::prev(it));
 		Line tmp(*it);
 		tmp.x = x;
 		it = st.erase(it);
@@ -47,7 +51,7 @@ class ConvexHullTrick {
 	void addLine(T m, T b) {
 		if (isMin) m = -m, b = -b;
 		Line l(index++, m, b);
-		if (st.empty()) l.x = -INF;
+		if (st.empty()) l.x = -DBL_INF;
 		iter it = st.lower_bound(l);
 		if (it != st.end() && l.parallel(*it)) {
 			if (it->b < b)
@@ -68,9 +72,9 @@ class ConvexHullTrick {
 	}
 	std::pair<T, int> query(T x) {
 		Line q;
-		q.val = x;
+		q.m = x;
 		q.isQuery = true;
-		iter it = --st.lower_bound(q);
+		iter it = --st.upper_bound(q);
 		if (isMin) return {-it->eval(x), it->id};
 		return {it->eval(x), it->id};
 	}

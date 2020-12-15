@@ -674,7 +674,9 @@ class random_t {
 		const long long limit = INT_MAX / n * n;
 
 		long long bits;
-		do { bits = nextBits(31); } while (bits >= limit);
+		do {
+			bits = nextBits(31);
+		} while (bits >= limit);
 
 		return int(bits % n);
 	}
@@ -695,7 +697,9 @@ class random_t {
 		const long long limit = __TESTLIB_LONGLONG_MAX / n * n;
 
 		long long bits;
-		do { bits = nextBits(63); } while (bits >= limit);
+		do {
+			bits = nextBits(63);
+		} while (bits >= limit);
 
 		return bits % n;
 	}
@@ -3905,7 +3909,9 @@ bool InStream::seekEoln() {
 	if (!strict && NULL == reader) return true;
 
 	int cur;
-	do { cur = reader->nextChar(); } while (cur == SPACE || cur == TAB);
+	do {
+		cur = reader->nextChar();
+	} while (cur == SPACE || cur == TAB);
 
 	reader->unreadChar(cur);
 	return eoln();
@@ -4431,7 +4437,9 @@ void registerTestlib(int argc, ...) {
 	va_list ap;
 	va_start(ap, argc);
 	argv[0] = NULL;
-	for (int i = 0; i < argc; i++) { argv[i + 1] = va_arg(ap, char *); }
+	for (int i = 0; i < argc; i++) {
+		argv[i + 1] = va_arg(ap, char *);
+	}
 	va_end(ap);
 
 	registerTestlibCmd(argc + 1, argv);

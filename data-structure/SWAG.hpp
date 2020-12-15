@@ -7,7 +7,9 @@ class SWAG {
   public:
 	SWAG() {}
 	SWAG(const std::vector<T> vec) {
-		for (const T& i : vec) { back.emplace(i, op(back.top().second, i)); }
+		for (const T& i : vec) {
+			back.emplace(i, op(back.top().second, i));
+		}
 	}
 	void push(const T& x) {
 		if (back.empty())

@@ -43,8 +43,8 @@ constexpr lint LINF = LLONG_MAX / 2;
 constexpr double eps = DBL_EPSILON;
 constexpr double PI = 3.141592653589793238462643383279;
 template <class T>
-class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>
-{};
+class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>> {
+};
 template <typename F>
 inline constexpr decltype(auto) lambda_fix(F&& f) {
 	return [f = std::forward<F>(f)](auto&&... args) {
@@ -84,9 +84,7 @@ inline lint gcd(lint a, lint b) {
 	}
 	return a;
 }
-inline lint lcm(lint a, lint b) {
-	return a / gcd(a, b) * b;
-}
+inline lint lcm(lint a, lint b) { return a / gcd(a, b) * b; }
 bool isprime(lint n) {
 	if (n == 1) return false;
 	for (int i = 2; i * i <= n; i++) {

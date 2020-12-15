@@ -6,9 +6,7 @@ class UnionFind {
 
   public:
 	UnionFind() {}
-	UnionFind(int size) {
-		init(size);
-	}
+	UnionFind(int size) { init(size); }
 	void init(int size) {
 		par.resize(size);
 		this->size.resize(size, 1);
@@ -27,10 +25,6 @@ class UnionFind {
 		par[a] = b;
 		size[b] += size[a];
 	}
-	bool same(int n, int m) {
-		return find(n) == find(m);
-	}
-	int getsize(int n) {
-		return size[find(n)];
-	}
+	bool same(int n, int m) { return find(n) == find(m); }
+	int getsize(int n) { return size[find(n)]; }
 };

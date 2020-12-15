@@ -97,7 +97,9 @@ class SegTreeBeats {
 			min[0][i] = max[0][i] = sum[i] = initvec[i - n + 1];
 			minc[i] = maxc[i] = 1;
 		}
-		for (int i = n - 2; i >= 0; i--) { combine(i); }
+		for (int i = n - 2; i >= 0; i--) {
+			combine(i);
+		}
 		width[0] = n;
 		REP(i, 2 * n - 2) width[i] = width[(i - 1) / 2] / 2;
 	}

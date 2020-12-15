@@ -23,15 +23,12 @@ class Dijkstra {
 	}
 
   public:
-	Dijkstra(int N) : N(N), vec(N), rev(N) {
-	}
+	Dijkstra(int N) : N(N), vec(N), rev(N) {}
 	void add_edge(int from, int to, T cost) {
 		vec[from].emplace_back(std::pair<int, T>{to, cost});
 		rev[to].emplace_back(std::pair<int, T>{from, cost});
 	}
-	T get_dist(int s, int t) {
-		return get_dist_and_path(s, t).first;
-	}
+	T get_dist(int s, int t) { return get_dist_and_path(s, t).first; }
 	std::vector<int> get_path(int s, int t) {
 		return get_dist_and_path(s, t).second;
 	}
