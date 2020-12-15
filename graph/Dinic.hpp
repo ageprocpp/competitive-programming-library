@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-class FordFulkerson {
+class Dinic {
 	class edge {
 	  public:
 		int to;
@@ -9,14 +9,31 @@ class FordFulkerson {
 	};
 	int N, idx = 0;
 	std::vector<std::vector<edge>> vec;
-	std::vector<bool> used;
+	std::vector<int> iter, level;
+	bool bfs(int s, int t) {
+		level.assign(N, -1);
+		level[s] = 0;
+		std::queue<int> que;
+		que.push(s);
+		while (!que.empty()) {
+			int node = que.front();
+			que.pop();
+			for (const auto& i : vec[node]) {
+				if (i.cap > 0 && level[i.to] == -1) {
+					level[i.to] = level[node] + 1;
+					que.push(i.to);
+				}
+			}
+		}
+		return level[t] != -1;
+	}
 	lint dfs(int node, int t, lint f) {
 		if (node == t) return f;
-		used[node] = true;
-		for (edge& e : vec[node]) {
-			if (!used[e.to] && e.cap > 0) {
+		for (int& i = iter[node]; i < vec[node].size(); i++) {
+			edge& e = vec[node][i];
+			if (e.cap > 0 && level[node] < level[e.to]) {
 				lint d = dfs(e.to, t, std::min(f, e.cap));
-				if (d) {
+				if (d > 0) {
 					e.cap -= d;
 					vec[e.to][e.rev].cap += d;
 					return d;
@@ -27,9 +44,10 @@ class FordFulkerson {
 	}
 
   public:
-	FordFulkerson(int n) : N(n) {
+	Dinic(int n) : N(n) {
 		vec.resize(N);
-		used.resize(N);
+		level.resize(N);
+		iter.resize(N);
 	}
 	void reset() {
 		rep(i, N) {
@@ -48,10 +66,11 @@ class FordFulkerson {
 	lint max_flow(int s, int t) {
 		lint res = 0;
 		while (true) {
-			used.assign(N, false);
-			lint f = dfs(s, t, LINF);
-			if (!f) return res;
-			res += f;
+			bfs(s, t);
+			if (level[t] < 0) return res;
+			iter.assign(N, 0);
+			lint f;
+			while ((f = dfs(s, t, LINF)) > 0) res += f;
 		}
 	}
 	std::vector<lint> restore() const {
