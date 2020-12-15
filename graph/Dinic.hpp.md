@@ -7,8 +7,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/GRL_6_A_FordFulkerson.test.cpp
-    title: test/aoj/GRL_6_A_FordFulkerson.test.cpp
+    path: test/aoj/GRL_6_A_Dinic.test.cpp
+    title: test/aoj/GRL_6_A_Dinic.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
@@ -56,57 +56,71 @@ data:
     \t};\n}\ntemplate <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn\
     \ std::vector<T>(n);\n}\ntemplate <typename T, class... Args>\nauto make_vec(size_t\
     \ n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
-    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\n#line 3 \"graph/FordFulkerson.hpp\"\
-    \nclass FordFulkerson {\n\tclass edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\
-    \t\tint rev, id;\n\t};\n\tint N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\
-    \tstd::vector<bool> used;\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node\
-    \ == t) return f;\n\t\tused[node] = true;\n\t\tfor (edge& e : vec[node]) {\n\t\
-    \t\tif (!used[e.to] && e.cap > 0) {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f,\
-    \ e.cap));\n\t\t\t\tif (d) {\n\t\t\t\t\te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap\
-    \ += d;\n\t\t\t\t\treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n\
-    \  public:\n\tFordFulkerson(int n) : N(n) {\n\t\tvec.resize(N);\n\t\tused.resize(N);\n\
+    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\n#line 3 \"graph/Dinic.hpp\"\
+    \nclass Dinic {\n\tclass edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\t\
+    int rev, id;\n\t};\n\tint N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\
+    \tstd::vector<int> iter, level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N,\
+    \ -1);\n\t\tlevel[s] = 0;\n\t\tstd::queue<int> que;\n\t\tque.push(s);\n\t\twhile\
+    \ (!que.empty()) {\n\t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tfor\
+    \ (const auto& i : vec[node]) {\n\t\t\t\tif (i.cap > 0 && level[i.to] == -1) {\n\
+    \t\t\t\t\tlevel[i.to] = level[node] + 1;\n\t\t\t\t\tque.push(i.to);\n\t\t\t\t\
+    }\n\t\t\t}\n\t\t}\n\t\treturn level[t] != -1;\n\t}\n\tlint dfs(int node, int t,\
+    \ lint f) {\n\t\tif (node == t) return f;\n\t\tfor (int& i = iter[node]; i < vec[node].size();\
+    \ i++) {\n\t\t\tedge& e = vec[node][i];\n\t\t\tif (e.cap > 0 && level[node] <\
+    \ level[e.to]) {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\t\
+    if (d > 0) {\n\t\t\t\t\te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\
+    \t\t\treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\t\
+    Dinic(int n) : N(n) {\n\t\tvec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\
     \t}\n\tvoid reset() {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\
     \tif (j.id != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap\
     \ = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tvoid add_edge(int from, int to, lint\
     \ cap) {\n\t\tvec[from].push_back({to, cap, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from,\
     \ 0, (int)vec[from].size() - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\
-    \t\tlint res = 0;\n\t\twhile (true) {\n\t\t\tused.assign(N, false);\n\t\t\tlint\
-    \ f = dfs(s, t, LINF);\n\t\t\tif (!f) return res;\n\t\t\tres += f;\n\t\t}\n\t\
-    }\n\tstd::vector<lint> restore() const {\n\t\tstd::vector<lint> res(idx);\n\t\t\
-    rep(i, N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id]\
-    \ = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass FordFulkerson {\n\
-    \tclass edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t\
-    };\n\tint N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<bool>\
-    \ used;\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node == t) return f;\n\
-    \t\tused[node] = true;\n\t\tfor (edge& e : vec[node]) {\n\t\t\tif (!used[e.to]\
-    \ && e.cap > 0) {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\t\
-    if (d) {\n\t\t\t\t\te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\
-    \treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tFordFulkerson(int\
-    \ n) : N(n) {\n\t\tvec.resize(N);\n\t\tused.resize(N);\n\t}\n\tvoid reset() {\n\
-    \t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) {\n\t\
-    \t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t\
-    }\n\t\t}\n\t}\n\tvoid add_edge(int from, int to, lint cap) {\n\t\tvec[from].push_back({to,\
-    \ cap, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size()\
-    \ - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\t\
-    while (true) {\n\t\t\tused.assign(N, false);\n\t\t\tlint f = dfs(s, t, LINF);\n\
-    \t\t\tif (!f) return res;\n\t\t\tres += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore()\
-    \ const {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const\
-    \ auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\
-    \t}\n\t\treturn res;\n\t}\n};"
+    \t\tlint res = 0;\n\t\twhile (true) {\n\t\t\tbfs(s, t);\n\t\t\tif (level[t] <\
+    \ 0) return res;\n\t\t\titer.assign(N, 0);\n\t\t\tlint f;\n\t\t\twhile ((f = dfs(s,\
+    \ t, LINF)) > 0) res += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\
+    \t\tstd::vector<lint> res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i])\
+    \ {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\
+    \t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\nclass Dinic {\n\tclass\
+    \ edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t};\n\t\
+    int N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int> iter,\
+    \ level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N, -1);\n\t\tlevel[s] =\
+    \ 0;\n\t\tstd::queue<int> que;\n\t\tque.push(s);\n\t\twhile (!que.empty()) {\n\
+    \t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tfor (const auto& i : vec[node])\
+    \ {\n\t\t\t\tif (i.cap > 0 && level[i.to] == -1) {\n\t\t\t\t\tlevel[i.to] = level[node]\
+    \ + 1;\n\t\t\t\t\tque.push(i.to);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn level[t]\
+    \ != -1;\n\t}\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node == t) return\
+    \ f;\n\t\tfor (int& i = iter[node]; i < vec[node].size(); i++) {\n\t\t\tedge&\
+    \ e = vec[node][i];\n\t\t\tif (e.cap > 0 && level[node] < level[e.to]) {\n\t\t\
+    \t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\tif (d > 0) {\n\t\t\t\t\
+    \te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\treturn d;\n\t\t\
+    \t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tDinic(int n) : N(n)\
+    \ {\n\t\tvec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\t}\n\tvoid\
+    \ reset() {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id\
+    \ != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\
+    \t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tvoid add_edge(int from, int to, lint cap) {\n\t\
+    \tvec[from].push_back({to, cap, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from,\
+    \ 0, (int)vec[from].size() - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\
+    \t\tlint res = 0;\n\t\twhile (true) {\n\t\t\tbfs(s, t);\n\t\t\tif (level[t] <\
+    \ 0) return res;\n\t\t\titer.assign(N, 0);\n\t\t\tlint f;\n\t\t\twhile ((f = dfs(s,\
+    \ t, LINF)) > 0) res += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\
+    \t\tstd::vector<lint> res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i])\
+    \ {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\
+    \t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: graph/FordFulkerson.hpp
+  path: graph/Dinic.hpp
   requiredBy: []
   timestamp: '2020-12-15 11:02:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/GRL_6_A_FordFulkerson.test.cpp
-documentation_of: graph/FordFulkerson.hpp
+  - test/aoj/GRL_6_A_Dinic.test.cpp
+documentation_of: graph/Dinic.hpp
 layout: document
 redirect_from:
-- /library/graph/FordFulkerson.hpp
-- /library/graph/FordFulkerson.hpp.html
-title: graph/FordFulkerson.hpp
+- /library/graph/Dinic.hpp
+- /library/graph/Dinic.hpp.html
+title: graph/Dinic.hpp
 ---
