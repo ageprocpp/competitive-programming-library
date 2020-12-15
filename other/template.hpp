@@ -43,8 +43,23 @@ constexpr lint LINF = LLONG_MAX / 2;
 constexpr double eps = DBL_EPSILON;
 constexpr double PI = 3.141592653589793238462643383279;
 template <class T>
-class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>> {
-};
+class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>
+{};
+template <typename F>
+inline constexpr decltype(auto) lambda_fix(F&& f) {
+	return [f = std::forward<F>(f)](auto&&... args) {
+		return f(f, std::forward<decltype(args)>(args)...);
+	};
+}
+template <typename T>
+std::vector<T> make_vec(size_t n) {
+	return std::vector<T>(n);
+}
+template <typename T, class... Args>
+auto make_vec(size_t n, Args&&... args) {
+	return std::vector<decltype(make_vec<T>(args...))>(
+		n, make_vec<T>(std::forward<Args>(args)...));
+}
 template <class T, class U>
 inline bool chmax(T& lhs, const U& rhs) {
 	if (lhs < rhs) {
@@ -130,18 +145,16 @@ LP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const lint& m2) {
 	lint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);
 	return std::make_pair(r, m1 * m2);
 }
-template <typename F>
-inline constexpr decltype(auto) lambda_fix(F&& f) {
-	return [f = std::forward<F>(f)](auto&&... args) {
-		return f(f, std::forward<decltype(args)>(args)...);
-	};
-}
-template <typename T>
-std::vector<T> make_vec(size_t n) {
-	return std::vector<T>(n);
-}
-template <typename T, class... Args>
-auto make_vec(size_t n, Args&&... args) {
-	return std::vector<decltype(make_vec<T>(args...))>(
-		n, make_vec<T>(std::forward<Args>(args)...));
+int LCS(const std::string& a, const std::string& b) {
+	auto dp = make_vec<int>(a.size() + 1, b.size() + 1);
+	rep(i, a.size()) {
+		rep(j, b.size()) {
+			chmax(dp[i + 1][j], dp[i][j]);
+			chmax(dp[i][j + 1], dp[i][j]);
+			if (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] + 1);
+		}
+		chmax(dp[i + 1][b.size()], dp[i][b.size()]);
+	}
+	rep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);
+	return dp[a.size()][b.size()];
 }
