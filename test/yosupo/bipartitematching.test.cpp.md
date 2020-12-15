@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: graph/FordFulkerson.hpp
-    title: graph/FordFulkerson.hpp
+    path: graph/Dinic.hpp
+    title: graph/Dinic.hpp
   - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
@@ -13,11 +13,11 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A
+    PROBLEM: https://judge.yosupo.jp/problem/bipartitematching
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A
-  bundledCode: "#line 1 \"test/aoj/GRL_6_A_FordFulkerson.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A\"\n#line 2 \"other/template.hpp\"\
+    - https://judge.yosupo.jp/problem/bipartitematching
+  bundledCode: "#line 1 \"test/yosupo/bipartitematching.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/bipartitematching\"\n#line 2 \"other/template.hpp\"\
     \n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"avx2\")\n#pragma optimize(\"\
     O3\")\n#pragma optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
     #include <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n\
@@ -66,46 +66,61 @@ data:
     \ dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i\
     \ + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\
     \t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn\
-    \ dp[a.size()][b.size()];\n}\n#line 3 \"graph/FordFulkerson.hpp\"\nclass FordFulkerson\
-    \ {\n\tclass edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\
-    \t};\n\tint N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<bool>\
-    \ used;\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node == t) return f;\n\
-    \t\tused[node] = true;\n\t\tfor (edge& e : vec[node]) {\n\t\t\tif (!used[e.to]\
-    \ && e.cap > 0) {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\t\
-    if (d) {\n\t\t\t\t\te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\
-    \treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tFordFulkerson(int\
-    \ n) : N(n) {\n\t\tvec.resize(N);\n\t\tused.resize(N);\n\t}\n\tvoid reset() {\n\
-    \t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) {\n\t\
-    \t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t\
-    }\n\t\t}\n\t}\n\tvoid add_edge(int from, int to, lint cap) {\n\t\tvec[from].push_back({to,\
-    \ cap, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size()\
-    \ - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\t\
-    while (true) {\n\t\t\tused.assign(N, false);\n\t\t\tlint f = dfs(s, t, LINF);\n\
-    \t\t\tif (!f) return res;\n\t\t\tres += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore()\
-    \ const {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const\
-    \ auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\
-    \t}\n\t\treturn res;\n\t}\n};\n#line 4 \"test/aoj/GRL_6_A_FordFulkerson.test.cpp\"\
-    \nint v, e;\nint main() {\n\tscanf(\"%d%d\", &v, &e);\n\tFordFulkerson flow(v);\n\
-    \trep(i, e) {\n\t\tint a, b, c;\n\t\tscanf(\"%d%d%d\", &a, &b, &c);\n\t\tflow.add_edge(a,\
-    \ b, c);\n\t}\n\tprintf(\"%d\\n\", flow.max_flow(0, v - 1));\n\treturn 0;\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A\"\n#include\
-    \ \"../../graph/FordFulkerson.hpp\"\n#include \"../../other/template.hpp\"\nint\
-    \ v, e;\nint main() {\n\tscanf(\"%d%d\", &v, &e);\n\tFordFulkerson flow(v);\n\t\
-    rep(i, e) {\n\t\tint a, b, c;\n\t\tscanf(\"%d%d%d\", &a, &b, &c);\n\t\tflow.add_edge(a,\
-    \ b, c);\n\t}\n\tprintf(\"%d\\n\", flow.max_flow(0, v - 1));\n\treturn 0;\n}"
+    \ dp[a.size()][b.size()];\n}\n#line 3 \"graph/Dinic.hpp\"\nclass Dinic {\n\tclass\
+    \ edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t};\n\t\
+    int N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int> iter,\
+    \ level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N, -1);\n\t\tlevel[s] =\
+    \ 0;\n\t\tstd::queue<int> que;\n\t\tque.push(s);\n\t\twhile (!que.empty()) {\n\
+    \t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tfor (const auto& i : vec[node])\
+    \ {\n\t\t\t\tif (i.cap > 0 && level[i.to] == -1) {\n\t\t\t\t\tlevel[i.to] = level[node]\
+    \ + 1;\n\t\t\t\t\tque.push(i.to);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn level[t]\
+    \ != -1;\n\t}\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node == t) return\
+    \ f;\n\t\tfor (int& i = iter[node]; i < vec[node].size(); i++) {\n\t\t\tedge&\
+    \ e = vec[node][i];\n\t\t\tif (e.cap > 0 && level[node] < level[e.to]) {\n\t\t\
+    \t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\tif (d > 0) {\n\t\t\t\t\
+    \te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\treturn d;\n\t\t\
+    \t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tDinic(int n) : N(n)\
+    \ {\n\t\tvec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\t}\n\tvoid\
+    \ reset() {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id\
+    \ != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\
+    \t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tvoid add_edge(int from, int to, lint cap) {\n\t\
+    \tvec[from].push_back({to, cap, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from,\
+    \ 0, (int)vec[from].size() - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\
+    \t\tlint res = 0;\n\t\twhile (true) {\n\t\t\tbfs(s, t);\n\t\t\tif (level[t] <\
+    \ 0) return res;\n\t\t\titer.assign(N, 0);\n\t\t\tlint f;\n\t\t\twhile ((f = dfs(s,\
+    \ t, LINF)) > 0) res += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\
+    \t\tstd::vector<lint> res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i])\
+    \ {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\
+    \t}\n};\n#line 4 \"test/yosupo/bipartitematching.test.cpp\"\nint L, R, M, a[200010],\
+    \ b[200010];\nint main() {\n\tscanf(\"%d%d%d\", &L, &R, &M);\n\tDinic flow(L +\
+    \ R + 2);\n\tREP(i, L) flow.add_edge(0, i, 1);\n\tfor (int i = L + 1; i <= L +\
+    \ R; i++) flow.add_edge(i, L + R + 1, 1);\n\trep(i, M) {\n\t\tscanf(\"%d%d\",\
+    \ a + i, b + i);\n\t\tflow.add_edge(a[i] + 1, b[i] + L + 1, 1);\n\t}\n\tstd::cout\
+    \ << flow.max_flow(0, L + R + 1) << std::endl;\n\tauto vec = flow.restore();\n\
+    \trep(i, M) {\n\t\tif (vec[i + L + R]) std::cout << a[i] << \" \" << b[i] << std::endl;\n\
+    \t}\n\treturn 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bipartitematching\"\n#include\
+    \ \"../../other/template.hpp\"\n#include \"../../graph/Dinic.hpp\"\nint L, R,\
+    \ M, a[200010], b[200010];\nint main() {\n\tscanf(\"%d%d%d\", &L, &R, &M);\n\t\
+    Dinic flow(L + R + 2);\n\tREP(i, L) flow.add_edge(0, i, 1);\n\tfor (int i = L\
+    \ + 1; i <= L + R; i++) flow.add_edge(i, L + R + 1, 1);\n\trep(i, M) {\n\t\tscanf(\"\
+    %d%d\", a + i, b + i);\n\t\tflow.add_edge(a[i] + 1, b[i] + L + 1, 1);\n\t}\n\t\
+    std::cout << flow.max_flow(0, L + R + 1) << std::endl;\n\tauto vec = flow.restore();\n\
+    \trep(i, M) {\n\t\tif (vec[i + L + R]) std::cout << a[i] << \" \" << b[i] << std::endl;\n\
+    \t}\n\treturn 0;\n}"
   dependsOn:
-  - graph/FordFulkerson.hpp
   - other/template.hpp
+  - graph/Dinic.hpp
   isVerificationFile: true
-  path: test/aoj/GRL_6_A_FordFulkerson.test.cpp
+  path: test/yosupo/bipartitematching.test.cpp
   requiredBy: []
   timestamp: '2020-12-15 14:01:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/aoj/GRL_6_A_FordFulkerson.test.cpp
+documentation_of: test/yosupo/bipartitematching.test.cpp
 layout: document
 redirect_from:
-- /verify/test/aoj/GRL_6_A_FordFulkerson.test.cpp
-- /verify/test/aoj/GRL_6_A_FordFulkerson.test.cpp.html
-title: test/aoj/GRL_6_A_FordFulkerson.test.cpp
+- /verify/test/yosupo/bipartitematching.test.cpp
+- /verify/test/yosupo/bipartitematching.test.cpp.html
+title: test/yosupo/bipartitematching.test.cpp
 ---

@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/range_kth_smallest.test.cpp
     title: test/yosupo/range_kth_smallest.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -28,47 +28,53 @@ data:
     \ std::pair<lint, lint> LP;\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint\
     \ LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double\
     \ PI = 3.141592653589793238462643383279;\ntemplate <class T>\nclass prique : public\
-    \ std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate <class\
-    \ T, class U>\ninline bool chmax(T& lhs, const U& rhs) {\n\tif (lhs < rhs) {\n\
-    \t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate <class T,\
-    \ class U>\ninline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs > rhs) {\n\t\t\
-    lhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ninline lint gcd(lint a,\
-    \ lint b) {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\
-    \treturn a;\n}\ninline lint lcm(lint a, lint b) {\n\treturn a / gcd(a, b) * b;\n\
-    }\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\tfor (int i = 2; i *\
-    \ i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn true;\n}\n\
-    template <typename T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile (b) {\n\t\t\
-    if (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\nlint modpow(lint\
-    \ a, lint b, lint m) {\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) {\n\t\t\t\
-    res *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\ta %= m;\n\t\tb >>= 1;\n\t\
-    }\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>& vec)\
-    \ {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i ==\
-    \ (int)vec.size() - 1 ? \"\\n\" : \" \");\n\t}\n}\ntemplate <typename T>\nvoid\
-    \ printArray(T l, T r) {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r; i++)\
-    \ {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev ? \"\\n\" : \" \");\n\t\
-    }\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b,\
-    \ a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b * s.first;\n\t\
-    return s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const\
-    \ lint& m2) {\n\tlint p = extGcd(m1, m2).first;\n\tlint tmp = (b2 - b1) * p %\
-    \ m2;\n\tlint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);\n\treturn std::make_pair(r,\
-    \ m1 * m2);\n}\ntemplate <typename F>\ninline constexpr decltype(auto) lambda_fix(F&&\
-    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
-    \t};\n}\ntemplate <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn\
-    \ std::vector<T>(n);\n}\ntemplate <typename T, class... Args>\nauto make_vec(size_t\
-    \ n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
-    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\n#line 3 \"data-structure/WaveletMatrix.hpp\"\
-    \nclass WaveletMatrix {\n\tclass BitVector {\n\t\tstd::vector<bool> vec;\n\t\t\
-    std::vector<int> zerocnt, place[2];\n\n\t  public:\n\t\tBitVector(const std::vector<bool>&\
-    \ vec) : vec(vec) {\n\t\t\tzerocnt.resize(vec.size());\n\t\t\trep(i, vec.size())\
-    \ {\n\t\t\t\tif (!vec[i]) {\n\t\t\t\t\tzerocnt[i]++;\n\t\t\t\t\tplace[0].emplace_back(i);\n\
-    \t\t\t\t} else\n\t\t\t\t\tplace[1].emplace_back(i);\n\t\t\t\tif (i) zerocnt[i]\
-    \ += zerocnt[i - 1];\n\t\t\t}\n\t\t}\n\t\tbool access(int x) const { return vec[x];\
-    \ }\n\t\tint rank(bool b, int x) const {\n\t\t\tif (!b) return zerocnt[x];\n\t\
-    \t\treturn x + 1 - zerocnt[x];\n\t\t}\n\t\tint select(bool b, int x) const { return\
-    \ place[b][x]; }\n\t\tunsigned int size() const { return vec.size(); }\n\t};\n\
-    \tstd::vector<BitVector> bit;\n\tstd::vector<int> bound, head, fvec;\n\n  public:\n\
-    \ttemplate <typename T>\n\tWaveletMatrix(std::vector<T> vec) {\n\t\tfor (int i\
-    \ = 63; i >= 0; i--) {\n\t\t\tstd::vector<bool> bvec;\n\t\t\tfor (T j : vec) bvec.emplace_back(j\
+    \ std::priority_queue<T, std::vector<T>, std::greater<T>>\n{};\ntemplate <typename\
+    \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
+    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
+    template <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    }\ntemplate <typename T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
+    \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    }\ntemplate <class T, class U>\ninline bool chmax(T& lhs, const U& rhs) {\n\t\
+    if (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\n\
+    template <class T, class U>\ninline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs\
+    \ > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ninline\
+    \ lint gcd(lint a, lint b) {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\t\
+    b = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) {\n\treturn a\
+    \ / gcd(a, b) * b;\n}\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\t\
+    for (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\t\
+    return true;\n}\ntemplate <typename T>\nT mypow(T a, lint b) {\n\tT res(1);\n\t\
+    while (b) {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn\
+    \ res;\n}\nlint modpow(lint a, lint b, lint m) {\n\tlint res(1);\n\twhile (b)\
+    \ {\n\t\tif (b & 1) {\n\t\t\tres *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\
+    \ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>&\
+    \ vec) {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i\
+    \ == (int)vec.size() - 1 ? \"\\n\" : \" \");\n\t}\n}\ntemplate <typename T>\n\
+    void printArray(T l, T r) {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r;\
+    \ i++) {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev ? \"\\n\" : \" \"\
+    );\n\t}\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s\
+    \ = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b *\
+    \ s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const\
+    \ lint& b2, const lint& m2) {\n\tlint p = extGcd(m1, m2).first;\n\tlint tmp =\
+    \ (b2 - b1) * p % m2;\n\tlint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);\n\treturn\
+    \ std::make_pair(r, m1 * m2);\n}\nint LCS(const std::string& a, const std::string&\
+    \ b) {\n\tauto dp = make_vec<int>(a.size() + 1, b.size() + 1);\n\trep(i, a.size())\
+    \ {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j\
+    \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
+    \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
+    \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
+    }\n#line 3 \"data-structure/WaveletMatrix.hpp\"\nclass WaveletMatrix {\n\tclass\
+    \ BitVector {\n\t\tstd::vector<bool> vec;\n\t\tstd::vector<int> zerocnt, place[2];\n\
+    \n\t  public:\n\t\tBitVector(const std::vector<bool>& vec) : vec(vec) {\n\t\t\t\
+    zerocnt.resize(vec.size());\n\t\t\trep(i, vec.size()) {\n\t\t\t\tif (!vec[i])\
+    \ {\n\t\t\t\t\tzerocnt[i]++;\n\t\t\t\t\tplace[0].emplace_back(i);\n\t\t\t\t} else\n\
+    \t\t\t\t\tplace[1].emplace_back(i);\n\t\t\t\tif (i) zerocnt[i] += zerocnt[i -\
+    \ 1];\n\t\t\t}\n\t\t}\n\t\tbool access(int x) const { return vec[x]; }\n\t\tint\
+    \ rank(bool b, int x) const {\n\t\t\tif (!b) return zerocnt[x];\n\t\t\treturn\
+    \ x + 1 - zerocnt[x];\n\t\t}\n\t\tint select(bool b, int x) const { return place[b][x];\
+    \ }\n\t\tunsigned int size() const { return vec.size(); }\n\t};\n\tstd::vector<BitVector>\
+    \ bit;\n\tstd::vector<int> bound, head, fvec;\n\n  public:\n\ttemplate <typename\
+    \ T>\n\tWaveletMatrix(std::vector<T> vec) {\n\t\tfor (int i = 63; i >= 0; i--)\
+    \ {\n\t\t\tstd::vector<bool> bvec;\n\t\t\tfor (T j : vec) bvec.emplace_back(j\
     \ & ((lint)1 << i));\n\t\t\tstd::stable_sort(all(vec), [&i](const T& lhs, const\
     \ T& rhs) {\n\t\t\t\treturn (lhs & ((lint)1 << i)) < (rhs & ((lint)1 << i));\n\
     \t\t\t});\n\t\t\tif (!(vec.back() & ((lint)1 << i))) continue;\n\t\t\tbit.emplace_back(bvec);\n\
@@ -125,8 +131,8 @@ data:
   isVerificationFile: false
   path: data-structure/WaveletMatrix.hpp
   requiredBy: []
-  timestamp: '2020-12-08 15:45:19+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2020-12-15 14:01:09+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/yosupo/range_kth_smallest.test.cpp
 documentation_of: data-structure/WaveletMatrix.hpp
