@@ -65,7 +65,7 @@ data:
     - icon: ':x:'
       path: data-structure/SparseTable.hpp
       title: data-structure/SparseTable.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: data-structure/WaveletMatrix.hpp
       title: data-structure/WaveletMatrix.hpp
   - name: graph
@@ -204,7 +204,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
       title: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/range_kth_smallest.test.cpp
       title: test/yosupo/range_kth_smallest.test.cpp
     - icon: ':x:'

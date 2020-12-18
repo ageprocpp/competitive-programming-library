@@ -176,7 +176,7 @@ data:
   isVerificationFile: true
   path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
   requiredBy: []
-  timestamp: '2020-12-08 15:45:19+09:00'
+  timestamp: '2020-12-15 16:49:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ALDS1_14_B_RollingHash.test.cpp
