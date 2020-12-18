@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: algebraic/DynamicModInt.hpp
     title: algebraic/DynamicModInt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
     title: algebraic/StaticModInt.hpp
   - icon: ':heavy_check_mark:'
     path: data-structure/SWAG.hpp
     title: data-structure/SWAG.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []

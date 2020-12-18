@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy:
@@ -9,11 +9,11 @@ data:
     path: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
     title: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/segment_add_get_min.test.cpp
     title: test/yosupo/segment_add_get_min.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -145,7 +145,7 @@ data:
   requiredBy:
   - test/yosupo/line_add_get_min.test_LiChaoTree.cpp
   timestamp: '2020-12-15 16:49:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/segment_add_get_min.test.cpp
 documentation_of: data-structure/LiChaoTree.hpp
