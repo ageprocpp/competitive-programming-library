@@ -1,8 +1,8 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-#pragma target("avx2")
-#pragma optimize("O3")
-#pragma optimize("unroll-loops")
+#pragma GCC target("avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("unroll-loops")
 #include <string.h>
 #include <algorithm>
 #include <bitset>
@@ -109,6 +109,7 @@ lint modpow(lint a, lint b, lint m) {
 			res *= a;
 			res %= m;
 		}
+		a %= m;
 		a *= a;
 		a %= m;
 		b >>= 1;

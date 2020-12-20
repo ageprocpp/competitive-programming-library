@@ -8,6 +8,13 @@ class SegTree {
 	T ident;
 
   public:
+	SegTree(unsigned int m, T e_) : ident(e_) {
+		while (n < m) {
+			n *= 2;
+			rank++;
+		}
+		node.resize(2 * n, ident);
+	}
 	SegTree(unsigned int m, T init, T e_) : ident(e_) {
 		while (n < m) {
 			n *= 2;

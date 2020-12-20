@@ -6,7 +6,7 @@ class RBST {
 	  public:
 		Node *left = nullptr, *right = nullptr;
 		T value;
-		int size;
+		size_t size;
 	};
 	Node* root = nullptr;
 	RBST(Node* r) : root(r) {}
@@ -17,7 +17,7 @@ class RBST {
 		cur ^= cur << 5;
 		return cur;
 	}
-	static int size(Node* trg) { return trg ? trg->size : 0; }
+	static size_t size(Node* trg) { return trg ? trg->size : 0; }
 	static Node* apply(Node* trg) {
 		trg->size = size(trg->left) + size(trg->right) + 1;
 		return trg;
