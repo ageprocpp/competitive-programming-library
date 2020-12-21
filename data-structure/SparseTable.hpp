@@ -6,6 +6,7 @@ class SparseTable {
 	std::vector<int> logtable;
 
   public:
+	SparseTable() {}
 	SparseTable(const std::vector<T>& vec) { init(vec); }
 	void init(const std::vector<T>& vec) {
 		int maxlength = 0;
