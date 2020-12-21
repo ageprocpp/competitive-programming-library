@@ -24,8 +24,9 @@ data:
     - https://judge.yosupo.jp/problem/convolution_mod
   bundledCode: "#line 1 \"test/yosupo/convolution_mod.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.yosupo.jp/problem/convolution_mod\"\n#line 2 \"other/template.hpp\"\
-    \n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"avx2\")\n#pragma optimize(\"\
-    O3\")\n#pragma optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
+    \n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"\
+    avx512f\")\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"\
+    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
     #include <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n\
     #include <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include\
     \ <fstream>\n#include <functional>\n#include <iomanip>\n#include <iostream>\n\
@@ -56,44 +57,45 @@ data:
     T mypow(T a, lint b) {\n\tT res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a;\n\
     \t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\nlint modpow(lint a, lint b,\
     \ lint m) {\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) {\n\t\t\tres *= a;\n\
-    \t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn\
-    \ res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>& vec) {\n\trep(i,\
-    \ vec.size()) {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i == (int)vec.size()\
-    \ - 1 ? \"\\n\" : \" \");\n\t}\n}\ntemplate <typename T>\nvoid printArray(T l,\
-    \ T r) {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r; i++) {\n\t\tstd::cout\
-    \ << *i;\n\t\tstd::cout << (i == rprev ? \"\\n\" : \" \");\n\t}\n}\nLP extGcd(lint\
-    \ a, lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first,\
-    \ s.second);\n\ts.second -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const\
-    \ lint& b1, const lint& m1, const lint& b2, const lint& m2) {\n\tlint p = extGcd(m1,\
-    \ m2).first;\n\tlint tmp = (b2 - b1) * p % m2;\n\tlint r = (b1 + m1 * tmp + m1\
-    \ * m2) % (m1 * m2);\n\treturn std::make_pair(r, m1 * m2);\n}\nint LCS(const std::string&\
-    \ a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size() + 1, b.size()\
-    \ + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j],\
-    \ dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i\
-    \ + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\
-    \t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn\
-    \ dp[a.size()][b.size()];\n}\n#line 3 \"algebraic/DynamicModInt.hpp\"\nclass DynamicModInt\
-    \ {\n\tlint value;\n\n  public:\n\tstatic uint modulo;\n\tDynamicModInt() : value(0)\
-    \ {}\n\ttemplate <typename T>\n\tDynamicModInt(T value = 0) : value(value) {\n\
-    \t\tif (value < 0) value = -(lint)(-value % modulo) + modulo;\n\t\tthis->value\
-    \ = value % modulo;\n\t}\n\tstatic inline void setMod(const uint& mod) { modulo\
-    \ = mod; }\n\tinline DynamicModInt inv() const { return mypow(*this, modulo -\
-    \ 2); }\n\tinline operator int() const { return value; }\n\tinline DynamicModInt&\
-    \ operator+=(const DynamicModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >=\
-    \ modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline DynamicModInt& operator++()\
-    \ {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\
-    \t\treturn *this;\n\t}\n\tinline DynamicModInt operator++(int) {\n\t\tDynamicModInt\
-    \ res = *this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline DynamicModInt operator-()\
-    \ const { return DynamicModInt(0) -= *this; }\n\tinline DynamicModInt& operator-=(const\
-    \ DynamicModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\
-    \t\treturn *this;\n\t}\n\tinline DynamicModInt& operator--() {\n\t\tif (value\
-    \ == 0)\n\t\t\tvalue = modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\
-    \t}\n\tinline DynamicModInt operator--(int) {\n\t\tDynamicModInt res = *this;\n\
-    \t\t--*this;\n\t\treturn res;\n\t}\n\tinline DynamicModInt& operator*=(const DynamicModInt&\
-    \ x) {\n\t\tvalue = value * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline\
-    \ DynamicModInt& operator/=(const DynamicModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\
-    \t}\n\ttemplate <typename T>\n\tDynamicModInt operator+(const T& rhs) const {\n\
-    \t\treturn DynamicModInt(*this) += rhs;\n\t}\n\ttemplate <typename T>\n\tDynamicModInt&\
+    \t\t\tres %= m;\n\t\t}\n\t\ta %= m;\n\t\ta *= a;\n\t\ta %= m;\n\t\tb >>= 1;\n\t\
+    }\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>& vec)\
+    \ {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i ==\
+    \ (int)vec.size() - 1 ? \"\\n\" : \" \");\n\t}\n}\ntemplate <typename T>\nvoid\
+    \ printArray(T l, T r) {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r; i++)\
+    \ {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev ? \"\\n\" : \" \");\n\t\
+    }\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b,\
+    \ a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b * s.first;\n\t\
+    return s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const\
+    \ lint& m2) {\n\tlint p = extGcd(m1, m2).first;\n\tlint tmp = (b2 - b1) * p %\
+    \ m2;\n\tlint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);\n\treturn std::make_pair(r,\
+    \ m1 * m2);\n}\nint LCS(const std::string& a, const std::string& b) {\n\tauto\
+    \ dp = make_vec<int>(a.size() + 1, b.size() + 1);\n\trep(i, a.size()) {\n\t\t\
+    rep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j\
+    \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
+    \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
+    \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
+    }\n#line 3 \"algebraic/DynamicModInt.hpp\"\nclass DynamicModInt {\n\tlint value;\n\
+    \n  public:\n\tstatic uint modulo;\n\tDynamicModInt() : value(0) {}\n\ttemplate\
+    \ <typename T>\n\tDynamicModInt(T value = 0) : value(value) {\n\t\tif (value <\
+    \ 0) value = -(lint)(-value % modulo) + modulo;\n\t\tthis->value = value % modulo;\n\
+    \t}\n\tstatic inline void setMod(const uint& mod) { modulo = mod; }\n\tinline\
+    \ DynamicModInt inv() const { return mypow(*this, modulo - 2); }\n\tinline operator\
+    \ int() const { return value; }\n\tinline DynamicModInt& operator+=(const DynamicModInt&\
+    \ x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo) value -= modulo;\n\t\t\
+    return *this;\n\t}\n\tinline DynamicModInt& operator++() {\n\t\tif (value == modulo\
+    \ - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn *this;\n\t}\n\t\
+    inline DynamicModInt operator++(int) {\n\t\tDynamicModInt res = *this;\n\t\t--*this;\n\
+    \t\treturn res;\n\t}\n\tinline DynamicModInt operator-() const { return DynamicModInt(0)\
+    \ -= *this; }\n\tinline DynamicModInt& operator-=(const DynamicModInt& x) {\n\t\
+    \tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\t\treturn *this;\n\t\
+    }\n\tinline DynamicModInt& operator--() {\n\t\tif (value == 0)\n\t\t\tvalue =\
+    \ modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline DynamicModInt\
+    \ operator--(int) {\n\t\tDynamicModInt res = *this;\n\t\t--*this;\n\t\treturn\
+    \ res;\n\t}\n\tinline DynamicModInt& operator*=(const DynamicModInt& x) {\n\t\t\
+    value = value * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline DynamicModInt&\
+    \ operator/=(const DynamicModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\
+    \ttemplate <typename T>\n\tDynamicModInt operator+(const T& rhs) const {\n\t\t\
+    return DynamicModInt(*this) += rhs;\n\t}\n\ttemplate <typename T>\n\tDynamicModInt&\
     \ operator+=(const T& rhs) {\n\t\treturn operator+=(DynamicModInt(rhs));\n\t}\n\
     \ttemplate <typename T>\n\tDynamicModInt operator-(const T& rhs) const {\n\t\t\
     return DynamicModInt(*this) -= rhs;\n\t}\n\ttemplate <typename T>\n\tDynamicModInt&\
@@ -188,7 +190,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/convolution_mod.test.cpp
   requiredBy: []
-  timestamp: '2020-12-15 16:49:04+09:00'
+  timestamp: '2020-12-21 23:24:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution_mod.test.cpp

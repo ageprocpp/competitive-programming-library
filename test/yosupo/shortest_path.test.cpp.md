@@ -18,8 +18,9 @@ data:
     - https://judge.yosupo.jp/problem/shortest_path
   bundledCode: "#line 1 \"test/yosupo/shortest_path.test.cpp\"\n#define PROBLEM \"\
     https://judge.yosupo.jp/problem/shortest_path\"\n#line 2 \"other/template.hpp\"\
-    \n#define _CRT_SECURE_NO_WARNINGS\n#pragma target(\"avx2\")\n#pragma optimize(\"\
-    O3\")\n#pragma optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
+    \n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"\
+    avx512f\")\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"\
+    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
     #include <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n\
     #include <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include\
     \ <fstream>\n#include <functional>\n#include <iomanip>\n#include <iostream>\n\
@@ -50,44 +51,45 @@ data:
     T mypow(T a, lint b) {\n\tT res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a;\n\
     \t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\nlint modpow(lint a, lint b,\
     \ lint m) {\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) {\n\t\t\tres *= a;\n\
-    \t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn\
-    \ res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>& vec) {\n\trep(i,\
-    \ vec.size()) {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i == (int)vec.size()\
-    \ - 1 ? \"\\n\" : \" \");\n\t}\n}\ntemplate <typename T>\nvoid printArray(T l,\
-    \ T r) {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r; i++) {\n\t\tstd::cout\
-    \ << *i;\n\t\tstd::cout << (i == rprev ? \"\\n\" : \" \");\n\t}\n}\nLP extGcd(lint\
-    \ a, lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first,\
-    \ s.second);\n\ts.second -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const\
-    \ lint& b1, const lint& m1, const lint& b2, const lint& m2) {\n\tlint p = extGcd(m1,\
-    \ m2).first;\n\tlint tmp = (b2 - b1) * p % m2;\n\tlint r = (b1 + m1 * tmp + m1\
-    \ * m2) % (m1 * m2);\n\treturn std::make_pair(r, m1 * m2);\n}\nint LCS(const std::string&\
-    \ a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size() + 1, b.size()\
-    \ + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j],\
-    \ dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i\
-    \ + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\
-    \t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn\
-    \ dp[a.size()][b.size()];\n}\n#line 3 \"graph/Dijkstra.hpp\"\ntemplate <typename\
-    \ T>\nclass Dijkstra {\n\tint N;\n\tstd::vector<std::vector<std::pair<int, T>>>\
-    \ vec, rev;\n\tbool exec(int s, int t, std::vector<T> &dist) {\n\t\tdist.assign(N,\
-    \ std::numeric_limits<T>::max());\n\t\tdist[s] = 0;\n\t\tprique<std::pair<T, int>>\
-    \ que;\n\t\tque.push({0, s});\n\t\twhile (!que.empty()) {\n\t\t\tauto p = que.top();\n\
-    \t\t\tque.pop();\n\t\t\tif (dist[p.second] < p.first) continue;\n\t\t\tfor (auto\
-    \ i : vec[p.second]) {\n\t\t\t\tif (chmin(dist[i.first], p.first + i.second))\
-    \ {\n\t\t\t\t\tque.push({dist[i.first], i.first});\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\
-    \t\treturn dist[t] != std::numeric_limits<T>::max();\n\t}\n\n  public:\n\tDijkstra(int\
-    \ N) : N(N), vec(N), rev(N) {}\n\tvoid add_edge(int from, int to, T cost) {\n\t\
-    \tvec[from].emplace_back(std::pair<int, T>{to, cost});\n\t\trev[to].emplace_back(std::pair<int,\
-    \ T>{from, cost});\n\t}\n\tT get_dist(int s, int t) { return get_dist_and_path(s,\
-    \ t).first; }\n\tstd::vector<int> get_path(int s, int t) {\n\t\treturn get_dist_and_path(s,\
-    \ t).second;\n\t}\n\tstd::pair<T, std::vector<int>> get_dist_and_path(int s, int\
-    \ t) {\n\t\tstd::vector<T> dist;\n\t\tstd::vector<int> res = {t};\n\t\tstd::vector<bool>\
-    \ used(N);\n\t\tif (!exec(s, t, dist)) return {-1, {}};\n\t\tused[t] = true;\n\
-    \t\tint head = t;\n\t\twhile (head != s) {\n\t\t\tfor (auto i : rev[head]) {\n\
-    \t\t\t\tif (!used[i.first] && dist[i.first] + i.second == dist[head]) {\n\t\t\t\
-    \t\tused[i.first] = true;\n\t\t\t\t\thead = i.first;\n\t\t\t\t\tres.emplace_back(head);\n\
-    \t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tstd::reverse(all(res));\n\t\t\
-    return {dist[t], res};\n\t}\n\tstd::vector<T> get_dists(int s) {\n\t\tstd::vector<T>\
-    \ dist;\n\t\texec(s, s, dist);\n\t\treturn dist;\n\t}\n};\n#line 4 \"test/yosupo/shortest_path.test.cpp\"\
+    \t\t\tres %= m;\n\t\t}\n\t\ta %= m;\n\t\ta *= a;\n\t\ta %= m;\n\t\tb >>= 1;\n\t\
+    }\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>& vec)\
+    \ {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i ==\
+    \ (int)vec.size() - 1 ? \"\\n\" : \" \");\n\t}\n}\ntemplate <typename T>\nvoid\
+    \ printArray(T l, T r) {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r; i++)\
+    \ {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev ? \"\\n\" : \" \");\n\t\
+    }\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b,\
+    \ a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b * s.first;\n\t\
+    return s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const\
+    \ lint& m2) {\n\tlint p = extGcd(m1, m2).first;\n\tlint tmp = (b2 - b1) * p %\
+    \ m2;\n\tlint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);\n\treturn std::make_pair(r,\
+    \ m1 * m2);\n}\nint LCS(const std::string& a, const std::string& b) {\n\tauto\
+    \ dp = make_vec<int>(a.size() + 1, b.size() + 1);\n\trep(i, a.size()) {\n\t\t\
+    rep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j\
+    \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
+    \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
+    \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
+    }\n#line 3 \"graph/Dijkstra.hpp\"\ntemplate <typename T>\nclass Dijkstra {\n\t\
+    int N;\n\tstd::vector<std::vector<std::pair<int, T>>> vec, rev;\n\tbool exec(int\
+    \ s, int t, std::vector<T> &dist) {\n\t\tdist.assign(N, std::numeric_limits<T>::max());\n\
+    \t\tdist[s] = 0;\n\t\tprique<std::pair<T, int>> que;\n\t\tque.push({0, s});\n\t\
+    \twhile (!que.empty()) {\n\t\t\tauto p = que.top();\n\t\t\tque.pop();\n\t\t\t\
+    if (dist[p.second] < p.first) continue;\n\t\t\tfor (auto i : vec[p.second]) {\n\
+    \t\t\t\tif (chmin(dist[i.first], p.first + i.second)) {\n\t\t\t\t\tque.push({dist[i.first],\
+    \ i.first});\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn dist[t] != std::numeric_limits<T>::max();\n\
+    \t}\n\n  public:\n\tDijkstra(int N) : N(N), vec(N), rev(N) {}\n\tvoid add_edge(int\
+    \ from, int to, T cost) {\n\t\tvec[from].emplace_back(std::pair<int, T>{to, cost});\n\
+    \t\trev[to].emplace_back(std::pair<int, T>{from, cost});\n\t}\n\tT get_dist(int\
+    \ s, int t) { return get_dist_and_path(s, t).first; }\n\tstd::vector<int> get_path(int\
+    \ s, int t) {\n\t\treturn get_dist_and_path(s, t).second;\n\t}\n\tstd::pair<T,\
+    \ std::vector<int>> get_dist_and_path(int s, int t) {\n\t\tstd::vector<T> dist;\n\
+    \t\tstd::vector<int> res = {t};\n\t\tstd::vector<bool> used(N);\n\t\tif (!exec(s,\
+    \ t, dist)) return {-1, {}};\n\t\tused[t] = true;\n\t\tint head = t;\n\t\twhile\
+    \ (head != s) {\n\t\t\tfor (auto i : rev[head]) {\n\t\t\t\tif (!used[i.first]\
+    \ && dist[i.first] + i.second == dist[head]) {\n\t\t\t\t\tused[i.first] = true;\n\
+    \t\t\t\t\thead = i.first;\n\t\t\t\t\tres.emplace_back(head);\n\t\t\t\t\tbreak;\n\
+    \t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tstd::reverse(all(res));\n\t\treturn {dist[t], res};\n\
+    \t}\n\tstd::vector<T> get_dists(int s) {\n\t\tstd::vector<T> dist;\n\t\texec(s,\
+    \ s, dist);\n\t\treturn dist;\n\t}\n};\n#line 4 \"test/yosupo/shortest_path.test.cpp\"\
     \nint N, M, s, t, a, b, c;\nint main() {\n\tscanf(\"%d%d%d%d\", &N, &M, &s, &t);\n\
     \tDijkstra<lint> d(N);\n\trep(i, M) {\n\t\tscanf(\"%d%d%d\", &a, &b, &c);\n\t\t\
     d.add_edge(a, b, c);\n\t}\n\tauto res = d.get_dist_and_path(s, t);\n\tif (res.first\
@@ -108,7 +110,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2020-12-15 16:49:04+09:00'
+  timestamp: '2020-12-21 23:24:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/shortest_path.test.cpp
