@@ -1,6 +1,10 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
+#ifdef ONLINE_JUDGE
+#pragma GCC target("avx512f")
+#else
 #pragma GCC target("avx2")
+#endif
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 #include <string.h>
