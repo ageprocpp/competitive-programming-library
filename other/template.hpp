@@ -34,8 +34,8 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
-#define rep(i, n) for (int i = 0; i < (n); i++)
-#define REP(i, n) for (int i = 1; i <= (n); i++)
+#define rep(i, n) for (int i = 0; i < int(n); i++)
+#define REP(i, n) for (int i = 1; i <= int(n); i++)
 #define all(V) V.begin(), V.end()
 typedef unsigned int uint;
 typedef long long lint;
@@ -107,13 +107,13 @@ T mypow(T a, lint b) {
 	return res;
 }
 lint modpow(lint a, lint b, lint m) {
+	a %= m;
 	lint res(1);
 	while (b) {
 		if (b & 1) {
 			res *= a;
 			res %= m;
 		}
-		a %= m;
 		a *= a;
 		a %= m;
 		b >>= 1;
@@ -121,18 +121,18 @@ lint modpow(lint a, lint b, lint m) {
 	return res;
 }
 template <typename T>
-void printArray(std::vector<T>& vec) {
+void printArray(std::vector<T>& vec, char split = ' ') {
 	rep(i, vec.size()) {
 		std::cout << vec[i];
-		std::cout << (i == (int)vec.size() - 1 ? "\n" : " ");
+		std::cout << (i == (int)vec.size() - 1 ? '\n' : split);
 	}
 }
 template <typename T>
-void printArray(T l, T r) {
+void printArray(T l, T r, char split = ' ') {
 	T rprev = std::prev(r);
 	for (T i = l; i != r; i++) {
 		std::cout << *i;
-		std::cout << (i == rprev ? "\n" : " ");
+		std::cout << (i == rprev ? '\n' : split);
 	}
 }
 LP extGcd(lint a, lint b) {
