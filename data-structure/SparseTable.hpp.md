@@ -28,12 +28,18 @@ data:
     \ long long lint;\ntypedef unsigned long long ulint;\ntypedef std::pair<int, int>\
     \ P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int INF = INT_MAX / 2;\nconstexpr\
     \ lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double\
-    \ PI = 3.141592653589793238462643383279;\ntemplate <class T>\nclass prique : public\
-    \ std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate <typename\
-    \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
-    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
-    template <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
-    }\ntemplate <typename T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
+    \ PI = 3.141592653589793238462643383279;\nnamespace std {\n\ttemplate <template\
+    \ <class...> class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
+    \ Temp<Args...>> : public std::true_type {};\n\ttemplate <template <auto...> class\
+    \ Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
+    \ Temp<Args...>> : public std::true_type {};\n};\t// namespace std\ntemplate <class\
+    \ T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
+    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
     }\ntemplate <class T, class U>\ninline bool chmax(T& lhs, const U& rhs) {\n\t\
     if (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\n\
@@ -43,14 +49,14 @@ data:
     b = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) { return a /\
     \ gcd(a, b) * b; }\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\tfor\
     \ (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn\
-    \ true;\n}\ntemplate <typename T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile\
-    \ (b) {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n\
+    \ true;\n}\ntemplate <class T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile (b)\
+    \ {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n\
     }\nlint modpow(lint a, lint b, lint m) {\n\ta %= m;\n\tlint res(1);\n\twhile (b)\
     \ {\n\t\tif (b & 1) {\n\t\t\tres *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\
-    \ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>&\
+    \ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <class T>\nvoid printArray(std::vector<T>&\
     \ vec, char split = ' ') {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\
     \t\tstd::cout << (i == (int)vec.size() - 1 ? '\\n' : split);\n\t}\n}\ntemplate\
-    \ <typename T>\nvoid printArray(T l, T r, char split = ' ') {\n\tT rprev = std::prev(r);\n\
+    \ <class T>\nvoid printArray(T l, T r, char split = ' ') {\n\tT rprev = std::prev(r);\n\
     \tfor (T i = l; i != r; i++) {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev\
     \ ? '\\n' : split);\n\t}\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return\
     \ {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second\
@@ -63,42 +69,72 @@ data:
     \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
     \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
     \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
-    }\n#line 3 \"data-structure/SparseTable.hpp\"\ntemplate <typename T>\nclass SparseTable\
-    \ {\n\tstd::vector<std::vector<T>> table;\n\tstd::vector<int> logtable;\n\n  public:\n\
-    \tSparseTable() {}\n\tSparseTable(const std::vector<T>& vec) { init(vec); }\n\t\
-    void init(const std::vector<T>& vec) {\n\t\tint maxlength = 0;\n\t\twhile ((1\
-    \ << (maxlength + 1)) <= vec.size()) maxlength++;\n\t\ttable.resize(maxlength\
-    \ + 1, std::vector<T>(vec.size()));\n\t\tlogtable.resize(vec.size() + 1);\n\t\t\
-    rep(i, maxlength + 1) {\n\t\t\trep(j, vec.size() - (1 << i) + 1) {\n\t\t\t\tif\
-    \ (i) {\n\t\t\t\t\ttable[i][j] = std::min(table[i - 1][j],\n\t\t\t\t\t\t\t\t\t\
-    \t   table[i - 1][j + (1 << (i - 1))]);\n\t\t\t\t} else\n\t\t\t\t\ttable[i][j]\
-    \ = vec[j];\n\t\t\t}\n\t\t}\n\t\tlogtable[1] = 0;\n\t\tfor (int i = 2; i <= vec.size();\
-    \ i++) {\n\t\t\tlogtable[i] = logtable[i >> 1] + 1;\n\t\t}\n\t}\n\ttemplate <class\
-    \ InputIter>\n\tSparseTable(InputIter first, InputIter last) {\n\t\tstd::vector<T>\
-    \ vec;\n\t\twhile (first != last) {\n\t\t\tvec.emplace_back(*first);\n\t\t}\n\t\
-    }\n\tT query(int l, int r) {\n\t\tint length = r - l;\n\t\treturn std::min(table[logtable[length]][l],\n\
-    \t\t\t\t\t\ttable[logtable[length]][r - (1 << logtable[length])]);\n\t}\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <typename T>\n\
-    class SparseTable {\n\tstd::vector<std::vector<T>> table;\n\tstd::vector<int>\
-    \ logtable;\n\n  public:\n\tSparseTable() {}\n\tSparseTable(const std::vector<T>&\
-    \ vec) { init(vec); }\n\tvoid init(const std::vector<T>& vec) {\n\t\tint maxlength\
-    \ = 0;\n\t\twhile ((1 << (maxlength + 1)) <= vec.size()) maxlength++;\n\t\ttable.resize(maxlength\
-    \ + 1, std::vector<T>(vec.size()));\n\t\tlogtable.resize(vec.size() + 1);\n\t\t\
-    rep(i, maxlength + 1) {\n\t\t\trep(j, vec.size() - (1 << i) + 1) {\n\t\t\t\tif\
-    \ (i) {\n\t\t\t\t\ttable[i][j] = std::min(table[i - 1][j],\n\t\t\t\t\t\t\t\t\t\
-    \t   table[i - 1][j + (1 << (i - 1))]);\n\t\t\t\t} else\n\t\t\t\t\ttable[i][j]\
-    \ = vec[j];\n\t\t\t}\n\t\t}\n\t\tlogtable[1] = 0;\n\t\tfor (int i = 2; i <= vec.size();\
-    \ i++) {\n\t\t\tlogtable[i] = logtable[i >> 1] + 1;\n\t\t}\n\t}\n\ttemplate <class\
-    \ InputIter>\n\tSparseTable(InputIter first, InputIter last) {\n\t\tstd::vector<T>\
-    \ vec;\n\t\twhile (first != last) {\n\t\t\tvec.emplace_back(*first);\n\t\t}\n\t\
-    }\n\tT query(int l, int r) {\n\t\tint length = r - l;\n\t\treturn std::min(table[logtable[length]][l],\n\
+    }\n#line 3 \"data-structure/SparseTable.hpp\"\ntemplate <class T, bool withindex\
+    \ = false>\nclass SparseTable {\n\tusing U = std::conditional_t<withindex, std::pair<T,\
+    \ int>, T>;\n\tstd::vector<std::vector<U>> table;\n\tstd::vector<int> logtable;\n\
+    \n\ttemplate <bool wi, class dummy_type = void>\n\tclass initializer {\n\t  public:\n\
+    \t\tvoid operator()(SparseTable<T, wi>& st, const std::vector<T>& vec) {\n\t\t\
+    \tint maxlength = 0;\n\t\t\twhile ((1 << (maxlength + 1)) <= vec.size()) maxlength++;\n\
+    \t\t\tst.table.resize(maxlength + 1, std::vector<T>(vec.size()));\n\t\t\tst.logtable.resize(vec.size()\
+    \ + 1);\n\t\t\trep(i, maxlength + 1) {\n\t\t\t\trep(j, vec.size() - (1 << i) +\
+    \ 1) {\n\t\t\t\t\tif (i) {\n\t\t\t\t\t\tst.table[i][j] =\n\t\t\t\t\t\t\tstd::min(st.table[i\
+    \ - 1][j],\n\t\t\t\t\t\t\t\t\t st.table[i - 1][j + (1 << (i - 1))]);\n\t\t\t\t\
+    \t} else {\n\t\t\t\t\t\tst.table[i][j] = vec[j];\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\
+    \t}\n\t\t\tst.logtable[1] = 0;\n\t\t\tfor (int i = 2; i <= vec.size(); i++) {\n\
+    \t\t\t\tst.logtable[i] = st.logtable[i >> 1] + 1;\n\t\t\t}\n\t\t}\n\t};\n\ttemplate\
+    \ <class dummy_type>\n\tclass initializer<true, dummy_type> {\n\t  public:\n\t\
+    \tvoid operator()(SparseTable<T, true>& st, const std::vector<T>& vec) {\n\t\t\
+    \tint maxlength = 0;\n\t\t\twhile ((1 << (maxlength + 1)) <= vec.size()) maxlength++;\n\
+    \t\t\tst.table.resize(maxlength + 1, std::vector<T>(vec.size()));\n\t\t\tst.logtable.resize(vec.size()\
+    \ + 1);\n\t\t\trep(i, maxlength + 1) {\n\t\t\t\trep(j, vec.size() - (1 << i) +\
+    \ 1) {\n\t\t\t\t\tif (i) {\n\t\t\t\t\t\tst.table[i][j] =\n\t\t\t\t\t\t\tstd::min(st.table[i\
+    \ - 1][j],\n\t\t\t\t\t\t\t\t\t st.table[i - 1][j + (1 << (i - 1))]);\n\t\t\t\t\
+    \t} else {\n\t\t\t\t\t\tst.table[i][j] = {vec[j], j};\n\t\t\t\t\t}\n\t\t\t\t}\n\
+    \t\t\t}\n\t\t\tst.logtable[1] = 0;\n\t\t\tfor (int i = 2; i <= vec.size(); i++)\
+    \ {\n\t\t\t\tst.logtable[i] = st.logtable[i >> 1] + 1;\n\t\t\t}\n\t\t}\n\t};\n\
+    \n  public:\n\tSparseTable() {}\n\tSparseTable(const std::vector<T>& vec) { init(vec);\
+    \ }\n\tvoid init(const std::vector<T>& vec) { initializer<withindex>()(*this,\
+    \ vec); }\n\ttemplate <class InputIter>\n\tSparseTable(InputIter first, InputIter\
+    \ last) {\n\t\tstd::vector<T> vec;\n\t\twhile (first != last) {\n\t\t\tvec.emplace_back(*first);\n\
+    \t\t}\n\t\tinit(vec);\n\t}\n\tU query(int l, int r) {\n\t\tint length = r - l;\n\
+    \t\treturn std::min(table[logtable[length]][l],\n\t\t\t\t\t\ttable[logtable[length]][r\
+    \ - (1 << logtable[length])]);\n\t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, bool\
+    \ withindex = false>\nclass SparseTable {\n\tusing U = std::conditional_t<withindex,\
+    \ std::pair<T, int>, T>;\n\tstd::vector<std::vector<U>> table;\n\tstd::vector<int>\
+    \ logtable;\n\n\ttemplate <bool wi, class dummy_type = void>\n\tclass initializer\
+    \ {\n\t  public:\n\t\tvoid operator()(SparseTable<T, wi>& st, const std::vector<T>&\
+    \ vec) {\n\t\t\tint maxlength = 0;\n\t\t\twhile ((1 << (maxlength + 1)) <= vec.size())\
+    \ maxlength++;\n\t\t\tst.table.resize(maxlength + 1, std::vector<T>(vec.size()));\n\
+    \t\t\tst.logtable.resize(vec.size() + 1);\n\t\t\trep(i, maxlength + 1) {\n\t\t\
+    \t\trep(j, vec.size() - (1 << i) + 1) {\n\t\t\t\t\tif (i) {\n\t\t\t\t\t\tst.table[i][j]\
+    \ =\n\t\t\t\t\t\t\tstd::min(st.table[i - 1][j],\n\t\t\t\t\t\t\t\t\t st.table[i\
+    \ - 1][j + (1 << (i - 1))]);\n\t\t\t\t\t} else {\n\t\t\t\t\t\tst.table[i][j] =\
+    \ vec[j];\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tst.logtable[1] = 0;\n\t\t\t\
+    for (int i = 2; i <= vec.size(); i++) {\n\t\t\t\tst.logtable[i] = st.logtable[i\
+    \ >> 1] + 1;\n\t\t\t}\n\t\t}\n\t};\n\ttemplate <class dummy_type>\n\tclass initializer<true,\
+    \ dummy_type> {\n\t  public:\n\t\tvoid operator()(SparseTable<T, true>& st, const\
+    \ std::vector<T>& vec) {\n\t\t\tint maxlength = 0;\n\t\t\twhile ((1 << (maxlength\
+    \ + 1)) <= vec.size()) maxlength++;\n\t\t\tst.table.resize(maxlength + 1, std::vector<T>(vec.size()));\n\
+    \t\t\tst.logtable.resize(vec.size() + 1);\n\t\t\trep(i, maxlength + 1) {\n\t\t\
+    \t\trep(j, vec.size() - (1 << i) + 1) {\n\t\t\t\t\tif (i) {\n\t\t\t\t\t\tst.table[i][j]\
+    \ =\n\t\t\t\t\t\t\tstd::min(st.table[i - 1][j],\n\t\t\t\t\t\t\t\t\t st.table[i\
+    \ - 1][j + (1 << (i - 1))]);\n\t\t\t\t\t} else {\n\t\t\t\t\t\tst.table[i][j] =\
+    \ {vec[j], j};\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tst.logtable[1] = 0;\n\t\
+    \t\tfor (int i = 2; i <= vec.size(); i++) {\n\t\t\t\tst.logtable[i] = st.logtable[i\
+    \ >> 1] + 1;\n\t\t\t}\n\t\t}\n\t};\n\n  public:\n\tSparseTable() {}\n\tSparseTable(const\
+    \ std::vector<T>& vec) { init(vec); }\n\tvoid init(const std::vector<T>& vec)\
+    \ { initializer<withindex>()(*this, vec); }\n\ttemplate <class InputIter>\n\t\
+    SparseTable(InputIter first, InputIter last) {\n\t\tstd::vector<T> vec;\n\t\t\
+    while (first != last) {\n\t\t\tvec.emplace_back(*first);\n\t\t}\n\t\tinit(vec);\n\
+    \t}\n\tU query(int l, int r) {\n\t\tint length = r - l;\n\t\treturn std::min(table[logtable[length]][l],\n\
     \t\t\t\t\t\ttable[logtable[length]][r - (1 << logtable[length])]);\n\t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/SparseTable.hpp
   requiredBy: []
-  timestamp: '2020-12-26 00:19:10+09:00'
+  timestamp: '2020-12-26 20:49:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/staticrmq.test.cpp

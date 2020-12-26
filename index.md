@@ -119,11 +119,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: string/Trie.hpp
       title: string/Trie.hpp
-  - name: test/yosupo
-    pages:
-    - icon: ':warning:'
-      path: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
-      title: test/yosupo/line_add_get_min.test_LiChaoTree.cpp
   verificationCategories:
   - name: test/aoj
     pages:
@@ -186,6 +181,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
       title: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
+      title: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/many_aplusb.test.cpp
       title: test/yosupo/many_aplusb.test.cpp

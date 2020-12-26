@@ -28,12 +28,18 @@ data:
     \ long long lint;\ntypedef unsigned long long ulint;\ntypedef std::pair<int, int>\
     \ P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int INF = INT_MAX / 2;\nconstexpr\
     \ lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double\
-    \ PI = 3.141592653589793238462643383279;\ntemplate <class T>\nclass prique : public\
-    \ std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate <typename\
-    \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
-    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
-    template <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
-    }\ntemplate <typename T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
+    \ PI = 3.141592653589793238462643383279;\nnamespace std {\n\ttemplate <template\
+    \ <class...> class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
+    \ Temp<Args...>> : public std::true_type {};\n\ttemplate <template <auto...> class\
+    \ Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
+    \ Temp<Args...>> : public std::true_type {};\n};\t// namespace std\ntemplate <class\
+    \ T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
+    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
     }\ntemplate <class T, class U>\ninline bool chmax(T& lhs, const U& rhs) {\n\t\
     if (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\n\
@@ -43,14 +49,14 @@ data:
     b = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) { return a /\
     \ gcd(a, b) * b; }\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\tfor\
     \ (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn\
-    \ true;\n}\ntemplate <typename T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile\
-    \ (b) {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n\
+    \ true;\n}\ntemplate <class T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile (b)\
+    \ {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n\
     }\nlint modpow(lint a, lint b, lint m) {\n\ta %= m;\n\tlint res(1);\n\twhile (b)\
     \ {\n\t\tif (b & 1) {\n\t\t\tres *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\
-    \ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>&\
+    \ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <class T>\nvoid printArray(std::vector<T>&\
     \ vec, char split = ' ') {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\
     \t\tstd::cout << (i == (int)vec.size() - 1 ? '\\n' : split);\n\t}\n}\ntemplate\
-    \ <typename T>\nvoid printArray(T l, T r, char split = ' ') {\n\tT rprev = std::prev(r);\n\
+    \ <class T>\nvoid printArray(T l, T r, char split = ' ') {\n\tT rprev = std::prev(r);\n\
     \tfor (T i = l; i != r; i++) {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev\
     \ ? '\\n' : split);\n\t}\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return\
     \ {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second\
@@ -63,16 +69,16 @@ data:
     \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
     \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
     \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
-    }\n#line 3 \"data-structure/RBST.hpp\"\ntemplate <typename T>\nclass RBST {\n\t\
-    class Node {\n\t  public:\n\t\tNode *left = nullptr, *right = nullptr;\n\t\tT\
-    \ value;\n\t\tsize_t size;\n\t};\n\tNode* root = nullptr;\n\tRBST(Node* r) : root(r)\
-    \ {}\n\tstatic ulint engine() {\n\t\tstatic ulint cur = std::clock();\n\t\tcur\
-    \ ^= cur << 13;\n\t\tcur ^= cur >> 17;\n\t\tcur ^= cur << 5;\n\t\treturn cur;\n\
-    \t}\n\tstatic size_t size(Node* trg) { return trg ? trg->size : 0; }\n\tstatic\
-    \ Node* apply(Node* trg) {\n\t\ttrg->size = size(trg->left) + size(trg->right)\
-    \ + 1;\n\t\treturn trg;\n\t}\n\tstatic Node* merge(Node* left, Node* right) {\n\
-    \t\tif (!left) return right;\n\t\tif (!right) return left;\n\t\tif (engine() %\
-    \ (size(left) + size(right)) < size(left)) {\n\t\t\tleft->right = merge(left->right,\
+    }\n#line 3 \"data-structure/RBST.hpp\"\ntemplate <class T>\nclass RBST {\n\tclass\
+    \ Node {\n\t  public:\n\t\tNode *left = nullptr, *right = nullptr;\n\t\tT value;\n\
+    \t\tsize_t size;\n\t};\n\tNode* root = nullptr;\n\tRBST(Node* r) : root(r) {}\n\
+    \tstatic ulint engine() {\n\t\tstatic ulint cur = std::clock();\n\t\tcur ^= cur\
+    \ << 13;\n\t\tcur ^= cur >> 17;\n\t\tcur ^= cur << 5;\n\t\treturn cur;\n\t}\n\t\
+    static size_t size(Node* trg) { return trg ? trg->size : 0; }\n\tstatic Node*\
+    \ apply(Node* trg) {\n\t\ttrg->size = size(trg->left) + size(trg->right) + 1;\n\
+    \t\treturn trg;\n\t}\n\tstatic Node* merge(Node* left, Node* right) {\n\t\tif\
+    \ (!left) return right;\n\t\tif (!right) return left;\n\t\tif (size_t(engine()\
+    \ % (size(left) + size(right))) < size(left)) {\n\t\t\tleft->right = merge(left->right,\
     \ right);\n\t\t\treturn apply(left);\n\t\t} else {\n\t\t\tright->left = merge(left,\
     \ right->left);\n\t\t\treturn apply(right);\n\t\t}\n\t}\n\tstatic std::pair<Node*,\
     \ Node*> split(Node* trg, int pos) {\n\t\tif (!trg) return {nullptr, nullptr};\n\
@@ -110,7 +116,7 @@ data:
     \t}\n\tvoid build(const std::vector<T>& data) { root = build(data, 0, -1); }\n\
     \tvoid clear() {\n\t\tclear(root);\n\t\troot = nullptr;\n\t}\n\tint size() const\
     \ { return empty() ? 0 : root->size; }\n\tbool empty() const { return !root; }\n\
-    };\n#line 4 \"data-structure/RBSTset.hpp\"\ntemplate <typename T>\nclass RBSTset\
+    };\n#line 4 \"data-structure/RBSTset.hpp\"\ntemplate <class T>\nclass RBSTset\
     \ {\n\tRBST<int> rbst;\n\n  public:\n\tRBSTset() {}\n\tconst T& quantile(int idx)\
     \ const { return rbst.find(idx); }\n\tbool contains(const T& val) const {\n\t\t\
     return rbst.lower_bound(val) != rbst.upper_bound(val);\n\t}\n\tvoid insert(const\
@@ -119,7 +125,7 @@ data:
     \ }\n\tint size() const { return rbst.size(); }\n\tbool empty() const { return\
     \ rbst.empty(); }\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"RBST.hpp\"\n\
-    template <typename T>\nclass RBSTset {\n\tRBST<int> rbst;\n\n  public:\n\tRBSTset()\
+    template <class T>\nclass RBSTset {\n\tRBST<int> rbst;\n\n  public:\n\tRBSTset()\
     \ {}\n\tconst T& quantile(int idx) const { return rbst.find(idx); }\n\tbool contains(const\
     \ T& val) const {\n\t\treturn rbst.lower_bound(val) != rbst.upper_bound(val);\n\
     \t}\n\tvoid insert(const T& val) { rbst.insert(rbst.lower_bound(val), val); }\n\
@@ -132,7 +138,7 @@ data:
   isVerificationFile: false
   path: data-structure/RBSTset.hpp
   requiredBy: []
-  timestamp: '2020-12-26 00:19:10+09:00'
+  timestamp: '2020-12-26 20:49:08+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/RBSTset.hpp

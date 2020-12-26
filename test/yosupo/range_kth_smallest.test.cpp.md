@@ -32,30 +32,36 @@ data:
     \ unsigned int uint;\ntypedef long long lint;\ntypedef unsigned long long ulint;\n\
     typedef std::pair<int, int> P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int\
     \ INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps\
-    \ = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\ntemplate\
-    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
-    \ {\n};\ntemplate <typename F>\ninline constexpr decltype(auto) lambda_fix(F&&\
-    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
-    \t};\n}\ntemplate <typename T>\nstd::vector<T> make_vec(size_t n) {\n\treturn\
-    \ std::vector<T>(n);\n}\ntemplate <typename T, class... Args>\nauto make_vec(size_t\
-    \ n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
-    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class\
-    \ U>\ninline bool chmax(T& lhs, const U& rhs) {\n\tif (lhs < rhs) {\n\t\tlhs =\
-    \ rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate <class T, class U>\n\
-    inline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\
-    \t\treturn true;\n\t}\n\treturn false;\n}\ninline lint gcd(lint a, lint b) {\n\
-    \twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n\
-    }\ninline lint lcm(lint a, lint b) { return a / gcd(a, b) * b; }\nbool isprime(lint\
-    \ n) {\n\tif (n == 1) return false;\n\tfor (int i = 2; i * i <= n; i++) {\n\t\t\
-    if (n % i == 0) return false;\n\t}\n\treturn true;\n}\ntemplate <typename T>\n\
-    T mypow(T a, lint b) {\n\tT res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a;\n\
-    \t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\nlint modpow(lint a, lint b,\
-    \ lint m) {\n\ta %= m;\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) {\n\t\t\t\
-    res *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\ta %= m;\n\t\tb >>= 1;\n\t\
-    }\n\treturn res;\n}\ntemplate <typename T>\nvoid printArray(std::vector<T>& vec,\
-    \ char split = ' ') {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\t\t\
-    std::cout << (i == (int)vec.size() - 1 ? '\\n' : split);\n\t}\n}\ntemplate <typename\
-    \ T>\nvoid printArray(T l, T r, char split = ' ') {\n\tT rprev = std::prev(r);\n\
+    \ = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\nnamespace\
+    \ std {\n\ttemplate <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
+    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>> : public std::true_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
+    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>> : public std::true_type\
+    \ {};\n};\t// namespace std\ntemplate <class T>\nclass prique : public std::priority_queue<T,\
+    \ std::vector<T>, std::greater<T>> {\n};\ntemplate <class F>\ninline constexpr\
+    \ decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
+    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
+    template <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
+    \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    }\ntemplate <class T, class U>\ninline bool chmax(T& lhs, const U& rhs) {\n\t\
+    if (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\n\
+    template <class T, class U>\ninline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs\
+    \ > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ninline\
+    \ lint gcd(lint a, lint b) {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\t\
+    b = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) { return a /\
+    \ gcd(a, b) * b; }\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\tfor\
+    \ (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn\
+    \ true;\n}\ntemplate <class T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile (b)\
+    \ {\n\t\tif (b & 1) res *= a;\n\t\ta *= a;\n\t\tb >>= 1;\n\t}\n\treturn res;\n\
+    }\nlint modpow(lint a, lint b, lint m) {\n\ta %= m;\n\tlint res(1);\n\twhile (b)\
+    \ {\n\t\tif (b & 1) {\n\t\t\tres *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\
+    \ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <class T>\nvoid printArray(std::vector<T>&\
+    \ vec, char split = ' ') {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\
+    \t\tstd::cout << (i == (int)vec.size() - 1 ? '\\n' : split);\n\t}\n}\ntemplate\
+    \ <class T>\nvoid printArray(T l, T r, char split = ' ') {\n\tT rprev = std::prev(r);\n\
     \tfor (T i = l; i != r; i++) {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev\
     \ ? '\\n' : split);\n\t}\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return\
     \ {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second\
@@ -78,7 +84,7 @@ data:
     \ rank(bool b, int x) const {\n\t\t\tif (!b) return zerocnt[x];\n\t\t\treturn\
     \ x + 1 - zerocnt[x];\n\t\t}\n\t\tint select(bool b, int x) const { return place[b][x];\
     \ }\n\t\tunsigned int size() const { return vec.size(); }\n\t};\n\tstd::vector<BitVector>\
-    \ bit;\n\tstd::vector<int> bound, head, fvec;\n\n  public:\n\ttemplate <typename\
+    \ bit;\n\tstd::vector<int> bound, head, fvec;\n\n  public:\n\ttemplate <class\
     \ T>\n\tWaveletMatrix(std::vector<T> vec) {\n\t\tfor (int i = 63; i >= 0; i--)\
     \ {\n\t\t\tstd::vector<bool> bvec;\n\t\t\tfor (T j : vec) bvec.emplace_back(j\
     \ & ((lint)1 << i));\n\t\t\tstd::stable_sort(all(vec), [&i](const T& lhs, const\
@@ -117,7 +123,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/range_kth_smallest.test.cpp
   requiredBy: []
-  timestamp: '2020-12-26 00:19:10+09:00'
+  timestamp: '2020-12-26 20:49:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/range_kth_smallest.test.cpp
