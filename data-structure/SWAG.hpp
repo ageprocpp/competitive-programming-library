@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-template <typename T, T (*op)(const T&, const T&)>
+template <class T, T (*op)(const T&, const T&)>
 class SWAG {
 	std::stack<std::pair<T, T>> front, back;
 

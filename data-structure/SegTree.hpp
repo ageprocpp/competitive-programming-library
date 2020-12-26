@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-template <typename T, T (*nodef)(const T&, const T&)>
+template <class T, T (*nodef)(const T&, const T&)>
 class SegTree {
   protected:
 	unsigned int n = 1, rank = 0;
@@ -25,7 +25,7 @@ class SegTree {
 		for (unsigned int i = n - 1; i > 0; i--)
 			node[i] = nodef(node[i << 1], node[i << 1 | 1]);
 	}
-	template <typename U>
+	template <class U>
 	SegTree(const std::vector<U>& initvec, T e_) : ident(e_) {
 		unsigned int m = initvec.size();
 		while (n < m) {
@@ -63,7 +63,7 @@ class SegTree {
 	T queryForAll() const { return node[1]; }
 
   private:
-	template <typename F>
+	template <class F>
 	int max_right(int st, F& check, T& acc, int k, int l, int r) const {
 		if (l + 1 == r) {
 			acc = nodef(acc, node[k]);
@@ -81,7 +81,7 @@ class SegTree {
 	}
 
   public:
-	template <typename F>
+	template <class F>
 	int max_right(int st, F check) const {
 		T acc = ident;
 		return max_right(st, check, acc, 1, 0, n);

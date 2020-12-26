@@ -1,5 +1,5 @@
 #include "../other/template.hpp"
-template <typename T, bool isMin>
+template <class T, bool isMin>
 class ConvexHullTrick {
 	static constexpr double DBL_INF = DBL_MAX;
 	class Line {

@@ -46,7 +46,7 @@ class HeavyLightDecomposition {
 		size_dfs(root);
 		build_dfs(root);
 	}
-	template <typename F>
+	template <class F>
 	void each_edge(int u, int v, const F& func) const {
 		while (true) {
 			if (label[u] > label[v]) std::swap(u, v);
@@ -58,7 +58,7 @@ class HeavyLightDecomposition {
 			v = par[head[v]];
 		}
 	}
-	template <typename F>
+	template <class F>
 	void each_vertex(int u, int v, const F& func) const {
 		while (true) {
 			if (label[u] > label[v]) std::swap(u, v);

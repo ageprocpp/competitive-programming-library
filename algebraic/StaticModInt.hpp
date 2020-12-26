@@ -8,7 +8,7 @@ class StaticModInt {
   public:
 	static constexpr uint mod_value = modulo;
 	StaticModInt() : value(0) {}
-	template <typename T>
+	template <class T>
 	StaticModInt(T value = 0) : value(value) {
 		this->value =
 			(value < 0 ? -(-value % modulo) + modulo : value) % modulo;
@@ -57,35 +57,35 @@ class StaticModInt {
 	inline StaticModInt& operator/=(const StaticModInt& rhs) {
 		return *this *= rhs.inv();
 	}
-	template <typename T>
+	template <class T>
 	StaticModInt operator+(const T& rhs) const {
 		return StaticModInt(*this) += rhs;
 	}
-	template <typename T>
+	template <class T>
 	StaticModInt& operator+=(const T& rhs) {
 		return operator+=(StaticModInt(rhs));
 	}
-	template <typename T>
+	template <class T>
 	StaticModInt operator-(const T& rhs) const {
 		return StaticModInt(*this) -= rhs;
 	}
-	template <typename T>
+	template <class T>
 	StaticModInt& operator-=(const T& rhs) {
 		return operator-=(StaticModInt(rhs));
 	}
-	template <typename T>
+	template <class T>
 	StaticModInt operator*(const T& rhs) const {
 		return StaticModInt(*this) *= rhs;
 	}
-	template <typename T>
+	template <class T>
 	StaticModInt& operator*=(const T& rhs) {
 		return operator*=(StaticModInt(rhs));
 	}
-	template <typename T>
+	template <class T>
 	StaticModInt operator/(const T& rhs) const {
 		return StaticModInt(*this) /= rhs;
 	}
-	template <typename T>
+	template <class T>
 	StaticModInt& operator/=(const T& rhs) {
 		return operator/=(StaticModInt(rhs));
 	}

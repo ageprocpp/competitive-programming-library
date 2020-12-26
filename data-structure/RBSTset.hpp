@@ -1,7 +1,7 @@
 #pragma once
 #include "../other/template.hpp"
 #include "RBST.hpp"
-template <typename T>
+template <class T>
 class RBSTset {
 	RBST<int> rbst;
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-template <typename T>
+template <class T>
 class Dijkstra {
 	int N;
 	std::vector<std::vector<std::pair<int, T>>> vec, rev;

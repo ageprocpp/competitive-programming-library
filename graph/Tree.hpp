@@ -8,7 +8,7 @@ class Tree {
 	std::vector<std::vector<ET>> vec;
 
   public:
-	template <typename T, typename U>
+	template <class T, class U>
 	Tree(int M, const std::vector<std::pair<T, U>> es) : N(M) {
 		vec.resize(N + 1);
 		for (const auto& e : es) {
@@ -16,7 +16,7 @@ class Tree {
 			vec[e.second].emplace_back(e.first, 1);
 		}
 	}
-	template <typename T, typename U, typename V>
+	template <class T, class U, class V>
 	Tree(int M, const std::vector<std::pair<std::pair<T, U>, V>> es) : N(M) {
 		vec.resize(N + 1);
 		for (const auto& e : es) {

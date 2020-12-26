@@ -37,7 +37,7 @@ class NumberTheoreticTransform {
 
   public:
 	static bool inverse;
-	template <unsigned int modulo, typename T>
+	template <unsigned int modulo, class T>
 	static std::vector<StaticModInt<modulo>> multiply(std::vector<T> f,
 													  std::vector<T> g) {
 		if (f.size() < g.size()) std::swap(f, g);
@@ -60,7 +60,7 @@ class NumberTheoreticTransform {
 		rep(i, sz) nf[i] *= szinv;
 		return nf;
 	}
-	template <typename T>
+	template <class T>
 	static std::vector<lint> multiply_plain(std::vector<T> f,
 											std::vector<T> g) {
 		const unsigned int mod1 = 998244353, mod2 = 1224736769;

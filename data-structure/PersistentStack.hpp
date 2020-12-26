@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-template <typename T>
+template <class T>
 class PersistentStack {
 	class Node;
 	using ptr = std::shared_ptr<Node>;

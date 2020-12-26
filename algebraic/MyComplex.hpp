@@ -5,12 +5,12 @@ class MyComplex {
 
   public:
 	MyComplex() : realvalue(0), imagvalue(0) {}
-	template <typename T, typename U>
+	template <class T, class U>
 	MyComplex(const T& realvalue, const U& imagvalue)
 		: realvalue(realvalue), imagvalue(imagvalue) {}
-	template <typename T>
+	template <class T>
 	MyComplex(const T& realvalue) : realvalue(realvalue), imagvalue(0) {}
-	template <typename T>
+	template <class T>
 	MyComplex(const std::complex<T>& c)
 		: realvalue(c.real()), imagvalue(c.imag()) {}
 	double& real() { return this->realvalue; }
@@ -43,35 +43,35 @@ class MyComplex {
 		return *this;
 	}
 
-	template <typename T>
+	template <class T>
 	MyComplex operator+(const T& rhs) const {
 		return MyComplex(*this) += rhs;
 	}
-	template <typename T>
+	template <class T>
 	MyComplex& operator+=(const T& rhs) const {
 		return operator+=(MyComplex(rhs));
 	}
-	template <typename T>
+	template <class T>
 	MyComplex operator-(const T& rhs) const {
 		return MyComplex(*this) -= rhs;
 	}
-	template <typename T>
+	template <class T>
 	MyComplex& operator-=(const T& rhs) const {
 		return operator-=(MyComplex(rhs));
 	}
-	template <typename T>
+	template <class T>
 	MyComplex operator*(const T& rhs) const {
 		return MyComplex(*this) *= rhs;
 	}
-	template <typename T>
+	template <class T>
 	MyComplex& operator*=(const T& rhs) const {
 		return operator*=(MyComplex(rhs));
 	}
-	template <typename T>
+	template <class T>
 	MyComplex operator/(const T& rhs) const {
 		return MyComplex(*this) /= rhs;
 	}
-	template <typename T>
+	template <class T>
 	MyComplex& operator/=(const T& rhs) const {
 		return operator/=(MyComplex(rhs));
 	}

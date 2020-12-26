@@ -21,10 +21,11 @@ class Combinatorics {
 	}
 	virtual T getDcomb(int a, int b) noexcept { return getComb(a + b - 1, b); }
 };
-template <typename T>
+template <typename T, typename std::enable_if_t<
+						  std::disjunction_v<std::is_template_with_non_type_of<StaticModInt, T>,
+											 std::is_same<DynamicModInt, T>>,
+						  std::nullptr_t> = nullptr>
 class ModCombinatorics : Combinatorics<T> {
-	static_assert(std::is_same<T, StaticModInt<T::mod_value>>::value ||
-				  std::is_same<T, DynamicModInt>::value);
 	using Combinatorics<T>::factorial;
 	std::vector<T> inv;
 	void append(int n) noexcept {

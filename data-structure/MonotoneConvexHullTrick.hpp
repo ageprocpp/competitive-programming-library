@@ -1,5 +1,5 @@
 #include "../other/template.hpp"
-template <typename T, bool isMin>
+template <class T, bool isMin>
 class MonotoneConvexHullTrick {
 	static constexpr double INF = DBL_MAX;
 	using TP = std::pair<std::pair<T, T>, int>;

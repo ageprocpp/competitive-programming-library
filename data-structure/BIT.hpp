@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-template <typename T>
+template <class T>
 class BIT {
 	int n;
 	std::vector<T> bit;

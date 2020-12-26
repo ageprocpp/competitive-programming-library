@@ -29,7 +29,7 @@ class WaveletMatrix {
 	std::vector<int> bound, head, fvec;
 
   public:
-	template <typename T>
+	template <class T>
 	WaveletMatrix(std::vector<T> vec) {
 		for (int i = 63; i >= 0; i--) {
 			std::vector<bool> bvec;

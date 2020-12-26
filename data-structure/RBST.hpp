@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-template <typename T>
+template <class T>
 class RBST {
 	class Node {
 	  public:
@@ -25,7 +25,7 @@ class RBST {
 	static Node* merge(Node* left, Node* right) {
 		if (!left) return right;
 		if (!right) return left;
-		if (engine() % (size(left) + size(right)) < size(left)) {
+		if (size_t(engine() % (size(left) + size(right))) < size(left)) {
 			left->right = merge(left->right, right);
 			return apply(left);
 		} else {

@@ -1,7 +1,7 @@
 #pragma once
 #include "../other/template.hpp"
 #include "SegTree.hpp"
-template <typename T, typename U, T (*nodef)(const T&, const T&),
+template <class T, class U, T (*nodef)(const T&, const T&),
 		  void (*lazyf)(U&, const U&),
 		  void (*updf)(T&, const U&, const unsigned int&)>
 class IntervalSegTree : public SegTree<T, nodef> {
@@ -129,7 +129,7 @@ class IntervalSegTree : public SegTree<T, nodef> {
 	}
 
   private:
-	template <typename F>
+	template <class F>
 	int max_right(int st, F& check, T& acc, int k, int l, int r) {
 		eval(k);
 		if (l + 1 == r) {
@@ -148,7 +148,7 @@ class IntervalSegTree : public SegTree<T, nodef> {
 	}
 
   public:
-	template <typename F>
+	template <class F>
 	int max_right(int st, F check) {
 		T acc = ident;
 		return max_right(st, check, acc, 1, 0, n);

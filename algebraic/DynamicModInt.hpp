@@ -6,7 +6,7 @@ class DynamicModInt {
   public:
 	static uint modulo;
 	DynamicModInt() : value(0) {}
-	template <typename T>
+	template <class T>
 	DynamicModInt(T value = 0) : value(value) {
 		if (value < 0) value = -(lint)(-value % modulo) + modulo;
 		this->value = value % modulo;
@@ -56,35 +56,35 @@ class DynamicModInt {
 	inline DynamicModInt& operator/=(const DynamicModInt& rhs) {
 		return *this *= rhs.inv();
 	}
-	template <typename T>
+	template <class T>
 	DynamicModInt operator+(const T& rhs) const {
 		return DynamicModInt(*this) += rhs;
 	}
-	template <typename T>
+	template <class T>
 	DynamicModInt& operator+=(const T& rhs) {
 		return operator+=(DynamicModInt(rhs));
 	}
-	template <typename T>
+	template <class T>
 	DynamicModInt operator-(const T& rhs) const {
 		return DynamicModInt(*this) -= rhs;
 	}
-	template <typename T>
+	template <class T>
 	DynamicModInt& operator-=(const T& rhs) {
 		return operator-=(DynamicModInt(rhs));
 	}
-	template <typename T>
+	template <class T>
 	DynamicModInt operator*(const T& rhs) const {
 		return DynamicModInt(*this) *= rhs;
 	}
-	template <typename T>
+	template <class T>
 	DynamicModInt& operator*=(const T& rhs) {
 		return operator*=(DynamicModInt(rhs));
 	}
-	template <typename T>
+	template <class T>
 	DynamicModInt operator/(const T& rhs) const {
 		return DynamicModInt(*this) /= rhs;
 	}
-	template <typename T>
+	template <class T>
 	DynamicModInt& operator/=(const T& rhs) {
 		return operator/=(DynamicModInt(rhs));
 	}
