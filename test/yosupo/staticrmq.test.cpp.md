@@ -78,30 +78,22 @@ data:
     \ int>, T>;\n\tstd::vector<std::vector<U>> table;\n\tstd::vector<int> logtable;\n\
     \n\ttemplate <bool wi, class dummy_type = void>\n\tclass initializer {\n\t  public:\n\
     \t\tvoid operator()(SparseTable<T, wi>& st, const std::vector<T>& vec) {\n\t\t\
-    \tint maxlength = 0;\n\t\t\twhile ((1 << (maxlength + 1)) <= vec.size()) maxlength++;\n\
-    \t\t\tst.table.resize(maxlength + 1, std::vector<T>(vec.size()));\n\t\t\tst.logtable.resize(vec.size()\
-    \ + 1);\n\t\t\trep(i, maxlength + 1) {\n\t\t\t\trep(j, vec.size() - (1 << i) +\
-    \ 1) {\n\t\t\t\t\tif (i) {\n\t\t\t\t\t\tst.table[i][j] =\n\t\t\t\t\t\t\tstd::min(st.table[i\
-    \ - 1][j],\n\t\t\t\t\t\t\t\t\t st.table[i - 1][j + (1 << (i - 1))]);\n\t\t\t\t\
-    \t} else {\n\t\t\t\t\t\tst.table[i][j] = vec[j];\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\
-    \t}\n\t\t\tst.logtable[1] = 0;\n\t\t\tfor (int i = 2; i <= vec.size(); i++) {\n\
-    \t\t\t\tst.logtable[i] = st.logtable[i >> 1] + 1;\n\t\t\t}\n\t\t}\n\t};\n\ttemplate\
-    \ <class dummy_type>\n\tclass initializer<true, dummy_type> {\n\t  public:\n\t\
-    \tvoid operator()(SparseTable<T, true>& st, const std::vector<T>& vec) {\n\t\t\
-    \tint maxlength = 0;\n\t\t\twhile ((1 << (maxlength + 1)) <= vec.size()) maxlength++;\n\
-    \t\t\tst.table.resize(maxlength + 1, std::vector<T>(vec.size()));\n\t\t\tst.logtable.resize(vec.size()\
-    \ + 1);\n\t\t\trep(i, maxlength + 1) {\n\t\t\t\trep(j, vec.size() - (1 << i) +\
-    \ 1) {\n\t\t\t\t\tif (i) {\n\t\t\t\t\t\tst.table[i][j] =\n\t\t\t\t\t\t\tstd::min(st.table[i\
-    \ - 1][j],\n\t\t\t\t\t\t\t\t\t st.table[i - 1][j + (1 << (i - 1))]);\n\t\t\t\t\
-    \t} else {\n\t\t\t\t\t\tst.table[i][j] = {vec[j], j};\n\t\t\t\t\t}\n\t\t\t\t}\n\
-    \t\t\t}\n\t\t\tst.logtable[1] = 0;\n\t\t\tfor (int i = 2; i <= vec.size(); i++)\
-    \ {\n\t\t\t\tst.logtable[i] = st.logtable[i >> 1] + 1;\n\t\t\t}\n\t\t}\n\t};\n\
-    \n  public:\n\tSparseTable() {}\n\tSparseTable(const std::vector<T>& vec) { init(vec);\
-    \ }\n\tvoid init(const std::vector<T>& vec) { initializer<withindex>()(*this,\
-    \ vec); }\n\ttemplate <class InputIter>\n\tSparseTable(InputIter first, InputIter\
-    \ last) {\n\t\tstd::vector<T> vec;\n\t\twhile (first != last) {\n\t\t\tvec.emplace_back(*first);\n\
-    \t\t}\n\t\tinit(vec);\n\t}\n\tU query(int l, int r) {\n\t\tint length = r - l;\n\
-    \t\treturn std::min(table[logtable[length]][l],\n\t\t\t\t\t\ttable[logtable[length]][r\
+    \trep(i, vec.size()) st.table[0][i] = vec[i];\n\t\t}\n\t};\n\ttemplate <class\
+    \ dummy_type>\n\tclass initializer<true, dummy_type> {\n\t  public:\n\t\tvoid\
+    \ operator()(SparseTable<T, true>& st, const std::vector<T>& vec) {\n\t\t\trep(i,\
+    \ vec.size()) st.table[0][i] = {vec[i], i};\n\t\t}\n\t};\n\n  public:\n\tSparseTable()\
+    \ {}\n\tSparseTable(const std::vector<T>& vec) { init(vec); }\n\tvoid init(const\
+    \ std::vector<T>& vec) {\n\t\tint maxlength = 0;\n\t\twhile ((1 << (maxlength\
+    \ + 1)) <= vec.size()) maxlength++;\n\t\ttable.resize(maxlength + 1, std::vector<T>(vec.size()));\n\
+    \t\tlogtable.resize(vec.size() + 1);\n\t\tinitializer<withindex>()(*this, vec);\n\
+    \t\tREP(i, maxlength) {\n\t\t\trep(j, vec.size() - (1 << i) + 1) {\n\t\t\t\ttable[i][j]\
+    \ =\n\t\t\t\t\tstd::min(table[i - 1][j], table[i - 1][j + (1 << (i - 1))]);\n\t\
+    \t\t}\n\t\t}\n\t\tlogtable[1] = 0;\n\t\tfor (int i = 2; i <= vec.size(); i++)\
+    \ {\n\t\t\tlogtable[i] = logtable[i >> 1] + 1;\n\t\t}\n\t}\n\ttemplate <class\
+    \ InputIter>\n\tSparseTable(InputIter first, InputIter last) {\n\t\tstd::vector<T>\
+    \ vec;\n\t\twhile (first != last) {\n\t\t\tvec.emplace_back(*first);\n\t\t}\n\t\
+    \tinit(vec);\n\t}\n\tU query(int l, int r) {\n\t\tint length = r - l;\n\t\treturn\
+    \ std::min(table[logtable[length]][l],\n\t\t\t\t\t\ttable[logtable[length]][r\
     \ - (1 << logtable[length])]);\n\t}\n};\n#line 4 \"test/yosupo/staticrmq.test.cpp\"\
     \nint n, q, l, r;\nstd::vector<int> vec;\nint main() {\n\tscanf(\"%d%d\", &n,\
     \ &q);\n\tvec.resize(n);\n\trep(i, n) scanf(\"%d\", vec.data() + i);\n\tSparseTable<int>\
@@ -119,7 +111,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/staticrmq.test.cpp
   requiredBy: []
-  timestamp: '2020-12-26 20:49:08+09:00'
+  timestamp: '2020-12-29 16:15:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/staticrmq.test.cpp
