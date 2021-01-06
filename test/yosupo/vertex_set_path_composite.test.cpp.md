@@ -168,7 +168,7 @@ data:
     \ i + 1]);\n\t\t}\n\t}\n\tT query(int l, int r) const {\n\t\tl += n;\n\t\tr +=\
     \ n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls\
     \ = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\t\
-    l >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tT operator[](const\
+    l >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tconst T& operator[](const\
     \ int& x) const { return node[n + x]; }\n\tT queryForAll() const { return node[1];\
     \ }\n\n  private:\n\ttemplate <class F>\n\tint max_right(int st, F& check, T&\
     \ acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc,\
@@ -275,7 +275,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/vertex_set_path_composite.test.cpp
   requiredBy: []
-  timestamp: '2020-12-26 20:49:08+09:00'
+  timestamp: '2021-01-06 23:31:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/vertex_set_path_composite.test.cpp

@@ -80,7 +80,7 @@ data:
     \ vec.size()) st.table[0][i] = {vec[i], i};\n\t\t}\n\t};\n\n  public:\n\tSparseTable()\
     \ {}\n\tSparseTable(const std::vector<T>& vec) { init(vec); }\n\tvoid init(const\
     \ std::vector<T>& vec) {\n\t\tint maxlength = 0;\n\t\twhile ((1 << (maxlength\
-    \ + 1)) <= vec.size()) maxlength++;\n\t\ttable.resize(maxlength + 1, std::vector<T>(vec.size()));\n\
+    \ + 1)) <= vec.size()) maxlength++;\n\t\ttable.resize(maxlength + 1, std::vector<U>(vec.size()));\n\
     \t\tlogtable.resize(vec.size() + 1);\n\t\tinitializer<withindex>()(*this, vec);\n\
     \t\tREP(i, maxlength) {\n\t\t\trep(j, vec.size() - (1 << i) + 1) {\n\t\t\t\ttable[i][j]\
     \ =\n\t\t\t\t\tstd::min(table[i - 1][j], table[i - 1][j + (1 << (i - 1))]);\n\t\
@@ -103,7 +103,7 @@ data:
     \tSparseTable() {}\n\tSparseTable(const std::vector<T>& vec) { init(vec); }\n\t\
     void init(const std::vector<T>& vec) {\n\t\tint maxlength = 0;\n\t\twhile ((1\
     \ << (maxlength + 1)) <= vec.size()) maxlength++;\n\t\ttable.resize(maxlength\
-    \ + 1, std::vector<T>(vec.size()));\n\t\tlogtable.resize(vec.size() + 1);\n\t\t\
+    \ + 1, std::vector<U>(vec.size()));\n\t\tlogtable.resize(vec.size() + 1);\n\t\t\
     initializer<withindex>()(*this, vec);\n\t\tREP(i, maxlength) {\n\t\t\trep(j, vec.size()\
     \ - (1 << i) + 1) {\n\t\t\t\ttable[i][j] =\n\t\t\t\t\tstd::min(table[i - 1][j],\
     \ table[i - 1][j + (1 << (i - 1))]);\n\t\t\t}\n\t\t}\n\t\tlogtable[1] = 0;\n\t\
@@ -118,7 +118,7 @@ data:
   isVerificationFile: false
   path: data-structure/SparseTable.hpp
   requiredBy: []
-  timestamp: '2020-12-29 16:15:52+09:00'
+  timestamp: '2021-01-06 23:31:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/staticrmq.test.cpp
