@@ -27,7 +27,7 @@ class SparseTable {
 	void init(const std::vector<T>& vec) {
 		int maxlength = 0;
 		while ((1 << (maxlength + 1)) <= vec.size()) maxlength++;
-		table.resize(maxlength + 1, std::vector<T>(vec.size()));
+		table.resize(maxlength + 1, std::vector<U>(vec.size()));
 		logtable.resize(vec.size() + 1);
 		initializer<withindex>()(*this, vec);
 		REP(i, maxlength) {

@@ -59,7 +59,7 @@ class SegTree {
 		}
 		return nodef(ls, rs);
 	}
-	T operator[](const int& x) const { return node[n + x]; }
+	const T& operator[](const int& x) const { return node[n + x]; }
 	T queryForAll() const { return node[1]; }
 
   private:
