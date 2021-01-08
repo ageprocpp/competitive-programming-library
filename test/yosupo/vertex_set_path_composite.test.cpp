@@ -12,7 +12,7 @@ class MySeg : public SegTree<MP, nodef> {
 	using Base = SegTree<MP, nodef>;
 
   public:
-	MySeg(int n) : Base(n, {1, 0}, {1, 0}) {}
+	MySeg(int n) : Base(n, MP{1, 0}, MP{1, 0}) {}
 };
 int n, q;
 P a[200010];
@@ -44,7 +44,7 @@ int main() {
 			int u, v, x;
 			scanf("%d%d%d", &u, &v, &x);
 			int t = hld.lca(u, v);
-			std::pair<ModInt, ModInt> f1 = {1, 0}, f2 = {1, 0};
+			std::pair<ModInt, ModInt> f1(1, 0), f2(1, 0);
 			hld.each_vertex(u, t, [&](int l, int r) {
 				auto p = st2.query(n - 1 - r, n - 1 - l + 1);
 				f1 = {f1.first * p.first, f1.second * p.first + p.second};

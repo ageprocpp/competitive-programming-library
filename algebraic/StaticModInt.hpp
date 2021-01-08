@@ -8,7 +8,8 @@ class StaticModInt {
   public:
 	static constexpr uint mod_value = modulo;
 	StaticModInt() : value(0) {}
-	template <class T>
+	template <class T, std::enable_if_t<!std::is_convertible_v<T, StaticModInt>,
+										std::nullptr_t> = nullptr>
 	StaticModInt(T value = 0) : value(value) {
 		this->value =
 			(value < 0 ? -(-value % modulo) + modulo : value) % modulo;

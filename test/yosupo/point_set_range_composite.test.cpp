@@ -11,7 +11,7 @@ class MySeg : public SegTree<MP, nodef> {
 	using Base = SegTree<MP, nodef>;
 
   public:
-	MySeg(int n) : Base(n, {0, 0}, {1, 0}) {}
+	MySeg(int n) : Base(n, MP{0, 0}, MP{1, 0}) {}
 };
 int n, q;
 int main() {
