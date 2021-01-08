@@ -15,12 +15,15 @@ data:
     path: algebraic/NumberTheoreticTransform.hpp
     title: algebraic/NumberTheoreticTransform.hpp
   - icon: ':heavy_check_mark:'
+    path: string/HashedString.hpp
+    title: string/HashedString.hpp
+  - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
     title: string/RollingHash.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
-    title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
+    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
+    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution_mod.test.cpp
     title: test/yosupo/convolution_mod.test.cpp
@@ -132,15 +135,16 @@ data:
     \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 4 \"algebraic/StaticModInt.hpp\"\
     \ntemplate <uint modulo>\nclass StaticModInt {\n\tlint value;\n\n  public:\n\t\
     static constexpr uint mod_value = modulo;\n\tStaticModInt() : value(0) {}\n\t\
-    template <class T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\tthis->value\
-    \ =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo : value) % modulo;\n\t}\n\t\
-    inline StaticModInt inv() const { return mypow(*this, modulo - 2); }\n\tinline\
-    \ operator int() const { return value; }\n\tinline StaticModInt& operator+=(const\
-    \ StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo) value -=\
-    \ modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\t\
-    if (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn\
-    \ *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt res =\
-    \ *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
+    template <class T, std::enable_if_t<!std::is_convertible_v<T, StaticModInt>,\n\
+    \t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tStaticModInt(T value = 0) :\
+    \ value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo\
+    \ : value) % modulo;\n\t}\n\tinline StaticModInt inv() const { return mypow(*this,\
+    \ modulo - 2); }\n\tinline operator int() const { return value; }\n\tinline StaticModInt&\
+    \ operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >=\
+    \ modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++()\
+    \ {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt\
+    \ res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
     \ const { return StaticModInt(0) -= *this; }\n\tinline StaticModInt& operator-=(const\
     \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\
     \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
@@ -166,15 +170,16 @@ data:
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"DynamicModInt.hpp\"\
     \ntemplate <uint modulo>\nclass StaticModInt {\n\tlint value;\n\n  public:\n\t\
     static constexpr uint mod_value = modulo;\n\tStaticModInt() : value(0) {}\n\t\
-    template <class T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\tthis->value\
-    \ =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo : value) % modulo;\n\t}\n\t\
-    inline StaticModInt inv() const { return mypow(*this, modulo - 2); }\n\tinline\
-    \ operator int() const { return value; }\n\tinline StaticModInt& operator+=(const\
-    \ StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo) value -=\
-    \ modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\t\
-    if (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn\
-    \ *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt res =\
-    \ *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
+    template <class T, std::enable_if_t<!std::is_convertible_v<T, StaticModInt>,\n\
+    \t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tStaticModInt(T value = 0) :\
+    \ value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo\
+    \ : value) % modulo;\n\t}\n\tinline StaticModInt inv() const { return mypow(*this,\
+    \ modulo - 2); }\n\tinline operator int() const { return value; }\n\tinline StaticModInt&\
+    \ operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >=\
+    \ modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++()\
+    \ {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt\
+    \ res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
     \ const { return StaticModInt(0) -= *this; }\n\tinline StaticModInt& operator-=(const\
     \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\
     \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
@@ -205,8 +210,9 @@ data:
   requiredBy:
   - algebraic/Combinatorics.hpp
   - algebraic/NumberTheoreticTransform.hpp
+  - string/HashedString.hpp
   - string/RollingHash.hpp
-  timestamp: '2020-12-26 20:49:08+09:00'
+  timestamp: '2021-01-08 20:46:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution_mod.test.cpp
@@ -214,7 +220,7 @@ data:
   - test/yosupo/range_affine_range_sum.test.cpp
   - test/yosupo/point_set_range_composite.test.cpp
   - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/aoj/ALDS1_14_B_RollingHash.test.cpp
+  - test/aoj/ALDS1_14_B_HashedString.test.cpp
 documentation_of: algebraic/StaticModInt.hpp
 layout: document
 redirect_from:

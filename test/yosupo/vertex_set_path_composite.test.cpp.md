@@ -119,15 +119,16 @@ data:
     \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 4 \"algebraic/StaticModInt.hpp\"\
     \ntemplate <uint modulo>\nclass StaticModInt {\n\tlint value;\n\n  public:\n\t\
     static constexpr uint mod_value = modulo;\n\tStaticModInt() : value(0) {}\n\t\
-    template <class T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\tthis->value\
-    \ =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo : value) % modulo;\n\t}\n\t\
-    inline StaticModInt inv() const { return mypow(*this, modulo - 2); }\n\tinline\
-    \ operator int() const { return value; }\n\tinline StaticModInt& operator+=(const\
-    \ StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo) value -=\
-    \ modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\t\
-    if (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn\
-    \ *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt res =\
-    \ *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
+    template <class T, std::enable_if_t<!std::is_convertible_v<T, StaticModInt>,\n\
+    \t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tStaticModInt(T value = 0) :\
+    \ value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo\
+    \ : value) % modulo;\n\t}\n\tinline StaticModInt inv() const { return mypow(*this,\
+    \ modulo - 2); }\n\tinline operator int() const { return value; }\n\tinline StaticModInt&\
+    \ operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >=\
+    \ modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++()\
+    \ {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt\
+    \ res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
     \ const { return StaticModInt(0) -= *this; }\n\tinline StaticModInt& operator-=(const\
     \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\
     \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
@@ -222,23 +223,23 @@ data:
     \ = StaticModInt<998244353>;\nusing MP = std::pair<ModInt, ModInt>;\nMP nodef(const\
     \ MP& lhs, const MP& rhs) {\n\treturn {lhs.first * rhs.first, lhs.second * rhs.first\
     \ + rhs.second};\n}\nclass MySeg : public SegTree<MP, nodef> {\n\tusing Base =\
-    \ SegTree<MP, nodef>;\n\n  public:\n\tMySeg(int n) : Base(n, {1, 0}, {1, 0}) {}\n\
-    };\nint n, q;\nP a[200010];\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i,\
-    \ n) scanf(\"%d%d\", &a[i].first, &a[i].second);\n\tHeavyLightDecomposition hld(n);\n\
-    \tMySeg st1(n), st2(n);\n\trep(i, n - 1) {\n\t\tint u, v;\n\t\tscanf(\"%d%d\"\
-    , &u, &v);\n\t\thld.add_edge(u, v);\n\t}\n\thld.build(0);\n\trep(i, n) {\n\t\t\
-    st1.update(hld.label[i], a[i]);\n\t\tst2.update(n - 1 - hld.label[i], a[i]);\n\
+    \ SegTree<MP, nodef>;\n\n  public:\n\tMySeg(int n) : Base(n, MP{1, 0}, MP{1, 0})\
+    \ {}\n};\nint n, q;\nP a[200010];\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\t\
+    rep(i, n) scanf(\"%d%d\", &a[i].first, &a[i].second);\n\tHeavyLightDecomposition\
+    \ hld(n);\n\tMySeg st1(n), st2(n);\n\trep(i, n - 1) {\n\t\tint u, v;\n\t\tscanf(\"\
+    %d%d\", &u, &v);\n\t\thld.add_edge(u, v);\n\t}\n\thld.build(0);\n\trep(i, n) {\n\
+    \t\tst1.update(hld.label[i], a[i]);\n\t\tst2.update(n - 1 - hld.label[i], a[i]);\n\
     \t}\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\
     \tint p, c, d;\n\t\t\tscanf(\"%d%d%d\", &p, &c, &d);\n\t\t\ta[p] = {c, d};\n\t\
     \t\tst1.update(hld.label[p], {c, d});\n\t\t\tst2.update(n - 1 - hld.label[p],\
     \ {c, d});\n\t\t} else {\n\t\t\tint u, v, x;\n\t\t\tscanf(\"%d%d%d\", &u, &v,\
-    \ &x);\n\t\t\tint t = hld.lca(u, v);\n\t\t\tstd::pair<ModInt, ModInt> f1 = {1,\
-    \ 0}, f2 = {1, 0};\n\t\t\thld.each_vertex(u, t, [&](int l, int r) {\n\t\t\t\t\
-    auto p = st2.query(n - 1 - r, n - 1 - l + 1);\n\t\t\t\tf1 = {f1.first * p.first,\
-    \ f1.second * p.first + p.second};\n\t\t\t});\n\t\t\tf1 = {f1.first / a[t].first,\n\
-    \t\t\t\t  (f1.second - a[t].second) / a[t].first};\n\t\t\thld.each_vertex(t, v,\
-    \ [&](int l, int r) {\n\t\t\t\tauto p = st1.query(l, r + 1);\n\t\t\t\tf2 = {p.first\
-    \ * f2.first, p.second * f2.first + f2.second};\n\t\t\t});\n\t\t\tf1 = {f1.first\
+    \ &x);\n\t\t\tint t = hld.lca(u, v);\n\t\t\tstd::pair<ModInt, ModInt> f1(1, 0),\
+    \ f2(1, 0);\n\t\t\thld.each_vertex(u, t, [&](int l, int r) {\n\t\t\t\tauto p =\
+    \ st2.query(n - 1 - r, n - 1 - l + 1);\n\t\t\t\tf1 = {f1.first * p.first, f1.second\
+    \ * p.first + p.second};\n\t\t\t});\n\t\t\tf1 = {f1.first / a[t].first,\n\t\t\t\
+    \t  (f1.second - a[t].second) / a[t].first};\n\t\t\thld.each_vertex(t, v, [&](int\
+    \ l, int r) {\n\t\t\t\tauto p = st1.query(l, r + 1);\n\t\t\t\tf2 = {p.first *\
+    \ f2.first, p.second * f2.first + f2.second};\n\t\t\t});\n\t\t\tf1 = {f1.first\
     \ * f2.first, f1.second * f2.first + f2.second};\n\t\t\tprintf(\"%d\\n\", ModInt(x)\
     \ * f1.first + f1.second);\n\t\t}\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_set_path_composite\"\
@@ -247,9 +248,9 @@ data:
     \nusing ModInt = StaticModInt<998244353>;\nusing MP = std::pair<ModInt, ModInt>;\n\
     MP nodef(const MP& lhs, const MP& rhs) {\n\treturn {lhs.first * rhs.first, lhs.second\
     \ * rhs.first + rhs.second};\n}\nclass MySeg : public SegTree<MP, nodef> {\n\t\
-    using Base = SegTree<MP, nodef>;\n\n  public:\n\tMySeg(int n) : Base(n, {1, 0},\
-    \ {1, 0}) {}\n};\nint n, q;\nP a[200010];\nint main() {\n\tscanf(\"%d%d\", &n,\
-    \ &q);\n\trep(i, n) scanf(\"%d%d\", &a[i].first, &a[i].second);\n\tHeavyLightDecomposition\
+    using Base = SegTree<MP, nodef>;\n\n  public:\n\tMySeg(int n) : Base(n, MP{1,\
+    \ 0}, MP{1, 0}) {}\n};\nint n, q;\nP a[200010];\nint main() {\n\tscanf(\"%d%d\"\
+    , &n, &q);\n\trep(i, n) scanf(\"%d%d\", &a[i].first, &a[i].second);\n\tHeavyLightDecomposition\
     \ hld(n);\n\tMySeg st1(n), st2(n);\n\trep(i, n - 1) {\n\t\tint u, v;\n\t\tscanf(\"\
     %d%d\", &u, &v);\n\t\thld.add_edge(u, v);\n\t}\n\thld.build(0);\n\trep(i, n) {\n\
     \t\tst1.update(hld.label[i], a[i]);\n\t\tst2.update(n - 1 - hld.label[i], a[i]);\n\
@@ -257,13 +258,13 @@ data:
     \tint p, c, d;\n\t\t\tscanf(\"%d%d%d\", &p, &c, &d);\n\t\t\ta[p] = {c, d};\n\t\
     \t\tst1.update(hld.label[p], {c, d});\n\t\t\tst2.update(n - 1 - hld.label[p],\
     \ {c, d});\n\t\t} else {\n\t\t\tint u, v, x;\n\t\t\tscanf(\"%d%d%d\", &u, &v,\
-    \ &x);\n\t\t\tint t = hld.lca(u, v);\n\t\t\tstd::pair<ModInt, ModInt> f1 = {1,\
-    \ 0}, f2 = {1, 0};\n\t\t\thld.each_vertex(u, t, [&](int l, int r) {\n\t\t\t\t\
-    auto p = st2.query(n - 1 - r, n - 1 - l + 1);\n\t\t\t\tf1 = {f1.first * p.first,\
-    \ f1.second * p.first + p.second};\n\t\t\t});\n\t\t\tf1 = {f1.first / a[t].first,\n\
-    \t\t\t\t  (f1.second - a[t].second) / a[t].first};\n\t\t\thld.each_vertex(t, v,\
-    \ [&](int l, int r) {\n\t\t\t\tauto p = st1.query(l, r + 1);\n\t\t\t\tf2 = {p.first\
-    \ * f2.first, p.second * f2.first + f2.second};\n\t\t\t});\n\t\t\tf1 = {f1.first\
+    \ &x);\n\t\t\tint t = hld.lca(u, v);\n\t\t\tstd::pair<ModInt, ModInt> f1(1, 0),\
+    \ f2(1, 0);\n\t\t\thld.each_vertex(u, t, [&](int l, int r) {\n\t\t\t\tauto p =\
+    \ st2.query(n - 1 - r, n - 1 - l + 1);\n\t\t\t\tf1 = {f1.first * p.first, f1.second\
+    \ * p.first + p.second};\n\t\t\t});\n\t\t\tf1 = {f1.first / a[t].first,\n\t\t\t\
+    \t  (f1.second - a[t].second) / a[t].first};\n\t\t\thld.each_vertex(t, v, [&](int\
+    \ l, int r) {\n\t\t\t\tauto p = st1.query(l, r + 1);\n\t\t\t\tf2 = {p.first *\
+    \ f2.first, p.second * f2.first + f2.second};\n\t\t\t});\n\t\t\tf1 = {f1.first\
     \ * f2.first, f1.second * f2.first + f2.second};\n\t\t\tprintf(\"%d\\n\", ModInt(x)\
     \ * f1.first + f1.second);\n\t\t}\n\t}\n}"
   dependsOn:
@@ -275,7 +276,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/vertex_set_path_composite.test.cpp
   requiredBy: []
-  timestamp: '2021-01-06 23:31:25+09:00'
+  timestamp: '2021-01-08 20:46:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/vertex_set_path_composite.test.cpp

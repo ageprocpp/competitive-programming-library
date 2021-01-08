@@ -116,15 +116,16 @@ data:
     \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 4 \"algebraic/StaticModInt.hpp\"\
     \ntemplate <uint modulo>\nclass StaticModInt {\n\tlint value;\n\n  public:\n\t\
     static constexpr uint mod_value = modulo;\n\tStaticModInt() : value(0) {}\n\t\
-    template <class T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\tthis->value\
-    \ =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo : value) % modulo;\n\t}\n\t\
-    inline StaticModInt inv() const { return mypow(*this, modulo - 2); }\n\tinline\
-    \ operator int() const { return value; }\n\tinline StaticModInt& operator+=(const\
-    \ StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo) value -=\
-    \ modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\t\
-    if (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn\
-    \ *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt res =\
-    \ *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
+    template <class T, std::enable_if_t<!std::is_convertible_v<T, StaticModInt>,\n\
+    \t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tStaticModInt(T value = 0) :\
+    \ value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo\
+    \ : value) % modulo;\n\t}\n\tinline StaticModInt inv() const { return mypow(*this,\
+    \ modulo - 2); }\n\tinline operator int() const { return value; }\n\tinline StaticModInt&\
+    \ operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >=\
+    \ modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++()\
+    \ {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt\
+    \ res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
     \ const { return StaticModInt(0) -= *this; }\n\tinline StaticModInt& operator-=(const\
     \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\
     \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
@@ -193,28 +194,28 @@ data:
     using MP = std::pair<ModInt, ModInt>;\nMP nodef(const MP& lhs, const MP& rhs)\
     \ {\n\treturn {lhs.first * rhs.first, lhs.second * rhs.first + rhs.second};\n\
     }\nclass MySeg : public SegTree<MP, nodef> {\n\tusing Base = SegTree<MP, nodef>;\n\
-    \n  public:\n\tMySeg(int n) : Base(n, {0, 0}, {1, 0}) {}\n};\nint n, q;\nint main()\
-    \ {\n\tscanf(\"%d%d\", &n, &q);\n\tMySeg st(n);\n\trep(i, n) {\n\t\tint a, b;\n\
-    \t\tscanf(\"%d%d\", &a, &b);\n\t\tst.update(i, {a, b});\n\t}\n\trep(i, q) {\n\t\
-    \tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint p, c, d;\n\t\t\t\
-    scanf(\"%d%d%d\", &p, &c, &d);\n\t\t\tst.update(p, {c, d});\n\t\t} else {\n\t\t\
-    \tint l, r, x;\n\t\t\tscanf(\"%d%d%d\", &l, &r, &x);\n\t\t\tauto p = st.query(l,\
-    \ r);\n\t\t\tprintf(\"%d\\n\", p.first * x + p.second);\n\t\t}\n\t}\n\treturn\
-    \ 0;\n}\n"
+    \n  public:\n\tMySeg(int n) : Base(n, MP{0, 0}, MP{1, 0}) {}\n};\nint n, q;\n\
+    int main() {\n\tscanf(\"%d%d\", &n, &q);\n\tMySeg st(n);\n\trep(i, n) {\n\t\t\
+    int a, b;\n\t\tscanf(\"%d%d\", &a, &b);\n\t\tst.update(i, {a, b});\n\t}\n\trep(i,\
+    \ q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint p, c,\
+    \ d;\n\t\t\tscanf(\"%d%d%d\", &p, &c, &d);\n\t\t\tst.update(p, {c, d});\n\t\t\
+    } else {\n\t\t\tint l, r, x;\n\t\t\tscanf(\"%d%d%d\", &l, &r, &x);\n\t\t\tauto\
+    \ p = st.query(l, r);\n\t\t\tprintf(\"%d\\n\", p.first * x + p.second);\n\t\t\
+    }\n\t}\n\treturn 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_set_range_composite\"\
     \n#include \"../../algebraic/StaticModInt.hpp\"\n#include \"../../data-structure/SegTree.hpp\"\
     \n#include \"../../other/template.hpp\"\nusing ModInt = StaticModInt<998244353>;\n\
     using MP = std::pair<ModInt, ModInt>;\nMP nodef(const MP& lhs, const MP& rhs)\
     \ {\n\treturn {lhs.first * rhs.first, lhs.second * rhs.first + rhs.second};\n\
     }\nclass MySeg : public SegTree<MP, nodef> {\n\tusing Base = SegTree<MP, nodef>;\n\
-    \n  public:\n\tMySeg(int n) : Base(n, {0, 0}, {1, 0}) {}\n};\nint n, q;\nint main()\
-    \ {\n\tscanf(\"%d%d\", &n, &q);\n\tMySeg st(n);\n\trep(i, n) {\n\t\tint a, b;\n\
-    \t\tscanf(\"%d%d\", &a, &b);\n\t\tst.update(i, {a, b});\n\t}\n\trep(i, q) {\n\t\
-    \tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint p, c, d;\n\t\t\t\
-    scanf(\"%d%d%d\", &p, &c, &d);\n\t\t\tst.update(p, {c, d});\n\t\t} else {\n\t\t\
-    \tint l, r, x;\n\t\t\tscanf(\"%d%d%d\", &l, &r, &x);\n\t\t\tauto p = st.query(l,\
-    \ r);\n\t\t\tprintf(\"%d\\n\", p.first * x + p.second);\n\t\t}\n\t}\n\treturn\
-    \ 0;\n}"
+    \n  public:\n\tMySeg(int n) : Base(n, MP{0, 0}, MP{1, 0}) {}\n};\nint n, q;\n\
+    int main() {\n\tscanf(\"%d%d\", &n, &q);\n\tMySeg st(n);\n\trep(i, n) {\n\t\t\
+    int a, b;\n\t\tscanf(\"%d%d\", &a, &b);\n\t\tst.update(i, {a, b});\n\t}\n\trep(i,\
+    \ q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint p, c,\
+    \ d;\n\t\t\tscanf(\"%d%d%d\", &p, &c, &d);\n\t\t\tst.update(p, {c, d});\n\t\t\
+    } else {\n\t\t\tint l, r, x;\n\t\t\tscanf(\"%d%d%d\", &l, &r, &x);\n\t\t\tauto\
+    \ p = st.query(l, r);\n\t\t\tprintf(\"%d\\n\", p.first * x + p.second);\n\t\t\
+    }\n\t}\n\treturn 0;\n}"
   dependsOn:
   - algebraic/StaticModInt.hpp
   - other/template.hpp
@@ -223,7 +224,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2021-01-06 23:31:25+09:00'
+  timestamp: '2021-01-08 20:46:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/point_set_range_composite.test.cpp

@@ -18,12 +18,15 @@ data:
     path: algebraic/StaticModInt.hpp
     title: algebraic/StaticModInt.hpp
   - icon: ':heavy_check_mark:'
+    path: string/HashedString.hpp
+    title: string/HashedString.hpp
+  - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
     title: string/RollingHash.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
-    title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
+    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
+    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution_mod.test.cpp
     title: test/yosupo/convolution_mod.test.cpp
@@ -176,6 +179,7 @@ data:
   - algebraic/Combinatorics.hpp
   - algebraic/NumberTheoreticTransform.hpp
   - algebraic/LagrangeInterpolation.hpp
+  - string/HashedString.hpp
   - string/RollingHash.hpp
   timestamp: '2020-12-26 20:49:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -185,7 +189,7 @@ data:
   - test/yosupo/range_affine_range_sum.test.cpp
   - test/yosupo/point_set_range_composite.test.cpp
   - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/aoj/ALDS1_14_B_RollingHash.test.cpp
+  - test/aoj/ALDS1_14_B_HashedString.test.cpp
 documentation_of: algebraic/DynamicModInt.hpp
 layout: document
 redirect_from:

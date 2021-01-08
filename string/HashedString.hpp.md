@@ -14,42 +14,40 @@ data:
     path: string/RollingHash.hpp
     title: string/RollingHash.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _pathExtension: cpp
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
+    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
+  _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B
-    links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B
-  bundledCode: "#line 1 \"test/aoj/ALDS1_14_B_RollingHash.test.cpp\"\n#define PROBLEM\
-    \ \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B\"\n#line 2 \"other/template.hpp\"\
-    \n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"\
-    avx512f\")\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"\
-    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
-    #include <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n\
-    #include <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include\
-    \ <fstream>\n#include <functional>\n#include <iomanip>\n#include <iostream>\n\
-    #include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n#include\
-    \ <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include <string>\n\
-    #include <unordered_map>\n#include <unordered_set>\n#include <utility>\n#include\
-    \ <vector>\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define REP(i,\
-    \ n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\ntypedef\
-    \ unsigned int uint;\ntypedef long long lint;\ntypedef unsigned long long ulint;\n\
-    typedef std::pair<int, int> P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int\
-    \ INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps\
-    \ = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\nnamespace\
-    \ std {\n\ttemplate <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
-    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>> : public std::true_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
-    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>> : public std::true_type\
-    \ {};\n};\t// namespace std\ntemplate <class T>\nclass prique : public std::priority_queue<T,\
-    \ std::vector<T>, std::greater<T>> {\n};\ntemplate <class F>\ninline constexpr\
-    \ decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
-    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
-    template <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    links: []
+  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+    #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
+    avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
+    )\n#include <string.h>\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
+    #include <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n\
+    #include <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n\
+    #include <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n\
+    #include <map>\n#include <memory>\n#include <queue>\n#include <random>\n#include\
+    \ <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n#include\
+    \ <unordered_set>\n#include <utility>\n#include <vector>\n#define rep(i, n) for\
+    \ (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n);\
+    \ i++)\n#define all(V) V.begin(), V.end()\ntypedef unsigned int uint;\ntypedef\
+    \ long long lint;\ntypedef unsigned long long ulint;\ntypedef std::pair<int, int>\
+    \ P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int INF = INT_MAX / 2;\nconstexpr\
+    \ lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double\
+    \ PI = 3.141592653589793238462643383279;\nnamespace std {\n\ttemplate <template\
+    \ <class...> class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
+    \ Temp<Args...>> : public std::true_type {};\n\ttemplate <template <auto...> class\
+    \ Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
+    \ Temp<Args...>> : public std::true_type {};\n};\t// namespace std\ntemplate <class\
+    \ T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
+    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
     }\ntemplate <class T, class U>\ninline bool chmax(T& lhs, const U& rhs) {\n\t\
@@ -116,15 +114,16 @@ data:
     \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 4 \"algebraic/StaticModInt.hpp\"\
     \ntemplate <uint modulo>\nclass StaticModInt {\n\tlint value;\n\n  public:\n\t\
     static constexpr uint mod_value = modulo;\n\tStaticModInt() : value(0) {}\n\t\
-    template <class T>\n\tStaticModInt(T value = 0) : value(value) {\n\t\tthis->value\
-    \ =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo : value) % modulo;\n\t}\n\t\
-    inline StaticModInt inv() const { return mypow(*this, modulo - 2); }\n\tinline\
-    \ operator int() const { return value; }\n\tinline StaticModInt& operator+=(const\
-    \ StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo) value -=\
-    \ modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++() {\n\t\t\
-    if (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn\
-    \ *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt res =\
-    \ *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
+    template <class T, std::enable_if_t<!std::is_convertible_v<T, StaticModInt>,\n\
+    \t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tStaticModInt(T value = 0) :\
+    \ value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo\
+    \ : value) % modulo;\n\t}\n\tinline StaticModInt inv() const { return mypow(*this,\
+    \ modulo - 2); }\n\tinline operator int() const { return value; }\n\tinline StaticModInt&\
+    \ operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >=\
+    \ modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++()\
+    \ {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\
+    \t\treturn *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt\
+    \ res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
     \ const { return StaticModInt(0) -= *this; }\n\tinline StaticModInt& operator-=(const\
     \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\
     \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
@@ -146,51 +145,58 @@ data:
     \ rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator/=(const T& rhs) {\n\
     \t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
     \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
-    \ a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"string/RollingHash.hpp\"\ntemplate\
+    \ a;\n\tx = a;\n\treturn ist;\n}\n#line 4 \"string/RollingHash.hpp\"\ntemplate\
     \ <unsigned int mod, unsigned int base>\nclass RollingHash {\n\tusing M = StaticModInt<mod>;\n\
-    \tstd::string s;\n\tint n;\n\tstd::vector<M> has, power;\n\n  public:\n\tRollingHash(const\
-    \ std::string& s) { init(s); }\n\tvoid init(const std::string& s) {\n\t\tn = s.size();\n\
-    \t\thas.resize(n);\n\t\tpower.resize(n);\n\t\tthis->s = s;\n\t\trep(i, n) {\n\t\
-    \t\thas[i] = s[i];\n\t\t\tif (i) {\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\
-    \t\tpower[i] = power[i - 1] * base;\n\t\t\t} else\n\t\t\t\tpower[i] = 1;\n\t\t\
-    }\n\t}\n\toperator M() const { return has.back(); }\n\toperator int() const {\
-    \ return has.back(); }\n\tM query(int l, int r) const {\n\t\treturn has[r - 1]\
-    \ - power[r - l] * (!l ? M(0) : has[l - 1]);\n\t}\n\tM operator+(const std::string&\
-    \ t) const {\n\t\tRollingHash tmp(t, base);\n\t\tif (n == 0)\n\t\t\treturn tmp;\n\
-    \t\telse\n\t\t\treturn has.back() * mypow(M(base), t.size()) + tmp;\n\t}\n\tRollingHash&\
-    \ operator+=(const std::string& t) {\n\t\tif (n == 0) {\n\t\t\t*this = RollingHash(t,\
-    \ base);\n\t\t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n + t.size());\n\t\t\t\
-    power.resize(n + t.size());\n\t\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\
-    \t\t\thas[i] = t[i - n];\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i]\
-    \ = power[i - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\
-    \t}\n};\n#line 4 \"test/aoj/ALDS1_14_B_RollingHash.test.cpp\"\nstd::string t,\
-    \ p;\nint main() {\n\tstd::cin >> t >> p;\n\tif (t.size() < p.size()) return 0;\n\
-    \tRollingHash<1000000007, 1007> rt1(t), rp1(p);\n\tRollingHash<1000000007, 10007>\
-    \ rt2(t), rp2(p);\n\trep(i, t.size() - p.size() + 1) {\n\t\tif (rt1.query(i, i\
-    \ + p.size()) == rp1 &&\n\t\t\trt2.query(i, i + p.size()) == rp2)\n\t\t\tprintf(\"\
-    %d\\n\", i);\n\t}\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B\"\n\
-    #include \"../../other/template.hpp\"\n#include \"../../string/RollingHash.hpp\"\
-    \nstd::string t, p;\nint main() {\n\tstd::cin >> t >> p;\n\tif (t.size() < p.size())\
-    \ return 0;\n\tRollingHash<1000000007, 1007> rt1(t), rp1(p);\n\tRollingHash<1000000007,\
-    \ 10007> rt2(t), rp2(p);\n\trep(i, t.size() - p.size() + 1) {\n\t\tif (rt1.query(i,\
-    \ i + p.size()) == rp1 &&\n\t\t\trt2.query(i, i + p.size()) == rp2)\n\t\t\tprintf(\"\
-    %d\\n\", i);\n\t}\n}"
+    \tstd::string s;\n\tint n;\n\tstd::vector<M> has, power;\n\n  public:\n\tRollingHash()\
+    \ {}\n\tRollingHash(const std::string& s) { init(s); }\n\tvoid init(const std::string&\
+    \ s) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\t\tpower.resize(n);\n\t\tthis->s\
+    \ = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\t\t\tif (i) {\n\t\t\t\thas[i]\
+    \ += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t} else\n\
+    \t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M() const { return has.back(); }\n\
+    \tM substr(int l, size_t sz) const {\n\t\treturn has[l + sz - 1] - power[sz] *\
+    \ (!l ? M(0) : has[l - 1]);\n\t}\n\tM operator+(const std::string& t) const {\n\
+    \t\tRollingHash tmp(t);\n\t\tif (n == 0)\n\t\t\treturn tmp;\n\t\telse\n\t\t\t\
+    return has.back() * mypow(M(base), t.size()) + tmp;\n\t}\n\tRollingHash& operator+=(const\
+    \ std::string& t) {\n\t\tif (n == 0) {\n\t\t\t*this = RollingHash(t, base);\n\t\
+    \t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n + t.size());\n\t\t\tpower.resize(n\
+    \ + t.size());\n\t\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\t\t\thas[i]\
+    \ = t[i - n];\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
+    \ - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n\
+    };\n#line 4 \"string/HashedString.hpp\"\nclass HashedString {\n\tusing M = StaticModInt<1000000007>;\n\
+    \tRollingHash<1000000007, 1007> rh1;\n\tRollingHash<1000000007, 10007> rh2;\n\n\
+    \  public:\n\tHashedString() {}\n\tHashedString(const std::string& s) { init(s);\
+    \ }\n\tvoid init(const std::string& s) {\n\t\trh1.init(s);\n\t\trh2.init(s);\n\
+    \t}\n\tbool operator==(const HashedString& rhs) const {\n\t\treturn (M)rh1 ==\
+    \ (M)rhs.rh1 && (M)rh2 == (M)rhs.rh2;\n\t}\n\toperator std::pair<M, M>() const\
+    \ { return {rh1, rh2}; }\n\tstd::pair<M, M> substr(int l, size_t sz) const {\n\
+    \t\treturn {rh1.substr(l, sz), rh2.substr(l, sz)};\n\t}\n\tstd::pair<M, M> operator+(const\
+    \ std::string t) const {\n\t\treturn {rh1 + t, rh2 + t};\n\t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"RollingHash.hpp\"\
+    \nclass HashedString {\n\tusing M = StaticModInt<1000000007>;\n\tRollingHash<1000000007,\
+    \ 1007> rh1;\n\tRollingHash<1000000007, 10007> rh2;\n\n  public:\n\tHashedString()\
+    \ {}\n\tHashedString(const std::string& s) { init(s); }\n\tvoid init(const std::string&\
+    \ s) {\n\t\trh1.init(s);\n\t\trh2.init(s);\n\t}\n\tbool operator==(const HashedString&\
+    \ rhs) const {\n\t\treturn (M)rh1 == (M)rhs.rh1 && (M)rh2 == (M)rhs.rh2;\n\t}\n\
+    \toperator std::pair<M, M>() const { return {rh1, rh2}; }\n\tstd::pair<M, M> substr(int\
+    \ l, size_t sz) const {\n\t\treturn {rh1.substr(l, sz), rh2.substr(l, sz)};\n\t\
+    }\n\tstd::pair<M, M> operator+(const std::string t) const {\n\t\treturn {rh1 +\
+    \ t, rh2 + t};\n\t}\n};"
   dependsOn:
   - other/template.hpp
   - string/RollingHash.hpp
   - algebraic/StaticModInt.hpp
   - algebraic/DynamicModInt.hpp
-  isVerificationFile: true
-  path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
+  isVerificationFile: false
+  path: string/HashedString.hpp
   requiredBy: []
-  timestamp: '2020-12-26 20:49:08+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: test/aoj/ALDS1_14_B_RollingHash.test.cpp
+  timestamp: '2021-01-08 20:46:31+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/ALDS1_14_B_HashedString.test.cpp
+documentation_of: string/HashedString.hpp
 layout: document
 redirect_from:
-- /verify/test/aoj/ALDS1_14_B_RollingHash.test.cpp
-- /verify/test/aoj/ALDS1_14_B_RollingHash.test.cpp.html
-title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
+- /library/string/HashedString.hpp
+- /library/string/HashedString.hpp.html
+title: string/HashedString.hpp
 ---

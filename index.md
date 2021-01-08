@@ -110,6 +110,12 @@ data:
       title: other/testlib.h
   - name: string
     pages:
+    - icon: ':warning:'
+      path: string/EerTree.hpp
+      title: string/EerTree.hpp
+    - icon: ':heavy_check_mark:'
+      path: string/HashedString.hpp
+      title: string/HashedString.hpp
     - icon: ':heavy_check_mark:'
       path: string/RollingHash.hpp
       title: string/RollingHash.hpp
@@ -123,8 +129,8 @@ data:
   - name: test/aoj
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
-      title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
+      path: test/aoj/ALDS1_14_B_HashedString.test.cpp
+      title: test/aoj/ALDS1_14_B_HashedString.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
       title: test/aoj/ALDS1_14_B_SuffixArray.test.cpp

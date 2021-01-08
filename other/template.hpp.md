@@ -95,6 +95,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/UnionFind.hpp
     title: graph/UnionFind.hpp
+  - icon: ':warning:'
+    path: string/EerTree.hpp
+    title: string/EerTree.hpp
+  - icon: ':heavy_check_mark:'
+    path: string/HashedString.hpp
+    title: string/HashedString.hpp
   - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
     title: string/RollingHash.hpp
@@ -106,8 +112,8 @@ data:
     title: string/Trie.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_RollingHash.test.cpp
-    title: test/aoj/ALDS1_14_B_RollingHash.test.cpp
+    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
+    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
     title: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
@@ -381,6 +387,8 @@ data:
   - data-structure/IntervalSegTree.hpp
   - data-structure/LiChaoTree.hpp
   - data-structure/MonotoneConvexHullTrick.hpp
+  - string/EerTree.hpp
+  - string/HashedString.hpp
   - string/SuffixArray.hpp
   - string/Trie.hpp
   - string/RollingHash.hpp
@@ -421,12 +429,12 @@ data:
   - test/aoj/DSL_2_F.test.cpp
   - test/aoj/GRL_6_B.test.cpp
   - test/aoj/DSL_2_H.test.cpp
-  - test/aoj/ALDS1_14_B_RollingHash.test.cpp
   - test/aoj/DSL_2_I.test.cpp
   - test/aoj/GRL_6_A_Dinic.test.cpp
   - test/aoj/DSL_2_A.test.cpp
   - test/aoj/GRL_6_A_FordFulkerson.test.cpp
   - test/aoj/DSL_2_B.test.cpp
+  - test/aoj/ALDS1_14_B_HashedString.test.cpp
   - test/aoj/DSL_2_G.test.cpp
 documentation_of: other/template.hpp
 layout: document
