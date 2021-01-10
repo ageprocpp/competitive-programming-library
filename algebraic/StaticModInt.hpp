@@ -1,9 +1,8 @@
 #pragma once
 #include "../other/template.hpp"
-#include "DynamicModInt.hpp"
 template <uint modulo>
 class StaticModInt {
-	lint value;
+	int value;
 
   public:
 	static constexpr uint mod_value = modulo;
@@ -52,7 +51,7 @@ class StaticModInt {
 		return res;
 	}
 	inline StaticModInt& operator*=(const StaticModInt& x) {
-		value = value * x.value % modulo;
+		value = (lint)value * x.value % modulo;
 		return *this;
 	}
 	inline StaticModInt& operator/=(const StaticModInt& rhs) {
