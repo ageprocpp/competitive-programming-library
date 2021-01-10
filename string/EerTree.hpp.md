@@ -28,11 +28,11 @@ data:
     \ PI = 3.141592653589793238462643383279;\nnamespace std {\n\ttemplate <template\
     \ <class...> class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
     \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
-    \ Temp<Args...>> : public std::true_type {};\n\ttemplate <template <auto...> class\
-    \ Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
+    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
     \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
-    \ Temp<Args...>> : public std::true_type {};\n};\t// namespace std\ntemplate <class\
-    \ T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
     \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
     \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
@@ -115,7 +115,7 @@ data:
   isVerificationFile: false
   path: string/EerTree.hpp
   requiredBy: []
-  timestamp: '2021-01-08 20:46:31+09:00'
+  timestamp: '2021-01-10 18:28:12+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: string/EerTree.hpp

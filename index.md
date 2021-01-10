@@ -6,7 +6,7 @@ data:
     - icon: ':warning:'
       path: algebraic/Combinatorics.hpp
       title: algebraic/Combinatorics.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: algebraic/DynamicModInt.hpp
       title: algebraic/DynamicModInt.hpp
     - icon: ':warning:'

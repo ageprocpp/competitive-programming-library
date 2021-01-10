@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: algebraic/DynamicModInt.hpp
     title: algebraic/DynamicModInt.hpp
   - icon: ':heavy_check_mark:'
@@ -34,11 +34,11 @@ data:
     \ PI = 3.141592653589793238462643383279;\nnamespace std {\n\ttemplate <template\
     \ <class...> class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
     \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
-    \ Temp<Args...>> : public std::true_type {};\n\ttemplate <template <auto...> class\
-    \ Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
+    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
     \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
-    \ Temp<Args...>> : public std::true_type {};\n};\t// namespace std\ntemplate <class\
-    \ T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
     \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
     \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
@@ -105,8 +105,8 @@ data:
     \ /= rhs;\n\t}\n\ttemplate <class T>\n\tDynamicModInt& operator/=(const T& rhs)\
     \ {\n\t\treturn operator/=(DynamicModInt(rhs));\n\t}\n};\nuint DynamicModInt::modulo\
     \ = 1000000007;\nstd::istream& operator>>(std::istream& ist, DynamicModInt& x)\
-    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 4 \"algebraic/StaticModInt.hpp\"\
-    \ntemplate <uint modulo>\nclass StaticModInt {\n\tlint value;\n\n  public:\n\t\
+    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"algebraic/StaticModInt.hpp\"\
+    \ntemplate <uint modulo>\nclass StaticModInt {\n\tint value;\n\n  public:\n\t\
     static constexpr uint mod_value = modulo;\n\tStaticModInt() : value(0) {}\n\t\
     template <class T, std::enable_if_t<!std::is_convertible_v<T, StaticModInt>,\n\
     \t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tStaticModInt(T value = 0) :\
@@ -124,42 +124,43 @@ data:
     \ 0)\n\t\t\tvalue = modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\
     \t}\n\tinline StaticModInt operator--(int) {\n\t\tStaticModInt res = *this;\n\t\
     \t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt& operator*=(const StaticModInt&\
-    \ x) {\n\t\tvalue = value * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline\
-    \ StaticModInt& operator/=(const StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\
-    \t}\n\ttemplate <class T>\n\tStaticModInt operator+(const T& rhs) const {\n\t\t\
-    return StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt&\
-    \ operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\t}\n\
-    \ttemplate <class T>\n\tStaticModInt operator-(const T& rhs) const {\n\t\treturn\
-    \ StaticModInt(*this) -= rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator-=(const\
-    \ T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
-    \ T>\n\tStaticModInt operator*(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ *= rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator*=(const T& rhs)\
-    \ {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <class T>\n\t\
-    StaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this) /=\
-    \ rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator/=(const T& rhs) {\n\
-    \t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
-    \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
-    \ a;\n\tx = a;\n\treturn ist;\n}\n#line 5 \"algebraic/Combinatorics.hpp\"\ntemplate\
-    \ <typename T>\nclass Combinatorics {\n  protected:\n\tstd::vector<T> factorial;\n\
-    \tvoid append(int n) noexcept {\n\t\twhile (factorial.size() <= n) {\n\t\t\tfactorial.emplace_back(factorial.back()\
-    \ * factorial.size());\n\t\t}\n\t}\n\n  public:\n\tCombinatorics() noexcept :\
-    \ factorial(1, 1) {}\n\tCombinatorics(int n) noexcept : factorial(1, 1) { append(n);\
-    \ }\n\tvirtual T getComb(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn\
-    \ factorial[a] / factorial[a - b] / factorial[b];\n\t}\n\tvirtual T getDcomb(int\
-    \ a, int b) noexcept { return getComb(a + b - 1, b); }\n};\ntemplate <typename\
-    \ T, typename std::enable_if_t<\n\t\t\t\t\t\t  std::disjunction_v<std::is_template_with_non_type_of<StaticModInt,\
-    \ T>,\n\t\t\t\t\t\t\t\t\t\t\t std::is_same<DynamicModInt, T>>,\n\t\t\t\t\t\t \
-    \ std::nullptr_t> = nullptr>\nclass ModCombinatorics : Combinatorics<T> {\n\t\
-    using Combinatorics<T>::factorial;\n\tstd::vector<T> inv;\n\tvoid append(int n)\
-    \ noexcept {\n\t\tint tmp = factorial.size();\n\t\tif (n < tmp) return;\n\t\t\
-    Combinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\tinv[n] = T(1) / factorial.back();\n\
-    \t\tfor (int i = n; i > tmp; i--) inv[i - 1] = inv[i] * i;\n\t}\n\n  public:\n\
-    \tModCombinatorics() noexcept : Combinatorics<T>(), inv(1, 1) {}\n\tModCombinatorics(int\
-    \ n) noexcept : Combinatorics<T>(n), inv(1, 1) {\n\t\tappend(n);\n\t}\n\tT getComb(int\
-    \ a, int b) noexcept override {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a\
-    \ - b] * inv[b];\n\t}\n\tT getDcomb(int a, int b) noexcept override { return getComb(a\
-    \ + b - 1, b); }\n\tT perm(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn\
-    \ factorial[a] * inv[a - b];\n\t}\n};\n"
+    \ x) {\n\t\tvalue = (lint)value * x.value % modulo;\n\t\treturn *this;\n\t}\n\t\
+    inline StaticModInt& operator/=(const StaticModInt& rhs) {\n\t\treturn *this *=\
+    \ rhs.inv();\n\t}\n\ttemplate <class T>\n\tStaticModInt operator+(const T& rhs)\
+    \ const {\n\t\treturn StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class T>\n\
+    \tStaticModInt& operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tStaticModInt operator-(const T& rhs) const {\n\t\t\
+    return StaticModInt(*this) -= rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt&\
+    \ operator-=(const T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\t}\n\
+    \ttemplate <class T>\n\tStaticModInt operator*(const T& rhs) const {\n\t\treturn\
+    \ StaticModInt(*this) *= rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator*=(const\
+    \ T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
+    \ T>\n\tStaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ /= rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator/=(const T& rhs)\
+    \ {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint modulo>\n\
+    std::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint\
+    \ a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 5 \"algebraic/Combinatorics.hpp\"\
+    \ntemplate <typename T>\nclass Combinatorics {\n  protected:\n\tstd::vector<T>\
+    \ factorial;\n\tvoid append(int n) noexcept {\n\t\twhile (factorial.size() <=\
+    \ n) {\n\t\t\tfactorial.emplace_back(factorial.back() * factorial.size());\n\t\
+    \t}\n\t}\n\n  public:\n\tCombinatorics() noexcept : factorial(1, 1) {}\n\tCombinatorics(int\
+    \ n) noexcept : factorial(1, 1) { append(n); }\n\tvirtual T getComb(int a, int\
+    \ b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] / factorial[a - b] /\
+    \ factorial[b];\n\t}\n\tvirtual T getDcomb(int a, int b) noexcept { return getComb(a\
+    \ + b - 1, b); }\n};\ntemplate <typename T, typename std::enable_if_t<\n\t\t\t\
+    \t\t\t  std::disjunction_v<std::is_template_with_non_type_of<StaticModInt, T>,\n\
+    \t\t\t\t\t\t\t\t\t\t\t std::is_same<DynamicModInt, T>>,\n\t\t\t\t\t\t  std::nullptr_t>\
+    \ = nullptr>\nclass ModCombinatorics : Combinatorics<T> {\n\tusing Combinatorics<T>::factorial;\n\
+    \tstd::vector<T> inv;\n\tvoid append(int n) noexcept {\n\t\tint tmp = factorial.size();\n\
+    \t\tif (n < tmp) return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n +\
+    \ 1);\n\t\tinv[n] = T(1) / factorial.back();\n\t\tfor (int i = n; i > tmp; i--)\
+    \ inv[i - 1] = inv[i] * i;\n\t}\n\n  public:\n\tModCombinatorics() noexcept :\
+    \ Combinatorics<T>(), inv(1, 1) {}\n\tModCombinatorics(int n) noexcept : Combinatorics<T>(n),\
+    \ inv(1, 1) {\n\t\tappend(n);\n\t}\n\tT getComb(int a, int b) noexcept override\
+    \ {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a - b] * inv[b];\n\t}\n\tT\
+    \ getDcomb(int a, int b) noexcept override { return getComb(a + b - 1, b); }\n\
+    \tT perm(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a\
+    \ - b];\n\t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"DynamicModInt.hpp\"\
     \n#include \"StaticModInt.hpp\"\ntemplate <typename T>\nclass Combinatorics {\n\
     \  protected:\n\tstd::vector<T> factorial;\n\tvoid append(int n) noexcept {\n\t\
@@ -189,7 +190,7 @@ data:
   isVerificationFile: false
   path: algebraic/Combinatorics.hpp
   requiredBy: []
-  timestamp: '2021-01-08 20:46:31+09:00'
+  timestamp: '2021-01-10 18:28:12+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/Combinatorics.hpp

@@ -11,39 +11,9 @@ data:
   - icon: ':warning:'
     path: algebraic/LagrangeInterpolation.hpp
     title: algebraic/LagrangeInterpolation.hpp
-  - icon: ':heavy_check_mark:'
-    path: algebraic/NumberTheoreticTransform.hpp
-    title: algebraic/NumberTheoreticTransform.hpp
-  - icon: ':heavy_check_mark:'
-    path: algebraic/StaticModInt.hpp
-    title: algebraic/StaticModInt.hpp
-  - icon: ':heavy_check_mark:'
-    path: string/HashedString.hpp
-    title: string/HashedString.hpp
-  - icon: ':heavy_check_mark:'
-    path: string/RollingHash.hpp
-    title: string/RollingHash.hpp
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
-    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod.test.cpp
-    title: test/yosupo/convolution_mod.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/point_set_range_composite.test.cpp
-    title: test/yosupo/point_set_range_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/queue_operate_all_composite.test.cpp
-    title: test/yosupo/queue_operate_all_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_affine_range_sum.test.cpp
-    title: test/yosupo/range_affine_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_set_path_composite.test.cpp
-    title: test/yosupo/vertex_set_path_composite.test.cpp
+  _extendedVerifiedWith: []
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -64,11 +34,11 @@ data:
     \ PI = 3.141592653589793238462643383279;\nnamespace std {\n\ttemplate <template\
     \ <class...> class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
     \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
-    \ Temp<Args...>> : public std::true_type {};\n\ttemplate <template <auto...> class\
-    \ Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
+    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
     \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
-    \ Temp<Args...>> : public std::true_type {};\n};\t// namespace std\ntemplate <class\
-    \ T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
     \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
     \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
@@ -175,21 +145,11 @@ data:
   isVerificationFile: false
   path: algebraic/DynamicModInt.hpp
   requiredBy:
-  - algebraic/StaticModInt.hpp
   - algebraic/Combinatorics.hpp
-  - algebraic/NumberTheoreticTransform.hpp
   - algebraic/LagrangeInterpolation.hpp
-  - string/HashedString.hpp
-  - string/RollingHash.hpp
-  timestamp: '2020-12-26 20:49:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/queue_operate_all_composite.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/aoj/ALDS1_14_B_HashedString.test.cpp
+  timestamp: '2021-01-10 18:28:12+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: algebraic/DynamicModInt.hpp
 layout: document
 redirect_from:

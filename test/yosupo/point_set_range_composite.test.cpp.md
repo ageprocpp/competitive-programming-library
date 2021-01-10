@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: algebraic/DynamicModInt.hpp
-    title: algebraic/DynamicModInt.hpp
-  - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
     title: algebraic/StaticModInt.hpp
   - icon: ':heavy_check_mark:'
@@ -42,11 +39,11 @@ data:
     namespace std {\n\ttemplate <template <class...> class Temp, class T>\n\tclass\
     \ is_template_with_type_of : public std::false_type {};\n\ttemplate <template\
     \ <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
-    \ Temp<Args...>> : public std::true_type {};\n\ttemplate <template <auto...> class\
-    \ Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
+    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
     \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
-    \ Temp<Args...>> : public std::true_type {};\n};\t// namespace std\ntemplate <class\
-    \ T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
     \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
     \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
@@ -80,76 +77,42 @@ data:
     \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
     \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
     \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
-    }\n#line 3 \"algebraic/DynamicModInt.hpp\"\nclass DynamicModInt {\n\tlint value;\n\
-    \n  public:\n\tstatic uint modulo;\n\tDynamicModInt() : value(0) {}\n\ttemplate\
-    \ <class T>\n\tDynamicModInt(T value = 0) : value(value) {\n\t\tif (value < 0)\
-    \ value = -(lint)(-value % modulo) + modulo;\n\t\tthis->value = value % modulo;\n\
-    \t}\n\tstatic inline void setMod(const uint& mod) { modulo = mod; }\n\tinline\
-    \ DynamicModInt inv() const { return mypow(*this, modulo - 2); }\n\tinline operator\
-    \ int() const { return value; }\n\tinline DynamicModInt& operator+=(const DynamicModInt&\
-    \ x) {\n\t\tvalue += x.value;\n\t\tif (value >= modulo) value -= modulo;\n\t\t\
-    return *this;\n\t}\n\tinline DynamicModInt& operator++() {\n\t\tif (value == modulo\
-    \ - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn *this;\n\t}\n\t\
-    inline DynamicModInt operator++(int) {\n\t\tDynamicModInt res = *this;\n\t\t--*this;\n\
-    \t\treturn res;\n\t}\n\tinline DynamicModInt operator-() const { return DynamicModInt(0)\
-    \ -= *this; }\n\tinline DynamicModInt& operator-=(const DynamicModInt& x) {\n\t\
-    \tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\t\treturn *this;\n\t\
-    }\n\tinline DynamicModInt& operator--() {\n\t\tif (value == 0)\n\t\t\tvalue =\
-    \ modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline DynamicModInt\
-    \ operator--(int) {\n\t\tDynamicModInt res = *this;\n\t\t--*this;\n\t\treturn\
-    \ res;\n\t}\n\tinline DynamicModInt& operator*=(const DynamicModInt& x) {\n\t\t\
-    value = value * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline DynamicModInt&\
-    \ operator/=(const DynamicModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\
-    \ttemplate <class T>\n\tDynamicModInt operator+(const T& rhs) const {\n\t\treturn\
-    \ DynamicModInt(*this) += rhs;\n\t}\n\ttemplate <class T>\n\tDynamicModInt& operator+=(const\
-    \ T& rhs) {\n\t\treturn operator+=(DynamicModInt(rhs));\n\t}\n\ttemplate <class\
-    \ T>\n\tDynamicModInt operator-(const T& rhs) const {\n\t\treturn DynamicModInt(*this)\
-    \ -= rhs;\n\t}\n\ttemplate <class T>\n\tDynamicModInt& operator-=(const T& rhs)\
-    \ {\n\t\treturn operator-=(DynamicModInt(rhs));\n\t}\n\ttemplate <class T>\n\t\
-    DynamicModInt operator*(const T& rhs) const {\n\t\treturn DynamicModInt(*this)\
-    \ *= rhs;\n\t}\n\ttemplate <class T>\n\tDynamicModInt& operator*=(const T& rhs)\
-    \ {\n\t\treturn operator*=(DynamicModInt(rhs));\n\t}\n\ttemplate <class T>\n\t\
-    DynamicModInt operator/(const T& rhs) const {\n\t\treturn DynamicModInt(*this)\
-    \ /= rhs;\n\t}\n\ttemplate <class T>\n\tDynamicModInt& operator/=(const T& rhs)\
-    \ {\n\t\treturn operator/=(DynamicModInt(rhs));\n\t}\n};\nuint DynamicModInt::modulo\
-    \ = 1000000007;\nstd::istream& operator>>(std::istream& ist, DynamicModInt& x)\
-    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 4 \"algebraic/StaticModInt.hpp\"\
-    \ntemplate <uint modulo>\nclass StaticModInt {\n\tlint value;\n\n  public:\n\t\
-    static constexpr uint mod_value = modulo;\n\tStaticModInt() : value(0) {}\n\t\
-    template <class T, std::enable_if_t<!std::is_convertible_v<T, StaticModInt>,\n\
-    \t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tStaticModInt(T value = 0) :\
-    \ value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value % modulo) + modulo\
-    \ : value) % modulo;\n\t}\n\tinline StaticModInt inv() const { return mypow(*this,\
-    \ modulo - 2); }\n\tinline operator int() const { return value; }\n\tinline StaticModInt&\
-    \ operator+=(const StaticModInt& x) {\n\t\tvalue += x.value;\n\t\tif (value >=\
-    \ modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator++()\
-    \ {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\
-    \t\treturn *this;\n\t}\n\tinline StaticModInt operator++(int) {\n\t\tStaticModInt\
-    \ res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt operator-()\
-    \ const { return StaticModInt(0) -= *this; }\n\tinline StaticModInt& operator-=(const\
-    \ StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value < 0) value += modulo;\n\
-    \t\treturn *this;\n\t}\n\tinline StaticModInt& operator--() {\n\t\tif (value ==\
-    \ 0)\n\t\t\tvalue = modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\
-    \t}\n\tinline StaticModInt operator--(int) {\n\t\tStaticModInt res = *this;\n\t\
-    \t--*this;\n\t\treturn res;\n\t}\n\tinline StaticModInt& operator*=(const StaticModInt&\
-    \ x) {\n\t\tvalue = value * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline\
-    \ StaticModInt& operator/=(const StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\
-    \t}\n\ttemplate <class T>\n\tStaticModInt operator+(const T& rhs) const {\n\t\t\
-    return StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt&\
-    \ operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\t}\n\
-    \ttemplate <class T>\n\tStaticModInt operator-(const T& rhs) const {\n\t\treturn\
-    \ StaticModInt(*this) -= rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator-=(const\
-    \ T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
-    \ T>\n\tStaticModInt operator*(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ *= rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator*=(const T& rhs)\
-    \ {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <class T>\n\t\
-    StaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this) /=\
-    \ rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator/=(const T& rhs) {\n\
-    \t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
-    \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
-    \ a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"data-structure/SegTree.hpp\"\ntemplate\
-    \ <class T, T (*nodef)(const T&, const T&)>\nclass SegTree {\n  protected:\n\t\
-    unsigned int n = 1, rank = 0;\n\tstd::vector<T> node;\n\tT ident;\n\n  public:\n\
+    }\n#line 3 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
+    \ {\n\tint value;\n\n  public:\n\tstatic constexpr uint mod_value = modulo;\n\t\
+    StaticModInt() : value(0) {}\n\ttemplate <class T, std::enable_if_t<!std::is_convertible_v<T,\
+    \ StaticModInt>,\n\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tStaticModInt(T\
+    \ value = 0) : value(value) {\n\t\tthis->value =\n\t\t\t(value < 0 ? -(-value\
+    \ % modulo) + modulo : value) % modulo;\n\t}\n\tinline StaticModInt inv() const\
+    \ { return mypow(*this, modulo - 2); }\n\tinline operator int() const { return\
+    \ value; }\n\tinline StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue\
+    \ += x.value;\n\t\tif (value >= modulo) value -= modulo;\n\t\treturn *this;\n\t\
+    }\n\tinline StaticModInt& operator++() {\n\t\tif (value == modulo - 1)\n\t\t\t\
+    value = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn *this;\n\t}\n\tinline StaticModInt\
+    \ operator++(int) {\n\t\tStaticModInt res = *this;\n\t\t++*this;\n\t\treturn res;\n\
+    \t}\n\tinline StaticModInt operator-() const { return StaticModInt(0) -= *this;\
+    \ }\n\tinline StaticModInt& operator-=(const StaticModInt& x) {\n\t\tvalue -=\
+    \ x.value;\n\t\tif (value < 0) value += modulo;\n\t\treturn *this;\n\t}\n\tinline\
+    \ StaticModInt& operator--() {\n\t\tif (value == 0)\n\t\t\tvalue = modulo - 1;\n\
+    \t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline StaticModInt operator--(int)\
+    \ {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline\
+    \ StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = (lint)value *\
+    \ x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline StaticModInt& operator/=(const\
+    \ StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\ttemplate <class\
+    \ T>\n\tStaticModInt operator+(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ += rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator+=(const T& rhs)\
+    \ {\n\t\treturn operator+=(StaticModInt(rhs));\n\t}\n\ttemplate <class T>\n\t\
+    StaticModInt operator-(const T& rhs) const {\n\t\treturn StaticModInt(*this) -=\
+    \ rhs;\n\t}\n\ttemplate <class T>\n\tStaticModInt& operator-=(const T& rhs) {\n\
+    \t\treturn operator-=(StaticModInt(rhs));\n\t}\n\ttemplate <class T>\n\tStaticModInt\
+    \ operator*(const T& rhs) const {\n\t\treturn StaticModInt(*this) *= rhs;\n\t\
+    }\n\ttemplate <class T>\n\tStaticModInt& operator*=(const T& rhs) {\n\t\treturn\
+    \ operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <class T>\n\tStaticModInt operator/(const\
+    \ T& rhs) const {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class\
+    \ T>\n\tStaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
+    \t}\n};\ntemplate <uint modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
+    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 3 \"data-structure/SegTree.hpp\"\
+    \ntemplate <class T, T (*nodef)(const T&, const T&)>\nclass SegTree {\n  protected:\n\
+    \tunsigned int n = 1, rank = 0;\n\tstd::vector<T> node;\n\tT ident;\n\n  public:\n\
     \tSegTree(unsigned int m, T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *=\
     \ 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\t}\n\tSegTree(unsigned\
     \ int m, T init, T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\
@@ -219,12 +182,11 @@ data:
   dependsOn:
   - algebraic/StaticModInt.hpp
   - other/template.hpp
-  - algebraic/DynamicModInt.hpp
   - data-structure/SegTree.hpp
   isVerificationFile: true
   path: test/yosupo/point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2021-01-08 20:46:31+09:00'
+  timestamp: '2021-01-10 18:28:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/point_set_range_composite.test.cpp

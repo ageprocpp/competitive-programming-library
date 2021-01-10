@@ -35,15 +35,15 @@ data:
     \ = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\nnamespace\
     \ std {\n\ttemplate <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
     \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
-    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>> : public std::true_type\
+    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
     \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
     \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
-    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>> : public std::true_type\
-    \ {};\n};\t// namespace std\ntemplate <class T>\nclass prique : public std::priority_queue<T,\
-    \ std::vector<T>, std::greater<T>> {\n};\ntemplate <class F>\ninline constexpr\
-    \ decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
-    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
-    template <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
+    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
+    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
+    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
+    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
     }\ntemplate <class T, class U>\ninline bool chmax(T& lhs, const U& rhs) {\n\t\
@@ -145,7 +145,7 @@ data:
   isVerificationFile: true
   path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
   requiredBy: []
-  timestamp: '2020-12-26 20:49:08+09:00'
+  timestamp: '2021-01-10 18:28:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
