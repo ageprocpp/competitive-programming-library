@@ -4,11 +4,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: data-structure/WaveletMatrix.hpp
+    title: data-structure/WaveletMatrix.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/GRL_6_A_FordFulkerson.test.cpp
-    title: test/aoj/GRL_6_A_FordFulkerson.test.cpp
+    path: test/yosupo/range_kth_smallest.test.cpp
+    title: test/yosupo/range_kth_smallest.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
@@ -70,57 +73,70 @@ data:
     \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
     \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
     \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
-    }\n#line 3 \"graph/FordFulkerson.hpp\"\nclass FordFulkerson {\n\tclass edge {\n\
-    \t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t};\n\tint N, idx\
-    \ = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<bool> used;\n\tlint\
-    \ dfs(int node, int t, lint f) {\n\t\tif (node == t) return f;\n\t\tused[node]\
-    \ = true;\n\t\tfor (edge& e : vec[node]) {\n\t\t\tif (!used[e.to] && e.cap > 0)\
-    \ {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\tif (d) {\n\t\t\
-    \t\t\te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\treturn d;\n\
-    \t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tFordFulkerson(int\
-    \ n) : N(n) {\n\t\tvec.resize(N);\n\t\tused.resize(N);\n\t}\n\tvoid reset() {\n\
-    \t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) {\n\t\
-    \t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t\
-    }\n\t\t}\n\t}\n\tvoid add_edge(int from, int to, lint cap) {\n\t\tvec[from].push_back({to,\
-    \ cap, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size()\
-    \ - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\t\
-    while (true) {\n\t\t\tused.assign(N, false);\n\t\t\tlint f = dfs(s, t, LINF);\n\
-    \t\t\tif (!f) return res;\n\t\t\tres += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore()\
-    \ const {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const\
-    \ auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\
-    \t}\n\t\treturn res;\n\t}\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass FordFulkerson {\n\
-    \tclass edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t\
-    };\n\tint N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<bool>\
-    \ used;\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node == t) return f;\n\
-    \t\tused[node] = true;\n\t\tfor (edge& e : vec[node]) {\n\t\t\tif (!used[e.to]\
-    \ && e.cap > 0) {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\t\
-    if (d) {\n\t\t\t\t\te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\
-    \treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tFordFulkerson(int\
-    \ n) : N(n) {\n\t\tvec.resize(N);\n\t\tused.resize(N);\n\t}\n\tvoid reset() {\n\
-    \t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) {\n\t\
-    \t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t\
-    }\n\t\t}\n\t}\n\tvoid add_edge(int from, int to, lint cap) {\n\t\tvec[from].push_back({to,\
-    \ cap, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size()\
-    \ - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\t\
-    while (true) {\n\t\t\tused.assign(N, false);\n\t\t\tlint f = dfs(s, t, LINF);\n\
-    \t\t\tif (!f) return res;\n\t\t\tres += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore()\
-    \ const {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const\
-    \ auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\
-    \t}\n\t\treturn res;\n\t}\n};"
+    }\n#line 3 \"data-structure/SuccinctBitVector.hpp\"\nclass SuccinctBitVector {\n\
+    \tstd::vector<bool> v;\n\tusing u8 = uint8_t;\n\tusing u16 = uint16_t;\n\tusing\
+    \ u32 = uint32_t;\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr static u8\
+    \ blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;  // log\
+    \ ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log N / 2\
+    \ bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
+    \tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t // log\
+    \ N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\tstd::vector<u8>\
+    \ table;\t\t\t\t // log log N - 1: 4\n\n  public:\n\tSuccinctBitVector(const std::vector<bool>&\
+    \ vec) { init(vec); }\n\tvoid init(const std::vector<bool>& vec) {\n\t\tN = vec.size();\n\
+    \t\tchunks.resize((N + chunk_size - 1) >> chunk_bit, 0);\n\t\tblocks.resize((N\
+    \ + block_size - 1) >> blocks_bit, 0);\n\t\tblock_num.resize((N + block_size -\
+    \ 1) >> blocks_bit, 0);\n\t\ttable.resize(1 << block_size, 0);\n\t\trep(i, N)\
+    \ {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i >> chunk_bit]++;\n\t\t\t\tblocks[i\
+    \ >> blocks_bit]++;\n\t\t\t\tblock_num[i >> blocks_bit] |= 1 << (i & (block_size\
+    \ - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size() - 1) chunks[i + 1] += chunks[i];\n\
+    \t\trep(i, blocks.size() - 1) {\n\t\t\tif ((i & (blocks_in_chunk - 1)) != blocks_in_chunk\
+    \ - 1)\n\t\t\t\tblocks[i + 1] += blocks[i];\n\t\t}\n\t\trep(i, 1 << block_size)\
+    \ {\n\t\t\trep(j, block_size) {\n\t\t\t\tif (i & (1 << j)) table[i]++;\n\t\t\t\
+    }\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\t\tint res =\
+    \ 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] : 0;\n\t\tres\
+    \ += (x & ((1 << chunk_bit) - 1)) >= block_size\n\t\t\t\t   ? blocks[(x >> blocks_bit)\
+    \ - 1]\n\t\t\t\t   : 0;\n\t\tres += table[block_num[x >> blocks_bit] &\n\t\t\t\
+    \t\t ((1 << ((x & (block_size - 1)) + 1)) - 1)];\n\t\treturn b ? res : x + 1 -\
+    \ res;\n\t}\n\tsize_t size() const { return N; }\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\nclass SuccinctBitVector\
+    \ {\n\tstd::vector<bool> v;\n\tusing u8 = uint8_t;\n\tusing u16 = uint16_t;\n\t\
+    using u32 = uint32_t;\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr static\
+    \ u8 blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;  //\
+    \ log ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log N\
+    \ / 2 bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
+    \tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t // log\
+    \ N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\tstd::vector<u8>\
+    \ table;\t\t\t\t // log log N - 1: 4\n\n  public:\n\tSuccinctBitVector(const std::vector<bool>&\
+    \ vec) { init(vec); }\n\tvoid init(const std::vector<bool>& vec) {\n\t\tN = vec.size();\n\
+    \t\tchunks.resize((N + chunk_size - 1) >> chunk_bit, 0);\n\t\tblocks.resize((N\
+    \ + block_size - 1) >> blocks_bit, 0);\n\t\tblock_num.resize((N + block_size -\
+    \ 1) >> blocks_bit, 0);\n\t\ttable.resize(1 << block_size, 0);\n\t\trep(i, N)\
+    \ {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i >> chunk_bit]++;\n\t\t\t\tblocks[i\
+    \ >> blocks_bit]++;\n\t\t\t\tblock_num[i >> blocks_bit] |= 1 << (i & (block_size\
+    \ - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size() - 1) chunks[i + 1] += chunks[i];\n\
+    \t\trep(i, blocks.size() - 1) {\n\t\t\tif ((i & (blocks_in_chunk - 1)) != blocks_in_chunk\
+    \ - 1)\n\t\t\t\tblocks[i + 1] += blocks[i];\n\t\t}\n\t\trep(i, 1 << block_size)\
+    \ {\n\t\t\trep(j, block_size) {\n\t\t\t\tif (i & (1 << j)) table[i]++;\n\t\t\t\
+    }\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\t\tint res =\
+    \ 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] : 0;\n\t\tres\
+    \ += (x & ((1 << chunk_bit) - 1)) >= block_size\n\t\t\t\t   ? blocks[(x >> blocks_bit)\
+    \ - 1]\n\t\t\t\t   : 0;\n\t\tres += table[block_num[x >> blocks_bit] &\n\t\t\t\
+    \t\t ((1 << ((x & (block_size - 1)) + 1)) - 1)];\n\t\treturn b ? res : x + 1 -\
+    \ res;\n\t}\n\tsize_t size() const { return N; }\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: graph/FordFulkerson.hpp
-  requiredBy: []
+  path: data-structure/SuccinctBitVector.hpp
+  requiredBy:
+  - data-structure/WaveletMatrix.hpp
   timestamp: '2021-01-12 02:03:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/GRL_6_A_FordFulkerson.test.cpp
-documentation_of: graph/FordFulkerson.hpp
+  - test/yosupo/range_kth_smallest.test.cpp
+documentation_of: data-structure/SuccinctBitVector.hpp
 layout: document
 redirect_from:
-- /library/graph/FordFulkerson.hpp
-- /library/graph/FordFulkerson.hpp.html
-title: graph/FordFulkerson.hpp
+- /library/data-structure/SuccinctBitVector.hpp
+- /library/data-structure/SuccinctBitVector.hpp.html
+title: data-structure/SuccinctBitVector.hpp
 ---

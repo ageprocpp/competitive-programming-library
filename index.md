@@ -66,6 +66,9 @@ data:
       path: data-structure/SparseTable.hpp
       title: data-structure/SparseTable.hpp
     - icon: ':heavy_check_mark:'
+      path: data-structure/SuccinctBitVector.hpp
+      title: data-structure/SuccinctBitVector.hpp
+    - icon: ':heavy_check_mark:'
       path: data-structure/WaveletMatrix.hpp
       title: data-structure/WaveletMatrix.hpp
   - name: graph
