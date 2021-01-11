@@ -1,32 +1,9 @@
 #pragma once
 #include "../other/template.hpp"
+#include "SuccinctBitVector.hpp"
 class WaveletMatrix {
-	class BitVector {
-		std::vector<bool> vec;
-		std::vector<int> zerocnt, place[2];
-
-	  public:
-		BitVector(const std::vector<bool>& vec) : vec(vec) {
-			zerocnt.resize(vec.size());
-			rep(i, vec.size()) {
-				if (!vec[i]) {
-					zerocnt[i]++;
-					place[0].emplace_back(i);
-				} else
-					place[1].emplace_back(i);
-				if (i) zerocnt[i] += zerocnt[i - 1];
-			}
-		}
-		bool access(int x) const { return vec[x]; }
-		int rank(bool b, int x) const {
-			if (!b) return zerocnt[x];
-			return x + 1 - zerocnt[x];
-		}
-		int select(bool b, int x) const { return place[b][x]; }
-		unsigned int size() const { return vec.size(); }
-	};
-	std::vector<BitVector> bit;
-	std::vector<int> bound, head, fvec;
+	std::vector<SuccinctBitVector> bit;
+	std::vector<int> head, fvec;
 
   public:
 	template <class T>
@@ -39,12 +16,9 @@ class WaveletMatrix {
 			});
 			if (!(vec.back() & ((lint)1 << i))) continue;
 			bit.emplace_back(bvec);
-			bound.emplace_back(std::upper_bound(all(bvec), false) -
-							   bvec.begin());
 		}
 		fvec = vec;
 		std::reverse(all(bit));
-		std::reverse(all(bound));
 		head.resize(vec.size());
 		REP(i, vec.size() - 1) {
 			if (vec[i - 1] == vec[i])

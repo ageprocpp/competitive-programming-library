@@ -111,10 +111,11 @@ bool isprime(lint n) {
 template <class T>
 T mypow(T a, lint b) {
 	T res(1);
-	while (b) {
+	while (true) {
 		if (b & 1) res *= a;
-		a *= a;
 		b >>= 1;
+		if (!b) break;
+		a *= a;
 	}
 	return res;
 }
@@ -133,7 +134,7 @@ lint modpow(lint a, lint b, lint m) {
 	return res;
 }
 template <class T>
-void printArray(std::vector<T>& vec, char split = ' ') {
+void printArray(const std::vector<T>& vec, char split = ' ') {
 	rep(i, vec.size()) {
 		std::cout << vec[i];
 		std::cout << (i == (int)vec.size() - 1 ? '\n' : split);
