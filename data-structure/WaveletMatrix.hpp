@@ -3,7 +3,7 @@
 #include "SuccinctBitVector.hpp"
 class WaveletMatrix {
 	std::vector<SuccinctBitVector> bit;
-	std::vector<int> head, fvec;
+	std::vector<int> head;
 
   public:
 	template <class T>
@@ -17,7 +17,6 @@ class WaveletMatrix {
 			if (!(vec.back() & ((lint)1 << i))) continue;
 			bit.emplace_back(bvec);
 		}
-		fvec = vec;
 		std::reverse(all(bit));
 		head.resize(vec.size());
 		REP(i, vec.size() - 1) {
@@ -39,6 +38,7 @@ class WaveletMatrix {
 		return r - head[r];
 	}
 	int quantile(int l, int r, int k) const {
+		int res = 0;
 		for (int i = bit.size() - 1; i >= 0; i--) {
 			int zeroc = bit[i].rank(false, r - 1),
 				onec = bit[i].rank(true, r - 1);
@@ -52,8 +52,9 @@ class WaveletMatrix {
 					(l == 0 ? 0 : bit[i].rank(true, l - 1));
 				r = l + onec;
 				k -= zeroc;
+				res |= (1 << i);
 			}
 		}
-		return fvec[l];
+		return res;
 	}
 };
