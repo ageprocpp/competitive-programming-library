@@ -99,55 +99,57 @@ data:
     \t\t ((1 << ((x & (block_size - 1)) + 1)) - 1)];\n\t\treturn b ? res : x + 1 -\
     \ res;\n\t}\n\tsize_t size() const { return N; }\n};\n#line 4 \"data-structure/WaveletMatrix.hpp\"\
     \nclass WaveletMatrix {\n\tstd::vector<SuccinctBitVector> bit;\n\tstd::vector<int>\
-    \ head, fvec;\n\n  public:\n\ttemplate <class T>\n\tWaveletMatrix(std::vector<T>\
-    \ vec) {\n\t\tfor (int i = 63; i >= 0; i--) {\n\t\t\tstd::vector<bool> bvec;\n\
-    \t\t\tfor (T j : vec) bvec.emplace_back(j & ((lint)1 << i));\n\t\t\tstd::stable_sort(all(vec),\
+    \ head;\n\n  public:\n\ttemplate <class T>\n\tWaveletMatrix(std::vector<T> vec)\
+    \ {\n\t\tfor (int i = 63; i >= 0; i--) {\n\t\t\tstd::vector<bool> bvec;\n\t\t\t\
+    for (T j : vec) bvec.emplace_back(j & ((lint)1 << i));\n\t\t\tstd::stable_sort(all(vec),\
     \ [&i](const T& lhs, const T& rhs) {\n\t\t\t\treturn (lhs & ((lint)1 << i)) <\
     \ (rhs & ((lint)1 << i));\n\t\t\t});\n\t\t\tif (!(vec.back() & ((lint)1 << i)))\
-    \ continue;\n\t\t\tbit.emplace_back(bvec);\n\t\t}\n\t\tfvec = vec;\n\t\tstd::reverse(all(bit));\n\
+    \ continue;\n\t\t\tbit.emplace_back(bvec);\n\t\t}\n\t\tstd::reverse(all(bit));\n\
     \t\thead.resize(vec.size());\n\t\tREP(i, vec.size() - 1) {\n\t\t\tif (vec[i -\
     \ 1] == vec[i])\n\t\t\t\thead[i] = head[i - 1];\n\t\t\telse\n\t\t\t\thead[i] =\
     \ i;\n\t\t}\n\t}\n\tint rank(int r, lint c) const {\n\t\tfor (int i = bit.size()\
     \ - 1; i >= 0; i--) {\n\t\t\tr--;\n\t\t\tif (c & ((lint)1 << i))\n\t\t\t\tr =\
     \ bit[i].rank(false, bit[i].size() - 1) +\n\t\t\t\t\tbit[i].rank(true, r);\n\t\
     \t\telse\n\t\t\t\tr = bit[i].rank(false, r);\n\t\t}\n\t\treturn r - head[r];\n\
-    \t}\n\tint quantile(int l, int r, int k) const {\n\t\tfor (int i = bit.size()\
-    \ - 1; i >= 0; i--) {\n\t\t\tint zeroc = bit[i].rank(false, r - 1),\n\t\t\t\t\
-    onec = bit[i].rank(true, r - 1);\n\t\t\tzeroc -= l == 0 ? 0 : bit[i].rank(false,\
+    \t}\n\tint quantile(int l, int r, int k) const {\n\t\tint res = 0;\n\t\tfor (int\
+    \ i = bit.size() - 1; i >= 0; i--) {\n\t\t\tint zeroc = bit[i].rank(false, r -\
+    \ 1),\n\t\t\t\tonec = bit[i].rank(true, r - 1);\n\t\t\tzeroc -= l == 0 ? 0 : bit[i].rank(false,\
     \ l - 1);\n\t\t\tonec -= l == 0 ? 0 : bit[i].rank(true, l - 1);\n\t\t\tif (k <=\
     \ zeroc) {\n\t\t\t\tl = l == 0 ? 0 : bit[i].rank(false, l - 1);\n\t\t\t\tr = l\
     \ + zeroc;\n\t\t\t} else {\n\t\t\t\tl = bit[i].rank(false, bit[i].size() - 1)\
     \ +\n\t\t\t\t\t(l == 0 ? 0 : bit[i].rank(true, l - 1));\n\t\t\t\tr = l + onec;\n\
-    \t\t\t\tk -= zeroc;\n\t\t\t}\n\t\t}\n\t\treturn fvec[l];\n\t}\n};\n"
+    \t\t\t\tk -= zeroc;\n\t\t\t\tres |= (1 << i);\n\t\t\t}\n\t\t}\n\t\treturn res;\n\
+    \t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"SuccinctBitVector.hpp\"\
     \nclass WaveletMatrix {\n\tstd::vector<SuccinctBitVector> bit;\n\tstd::vector<int>\
-    \ head, fvec;\n\n  public:\n\ttemplate <class T>\n\tWaveletMatrix(std::vector<T>\
-    \ vec) {\n\t\tfor (int i = 63; i >= 0; i--) {\n\t\t\tstd::vector<bool> bvec;\n\
-    \t\t\tfor (T j : vec) bvec.emplace_back(j & ((lint)1 << i));\n\t\t\tstd::stable_sort(all(vec),\
+    \ head;\n\n  public:\n\ttemplate <class T>\n\tWaveletMatrix(std::vector<T> vec)\
+    \ {\n\t\tfor (int i = 63; i >= 0; i--) {\n\t\t\tstd::vector<bool> bvec;\n\t\t\t\
+    for (T j : vec) bvec.emplace_back(j & ((lint)1 << i));\n\t\t\tstd::stable_sort(all(vec),\
     \ [&i](const T& lhs, const T& rhs) {\n\t\t\t\treturn (lhs & ((lint)1 << i)) <\
     \ (rhs & ((lint)1 << i));\n\t\t\t});\n\t\t\tif (!(vec.back() & ((lint)1 << i)))\
-    \ continue;\n\t\t\tbit.emplace_back(bvec);\n\t\t}\n\t\tfvec = vec;\n\t\tstd::reverse(all(bit));\n\
+    \ continue;\n\t\t\tbit.emplace_back(bvec);\n\t\t}\n\t\tstd::reverse(all(bit));\n\
     \t\thead.resize(vec.size());\n\t\tREP(i, vec.size() - 1) {\n\t\t\tif (vec[i -\
     \ 1] == vec[i])\n\t\t\t\thead[i] = head[i - 1];\n\t\t\telse\n\t\t\t\thead[i] =\
     \ i;\n\t\t}\n\t}\n\tint rank(int r, lint c) const {\n\t\tfor (int i = bit.size()\
     \ - 1; i >= 0; i--) {\n\t\t\tr--;\n\t\t\tif (c & ((lint)1 << i))\n\t\t\t\tr =\
     \ bit[i].rank(false, bit[i].size() - 1) +\n\t\t\t\t\tbit[i].rank(true, r);\n\t\
     \t\telse\n\t\t\t\tr = bit[i].rank(false, r);\n\t\t}\n\t\treturn r - head[r];\n\
-    \t}\n\tint quantile(int l, int r, int k) const {\n\t\tfor (int i = bit.size()\
-    \ - 1; i >= 0; i--) {\n\t\t\tint zeroc = bit[i].rank(false, r - 1),\n\t\t\t\t\
-    onec = bit[i].rank(true, r - 1);\n\t\t\tzeroc -= l == 0 ? 0 : bit[i].rank(false,\
+    \t}\n\tint quantile(int l, int r, int k) const {\n\t\tint res = 0;\n\t\tfor (int\
+    \ i = bit.size() - 1; i >= 0; i--) {\n\t\t\tint zeroc = bit[i].rank(false, r -\
+    \ 1),\n\t\t\t\tonec = bit[i].rank(true, r - 1);\n\t\t\tzeroc -= l == 0 ? 0 : bit[i].rank(false,\
     \ l - 1);\n\t\t\tonec -= l == 0 ? 0 : bit[i].rank(true, l - 1);\n\t\t\tif (k <=\
     \ zeroc) {\n\t\t\t\tl = l == 0 ? 0 : bit[i].rank(false, l - 1);\n\t\t\t\tr = l\
     \ + zeroc;\n\t\t\t} else {\n\t\t\t\tl = bit[i].rank(false, bit[i].size() - 1)\
     \ +\n\t\t\t\t\t(l == 0 ? 0 : bit[i].rank(true, l - 1));\n\t\t\t\tr = l + onec;\n\
-    \t\t\t\tk -= zeroc;\n\t\t\t}\n\t\t}\n\t\treturn fvec[l];\n\t}\n};"
+    \t\t\t\tk -= zeroc;\n\t\t\t\tres |= (1 << i);\n\t\t\t}\n\t\t}\n\t\treturn res;\n\
+    \t}\n};"
   dependsOn:
   - other/template.hpp
   - data-structure/SuccinctBitVector.hpp
   isVerificationFile: false
   path: data-structure/WaveletMatrix.hpp
   requiredBy: []
-  timestamp: '2021-01-12 02:03:49+09:00'
+  timestamp: '2021-01-13 00:02:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_kth_smallest.test.cpp

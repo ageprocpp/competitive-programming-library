@@ -333,12 +333,12 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_affine_range_sum.test.cpp
-  - test/aoj/DSL_2_E.test.cpp
-  - test/aoj/DSL_2_D.test.cpp
-  - test/aoj/DSL_2_F.test.cpp
   - test/aoj/DSL_2_H.test.cpp
+  - test/aoj/DSL_2_E.test.cpp
   - test/aoj/DSL_2_I.test.cpp
   - test/aoj/DSL_2_G.test.cpp
+  - test/aoj/DSL_2_D.test.cpp
+  - test/aoj/DSL_2_F.test.cpp
 documentation_of: data-structure/IntervalSegTree.hpp
 layout: document
 redirect_from:

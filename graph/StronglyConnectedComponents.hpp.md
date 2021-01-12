@@ -119,8 +119,8 @@ data:
   timestamp: '2021-01-12 02:03:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/two_sat.test.cpp
   - test/yosupo/scc.test.cpp
+  - test/yosupo/two_sat.test.cpp
 documentation_of: graph/StronglyConnectedComponents.hpp
 layout: document
 redirect_from:

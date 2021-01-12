@@ -146,8 +146,8 @@ data:
   isVerificationFile: false
   path: algebraic/DynamicModInt.hpp
   requiredBy:
-  - algebraic/Combinatorics.hpp
   - algebraic/LagrangeInterpolation.hpp
+  - algebraic/Combinatorics.hpp
   timestamp: '2021-01-12 02:03:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
