@@ -52,3 +52,7 @@ class ModCombinatorics : Combinatorics<T> {
 		return factorial[a] * inv[a - b];
 	}
 };
+
+/*
+ * @title Combinatorics/ModCombinatorics
+*/
