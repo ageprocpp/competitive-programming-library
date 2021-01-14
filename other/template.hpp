@@ -9,6 +9,7 @@
 #pragma GCC optimize("unroll-loops")
 #include <string.h>
 #include <algorithm>
+#include <array>
 #include <bitset>
 #include <cassert>
 #include <cfloat>
@@ -34,18 +35,21 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+
 #define rep(i, n) for (int i = 0; i < int(n); i++)
 #define REP(i, n) for (int i = 1; i <= int(n); i++)
 #define all(V) V.begin(), V.end()
-typedef unsigned int uint;
-typedef long long lint;
-typedef unsigned long long ulint;
-typedef std::pair<int, int> P;
-typedef std::pair<lint, lint> LP;
+
+using lint = long long;
+using ulint = unsigned long long;
+using P = std::pair<int, int>;
+using LP = std::pair<lint, lint>;
+
 constexpr int INF = INT_MAX / 2;
 constexpr lint LINF = LLONG_MAX / 2;
 constexpr double eps = DBL_EPSILON;
 constexpr double PI = 3.141592653589793238462643383279;
+
 namespace std {
 	template <template <class...> class Temp, class T>
 	class is_template_with_type_of : public std::false_type {};
