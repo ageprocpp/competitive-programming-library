@@ -12,6 +12,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: FastFourierTransform
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
@@ -24,20 +25,21 @@ data:
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
     \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing lint = long long;\n\
-    using ulint = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP =\
-    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
-    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
-    \ 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate <template <class...>\
-    \ class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
-    \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
-    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
-    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
-    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
-    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
-    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
-    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing uint = unsigned int;\
+    \ \nusing lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
+    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
+    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
+    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
+    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
+    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
+    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
+    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
+    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
+    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
@@ -109,15 +111,15 @@ data:
     \tb[k + ((w * j) << 1)] =\n\t\t\t\t\t\ta[k + w * j] + a[k + w * j + (sz >> 1)];\n\
     \t\t\t\t\tb[k + ((w * j) << 1) + w] =\n\t\t\t\t\t\troots[w * j] *\n\t\t\t\t\t\t\
     (a[k + w * j] - a[k + w * j + (sz >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a,\
-    \ b);\n\t\t}\n\t}\n\n  public:\n\tstatic bool inverse;\n\ttemplate <class T>\n\
-    \tstatic std::vector<double> multiply(std::vector<T> f, std::vector<T> g) {\n\t\
-    \tif (f.size() < g.size()) std::swap(f, g);\n\t\tstd::vector<MyComplex> nf, ng;\n\
-    \t\tint sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz *= 2;\n\t\tnf.resize(sz);\n\
-    \t\tng.resize(sz);\n\t\trep(i, f.size()) {\n\t\t\tnf[i] = f[i];\n\t\t\tif (i <\
-    \ g.size()) ng[i] = g[i];\n\t\t}\n\t\tinverse = false;\n\t\tdft(nf);\n\t\tdft(ng);\n\
-    \t\trep(i, sz) nf[i] *= ng[i];\n\t\tinverse = true;\n\t\tdft(nf);\n\t\tstd::vector<double>\
-    \ res(sz);\n\t\trep(i, sz) res[i] = nf[i].real() / sz;\n\t\treturn res;\n\t}\n\
-    };\nbool FastFourierTransform::inverse = false;\n"
+    \ b);\n\t\t}\n\t}\n\n  public:\n\tstatic constexpr bool inverse = false;\n\ttemplate\
+    \ <class T>\n\tstatic std::vector<double> multiply(std::vector<T> f, std::vector<T>\
+    \ g) {\n\t\tif (f.size() < g.size()) std::swap(f, g);\n\t\tstd::vector<MyComplex>\
+    \ nf, ng;\n\t\tint sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz *= 2;\n\t\t\
+    nf.resize(sz);\n\t\tng.resize(sz);\n\t\trep(i, f.size()) {\n\t\t\tnf[i] = f[i];\n\
+    \t\t\tif (i < g.size()) ng[i] = g[i];\n\t\t}\n\t\tinverse = false;\n\t\tdft(nf);\n\
+    \t\tdft(ng);\n\t\trep(i, sz) nf[i] *= ng[i];\n\t\tinverse = true;\n\t\tdft(nf);\n\
+    \t\tstd::vector<double> res(sz);\n\t\trep(i, sz) res[i] = nf[i].real() / sz;\n\
+    \t\treturn res;\n\t}\n};\n/*\n * @title FastFourierTransform\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"MyComplex.hpp\"\
     \nclass FastFourierTransform {\n  private:\n\tstatic void dft(std::vector<MyComplex>&\
     \ a) {\n\t\tint sz = a.size();\n\t\tif (sz == 1) return;\n\t\tMyComplex root =\n\
@@ -128,22 +130,22 @@ data:
     \tb[k + ((w * j) << 1)] =\n\t\t\t\t\t\ta[k + w * j] + a[k + w * j + (sz >> 1)];\n\
     \t\t\t\t\tb[k + ((w * j) << 1) + w] =\n\t\t\t\t\t\troots[w * j] *\n\t\t\t\t\t\t\
     (a[k + w * j] - a[k + w * j + (sz >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a,\
-    \ b);\n\t\t}\n\t}\n\n  public:\n\tstatic bool inverse;\n\ttemplate <class T>\n\
-    \tstatic std::vector<double> multiply(std::vector<T> f, std::vector<T> g) {\n\t\
-    \tif (f.size() < g.size()) std::swap(f, g);\n\t\tstd::vector<MyComplex> nf, ng;\n\
-    \t\tint sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz *= 2;\n\t\tnf.resize(sz);\n\
-    \t\tng.resize(sz);\n\t\trep(i, f.size()) {\n\t\t\tnf[i] = f[i];\n\t\t\tif (i <\
-    \ g.size()) ng[i] = g[i];\n\t\t}\n\t\tinverse = false;\n\t\tdft(nf);\n\t\tdft(ng);\n\
-    \t\trep(i, sz) nf[i] *= ng[i];\n\t\tinverse = true;\n\t\tdft(nf);\n\t\tstd::vector<double>\
-    \ res(sz);\n\t\trep(i, sz) res[i] = nf[i].real() / sz;\n\t\treturn res;\n\t}\n\
-    };\nbool FastFourierTransform::inverse = false;"
+    \ b);\n\t\t}\n\t}\n\n  public:\n\tstatic constexpr bool inverse = false;\n\ttemplate\
+    \ <class T>\n\tstatic std::vector<double> multiply(std::vector<T> f, std::vector<T>\
+    \ g) {\n\t\tif (f.size() < g.size()) std::swap(f, g);\n\t\tstd::vector<MyComplex>\
+    \ nf, ng;\n\t\tint sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz *= 2;\n\t\t\
+    nf.resize(sz);\n\t\tng.resize(sz);\n\t\trep(i, f.size()) {\n\t\t\tnf[i] = f[i];\n\
+    \t\t\tif (i < g.size()) ng[i] = g[i];\n\t\t}\n\t\tinverse = false;\n\t\tdft(nf);\n\
+    \t\tdft(ng);\n\t\trep(i, sz) nf[i] *= ng[i];\n\t\tinverse = true;\n\t\tdft(nf);\n\
+    \t\tstd::vector<double> res(sz);\n\t\trep(i, sz) res[i] = nf[i].real() / sz;\n\
+    \t\treturn res;\n\t}\n};\n/*\n * @title FastFourierTransform\n */"
   dependsOn:
   - other/template.hpp
   - algebraic/MyComplex.hpp
   isVerificationFile: false
   path: algebraic/FastFourierTransform.hpp
   requiredBy: []
-  timestamp: '2021-01-14 16:19:07+09:00'
+  timestamp: '2021-01-14 16:55:19+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/FastFourierTransform.hpp
@@ -151,5 +153,5 @@ layout: document
 redirect_from:
 - /library/algebraic/FastFourierTransform.hpp
 - /library/algebraic/FastFourierTransform.hpp.html
-title: algebraic/FastFourierTransform.hpp
+title: FastFourierTransform
 ---

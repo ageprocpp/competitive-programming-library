@@ -5,13 +5,10 @@ data:
     pages:
     - icon: ':warning:'
       path: algebraic/Combinatorics.hpp
-      title: algebraic/Combinatorics.hpp
-    - icon: ':warning:'
-      path: algebraic/DynamicModInt.hpp
-      title: algebraic/DynamicModInt.hpp
+      title: Combinatorics/ModCombinatorics
     - icon: ':warning:'
       path: algebraic/FastFourierTransform.hpp
-      title: algebraic/FastFourierTransform.hpp
+      title: FastFourierTransform
     - icon: ':heavy_check_mark:'
       path: algebraic/FloorSum.hpp
       title: algebraic/FloorSum.hpp
