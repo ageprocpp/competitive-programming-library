@@ -13,9 +13,6 @@ data:
       path: algebraic/FloorSum.hpp
       title: FloorSum
     - icon: ':warning:'
-      path: algebraic/LagrangeInterpolation.hpp
-      title: algebraic/LagrangeInterpolation.hpp
-    - icon: ':warning:'
       path: algebraic/MyComplex.hpp
       title: MyComplex
     - icon: ':heavy_check_mark:'
