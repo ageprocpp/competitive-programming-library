@@ -12,6 +12,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: FloorSum
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
@@ -76,19 +77,19 @@ data:
     \t\tA %= M;\n\t}\n\tif (B >= M) {\n\t\tans += B / M * N;\n\t\tB %= M;\n\t}\n\t\
     lint ymax = (A * N + B) / M, xmax = ymax * M - B;\n\tif (ymax == 0) return ans;\n\
     \tans += (N - (xmax + A - 1) / A) * ymax;\n\tans += FloorSum(ymax, A, M, (A -\
-    \ xmax % A) % A);\n\treturn ans;\n}\n"
+    \ xmax % A) % A);\n\treturn ans;\n}\n\n/**\n * @title FloorSum\n */\n"
   code: "#include \"../other/template.hpp\"\nlint FloorSum(lint N, lint M, lint A,\
     \ lint B) {\n\tlint ans = 0;\n\tif (A >= M) {\n\t\tans += (N - 1) * N / 2 * (A\
     \ / M);\n\t\tA %= M;\n\t}\n\tif (B >= M) {\n\t\tans += B / M * N;\n\t\tB %= M;\n\
     \t}\n\tlint ymax = (A * N + B) / M, xmax = ymax * M - B;\n\tif (ymax == 0) return\
     \ ans;\n\tans += (N - (xmax + A - 1) / A) * ymax;\n\tans += FloorSum(ymax, A,\
-    \ M, (A - xmax % A) % A);\n\treturn ans;\n}"
+    \ M, (A - xmax % A) % A);\n\treturn ans;\n}\n\n/**\n * @title FloorSum\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: algebraic/FloorSum.hpp
   requiredBy: []
-  timestamp: '2021-01-14 16:55:19+09:00'
+  timestamp: '2021-01-14 17:24:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/sum_of_floor_of_linear.test.cpp
@@ -97,5 +98,5 @@ layout: document
 redirect_from:
 - /library/algebraic/FloorSum.hpp
 - /library/algebraic/FloorSum.hpp.html
-title: algebraic/FloorSum.hpp
+title: FloorSum
 ---

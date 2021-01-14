@@ -5,6 +5,9 @@ data:
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: algebraic/Combinatorics.hpp
+    title: Combinatorics/ModCombinatorics
   - icon: ':heavy_check_mark:'
     path: algebraic/NumberTheoreticTransform.hpp
     title: algebraic/NumberTheoreticTransform.hpp
@@ -170,6 +173,7 @@ data:
   requiredBy:
   - string/RollingHash.hpp
   - string/HashedString.hpp
+  - algebraic/Combinatorics.hpp
   - algebraic/NumberTheoreticTransform.hpp
   timestamp: '2021-01-14 16:55:19+09:00'
   verificationStatus: LIBRARY_ALL_AC

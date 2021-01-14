@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algebraic/FloorSum.hpp
-    title: algebraic/FloorSum.hpp
+    title: FloorSum
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
@@ -80,10 +80,10 @@ data:
     \t\tA %= M;\n\t}\n\tif (B >= M) {\n\t\tans += B / M * N;\n\t\tB %= M;\n\t}\n\t\
     lint ymax = (A * N + B) / M, xmax = ymax * M - B;\n\tif (ymax == 0) return ans;\n\
     \tans += (N - (xmax + A - 1) / A) * ymax;\n\tans += FloorSum(ymax, A, M, (A -\
-    \ xmax % A) % A);\n\treturn ans;\n}\n#line 4 \"test/yosupo/sum_of_floor_of_linear.test.cpp\"\
-    \nint main() {\n\tint T, N, M, A, B;\n\tscanf(\"%d\", &T);\n\trep(_, T) {\n\t\t\
-    scanf(\"%d%d%d%d\", &N, &M, &A, &B);\n\t\tprintf(\"%lld\\n\", FloorSum(N, M, A,\
-    \ B));\n\t}\n}\n"
+    \ xmax % A) % A);\n\treturn ans;\n}\n\n/**\n * @title FloorSum\n */\n#line 4 \"\
+    test/yosupo/sum_of_floor_of_linear.test.cpp\"\nint main() {\n\tint T, N, M, A,\
+    \ B;\n\tscanf(\"%d\", &T);\n\trep(_, T) {\n\t\tscanf(\"%d%d%d%d\", &N, &M, &A,\
+    \ &B);\n\t\tprintf(\"%lld\\n\", FloorSum(N, M, A, B));\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sum_of_floor_of_linear\"\
     \n#include \"../../algebraic/FloorSum.hpp\"\n#include \"../../other/template.hpp\"\
     \nint main() {\n\tint T, N, M, A, B;\n\tscanf(\"%d\", &T);\n\trep(_, T) {\n\t\t\
@@ -95,7 +95,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/sum_of_floor_of_linear.test.cpp
   requiredBy: []
-  timestamp: '2021-01-14 16:55:19+09:00'
+  timestamp: '2021-01-14 17:24:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/sum_of_floor_of_linear.test.cpp

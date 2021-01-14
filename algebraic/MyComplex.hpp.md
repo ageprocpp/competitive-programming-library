@@ -12,6 +12,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: MyComplex
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
@@ -100,7 +101,7 @@ data:
     \ {\n\t\treturn operator*=(MyComplex(rhs));\n\t}\n\ttemplate <class T>\n\tMyComplex\
     \ operator/(const T& rhs) const {\n\t\treturn MyComplex(*this) /= rhs;\n\t}\n\t\
     template <class T>\n\tMyComplex& operator/=(const T& rhs) const {\n\t\treturn\
-    \ operator/=(MyComplex(rhs));\n\t}\n};\n"
+    \ operator/=(MyComplex(rhs));\n\t}\n};\n\n/**\n * @title MyComplex\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nclass MyComplex {\n\tdouble\
     \ realvalue, imagvalue;\n\n  public:\n\tMyComplex() : realvalue(0), imagvalue(0)\
     \ {}\n\ttemplate <class T, class U>\n\tMyComplex(const T& realvalue, const U&\
@@ -130,14 +131,15 @@ data:
     \ T& rhs) const {\n\t\treturn operator*=(MyComplex(rhs));\n\t}\n\ttemplate <class\
     \ T>\n\tMyComplex operator/(const T& rhs) const {\n\t\treturn MyComplex(*this)\
     \ /= rhs;\n\t}\n\ttemplate <class T>\n\tMyComplex& operator/=(const T& rhs) const\
-    \ {\n\t\treturn operator/=(MyComplex(rhs));\n\t}\n};"
+    \ {\n\t\treturn operator/=(MyComplex(rhs));\n\t}\n};\n\n/**\n * @title MyComplex\n\
+    \ */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: algebraic/MyComplex.hpp
   requiredBy:
   - algebraic/FastFourierTransform.hpp
-  timestamp: '2021-01-14 16:55:19+09:00'
+  timestamp: '2021-01-14 17:24:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/MyComplex.hpp
@@ -145,5 +147,5 @@ layout: document
 redirect_from:
 - /library/algebraic/MyComplex.hpp
 - /library/algebraic/MyComplex.hpp.html
-title: algebraic/MyComplex.hpp
+title: MyComplex
 ---

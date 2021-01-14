@@ -3,14 +3,17 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':warning:'
+    path: algebraic/Combinatorics.hpp
+    title: Combinatorics/ModCombinatorics
+  - icon: ':warning:'
     path: algebraic/FastFourierTransform.hpp
     title: FastFourierTransform
   - icon: ':heavy_check_mark:'
     path: algebraic/FloorSum.hpp
-    title: algebraic/FloorSum.hpp
+    title: FloorSum
   - icon: ':warning:'
     path: algebraic/MyComplex.hpp
-    title: algebraic/MyComplex.hpp
+    title: MyComplex
   - icon: ':heavy_check_mark:'
     path: algebraic/NumberTheoreticTransform.hpp
     title: algebraic/NumberTheoreticTransform.hpp
@@ -389,6 +392,7 @@ data:
   - data-structure/MonotoneConvexHullTrick.hpp
   - algebraic/FastFourierTransform.hpp
   - algebraic/MyComplex.hpp
+  - algebraic/Combinatorics.hpp
   - algebraic/StaticModInt.hpp
   - algebraic/FloorSum.hpp
   - algebraic/NumberTheoreticTransform.hpp

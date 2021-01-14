@@ -23,7 +23,7 @@ data:
     \ n + 1) ft *= t - (a + d * i);\n\tDynamicModInt f = 1;\n\tREP(i, n) f *= -d *\
     \ i;\n\tres += y[0] / f * ft / (t - a);\n\trep(i, n) {\n\t\tf *= i + 1;\n\t\t\
     f /= i - n;\n\t\tres += y[i + 1] / f * ft / (t - (a + d * (i + 1)));\n\t}\n\t\
-    return res;\n}"
+    return res;\n}\n\n/**\n * Lagrange Interpolation\n */"
   dependsOn: []
   isVerificationFile: false
   path: algebraic/LagrangeInterpolation.hpp
