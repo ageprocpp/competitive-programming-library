@@ -19,20 +19,20 @@ data:
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
     avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
-    #include <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n\
-    #include <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n\
-    #include <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n\
-    #include <map>\n#include <memory>\n#include <queue>\n#include <random>\n#include\
-    \ <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n#include\
-    \ <unordered_set>\n#include <utility>\n#include <vector>\n#define rep(i, n) for\
-    \ (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n);\
-    \ i++)\n#define all(V) V.begin(), V.end()\ntypedef unsigned int uint;\ntypedef\
-    \ long long lint;\ntypedef unsigned long long ulint;\ntypedef std::pair<int, int>\
-    \ P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int INF = INT_MAX / 2;\nconstexpr\
-    \ lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double\
-    \ PI = 3.141592653589793238462643383279;\nnamespace std {\n\ttemplate <template\
-    \ <class...> class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
+    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
+    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
+    \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
+    #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
+    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
+    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing lint = long long;\n\
+    using ulint = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP =\
+    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
+    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
+    \ 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate <template <class...>\
+    \ class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
     \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
     \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
     \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
@@ -194,7 +194,7 @@ data:
   isVerificationFile: false
   path: string/SuffixArray.hpp
   requiredBy: []
-  timestamp: '2021-01-12 02:03:49+09:00'
+  timestamp: '2021-01-14 16:19:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/suffixarray.test.cpp

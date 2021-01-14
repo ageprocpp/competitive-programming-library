@@ -2,53 +2,42 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: data-structure/SuccinctBitVector.hpp
-    title: data-structure/SuccinctBitVector.hpp
-  - icon: ':heavy_check_mark:'
-    path: data-structure/WaveletMatrix.hpp
-    title: data-structure/WaveletMatrix.hpp
-  - icon: ':heavy_check_mark:'
-    path: other/FastIO.hpp
-    title: other/FastIO.hpp
-  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _pathExtension: cpp
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/range_kth_smallest.test.cpp
+    title: test/yosupo/range_kth_smallest.test.cpp
+  _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/range_kth_smallest
-    links:
-    - https://judge.yosupo.jp/problem/range_kth_smallest
-  bundledCode: "#line 1 \"test/yosupo/range_kth_smallest.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.yosupo.jp/problem/range_kth_smallest\"\n#line 2 \"other/template.hpp\"\
-    \n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"\
-    avx512f\")\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"\
-    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n\
-    #include <array>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
-    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
-    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
-    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
-    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
-    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
-    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
-    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
-    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
-    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
-    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
-    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
-    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
-    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
-    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
-    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    links: []
+  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+    #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
+    avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
+    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
+    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
+    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
+    \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
+    #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
+    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
+    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing lint = long long;\n\
+    using ulint = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP =\
+    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
+    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
+    \ 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate <template <class...>\
+    \ class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
+    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
+    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
@@ -151,82 +140,91 @@ data:
     \tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\t\t\tprint('\\\
     n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const T& x) {\n\
     \t\t\tprint(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]>\
-    \ Printer::block_str = Printer::precompute();\n};\t// namespace FastIO\n#line\
-    \ 3 \"data-structure/SuccinctBitVector.hpp\"\nclass SuccinctBitVector {\n\tstd::vector<bool>\
-    \ v;\n\tusing u8 = uint_least8_t;\n\tusing u16 = uint_least16_t;\n\tusing u32\
-    \ = uint_least32_t;\n\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr static\
-    \ u8 blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;  //\
-    \ log ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log N\
-    \ / 2 bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
-    \n\tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t //\
-    \ log N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\n  public:\n\
-    \tSuccinctBitVector() = default;\n\tSuccinctBitVector(const std::vector<bool>&\
-    \ vec) { init(vec); }\n\tvoid init(const std::vector<bool>& vec) {\n\t\tN = vec.size();\n\
-    \t\tchunks.resize((N + chunk_size - 1) >> chunk_bit, 0);\n\t\tblocks.resize((N\
-    \ + block_size - 1) >> blocks_bit, 0);\n\t\tblock_num.resize((N + block_size -\
-    \ 1) >> blocks_bit, 0);\n\t\trep(i, N) {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i\
-    \ >> chunk_bit]++;\n\t\t\t\tblocks[i >> blocks_bit]++;\n\t\t\t\tblock_num[i >>\
-    \ blocks_bit] |= 1 << (i & (block_size - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size()\
-    \ - 1) chunks[i + 1] += chunks[i];\n\t\trep(i, blocks.size() - 1) {\n\t\t\tif\
-    \ ((i & (blocks_in_chunk - 1)) != blocks_in_chunk - 1)\n\t\t\t\tblocks[i + 1]\
-    \ += blocks[i];\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\
-    \t\tint res = 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] :\
-    \ 0;\n\t\tres += (x & (chunk_size - 1)) >= block_size\n\t\t\t\t   ? blocks[(x\
-    \ >> blocks_bit) - 1]\n\t\t\t\t   : 0;\n\t\tres += __builtin_popcount(block_num[x\
-    \ >> blocks_bit] &\n\t\t\t\t\t\t((1 << ((x & (block_size - 1)) + 1)) - 1));\n\t\
-    \treturn b ? res : x + 1 - res;\n\t}\n\tsize_t size() const { return N; }\n};\n\
-    #line 4 \"data-structure/WaveletMatrix.hpp\"\ntemplate <typename T>\nconstexpr\
-    \ static int8_t bit_count() {\n\tint8_t res = 0;\n\tstd::make_unsigned_t<T> x\
-    \ = ~0;\n\twhile (x) {\n\t\tres++;\n\t\tx >>= 1;\n\t}\n\treturn res;\n}\ntemplate\
-    \ <typename T, int8_t word_size = bit_count<T>()>\nclass WaveletMatrix {\n\tusing\
-    \ i8 = int8_t;\n\n\tint N;\n\tstd::array<SuccinctBitVector, word_size> bit;\n\t\
-    std::array<int, word_size> zero_cnt;\n\tstd::vector<int> head;\n\n  public:\n\t\
-    WaveletMatrix(std::vector<T> vec) : N(vec.size()), head(vec.size()) {\n\t\tzero_cnt.fill(0);\n\
-    \t\tstd::vector<T> nvec(N);\n\t\tstd::vector<bool> bvec;\n\t\tbvec.reserve(N);\n\
-    \t\tfor (i8 i = word_size - 1; i >= 0; i--) {\n\t\t\tint cnt[] = {0, 0};\n\t\t\
-    \tbvec.resize(0);\n\t\t\tfor (T j : vec) {\n\t\t\t\tbvec.emplace_back(j & (1LL\
-    \ << i));\n\t\t\t\tif (!(j & (1LL << i))) {\n\t\t\t\t\tcnt[1]++;\n\t\t\t\t\tzero_cnt[i]++;\n\
-    \t\t\t\t}\n\t\t\t}\n\t\t\tnvec.resize(N);\n\t\t\tfor (T j : vec) {\n\t\t\t\tif\
-    \ (j & (1LL << i))\n\t\t\t\t\tnvec[cnt[1]++] = j;\n\t\t\t\telse\n\t\t\t\t\tnvec[cnt[0]++]\
-    \ = j;\n\t\t\t}\n\t\t\tvec = std::move(nvec);\n\t\t\tbit[i].init(bvec);\n\t\t\
-    }\n\t\tREP(i, N - 1) {\n\t\t\tif (vec[i - 1] == vec[i])\n\t\t\t\thead[i] = head[i\
-    \ - 1];\n\t\t\telse\n\t\t\t\thead[i] = i;\n\t\t}\n\t}\n\tint rank(int r, lint\
-    \ c) const {\n\t\tfor (i8 i = word_size - 1; i >= 0; i--) {\n\t\t\tr--;\n\t\t\t\
-    if (c & ((lint)1 << i))\n\t\t\t\tr = bit[i].rank(false, bit[i].size() - 1) +\n\
-    \t\t\t\t\tbit[i].rank(true, r);\n\t\t\telse\n\t\t\t\tr = bit[i].rank(false, r);\n\
-    \t\t}\n\t\treturn r - head[r];\n\t}\n\tT quantile(int l, int r, int k) const {\n\
-    \t\tT res = 0;\n\t\tfor (i8 i = word_size - 1; i >= 0; i--) {\n\t\t\tconst int\
-    \ z_r = bit[i].rank(false, r - 1), o_r = r - z_r;\n\t\t\tconst int z_l = !l ?\
-    \ 0 : bit[i].rank(false, l - 1), o_l = l - z_l;\n\t\t\tif (k <= z_r - z_l) {\n\
-    \t\t\t\tl = z_l;\n\t\t\t\tr = z_r;\n\t\t\t} else {\n\t\t\t\tl = r = zero_cnt[i];\n\
-    \t\t\t\tl += o_l;\n\t\t\t\tr += o_r;\n\t\t\t\tk -= z_r - z_l;\n\t\t\t\tres |=\
-    \ (1 << i);\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n#line 5 \"test/yosupo/range_kth_smallest.test.cpp\"\
-    \nFastIO::Scanner cin;\nFastIO::Printer cout;\nint n, q;\nstd::vector<int> a;\n\
-    int main() {\n\tcin >> n >> q;\n\ta.resize(n);\n\trep(i, n) cin >> a[i];\n\tWaveletMatrix\
-    \ wm(a);\n\trep(i, q) {\n\t\tint l, r, k;\n\t\tcin >> l >> r >> k;\n\t\tcout <<\
-    \ wm.quantile(l, r, k + 1) << '\\n';\n\t}\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/range_kth_smallest\"\n\
-    #include \"../../other/template.hpp\"\n#include \"../../other/FastIO.hpp\"\n#include\
-    \ \"../../data-structure/WaveletMatrix.hpp\"\nFastIO::Scanner cin;\nFastIO::Printer\
-    \ cout;\nint n, q;\nstd::vector<int> a;\nint main() {\n\tcin >> n >> q;\n\ta.resize(n);\n\
-    \trep(i, n) cin >> a[i];\n\tWaveletMatrix wm(a);\n\trep(i, q) {\n\t\tint l, r,\
-    \ k;\n\t\tcin >> l >> r >> k;\n\t\tcout << wm.quantile(l, r, k + 1) << '\\n';\n\
-    \t}\n}"
+    \ Printer::block_str = Printer::precompute();\n};\t// namespace FastIO\n"
+  code: "#pragma once\n#include \"template.hpp\"\nnamespace FastIO {\n\tstatic constexpr\
+    \ size_t buf_size = 1 << 18;\n\tstatic constexpr size_t integer_size = 19;\n\n\
+    \tstatic char inbuf[buf_size + 1] = {};\n\tstatic char outbuf[buf_size + 1] =\
+    \ {};\n\n\tclass Scanner {\n\t\tsize_t pos = 0, end = buf_size;\n\t\tvoid load()\
+    \ {\n\t\t\tend = fread(inbuf, 1, buf_size, stdin);\n\t\t\tinbuf[end] = '\\0';\n\
+    \t\t}\n\t\tvoid reload() {\n\t\t\tsize_t length = end - pos;\n\t\t\tmemmove(inbuf,\
+    \ inbuf + pos, length);\n\t\t\tend = length + fread(inbuf + length, 1, buf_size\
+    \ - length, stdin);\n\t\t\tinbuf[end] = '\\0';\n\t\t\tpos = 0;\n\t\t}\n\t\tvoid\
+    \ ignore_space() {\n\t\t\twhile (inbuf[pos] <= ' ') {\n\t\t\t\tif (__builtin_expect(++pos\
+    \ == end, 0)) reload();\n\t\t\t}\n\t\t}\n\t\tchar next() { return inbuf[pos++];\
+    \ }\n\t\tchar next_nonspace() {\n\t\t\tignore_space();\n\t\t\treturn inbuf[pos++];\n\
+    \t\t}\n\n\t  public:\n\t\tScanner() { load(); }\n\t\tvoid scan(char& c) { c =\
+    \ next_nonspace(); }\n\t\tvoid scan(std::string& s) {\n\t\t\tignore_space();\n\
+    \t\t\ts = \"\";\n\t\t\tdo {\n\t\t\t\tsize_t start = pos;\n\t\t\t\twhile (inbuf[pos]\
+    \ > ' ') pos++;\n\t\t\t\ts += std::string(inbuf + start, inbuf + pos);\n\t\t\t\
+    \tif (inbuf[pos] != '\\0') break;\n\t\t\t\treload();\n\t\t\t} while (true);\n\t\
+    \t}\n\t\ttemplate <typename T, std::enable_if_t<std::is_integral_v<T>,\n\t\t\t\
+    \t\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\tchar\
+    \ c = next_nonspace();\n\t\t\tif (__builtin_expect(pos + integer_size >= end,\
+    \ 0)) reload();\n\t\t\tbool minus = false;\n\t\t\tif (c == '-')\n\t\t\t\tminus\
+    \ = true, x = 0;\n\t\t\telse\n\t\t\t\tx = c & 15;\n\t\t\twhile ((c = next()) >=\
+    \ '0') x = x * 10 + (c & 15);\n\t\t\tif (minus) x = -x;\n\t\t}\n\t\ttemplate <typename\
+    \ T, class... Args>\n\t\tvoid scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\t\t\
+    \tscan(args...);\n\t\t}\n\t\ttemplate <typename T>\n\t\tScanner& operator>>(T&\
+    \ x) {\n\t\t\tscan(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\
+    \t\tstatic constexpr size_t block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]>\
+    \ block_str;\n\t\tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\
+    \t\t\t\t\t\t\t\t\t\t  10,\n\t\t\t\t\t\t\t\t\t\t  100,\n\t\t\t\t\t\t\t\t\t\t  1000,\n\
+    \t\t\t\t\t\t\t\t\t\t  10000,\n\t\t\t\t\t\t\t\t\t\t  100000,\n\t\t\t\t\t\t\t\t\t\
+    \t  1000000,\n\t\t\t\t\t\t\t\t\t\t  10000000,\n\t\t\t\t\t\t\t\t\t\t  100000000,\n\
+    \t\t\t\t\t\t\t\t\t\t  1000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000,\n\t\t\t\t\
+    \t\t\t\t\t\t  100000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  10000000000000,\n\t\t\t\t\t\t\t\t\t\t  100000000000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  1000000000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000000000,\n\t\t\t\t\
+    \t\t\t\t\t\t  100000000000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000000000};\n\
+    \n\t\tvoid flush() {\n\t\t\tfwrite(outbuf, 1, pos, stdout);\n\t\t\tpos = 0;\n\t\
+    \t}\n\t\tstatic std::unique_ptr<char[]> precompute() {\n\t\t\tstd::unique_ptr<char[]>\
+    \ res(new char[block_size * 4]);\n\t\t\trep(i, block_size) {\n\t\t\t\tsize_t j\
+    \ = 4, k = i;\n\t\t\t\twhile (j--) {\n\t\t\t\t\tres[i * 4 + j] = k % 10 + '0';\n\
+    \t\t\t\t\tk /= 10;\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn res;\n\t\t}\n\t\ttemplate\
+    \ <typename T>\n\t\tsize_t integer_digits(T n) {\n\t\t\tif (n >= powers[9]) {\n\
+    \t\t\t\tif (n >= powers[13]) {\n\t\t\t\t\tif (n >= powers[16]) {\n\t\t\t\t\t\t\
+    if (n >= powers[17]) {\n\t\t\t\t\t\t\tif (n >= powers[18]) return 19;\n\t\t\t\t\
+    \t\t\treturn 18;\n\t\t\t\t\t\t}\n\t\t\t\t\t\treturn 17;\n\t\t\t\t\t}\n\t\t\t\t\
+    \tif (n >= powers[14]) {\n\t\t\t\t\t\tif (n >= powers[15]) return 16;\n\t\t\t\t\
+    \t\treturn 15;\n\t\t\t\t\t}\n\t\t\t\t\treturn 14;\n\t\t\t\t}\n\t\t\t\tif (n >=\
+    \ powers[11]) {\n\t\t\t\t\tif (n >= powers[12]) return 13;\n\t\t\t\t\treturn 12;\n\
+    \t\t\t\t}\n\t\t\t\tif (n >= powers[10]) return 11;\n\t\t\t\treturn 10;\n\t\t\t\
+    }\n\t\t\tif (n >= powers[4]) {\n\t\t\t\tif (n >= powers[7]) {\n\t\t\t\t\tif (n\
+    \ >= powers[8]) return 9;\n\t\t\t\t\treturn 8;\n\t\t\t\t}\n\t\t\t\tif (n >= powers[5])\
+    \ {\n\t\t\t\t\tif (n >= powers[6]) return 7;\n\t\t\t\t\treturn 6;\n\t\t\t\t}\n\
+    \t\t\t\treturn 5;\n\t\t\t}\n\t\t\tif (n >= powers[2]) {\n\t\t\t\tif (n >= powers[3])\
+    \ return 4;\n\t\t\t\treturn 3;\n\t\t\t}\n\t\t\tif (n >= powers[1]) return 2;\n\
+    \t\t\treturn 1;\n\t\t}\n\n\t  public:\n\t\tPrinter() = default;\n\t\t~Printer()\
+    \ { flush(); }\n\t\tvoid print(char c) {\n\t\t\toutbuf[pos++] = c;\n\t\t\tif (__builtin_expect(pos\
+    \ == buf_size, 0)) flush();\n\t\t}\n\t\tvoid print(char* s) {\n\t\t\twhile (*s\
+    \ != 0) {\n\t\t\t\toutbuf[pos++] = *s++;\n\t\t\t\tif (pos == buf_size) flush();\n\
+    \t\t\t}\n\t\t}\n\t\ttemplate <typename T, std::enable_if_t<std::is_integral_v<T>,\n\
+    \t\t\t\t\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\t\tvoid print(T x) {\n\t\
+    \t\tif (__builtin_expect(pos + integer_size >= buf_size, 0)) flush();\n\t\t\t\
+    if (x < 0) print('-'), x = -x;\n\t\t\tsize_t digit = integer_digits(x);\n\t\t\t\
+    size_t len = digit;\n\t\t\twhile (len >= 4) {\n\t\t\t\tlen -= 4;\n\t\t\t\tmemcpy(outbuf\
+    \ + pos + len,\n\t\t\t\t\t   block_str.get() + (x % block_size) * 4, 4);\n\t\t\
+    \t\tx /= 10000;\n\t\t\t}\n\t\t\tmemcpy(outbuf + pos, block_str.get() + x * 4 +\
+    \ 4 - len, len);\n\t\t\tpos += digit;\n\t\t}\n\t\ttemplate <typename T, class...\
+    \ Args>\n\t\tvoid print(const T& x, const Args&... args) {\n\t\t\tprint(x);\n\t\
+    \t\tprint(' ');\n\t\t\tprint(args...);\n\t\t}\n\t\ttemplate <class... Args>\n\t\
+    \tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\t\t\tprint('\\\
+    n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const T& x) {\n\
+    \t\t\tprint(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]>\
+    \ Printer::block_str = Printer::precompute();\n};\t// namespace FastIO"
   dependsOn:
   - other/template.hpp
-  - other/FastIO.hpp
-  - data-structure/WaveletMatrix.hpp
-  - data-structure/SuccinctBitVector.hpp
-  isVerificationFile: true
-  path: test/yosupo/range_kth_smallest.test.cpp
+  isVerificationFile: false
+  path: other/FastIO.hpp
   requiredBy: []
   timestamp: '2021-01-14 16:19:07+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: test/yosupo/range_kth_smallest.test.cpp
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/range_kth_smallest.test.cpp
+documentation_of: other/FastIO.hpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/range_kth_smallest.test.cpp
-- /verify/test/yosupo/range_kth_smallest.test.cpp.html
-title: test/yosupo/range_kth_smallest.test.cpp
+- /library/other/FastIO.hpp
+- /library/other/FastIO.hpp.html
+title: other/FastIO.hpp
 ---

@@ -106,6 +106,9 @@ data:
   - name: other
     pages:
     - icon: ':heavy_check_mark:'
+      path: other/FastIO.hpp
+      title: other/FastIO.hpp
+    - icon: ':heavy_check_mark:'
       path: other/template.hpp
       title: other/template.hpp
     - icon: ':warning:'

@@ -19,20 +19,20 @@ data:
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
     avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
-    #include <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n\
-    #include <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n\
-    #include <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n\
-    #include <map>\n#include <memory>\n#include <queue>\n#include <random>\n#include\
-    \ <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n#include\
-    \ <unordered_set>\n#include <utility>\n#include <vector>\n#define rep(i, n) for\
-    \ (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n);\
-    \ i++)\n#define all(V) V.begin(), V.end()\ntypedef unsigned int uint;\ntypedef\
-    \ long long lint;\ntypedef unsigned long long ulint;\ntypedef std::pair<int, int>\
-    \ P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int INF = INT_MAX / 2;\nconstexpr\
-    \ lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double\
-    \ PI = 3.141592653589793238462643383279;\nnamespace std {\n\ttemplate <template\
-    \ <class...> class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
+    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
+    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
+    \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
+    #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
+    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
+    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing lint = long long;\n\
+    using ulint = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP =\
+    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
+    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
+    \ 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate <template <class...>\
+    \ class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
     \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
     \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
     \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
@@ -74,82 +74,88 @@ data:
     \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
     \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
     }\n#line 3 \"data-structure/SuccinctBitVector.hpp\"\nclass SuccinctBitVector {\n\
-    \tstd::vector<bool> v;\n\tusing u8 = uint8_t;\n\tusing u16 = uint16_t;\n\tusing\
-    \ u32 = uint32_t;\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr static u8\
-    \ blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;  // log\
-    \ ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log N / 2\
-    \ bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
-    \tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t // log\
-    \ N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\tstd::vector<u8>\
-    \ table;\t\t\t\t // log log N - 1: 4\n\n  public:\n\tSuccinctBitVector(const std::vector<bool>&\
+    \tstd::vector<bool> v;\n\tusing u8 = uint_least8_t;\n\tusing u16 = uint_least16_t;\n\
+    \tusing u32 = uint_least32_t;\n\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr\
+    \ static u8 blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;\
+    \  // log ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log\
+    \ N / 2 bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
+    \n\tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t //\
+    \ log N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\n  public:\n\
+    \tSuccinctBitVector() = default;\n\tSuccinctBitVector(const std::vector<bool>&\
     \ vec) { init(vec); }\n\tvoid init(const std::vector<bool>& vec) {\n\t\tN = vec.size();\n\
     \t\tchunks.resize((N + chunk_size - 1) >> chunk_bit, 0);\n\t\tblocks.resize((N\
     \ + block_size - 1) >> blocks_bit, 0);\n\t\tblock_num.resize((N + block_size -\
-    \ 1) >> blocks_bit, 0);\n\t\ttable.resize(1 << block_size, 0);\n\t\trep(i, N)\
-    \ {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i >> chunk_bit]++;\n\t\t\t\tblocks[i\
-    \ >> blocks_bit]++;\n\t\t\t\tblock_num[i >> blocks_bit] |= 1 << (i & (block_size\
-    \ - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size() - 1) chunks[i + 1] += chunks[i];\n\
-    \t\trep(i, blocks.size() - 1) {\n\t\t\tif ((i & (blocks_in_chunk - 1)) != blocks_in_chunk\
-    \ - 1)\n\t\t\t\tblocks[i + 1] += blocks[i];\n\t\t}\n\t\trep(i, 1 << block_size)\
-    \ {\n\t\t\trep(j, block_size) {\n\t\t\t\tif (i & (1 << j)) table[i]++;\n\t\t\t\
-    }\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\t\tint res =\
-    \ 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] : 0;\n\t\tres\
-    \ += (x & ((1 << chunk_bit) - 1)) >= block_size\n\t\t\t\t   ? blocks[(x >> blocks_bit)\
-    \ - 1]\n\t\t\t\t   : 0;\n\t\tres += table[block_num[x >> blocks_bit] &\n\t\t\t\
-    \t\t ((1 << ((x & (block_size - 1)) + 1)) - 1)];\n\t\treturn b ? res : x + 1 -\
-    \ res;\n\t}\n\tsize_t size() const { return N; }\n};\n#line 4 \"data-structure/WaveletMatrix.hpp\"\
-    \nclass WaveletMatrix {\n\tstd::vector<SuccinctBitVector> bit;\n\tstd::vector<int>\
-    \ head;\n\n  public:\n\ttemplate <class T>\n\tWaveletMatrix(std::vector<T> vec)\
-    \ {\n\t\tfor (int i = 63; i >= 0; i--) {\n\t\t\tstd::vector<bool> bvec;\n\t\t\t\
-    for (T j : vec) bvec.emplace_back(j & ((lint)1 << i));\n\t\t\tstd::stable_sort(all(vec),\
-    \ [&i](const T& lhs, const T& rhs) {\n\t\t\t\treturn (lhs & ((lint)1 << i)) <\
-    \ (rhs & ((lint)1 << i));\n\t\t\t});\n\t\t\tif (!(vec.back() & ((lint)1 << i)))\
-    \ continue;\n\t\t\tbit.emplace_back(bvec);\n\t\t}\n\t\tstd::reverse(all(bit));\n\
-    \t\thead.resize(vec.size());\n\t\tREP(i, vec.size() - 1) {\n\t\t\tif (vec[i -\
-    \ 1] == vec[i])\n\t\t\t\thead[i] = head[i - 1];\n\t\t\telse\n\t\t\t\thead[i] =\
-    \ i;\n\t\t}\n\t}\n\tint rank(int r, lint c) const {\n\t\tfor (int i = bit.size()\
-    \ - 1; i >= 0; i--) {\n\t\t\tr--;\n\t\t\tif (c & ((lint)1 << i))\n\t\t\t\tr =\
-    \ bit[i].rank(false, bit[i].size() - 1) +\n\t\t\t\t\tbit[i].rank(true, r);\n\t\
-    \t\telse\n\t\t\t\tr = bit[i].rank(false, r);\n\t\t}\n\t\treturn r - head[r];\n\
-    \t}\n\tint quantile(int l, int r, int k) const {\n\t\tint res = 0;\n\t\tfor (int\
-    \ i = bit.size() - 1; i >= 0; i--) {\n\t\t\tint zeroc = bit[i].rank(false, r -\
-    \ 1),\n\t\t\t\tonec = bit[i].rank(true, r - 1);\n\t\t\tzeroc -= l == 0 ? 0 : bit[i].rank(false,\
-    \ l - 1);\n\t\t\tonec -= l == 0 ? 0 : bit[i].rank(true, l - 1);\n\t\t\tif (k <=\
-    \ zeroc) {\n\t\t\t\tl = l == 0 ? 0 : bit[i].rank(false, l - 1);\n\t\t\t\tr = l\
-    \ + zeroc;\n\t\t\t} else {\n\t\t\t\tl = bit[i].rank(false, bit[i].size() - 1)\
-    \ +\n\t\t\t\t\t(l == 0 ? 0 : bit[i].rank(true, l - 1));\n\t\t\t\tr = l + onec;\n\
-    \t\t\t\tk -= zeroc;\n\t\t\t\tres |= (1 << i);\n\t\t\t}\n\t\t}\n\t\treturn res;\n\
-    \t}\n};\n"
+    \ 1) >> blocks_bit, 0);\n\t\trep(i, N) {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i\
+    \ >> chunk_bit]++;\n\t\t\t\tblocks[i >> blocks_bit]++;\n\t\t\t\tblock_num[i >>\
+    \ blocks_bit] |= 1 << (i & (block_size - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size()\
+    \ - 1) chunks[i + 1] += chunks[i];\n\t\trep(i, blocks.size() - 1) {\n\t\t\tif\
+    \ ((i & (blocks_in_chunk - 1)) != blocks_in_chunk - 1)\n\t\t\t\tblocks[i + 1]\
+    \ += blocks[i];\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\
+    \t\tint res = 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] :\
+    \ 0;\n\t\tres += (x & (chunk_size - 1)) >= block_size\n\t\t\t\t   ? blocks[(x\
+    \ >> blocks_bit) - 1]\n\t\t\t\t   : 0;\n\t\tres += __builtin_popcount(block_num[x\
+    \ >> blocks_bit] &\n\t\t\t\t\t\t((1 << ((x & (block_size - 1)) + 1)) - 1));\n\t\
+    \treturn b ? res : x + 1 - res;\n\t}\n\tsize_t size() const { return N; }\n};\n\
+    #line 4 \"data-structure/WaveletMatrix.hpp\"\ntemplate <typename T>\nconstexpr\
+    \ static int8_t bit_count() {\n\tint8_t res = 0;\n\tstd::make_unsigned_t<T> x\
+    \ = ~0;\n\twhile (x) {\n\t\tres++;\n\t\tx >>= 1;\n\t}\n\treturn res;\n}\ntemplate\
+    \ <typename T, int8_t word_size = bit_count<T>()>\nclass WaveletMatrix {\n\tusing\
+    \ i8 = int8_t;\n\n\tint N;\n\tstd::array<SuccinctBitVector, word_size> bit;\n\t\
+    std::array<int, word_size> zero_cnt;\n\tstd::vector<int> head;\n\n  public:\n\t\
+    WaveletMatrix(std::vector<T> vec) : N(vec.size()), head(vec.size()) {\n\t\tzero_cnt.fill(0);\n\
+    \t\tstd::vector<T> nvec(N);\n\t\tstd::vector<bool> bvec;\n\t\tbvec.reserve(N);\n\
+    \t\tfor (i8 i = word_size - 1; i >= 0; i--) {\n\t\t\tint cnt[] = {0, 0};\n\t\t\
+    \tbvec.resize(0);\n\t\t\tfor (T j : vec) {\n\t\t\t\tbvec.emplace_back(j & (1LL\
+    \ << i));\n\t\t\t\tif (!(j & (1LL << i))) {\n\t\t\t\t\tcnt[1]++;\n\t\t\t\t\tzero_cnt[i]++;\n\
+    \t\t\t\t}\n\t\t\t}\n\t\t\tnvec.resize(N);\n\t\t\tfor (T j : vec) {\n\t\t\t\tif\
+    \ (j & (1LL << i))\n\t\t\t\t\tnvec[cnt[1]++] = j;\n\t\t\t\telse\n\t\t\t\t\tnvec[cnt[0]++]\
+    \ = j;\n\t\t\t}\n\t\t\tvec = std::move(nvec);\n\t\t\tbit[i].init(bvec);\n\t\t\
+    }\n\t\tREP(i, N - 1) {\n\t\t\tif (vec[i - 1] == vec[i])\n\t\t\t\thead[i] = head[i\
+    \ - 1];\n\t\t\telse\n\t\t\t\thead[i] = i;\n\t\t}\n\t}\n\tint rank(int r, lint\
+    \ c) const {\n\t\tfor (i8 i = word_size - 1; i >= 0; i--) {\n\t\t\tr--;\n\t\t\t\
+    if (c & ((lint)1 << i))\n\t\t\t\tr = bit[i].rank(false, bit[i].size() - 1) +\n\
+    \t\t\t\t\tbit[i].rank(true, r);\n\t\t\telse\n\t\t\t\tr = bit[i].rank(false, r);\n\
+    \t\t}\n\t\treturn r - head[r];\n\t}\n\tT quantile(int l, int r, int k) const {\n\
+    \t\tT res = 0;\n\t\tfor (i8 i = word_size - 1; i >= 0; i--) {\n\t\t\tconst int\
+    \ z_r = bit[i].rank(false, r - 1), o_r = r - z_r;\n\t\t\tconst int z_l = !l ?\
+    \ 0 : bit[i].rank(false, l - 1), o_l = l - z_l;\n\t\t\tif (k <= z_r - z_l) {\n\
+    \t\t\t\tl = z_l;\n\t\t\t\tr = z_r;\n\t\t\t} else {\n\t\t\t\tl = r = zero_cnt[i];\n\
+    \t\t\t\tl += o_l;\n\t\t\t\tr += o_r;\n\t\t\t\tk -= z_r - z_l;\n\t\t\t\tres |=\
+    \ (1 << i);\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"SuccinctBitVector.hpp\"\
-    \nclass WaveletMatrix {\n\tstd::vector<SuccinctBitVector> bit;\n\tstd::vector<int>\
-    \ head;\n\n  public:\n\ttemplate <class T>\n\tWaveletMatrix(std::vector<T> vec)\
-    \ {\n\t\tfor (int i = 63; i >= 0; i--) {\n\t\t\tstd::vector<bool> bvec;\n\t\t\t\
-    for (T j : vec) bvec.emplace_back(j & ((lint)1 << i));\n\t\t\tstd::stable_sort(all(vec),\
-    \ [&i](const T& lhs, const T& rhs) {\n\t\t\t\treturn (lhs & ((lint)1 << i)) <\
-    \ (rhs & ((lint)1 << i));\n\t\t\t});\n\t\t\tif (!(vec.back() & ((lint)1 << i)))\
-    \ continue;\n\t\t\tbit.emplace_back(bvec);\n\t\t}\n\t\tstd::reverse(all(bit));\n\
-    \t\thead.resize(vec.size());\n\t\tREP(i, vec.size() - 1) {\n\t\t\tif (vec[i -\
-    \ 1] == vec[i])\n\t\t\t\thead[i] = head[i - 1];\n\t\t\telse\n\t\t\t\thead[i] =\
-    \ i;\n\t\t}\n\t}\n\tint rank(int r, lint c) const {\n\t\tfor (int i = bit.size()\
-    \ - 1; i >= 0; i--) {\n\t\t\tr--;\n\t\t\tif (c & ((lint)1 << i))\n\t\t\t\tr =\
-    \ bit[i].rank(false, bit[i].size() - 1) +\n\t\t\t\t\tbit[i].rank(true, r);\n\t\
-    \t\telse\n\t\t\t\tr = bit[i].rank(false, r);\n\t\t}\n\t\treturn r - head[r];\n\
-    \t}\n\tint quantile(int l, int r, int k) const {\n\t\tint res = 0;\n\t\tfor (int\
-    \ i = bit.size() - 1; i >= 0; i--) {\n\t\t\tint zeroc = bit[i].rank(false, r -\
-    \ 1),\n\t\t\t\tonec = bit[i].rank(true, r - 1);\n\t\t\tzeroc -= l == 0 ? 0 : bit[i].rank(false,\
-    \ l - 1);\n\t\t\tonec -= l == 0 ? 0 : bit[i].rank(true, l - 1);\n\t\t\tif (k <=\
-    \ zeroc) {\n\t\t\t\tl = l == 0 ? 0 : bit[i].rank(false, l - 1);\n\t\t\t\tr = l\
-    \ + zeroc;\n\t\t\t} else {\n\t\t\t\tl = bit[i].rank(false, bit[i].size() - 1)\
-    \ +\n\t\t\t\t\t(l == 0 ? 0 : bit[i].rank(true, l - 1));\n\t\t\t\tr = l + onec;\n\
-    \t\t\t\tk -= zeroc;\n\t\t\t\tres |= (1 << i);\n\t\t\t}\n\t\t}\n\t\treturn res;\n\
-    \t}\n};"
+    \ntemplate <typename T>\nconstexpr static int8_t bit_count() {\n\tint8_t res =\
+    \ 0;\n\tstd::make_unsigned_t<T> x = ~0;\n\twhile (x) {\n\t\tres++;\n\t\tx >>=\
+    \ 1;\n\t}\n\treturn res;\n}\ntemplate <typename T, int8_t word_size = bit_count<T>()>\n\
+    class WaveletMatrix {\n\tusing i8 = int8_t;\n\n\tint N;\n\tstd::array<SuccinctBitVector,\
+    \ word_size> bit;\n\tstd::array<int, word_size> zero_cnt;\n\tstd::vector<int>\
+    \ head;\n\n  public:\n\tWaveletMatrix(std::vector<T> vec) : N(vec.size()), head(vec.size())\
+    \ {\n\t\tzero_cnt.fill(0);\n\t\tstd::vector<T> nvec(N);\n\t\tstd::vector<bool>\
+    \ bvec;\n\t\tbvec.reserve(N);\n\t\tfor (i8 i = word_size - 1; i >= 0; i--) {\n\
+    \t\t\tint cnt[] = {0, 0};\n\t\t\tbvec.resize(0);\n\t\t\tfor (T j : vec) {\n\t\t\
+    \t\tbvec.emplace_back(j & (1LL << i));\n\t\t\t\tif (!(j & (1LL << i))) {\n\t\t\
+    \t\t\tcnt[1]++;\n\t\t\t\t\tzero_cnt[i]++;\n\t\t\t\t}\n\t\t\t}\n\t\t\tnvec.resize(N);\n\
+    \t\t\tfor (T j : vec) {\n\t\t\t\tif (j & (1LL << i))\n\t\t\t\t\tnvec[cnt[1]++]\
+    \ = j;\n\t\t\t\telse\n\t\t\t\t\tnvec[cnt[0]++] = j;\n\t\t\t}\n\t\t\tvec = std::move(nvec);\n\
+    \t\t\tbit[i].init(bvec);\n\t\t}\n\t\tREP(i, N - 1) {\n\t\t\tif (vec[i - 1] ==\
+    \ vec[i])\n\t\t\t\thead[i] = head[i - 1];\n\t\t\telse\n\t\t\t\thead[i] = i;\n\t\
+    \t}\n\t}\n\tint rank(int r, lint c) const {\n\t\tfor (i8 i = word_size - 1; i\
+    \ >= 0; i--) {\n\t\t\tr--;\n\t\t\tif (c & ((lint)1 << i))\n\t\t\t\tr = bit[i].rank(false,\
+    \ bit[i].size() - 1) +\n\t\t\t\t\tbit[i].rank(true, r);\n\t\t\telse\n\t\t\t\t\
+    r = bit[i].rank(false, r);\n\t\t}\n\t\treturn r - head[r];\n\t}\n\tT quantile(int\
+    \ l, int r, int k) const {\n\t\tT res = 0;\n\t\tfor (i8 i = word_size - 1; i >=\
+    \ 0; i--) {\n\t\t\tconst int z_r = bit[i].rank(false, r - 1), o_r = r - z_r;\n\
+    \t\t\tconst int z_l = !l ? 0 : bit[i].rank(false, l - 1), o_l = l - z_l;\n\t\t\
+    \tif (k <= z_r - z_l) {\n\t\t\t\tl = z_l;\n\t\t\t\tr = z_r;\n\t\t\t} else {\n\t\
+    \t\t\tl = r = zero_cnt[i];\n\t\t\t\tl += o_l;\n\t\t\t\tr += o_r;\n\t\t\t\tk -=\
+    \ z_r - z_l;\n\t\t\t\tres |= (1 << i);\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\
+    };"
   dependsOn:
   - other/template.hpp
   - data-structure/SuccinctBitVector.hpp
   isVerificationFile: false
   path: data-structure/WaveletMatrix.hpp
   requiredBy: []
-  timestamp: '2021-01-13 00:02:15+09:00'
+  timestamp: '2021-01-14 16:19:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_kth_smallest.test.cpp

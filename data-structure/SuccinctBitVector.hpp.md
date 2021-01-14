@@ -19,20 +19,20 @@ data:
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
     avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n#include <algorithm>\n#include <bitset>\n#include <cassert>\n\
-    #include <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n\
-    #include <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n\
-    #include <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n\
-    #include <map>\n#include <memory>\n#include <queue>\n#include <random>\n#include\
-    \ <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n#include\
-    \ <unordered_set>\n#include <utility>\n#include <vector>\n#define rep(i, n) for\
-    \ (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n);\
-    \ i++)\n#define all(V) V.begin(), V.end()\ntypedef unsigned int uint;\ntypedef\
-    \ long long lint;\ntypedef unsigned long long ulint;\ntypedef std::pair<int, int>\
-    \ P;\ntypedef std::pair<lint, lint> LP;\nconstexpr int INF = INT_MAX / 2;\nconstexpr\
-    \ lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double\
-    \ PI = 3.141592653589793238462643383279;\nnamespace std {\n\ttemplate <template\
-    \ <class...> class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
+    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
+    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
+    \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
+    #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
+    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
+    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing lint = long long;\n\
+    using ulint = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP =\
+    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
+    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
+    \ 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate <template <class...>\
+    \ class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
     \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
     \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
     \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
@@ -74,62 +74,58 @@ data:
     \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
     \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
     }\n#line 3 \"data-structure/SuccinctBitVector.hpp\"\nclass SuccinctBitVector {\n\
-    \tstd::vector<bool> v;\n\tusing u8 = uint8_t;\n\tusing u16 = uint16_t;\n\tusing\
-    \ u32 = uint32_t;\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr static u8\
-    \ blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;  // log\
-    \ ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log N / 2\
-    \ bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
-    \tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t // log\
-    \ N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\tstd::vector<u8>\
-    \ table;\t\t\t\t // log log N - 1: 4\n\n  public:\n\tSuccinctBitVector(const std::vector<bool>&\
+    \tstd::vector<bool> v;\n\tusing u8 = uint_least8_t;\n\tusing u16 = uint_least16_t;\n\
+    \tusing u32 = uint_least32_t;\n\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr\
+    \ static u8 blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;\
+    \  // log ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log\
+    \ N / 2 bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
+    \n\tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t //\
+    \ log N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\n  public:\n\
+    \tSuccinctBitVector() = default;\n\tSuccinctBitVector(const std::vector<bool>&\
     \ vec) { init(vec); }\n\tvoid init(const std::vector<bool>& vec) {\n\t\tN = vec.size();\n\
     \t\tchunks.resize((N + chunk_size - 1) >> chunk_bit, 0);\n\t\tblocks.resize((N\
     \ + block_size - 1) >> blocks_bit, 0);\n\t\tblock_num.resize((N + block_size -\
-    \ 1) >> blocks_bit, 0);\n\t\ttable.resize(1 << block_size, 0);\n\t\trep(i, N)\
-    \ {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i >> chunk_bit]++;\n\t\t\t\tblocks[i\
-    \ >> blocks_bit]++;\n\t\t\t\tblock_num[i >> blocks_bit] |= 1 << (i & (block_size\
-    \ - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size() - 1) chunks[i + 1] += chunks[i];\n\
-    \t\trep(i, blocks.size() - 1) {\n\t\t\tif ((i & (blocks_in_chunk - 1)) != blocks_in_chunk\
-    \ - 1)\n\t\t\t\tblocks[i + 1] += blocks[i];\n\t\t}\n\t\trep(i, 1 << block_size)\
-    \ {\n\t\t\trep(j, block_size) {\n\t\t\t\tif (i & (1 << j)) table[i]++;\n\t\t\t\
-    }\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\t\tint res =\
-    \ 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] : 0;\n\t\tres\
-    \ += (x & ((1 << chunk_bit) - 1)) >= block_size\n\t\t\t\t   ? blocks[(x >> blocks_bit)\
-    \ - 1]\n\t\t\t\t   : 0;\n\t\tres += table[block_num[x >> blocks_bit] &\n\t\t\t\
-    \t\t ((1 << ((x & (block_size - 1)) + 1)) - 1)];\n\t\treturn b ? res : x + 1 -\
-    \ res;\n\t}\n\tsize_t size() const { return N; }\n};\n"
+    \ 1) >> blocks_bit, 0);\n\t\trep(i, N) {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i\
+    \ >> chunk_bit]++;\n\t\t\t\tblocks[i >> blocks_bit]++;\n\t\t\t\tblock_num[i >>\
+    \ blocks_bit] |= 1 << (i & (block_size - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size()\
+    \ - 1) chunks[i + 1] += chunks[i];\n\t\trep(i, blocks.size() - 1) {\n\t\t\tif\
+    \ ((i & (blocks_in_chunk - 1)) != blocks_in_chunk - 1)\n\t\t\t\tblocks[i + 1]\
+    \ += blocks[i];\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\
+    \t\tint res = 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] :\
+    \ 0;\n\t\tres += (x & (chunk_size - 1)) >= block_size\n\t\t\t\t   ? blocks[(x\
+    \ >> blocks_bit) - 1]\n\t\t\t\t   : 0;\n\t\tres += __builtin_popcount(block_num[x\
+    \ >> blocks_bit] &\n\t\t\t\t\t\t((1 << ((x & (block_size - 1)) + 1)) - 1));\n\t\
+    \treturn b ? res : x + 1 - res;\n\t}\n\tsize_t size() const { return N; }\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nclass SuccinctBitVector\
-    \ {\n\tstd::vector<bool> v;\n\tusing u8 = uint8_t;\n\tusing u16 = uint16_t;\n\t\
-    using u32 = uint32_t;\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr static\
-    \ u8 blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;  //\
-    \ log ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log N\
-    \ / 2 bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
-    \tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t // log\
-    \ N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\tstd::vector<u8>\
-    \ table;\t\t\t\t // log log N - 1: 4\n\n  public:\n\tSuccinctBitVector(const std::vector<bool>&\
+    \ {\n\tstd::vector<bool> v;\n\tusing u8 = uint_least8_t;\n\tusing u16 = uint_least16_t;\n\
+    \tusing u32 = uint_least32_t;\n\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr\
+    \ static u8 blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;\
+    \  // log ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log\
+    \ N / 2 bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
+    \n\tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t //\
+    \ log N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\n  public:\n\
+    \tSuccinctBitVector() = default;\n\tSuccinctBitVector(const std::vector<bool>&\
     \ vec) { init(vec); }\n\tvoid init(const std::vector<bool>& vec) {\n\t\tN = vec.size();\n\
     \t\tchunks.resize((N + chunk_size - 1) >> chunk_bit, 0);\n\t\tblocks.resize((N\
     \ + block_size - 1) >> blocks_bit, 0);\n\t\tblock_num.resize((N + block_size -\
-    \ 1) >> blocks_bit, 0);\n\t\ttable.resize(1 << block_size, 0);\n\t\trep(i, N)\
-    \ {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i >> chunk_bit]++;\n\t\t\t\tblocks[i\
-    \ >> blocks_bit]++;\n\t\t\t\tblock_num[i >> blocks_bit] |= 1 << (i & (block_size\
-    \ - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size() - 1) chunks[i + 1] += chunks[i];\n\
-    \t\trep(i, blocks.size() - 1) {\n\t\t\tif ((i & (blocks_in_chunk - 1)) != blocks_in_chunk\
-    \ - 1)\n\t\t\t\tblocks[i + 1] += blocks[i];\n\t\t}\n\t\trep(i, 1 << block_size)\
-    \ {\n\t\t\trep(j, block_size) {\n\t\t\t\tif (i & (1 << j)) table[i]++;\n\t\t\t\
-    }\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\t\tint res =\
-    \ 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] : 0;\n\t\tres\
-    \ += (x & ((1 << chunk_bit) - 1)) >= block_size\n\t\t\t\t   ? blocks[(x >> blocks_bit)\
-    \ - 1]\n\t\t\t\t   : 0;\n\t\tres += table[block_num[x >> blocks_bit] &\n\t\t\t\
-    \t\t ((1 << ((x & (block_size - 1)) + 1)) - 1)];\n\t\treturn b ? res : x + 1 -\
-    \ res;\n\t}\n\tsize_t size() const { return N; }\n};"
+    \ 1) >> blocks_bit, 0);\n\t\trep(i, N) {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i\
+    \ >> chunk_bit]++;\n\t\t\t\tblocks[i >> blocks_bit]++;\n\t\t\t\tblock_num[i >>\
+    \ blocks_bit] |= 1 << (i & (block_size - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size()\
+    \ - 1) chunks[i + 1] += chunks[i];\n\t\trep(i, blocks.size() - 1) {\n\t\t\tif\
+    \ ((i & (blocks_in_chunk - 1)) != blocks_in_chunk - 1)\n\t\t\t\tblocks[i + 1]\
+    \ += blocks[i];\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\
+    \t\tint res = 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] :\
+    \ 0;\n\t\tres += (x & (chunk_size - 1)) >= block_size\n\t\t\t\t   ? blocks[(x\
+    \ >> blocks_bit) - 1]\n\t\t\t\t   : 0;\n\t\tres += __builtin_popcount(block_num[x\
+    \ >> blocks_bit] &\n\t\t\t\t\t\t((1 << ((x & (block_size - 1)) + 1)) - 1));\n\t\
+    \treturn b ? res : x + 1 - res;\n\t}\n\tsize_t size() const { return N; }\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/SuccinctBitVector.hpp
   requiredBy:
   - data-structure/WaveletMatrix.hpp
-  timestamp: '2021-01-12 02:03:49+09:00'
+  timestamp: '2021-01-14 16:19:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_kth_smallest.test.cpp
