@@ -17,3 +17,7 @@ DynamicModInt arithmetic_lagrange_interpolation(
 	}
 	return res;
 }
+
+/**
+ * Lagrange Interpolation
+ */

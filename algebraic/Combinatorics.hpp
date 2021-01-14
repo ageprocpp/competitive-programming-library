@@ -1,6 +1,5 @@
 #pragma once
 #include "../other/template.hpp"
-#include "DynamicModInt.hpp"
 #include "StaticModInt.hpp"
 template <typename T>
 class Combinatorics {
@@ -22,8 +21,7 @@ class Combinatorics {
 	virtual T getDcomb(int a, int b) noexcept { return getComb(a + b - 1, b); }
 };
 template <typename T, typename std::enable_if_t<
-						  std::disjunction_v<std::is_template_with_non_type_of<StaticModInt, T>,
-											 std::is_same<DynamicModInt, T>>,
+						  std::is_template_with_non_type_of<StaticModInt, T>,
 						  std::nullptr_t> = nullptr>
 class ModCombinatorics : Combinatorics<T> {
 	using Combinatorics<T>::factorial;
@@ -53,6 +51,6 @@ class ModCombinatorics : Combinatorics<T> {
 	}
 };
 
-/*
+/**
  * @title Combinatorics/ModCombinatorics
-*/
+ */

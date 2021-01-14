@@ -76,3 +76,7 @@ class MyComplex {
 		return operator/=(MyComplex(rhs));
 	}
 };
+
+/**
+ * @title MyComplex
+ */

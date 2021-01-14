@@ -49,6 +49,7 @@ class FastFourierTransform {
 		return res;
 	}
 };
-/*
+
+/**
  * @title FastFourierTransform
  */

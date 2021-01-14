@@ -15,3 +15,7 @@ lint FloorSum(lint N, lint M, lint A, lint B) {
 	ans += FloorSum(ymax, A, M, (A - xmax % A) % A);
 	return ans;
 }
+
+/**
+ * @title FloorSum
+ */
