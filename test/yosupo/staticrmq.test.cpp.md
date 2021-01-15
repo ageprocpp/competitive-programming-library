@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: data-structure/SparseTable.hpp
-    title: data-structure/SparseTable.hpp
+    title: Sparse Table
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
@@ -96,11 +96,12 @@ data:
     \ vec;\n\t\twhile (first != last) {\n\t\t\tvec.emplace_back(*first);\n\t\t}\n\t\
     \tinit(vec);\n\t}\n\tU query(int l, int r) {\n\t\tint length = r - l;\n\t\treturn\
     \ std::min(table[logtable[length]][l],\n\t\t\t\t\t\ttable[logtable[length]][r\
-    \ - (1 << logtable[length])]);\n\t}\n};\n\n/**\n * Sparse Table\n */\n#line 4\
-    \ \"test/yosupo/staticrmq.test.cpp\"\nint n, q, l, r;\nstd::vector<int> vec;\n\
-    int main() {\n\tscanf(\"%d%d\", &n, &q);\n\tvec.resize(n);\n\trep(i, n) scanf(\"\
-    %d\", vec.data() + i);\n\tSparseTable<int> st(vec);\n\trep(i, q) {\n\t\tscanf(\"\
-    %d%d\", &l, &r);\n\t\tprintf(\"%d\\n\", st.query(l, r));\n\t}\n\treturn 0;\n}\n"
+    \ - (1 << logtable[length])]);\n\t}\n};\n\n/**\n * @title Sparse Table\n */\n\
+    #line 4 \"test/yosupo/staticrmq.test.cpp\"\nint n, q, l, r;\nstd::vector<int>\
+    \ vec;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tvec.resize(n);\n\trep(i, n)\
+    \ scanf(\"%d\", vec.data() + i);\n\tSparseTable<int> st(vec);\n\trep(i, q) {\n\
+    \t\tscanf(\"%d%d\", &l, &r);\n\t\tprintf(\"%d\\n\", st.query(l, r));\n\t}\n\t\
+    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/staticrmq\"\n#include \"\
     ../../data-structure/SparseTable.hpp\"\n#include \"../../other/template.hpp\"\n\
     int n, q, l, r;\nstd::vector<int> vec;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\
@@ -113,7 +114,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/staticrmq.test.cpp
   requiredBy: []
-  timestamp: '2021-01-15 16:46:23+09:00'
+  timestamp: '2021-01-15 17:46:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/staticrmq.test.cpp

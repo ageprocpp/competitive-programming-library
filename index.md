@@ -49,7 +49,7 @@ data:
       title: Randomized Binary Search Tree
     - icon: ':warning:'
       path: data-structure/RBSTset.hpp
-      title: data-structure/RBSTset.hpp
+      title: Set based on Randomized Binary Search Tree
     - icon: ':heavy_check_mark:'
       path: data-structure/SWAG.hpp
       title: Sliding Window Aggregation
@@ -61,7 +61,7 @@ data:
       title: Segment Tree Beats
     - icon: ':heavy_check_mark:'
       path: data-structure/SparseTable.hpp
-      title: data-structure/SparseTable.hpp
+      title: Sparse Table
     - icon: ':heavy_check_mark:'
       path: data-structure/SuccinctBitVector.hpp
       title: Succinct Bit Vector

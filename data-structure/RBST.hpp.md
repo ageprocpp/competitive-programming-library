@@ -7,7 +7,7 @@ data:
   _extendedRequiredBy:
   - icon: ':warning:'
     path: data-structure/RBSTset.hpp
-    title: data-structure/RBSTset.hpp
+    title: Set based on Randomized Binary Search Tree
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'

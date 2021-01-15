@@ -12,6 +12,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: Sparse Table
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
@@ -92,7 +93,7 @@ data:
     \ vec;\n\t\twhile (first != last) {\n\t\t\tvec.emplace_back(*first);\n\t\t}\n\t\
     \tinit(vec);\n\t}\n\tU query(int l, int r) {\n\t\tint length = r - l;\n\t\treturn\
     \ std::min(table[logtable[length]][l],\n\t\t\t\t\t\ttable[logtable[length]][r\
-    \ - (1 << logtable[length])]);\n\t}\n};\n\n/**\n * Sparse Table\n */\n"
+    \ - (1 << logtable[length])]);\n\t}\n};\n\n/**\n * @title Sparse Table\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, bool\
     \ withindex = false>\nclass SparseTable {\n\tusing U = std::conditional_t<withindex,\
     \ std::pair<T, int>, T>;\n\tstd::vector<std::vector<U>> table;\n\tstd::vector<int>\
@@ -115,13 +116,13 @@ data:
     \tvec.emplace_back(*first);\n\t\t}\n\t\tinit(vec);\n\t}\n\tU query(int l, int\
     \ r) {\n\t\tint length = r - l;\n\t\treturn std::min(table[logtable[length]][l],\n\
     \t\t\t\t\t\ttable[logtable[length]][r - (1 << logtable[length])]);\n\t}\n};\n\n\
-    /**\n * Sparse Table\n */"
+    /**\n * @title Sparse Table\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/SparseTable.hpp
   requiredBy: []
-  timestamp: '2021-01-15 16:46:23+09:00'
+  timestamp: '2021-01-15 17:46:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/staticrmq.test.cpp
@@ -130,5 +131,5 @@ layout: document
 redirect_from:
 - /library/data-structure/SparseTable.hpp
 - /library/data-structure/SparseTable.hpp.html
-title: data-structure/SparseTable.hpp
+title: Sparse Table
 ---

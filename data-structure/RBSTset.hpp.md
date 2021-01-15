@@ -12,6 +12,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: Set based on Randomized Binary Search Tree
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
@@ -125,8 +126,8 @@ data:
     \t}\n\tvoid insert(const T& val) { rbst.insert(rbst.lower_bound(val), val); }\n\
     \tvoid erase(const T& val) { rbst.erase(rbst.lower_bound(val)); }\n\tvoid clear()\
     \ { rbst.clear(); }\n\tint size() const { return rbst.size(); }\n\tbool empty()\
-    \ const { return rbst.empty(); }\n};\n\n/**\n * Set based on Randomized Binary\
-    \ Search Tree\n */\n"
+    \ const { return rbst.empty(); }\n};\n\n/**\n * @title Set based on Randomized\
+    \ Binary Search Tree\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"RBST.hpp\"\n\
     template <class T>\nclass RBSTset {\n\tRBST<int> rbst;\n\n  public:\n\tRBSTset()\
     \ {}\n\tconst T& quantile(int idx) const { return rbst.find(idx); }\n\tbool contains(const\
@@ -134,15 +135,15 @@ data:
     \t}\n\tvoid insert(const T& val) { rbst.insert(rbst.lower_bound(val), val); }\n\
     \tvoid erase(const T& val) { rbst.erase(rbst.lower_bound(val)); }\n\tvoid clear()\
     \ { rbst.clear(); }\n\tint size() const { return rbst.size(); }\n\tbool empty()\
-    \ const { return rbst.empty(); }\n};\n\n/**\n * Set based on Randomized Binary\
-    \ Search Tree\n */"
+    \ const { return rbst.empty(); }\n};\n\n/**\n * @title Set based on Randomized\
+    \ Binary Search Tree\n */"
   dependsOn:
   - other/template.hpp
   - data-structure/RBST.hpp
   isVerificationFile: false
   path: data-structure/RBSTset.hpp
   requiredBy: []
-  timestamp: '2021-01-15 16:46:23+09:00'
+  timestamp: '2021-01-15 17:46:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/RBSTset.hpp
@@ -150,5 +151,5 @@ layout: document
 redirect_from:
 - /library/data-structure/RBSTset.hpp
 - /library/data-structure/RBSTset.hpp.html
-title: data-structure/RBSTset.hpp
+title: Set based on Randomized Binary Search Tree
 ---
