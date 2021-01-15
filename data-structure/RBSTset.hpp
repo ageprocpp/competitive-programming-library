@@ -19,5 +19,5 @@ class RBSTset {
 };
 
 /**
- * Set based on Randomized Binary Search Tree
+ * @title Set based on Randomized Binary Search Tree
  */

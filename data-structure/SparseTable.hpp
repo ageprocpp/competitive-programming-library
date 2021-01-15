@@ -57,5 +57,5 @@ class SparseTable {
 };
 
 /**
- * Sparse Table
+ * @title Sparse Table
  */
