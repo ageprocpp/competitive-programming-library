@@ -3,16 +3,16 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
-    title: algebraic/StaticModInt.hpp
+    title: StaticModInt
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   - icon: ':heavy_check_mark:'
     path: string/HashedString.hpp
-    title: string/HashedString.hpp
+    title: Hash library for strings
   - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
-    title: string/RollingHash.hpp
+    title: Rolling hash
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
@@ -35,20 +35,21 @@ data:
     \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
     #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
     \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing uint = unsigned int; \nusing lint = long long;\nusing ulint = unsigned\
-    \ long long;\nusing P = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\
-    \nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
-    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
-    \nnamespace std {\n\ttemplate <template <class...> class Temp, class T>\n\tclass\
-    \ is_template_with_type_of : public std::false_type {};\n\ttemplate <template\
-    \ <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
-    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
-    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
-    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
-    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
-    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
-    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    using lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
+    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
+    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
+    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
+    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
+    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
+    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
+    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
+    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
+    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
@@ -114,25 +115,26 @@ data:
     \ T& rhs) const {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class\
     \ T>\n\tStaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
     \t}\n};\ntemplate <uint modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
-    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 4 \"string/RollingHash.hpp\"\
-    \ntemplate <unsigned int mod, unsigned int base>\nclass RollingHash {\n\tusing\
-    \ M = StaticModInt<mod>;\n\tstd::string s;\n\tint n;\n\tstd::vector<M> has, power;\n\
-    \n  public:\n\tRollingHash() {}\n\tRollingHash(const std::string& s) { init(s);\
-    \ }\n\tvoid init(const std::string& s) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\
-    \t\tpower.resize(n);\n\t\tthis->s = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\
-    \t\t\tif (i) {\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
-    \ - 1] * base;\n\t\t\t} else\n\t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M()\
-    \ const { return has.back(); }\n\tM substr(int l, size_t sz) const {\n\t\treturn\
-    \ has[l + sz - 1] - power[sz] * (!l ? M(0) : has[l - 1]);\n\t}\n\tM operator+(const\
-    \ std::string& t) const {\n\t\tRollingHash tmp(t);\n\t\tif (n == 0)\n\t\t\treturn\
-    \ tmp;\n\t\telse\n\t\t\treturn has.back() * mypow(M(base), t.size()) + tmp;\n\t\
-    }\n\tRollingHash& operator+=(const std::string& t) {\n\t\tif (n == 0) {\n\t\t\t\
-    *this = RollingHash(t, base);\n\t\t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n\
-    \ + t.size());\n\t\t\tpower.resize(n + t.size());\n\t\t\tfor (int i = n; i < n\
-    \ + t.size(); i++) {\n\t\t\t\thas[i] = t[i - n];\n\t\t\t\thas[i] += has[i - 1]\
-    \ * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\
-    \t\t}\n\t\treturn *this;\n\t}\n};\n#line 4 \"string/HashedString.hpp\"\nclass\
-    \ HashedString {\n\tusing M = StaticModInt<1000000007>;\n\tRollingHash<1000000007,\
+    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
+    \ */\n#line 4 \"string/RollingHash.hpp\"\ntemplate <unsigned int mod, unsigned\
+    \ int base>\nclass RollingHash {\n\tusing M = StaticModInt<mod>;\n\tstd::string\
+    \ s;\n\tint n;\n\tstd::vector<M> has, power;\n\n  public:\n\tRollingHash() {}\n\
+    \tRollingHash(const std::string& s) { init(s); }\n\tvoid init(const std::string&\
+    \ s) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\t\tpower.resize(n);\n\t\tthis->s\
+    \ = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\t\t\tif (i) {\n\t\t\t\thas[i]\
+    \ += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t} else\n\
+    \t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M() const { return has.back(); }\n\
+    \tM substr(int l, size_t sz) const {\n\t\treturn has[l + sz - 1] - power[sz] *\
+    \ (!l ? M(0) : has[l - 1]);\n\t}\n\tM operator+(const std::string& t) const {\n\
+    \t\tRollingHash tmp(t);\n\t\tif (n == 0)\n\t\t\treturn tmp;\n\t\telse\n\t\t\t\
+    return has.back() * mypow(M(base), t.size()) + tmp;\n\t}\n\tRollingHash& operator+=(const\
+    \ std::string& t) {\n\t\tif (n == 0) {\n\t\t\t*this = RollingHash(t, base);\n\t\
+    \t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n + t.size());\n\t\t\tpower.resize(n\
+    \ + t.size());\n\t\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\t\t\thas[i]\
+    \ = t[i - n];\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
+    \ - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n\
+    };\n\n/**\n * @title Rolling hash\n */\n#line 4 \"string/HashedString.hpp\"\n\
+    class HashedString {\n\tusing M = StaticModInt<1000000007>;\n\tRollingHash<1000000007,\
     \ 1007> rh1;\n\tRollingHash<1000000007, 10007> rh2;\n\n  public:\n\tHashedString()\
     \ {}\n\tHashedString(const std::string& s) { init(s); }\n\tvoid init(const std::string&\
     \ s) {\n\t\trh1.init(s);\n\t\trh2.init(s);\n\t}\n\tbool operator==(const HashedString&\
@@ -140,11 +142,12 @@ data:
     \toperator std::pair<M, M>() const { return {rh1, rh2}; }\n\tstd::pair<M, M> substr(int\
     \ l, size_t sz) const {\n\t\treturn {rh1.substr(l, sz), rh2.substr(l, sz)};\n\t\
     }\n\tstd::pair<M, M> operator+(const std::string t) const {\n\t\treturn {rh1 +\
-    \ t, rh2 + t};\n\t}\n};\n#line 4 \"test/aoj/ALDS1_14_B_HashedString.test.cpp\"\
-    \nstd::string t, p;\nint main() {\n\tstd::cin >> t >> p;\n\tif (t.size() < p.size())\
-    \ return 0;\n\tHashedString ht(t), hp(p);\n\trep(i, t.size() - p.size() + 1) {\n\
-    \t\tif (ht.substr(i, p.size()) == decltype(ht.substr(i, p.size()))(hp))\n\t\t\t\
-    printf(\"%d\\n\", i);\n\t}\n}\n"
+    \ t, rh2 + t};\n\t}\n};\n\n/**\n * @title Hash library for strings\n */\n#line\
+    \ 4 \"test/aoj/ALDS1_14_B_HashedString.test.cpp\"\nstd::string t, p;\nint main()\
+    \ {\n\tstd::cin >> t >> p;\n\tif (t.size() < p.size()) return 0;\n\tHashedString\
+    \ ht(t), hp(p);\n\trep(i, t.size() - p.size() + 1) {\n\t\tif (ht.substr(i, p.size())\
+    \ == decltype(ht.substr(i, p.size()))(hp))\n\t\t\tprintf(\"%d\\n\", i);\n\t}\n\
+    }\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B\"\n\
     #include \"../../other/template.hpp\"\n#include \"../../string/HashedString.hpp\"\
     \nstd::string t, p;\nint main() {\n\tstd::cin >> t >> p;\n\tif (t.size() < p.size())\
@@ -159,7 +162,7 @@ data:
   isVerificationFile: true
   path: test/aoj/ALDS1_14_B_HashedString.test.cpp
   requiredBy: []
-  timestamp: '2021-01-14 16:55:19+09:00'
+  timestamp: '2021-01-15 16:46:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ALDS1_14_B_HashedString.test.cpp

@@ -7,7 +7,7 @@ data:
   _extendedRequiredBy:
   - icon: ':warning:'
     path: graph/PersistentUnionFind.hpp
-    title: graph/PersistentUnionFind.hpp
+    title: Partially persistent disjoint set
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/unionfind.test.cpp
@@ -15,6 +15,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: Disjoint set
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
@@ -27,21 +28,21 @@ data:
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
     \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing uint = unsigned int;\
-    \ \nusing lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
-    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
-    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
-    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
-    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
-    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
-    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
-    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
-    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
+    using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
+    using ulint = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP =\
+    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
+    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
+    \ 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate <template <class...>\
+    \ class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
+    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
+    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
@@ -82,7 +83,8 @@ data:
     \ m) {\n\t\tn = find(n);\n\t\tm = find(m);\n\t\tif (n == m) return;\n\t\tint a\
     \ = n, b = m;\n\t\tif (size[a] > size[b]) std::swap(a, b);\n\t\tpar[a] = b;\n\t\
     \tsize[b] += size[a];\n\t}\n\tbool same(int n, int m) { return find(n) == find(m);\
-    \ }\n\tint getsize(int n) { return size[find(n)]; }\n};\n"
+    \ }\n\tint getsize(int n) { return size[find(n)]; }\n};\n\n/**\n * @title Disjoint\
+    \ set\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nclass UnionFind {\n  protected:\n\
     \tstd::vector<int> par, size;\n\n  public:\n\tUnionFind() {}\n\tUnionFind(int\
     \ size) { init(size); }\n\tvoid init(int size) {\n\t\tpar.resize(size);\n\t\t\
@@ -92,14 +94,14 @@ data:
     \ == m) return;\n\t\tint a = n, b = m;\n\t\tif (size[a] > size[b]) std::swap(a,\
     \ b);\n\t\tpar[a] = b;\n\t\tsize[b] += size[a];\n\t}\n\tbool same(int n, int m)\
     \ { return find(n) == find(m); }\n\tint getsize(int n) { return size[find(n)];\
-    \ }\n};"
+    \ }\n};\n\n/**\n * @title Disjoint set\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: graph/UnionFind.hpp
   requiredBy:
   - graph/PersistentUnionFind.hpp
-  timestamp: '2021-01-14 16:55:19+09:00'
+  timestamp: '2021-01-15 16:46:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/unionfind.test.cpp
@@ -108,5 +110,5 @@ layout: document
 redirect_from:
 - /library/graph/UnionFind.hpp
 - /library/graph/UnionFind.hpp.html
-title: graph/UnionFind.hpp
+title: Disjoint set
 ---

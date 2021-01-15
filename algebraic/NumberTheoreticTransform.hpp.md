@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
-    title: algebraic/StaticModInt.hpp
+    title: StaticModInt
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
@@ -15,6 +15,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: NumberTheoreticTransform
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
@@ -27,21 +28,21 @@ data:
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
     \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing uint = unsigned int;\
-    \ \nusing lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
-    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
-    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
-    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
-    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
-    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
-    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
-    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
-    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
+    using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
+    using ulint = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP =\
+    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
+    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
+    \ 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate <template <class...>\
+    \ class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
+    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
+    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
@@ -107,10 +108,11 @@ data:
     \ T& rhs) const {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class\
     \ T>\n\tStaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
     \t}\n};\ntemplate <uint modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
-    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n#line 4 \"algebraic/NumberTheoreticTransform.hpp\"\
-    \n// 1012924417,5,2^21\n// 924844033,5,2^21\n// 998244353,3,2^23\n// 1224736769,3,2^24\n\
-    // 167772161,3,2^25\n// 469762049,3,2^26\nclass NumberTheoreticTransform {\n \
-    \ private:\n\ttemplate <unsigned int modulo>\n\tstatic void ntt(std::vector<StaticModInt<modulo>>&\
+    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
+    \ */\n#line 4 \"algebraic/NumberTheoreticTransform.hpp\"\n// 1012924417,5,2^21\n\
+    // 924844033,5,2^21\n// 998244353,3,2^23\n// 1224736769,3,2^24\n// 167772161,3,2^25\n\
+    // 469762049,3,2^26\nclass NumberTheoreticTransform {\n  private:\n\ttemplate\
+    \ <unsigned int modulo>\n\tstatic void ntt(std::vector<StaticModInt<modulo>>&\
     \ a) {\n\t\tint sz = a.size();\n\t\tif (sz == 1) return;\n\t\tStaticModInt<modulo>\
     \ root =\n\t\t\tmodulo == 924844033 || modulo == 1012924417 ? 5 : 3;\n\t\tif (inverse)\n\
     \t\t\troot = mypow(root, modulo - 1 - (modulo - 1) / sz);\n\t\telse\n\t\t\troot\
@@ -136,7 +138,8 @@ data:
     \ g);\n\t\tstd::vector<StaticModInt<mod2>> mul2 = multiply(f, g, mod2);\n\t\t\
     std::vector<lint> res(mul1.size());\n\t\trep(i, mul1.size()) res[i] =\n\t\t\t\
     ChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\t\treturn res;\n\t}\n};\nbool\
-    \ NumberTheoreticTransform::inverse = false;\n"
+    \ NumberTheoreticTransform::inverse = false;\n\n/**\n * @title NumberTheoreticTransform\n\
+    \ */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"StaticModInt.hpp\"\
     \n// 1012924417,5,2^21\n// 924844033,5,2^21\n// 998244353,3,2^23\n// 1224736769,3,2^24\n\
     // 167772161,3,2^25\n// 469762049,3,2^26\nclass NumberTheoreticTransform {\n \
@@ -166,14 +169,15 @@ data:
     \ g);\n\t\tstd::vector<StaticModInt<mod2>> mul2 = multiply(f, g, mod2);\n\t\t\
     std::vector<lint> res(mul1.size());\n\t\trep(i, mul1.size()) res[i] =\n\t\t\t\
     ChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\t\treturn res;\n\t}\n};\nbool\
-    \ NumberTheoreticTransform::inverse = false;"
+    \ NumberTheoreticTransform::inverse = false;\n\n/**\n * @title NumberTheoreticTransform\n\
+    \ */"
   dependsOn:
   - other/template.hpp
   - algebraic/StaticModInt.hpp
   isVerificationFile: false
   path: algebraic/NumberTheoreticTransform.hpp
   requiredBy: []
-  timestamp: '2021-01-14 16:55:19+09:00'
+  timestamp: '2021-01-15 16:46:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution_mod.test.cpp
@@ -182,5 +186,5 @@ layout: document
 redirect_from:
 - /library/algebraic/NumberTheoreticTransform.hpp
 - /library/algebraic/NumberTheoreticTransform.hpp.html
-title: algebraic/NumberTheoreticTransform.hpp
+title: NumberTheoreticTransform
 ---

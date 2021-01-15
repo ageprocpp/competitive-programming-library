@@ -3,10 +3,10 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: data-structure/BIT.hpp
-    title: data-structure/BIT.hpp
+    title: Binary Indexed Tree
   - icon: ':heavy_check_mark:'
     path: graph/HeavyLightDecomposition.hpp
-    title: graph/HeavyLightDecomposition.hpp
+    title: Heavy light decomposition
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
@@ -32,20 +32,21 @@ data:
     \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
     #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
     \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing uint = unsigned int; \nusing lint = long long;\nusing ulint = unsigned\
-    \ long long;\nusing P = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\
-    \nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
-    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
-    \nnamespace std {\n\ttemplate <template <class...> class Temp, class T>\n\tclass\
-    \ is_template_with_type_of : public std::false_type {};\n\ttemplate <template\
-    \ <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
-    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
-    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
-    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
-    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
-    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
-    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    using lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
+    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
+    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
+    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
+    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
+    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
+    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
+    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
+    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
+    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
@@ -90,25 +91,25 @@ data:
     \t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n\tint upper_bound(T x) {\n\t\t\
     int p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile (k > 0) {\n\t\t\t\
     if (p + k <= n && bit[p + k] <= x) {\n\t\t\t\tx -= bit[p + k];\n\t\t\t\tp += k;\n\
-    \t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n};\n#line 3 \"graph/HeavyLightDecomposition.hpp\"\
-    \nclass HeavyLightDecomposition {\n\tint n, index = 0;\n\tvoid size_dfs(int node)\
-    \ {\n\t\tsize[node] = 1;\n\t\tfor (int& i : vec[node]) {\n\t\t\tif (par[node]\
-    \ == i) continue;\n\t\t\tpar[i] = node;\n\t\t\tsize_dfs(i);\n\t\t\tsize[node]\
-    \ += size[i];\n\t\t\tif (size[i] > size[vec[node][0]]) std::swap(i, vec[node][0]);\n\
-    \t\t}\n\t}\n\tvoid build_dfs(int node) {\n\t\tlabel[node] = index++;\n\t\tfor\
-    \ (int& i : vec[node]) {\n\t\t\tif (par[node] != i) {\n\t\t\t\thead[i] = (i ==\
-    \ vec[node][0] ? head[node] : i);\n\t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\t\
-    last[node] = index;\n\t}\n\n  public:\n\tstd::vector<std::vector<int>> vec;\n\t\
-    std::vector<int> size, par, head, label, last;\n\tHeavyLightDecomposition() {}\n\
-    \tHeavyLightDecomposition(int m) : n(m) { init(n); }\n\tvoid init(int m) {\n\t\
-    \tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\t\tpar.resize(n);\n\t\thead.resize(n);\n\
-    \t\tlabel.resize(n);\n\t\tlast.resize(n);\n\t}\n\tvoid add_edge(int u, int v)\
-    \ {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\t}\n\tvoid build(int\
-    \ root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\t\tbuild_dfs(root);\n\
-    \t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v, const F& func) const\
-    \ {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\
-    \tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u] +\
-    \ 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
+    \t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n};\n\n/**\n * @title Binary\
+    \ Indexed Tree\n */\n#line 3 \"graph/HeavyLightDecomposition.hpp\"\nclass HeavyLightDecomposition\
+    \ {\n\tint n, index = 0;\n\tvoid size_dfs(int node) {\n\t\tsize[node] = 1;\n\t\
+    \tfor (int& i : vec[node]) {\n\t\t\tif (par[node] == i) continue;\n\t\t\tpar[i]\
+    \ = node;\n\t\t\tsize_dfs(i);\n\t\t\tsize[node] += size[i];\n\t\t\tif (size[i]\
+    \ > size[vec[node][0]]) std::swap(i, vec[node][0]);\n\t\t}\n\t}\n\tvoid build_dfs(int\
+    \ node) {\n\t\tlabel[node] = index++;\n\t\tfor (int& i : vec[node]) {\n\t\t\t\
+    if (par[node] != i) {\n\t\t\t\thead[i] = (i == vec[node][0] ? head[node] : i);\n\
+    \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\
+    \tstd::vector<std::vector<int>> vec;\n\tstd::vector<int> size, par, head, label,\
+    \ last;\n\tHeavyLightDecomposition() {}\n\tHeavyLightDecomposition(int m) : n(m)\
+    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\
+    \t\tpar.resize(n);\n\t\thead.resize(n);\n\t\tlabel.resize(n);\n\t\tlast.resize(n);\n\
+    \t}\n\tvoid add_edge(int u, int v) {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\
+    \t}\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\
+    \t\tbuild_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
+    \ const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u,\
+    \ v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u]\
+    \ + 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
     \t\t\tv = par[head[v]];\n\t\t}\n\t}\n\ttemplate <class F>\n\tvoid each_vertex(int\
     \ u, int v, const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v])\
     \ std::swap(u, v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tfunc(label[u], label[v]);\n\
@@ -117,15 +118,15 @@ data:
     \ > label[v]) std::swap(u, v);\n\t\t\tif (head[u] == head[v]) return u;\n\t\t\t\
     v = par[head[v]];\n\t\t}\n\t}\n\tvoid clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\
     \t\tpar.clear();\n\t\thead.clear();\n\t\tlabel.clear();\n\t\tlast.clear();\n\t\
-    }\n};\n#line 5 \"test/yosupo/vertex_add_subtree_sum.test.cpp\"\nint n, q, a[500010];\n\
-    int main() {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i, n) scanf(\"%d\", a + i);\n\t\
-    HeavyLightDecomposition hld(n);\n\tBIT<lint> bit(n);\n\tREP(i, n - 1) {\n\t\t\
-    int p;\n\t\tscanf(\"%d\", &p);\n\t\thld.add_edge(i, p);\n\t}\n\thld.build(0);\n\
-    \trep(i, n) bit.add(hld.label[i], a[i]);\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"\
-    %d\", &t);\n\t\tif (t == 0) {\n\t\t\tint u, x;\n\t\t\tscanf(\"%d%d\", &u, &x);\n\
-    \t\t\tbit.add(hld.label[u], x);\n\t\t} else {\n\t\t\tint u;\n\t\t\tscanf(\"%d\"\
-    , &u);\n\t\t\tprintf(\"%lld\\n\", bit.query(hld.label[u], hld.last[u]));\n\t\t\
-    }\n\t}\n}\n"
+    }\n};\n\n/**\n * @title Heavy light decomposition\n */\n#line 5 \"test/yosupo/vertex_add_subtree_sum.test.cpp\"\
+    \nint n, q, a[500010];\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i, n)\
+    \ scanf(\"%d\", a + i);\n\tHeavyLightDecomposition hld(n);\n\tBIT<lint> bit(n);\n\
+    \tREP(i, n - 1) {\n\t\tint p;\n\t\tscanf(\"%d\", &p);\n\t\thld.add_edge(i, p);\n\
+    \t}\n\thld.build(0);\n\trep(i, n) bit.add(hld.label[i], a[i]);\n\trep(i, q) {\n\
+    \t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint u, x;\n\t\t\t\
+    scanf(\"%d%d\", &u, &x);\n\t\t\tbit.add(hld.label[u], x);\n\t\t} else {\n\t\t\t\
+    int u;\n\t\t\tscanf(\"%d\", &u);\n\t\t\tprintf(\"%lld\\n\", bit.query(hld.label[u],\
+    \ hld.last[u]));\n\t\t}\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_add_subtree_sum\"\
     \n#include \"../../data-structure/BIT.hpp\"\n#include \"../../graph/HeavyLightDecomposition.hpp\"\
     \n#include \"../../other/template.hpp\"\nint n, q, a[500010];\nint main() {\n\t\
@@ -143,7 +144,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/vertex_add_subtree_sum.test.cpp
   requiredBy: []
-  timestamp: '2021-01-14 16:55:19+09:00'
+  timestamp: '2021-01-15 16:46:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/vertex_add_subtree_sum.test.cpp

@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: graph/Dijkstra.hpp
-    title: graph/Dijkstra.hpp
+    title: Dijkstra's algorithm
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
@@ -29,20 +29,21 @@ data:
     \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
     #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
     \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing uint = unsigned int; \nusing lint = long long;\nusing ulint = unsigned\
-    \ long long;\nusing P = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\
-    \nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
-    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
-    \nnamespace std {\n\ttemplate <template <class...> class Temp, class T>\n\tclass\
-    \ is_template_with_type_of : public std::false_type {};\n\ttemplate <template\
-    \ <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
-    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
-    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
-    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
-    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
-    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
-    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    using lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
+    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
+    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
+    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
+    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
+    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
+    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
+    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
+    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
+    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
+    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
@@ -96,12 +97,13 @@ data:
     \t\t\t\t\thead = i.first;\n\t\t\t\t\tres.emplace_back(head);\n\t\t\t\t\tbreak;\n\
     \t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tstd::reverse(all(res));\n\t\treturn {dist[t], res};\n\
     \t}\n\tstd::vector<T> get_dists(int s) {\n\t\tstd::vector<T> dist;\n\t\texec(s,\
-    \ s, dist);\n\t\treturn dist;\n\t}\n};\n#line 4 \"test/yosupo/shortest_path.test.cpp\"\
-    \nint N, M, s, t, a, b, c;\nint main() {\n\tscanf(\"%d%d%d%d\", &N, &M, &s, &t);\n\
-    \tDijkstra<lint> d(N);\n\trep(i, M) {\n\t\tscanf(\"%d%d%d\", &a, &b, &c);\n\t\t\
-    d.add_edge(a, b, c);\n\t}\n\tauto res = d.get_dist_and_path(s, t);\n\tif (res.first\
-    \ == -1)\n\t\tputs(\"-1\");\n\telse {\n\t\tprintf(\"%lld %d\\n\", res.first, res.second.size()\
-    \ - 1);\n\t\trep(i, res.second.size() - 1) {\n\t\t\tprintf(\"%d %d\\n\", res.second[i],\
+    \ s, dist);\n\t\treturn dist;\n\t}\n};\n\n/**\n * @title Dijkstra's algorithm\n\
+    \ */\n#line 4 \"test/yosupo/shortest_path.test.cpp\"\nint N, M, s, t, a, b, c;\n\
+    int main() {\n\tscanf(\"%d%d%d%d\", &N, &M, &s, &t);\n\tDijkstra<lint> d(N);\n\
+    \trep(i, M) {\n\t\tscanf(\"%d%d%d\", &a, &b, &c);\n\t\td.add_edge(a, b, c);\n\t\
+    }\n\tauto res = d.get_dist_and_path(s, t);\n\tif (res.first == -1)\n\t\tputs(\"\
+    -1\");\n\telse {\n\t\tprintf(\"%lld %d\\n\", res.first, res.second.size() - 1);\n\
+    \t\trep(i, res.second.size() - 1) {\n\t\t\tprintf(\"%d %d\\n\", res.second[i],\
     \ res.second[i + 1]);\n\t\t}\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/shortest_path\"\n#include\
     \ \"../../graph/Dijkstra.hpp\"\n#include \"../../other/template.hpp\"\nint N,\
@@ -117,7 +119,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2021-01-14 16:55:19+09:00'
+  timestamp: '2021-01-15 16:46:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/shortest_path.test.cpp

@@ -5,6 +5,9 @@ data:
   - icon: ':warning:'
     path: algebraic/Combinatorics.hpp
     title: Combinatorics/ModCombinatorics
+  - icon: ':heavy_check_mark:'
+    path: algebraic/FastFactorize.hpp
+    title: FastFactorize
   - icon: ':warning:'
     path: algebraic/FastFourierTransform.hpp
     title: FastFourierTransform
@@ -16,100 +19,100 @@ data:
     title: MyComplex
   - icon: ':heavy_check_mark:'
     path: algebraic/NumberTheoreticTransform.hpp
-    title: algebraic/NumberTheoreticTransform.hpp
+    title: NumberTheoreticTransform
   - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
-    title: algebraic/StaticModInt.hpp
+    title: StaticModInt
   - icon: ':heavy_check_mark:'
     path: data-structure/BIT.hpp
-    title: data-structure/BIT.hpp
+    title: Binary Indexed Tree
   - icon: ':heavy_check_mark:'
     path: data-structure/ConvexHullTrick.hpp
-    title: data-structure/ConvexHullTrick.hpp
+    title: Convex Hull Trick
   - icon: ':heavy_check_mark:'
     path: data-structure/IntervalSegTree.hpp
-    title: data-structure/IntervalSegTree.hpp
+    title: Interval Segment Tree
   - icon: ':heavy_check_mark:'
     path: data-structure/LiChaoTree.hpp
-    title: data-structure/LiChaoTree.hpp
+    title: Li Chao Tree
   - icon: ':warning:'
     path: data-structure/MonotoneConvexHullTrick.hpp
-    title: data-structure/MonotoneConvexHullTrick.hpp
+    title: Convex Hull Trick for monotone queries
   - icon: ':warning:'
     path: data-structure/PersistentStack.hpp
-    title: data-structure/PersistentStack.hpp
+    title: Persistent Stack
   - icon: ':warning:'
     path: data-structure/RBST.hpp
-    title: data-structure/RBST.hpp
+    title: Randomized Binary Search Tree
   - icon: ':warning:'
     path: data-structure/RBSTset.hpp
     title: data-structure/RBSTset.hpp
   - icon: ':heavy_check_mark:'
     path: data-structure/SWAG.hpp
-    title: data-structure/SWAG.hpp
+    title: Sliding Window Aggregation
   - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
-    title: data-structure/SegTree.hpp
+    title: Segment Tree
   - icon: ':heavy_check_mark:'
     path: data-structure/SegTreeBeats.hpp
-    title: data-structure/SegTreeBeats.hpp
+    title: Segment Tree Beats
   - icon: ':heavy_check_mark:'
     path: data-structure/SparseTable.hpp
     title: data-structure/SparseTable.hpp
   - icon: ':heavy_check_mark:'
     path: data-structure/SuccinctBitVector.hpp
-    title: data-structure/SuccinctBitVector.hpp
+    title: Succinct Bit Vector
   - icon: ':heavy_check_mark:'
     path: data-structure/WaveletMatrix.hpp
-    title: data-structure/WaveletMatrix.hpp
+    title: Wavelet Matrix
   - icon: ':heavy_check_mark:'
     path: graph/Dijkstra.hpp
-    title: graph/Dijkstra.hpp
+    title: Dijkstra's algorithm
   - icon: ':heavy_check_mark:'
     path: graph/Dinic.hpp
-    title: graph/Dinic.hpp
+    title: Dinic's algorithm
   - icon: ':heavy_check_mark:'
     path: graph/FordFulkerson.hpp
-    title: graph/FordFulkerson.hpp
+    title: Ford-Fulkerson algorithm
   - icon: ':heavy_check_mark:'
     path: graph/HeavyLightDecomposition.hpp
-    title: graph/HeavyLightDecomposition.hpp
+    title: Heavy light decomposition
   - icon: ':warning:'
     path: graph/PersistentUnionFind.hpp
-    title: graph/PersistentUnionFind.hpp
+    title: Partially persistent disjoint set
   - icon: ':heavy_check_mark:'
     path: graph/PrimalDual.hpp
-    title: graph/PrimalDual.hpp
+    title: Primal-dual algorithm
   - icon: ':heavy_check_mark:'
     path: graph/StronglyConnectedComponents.hpp
-    title: graph/StronglyConnectedComponents.hpp
+    title: Strongly connected components
   - icon: ':heavy_check_mark:'
     path: graph/Tree.hpp
-    title: graph/Tree.hpp
+    title: Basic algorithms for tree
   - icon: ':heavy_check_mark:'
     path: graph/TwoSat.hpp
-    title: graph/TwoSat.hpp
+    title: Two-sat solver
   - icon: ':heavy_check_mark:'
     path: graph/UnionFind.hpp
-    title: graph/UnionFind.hpp
+    title: Disjoint set
   - icon: ':heavy_check_mark:'
     path: other/FastIO.hpp
-    title: other/FastIO.hpp
+    title: Fast IO library
   - icon: ':warning:'
     path: string/EerTree.hpp
-    title: string/EerTree.hpp
+    title: EerTree
   - icon: ':heavy_check_mark:'
     path: string/HashedString.hpp
-    title: string/HashedString.hpp
+    title: Hash library for strings
   - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
-    title: string/RollingHash.hpp
+    title: Rolling hash
   - icon: ':heavy_check_mark:'
     path: string/SuffixArray.hpp
-    title: string/SuffixArray.hpp
+    title: Suffix array
   - icon: ':heavy_check_mark:'
     path: string/Trie.hpp
-    title: string/Trie.hpp
+    title: Trie
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/ALDS1_14_B_HashedString.test.cpp
@@ -162,6 +165,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution_mod.test.cpp
     title: test/yosupo/convolution_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/factorize.test.cpp
+    title: test/yosupo/factorize.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/lca.test.cpp
     title: test/yosupo/lca.test.cpp
@@ -249,21 +255,21 @@ data:
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
     \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing uint = unsigned int;\
-    \ \nusing lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
-    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
-    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
-    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
-    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
-    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
-    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
-    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
-    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
+    using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
+    using ulint = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP =\
+    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
+    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
+    \ 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate <template <class...>\
+    \ class Temp, class T>\n\tclass is_template_with_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
+    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
+    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
@@ -308,21 +314,21 @@ data:
     \ <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n#include\
     \ <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i, n)\
     \ for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n);\
-    \ i++)\n#define all(V) V.begin(), V.end()\n\nusing uint = unsigned int; \nusing\
-    \ lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
-    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
-    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
-    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
-    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
-    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
-    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
-    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
-    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \ i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\nusing u128\
+    \ = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\nusing ulint\
+    \ = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP = std::pair<lint,\
+    \ lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX\
+    \ / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \nnamespace std {\n\ttemplate <template <class...> class Temp, class T>\n\tclass\
+    \ is_template_with_type_of : public std::false_type {};\n\ttemplate <template\
+    \ <class...> class Temp, class... Args>\n\tclass is_template_with_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n\ttemplate <template <auto...>\
+    \ class Temp, class T>\n\tclass is_template_with_non_type_of : public std::false_type\
+    \ {};\n\ttemplate <template <auto...> class Temp, auto... Args>\n\tclass is_template_with_non_type_of<Temp,\
+    \ Temp<Args...>>\n\t\t: public std::true_type {};\n};\t// namespace std\ntemplate\
+    \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
+    \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
     \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
@@ -392,11 +398,12 @@ data:
   - data-structure/MonotoneConvexHullTrick.hpp
   - algebraic/FastFourierTransform.hpp
   - algebraic/MyComplex.hpp
+  - algebraic/FastFactorize.hpp
   - algebraic/Combinatorics.hpp
   - algebraic/StaticModInt.hpp
   - algebraic/FloorSum.hpp
   - algebraic/NumberTheoreticTransform.hpp
-  timestamp: '2021-01-14 16:55:19+09:00'
+  timestamp: '2021-01-15 16:46:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
@@ -427,6 +434,7 @@ data:
   - test/yosupo/shortest_path.test.cpp
   - test/yosupo/segment_add_get_min.test.cpp
   - test/yosupo/lca.test.cpp
+  - test/yosupo/factorize.test.cpp
   - test/aoj/ALDS1_14_B_HashedString.test.cpp
   - test/aoj/DSL_2_A.test.cpp
   - test/aoj/GRL_6_A_FordFulkerson.test.cpp

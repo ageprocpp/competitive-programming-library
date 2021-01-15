@@ -6,6 +6,9 @@ data:
     - icon: ':warning:'
       path: algebraic/Combinatorics.hpp
       title: Combinatorics/ModCombinatorics
+    - icon: ':heavy_check_mark:'
+      path: algebraic/FastFactorize.hpp
+      title: FastFactorize
     - icon: ':warning:'
       path: algebraic/FastFourierTransform.hpp
       title: FastFourierTransform
@@ -17,91 +20,91 @@ data:
       title: MyComplex
     - icon: ':heavy_check_mark:'
       path: algebraic/NumberTheoreticTransform.hpp
-      title: algebraic/NumberTheoreticTransform.hpp
+      title: NumberTheoreticTransform
     - icon: ':heavy_check_mark:'
       path: algebraic/StaticModInt.hpp
-      title: algebraic/StaticModInt.hpp
+      title: StaticModInt
   - name: data-structure
     pages:
     - icon: ':heavy_check_mark:'
       path: data-structure/BIT.hpp
-      title: data-structure/BIT.hpp
+      title: Binary Indexed Tree
     - icon: ':heavy_check_mark:'
       path: data-structure/ConvexHullTrick.hpp
-      title: data-structure/ConvexHullTrick.hpp
+      title: Convex Hull Trick
     - icon: ':heavy_check_mark:'
       path: data-structure/IntervalSegTree.hpp
-      title: data-structure/IntervalSegTree.hpp
+      title: Interval Segment Tree
     - icon: ':heavy_check_mark:'
       path: data-structure/LiChaoTree.hpp
-      title: data-structure/LiChaoTree.hpp
+      title: Li Chao Tree
     - icon: ':warning:'
       path: data-structure/MonotoneConvexHullTrick.hpp
-      title: data-structure/MonotoneConvexHullTrick.hpp
+      title: Convex Hull Trick for monotone queries
     - icon: ':warning:'
       path: data-structure/PersistentStack.hpp
-      title: data-structure/PersistentStack.hpp
+      title: Persistent Stack
     - icon: ':warning:'
       path: data-structure/RBST.hpp
-      title: data-structure/RBST.hpp
+      title: Randomized Binary Search Tree
     - icon: ':warning:'
       path: data-structure/RBSTset.hpp
       title: data-structure/RBSTset.hpp
     - icon: ':heavy_check_mark:'
       path: data-structure/SWAG.hpp
-      title: data-structure/SWAG.hpp
+      title: Sliding Window Aggregation
     - icon: ':heavy_check_mark:'
       path: data-structure/SegTree.hpp
-      title: data-structure/SegTree.hpp
+      title: Segment Tree
     - icon: ':heavy_check_mark:'
       path: data-structure/SegTreeBeats.hpp
-      title: data-structure/SegTreeBeats.hpp
+      title: Segment Tree Beats
     - icon: ':heavy_check_mark:'
       path: data-structure/SparseTable.hpp
       title: data-structure/SparseTable.hpp
     - icon: ':heavy_check_mark:'
       path: data-structure/SuccinctBitVector.hpp
-      title: data-structure/SuccinctBitVector.hpp
+      title: Succinct Bit Vector
     - icon: ':heavy_check_mark:'
       path: data-structure/WaveletMatrix.hpp
-      title: data-structure/WaveletMatrix.hpp
+      title: Wavelet Matrix
   - name: graph
     pages:
     - icon: ':heavy_check_mark:'
       path: graph/Dijkstra.hpp
-      title: graph/Dijkstra.hpp
+      title: Dijkstra's algorithm
     - icon: ':heavy_check_mark:'
       path: graph/Dinic.hpp
-      title: graph/Dinic.hpp
+      title: Dinic's algorithm
     - icon: ':heavy_check_mark:'
       path: graph/FordFulkerson.hpp
-      title: graph/FordFulkerson.hpp
+      title: Ford-Fulkerson algorithm
     - icon: ':heavy_check_mark:'
       path: graph/HeavyLightDecomposition.hpp
-      title: graph/HeavyLightDecomposition.hpp
+      title: Heavy light decomposition
     - icon: ':warning:'
       path: graph/PersistentUnionFind.hpp
-      title: graph/PersistentUnionFind.hpp
+      title: Partially persistent disjoint set
     - icon: ':heavy_check_mark:'
       path: graph/PrimalDual.hpp
-      title: graph/PrimalDual.hpp
+      title: Primal-dual algorithm
     - icon: ':heavy_check_mark:'
       path: graph/StronglyConnectedComponents.hpp
-      title: graph/StronglyConnectedComponents.hpp
+      title: Strongly connected components
     - icon: ':heavy_check_mark:'
       path: graph/Tree.hpp
-      title: graph/Tree.hpp
+      title: Basic algorithms for tree
     - icon: ':heavy_check_mark:'
       path: graph/TwoSat.hpp
-      title: graph/TwoSat.hpp
+      title: Two-sat solver
     - icon: ':heavy_check_mark:'
       path: graph/UnionFind.hpp
-      title: graph/UnionFind.hpp
+      title: Disjoint set
   - name: other
     pages:
     - icon: ':heavy_check_mark:'
       path: other/FastIO.hpp
-      title: other/FastIO.hpp
+      title: Fast IO library
     - icon: ':heavy_check_mark:'
       path: other/template.hpp
       title: other/template.hpp
@@ -112,19 +115,19 @@ data:
     pages:
     - icon: ':warning:'
       path: string/EerTree.hpp
-      title: string/EerTree.hpp
+      title: EerTree
     - icon: ':heavy_check_mark:'
       path: string/HashedString.hpp
-      title: string/HashedString.hpp
+      title: Hash library for strings
     - icon: ':heavy_check_mark:'
       path: string/RollingHash.hpp
-      title: string/RollingHash.hpp
+      title: Rolling hash
     - icon: ':heavy_check_mark:'
       path: string/SuffixArray.hpp
-      title: string/SuffixArray.hpp
+      title: Suffix array
     - icon: ':heavy_check_mark:'
       path: string/Trie.hpp
-      title: string/Trie.hpp
+      title: Trie
   verificationCategories:
   - name: test/aoj
     pages:
@@ -181,6 +184,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/convolution_mod.test.cpp
       title: test/yosupo/convolution_mod.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/factorize.test.cpp
+      title: test/yosupo/factorize.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/lca.test.cpp
       title: test/yosupo/lca.test.cpp
