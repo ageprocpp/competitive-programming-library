@@ -148,3 +148,7 @@ class SuffixArray {
 	}
 	operator std::vector<int>() const { return SA; }
 };
+
+/**
+ * @title Suffix array
+ */

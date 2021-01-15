@@ -47,3 +47,7 @@ class PersistentUnionFind : UnionFind {
 		return (*ite).second;
 	}
 };
+
+/**
+ * @title Partially persistent disjoint set
+ */

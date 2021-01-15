@@ -26,3 +26,7 @@ class PersistentStack {
 		return false;
 	}
 };
+
+/**
+ * @title Persistent Stack
+ */

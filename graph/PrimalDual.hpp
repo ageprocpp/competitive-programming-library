@@ -118,3 +118,7 @@ class PrimalDual {
 		}
 	}
 };
+
+/**
+ * @title Primal-dual algorithm
+ */

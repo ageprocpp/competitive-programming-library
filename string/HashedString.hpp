@@ -24,3 +24,7 @@ class HashedString {
 		return {rh1 + t, rh2 + t};
 	}
 };
+
+/**
+ * @title Hash library for strings
+ */

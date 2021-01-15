@@ -55,3 +55,7 @@ class SparseTable {
 						table[logtable[length]][r - (1 << logtable[length])]);
 	}
 };
+
+/**
+ * Sparse Table
+ */

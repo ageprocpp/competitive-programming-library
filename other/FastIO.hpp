@@ -201,3 +201,7 @@ namespace FastIO {
 	};
 	const std::unique_ptr<char[]> Printer::block_str = Printer::precompute();
 };	// namespace FastIO
+
+/**
+ * @title Fast IO library
+ */

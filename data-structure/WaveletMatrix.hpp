@@ -83,3 +83,7 @@ class WaveletMatrix {
 		return res;
 	}
 };
+
+/**
+ * @title Wavelet Matrix
+ */

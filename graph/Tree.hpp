@@ -67,3 +67,7 @@ class Tree {
 		return {res, dist};
 	}
 };
+
+/**
+ * @title Basic algorithms for tree
+ */

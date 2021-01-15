@@ -40,3 +40,7 @@ class SWAG {
 	unsigned int size() const { return front.size() + back.size(); }
 	bool empty() const { return front.empty() && back.empty(); }
 };
+
+/**
+ * @title Sliding Window Aggregation
+ */

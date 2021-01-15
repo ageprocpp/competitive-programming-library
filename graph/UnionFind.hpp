@@ -28,3 +28,7 @@ class UnionFind {
 	bool same(int n, int m) { return find(n) == find(m); }
 	int getsize(int n) { return size[find(n)]; }
 };
+
+/**
+ * @title Disjoint set
+ */

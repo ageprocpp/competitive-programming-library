@@ -87,3 +87,7 @@ class BinaryTrie : public Trie<2, '0'> {
 		return res;
 	}
 };
+
+/**
+ * @title Trie
+ */

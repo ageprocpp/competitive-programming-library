@@ -83,3 +83,7 @@ class Dinic {
 		return res;
 	}
 };
+
+/**
+ * @title Dinic's algorithm
+ */

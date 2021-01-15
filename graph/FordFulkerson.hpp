@@ -64,3 +64,7 @@ class FordFulkerson {
 		return res;
 	}
 };
+
+/**
+ * @title Ford-Fulkerson algorithm
+ */

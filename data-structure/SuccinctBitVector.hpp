@@ -50,3 +50,7 @@ class SuccinctBitVector {
 	}
 	size_t size() const { return N; }
 };
+
+/**
+ * @title Succinct Bit Vector
+ */

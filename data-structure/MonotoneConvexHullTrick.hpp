@@ -80,3 +80,7 @@ class MonotoneConvexHullTrick {
 		index = 0;
 	}
 };
+
+/**
+ * @title Convex Hull Trick for monotone queries
+ */

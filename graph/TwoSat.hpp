@@ -22,3 +22,7 @@ class TwoSat {
 	}
 	std::vector<int> answer() { return ans; }
 };
+
+/**
+ * @title Two-sat solver
+ */

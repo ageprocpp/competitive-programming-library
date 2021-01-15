@@ -171,3 +171,7 @@ class SegTreeBeats {
 		return std::max(vl, vr);
 	}
 };
+
+/**
+ * @title Segment Tree Beats
+ */

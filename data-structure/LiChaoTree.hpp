@@ -103,3 +103,7 @@ class LiChaoTree {
 		node.assign(2 * n, {{0, LINF}, -1});
 	}
 };
+
+/**
+ * @title Li Chao Tree
+ */

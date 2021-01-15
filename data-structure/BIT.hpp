@@ -51,3 +51,7 @@ class BIT {
 		return p;
 	}
 };
+
+/**
+ * @title Binary Indexed Tree
+ */

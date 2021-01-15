@@ -17,3 +17,7 @@ class RBSTset {
 	int size() const { return rbst.size(); }
 	bool empty() const { return rbst.empty(); }
 };
+
+/**
+ * Set based on Randomized Binary Search Tree
+ */

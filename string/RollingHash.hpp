@@ -53,3 +53,7 @@ class RollingHash {
 		return *this;
 	}
 };
+
+/**
+ * @title Rolling hash
+ */

@@ -52,3 +52,7 @@ class StronglyConnectedComponents {
 		return res;
 	}
 };
+
+/**
+ * @title Strongly connected components
+ */

@@ -251,3 +251,7 @@ class RUQRMaQ : public IntervalSegTree<lint, lint, RUQRMaQ_nodef, RUQRMaQ_lazyf,
 	template <class... Args>
 	RUQRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}
 };
+
+/**
+ * @title Interval Segment Tree
+ */

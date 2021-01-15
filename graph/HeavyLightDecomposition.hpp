@@ -86,3 +86,7 @@ class HeavyLightDecomposition {
 		last.clear();
 	}
 };
+
+/**
+ * @title Heavy light decomposition
+ */

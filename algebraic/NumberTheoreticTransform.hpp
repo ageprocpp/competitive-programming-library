@@ -73,3 +73,7 @@ class NumberTheoreticTransform {
 	}
 };
 bool NumberTheoreticTransform::inverse = false;
+
+/**
+ * @title NumberTheoreticTransform
+ */

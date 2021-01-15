@@ -63,3 +63,7 @@ class EerTree {
 		return res;
 	}
 };
+
+/**
+ * @title EerTree
+ */

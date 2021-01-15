@@ -40,7 +40,9 @@
 #define REP(i, n) for (int i = 1; i <= int(n); i++)
 #define all(V) V.begin(), V.end()
 
-using uint = unsigned int; 
+using i128 = __int128_t;
+using u128 = __uint128_t;
+using uint = unsigned int;
 using lint = long long;
 using ulint = unsigned long long;
 using P = std::pair<int, int>;

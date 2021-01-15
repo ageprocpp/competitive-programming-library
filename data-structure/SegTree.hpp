@@ -120,3 +120,7 @@ class RMaQ : public SegTree<lint, RMaQ_nodef> {
 	template <class... Args>
 	RMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}
 };
+
+/**
+ * @title Segment Tree
+ */

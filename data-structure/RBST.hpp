@@ -128,3 +128,7 @@ class RBST {
 	int size() const { return empty() ? 0 : root->size; }
 	bool empty() const { return !root; }
 };
+
+/**
+ * @title Randomized Binary Search Tree
+ */

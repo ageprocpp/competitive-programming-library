@@ -97,3 +97,7 @@ std::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x) {
 	x = a;
 	return ist;
 }
+
+/**
+ * @title StaticModInt
+ */

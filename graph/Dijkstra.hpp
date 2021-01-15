@@ -58,3 +58,7 @@ class Dijkstra {
 		return dist;
 	}
 };
+
+/**
+ * @title Dijkstra's algorithm
+ */
