@@ -2,6 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: algebraic/NumberTheoreticTransform.hpp
+    title: NumberTheoreticTransform
+  - icon: ':heavy_check_mark:'
+    path: algebraic/StaticModInt.hpp
+    title: StaticModInt
+  - icon: ':heavy_check_mark:'
     path: other/FastIO.hpp
     title: Fast IO library
   - icon: ':heavy_check_mark:'
@@ -13,11 +19,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/many_aplusb
+    PROBLEM: https://judge.yosupo.jp/problem/convolution_mod_1000000007
     links:
-    - https://judge.yosupo.jp/problem/many_aplusb
-  bundledCode: "#line 1 \"test/yosupo/many_aplusb.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/many_aplusb\"\
-    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n\
+    - https://judge.yosupo.jp/problem/convolution_mod_1000000007
+  bundledCode: "#line 1 \"test/yosupo/convolution_mod_1000000007.test.cpp\"\n#define\
+    \ PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod_1000000007\"\n#line\
+    \ 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n\
     #pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"avx2\")\n#endif\n\
     #pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#include\
     \ <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n#include\
@@ -147,28 +154,117 @@ data:
     n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const T& x) {\n\
     \t\t\tprint(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]>\
     \ Printer::block_str = Printer::precompute();\n};\t// namespace FastIO\n\n/**\n\
-    \ * @title Fast IO library\n */\n#line 4 \"test/yosupo/many_aplusb.test.cpp\"\n\
-    FastIO::Scanner cin;\nFastIO::Printer cout;\nint main() {\n\tlint t, a, b;\n\t\
-    cin >> t;\n\twhile (t--) {\n\t\tcin >> a >> b;\n\t\tcout << a + b << '\\n';\n\t\
-    }\n\treturn 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/many_aplusb\"\n#include\
-    \ \"../../other/template.hpp\"\n#include \"../../other/FastIO.hpp\"\nFastIO::Scanner\
-    \ cin;\nFastIO::Printer cout;\nint main() {\n\tlint t, a, b;\n\tcin >> t;\n\t\
-    while (t--) {\n\t\tcin >> a >> b;\n\t\tcout << a + b << '\\n';\n\t}\n\treturn\
-    \ 0;\n}"
+    \ * @title Fast IO library\n */\n#line 3 \"algebraic/StaticModInt.hpp\"\ntemplate\
+    \ <uint modulo>\nclass StaticModInt {\n\tstd::conditional_t<(modulo > INT_MAX\
+    \ >> 1), lint, int> value;\n\n  public:\n\tstatic constexpr uint mod_value = modulo;\n\
+    \tconstexpr StaticModInt() : value(0) {}\n\ttemplate <class T, std::enable_if_t<!std::is_convertible_v<T,\
+    \ StaticModInt>,\n\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tconstexpr\
+    \ StaticModInt(T value = 0) : value(value) {\n\t\tthis->value =\n\t\t\t(value\
+    \ < 0 ? -(-value % modulo) + modulo : lint(value)) % modulo;\n\t}\n\tinline constexpr\
+    \ StaticModInt inv() const {\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline\
+    \ constexpr operator int() const { return value; }\n\tinline constexpr StaticModInt&\
+    \ operator+=(const StaticModInt& x) {\n\t\tvalue = value + x.value;\n\t\tif (value\
+    \ >= modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator++() {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\
+    \t\tvalue++;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator++(int)\
+    \ {\n\t\tStaticModInt res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline\
+    \ constexpr StaticModInt operator-() const {\n\t\treturn StaticModInt(0) -= *this;\n\
+    \t}\n\tinline constexpr StaticModInt& operator-=(const StaticModInt& x) {\n\t\t\
+    value -= x.value;\n\t\tif (value < 0) value += modulo;\n\t\treturn *this;\n\t\
+    }\n\tinline constexpr StaticModInt& operator--() {\n\t\tif (value == 0)\n\t\t\t\
+    value = modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline\
+    \ constexpr StaticModInt operator--(int) {\n\t\tStaticModInt res = *this;\n\t\t\
+    --*this;\n\t\treturn res;\n\t}\n\tinline constexpr StaticModInt& operator*=(const\
+    \ StaticModInt& x) {\n\t\tvalue = (lint)value * x.value % modulo;\n\t\treturn\
+    \ *this;\n\t}\n\tinline constexpr StaticModInt& operator/=(const StaticModInt&\
+    \ rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt operator+(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ += rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator+=(const\
+    \ T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
+    \ T>\n\tconstexpr StaticModInt operator-(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ -= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator-=(const\
+    \ T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
+    \ T>\n\tconstexpr StaticModInt operator*(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ *= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator*=(const\
+    \ T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
+    \ T>\n\tconstexpr StaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
+    \ /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator/=(const\
+    \ T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint\
+    \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
+    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
+    \ */\n#line 4 \"algebraic/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n\
+    // 924844033, 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769, 3, 2^24\n// 167772161,\
+    \ 3, 2^25\n// 469762049, 3, 2^26\nclass NumberTheoreticTransform {\n\tstatic constexpr\
+    \ uint bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t1224736769,\
+    \ 167772161, 469762049};\n\n  private:\n\ttemplate <unsigned int modulo>\n\tstatic\
+    \ void ntt(std::vector<StaticModInt<modulo>>& a) {\n\t\tint sz = a.size();\n\t\
+    \tif (sz == 1) return;\n\t\tStaticModInt<modulo> root =\n\t\t\tmodulo == 924844033\
+    \ || modulo == 1012924417 ? 5 : 3;\n\t\tif (inverse)\n\t\t\troot = mypow(root,\
+    \ modulo - 1 - (modulo - 1) / sz);\n\t\telse\n\t\t\troot = mypow(root, (modulo\
+    \ - 1) / sz);\n\t\tstd::vector<StaticModInt<modulo>> b(sz), roots((sz >> 1) +\
+    \ 1, 1);\n\t\trep(i, sz >> 1) roots[i + 1] = roots[i] * root;\n\t\tfor (int i\
+    \ = sz >> 1, w = 1; w < sz; i >>= 1, w <<= 1) {\n\t\t\tfor (int j = 0; j < i;\
+    \ j++) {\n\t\t\t\tfor (int k = 0; k < w; k++) {\n\t\t\t\t\tb[k + ((w * j) << 1)]\
+    \ =\n\t\t\t\t\t\ta[k + w * j] + a[k + w * j + (sz >> 1)];\n\t\t\t\t\tb[k + ((w\
+    \ * j) << 1) + w] =\n\t\t\t\t\t\troots[w * j] *\n\t\t\t\t\t\t(a[k + w * j] - a[k\
+    \ + w * j + (sz >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a, b);\n\t\t}\n\t\
+    }\n\ttemplate <uint modulo, typename T>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ internal_multiply(\n\t\tconst std::vector<T>& f, const std::vector<T>& g) {\n\
+    \t\tstd::vector<StaticModInt<modulo>> nf(f.size()), ng(g.size());\n\t\trep(j,\
+    \ f.size()) nf[j] = f[j];\n\t\trep(j, g.size()) ng[j] = g[j];\n\t\tinverse = false;\n\
+    \t\tntt(nf);\n\t\tntt(ng);\n\t\trep(i, nf.size()) nf[i] *= ng[i];\n\t\tinverse\
+    \ = true;\n\t\tntt(nf);\n\t\tStaticModInt<modulo> inv = StaticModInt<modulo>(nf.size()).inv();\n\
+    \t\trep(i, nf.size()) nf[i] *= inv;\n\t\treturn nf;\n\t}\n\n  public:\n\tstatic\
+    \ bool inverse;\n\n\ttemplate <uint modulo, typename T>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ multiply(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\t\t\t  std::vector<T> g) {\n\
+    \t\tsize_t sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz <<= 1;\n\t\tf.resize(sz);\n\
+    \t\tg.resize(sz);\n\t\trep(i, 6) {\n\t\t\tif (modulo == bases[i]) return internal_multiply<modulo>(f,\
+    \ g);\n\t\t}\n\t\tconstexpr uint base1 = 998244353, base2 = 1224736769, base3\
+    \ = 469762049;\n\t\tauto re1 = internal_multiply<base1>(f, g);\n\t\tauto re2 =\
+    \ internal_multiply<base2>(f, g);\n\t\tauto re3 = internal_multiply<base3>(f,\
+    \ g);\n\t\tstd::vector<StaticModInt<modulo>> res(re1.size());\n\t\tconstexpr int\
+    \ r12 = StaticModInt<base2>(base1).inv();\n\t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\
+    \t\tconstexpr int r23 = StaticModInt<base3>(base2).inv();\n\t\tconstexpr int p12\
+    \ = StaticModInt<modulo>(base1) * base2;\n\t\trep(i, re1.size()) {\n\t\t\tre2[i]\
+    \ = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i] =\n\t\t\t\t(StaticModInt<base3>(re3[i]\
+    \ - re1[i]) * r13 - re2[i]) * r23;\n\t\t\tres[i] = (StaticModInt<modulo>(re1[i])\
+    \ +\n\t\t\t\t\t  StaticModInt<modulo>(re2[i]) * base1 +\n\t\t\t\t\t  StaticModInt<modulo>(re3[i])\
+    \ * base1 * base2);\n\t\t}\n\t\treturn res;\n\t}\n\ttemplate <class T>\n\tstatic\
+    \ std::vector<lint> multiply_plain(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\tstd::vector<T>\
+    \ g) {\n\t\tconst uint mod1 = 998244353, mod2 = 1224736769;\n\t\tstd::vector<StaticModInt<mod1>>\
+    \ mul1 = internal_multiply<mod1>(f, g);\n\t\tstd::vector<StaticModInt<mod2>> mul2\
+    \ = internal_multiply<mod2>(f, g);\n\t\tstd::vector<lint> res(mul1.size());\n\t\
+    \trep(i, mul1.size()) res[i] =\n\t\t\tChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\
+    \t\treturn res;\n\t}\n};\nbool NumberTheoreticTransform::inverse = false;\n\n\
+    /**\n * @title NumberTheoreticTransform\n */\n#line 5 \"test/yosupo/convolution_mod_1000000007.test.cpp\"\
+    \nFastIO::Scanner cin;\nFastIO::Printer cout;\nint N, M;\nstd::vector<int> a,\
+    \ b;\nint main() {\n\tcin >> N >> M;\n\ta.resize(N);\n\tb.resize(M);\n\trep(i,\
+    \ N) cin >> a[i];\n\trep(i, M) cin >> b[i];\n\tauto res = NumberTheoreticTransform::multiply<1000000007>(a,\
+    \ b);\n\trep(i, N + M - 2) cout << (int)res[i] << ' ';\n\tcout << (int)res[N +\
+    \ M - 2] << '\\n';\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod_1000000007\"\
+    \n#include \"../../other/template.hpp\"\n#include \"../../other/FastIO.hpp\"\n\
+    #include \"../../algebraic/NumberTheoreticTransform.hpp\"\nFastIO::Scanner cin;\n\
+    FastIO::Printer cout;\nint N, M;\nstd::vector<int> a, b;\nint main() {\n\tcin\
+    \ >> N >> M;\n\ta.resize(N);\n\tb.resize(M);\n\trep(i, N) cin >> a[i];\n\trep(i,\
+    \ M) cin >> b[i];\n\tauto res = NumberTheoreticTransform::multiply<1000000007>(a,\
+    \ b);\n\trep(i, N + M - 2) cout << (int)res[i] << ' ';\n\tcout << (int)res[N +\
+    \ M - 2] << '\\n';\n}"
   dependsOn:
   - other/template.hpp
   - other/FastIO.hpp
+  - algebraic/NumberTheoreticTransform.hpp
+  - algebraic/StaticModInt.hpp
   isVerificationFile: true
-  path: test/yosupo/many_aplusb.test.cpp
+  path: test/yosupo/convolution_mod_1000000007.test.cpp
   requiredBy: []
   timestamp: '2021-01-16 15:12:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/yosupo/many_aplusb.test.cpp
+documentation_of: test/yosupo/convolution_mod_1000000007.test.cpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/many_aplusb.test.cpp
-- /verify/test/yosupo/many_aplusb.test.cpp.html
-title: test/yosupo/many_aplusb.test.cpp
+- /verify/test/yosupo/convolution_mod_1000000007.test.cpp
+- /verify/test/yosupo/convolution_mod_1000000007.test.cpp.html
+title: test/yosupo/convolution_mod_1000000007.test.cpp
 ---

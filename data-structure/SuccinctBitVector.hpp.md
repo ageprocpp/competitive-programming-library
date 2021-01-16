@@ -43,58 +43,59 @@ data:
     \ <class T>\nclass prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
     \ {\n};\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f)\
     \ {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
-    \t};\n}\ntemplate <class T>\nstd::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
-    }\ntemplate <class T, class... Args>\nauto make_vec(size_t n, Args&&... args)\
-    \ {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
-    }\ntemplate <class T, class U>\ninline bool chmax(T& lhs, const U& rhs) {\n\t\
-    if (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\n\
-    template <class T, class U>\ninline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs\
-    \ > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ninline\
+    \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
+    return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
+    \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
+    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class\
+    \ U>\nconstexpr inline bool chmax(T& lhs, const U& rhs) {\n\tif (lhs < rhs) {\n\
+    \t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate <class T,\
+    \ class U>\nconstexpr inline bool chmin(T& lhs, const U& rhs) {\n\tif (lhs > rhs)\
+    \ {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\nconstexpr inline\
     \ lint gcd(lint a, lint b) {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\t\
     b = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) { return a /\
-    \ gcd(a, b) * b; }\nbool isprime(lint n) {\n\tif (n == 1) return false;\n\tfor\
-    \ (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn\
-    \ true;\n}\ntemplate <class T>\nT mypow(T a, lint b) {\n\tT res(1);\n\twhile (true)\
-    \ {\n\t\tif (b & 1) res *= a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\t\ta *= a;\n\
-    \t}\n\treturn res;\n}\nlint modpow(lint a, lint b, lint m) {\n\ta %= m;\n\tlint\
-    \ res(1);\n\twhile (b) {\n\t\tif (b & 1) {\n\t\t\tres *= a;\n\t\t\tres %= m;\n\
-    \t\t}\n\t\ta *= a;\n\t\ta %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate\
-    \ <class T>\nvoid printArray(const std::vector<T>& vec, char split = ' ') {\n\t\
-    rep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i == (int)vec.size()\
-    \ - 1 ? '\\n' : split);\n\t}\n}\ntemplate <class T>\nvoid printArray(T l, T r,\
-    \ char split = ' ') {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r; i++)\
-    \ {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev ? '\\n' : split);\n\t\
-    }\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b,\
-    \ a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b * s.first;\n\t\
-    return s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const\
-    \ lint& m2) {\n\tlint p = extGcd(m1, m2).first;\n\tlint tmp = (b2 - b1) * p %\
-    \ m2;\n\tlint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);\n\treturn std::make_pair(r,\
-    \ m1 * m2);\n}\nint LCS(const std::string& a, const std::string& b) {\n\tauto\
-    \ dp = make_vec<int>(a.size() + 1, b.size() + 1);\n\trep(i, a.size()) {\n\t\t\
-    rep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j\
-    \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
-    \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
-    \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
-    }\n#line 3 \"data-structure/SuccinctBitVector.hpp\"\nclass SuccinctBitVector {\n\
-    \tstd::vector<bool> v;\n\tusing u8 = uint_least8_t;\n\tusing u16 = uint_least16_t;\n\
-    \tusing u32 = uint_least32_t;\n\n\tconstexpr static u8 chunk_bit = 10;\n\tconstexpr\
-    \ static u8 blocks_bit = 4;\n\tconstexpr static u16 chunk_size = 1 << chunk_bit;\
-    \  // log ^ 2 N bit\n\tconstexpr static u8 block_size = 1 << blocks_bit;  // log\
-    \ N / 2 bit\n\tconstexpr static u8 blocks_in_chunk = 1 << (chunk_bit - blocks_bit);\n\
-    \n\tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\tstd::vector<u32> chunks;\t\t\t //\
-    \ log N: 32\n\tstd::vector<u16> blocks, block_num;\t // 2 log log N: 10\n\n  public:\n\
-    \tSuccinctBitVector() = default;\n\tSuccinctBitVector(const std::vector<bool>&\
-    \ vec) { init(vec); }\n\tvoid init(const std::vector<bool>& vec) {\n\t\tN = vec.size();\n\
-    \t\tchunks.resize((N + chunk_size - 1) >> chunk_bit, 0);\n\t\tblocks.resize((N\
-    \ + block_size - 1) >> blocks_bit, 0);\n\t\tblock_num.resize((N + block_size -\
-    \ 1) >> blocks_bit, 0);\n\t\trep(i, N) {\n\t\t\tif (vec[i]) {\n\t\t\t\tchunks[i\
-    \ >> chunk_bit]++;\n\t\t\t\tblocks[i >> blocks_bit]++;\n\t\t\t\tblock_num[i >>\
-    \ blocks_bit] |= 1 << (i & (block_size - 1));\n\t\t\t}\n\t\t}\n\t\trep(i, chunks.size()\
-    \ - 1) chunks[i + 1] += chunks[i];\n\t\trep(i, blocks.size() - 1) {\n\t\t\tif\
-    \ ((i & (blocks_in_chunk - 1)) != blocks_in_chunk - 1)\n\t\t\t\tblocks[i + 1]\
-    \ += blocks[i];\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int x) const {\n\
-    \t\tint res = 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit) - 1] :\
-    \ 0;\n\t\tres += (x & (chunk_size - 1)) >= block_size\n\t\t\t\t   ? blocks[(x\
+    \ gcd(a, b) * b; }\nconstexpr bool isprime(lint n) {\n\tif (n == 1) return false;\n\
+    \tfor (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\
+    \treturn true;\n}\ntemplate <class T>\nconstexpr T mypow(T a, lint b) {\n\tT res(1);\n\
+    \twhile (true) {\n\t\tif (b & 1) res *= a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\
+    \t\ta *= a;\n\t}\n\treturn res;\n}\nconstexpr lint modpow(lint a, lint b, lint\
+    \ m) {\n\ta %= m;\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) {\n\t\t\tres\
+    \ *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\ta %= m;\n\t\tb >>= 1;\n\t}\n\
+    \treturn res;\n}\ntemplate <class T>\nconstexpr void printArray(const std::vector<T>&\
+    \ vec, char split = ' ') {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\
+    \t\tstd::cout << (i == (int)vec.size() - 1 ? '\\n' : split);\n\t}\n}\ntemplate\
+    \ <class T>\nconstexpr void printArray(T l, T r, char split = ' ') {\n\tT rprev\
+    \ = std::prev(r);\n\tfor (T i = l; i != r; i++) {\n\t\tstd::cout << *i;\n\t\t\
+    std::cout << (i == rprev ? '\\n' : split);\n\t}\n}\nconstexpr LP extGcd(lint a,\
+    \ lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first,\
+    \ s.second);\n\ts.second -= a / b * s.first;\n\treturn s;\n}\nconstexpr LP ChineseRem(const\
+    \ lint& b1, const lint& m1, const lint& b2, const lint& m2) {\n\tlint p = extGcd(m1,\
+    \ m2).first;\n\tlint tmp = (b2 - b1) * p % m2;\n\tlint r = (b1 + m1 * tmp + m1\
+    \ * m2) % (m1 * m2);\n\treturn std::make_pair(r, m1 * m2);\n}\nint LCS(const std::string&\
+    \ a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size() + 1, b.size()\
+    \ + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j],\
+    \ dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i\
+    \ + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\
+    \t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn\
+    \ dp[a.size()][b.size()];\n}\n#line 3 \"data-structure/SuccinctBitVector.hpp\"\
+    \nclass SuccinctBitVector {\n\tstd::vector<bool> v;\n\tusing u8 = uint_least8_t;\n\
+    \tusing u16 = uint_least16_t;\n\tusing u32 = uint_least32_t;\n\n\tconstexpr static\
+    \ u8 chunk_bit = 10;\n\tconstexpr static u8 blocks_bit = 4;\n\tconstexpr static\
+    \ u16 chunk_size = 1 << chunk_bit;  // log ^ 2 N bit\n\tconstexpr static u8 block_size\
+    \ = 1 << blocks_bit;  // log N / 2 bit\n\tconstexpr static u8 blocks_in_chunk\
+    \ = 1 << (chunk_bit - blocks_bit);\n\n\tsize_t N;\t\t\t\t\t\t\t // MAX 2 ^ 32\n\
+    \tstd::vector<u32> chunks;\t\t\t // log N: 32\n\tstd::vector<u16> blocks, block_num;\t\
+    \ // 2 log log N: 10\n\n  public:\n\tSuccinctBitVector() = default;\n\tSuccinctBitVector(const\
+    \ std::vector<bool>& vec) { init(vec); }\n\tvoid init(const std::vector<bool>&\
+    \ vec) {\n\t\tN = vec.size();\n\t\tchunks.resize((N + chunk_size - 1) >> chunk_bit,\
+    \ 0);\n\t\tblocks.resize((N + block_size - 1) >> blocks_bit, 0);\n\t\tblock_num.resize((N\
+    \ + block_size - 1) >> blocks_bit, 0);\n\t\trep(i, N) {\n\t\t\tif (vec[i]) {\n\
+    \t\t\t\tchunks[i >> chunk_bit]++;\n\t\t\t\tblocks[i >> blocks_bit]++;\n\t\t\t\t\
+    block_num[i >> blocks_bit] |= 1 << (i & (block_size - 1));\n\t\t\t}\n\t\t}\n\t\
+    \trep(i, chunks.size() - 1) chunks[i + 1] += chunks[i];\n\t\trep(i, blocks.size()\
+    \ - 1) {\n\t\t\tif ((i & (blocks_in_chunk - 1)) != blocks_in_chunk - 1)\n\t\t\t\
+    \tblocks[i + 1] += blocks[i];\n\t\t}\n\t\tv = vec;\n\t}\n\tint rank(bool b, int\
+    \ x) const {\n\t\tint res = 0;\n\t\tres += x >= chunk_size ? chunks[(x >> chunk_bit)\
+    \ - 1] : 0;\n\t\tres += (x & (chunk_size - 1)) >= block_size\n\t\t\t\t   ? blocks[(x\
     \ >> blocks_bit) - 1]\n\t\t\t\t   : 0;\n\t\tres += __builtin_popcount(block_num[x\
     \ >> blocks_bit] &\n\t\t\t\t\t\t((1 << ((x & (block_size - 1)) + 1)) - 1));\n\t\
     \treturn b ? res : x + 1 - res;\n\t}\n\tsize_t size() const { return N; }\n};\n\
@@ -129,7 +130,7 @@ data:
   path: data-structure/SuccinctBitVector.hpp
   requiredBy:
   - data-structure/WaveletMatrix.hpp
-  timestamp: '2021-01-15 16:46:23+09:00'
+  timestamp: '2021-01-16 15:12:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_kth_smallest.test.cpp
