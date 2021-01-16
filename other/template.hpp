@@ -75,16 +75,16 @@ inline constexpr decltype(auto) lambda_fix(F&& f) {
 	};
 }
 template <class T>
-std::vector<T> make_vec(size_t n) {
+constexpr std::vector<T> make_vec(size_t n) {
 	return std::vector<T>(n);
 }
 template <class T, class... Args>
-auto make_vec(size_t n, Args&&... args) {
+constexpr auto make_vec(size_t n, Args&&... args) {
 	return std::vector<decltype(make_vec<T>(args...))>(
 		n, make_vec<T>(std::forward<Args>(args)...));
 }
 template <class T, class U>
-inline bool chmax(T& lhs, const U& rhs) {
+constexpr inline bool chmax(T& lhs, const U& rhs) {
 	if (lhs < rhs) {
 		lhs = rhs;
 		return true;
@@ -92,14 +92,14 @@ inline bool chmax(T& lhs, const U& rhs) {
 	return false;
 }
 template <class T, class U>
-inline bool chmin(T& lhs, const U& rhs) {
+constexpr inline bool chmin(T& lhs, const U& rhs) {
 	if (lhs > rhs) {
 		lhs = rhs;
 		return true;
 	}
 	return false;
 }
-inline lint gcd(lint a, lint b) {
+constexpr inline lint gcd(lint a, lint b) {
 	while (b) {
 		lint c = a;
 		a = b;
@@ -108,7 +108,7 @@ inline lint gcd(lint a, lint b) {
 	return a;
 }
 inline lint lcm(lint a, lint b) { return a / gcd(a, b) * b; }
-bool isprime(lint n) {
+constexpr bool isprime(lint n) {
 	if (n == 1) return false;
 	for (int i = 2; i * i <= n; i++) {
 		if (n % i == 0) return false;
@@ -116,7 +116,7 @@ bool isprime(lint n) {
 	return true;
 }
 template <class T>
-T mypow(T a, lint b) {
+constexpr T mypow(T a, lint b) {
 	T res(1);
 	while (true) {
 		if (b & 1) res *= a;
@@ -126,7 +126,7 @@ T mypow(T a, lint b) {
 	}
 	return res;
 }
-lint modpow(lint a, lint b, lint m) {
+constexpr lint modpow(lint a, lint b, lint m) {
 	a %= m;
 	lint res(1);
 	while (b) {
@@ -141,28 +141,28 @@ lint modpow(lint a, lint b, lint m) {
 	return res;
 }
 template <class T>
-void printArray(const std::vector<T>& vec, char split = ' ') {
+constexpr void printArray(const std::vector<T>& vec, char split = ' ') {
 	rep(i, vec.size()) {
 		std::cout << vec[i];
 		std::cout << (i == (int)vec.size() - 1 ? '\n' : split);
 	}
 }
 template <class T>
-void printArray(T l, T r, char split = ' ') {
+constexpr void printArray(T l, T r, char split = ' ') {
 	T rprev = std::prev(r);
 	for (T i = l; i != r; i++) {
 		std::cout << *i;
 		std::cout << (i == rprev ? '\n' : split);
 	}
 }
-LP extGcd(lint a, lint b) {
+constexpr LP extGcd(lint a, lint b) {
 	if (b == 0) return {1, 0};
 	LP s = extGcd(b, a % b);
 	std::swap(s.first, s.second);
 	s.second -= a / b * s.first;
 	return s;
 }
-LP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const lint& m2) {
+constexpr LP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const lint& m2) {
 	lint p = extGcd(m1, m2).first;
 	lint tmp = (b2 - b1) * p % m2;
 	lint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);

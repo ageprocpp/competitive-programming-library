@@ -6,21 +6,6 @@ class SparseTable {
 	std::vector<std::vector<U>> table;
 	std::vector<int> logtable;
 
-	template <bool wi, class dummy_type = void>
-	class initializer {
-	  public:
-		void operator()(SparseTable<T, wi>& st, const std::vector<T>& vec) {
-			rep(i, vec.size()) st.table[0][i] = vec[i];
-		}
-	};
-	template <class dummy_type>
-	class initializer<true, dummy_type> {
-	  public:
-		void operator()(SparseTable<T, true>& st, const std::vector<T>& vec) {
-			rep(i, vec.size()) st.table[0][i] = {vec[i], i};
-		}
-	};
-
   public:
 	SparseTable() {}
 	SparseTable(const std::vector<T>& vec) { init(vec); }
@@ -29,7 +14,12 @@ class SparseTable {
 		while ((1 << (maxlength + 1)) <= vec.size()) maxlength++;
 		table.resize(maxlength + 1, std::vector<U>(vec.size()));
 		logtable.resize(vec.size() + 1);
-		initializer<withindex>()(*this, vec);
+		rep(i, vec.size()) {
+			if constexpr (withindex)
+				table[0][i] = {vec[i], i};
+			else
+				table[0][i] = vec[i];
+		}
 		REP(i, maxlength) {
 			rep(j, vec.size() - (1 << i) + 1) {
 				table[i][j] =
