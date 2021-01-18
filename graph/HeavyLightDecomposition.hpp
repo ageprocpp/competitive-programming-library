@@ -70,6 +70,10 @@ class HeavyLightDecomposition {
 			v = par[head[v]];
 		}
 	}
+	template <class F>
+	void each_vertex_subtree(int u, const F& func) const {
+		func(label[u], last[u]);
+	}
 	int lca(int u, int v) const {
 		while (true) {
 			if (label[u] > label[v]) std::swap(u, v);

@@ -155,18 +155,18 @@ constexpr void printArray(T l, T r, char split = ' ') {
 		std::cout << (i == rprev ? '\n' : split);
 	}
 }
-constexpr LP extGcd(lint a, lint b) {
+LP extGcd(lint a, lint b) {
 	if (b == 0) return {1, 0};
 	LP s = extGcd(b, a % b);
 	std::swap(s.first, s.second);
 	s.second -= a / b * s.first;
 	return s;
 }
-constexpr LP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const lint& m2) {
+LP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const lint& m2) {
 	lint p = extGcd(m1, m2).first;
 	lint tmp = (b2 - b1) * p % m2;
 	lint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);
-	return std::make_pair(r, m1 * m2);
+	return {r, m1 * m2};
 }
 int LCS(const std::string& a, const std::string& b) {
 	auto dp = make_vec<int>(a.size() + 1, b.size() + 1);
