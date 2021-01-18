@@ -71,14 +71,14 @@ data:
     \t\tstd::cout << (i == (int)vec.size() - 1 ? '\\n' : split);\n\t}\n}\ntemplate\
     \ <class T>\nconstexpr void printArray(T l, T r, char split = ' ') {\n\tT rprev\
     \ = std::prev(r);\n\tfor (T i = l; i != r; i++) {\n\t\tstd::cout << *i;\n\t\t\
-    std::cout << (i == rprev ? '\\n' : split);\n\t}\n}\nconstexpr LP extGcd(lint a,\
-    \ lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first,\
-    \ s.second);\n\ts.second -= a / b * s.first;\n\treturn s;\n}\nconstexpr LP ChineseRem(const\
+    std::cout << (i == rprev ? '\\n' : split);\n\t}\n}\nLP extGcd(lint a, lint b)\
+    \ {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first,\
+    \ s.second);\n\ts.second -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const\
     \ lint& b1, const lint& m1, const lint& b2, const lint& m2) {\n\tlint p = extGcd(m1,\
     \ m2).first;\n\tlint tmp = (b2 - b1) * p % m2;\n\tlint r = (b1 + m1 * tmp + m1\
-    \ * m2) % (m1 * m2);\n\treturn std::make_pair(r, m1 * m2);\n}\nint LCS(const std::string&\
-    \ a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size() + 1, b.size()\
-    \ + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j],\
+    \ * m2) % (m1 * m2);\n\treturn {r, m1 * m2};\n}\nint LCS(const std::string& a,\
+    \ const std::string& b) {\n\tauto dp = make_vec<int>(a.size() + 1, b.size() +\
+    \ 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j],\
     \ dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i\
     \ + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\
     \t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn\
@@ -105,11 +105,13 @@ data:
     \ u, int v, const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v])\
     \ std::swap(u, v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tfunc(label[u], label[v]);\n\
     \t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\t\t\tv = par[head[v]];\n\
-    \t\t}\n\t}\n\tint lca(int u, int v) const {\n\t\twhile (true) {\n\t\t\tif (label[u]\
-    \ > label[v]) std::swap(u, v);\n\t\t\tif (head[u] == head[v]) return u;\n\t\t\t\
-    v = par[head[v]];\n\t\t}\n\t}\n\tvoid clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\
-    \t\tpar.clear();\n\t\thead.clear();\n\t\tlabel.clear();\n\t\tlast.clear();\n\t\
-    }\n};\n\n/**\n * @title Heavy light decomposition\n */\n"
+    \t\t}\n\t}\n\ttemplate <class F>\n\tvoid each_vertex_subtree(int u, const F& func)\
+    \ const {\n\t\tfunc(label[u], last[u]);\n\t}\n\tint lca(int u, int v) const {\n\
+    \t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif\
+    \ (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
+    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
+    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n\
+    \ */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nclass HeavyLightDecomposition\
     \ {\n\tint n, index = 0;\n\tvoid size_dfs(int node) {\n\t\tsize[node] = 1;\n\t\
     \tfor (int& i : vec[node]) {\n\t\t\tif (par[node] == i) continue;\n\t\t\tpar[i]\
@@ -132,17 +134,19 @@ data:
     \ u, int v, const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v])\
     \ std::swap(u, v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tfunc(label[u], label[v]);\n\
     \t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\t\t\tv = par[head[v]];\n\
-    \t\t}\n\t}\n\tint lca(int u, int v) const {\n\t\twhile (true) {\n\t\t\tif (label[u]\
-    \ > label[v]) std::swap(u, v);\n\t\t\tif (head[u] == head[v]) return u;\n\t\t\t\
-    v = par[head[v]];\n\t\t}\n\t}\n\tvoid clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\
-    \t\tpar.clear();\n\t\thead.clear();\n\t\tlabel.clear();\n\t\tlast.clear();\n\t\
-    }\n};\n\n/**\n * @title Heavy light decomposition\n */"
+    \t\t}\n\t}\n\ttemplate <class F>\n\tvoid each_vertex_subtree(int u, const F& func)\
+    \ const {\n\t\tfunc(label[u], last[u]);\n\t}\n\tint lca(int u, int v) const {\n\
+    \t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif\
+    \ (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
+    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
+    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n\
+    \ */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: graph/HeavyLightDecomposition.hpp
   requiredBy: []
-  timestamp: '2021-01-16 15:12:02+09:00'
+  timestamp: '2021-01-18 13:26:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/vertex_add_path_sum.test.cpp
