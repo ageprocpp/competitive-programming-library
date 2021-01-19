@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: algebraic/NumberTheoreticTransform.hpp
+    title: NumberTheoreticTransform
+  - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
     title: StaticModInt
   - icon: ':heavy_check_mark:'
@@ -10,18 +13,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: string/HashedString.hpp
-    title: Hash library for strings
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
-    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
-    document_title: Rolling hash
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
@@ -121,58 +117,86 @@ data:
     \ T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint\
     \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
     \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
-    \ */\n#line 4 \"string/RollingHash.hpp\"\ntemplate <unsigned int mod, unsigned\
-    \ int base>\nclass RollingHash {\n\tusing M = StaticModInt<mod>;\n\tstd::string\
-    \ s;\n\tint n;\n\tstd::vector<M> has, power;\n\n  public:\n\tRollingHash() {}\n\
-    \tRollingHash(const std::string& s) { init(s); }\n\tvoid init(const std::string&\
-    \ s) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\t\tpower.resize(n);\n\t\tthis->s\
-    \ = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\t\t\tif (i) {\n\t\t\t\thas[i]\
-    \ += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t} else\n\
-    \t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M() const { return has.back(); }\n\
-    \tM substr(int l, size_t sz) const {\n\t\treturn has[l + sz - 1] - power[sz] *\
-    \ (!l ? M(0) : has[l - 1]);\n\t}\n\tM operator+(const std::string& t) const {\n\
-    \t\tRollingHash tmp(t);\n\t\tif (n == 0)\n\t\t\treturn tmp;\n\t\telse\n\t\t\t\
-    return has.back() * mypow(M(base), t.size()) + tmp;\n\t}\n\tRollingHash& operator+=(const\
-    \ std::string& t) {\n\t\tif (n == 0) {\n\t\t\t*this = RollingHash(t, base);\n\t\
-    \t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n + t.size());\n\t\t\tpower.resize(n\
-    \ + t.size());\n\t\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\t\t\thas[i]\
-    \ = t[i - n];\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
-    \ - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n\
-    };\n\n/**\n * @title Rolling hash\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../algebraic/StaticModInt.hpp\"\
-    \ntemplate <unsigned int mod, unsigned int base>\nclass RollingHash {\n\tusing\
-    \ M = StaticModInt<mod>;\n\tstd::string s;\n\tint n;\n\tstd::vector<M> has, power;\n\
-    \n  public:\n\tRollingHash() {}\n\tRollingHash(const std::string& s) { init(s);\
-    \ }\n\tvoid init(const std::string& s) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\
-    \t\tpower.resize(n);\n\t\tthis->s = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\
-    \t\t\tif (i) {\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
-    \ - 1] * base;\n\t\t\t} else\n\t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M()\
-    \ const { return has.back(); }\n\tM substr(int l, size_t sz) const {\n\t\treturn\
-    \ has[l + sz - 1] - power[sz] * (!l ? M(0) : has[l - 1]);\n\t}\n\tM operator+(const\
-    \ std::string& t) const {\n\t\tRollingHash tmp(t);\n\t\tif (n == 0)\n\t\t\treturn\
-    \ tmp;\n\t\telse\n\t\t\treturn has.back() * mypow(M(base), t.size()) + tmp;\n\t\
-    }\n\tRollingHash& operator+=(const std::string& t) {\n\t\tif (n == 0) {\n\t\t\t\
-    *this = RollingHash(t, base);\n\t\t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n\
-    \ + t.size());\n\t\t\tpower.resize(n + t.size());\n\t\t\tfor (int i = n; i < n\
-    \ + t.size(); i++) {\n\t\t\t\thas[i] = t[i - n];\n\t\t\t\thas[i] += has[i - 1]\
-    \ * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\
-    \t\t}\n\t\treturn *this;\n\t}\n};\n\n/**\n * @title Rolling hash\n */"
+    \ */\n#line 4 \"algebraic/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n\
+    // 924844033, 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769, 3, 2^24\n// 167772161,\
+    \ 3, 2^25\n// 469762049, 3, 2^26\nclass NumberTheoreticTransform {\n\tstatic constexpr\
+    \ uint bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t1224736769,\
+    \ 167772161, 469762049};\n\n  private:\n\ttemplate <unsigned int modulo>\n\tstatic\
+    \ void ntt(std::vector<StaticModInt<modulo>>& a) {\n\t\tint sz = a.size();\n\t\
+    \tif (sz == 1) return;\n\t\tStaticModInt<modulo> root =\n\t\t\tmodulo == 924844033\
+    \ || modulo == 1012924417 ? 5 : 3;\n\t\tif (inverse)\n\t\t\troot = mypow(root,\
+    \ modulo - 1 - (modulo - 1) / sz);\n\t\telse\n\t\t\troot = mypow(root, (modulo\
+    \ - 1) / sz);\n\t\tstd::vector<StaticModInt<modulo>> b(sz), roots((sz >> 1) +\
+    \ 1, 1);\n\t\trep(i, sz >> 1) roots[i + 1] = roots[i] * root;\n\t\tfor (int i\
+    \ = sz >> 1, w = 1; w < sz; i >>= 1, w <<= 1) {\n\t\t\tfor (int j = 0; j < i;\
+    \ j++) {\n\t\t\t\tfor (int k = 0; k < w; k++) {\n\t\t\t\t\tb[k + ((w * j) << 1)]\
+    \ =\n\t\t\t\t\t\ta[k + w * j] + a[k + w * j + (sz >> 1)];\n\t\t\t\t\tb[k + ((w\
+    \ * j) << 1) + w] =\n\t\t\t\t\t\troots[w * j] *\n\t\t\t\t\t\t(a[k + w * j] - a[k\
+    \ + w * j + (sz >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a, b);\n\t\t}\n\t\
+    }\n\ttemplate <uint modulo, typename T>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ internal_multiply(\n\t\tconst std::vector<T>& f, const std::vector<T>& g) {\n\
+    \t\tstd::vector<StaticModInt<modulo>> nf(f.size()), ng(g.size());\n\t\trep(j,\
+    \ f.size()) nf[j] = f[j];\n\t\trep(j, g.size()) ng[j] = g[j];\n\t\tinverse = false;\n\
+    \t\tntt(nf);\n\t\tntt(ng);\n\t\trep(i, nf.size()) nf[i] *= ng[i];\n\t\tinverse\
+    \ = true;\n\t\tntt(nf);\n\t\tStaticModInt<modulo> inv = StaticModInt<modulo>(nf.size()).inv();\n\
+    \t\trep(i, nf.size()) nf[i] *= inv;\n\t\treturn nf;\n\t}\n\n  public:\n\tstatic\
+    \ bool inverse;\n\n\ttemplate <uint modulo, typename T>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ multiply(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\t\t\t  std::vector<T> g) {\n\
+    \t\tsize_t sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz <<= 1;\n\t\tf.resize(sz);\n\
+    \t\tg.resize(sz);\n\t\trep(i, 6) {\n\t\t\tif (modulo == bases[i]) return internal_multiply<modulo>(f,\
+    \ g);\n\t\t}\n\t\tconstexpr uint base1 = 998244353, base2 = 1224736769, base3\
+    \ = 469762049;\n\t\tauto re1 = internal_multiply<base1>(f, g);\n\t\tauto re2 =\
+    \ internal_multiply<base2>(f, g);\n\t\tauto re3 = internal_multiply<base3>(f,\
+    \ g);\n\t\tstd::vector<StaticModInt<modulo>> res(re1.size());\n\t\tconstexpr int\
+    \ r12 = StaticModInt<base2>(base1).inv();\n\t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\
+    \t\tconstexpr int r23 = StaticModInt<base3>(base2).inv();\n\t\tconstexpr int p12\
+    \ = StaticModInt<modulo>(base1) * base2;\n\t\trep(i, re1.size()) {\n\t\t\tre2[i]\
+    \ = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i] =\n\t\t\t\t(StaticModInt<base3>(re3[i]\
+    \ - re1[i]) * r13 - re2[i]) * r23;\n\t\t\tres[i] = (StaticModInt<modulo>(re1[i])\
+    \ +\n\t\t\t\t\t  StaticModInt<modulo>(re2[i]) * base1 +\n\t\t\t\t\t  StaticModInt<modulo>(re3[i])\
+    \ * base1 * base2);\n\t\t}\n\t\treturn res;\n\t}\n\ttemplate <class T>\n\tstatic\
+    \ std::vector<lint> multiply_plain(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\tstd::vector<T>\
+    \ g) {\n\t\tconst uint mod1 = 998244353, mod2 = 1224736769;\n\t\tstd::vector<StaticModInt<mod1>>\
+    \ mul1 = internal_multiply<mod1>(f, g);\n\t\tstd::vector<StaticModInt<mod2>> mul2\
+    \ = internal_multiply<mod2>(f, g);\n\t\tstd::vector<lint> res(mul1.size());\n\t\
+    \trep(i, mul1.size()) res[i] =\n\t\t\tChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\
+    \t\treturn res;\n\t}\n};\nbool NumberTheoreticTransform::inverse = false;\n\n\
+    /**\n * @title NumberTheoreticTransform\n */\n#line 5 \"algebraic/Interpolation.hpp\"\
+    \ntemplate <typename T>\nclass Polynomial {\n\tstd::vector<T> vec;\n\n  public:\n\
+    \tPolynomial() : vec() {}\n\tPolynomial(const std::vector<T>& v) : vec(v) {}\n\
+    \tPolynomial operator*(const Polynomial& p) {\n\t\tPolynomial res(std::vector<T>(vec.size()\
+    \ + p.vec.size() - 1));\n\t\trep(i, vec.size()) {\n\t\t\trep(j, p.vec.size())\
+    \ res.vec[i + j] += vec[i] * p.vec[j];\n\t\t}\n\t\treturn res;\n\t}\n\tPolynomial&\
+    \ operator*=(const Polynomial& p) {\n\t\tauto res = NumberTheoreticTransform::\n\
+    \t\tstd::vector<T> nvec(vec.size() + p.vec.size() - 1);\n\t\trep(i, vec.size())\
+    \ {\n\t\t\trep(j, p.vec.size()) nvec[i + j] = vec[i] * p.vec[j];\n\t\t}\n\t\t\
+    vec = std::move(nvec);\n\t\treturn *this;\n\t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"NumberTheoreticTransform.hpp\"\
+    \n#include \"StaticModInt.hpp\"\ntemplate <typename T>\nclass Polynomial {\n\t\
+    std::vector<T> vec;\n\n  public:\n\tPolynomial() : vec() {}\n\tPolynomial(const\
+    \ std::vector<T>& v) : vec(v) {}\n\tPolynomial operator*(const Polynomial& p)\
+    \ {\n\t\tPolynomial res(std::vector<T>(vec.size() + p.vec.size() - 1));\n\t\t\
+    rep(i, vec.size()) {\n\t\t\trep(j, p.vec.size()) res.vec[i + j] += vec[i] * p.vec[j];\n\
+    \t\t}\n\t\treturn res;\n\t}\n\tPolynomial& operator*=(const Polynomial& p) {\n\
+    \t\tauto res = NumberTheoreticTransform::\n\t\tstd::vector<T> nvec(vec.size()\
+    \ + p.vec.size() - 1);\n\t\trep(i, vec.size()) {\n\t\t\trep(j, p.vec.size()) nvec[i\
+    \ + j] = vec[i] * p.vec[j];\n\t\t}\n\t\tvec = std::move(nvec);\n\t\treturn *this;\n\
+    \t}\n};"
   dependsOn:
   - other/template.hpp
+  - algebraic/NumberTheoreticTransform.hpp
   - algebraic/StaticModInt.hpp
   - other/type_traits.hpp
   isVerificationFile: false
-  path: string/RollingHash.hpp
-  requiredBy:
-  - string/HashedString.hpp
+  path: algebraic/Interpolation.hpp
+  requiredBy: []
   timestamp: '2021-01-19 14:37:51+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/ALDS1_14_B_HashedString.test.cpp
-documentation_of: string/RollingHash.hpp
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: algebraic/Interpolation.hpp
 layout: document
 redirect_from:
-- /library/string/RollingHash.hpp
-- /library/string/RollingHash.hpp.html
-title: Rolling hash
+- /library/algebraic/Interpolation.hpp
+- /library/algebraic/Interpolation.hpp.html
+title: algebraic/Interpolation.hpp
 ---

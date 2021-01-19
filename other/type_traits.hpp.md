@@ -7,21 +7,50 @@ data:
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':heavy_check_mark:'
-    path: other/type_traits.hpp
-    title: other/type_traits.hpp
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: algebraic/Combinatorics.hpp
+    title: Combinatorics/ModCombinatorics
+  - icon: ':warning:'
+    path: algebraic/Interpolation.hpp
+    title: algebraic/Interpolation.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic/NumberTheoreticTransform.hpp
+    title: NumberTheoreticTransform
+  - icon: ':heavy_check_mark:'
+    path: algebraic/StaticModInt.hpp
+    title: StaticModInt
   - icon: ':heavy_check_mark:'
     path: string/HashedString.hpp
     title: Hash library for strings
+  - icon: ':heavy_check_mark:'
+    path: string/RollingHash.hpp
+    title: Rolling hash
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/ALDS1_14_B_HashedString.test.cpp
     title: test/aoj/ALDS1_14_B_HashedString.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution_mod.test.cpp
+    title: test/yosupo/convolution_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution_mod_1000000007.test.cpp
+    title: test/yosupo/convolution_mod_1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/point_set_range_composite.test.cpp
+    title: test/yosupo/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/queue_operate_all_composite.test.cpp
+    title: test/yosupo/queue_operate_all_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/range_affine_range_sum.test.cpp
+    title: test/yosupo/range_affine_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/vertex_set_path_composite.test.cpp
+    title: test/yosupo/vertex_set_path_composite.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: Rolling hash
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"\
@@ -75,18 +104,10 @@ data:
     \ + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] ==\
     \ b[j]) chmax(dp[i + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()],\
     \ dp[i][b.size()]);\n\t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\
-    \treturn dp[a.size()][b.size()];\n}\n#line 4 \"other/type_traits.hpp\"\n\nclass\
-    \ ModInt__Base {};\nclass StaticModInt__Base : ModInt__Base {};\nclass DynamicModInt__Base\
-    \ : ModInt__Base {};\n\ntemplate <class T>\nclass is_ModInt : public std::is_base_of<ModInt__Base,\
-    \ T> {};\ntemplate <class T>\nconstexpr bool is_ModInt_v = is_ModInt<T>::value;\n\
-    \ntemplate <class T>\nclass is_StaticModInt : public std::is_base_of<StaticModInt__Base,\
-    \ T> {};\ntemplate <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
-    \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
-    \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
-    #line 4 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
-    \ : StaticModInt__Base {\n\tstd::conditional_t<(modulo > INT_MAX >> 1), lint,\
-    \ int> value;\n\n  public:\n\tstatic constexpr uint mod_value = modulo;\n\tconstexpr\
-    \ StaticModInt() : value(0) {}\n\ttemplate <class T, std::enable_if_t<!std::is_convertible_v<T,\
+    \treturn dp[a.size()][b.size()];\n}\n#line 4 \"algebraic/StaticModInt.hpp\"\n\
+    template <uint modulo>\nclass StaticModInt : StaticModInt__Base {\n\tstd::conditional_t<(modulo\
+    \ > INT_MAX >> 1), lint, int> value;\n\n  public:\n\tstatic constexpr uint mod_value\
+    \ = modulo;\n\tconstexpr StaticModInt() : value(0) {}\n\ttemplate <class T, std::enable_if_t<!std::is_convertible_v<T,\
     \ StaticModInt>,\n\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tconstexpr\
     \ StaticModInt(T value = 0) : value(value) {\n\t\tthis->value =\n\t\t\t(value\
     \ < 0 ? -(-value % modulo) + modulo : lint(value)) % modulo;\n\t}\n\tinline constexpr\
@@ -121,58 +142,79 @@ data:
     \ T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint\
     \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
     \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
-    \ */\n#line 4 \"string/RollingHash.hpp\"\ntemplate <unsigned int mod, unsigned\
-    \ int base>\nclass RollingHash {\n\tusing M = StaticModInt<mod>;\n\tstd::string\
-    \ s;\n\tint n;\n\tstd::vector<M> has, power;\n\n  public:\n\tRollingHash() {}\n\
-    \tRollingHash(const std::string& s) { init(s); }\n\tvoid init(const std::string&\
-    \ s) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\t\tpower.resize(n);\n\t\tthis->s\
-    \ = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\t\t\tif (i) {\n\t\t\t\thas[i]\
-    \ += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t} else\n\
-    \t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M() const { return has.back(); }\n\
-    \tM substr(int l, size_t sz) const {\n\t\treturn has[l + sz - 1] - power[sz] *\
-    \ (!l ? M(0) : has[l - 1]);\n\t}\n\tM operator+(const std::string& t) const {\n\
-    \t\tRollingHash tmp(t);\n\t\tif (n == 0)\n\t\t\treturn tmp;\n\t\telse\n\t\t\t\
-    return has.back() * mypow(M(base), t.size()) + tmp;\n\t}\n\tRollingHash& operator+=(const\
-    \ std::string& t) {\n\t\tif (n == 0) {\n\t\t\t*this = RollingHash(t, base);\n\t\
-    \t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n + t.size());\n\t\t\tpower.resize(n\
-    \ + t.size());\n\t\t\tfor (int i = n; i < n + t.size(); i++) {\n\t\t\t\thas[i]\
-    \ = t[i - n];\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
-    \ - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n\
-    };\n\n/**\n * @title Rolling hash\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../algebraic/StaticModInt.hpp\"\
-    \ntemplate <unsigned int mod, unsigned int base>\nclass RollingHash {\n\tusing\
-    \ M = StaticModInt<mod>;\n\tstd::string s;\n\tint n;\n\tstd::vector<M> has, power;\n\
-    \n  public:\n\tRollingHash() {}\n\tRollingHash(const std::string& s) { init(s);\
-    \ }\n\tvoid init(const std::string& s) {\n\t\tn = s.size();\n\t\thas.resize(n);\n\
-    \t\tpower.resize(n);\n\t\tthis->s = s;\n\t\trep(i, n) {\n\t\t\thas[i] = s[i];\n\
-    \t\t\tif (i) {\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
-    \ - 1] * base;\n\t\t\t} else\n\t\t\t\tpower[i] = 1;\n\t\t}\n\t}\n\toperator M()\
-    \ const { return has.back(); }\n\tM substr(int l, size_t sz) const {\n\t\treturn\
-    \ has[l + sz - 1] - power[sz] * (!l ? M(0) : has[l - 1]);\n\t}\n\tM operator+(const\
-    \ std::string& t) const {\n\t\tRollingHash tmp(t);\n\t\tif (n == 0)\n\t\t\treturn\
-    \ tmp;\n\t\telse\n\t\t\treturn has.back() * mypow(M(base), t.size()) + tmp;\n\t\
-    }\n\tRollingHash& operator+=(const std::string& t) {\n\t\tif (n == 0) {\n\t\t\t\
-    *this = RollingHash(t, base);\n\t\t} else {\n\t\t\ts += t;\n\t\t\thas.resize(n\
-    \ + t.size());\n\t\t\tpower.resize(n + t.size());\n\t\t\tfor (int i = n; i < n\
-    \ + t.size(); i++) {\n\t\t\t\thas[i] = t[i - n];\n\t\t\t\thas[i] += has[i - 1]\
-    \ * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\
-    \t\t}\n\t\treturn *this;\n\t}\n};\n\n/**\n * @title Rolling hash\n */"
+    \ */\n#line 4 \"other/type_traits.hpp\"\n\nclass ModInt__Base {};\nclass StaticModInt__Base\
+    \ : ModInt__Base {};\nclass DynamicModInt__Base : ModInt__Base {};\n\ntemplate\
+    \ <class T>\nclass is_ModInt : public std::is_base_of<ModInt__Base, T> {};\ntemplate\
+    \ <class T>\nconstexpr bool is_ModInt_v = is_ModInt<T>::value;\n\ntemplate <class\
+    \ T>\nclass is_StaticModInt : public std::is_base_of<StaticModInt__Base, T> {};\n\
+    template <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
+    \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
+    \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n"
+  code: '#pragma once
+
+    #include "template.hpp"
+
+    #include "../algebraic/StaticModInt.hpp"
+
+
+    class ModInt__Base {};
+
+    class StaticModInt__Base : ModInt__Base {};
+
+    class DynamicModInt__Base : ModInt__Base {};
+
+
+    template <class T>
+
+    class is_ModInt : public std::is_base_of<ModInt__Base, T> {};
+
+    template <class T>
+
+    constexpr bool is_ModInt_v = is_ModInt<T>::value;
+
+
+    template <class T>
+
+    class is_StaticModInt : public std::is_base_of<StaticModInt__Base, T> {};
+
+    template <class T>
+
+    constexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;
+
+
+    template <class T>
+
+    class is_DynamicModInt : public std::is_base_of<DynamicModInt__Base, T> {};
+
+    template <class T>
+
+    constexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;'
   dependsOn:
   - other/template.hpp
   - algebraic/StaticModInt.hpp
-  - other/type_traits.hpp
   isVerificationFile: false
-  path: string/RollingHash.hpp
+  path: other/type_traits.hpp
   requiredBy:
+  - string/RollingHash.hpp
   - string/HashedString.hpp
+  - algebraic/Combinatorics.hpp
+  - algebraic/StaticModInt.hpp
+  - algebraic/Interpolation.hpp
+  - algebraic/NumberTheoreticTransform.hpp
   timestamp: '2021-01-19 14:37:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/queue_operate_all_composite.test.cpp
+  - test/yosupo/point_set_range_composite.test.cpp
+  - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/range_affine_range_sum.test.cpp
   - test/aoj/ALDS1_14_B_HashedString.test.cpp
-documentation_of: string/RollingHash.hpp
+documentation_of: other/type_traits.hpp
 layout: document
 redirect_from:
-- /library/string/RollingHash.hpp
-- /library/string/RollingHash.hpp.html
-title: Rolling hash
+- /library/other/type_traits.hpp
+- /library/other/type_traits.hpp.html
+title: other/type_traits.hpp
 ---

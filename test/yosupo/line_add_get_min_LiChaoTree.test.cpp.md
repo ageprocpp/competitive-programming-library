@@ -33,15 +33,8 @@ data:
     using lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
     \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
     constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
-    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
-    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
-    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
-    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
-    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
+    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
+    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
     \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
     \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
@@ -145,7 +138,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
   requiredBy: []
-  timestamp: '2021-01-18 13:26:28+09:00'
+  timestamp: '2021-01-19 14:37:51+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/line_add_get_min_LiChaoTree.test.cpp

@@ -6,6 +6,9 @@ data:
     - icon: ':warning:'
       path: algebraic/Combinatorics.hpp
       title: Combinatorics/ModCombinatorics
+    - icon: ':warning:'
+      path: algebraic/DynamicModInt.hpp
+      title: algebraic/DynamicModInt.hpp
     - icon: ':heavy_check_mark:'
       path: algebraic/FastFactorize.hpp
       title: FastFactorize
@@ -15,6 +18,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: algebraic/FloorSum.hpp
       title: FloorSum
+    - icon: ':warning:'
+      path: algebraic/Interpolation.hpp
+      title: algebraic/Interpolation.hpp
     - icon: ':warning:'
       path: algebraic/MyComplex.hpp
       title: MyComplex
@@ -111,6 +117,9 @@ data:
     - icon: ':warning:'
       path: other/testlib.h
       title: other/testlib.h
+    - icon: ':heavy_check_mark:'
+      path: other/type_traits.hpp
+      title: other/type_traits.hpp
   - name: string
     pages:
     - icon: ':warning:'

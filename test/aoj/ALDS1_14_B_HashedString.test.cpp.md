@@ -8,6 +8,9 @@ data:
     path: other/template.hpp
     title: other/template.hpp
   - icon: ':heavy_check_mark:'
+    path: other/type_traits.hpp
+    title: other/type_traits.hpp
+  - icon: ':heavy_check_mark:'
     path: string/HashedString.hpp
     title: Hash library for strings
   - icon: ':heavy_check_mark:'
@@ -39,15 +42,8 @@ data:
     using lint = long long;\nusing ulint = unsigned long long;\nusing P = std::pair<int,\
     \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
     constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\nnamespace std {\n\ttemplate\
-    \ <template <class...> class Temp, class T>\n\tclass is_template_with_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <class...> class Temp, class...\
-    \ Args>\n\tclass is_template_with_type_of<Temp, Temp<Args...>>\n\t\t: public std::true_type\
-    \ {};\n\ttemplate <template <auto...> class Temp, class T>\n\tclass is_template_with_non_type_of\
-    \ : public std::false_type {};\n\ttemplate <template <auto...> class Temp, auto...\
-    \ Args>\n\tclass is_template_with_non_type_of<Temp, Temp<Args...>>\n\t\t: public\
-    \ std::true_type {};\n};\t// namespace std\ntemplate <class T>\nclass prique :\
-    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
+    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
+    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
     \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
     \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
@@ -83,10 +79,18 @@ data:
     \ dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i\
     \ + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\
     \t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn\
-    \ dp[a.size()][b.size()];\n}\n#line 3 \"algebraic/StaticModInt.hpp\"\ntemplate\
-    \ <uint modulo>\nclass StaticModInt {\n\tstd::conditional_t<(modulo > INT_MAX\
-    \ >> 1), lint, int> value;\n\n  public:\n\tstatic constexpr uint mod_value = modulo;\n\
-    \tconstexpr StaticModInt() : value(0) {}\n\ttemplate <class T, std::enable_if_t<!std::is_convertible_v<T,\
+    \ dp[a.size()][b.size()];\n}\n#line 4 \"other/type_traits.hpp\"\n\nclass ModInt__Base\
+    \ {};\nclass StaticModInt__Base : ModInt__Base {};\nclass DynamicModInt__Base\
+    \ : ModInt__Base {};\n\ntemplate <class T>\nclass is_ModInt : public std::is_base_of<ModInt__Base,\
+    \ T> {};\ntemplate <class T>\nconstexpr bool is_ModInt_v = is_ModInt<T>::value;\n\
+    \ntemplate <class T>\nclass is_StaticModInt : public std::is_base_of<StaticModInt__Base,\
+    \ T> {};\ntemplate <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
+    \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
+    \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
+    #line 4 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
+    \ : StaticModInt__Base {\n\tstd::conditional_t<(modulo > INT_MAX >> 1), lint,\
+    \ int> value;\n\n  public:\n\tstatic constexpr uint mod_value = modulo;\n\tconstexpr\
+    \ StaticModInt() : value(0) {}\n\ttemplate <class T, std::enable_if_t<!std::is_convertible_v<T,\
     \ StaticModInt>,\n\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tconstexpr\
     \ StaticModInt(T value = 0) : value(value) {\n\t\tthis->value =\n\t\t\t(value\
     \ < 0 ? -(-value % modulo) + modulo : lint(value)) % modulo;\n\t}\n\tinline constexpr\
@@ -164,10 +168,11 @@ data:
   - string/HashedString.hpp
   - string/RollingHash.hpp
   - algebraic/StaticModInt.hpp
+  - other/type_traits.hpp
   isVerificationFile: true
   path: test/aoj/ALDS1_14_B_HashedString.test.cpp
   requiredBy: []
-  timestamp: '2021-01-18 13:26:28+09:00'
+  timestamp: '2021-01-19 14:37:51+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ALDS1_14_B_HashedString.test.cpp
