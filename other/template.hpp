@@ -53,18 +53,6 @@ constexpr lint LINF = LLONG_MAX / 2;
 constexpr double eps = DBL_EPSILON;
 constexpr double PI = 3.141592653589793238462643383279;
 
-namespace std {
-	template <template <class...> class Temp, class T>
-	class is_template_with_type_of : public std::false_type {};
-	template <template <class...> class Temp, class... Args>
-	class is_template_with_type_of<Temp, Temp<Args...>>
-		: public std::true_type {};
-	template <template <auto...> class Temp, class T>
-	class is_template_with_non_type_of : public std::false_type {};
-	template <template <auto...> class Temp, auto... Args>
-	class is_template_with_non_type_of<Temp, Temp<Args...>>
-		: public std::true_type {};
-};	// namespace std
 template <class T>
 class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>> {
 };

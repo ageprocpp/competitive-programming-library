@@ -1,7 +1,8 @@
 #pragma once
 #include "../other/template.hpp"
+#include "../other/type_traits.hpp"
 template <uint modulo>
-class StaticModInt {
+class StaticModInt : StaticModInt__Base {
 	std::conditional_t<(modulo > INT_MAX >> 1), lint, int> value;
 
   public:
