@@ -9,6 +9,7 @@ data:
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
@@ -78,10 +79,11 @@ data:
     \ == m) return;\n\t\tint a = n, b = m;\n\t\tif (size[a] > size[b]) std::swap(a,\
     \ b);\n\t\tpar[a] = b;\n\t\tsize[b] += size[a];\n\t}\n\tbool same(int n, int m)\
     \ { return find(n) == find(m); }\n\tint getsize(int n) { return size[find(n)];\
-    \ }\n};\n\n/**\n * @title Disjoint set\n */\n#line 4 \"test/yosupo/unionfind.test.cpp\"\
-    \nint n, q, t, u, v;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tUnionFind uf(n);\n\
-    \trep(i, q) {\n\t\tscanf(\"%d%d%d\", &t, &u, &v);\n\t\tif (t == 0)\n\t\t\tuf.unite(u,\
-    \ v);\n\t\telse\n\t\t\tprintf(\"%d\\n\", uf.same(u, v));\n\t}\n\treturn 0;\n}\n"
+    \ }\n\tbool is_root(int n) { return find(n) == n; }\n};\n\n/**\n * @title Disjoint\
+    \ set\n */\n#line 4 \"test/yosupo/unionfind.test.cpp\"\nint n, q, t, u, v;\nint\
+    \ main() {\n\tscanf(\"%d%d\", &n, &q);\n\tUnionFind uf(n);\n\trep(i, q) {\n\t\t\
+    scanf(\"%d%d%d\", &t, &u, &v);\n\t\tif (t == 0)\n\t\t\tuf.unite(u, v);\n\t\telse\n\
+    \t\t\tprintf(\"%d\\n\", uf.same(u, v));\n\t}\n\treturn 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/unionfind\"\n#include \"\
     ../../graph/UnionFind.hpp\"\n#include \"../../other/template.hpp\"\nint n, q,\
     \ t, u, v;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tUnionFind uf(n);\n\trep(i,\
@@ -93,7 +95,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/unionfind.test.cpp
   requiredBy: []
-  timestamp: '2021-01-19 14:37:51+09:00'
+  timestamp: '2021-01-23 20:58:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/unionfind.test.cpp

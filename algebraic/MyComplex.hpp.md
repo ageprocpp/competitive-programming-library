@@ -9,6 +9,7 @@ data:
     path: algebraic/FastFourierTransform.hpp
     title: FastFourierTransform
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

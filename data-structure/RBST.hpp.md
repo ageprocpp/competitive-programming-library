@@ -9,6 +9,7 @@ data:
     path: data-structure/RBSTset.hpp
     title: Set based on Randomized Binary Search Tree
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

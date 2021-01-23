@@ -9,6 +9,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
     title: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:

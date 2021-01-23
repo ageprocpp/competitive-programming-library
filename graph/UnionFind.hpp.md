@@ -12,6 +12,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/unionfind.test.cpp
     title: test/yosupo/unionfind.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
@@ -78,7 +79,8 @@ data:
     \ == m) return;\n\t\tint a = n, b = m;\n\t\tif (size[a] > size[b]) std::swap(a,\
     \ b);\n\t\tpar[a] = b;\n\t\tsize[b] += size[a];\n\t}\n\tbool same(int n, int m)\
     \ { return find(n) == find(m); }\n\tint getsize(int n) { return size[find(n)];\
-    \ }\n};\n\n/**\n * @title Disjoint set\n */\n"
+    \ }\n\tbool is_root(int n) { return find(n) == n; }\n};\n\n/**\n * @title Disjoint\
+    \ set\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nclass UnionFind {\n  protected:\n\
     \tstd::vector<int> par, size;\n\n  public:\n\tUnionFind() {}\n\tUnionFind(int\
     \ size) { init(size); }\n\tvoid init(int size) {\n\t\tpar.resize(size);\n\t\t\
@@ -88,14 +90,15 @@ data:
     \ == m) return;\n\t\tint a = n, b = m;\n\t\tif (size[a] > size[b]) std::swap(a,\
     \ b);\n\t\tpar[a] = b;\n\t\tsize[b] += size[a];\n\t}\n\tbool same(int n, int m)\
     \ { return find(n) == find(m); }\n\tint getsize(int n) { return size[find(n)];\
-    \ }\n};\n\n/**\n * @title Disjoint set\n */"
+    \ }\n\tbool is_root(int n) { return find(n) == n; }\n};\n\n/**\n * @title Disjoint\
+    \ set\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: graph/UnionFind.hpp
   requiredBy:
   - graph/PersistentUnionFind.hpp
-  timestamp: '2021-01-19 14:37:51+09:00'
+  timestamp: '2021-01-23 20:58:57+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/unionfind.test.cpp

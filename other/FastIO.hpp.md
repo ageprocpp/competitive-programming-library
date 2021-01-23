@@ -15,6 +15,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/range_kth_smallest.test.cpp
     title: test/yosupo/range_kth_smallest.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
@@ -225,8 +226,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_kth_smallest.test.cpp
-  - test/yosupo/convolution_mod_1000000007.test.cpp
   - test/yosupo/many_aplusb.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
 documentation_of: other/FastIO.hpp
 layout: document
 redirect_from:

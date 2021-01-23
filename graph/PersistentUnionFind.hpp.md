@@ -9,6 +9,7 @@ data:
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
@@ -75,8 +76,9 @@ data:
     \ == m) return;\n\t\tint a = n, b = m;\n\t\tif (size[a] > size[b]) std::swap(a,\
     \ b);\n\t\tpar[a] = b;\n\t\tsize[b] += size[a];\n\t}\n\tbool same(int n, int m)\
     \ { return find(n) == find(m); }\n\tint getsize(int n) { return size[find(n)];\
-    \ }\n};\n\n/**\n * @title Disjoint set\n */\n#line 4 \"graph/PersistentUnionFind.hpp\"\
-    \nclass PersistentUnionFind : UnionFind {\n\tstd::vector<P> notparent;\n\tstd::vector<std::vector<std::pair<int,\
+    \ }\n\tbool is_root(int n) { return find(n) == n; }\n};\n\n/**\n * @title Disjoint\
+    \ set\n */\n#line 4 \"graph/PersistentUnionFind.hpp\"\nclass PersistentUnionFind\
+    \ : UnionFind {\n\tstd::vector<P> notparent;\n\tstd::vector<std::vector<std::pair<int,\
     \ int>>> sizevec;\n\tint opcount = 0;\n\n  public:\n\tPersistentUnionFind(unsigned\
     \ int size) : UnionFind(size) {\n\t\tnotparent.resize(size);\n\t\tsizevec.resize(size);\n\
     \t\trep(i, size) {\n\t\t\tpar[i] = i;\n\t\t\tsizevec[i].push_back(std::make_pair(-1,\
@@ -117,7 +119,7 @@ data:
   isVerificationFile: false
   path: graph/PersistentUnionFind.hpp
   requiredBy: []
-  timestamp: '2021-01-19 14:37:51+09:00'
+  timestamp: '2021-01-23 20:58:57+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: graph/PersistentUnionFind.hpp

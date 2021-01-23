@@ -30,6 +30,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/range_affine_range_sum.test.cpp
     title: test/yosupo/range_affine_range_sum.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
@@ -330,12 +331,12 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_affine_range_sum.test.cpp
-  - test/aoj/DSL_2_H.test.cpp
   - test/aoj/DSL_2_E.test.cpp
-  - test/aoj/DSL_2_I.test.cpp
-  - test/aoj/DSL_2_G.test.cpp
   - test/aoj/DSL_2_D.test.cpp
   - test/aoj/DSL_2_F.test.cpp
+  - test/aoj/DSL_2_H.test.cpp
+  - test/aoj/DSL_2_I.test.cpp
+  - test/aoj/DSL_2_G.test.cpp
 documentation_of: data-structure/IntervalSegTree.hpp
 layout: document
 redirect_from:
