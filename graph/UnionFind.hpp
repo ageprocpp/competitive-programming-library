@@ -27,6 +27,7 @@ class UnionFind {
 	}
 	bool same(int n, int m) { return find(n) == find(m); }
 	int getsize(int n) { return size[find(n)]; }
+	bool is_root(int n) { return find(n) == n; }
 };
 
 /**
