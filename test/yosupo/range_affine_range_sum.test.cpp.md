@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: Segment Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   - icon: ':heavy_check_mark:'
