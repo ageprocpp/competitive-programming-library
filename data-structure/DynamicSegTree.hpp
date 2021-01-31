@@ -1,22 +1,23 @@
 #pragma once
 #include "../other/template.hpp"
-template <class T, T (*nodef)(const T &, const T &), T ident>
+template <class T, T (*nodef)(const T &, const T &), T (*ident)(),
+		  T (*init)() = ident>
 class DynamicSegTree {
 	class Node {
 		Node *par;
 		std::shared_ptr<Node> left = nullptr, right = nullptr;
 
 	  public:
-		T value = ident;
-		Node() {}
-		Node(Node *p) : par(p) {}
+		T value;
+		Node() : value(init()) {}
+		Node(Node *p) : par(p), value(ident()) {}
 		void set(const T &v) { value = v; }
 		const T &get() const { return value; }
-		bool exist_left() { return bool(left); }
-		bool exist_right() { return bool(right); }
+		bool exist_left() const { return bool(left); }
+		bool exist_right() const { return bool(right); }
 		void eval() {
-			T l = !exist_left() ? ident : left->value;
-			T r = !exist_right() ? ident : right->value;
+			T l = !exist_left() ? ident() : left->value;
+			T r = !exist_right() ? ident() : right->value;
 			value = nodef(l, r);
 		}
 		auto get_left() {
@@ -30,9 +31,7 @@ class DynamicSegTree {
 		auto get_parent() { return par; }
 	};
 	lint n = 1;
-	std::shared_ptr<Node> root = std::shared_ptr<Node>(new Node);
-
-	T init;
+	std::shared_ptr<Node> root;
 
 	auto ptr_from_id(lint id) {
 		auto cur = root;
@@ -49,22 +48,20 @@ class DynamicSegTree {
 
 	T query(lint a, lint b, lint l, lint r, std::shared_ptr<Node> ptr) {
 		if (r == -1) r = n;
-		if (r <= a || b <= l) return ident;
+		if (r <= a || b <= l) return ident();
 		if (a <= l && r <= b) return ptr->value;
 		T vl = ptr->exist_left() ? query(a, b, l, (l + r) >> 1, ptr->get_left())
-								 : ident;
+								 : ident();
 		T vr = ptr->exist_right()
 				   ? query(a, b, (l + r) >> 1, r, ptr->get_right())
-				   : ident;
+				   : ident();
 		return nodef(vl, vr);
 	}
 
   public:
-	DynamicSegTree(lint m) : init(ident) {
+	DynamicSegTree(lint m) {
 		while (n < m) n <<= 1;
-	}
-	DynamicSegTree(lint m, T init) : init(init) {
-		while (n < m) n <<= 1;
+		root = std::shared_ptr<Node>(new Node);
 	}
 	void update(lint i, T x) {
 		Node *cur = ptr_from_id(i).get();

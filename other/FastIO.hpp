@@ -13,13 +13,6 @@ namespace FastIO {
 			end = fread(inbuf, 1, buf_size, stdin);
 			inbuf[end] = '\0';
 		}
-		void reload() {
-			size_t length = end - pos;
-			memmove(inbuf, inbuf + pos, length);
-			end = length + fread(inbuf + length, 1, buf_size - length, stdin);
-			inbuf[end] = '\0';
-			pos = 0;
-		}
 		void ignore_space() {
 			while (inbuf[pos] <= ' ') {
 				if (__builtin_expect(++pos == end, 0)) reload();
@@ -33,6 +26,13 @@ namespace FastIO {
 
 	  public:
 		Scanner() { load(); }
+		void reload() {
+			size_t length = end - pos;
+			memmove(inbuf, inbuf + pos, length);
+			end = length + fread(inbuf + length, 1, buf_size - length, stdin);
+			inbuf[end] = '\0';
+			pos = 0;
+		}
 		void scan(char& c) { c = next_nonspace(); }
 		void scan(std::string& s) {
 			ignore_space();
@@ -95,10 +95,6 @@ namespace FastIO {
 										  100000000000000000,
 										  1000000000000000000};
 
-		void flush() {
-			fwrite(outbuf, 1, pos, stdout);
-			pos = 0;
-		}
 		static std::unique_ptr<char[]> precompute() {
 			std::unique_ptr<char[]> res(new char[block_size * 4]);
 			rep(i, block_size) {
@@ -156,6 +152,11 @@ namespace FastIO {
 	  public:
 		Printer() = default;
 		~Printer() { flush(); }
+		void flush() {
+			fwrite(outbuf, 1, pos, stdout);
+			pos = 0;
+		}
+		void print(){}
 		void print(char c) {
 			outbuf[pos++] = c;
 			if (__builtin_expect(pos == buf_size, 0)) flush();
