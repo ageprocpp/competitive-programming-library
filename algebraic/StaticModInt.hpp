@@ -8,8 +8,9 @@ class StaticModInt : StaticModInt__Base {
   public:
 	static constexpr uint mod_value = modulo;
 	constexpr StaticModInt() : value(0) {}
-	template <class T, std::enable_if_t<!std::is_convertible_v<T, StaticModInt>,
-										std::nullptr_t> = nullptr>
+	template <class T,
+			  std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,
+							   std::nullptr_t> = nullptr>
 	constexpr StaticModInt(T value = 0) : value(value) {
 		this->value =
 			(value < 0 ? -(-value % modulo) + modulo : lint(value)) % modulo;
@@ -93,6 +94,39 @@ class StaticModInt : StaticModInt__Base {
 	template <class T>
 	constexpr StaticModInt& operator/=(const T& rhs) {
 		return operator/=(StaticModInt(rhs));
+	}
+	static int primitive_root() {
+		static int p = 0;
+		static std::random_device rd;
+		static std::mt19937 mt(rd());
+		static std::uniform_int_distribution<> uid(1, modulo - 1);
+		if (p) return 0;
+
+		// use naive factorize due to file size limit
+		std::vector<int> vec;
+		int tmp = modulo - 1;
+		for (int i = 2; i * i <= tmp; i++) {
+			if (tmp % i == 0) {
+				vec.emplace_back(i);
+				do {
+					tmp /= i;
+				} while (tmp % i == 0);
+			}
+		}
+		if (tmp != 1) vec.emplace_back(tmp);
+
+		vec.erase(std::unique(all(vec)), vec.end());
+		while (true) {
+			p = uid(mt);
+			bool f = true;
+			for (const auto& i : vec) {
+				if (mypow(StaticModInt(p), (modulo - 1) / i) == 1) {
+					f = false;
+					break;
+				}
+			}
+			if (f) return p;
+		}
 	}
 };
 template <uint modulo>

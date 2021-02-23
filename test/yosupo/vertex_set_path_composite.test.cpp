@@ -15,7 +15,7 @@ class MySeg : public SegTree<MP, nodef> {
 	MySeg(int n) : Base(n, MP{1, 0}, MP{1, 0}) {}
 };
 int n, q;
-P a[200010];
+IP a[200010];
 int main() {
 	scanf("%d%d", &n, &q);
 	rep(i, n) scanf("%d%d", &a[i].first, &a[i].second);

@@ -117,7 +117,7 @@ class SuffixArray {
 		conv.emplace_back(0);
 		SA = InducedSorting(conv, max - min + 2);
 	}
-	P occ(const std::string &T) const {
+	IP occ(const std::string &T) const {
 		int minl = 0, maxl = S.size() + 1;
 		while (minl + 1 < maxl) {
 			int mid = (minl + maxl) / 2;
@@ -139,7 +139,7 @@ class SuffixArray {
 	std::vector<int> locate(const std::string &T) const {
 		std::vector<bool> v(S.size() + 1);
 		std::vector<int> res;
-		P range = occ(T);
+		IP range = occ(T);
 		for (int i = range.first; i < range.second; i++) v[SA[i]] = true;
 		rep(i, S.size() + 1) {
 			if (v[i]) res.emplace_back(i);

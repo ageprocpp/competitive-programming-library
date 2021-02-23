@@ -2,6 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #ifdef ONLINE_JUDGE
 #pragma GCC target("avx512f")
+#elif defined EVAL
 #else
 #pragma GCC target("avx2")
 #endif
@@ -36,8 +37,8 @@
 #include <utility>
 #include <vector>
 
-#define rep(i, n) for (int i = 0; i < int(n); i++)
-#define REP(i, n) for (int i = 1; i <= int(n); i++)
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define REP(i, n) for (int i = 1; i <= (n); i++)
 #define all(V) V.begin(), V.end()
 
 using i128 = __int128_t;
@@ -45,7 +46,7 @@ using u128 = __uint128_t;
 using uint = unsigned int;
 using lint = long long;
 using ulint = unsigned long long;
-using P = std::pair<int, int>;
+using IP = std::pair<int, int>;
 using LP = std::pair<lint, lint>;
 
 constexpr int INF = INT_MAX / 2;
@@ -135,10 +136,10 @@ constexpr void printArray(const std::vector<T>& vec, char split = ' ') {
 		std::cout << (i == (int)vec.size() - 1 ? '\n' : split);
 	}
 }
-template <class T>
-constexpr void printArray(T l, T r, char split = ' ') {
-	T rprev = std::prev(r);
-	for (T i = l; i != r; i++) {
+template <class InputIter>
+constexpr void printArray(InputIter l, InputIter r, char split = ' ') {
+	auto rprev = std::prev(r);
+	for (auto i = l; i != r; i++) {
 		std::cout << *i;
 		std::cout << (i == rprev ? '\n' : split);
 	}
@@ -168,4 +169,30 @@ int LCS(const std::string& a, const std::string& b) {
 	}
 	rep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);
 	return dp[a.size()][b.size()];
+}
+template <class T, std::enable_if_t<std::is_convertible<int, T>::value,
+									std::nullptr_t> = nullptr>
+void compress(std::vector<T>& vec) {
+	auto tmp = vec;
+	std::sort(all(tmp));
+	tmp.erase(std::unique(all(tmp)), tmp.end());
+	for (T& i : vec) i = std::lower_bound(all(tmp), i) - tmp.begin();
+}
+template <class T>
+void compress(T* l, T* r) {
+	std::vector<T> tmp(l, r);
+	std::sort(all(tmp));
+	tmp.erase(std::unique(all(tmp)), tmp.end());
+	for (auto i = l; i < r; i++) {
+		*i = std::lower_bound(all(tmp), *i) - tmp.begin();
+	}
+}
+template <class InputIter>
+void compress(InputIter l, InputIter r) {
+	std::vector<typename InputIter::value_type> tmp(l, r);
+	std::sort(all(tmp));
+	tmp.erase(std::unique(all(tmp)), tmp.end());
+	for (auto i = l; i < r; i++) {
+		*i = std::lower_bound(all(tmp), *i) - tmp.begin();
+	}
 }

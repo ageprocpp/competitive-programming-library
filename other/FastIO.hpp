@@ -33,6 +33,7 @@ namespace FastIO {
 			inbuf[end] = '\0';
 			pos = 0;
 		}
+		void scan() {}
 		void scan(char& c) { c = next_nonspace(); }
 		void scan(std::string& s) {
 			ignore_space();
@@ -45,7 +46,7 @@ namespace FastIO {
 				reload();
 			} while (true);
 		}
-		template <typename T, std::enable_if_t<std::is_integral_v<T>,
+		template <typename T, std::enable_if_t<std::is_integral<T>::value,
 											   std::nullptr_t> = nullptr>
 		void scan(T& x) {
 			char c = next_nonspace();
@@ -156,7 +157,7 @@ namespace FastIO {
 			fwrite(outbuf, 1, pos, stdout);
 			pos = 0;
 		}
-		void print(){}
+		void print() {}
 		void print(char c) {
 			outbuf[pos++] = c;
 			if (__builtin_expect(pos == buf_size, 0)) flush();
@@ -167,7 +168,7 @@ namespace FastIO {
 				if (pos == buf_size) flush();
 			}
 		}
-		template <typename T, std::enable_if_t<std::is_integral_v<T>,
+		template <typename T, std::enable_if_t<std::is_integral<T>::value,
 											   std::nullptr_t> = nullptr>
 		void print(T x) {
 			if (__builtin_expect(pos + integer_size >= buf_size, 0)) flush();

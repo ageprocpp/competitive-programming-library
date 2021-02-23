@@ -3,7 +3,7 @@
 #include "../../other/template.hpp"
 int n, q, l[200010], r[200010], a[200010];
 lint b[200010];
-std::vector<std::pair<P, std::pair<int, lint>>> vec;
+std::vector<std::pair<IP, std::pair<int, lint>>> vec;
 std::vector<lint> cord;
 int main() {
 	scanf("%d%d", &n, &q);

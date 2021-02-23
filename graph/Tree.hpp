@@ -38,7 +38,7 @@ class Tree {
 		})(s);
 		return dist;
 	}
-	std::pair<P, lint> Diameter() {
+	std::pair<IP, lint> Diameter() {
 		auto d = GetDist(1);
 		int x = std::max_element(all(d)) - d.begin();
 		d = GetDist(x);

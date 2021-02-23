@@ -4,7 +4,7 @@
 int N;
 int main() {
 	scanf("%d", &N);
-	std::vector<std::pair<P, int>> vec;
+	std::vector<std::pair<IP, int>> vec;
 	rep(i, N - 1) {
 		int a, b, c;
 		scanf("%d%d%d", &a, &b, &c);

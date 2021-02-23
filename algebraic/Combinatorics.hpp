@@ -15,13 +15,13 @@ class Combinatorics {
   public:
 	Combinatorics() noexcept : factorial(1, 1) {}
 	Combinatorics(int n) noexcept : factorial(1, 1) { append(n); }
-	virtual T getComb(int a, int b) noexcept {
+	virtual T get_comb(int a, int b) noexcept {
 		append(a);
 		return factorial[a] / factorial[a - b] / factorial[b];
 	}
-	virtual T getDcomb(int a, int b) noexcept { return getComb(a + b - 1, b); }
+	virtual T get_dcomb(int a, int b) noexcept { return get_comb(a + b - 1, b); }
 };
-template <typename T, typename std::enable_if_t<std::is_ModInt<T>,
+template <typename T, typename std::enable_if_t<is_ModInt<T>::value,
 												std::nullptr_t> = nullptr>
 class ModCombinatorics : Combinatorics<T> {
 	using Combinatorics<T>::factorial;
@@ -40,11 +40,13 @@ class ModCombinatorics : Combinatorics<T> {
 	ModCombinatorics(int n) noexcept : Combinatorics<T>(n), inv(1, 1) {
 		append(n);
 	}
-	T getComb(int a, int b) noexcept override {
+	T get_comb(int a, int b) noexcept override {
 		append(a);
 		return factorial[a] * inv[a - b] * inv[b];
 	}
-	T getDcomb(int a, int b) noexcept override { return getComb(a + b - 1, b); }
+	T get_dcomb(int a, int b) noexcept override {
+		return get_comb(a + b - 1, b);
+	}
 	T perm(int a, int b) noexcept {
 		append(a);
 		return factorial[a] * inv[a - b];

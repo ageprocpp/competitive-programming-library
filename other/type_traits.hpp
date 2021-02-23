@@ -1,6 +1,5 @@
 #pragma once
 #include "template.hpp"
-#include "../algebraic/StaticModInt.hpp"
 
 class ModInt__Base {};
 class StaticModInt__Base : ModInt__Base {};
