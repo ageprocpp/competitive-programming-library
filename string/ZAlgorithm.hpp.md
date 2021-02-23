@@ -4,14 +4,14 @@ data:
   - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
-  _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/yukicoder/0789.test.cpp
-    title: test/yukicoder/0789.test.cpp
-  _isVerificationFailed: true
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: test/yosupo/zalgorithm.cpp
+    title: test/yosupo/zalgorithm.cpp
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -78,73 +78,31 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    data-structure/DynamicSegTree.hpp\"\ntemplate <class T, T (*nodef)(const T &,\
-    \ const T &), T (*ident)(),\n\t\t  T (*init)() = ident>\nclass DynamicSegTree\
-    \ {\n\tclass Node {\n\t\tNode *par;\n\t\tstd::shared_ptr<Node> left = nullptr,\
-    \ right = nullptr;\n\n\t  public:\n\t\tT value;\n\t\tNode() : value(init()) {}\n\
-    \t\tNode(Node *p) : par(p), value(ident()) {}\n\t\tvoid set(const T &v) { value\
-    \ = v; }\n\t\tconst T &get() const { return value; }\n\t\tbool exist_left() const\
-    \ { return bool(left); }\n\t\tbool exist_right() const { return bool(right); }\n\
-    \t\tvoid eval() {\n\t\t\tT l = !exist_left() ? ident() : left->value;\n\t\t\t\
-    T r = !exist_right() ? ident() : right->value;\n\t\t\tvalue = nodef(l, r);\n\t\
-    \t}\n\t\tauto get_left() {\n\t\t\tif (!exist_left()) left.reset(new Node(this));\n\
-    \t\t\treturn left;\n\t\t}\n\t\tauto get_right() {\n\t\t\tif (!exist_right()) right.reset(new\
-    \ Node(this));\n\t\t\treturn right;\n\t\t}\n\t\tauto get_parent() { return par;\
-    \ }\n\t};\n\tlint n = 1;\n\tstd::shared_ptr<Node> root;\n\n\tauto ptr_from_id(lint\
-    \ id) {\n\t\tauto cur = root;\n\t\tlint width = n >> 1;\n\t\twhile (width) {\n\
-    \t\t\tif (id & width)\n\t\t\t\tcur = cur->get_right();\n\t\t\telse\n\t\t\t\tcur\
-    \ = cur->get_left();\n\t\t\twidth >>= 1;\n\t\t}\n\t\treturn cur;\n\t}\n\n\tT query(lint\
-    \ a, lint b, lint l, lint r, std::shared_ptr<Node> ptr) {\n\t\tif (r == -1) r\
-    \ = n;\n\t\tif (r <= a || b <= l) return ident();\n\t\tif (a <= l && r <= b) return\
-    \ ptr->value;\n\t\tT vl = ptr->exist_left() ? query(a, b, l, (l + r) >> 1, ptr->get_left())\n\
-    \t\t\t\t\t\t\t\t : ident();\n\t\tT vr = ptr->exist_right()\n\t\t\t\t   ? query(a,\
-    \ b, (l + r) >> 1, r, ptr->get_right())\n\t\t\t\t   : ident();\n\t\treturn nodef(vl,\
-    \ vr);\n\t}\n\n  public:\n\tDynamicSegTree(lint m) {\n\t\twhile (n < m) n <<=\
-    \ 1;\n\t\troot = std::shared_ptr<Node>(new Node);\n\t}\n\tvoid update(lint i,\
-    \ T x) {\n\t\tNode *cur = ptr_from_id(i).get();\n\t\tcur->set(x);\n\t\twhile (cur\
-    \ != root.get()) {\n\t\t\tcur = cur->get_parent();\n\t\t\tcur->eval();\n\t\t}\n\
-    \t}\n\tT query(lint a, lint b) { return query(a, b, 0, n, root); }\n\tconst T\
-    \ &operator[](const lint &x) { return ptr_from_id(x)->get(); }\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, T (*nodef)(const\
-    \ T &, const T &), T (*ident)(),\n\t\t  T (*init)() = ident>\nclass DynamicSegTree\
-    \ {\n\tclass Node {\n\t\tNode *par;\n\t\tstd::shared_ptr<Node> left = nullptr,\
-    \ right = nullptr;\n\n\t  public:\n\t\tT value;\n\t\tNode() : value(init()) {}\n\
-    \t\tNode(Node *p) : par(p), value(ident()) {}\n\t\tvoid set(const T &v) { value\
-    \ = v; }\n\t\tconst T &get() const { return value; }\n\t\tbool exist_left() const\
-    \ { return bool(left); }\n\t\tbool exist_right() const { return bool(right); }\n\
-    \t\tvoid eval() {\n\t\t\tT l = !exist_left() ? ident() : left->value;\n\t\t\t\
-    T r = !exist_right() ? ident() : right->value;\n\t\t\tvalue = nodef(l, r);\n\t\
-    \t}\n\t\tauto get_left() {\n\t\t\tif (!exist_left()) left.reset(new Node(this));\n\
-    \t\t\treturn left;\n\t\t}\n\t\tauto get_right() {\n\t\t\tif (!exist_right()) right.reset(new\
-    \ Node(this));\n\t\t\treturn right;\n\t\t}\n\t\tauto get_parent() { return par;\
-    \ }\n\t};\n\tlint n = 1;\n\tstd::shared_ptr<Node> root;\n\n\tauto ptr_from_id(lint\
-    \ id) {\n\t\tauto cur = root;\n\t\tlint width = n >> 1;\n\t\twhile (width) {\n\
-    \t\t\tif (id & width)\n\t\t\t\tcur = cur->get_right();\n\t\t\telse\n\t\t\t\tcur\
-    \ = cur->get_left();\n\t\t\twidth >>= 1;\n\t\t}\n\t\treturn cur;\n\t}\n\n\tT query(lint\
-    \ a, lint b, lint l, lint r, std::shared_ptr<Node> ptr) {\n\t\tif (r == -1) r\
-    \ = n;\n\t\tif (r <= a || b <= l) return ident();\n\t\tif (a <= l && r <= b) return\
-    \ ptr->value;\n\t\tT vl = ptr->exist_left() ? query(a, b, l, (l + r) >> 1, ptr->get_left())\n\
-    \t\t\t\t\t\t\t\t : ident();\n\t\tT vr = ptr->exist_right()\n\t\t\t\t   ? query(a,\
-    \ b, (l + r) >> 1, r, ptr->get_right())\n\t\t\t\t   : ident();\n\t\treturn nodef(vl,\
-    \ vr);\n\t}\n\n  public:\n\tDynamicSegTree(lint m) {\n\t\twhile (n < m) n <<=\
-    \ 1;\n\t\troot = std::shared_ptr<Node>(new Node);\n\t}\n\tvoid update(lint i,\
-    \ T x) {\n\t\tNode *cur = ptr_from_id(i).get();\n\t\tcur->set(x);\n\t\twhile (cur\
-    \ != root.get()) {\n\t\t\tcur = cur->get_parent();\n\t\t\tcur->eval();\n\t\t}\n\
-    \t}\n\tT query(lint a, lint b) { return query(a, b, 0, n, root); }\n\tconst T\
-    \ &operator[](const lint &x) { return ptr_from_id(x)->get(); }\n};"
+    string/ZAlgorithm.hpp\"\nstd::vector<int> ZAlgorithm(const std::string& S) {\n\
+    \tint c = 0, n = S.size();\n\tstd::vector<int> res(n, 0);\n\tREP(i, S.size() -\
+    \ 1) {\n\t\tint l = i - c;\n\t\tif (i + res[l] < c + res[c])\n\t\t\tres[i] = res[l];\n\
+    \t\telse {\n\t\t\tint j = std::max(0, c + res[c] - i);\n\t\t\twhile (i + j < n\
+    \ && S[j] == S[i + j]) j++;\n\t\t\tres[i] = j;\n\t\t\tc = i;\n\t\t}\n\t}\n\tres[0]\
+    \ = n;\n\treturn res;\n}\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\nstd::vector<int> ZAlgorithm(const\
+    \ std::string& S) {\n\tint c = 0, n = S.size();\n\tstd::vector<int> res(n, 0);\n\
+    \tREP(i, S.size() - 1) {\n\t\tint l = i - c;\n\t\tif (i + res[l] < c + res[c])\n\
+    \t\t\tres[i] = res[l];\n\t\telse {\n\t\t\tint j = std::max(0, c + res[c] - i);\n\
+    \t\t\twhile (i + j < n && S[j] == S[i + j]) j++;\n\t\t\tres[i] = j;\n\t\t\tc =\
+    \ i;\n\t\t}\n\t}\n\tres[0] = n;\n\treturn res;\n}"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: data-structure/DynamicSegTree.hpp
-  requiredBy: []
+  path: string/ZAlgorithm.hpp
+  requiredBy:
+  - test/yosupo/zalgorithm.cpp
   timestamp: '2021-02-24 00:36:14+09:00'
-  verificationStatus: LIBRARY_ALL_WA
-  verifiedWith:
-  - test/yukicoder/0789.test.cpp
-documentation_of: data-structure/DynamicSegTree.hpp
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: string/ZAlgorithm.hpp
 layout: document
 redirect_from:
-- /library/data-structure/DynamicSegTree.hpp
-- /library/data-structure/DynamicSegTree.hpp.html
-title: data-structure/DynamicSegTree.hpp
+- /library/string/ZAlgorithm.hpp
+- /library/string/ZAlgorithm.hpp.html
+title: string/ZAlgorithm.hpp
 ---

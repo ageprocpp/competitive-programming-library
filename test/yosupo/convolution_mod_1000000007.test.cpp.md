@@ -29,26 +29,26 @@ data:
   bundledCode: "#line 1 \"test/yosupo/convolution_mod_1000000007.test.cpp\"\n#define\
     \ PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod_1000000007\"\n#line\
     \ 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n\
-    #pragma GCC target(\"avx512f\")\n#else\n#pragma GCC target(\"avx2\")\n#endif\n\
-    #pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#include\
-    \ <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n#include\
-    \ <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n#include\
-    \ <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    #pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n#pragma GCC target(\"\
+    avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
+    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
+    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
+    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
     \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
     #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
-    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
-    using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
-    using ulint = unsigned long long;\nusing P = std::pair<int, int>;\nusing LP =\
-    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
-    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
-    \ 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique : public\
-    \ std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate <class\
-    \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
-    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
-    template <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    \ n) for (int i = 0; i < (n); i++)\n#define REP(i, n) for (int i = 1; i <= (n);\
+    \ i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\nusing u128\
+    \ = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\nusing ulint\
+    \ = unsigned long long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint,\
+    \ lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX\
+    \ / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
+    \ std::greater<T>> {\n};\ntemplate <class F>\ninline constexpr decltype(auto)\
+    \ lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\
+    \treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\ntemplate <class\
+    \ T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
     \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
     }\ntemplate <class T, class U>\nconstexpr inline bool chmax(T& lhs, const U& rhs)\
@@ -67,43 +67,55 @@ data:
     \ %= m;\n\t\tb >>= 1;\n\t}\n\treturn res;\n}\ntemplate <class T>\nconstexpr void\
     \ printArray(const std::vector<T>& vec, char split = ' ') {\n\trep(i, vec.size())\
     \ {\n\t\tstd::cout << vec[i];\n\t\tstd::cout << (i == (int)vec.size() - 1 ? '\\\
-    n' : split);\n\t}\n}\ntemplate <class T>\nconstexpr void printArray(T l, T r,\
-    \ char split = ' ') {\n\tT rprev = std::prev(r);\n\tfor (T i = l; i != r; i++)\
-    \ {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev ? '\\n' : split);\n\t\
-    }\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b,\
-    \ a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b * s.first;\n\t\
-    return s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const\
-    \ lint& m2) {\n\tlint p = extGcd(m1, m2).first;\n\tlint tmp = (b2 - b1) * p %\
-    \ m2;\n\tlint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);\n\treturn {r, m1 * m2};\n\
-    }\nint LCS(const std::string& a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size()\
-    \ + 1, b.size() + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i\
-    \ + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] ==\
-    \ b[j]) chmax(dp[i + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()],\
-    \ dp[i][b.size()]);\n\t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\
-    \treturn dp[a.size()][b.size()];\n}\n#line 3 \"other/FastIO.hpp\"\nnamespace FastIO\
-    \ {\n\tstatic constexpr size_t buf_size = 1 << 18;\n\tstatic constexpr size_t\
-    \ integer_size = 19;\n\n\tstatic char inbuf[buf_size + 1] = {};\n\tstatic char\
-    \ outbuf[buf_size + 1] = {};\n\n\tclass Scanner {\n\t\tsize_t pos = 0, end = buf_size;\n\
-    \t\tvoid load() {\n\t\t\tend = fread(inbuf, 1, buf_size, stdin);\n\t\t\tinbuf[end]\
-    \ = '\\0';\n\t\t}\n\t\tvoid ignore_space() {\n\t\t\twhile (inbuf[pos] <= ' ')\
-    \ {\n\t\t\t\tif (__builtin_expect(++pos == end, 0)) reload();\n\t\t\t}\n\t\t}\n\
-    \t\tchar next() { return inbuf[pos++]; }\n\t\tchar next_nonspace() {\n\t\t\tignore_space();\n\
-    \t\t\treturn inbuf[pos++];\n\t\t}\n\n\t  public:\n\t\tScanner() { load(); }\n\t\
-    \tvoid reload() {\n\t\t\tsize_t length = end - pos;\n\t\t\tmemmove(inbuf, inbuf\
-    \ + pos, length);\n\t\t\tend = length + fread(inbuf + length, 1, buf_size - length,\
-    \ stdin);\n\t\t\tinbuf[end] = '\\0';\n\t\t\tpos = 0;\n\t\t}\n\t\tvoid scan(char&\
-    \ c) { c = next_nonspace(); }\n\t\tvoid scan(std::string& s) {\n\t\t\tignore_space();\n\
+    n' : split);\n\t}\n}\ntemplate <class InputIter>\nconstexpr void printArray(InputIter\
+    \ l, InputIter r, char split = ' ') {\n\tauto rprev = std::prev(r);\n\tfor (auto\
+    \ i = l; i != r; i++) {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev ?\
+    \ '\\n' : split);\n\t}\n}\nLP extGcd(lint a, lint b) {\n\tif (b == 0) return {1,\
+    \ 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second\
+    \ -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint&\
+    \ m1, const lint& b2, const lint& m2) {\n\tlint p = extGcd(m1, m2).first;\n\t\
+    lint tmp = (b2 - b1) * p % m2;\n\tlint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);\n\
+    \treturn {r, m1 * m2};\n}\nint LCS(const std::string& a, const std::string& b)\
+    \ {\n\tauto dp = make_vec<int>(a.size() + 1, b.size() + 1);\n\trep(i, a.size())\
+    \ {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j\
+    \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
+    \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
+    \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
+    }\ntemplate <class T, std::enable_if_t<std::is_convertible<int, T>::value,\n\t\
+    \t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nvoid compress(std::vector<T>& vec)\
+    \ {\n\tauto tmp = vec;\n\tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)),\
+    \ tmp.end());\n\tfor (T& i : vec) i = std::lower_bound(all(tmp), i) - tmp.begin();\n\
+    }\ntemplate <class T>\nvoid compress(T* l, T* r) {\n\tstd::vector<T> tmp(l, r);\n\
+    \tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor\
+    \ (auto i = l; i < r; i++) {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\
+    \t}\n}\ntemplate <class InputIter>\nvoid compress(InputIter l, InputIter r) {\n\
+    \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
+    \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
+    \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
+    other/FastIO.hpp\"\nnamespace FastIO {\n\tstatic constexpr size_t buf_size = 1\
+    \ << 18;\n\tstatic constexpr size_t integer_size = 19;\n\n\tstatic char inbuf[buf_size\
+    \ + 1] = {};\n\tstatic char outbuf[buf_size + 1] = {};\n\n\tclass Scanner {\n\t\
+    \tsize_t pos = 0, end = buf_size;\n\t\tvoid load() {\n\t\t\tend = fread(inbuf,\
+    \ 1, buf_size, stdin);\n\t\t\tinbuf[end] = '\\0';\n\t\t}\n\t\tvoid ignore_space()\
+    \ {\n\t\t\twhile (inbuf[pos] <= ' ') {\n\t\t\t\tif (__builtin_expect(++pos ==\
+    \ end, 0)) reload();\n\t\t\t}\n\t\t}\n\t\tchar next() { return inbuf[pos++]; }\n\
+    \t\tchar next_nonspace() {\n\t\t\tignore_space();\n\t\t\treturn inbuf[pos++];\n\
+    \t\t}\n\n\t  public:\n\t\tScanner() { load(); }\n\t\tvoid reload() {\n\t\t\tsize_t\
+    \ length = end - pos;\n\t\t\tmemmove(inbuf, inbuf + pos, length);\n\t\t\tend =\
+    \ length + fread(inbuf + length, 1, buf_size - length, stdin);\n\t\t\tinbuf[end]\
+    \ = '\\0';\n\t\t\tpos = 0;\n\t\t}\n\t\tvoid scan() {}\n\t\tvoid scan(char& c)\
+    \ { c = next_nonspace(); }\n\t\tvoid scan(std::string& s) {\n\t\t\tignore_space();\n\
     \t\t\ts = \"\";\n\t\t\tdo {\n\t\t\t\tsize_t start = pos;\n\t\t\t\twhile (inbuf[pos]\
     \ > ' ') pos++;\n\t\t\t\ts += std::string(inbuf + start, inbuf + pos);\n\t\t\t\
     \tif (inbuf[pos] != '\\0') break;\n\t\t\t\treload();\n\t\t\t} while (true);\n\t\
-    \t}\n\t\ttemplate <typename T, std::enable_if_t<std::is_integral_v<T>,\n\t\t\t\
-    \t\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\tchar\
-    \ c = next_nonspace();\n\t\t\tif (__builtin_expect(pos + integer_size >= end,\
-    \ 0)) reload();\n\t\t\tbool minus = false;\n\t\t\tif (c == '-')\n\t\t\t\tminus\
-    \ = true, x = 0;\n\t\t\telse\n\t\t\t\tx = c & 15;\n\t\t\twhile ((c = next()) >=\
-    \ '0') x = x * 10 + (c & 15);\n\t\t\tif (minus) x = -x;\n\t\t}\n\t\ttemplate <typename\
-    \ T, class... Args>\n\t\tvoid scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\t\t\
-    \tscan(args...);\n\t\t}\n\t\ttemplate <typename T>\n\t\tScanner& operator>>(T&\
+    \t}\n\t\ttemplate <typename T, std::enable_if_t<std::is_integral<T>::value,\n\t\
+    \t\t\t\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\
+    \tchar c = next_nonspace();\n\t\t\tif (__builtin_expect(pos + integer_size >=\
+    \ end, 0)) reload();\n\t\t\tbool minus = false;\n\t\t\tif (c == '-')\n\t\t\t\t\
+    minus = true, x = 0;\n\t\t\telse\n\t\t\t\tx = c & 15;\n\t\t\twhile ((c = next())\
+    \ >= '0') x = x * 10 + (c & 15);\n\t\t\tif (minus) x = -x;\n\t\t}\n\t\ttemplate\
+    \ <typename T, class... Args>\n\t\tvoid scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\
+    \t\t\tscan(args...);\n\t\t}\n\t\ttemplate <typename T>\n\t\tScanner& operator>>(T&\
     \ x) {\n\t\t\tscan(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\
     \t\tstatic constexpr size_t block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]>\
     \ block_str;\n\t\tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\
@@ -134,11 +146,11 @@ data:
     \ return 4;\n\t\t\t\treturn 3;\n\t\t\t}\n\t\t\tif (n >= powers[1]) return 2;\n\
     \t\t\treturn 1;\n\t\t}\n\n\t  public:\n\t\tPrinter() = default;\n\t\t~Printer()\
     \ { flush(); }\n\t\tvoid flush() {\n\t\t\tfwrite(outbuf, 1, pos, stdout);\n\t\t\
-    \tpos = 0;\n\t\t}\n\t\tvoid print(){}\n\t\tvoid print(char c) {\n\t\t\toutbuf[pos++]\
+    \tpos = 0;\n\t\t}\n\t\tvoid print() {}\n\t\tvoid print(char c) {\n\t\t\toutbuf[pos++]\
     \ = c;\n\t\t\tif (__builtin_expect(pos == buf_size, 0)) flush();\n\t\t}\n\t\t\
     void print(char* s) {\n\t\t\twhile (*s != 0) {\n\t\t\t\toutbuf[pos++] = *s++;\n\
     \t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename\
-    \ T, std::enable_if_t<std::is_integral_v<T>,\n\t\t\t\t\t\t\t\t\t\t\t   std::nullptr_t>\
+    \ T, std::enable_if_t<std::is_integral<T>::value,\n\t\t\t\t\t\t\t\t\t\t\t   std::nullptr_t>\
     \ = nullptr>\n\t\tvoid print(T x) {\n\t\t\tif (__builtin_expect(pos + integer_size\
     \ >= buf_size, 0)) flush();\n\t\t\tif (x < 0) print('-'), x = -x;\n\t\t\tsize_t\
     \ digit = integer_digits(x);\n\t\t\tsize_t len = digit;\n\t\t\twhile (len >= 4)\
@@ -151,7 +163,7 @@ data:
     \t\t\tprint('\\n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const\
     \ T& x) {\n\t\t\tprint(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]>\
     \ Printer::block_str = Printer::precompute();\n};\t// namespace FastIO\n\n/**\n\
-    \ * @title Fast IO library\n */\n#line 4 \"other/type_traits.hpp\"\n\nclass ModInt__Base\
+    \ * @title Fast IO library\n */\n#line 3 \"other/type_traits.hpp\"\n\nclass ModInt__Base\
     \ {};\nclass StaticModInt__Base : ModInt__Base {};\nclass DynamicModInt__Base\
     \ : ModInt__Base {};\n\ntemplate <class T>\nclass is_ModInt : public std::is_base_of<ModInt__Base,\
     \ T> {};\ntemplate <class T>\nconstexpr bool is_ModInt_v = is_ModInt<T>::value;\n\
@@ -162,8 +174,8 @@ data:
     #line 4 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
     \ : StaticModInt__Base {\n\tstd::conditional_t<(modulo > INT_MAX >> 1), lint,\
     \ int> value;\n\n  public:\n\tstatic constexpr uint mod_value = modulo;\n\tconstexpr\
-    \ StaticModInt() : value(0) {}\n\ttemplate <class T, std::enable_if_t<!std::is_convertible_v<T,\
-    \ StaticModInt>,\n\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tconstexpr\
+    \ StaticModInt() : value(0) {}\n\ttemplate <class T,\n\t\t\t  std::enable_if_t<!std::is_convertible<T,\
+    \ StaticModInt>::value,\n\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\tconstexpr\
     \ StaticModInt(T value = 0) : value(value) {\n\t\tthis->value =\n\t\t\t(value\
     \ < 0 ? -(-value % modulo) + modulo : lint(value)) % modulo;\n\t}\n\tinline constexpr\
     \ StaticModInt inv() const {\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline\
@@ -194,13 +206,24 @@ data:
     \ T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
     \ T>\n\tconstexpr StaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
     \ /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator/=(const\
-    \ T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n};\ntemplate <uint\
-    \ modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x)\
-    \ {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
-    \ */\n#line 4 \"algebraic/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n\
-    // 924844033, 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769, 3, 2^24\n// 167772161,\
-    \ 3, 2^25\n// 469762049, 3, 2^26\nclass NumberTheoreticTransform {\n\tstatic constexpr\
-    \ uint bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t1224736769,\
+    \ T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n\tstatic int primitive_root()\
+    \ {\n\t\tstatic int p = 0;\n\t\tstatic std::random_device rd;\n\t\tstatic std::mt19937\
+    \ mt(rd());\n\t\tstatic std::uniform_int_distribution<> uid(1, modulo - 1);\n\t\
+    \tif (p) return 0;\n\n\t\t// use naive factorize due to file size limit\n\t\t\
+    std::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\tfor (int i = 2; i * i <=\
+    \ tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\t\t\t\
+    \tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\t}\n\
+    \t\tif (tmp != 1) vec.emplace_back(tmp);\n\n\t\tvec.erase(std::unique(all(vec)),\
+    \ vec.end());\n\t\twhile (true) {\n\t\t\tp = uid(mt);\n\t\t\tbool f = true;\n\t\
+    \t\tfor (const auto& i : vec) {\n\t\t\t\tif (mypow(StaticModInt(p), (modulo -\
+    \ 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\
+    \t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
+    \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
+    \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 4\
+    \ \"algebraic/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n// 924844033,\
+    \ 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769, 3, 2^24\n// 167772161, 3, 2^25\n\
+    // 469762049, 3, 2^26\nclass NumberTheoreticTransform {\n\tstatic constexpr uint\
+    \ bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t1224736769,\
     \ 167772161, 469762049};\n\n  private:\n\ttemplate <unsigned int modulo>\n\tstatic\
     \ void ntt(std::vector<StaticModInt<modulo>>& a) {\n\t\tint sz = a.size();\n\t\
     \tif (sz == 1) return;\n\t\tStaticModInt<modulo> root =\n\t\t\tmodulo == 924844033\
@@ -264,7 +287,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/convolution_mod_1000000007.test.cpp
   requiredBy: []
-  timestamp: '2021-01-31 21:24:42+09:00'
+  timestamp: '2021-02-24 00:36:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution_mod_1000000007.test.cpp

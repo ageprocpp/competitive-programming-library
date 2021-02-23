@@ -140,6 +140,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: string/Trie.hpp
       title: Trie
+    - icon: ':warning:'
+      path: string/ZAlgorithm.hpp
+      title: string/ZAlgorithm.hpp
+  - name: test/yosupo
+    pages:
+    - icon: ':warning:'
+      path: test/yosupo/zalgorithm.cpp
+      title: test/yosupo/zalgorithm.cpp
   verificationCategories:
   - name: test/aoj
     pages:
