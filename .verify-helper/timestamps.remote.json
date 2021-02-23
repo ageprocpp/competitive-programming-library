@@ -41,5 +41,6 @@
 "test/yosupo/unionfind.test.cpp": "2021-02-24 00:36:14 +0900",
 "test/yosupo/vertex_add_path_sum.test.cpp": "2021-02-24 00:36:14 +0900",
 "test/yosupo/vertex_add_subtree_sum.test.cpp": "2021-02-24 00:36:14 +0900",
-"test/yosupo/vertex_set_path_composite.test.cpp": "2021-02-24 00:36:14 +0900"
+"test/yosupo/vertex_set_path_composite.test.cpp": "2021-02-24 00:36:14 +0900",
+"test/yukicoder/0789.test.cpp": "2021-02-24 00:36:14 +0900"
 }
