@@ -38,7 +38,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/ConvexHullTrick.hpp
       title: Convex Hull Trick
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/DynamicSegTree.hpp
       title: data-structure/DynamicSegTree.hpp
     - icon: ':heavy_check_mark:'
@@ -114,7 +114,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: other/FastIO.hpp
       title: Fast IO library
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: other/template.hpp
       title: other/template.hpp
     - icon: ':warning:'
@@ -284,7 +284,7 @@ data:
       title: test/yosupo/vertex_set_path_composite.test.cpp
   - name: test/yukicoder
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/yukicoder/0789.test.cpp
       title: test/yukicoder/0789.test.cpp
 layout: toppage

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: algebraic/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   - icon: ':heavy_check_mark:'

@@ -35,7 +35,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/ConvexHullTrick.hpp
     title: Convex Hull Trick
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/DynamicSegTree.hpp
     title: data-structure/DynamicSegTree.hpp
   - icon: ':heavy_check_mark:'
@@ -261,12 +261,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_set_path_composite.test.cpp
     title: test/yosupo/vertex_set_path_composite.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yukicoder/0789.test.cpp
     title: test/yukicoder/0789.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -445,7 +445,7 @@ data:
   - algebraic/Combinatorics.hpp
   - algebraic/NumberTheoreticTransform.hpp
   timestamp: '2021-02-24 00:36:14+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/factorize.test.cpp
   - test/yosupo/associative_array.test.cpp
