@@ -7,6 +7,9 @@ data:
       path: algebraic/Combinatorics.hpp
       title: Combinatorics/ModCombinatorics
     - icon: ':warning:'
+      path: algebraic/DiscreteLogarithm.hpp
+      title: algebraic/DiscreteLogarithm.hpp
+    - icon: ':warning:'
       path: algebraic/DynamicModInt.hpp
       title: algebraic/DynamicModInt.hpp
     - icon: ':heavy_check_mark:'
@@ -145,6 +148,9 @@ data:
       title: string/ZAlgorithm.hpp
   - name: test/yosupo
     pages:
+    - icon: ':warning:'
+      path: test/yosupo/discrete_logarithm_mod.cpp
+      title: test/yosupo/discrete_logarithm_mod.cpp
     - icon: ':warning:'
       path: test/yosupo/zalgorithm.cpp
       title: test/yosupo/zalgorithm.cpp

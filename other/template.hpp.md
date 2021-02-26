@@ -6,6 +6,9 @@ data:
     path: algebraic/Combinatorics.hpp
     title: Combinatorics/ModCombinatorics
   - icon: ':warning:'
+    path: algebraic/DiscreteLogarithm.hpp
+    title: algebraic/DiscreteLogarithm.hpp
+  - icon: ':warning:'
     path: algebraic/DynamicModInt.hpp
     title: algebraic/DynamicModInt.hpp
   - icon: ':heavy_check_mark:'
@@ -128,6 +131,9 @@ data:
   - icon: ':warning:'
     path: string/ZAlgorithm.hpp
     title: string/ZAlgorithm.hpp
+  - icon: ':warning:'
+    path: test/yosupo/discrete_logarithm_mod.cpp
+    title: test/yosupo/discrete_logarithm_mod.cpp
   - icon: ':warning:'
     path: test/yosupo/zalgorithm.cpp
     title: test/yosupo/zalgorithm.cpp
@@ -416,6 +422,7 @@ data:
   - data-structure/IntervalSegTree.hpp
   - data-structure/SegTreeBeats.hpp
   - data-structure/SparseTable.hpp
+  - test/yosupo/discrete_logarithm_mod.cpp
   - test/yosupo/zalgorithm.cpp
   - graph/StronglyConnectedComponents.hpp
   - graph/Dinic.hpp
@@ -438,6 +445,7 @@ data:
   - algebraic/FastFactorize.hpp
   - algebraic/FloorSum.hpp
   - algebraic/StaticModInt.hpp
+  - algebraic/DiscreteLogarithm.hpp
   - algebraic/Interpolation.hpp
   - algebraic/FastFourierTransform.hpp
   - algebraic/MyComplex.hpp

@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':warning:'
+    path: algebraic/DiscreteLogarithm.hpp
+    title: algebraic/DiscreteLogarithm.hpp
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':warning:'
-    path: string/ZAlgorithm.hpp
-    title: string/ZAlgorithm.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,14 +14,15 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links:
-    - https://judge.yosupo.jp/problem/zalgorithm
-  bundledCode: "#line 1 \"test/yosupo/zalgorithm.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/zalgorithm\"\
-    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n\
-    #pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n#pragma GCC target(\"\
-    avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
-    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
-    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    - https://judge.yosupo.jp/problem/discrete_logarithm_mod
+  bundledCode: "#line 1 \"test/yosupo/discrete_logarithm_mod.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/discrete_logarithm_mod\"\n#line 2 \"other/template.hpp\"\
+    \n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"\
+    avx512f\")\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n\
+    #pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#include\
+    \ <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n#include\
+    \ <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n#include\
+    \ <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
     \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
     #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
@@ -80,30 +81,41 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    string/ZAlgorithm.hpp\"\nstd::vector<int> ZAlgorithm(const std::string& S) {\n\
-    \tint c = 0, n = S.size();\n\tstd::vector<int> res(n, 0);\n\tREP(i, S.size() -\
-    \ 1) {\n\t\tint l = i - c;\n\t\tif (i + res[l] < c + res[c])\n\t\t\tres[i] = res[l];\n\
-    \t\telse {\n\t\t\tint j = std::max(0, c + res[c] - i);\n\t\t\twhile (i + j < n\
-    \ && S[j] == S[i + j]) j++;\n\t\t\tres[i] = j;\n\t\t\tc = i;\n\t\t}\n\t}\n\tres[0]\
-    \ = n;\n\treturn res;\n}\n#line 4 \"test/yosupo/zalgorithm.cpp\"\nint main() {\n\
-    \tstd::string S;\n\tstd::cin >> S;\n\tprintArray(ZAlgorithm(S));\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/zalgorithm\"\n#include\
-    \ \"../../other/template.hpp\"\n#include \"../../string/ZAlgorithm.hpp\"\nint\
-    \ main() {\n\tstd::string S;\n\tstd::cin >> S;\n\tprintArray(ZAlgorithm(S));\n\
-    }"
+    algebraic/DiscreteLogarithm.hpp\"\nint DiscreteLogarithm(int X, int Y, int M)\
+    \ {\n\tif (Y == 0 && M == 1) return 0;\n\tif (X == 0) {\n\t\tif (Y == 0) return\
+    \ 1;\n\t\tif (Y == 1) return 0;\n\t\treturn -1;\n\t}\n\tif (Y == 1) return 0;\n\
+    \tif (Y == 0) {\n\t\tint inf_p = 1, tmp = M, cur = 1;\n\t\twhile (tmp) inf_p =\
+    \ lint(inf_p) * X % M, tmp >>= 1, cur <<= 1;\n\t\tif (inf_p) return -1;\n\t\t\
+    int ans = 0, now = 1;\n\t\twhile (cur >>= 1) {\n\t\t\tif (lint(now) * modpow(X,\
+    \ cur, M) % M) {\n\t\t\t\tnow = lint(now) * modpow(X, cur, M) % M;\n\t\t\t\tans\
+    \ += cur;\n\t\t\t}\n\t\t}\n\t\treturn ans + 1;\n\t}\n\tint m = std::sqrt(M) +\
+    \ 1, c = modpow(X, m, M);\n\tstd::unordered_map<int, int> mp;\n\tint cur = 1,\
+    \ p = 0;\n\tREP(i, m) {\n\t\tcur = lint(cur) * c % M;\n\t\tp += m;\n\t\tif (mp.find(cur)\
+    \ != mp.end()) break;\n\t\tmp.insert({cur, p});\n\t}\n\tcur = Y;\n\tint res =\
+    \ INF;\n\trep(i, m) {\n\t\tif (mp.find(cur) != mp.end()) {\n\t\t\tif (modpow(X,\
+    \ mp[cur] - i, M) == Y) chmin(res, mp[cur] - i);\n\t\t}\n\t\tcur = lint(cur) *\
+    \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}\n#line 4 \"test/yosupo/discrete_logarithm_mod.cpp\"\
+    \nint main() {\n\tint T, X, Y, M;\n\tstd::cin >> T;\n\trep(i, T) {\n\t\tstd::cin\
+    \ >> X >> Y >> M;\n\t\tstd::cout << DiscreteLogarithm(X, Y, M) << std::endl;\n\
+    \t}\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/discrete_logarithm_mod\"\
+    \n#include \"../../other/template.hpp\"\n#include \"../../algebraic/DiscreteLogarithm.hpp\"\
+    \nint main() {\n\tint T, X, Y, M;\n\tstd::cin >> T;\n\trep(i, T) {\n\t\tstd::cin\
+    \ >> X >> Y >> M;\n\t\tstd::cout << DiscreteLogarithm(X, Y, M) << std::endl;\n\
+    \t}\n}"
   dependsOn:
   - other/template.hpp
-  - string/ZAlgorithm.hpp
+  - algebraic/DiscreteLogarithm.hpp
   isVerificationFile: false
-  path: test/yosupo/zalgorithm.cpp
+  path: test/yosupo/discrete_logarithm_mod.cpp
   requiredBy: []
   timestamp: '2021-02-26 10:46:39+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: test/yosupo/zalgorithm.cpp
+documentation_of: test/yosupo/discrete_logarithm_mod.cpp
 layout: document
 redirect_from:
-- /library/test/yosupo/zalgorithm.cpp
-- /library/test/yosupo/zalgorithm.cpp.html
-title: test/yosupo/zalgorithm.cpp
+- /library/test/yosupo/discrete_logarithm_mod.cpp
+- /library/test/yosupo/discrete_logarithm_mod.cpp.html
+title: test/yosupo/discrete_logarithm_mod.cpp
 ---
