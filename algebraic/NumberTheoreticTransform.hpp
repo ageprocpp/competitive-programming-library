@@ -38,7 +38,7 @@ class NumberTheoreticTransform {
 		}
 	}
 	template <uint modulo, typename T>
-	static std::vector<StaticModInt<modulo>> internal_multiply(
+	static std::vector<StaticModInt<modulo>> internal_convolution(
 		const std::vector<T>& f, const std::vector<T>& g) {
 		std::vector<StaticModInt<modulo>> nf(f.size()), ng(g.size());
 		rep(j, f.size()) nf[j] = f[j];
@@ -58,19 +58,19 @@ class NumberTheoreticTransform {
 	static bool inverse;
 
 	template <uint modulo, typename T>
-	static std::vector<StaticModInt<modulo>> multiply(std::vector<T> f,
+	static std::vector<StaticModInt<modulo>> convolution(std::vector<T> f,
 													  std::vector<T> g) {
 		size_t sz = 1;
 		while (sz < f.size() + g.size()) sz <<= 1;
 		f.resize(sz);
 		g.resize(sz);
 		rep(i, 6) {
-			if (modulo == bases[i]) return internal_multiply<modulo>(f, g);
+			if (modulo == bases[i]) return internal_convolution<modulo>(f, g);
 		}
 		constexpr uint base1 = 998244353, base2 = 1224736769, base3 = 469762049;
-		auto re1 = internal_multiply<base1>(f, g);
-		auto re2 = internal_multiply<base2>(f, g);
-		auto re3 = internal_multiply<base3>(f, g);
+		auto re1 = internal_convolution<base1>(f, g);
+		auto re2 = internal_convolution<base2>(f, g);
+		auto re3 = internal_convolution<base3>(f, g);
 		std::vector<StaticModInt<modulo>> res(re1.size());
 		constexpr int r12 = StaticModInt<base2>(base1).inv();
 		constexpr int r13 = StaticModInt<base3>(base1).inv();
@@ -87,11 +87,11 @@ class NumberTheoreticTransform {
 		return res;
 	}
 	template <class T>
-	static std::vector<lint> multiply_plain(std::vector<T> f,
+	static std::vector<lint> convolution_plain(std::vector<T> f,
 											std::vector<T> g) {
 		const uint mod1 = 998244353, mod2 = 1224736769;
-		std::vector<StaticModInt<mod1>> mul1 = internal_multiply<mod1>(f, g);
-		std::vector<StaticModInt<mod2>> mul2 = internal_multiply<mod2>(f, g);
+		std::vector<StaticModInt<mod1>> mul1 = internal_convolution<mod1>(f, g);
+		std::vector<StaticModInt<mod2>> mul2 = internal_convolution<mod2>(f, g);
 		std::vector<lint> res(mul1.size());
 		rep(i, mul1.size()) res[i] =
 			ChineseRem(mul1[i], mod1, mul2[i], mod2).first;

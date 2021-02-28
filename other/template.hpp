@@ -37,8 +37,8 @@
 #include <utility>
 #include <vector>
 
-#define rep(i, n) for (int i = 0; i < (n); i++)
-#define REP(i, n) for (int i = 1; i <= (n); i++)
+#define rep(i, n) for (int i = 0; i < int(n); i++)
+#define REP(i, n) for (int i = 1; i <= int(n); i++)
 #define all(V) V.begin(), V.end()
 
 using i128 = __int128_t;
@@ -152,10 +152,11 @@ LP extGcd(lint a, lint b) {
 	return s;
 }
 LP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const lint& m2) {
-	lint p = extGcd(m1, m2).first;
-	lint tmp = (b2 - b1) * p % m2;
-	lint r = (b1 + m1 * tmp + m1 * m2) % (m1 * m2);
-	return {r, m1 * m2};
+	auto p = extGcd(m1, m2);
+	lint g = gcd(m1, m2), l = m1 / g * m2;
+	lint tmp = (b2 - b1) / g * p.first % (m2 / g);
+	lint r = (b1 + m1 * tmp + l) % l;
+	return {r, l};
 }
 int LCS(const std::string& a, const std::string& b) {
 	auto dp = make_vec<int>(a.size() + 1, b.size() + 1);

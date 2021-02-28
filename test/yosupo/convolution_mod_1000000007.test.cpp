@@ -12,7 +12,7 @@ int main() {
 	b.resize(M);
 	rep(i, N) cin >> a[i];
 	rep(i, M) cin >> b[i];
-	auto res = NumberTheoreticTransform::multiply<1000000007>(a, b);
+	auto res = NumberTheoreticTransform::convolution<1000000007>(a, b);
 	rep(i, N + M - 2) cout << (int)res[i] << ' ';
 	cout << (int)res[N + M - 2] << '\n';
 }
