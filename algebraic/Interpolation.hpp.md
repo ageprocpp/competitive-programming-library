@@ -145,10 +145,10 @@ data:
     \ \"algebraic/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n// 924844033,\
     \ 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769, 3, 2^24\n// 167772161, 3, 2^25\n\
     // 469762049, 3, 2^26\nclass NumberTheoreticTransform {\n\tstatic constexpr uint\
-    \ bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t1224736769,\
-    \ 167772161, 469762049};\n\n  private:\n\ttemplate <unsigned int modulo>\n\tstatic\
-    \ void ntt(std::vector<StaticModInt<modulo>>& a) {\n\t\tint sz = a.size();\n\t\
-    \tif (sz == 1) return;\n\t\tStaticModInt<modulo> root =\n\t\t\tmodulo == 924844033\
+    \ bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t 1224736769,\
+    \ 167772161, 469762049};\n\n  private:\n\ttemplate <uint modulo>\n\tstatic void\
+    \ ntt(std::vector<StaticModInt<modulo>>& a) {\n\t\tint sz = a.size();\n\t\tif\
+    \ (sz == 1) return;\n\t\tStaticModInt<modulo> root =\n\t\t\tmodulo == 924844033\
     \ || modulo == 1012924417 ? 5 : 3;\n\t\tif (inverse)\n\t\t\troot = mypow(root,\
     \ modulo - 1 - (modulo - 1) / sz);\n\t\telse\n\t\t\troot = mypow(root, (modulo\
     \ - 1) / sz);\n\t\tstd::vector<StaticModInt<modulo>> b(sz), roots((sz >> 1) +\
@@ -164,39 +164,58 @@ data:
     \ f.size()) nf[j] = f[j];\n\t\trep(j, g.size()) ng[j] = g[j];\n\t\tinverse = false;\n\
     \t\tntt(nf);\n\t\tntt(ng);\n\t\trep(i, nf.size()) nf[i] *= ng[i];\n\t\tinverse\
     \ = true;\n\t\tntt(nf);\n\t\tStaticModInt<modulo> inv = StaticModInt<modulo>(nf.size()).inv();\n\
-    \t\trep(i, nf.size()) nf[i] *= inv;\n\t\treturn nf;\n\t}\n\n  public:\n\tstatic\
-    \ bool inverse;\n\n\ttemplate <uint modulo, typename T>\n\tstatic std::vector<StaticModInt<modulo>>\
-    \ convolution(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\t\t\t  std::vector<T> g)\
+    \t\trep(i, nf.size()) nf[i] *= inv;\n\t\treturn nf;\n\t}\n\ttemplate <uint modulo>\n\
+    \tstatic std::vector<StaticModInt<modulo>> internal_convolution(\n\t\tstd::vector<StaticModInt<modulo>>\
+    \ f,\n\t\tstd::vector<StaticModInt<modulo>> g) {\n\t\tinverse = false;\n\t\tntt(f);\n\
+    \t\tntt(g);\n\t\trep(i, f.size()) f[i] *= g[i];\n\t\tinverse = true;\n\t\tntt(f);\n\
+    \t\tStaticModInt<modulo> inv = StaticModInt<modulo>(f.size()).inv();\n\t\trep(i,\
+    \ f.size()) f[i] *= inv;\n\t\treturn f;\n\t}\n\n  public:\n\tstatic bool inverse;\n\
+    \n\ttemplate <uint modulo, class T>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ convolution(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t std::vector<T> g)\
     \ {\n\t\tsize_t sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz <<= 1;\n\t\t\
     f.resize(sz);\n\t\tg.resize(sz);\n\t\trep(i, 6) {\n\t\t\tif (modulo == bases[i])\
-    \ return internal_convolution<modulo>(f, g);\n\t\t}\n\t\tconstexpr uint base1\
-    \ = 998244353, base2 = 1224736769, base3 = 469762049;\n\t\tauto re1 = internal_convolution<base1>(f,\
+    \ return internal_convolution<modulo>(std::move(f), std::move(g));\n\t\t}\n\t\t\
+    constexpr uint base1 = 998244353, base2 = 1224736769, base3 = 469762049;\n\t\t\
+    auto re1 = internal_convolution<base1>(f, g);\n\t\tauto re2 = internal_convolution<base2>(f,\
+    \ g);\n\t\tauto re3 = internal_convolution<base3>(std::move(f), std::move(g));\n\
+    \t\tstd::vector<StaticModInt<modulo>> res(re1.size());\n\t\tconstexpr int r12\
+    \ = StaticModInt<base2>(base1).inv();\n\t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\
+    \t\tconstexpr int r23 = StaticModInt<base3>(base2).inv();\n\t\trep(i, re1.size())\
+    \ {\n\t\t\tre2[i] = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i]\
+    \ =\n\t\t\t\t(StaticModInt<base3>(re3[i] - re1[i]) * r13 - re2[i]) * r23;\n\t\t\
+    \tres[i] = (StaticModInt<modulo>(re1[i]) +\n\t\t\t\t\t  StaticModInt<modulo>(re2[i])\
+    \ * base1 +\n\t\t\t\t\t  StaticModInt<modulo>(re3[i]) * base1 * base2);\n\t\t\
+    }\n\t\treturn res;\n\t}\n\ttemplate <uint modulo>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ convolution(\n\t\tstd::vector<StaticModInt<modulo>> f,\n\t\tstd::vector<StaticModInt<modulo>>\
+    \ g) {\n\t\tsize_t sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz <<= 1;\n\t\
+    \tf.resize(sz);\n\t\tg.resize(sz);\n\t\trep(i, 6) {\n\t\t\tif (modulo == bases[i])\
+    \ return internal_convolution(f, g);\n\t\t}\n\t\tconstexpr uint base1 = 998244353,\
+    \ base2 = 1224736769, base3 = 469762049;\n\t\tauto re1 = internal_convolution<base1>(f,\
     \ g);\n\t\tauto re2 = internal_convolution<base2>(f, g);\n\t\tauto re3 = internal_convolution<base3>(f,\
     \ g);\n\t\tstd::vector<StaticModInt<modulo>> res(re1.size());\n\t\tconstexpr int\
     \ r12 = StaticModInt<base2>(base1).inv();\n\t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\
-    \t\tconstexpr int r23 = StaticModInt<base3>(base2).inv();\n\t\tconstexpr int p12\
-    \ = StaticModInt<modulo>(base1) * base2;\n\t\trep(i, re1.size()) {\n\t\t\tre2[i]\
-    \ = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i] =\n\t\t\t\t(StaticModInt<base3>(re3[i]\
-    \ - re1[i]) * r13 - re2[i]) * r23;\n\t\t\tres[i] = (StaticModInt<modulo>(re1[i])\
-    \ +\n\t\t\t\t\t  StaticModInt<modulo>(re2[i]) * base1 +\n\t\t\t\t\t  StaticModInt<modulo>(re3[i])\
-    \ * base1 * base2);\n\t\t}\n\t\treturn res;\n\t}\n\ttemplate <class T>\n\tstatic\
-    \ std::vector<lint> convolution_plain(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\t\
-    std::vector<T> g) {\n\t\tconst uint mod1 = 998244353, mod2 = 1224736769;\n\t\t\
-    std::vector<StaticModInt<mod1>> mul1 = internal_convolution<mod1>(f, g);\n\t\t\
-    std::vector<StaticModInt<mod2>> mul2 = internal_convolution<mod2>(f, g);\n\t\t\
-    std::vector<lint> res(mul1.size());\n\t\trep(i, mul1.size()) res[i] =\n\t\t\t\
-    ChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\t\treturn res;\n\t}\n};\nbool\
-    \ NumberTheoreticTransform::inverse = false;\n\n/**\n * @title NumberTheoreticTransform\n\
+    \t\tconstexpr int r23 = StaticModInt<base3>(base2).inv();\n\t\trep(i, re1.size())\
+    \ {\n\t\t\tre2[i] = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i]\
+    \ =\n\t\t\t\t(StaticModInt<base3>(re3[i] - re1[i]) * r13 - re2[i]) * r23;\n\t\t\
+    \tres[i] = (StaticModInt<modulo>(re1[i]) +\n\t\t\t\t\t  StaticModInt<modulo>(re2[i])\
+    \ * base1 +\n\t\t\t\t\t  StaticModInt<modulo>(re3[i]) * base1 * base2);\n\t\t\
+    }\n\t\treturn res;\n\t}\n\ttemplate <class T>\n\tstatic std::vector<lint> convolution_plain(std::vector<T>\
+    \ f,\n\t\t\t\t\t\t\t\t\t\t\t   std::vector<T> g) {\n\t\tconst uint mod1 = 998244353,\
+    \ mod2 = 1224736769;\n\t\tstd::vector<StaticModInt<mod1>> mul1 = internal_convolution<mod1>(f,\
+    \ g);\n\t\tstd::vector<StaticModInt<mod2>> mul2 = internal_convolution<mod2>(f,\
+    \ g);\n\t\tstd::vector<lint> res(mul1.size());\n\t\trep(i, mul1.size()) res[i]\
+    \ =\n\t\t\tChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\t\treturn res;\n\t\
+    }\n};\nbool NumberTheoreticTransform::inverse = false;\n\n/**\n * @title NumberTheoreticTransform\n\
     \ */\n#line 5 \"algebraic/Interpolation.hpp\"\ntemplate <typename T>\nclass Polynomial\
     \ {\n\tstd::vector<T> vec;\n\n  public:\n\tPolynomial() : vec() {}\n\tPolynomial(const\
     \ std::vector<T>& v) : vec(v) {}\n\tPolynomial operator*(const Polynomial& p)\
     \ {\n\t\tPolynomial res(std::vector<T>(vec.size() + p.vec.size() - 1));\n\t\t\
     rep(i, vec.size()) {\n\t\t\trep(j, p.vec.size()) res.vec[i + j] += vec[i] * p.vec[j];\n\
     \t\t}\n\t\treturn res;\n\t}\n\tPolynomial& operator*=(const Polynomial& p) {\n\
-    \t\tauto res = NumberTheoreticTransform::\n\t\tstd::vector<T> nvec(vec.size()\
-    \ + p.vec.size() - 1);\n\t\trep(i, vec.size()) {\n\t\t\trep(j, p.vec.size()) nvec[i\
-    \ + j] = vec[i] * p.vec[j];\n\t\t}\n\t\tvec = std::move(nvec);\n\t\treturn *this;\n\
-    \t}\n};\n"
+    \t\tauto res = NumberTheoreticTransform::convolution_plain(vec, p.vec);\n\t\t\
+    std::vector<T> nvec(vec.size() + p.vec.size() - 1);\n\t\trep(i, vec.size()) {\n\
+    \t\t\trep(j, p.vec.size()) nvec[i + j] = vec[i] * p.vec[j];\n\t\t}\n\t\tvec =\
+    \ std::move(nvec);\n\t\treturn *this;\n\t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"NumberTheoreticTransform.hpp\"\
     \n#include \"StaticModInt.hpp\"\ntemplate <typename T>\nclass Polynomial {\n\t\
     std::vector<T> vec;\n\n  public:\n\tPolynomial() : vec() {}\n\tPolynomial(const\
@@ -204,10 +223,10 @@ data:
     \ {\n\t\tPolynomial res(std::vector<T>(vec.size() + p.vec.size() - 1));\n\t\t\
     rep(i, vec.size()) {\n\t\t\trep(j, p.vec.size()) res.vec[i + j] += vec[i] * p.vec[j];\n\
     \t\t}\n\t\treturn res;\n\t}\n\tPolynomial& operator*=(const Polynomial& p) {\n\
-    \t\tauto res = NumberTheoreticTransform::\n\t\tstd::vector<T> nvec(vec.size()\
-    \ + p.vec.size() - 1);\n\t\trep(i, vec.size()) {\n\t\t\trep(j, p.vec.size()) nvec[i\
-    \ + j] = vec[i] * p.vec[j];\n\t\t}\n\t\tvec = std::move(nvec);\n\t\treturn *this;\n\
-    \t}\n};"
+    \t\tauto res = NumberTheoreticTransform::convolution_plain(vec, p.vec);\n\t\t\
+    std::vector<T> nvec(vec.size() + p.vec.size() - 1);\n\t\trep(i, vec.size()) {\n\
+    \t\t\trep(j, p.vec.size()) nvec[i + j] = vec[i] * p.vec[j];\n\t\t}\n\t\tvec =\
+    \ std::move(nvec);\n\t\treturn *this;\n\t}\n};"
   dependsOn:
   - other/template.hpp
   - algebraic/NumberTheoreticTransform.hpp
@@ -216,7 +235,7 @@ data:
   isVerificationFile: false
   path: algebraic/Interpolation.hpp
   requiredBy: []
-  timestamp: '2021-02-28 19:01:17+09:00'
+  timestamp: '2021-03-02 18:59:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/Interpolation.hpp

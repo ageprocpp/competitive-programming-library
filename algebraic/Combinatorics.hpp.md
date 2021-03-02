@@ -145,44 +145,40 @@ data:
     \ {\n\t\twhile (factorial.size() <= n) {\n\t\t\tfactorial.emplace_back(factorial.back()\
     \ * factorial.size());\n\t\t}\n\t}\n\n  public:\n\tCombinatorics() noexcept :\
     \ factorial(1, 1) {}\n\tCombinatorics(int n) noexcept : factorial(1, 1) { append(n);\
-    \ }\n\tvirtual T get_comb(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn\
+    \ }\n\tvirtual T get_fact(int a) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a];\n\
+    \t}\n\tvirtual T get_comb(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn\
     \ factorial[a] / factorial[a - b] / factorial[b];\n\t}\n\tvirtual T get_dcomb(int\
-    \ a, int b) noexcept { return get_comb(a + b - 1, b); }\n};\ntemplate <typename\
-    \ T, typename std::enable_if_t<is_ModInt<T>::value,\n\t\t\t\t\t\t\t\t\t\t\t\t\
-    std::nullptr_t> = nullptr>\nclass ModCombinatorics : Combinatorics<T> {\n\tusing\
-    \ Combinatorics<T>::factorial;\n\tstd::vector<T> inv;\n\tvoid append(int n) noexcept\
-    \ {\n\t\tint tmp = factorial.size();\n\t\tif (n < tmp) return;\n\t\tCombinatorics<T>::append(n);\n\
-    \t\tinv.resize(n + 1);\n\t\tinv[n] = T(1) / factorial.back();\n\t\tfor (int i\
-    \ = n; i > tmp; i--) inv[i - 1] = inv[i] * i;\n\t}\n\n  public:\n\tModCombinatorics()\
-    \ noexcept : Combinatorics<T>(), inv(1, 1) {}\n\tModCombinatorics(int n) noexcept\
-    \ : Combinatorics<T>(n), inv(1, 1) {\n\t\tappend(n);\n\t}\n\tT get_comb(int a,\
-    \ int b) noexcept override {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a\
-    \ - b] * inv[b];\n\t}\n\tT get_dcomb(int a, int b) noexcept override {\n\t\treturn\
-    \ get_comb(a + b - 1, b);\n\t}\n\tT perm(int a, int b) noexcept {\n\t\tappend(a);\n\
-    \t\treturn factorial[a] * inv[a - b];\n\t}\n};\n\n/**\n * @title Combinatorics/ModCombinatorics\n\
-    \ */\n"
+    \ a, int b) noexcept {\n\t\treturn get_comb(a + b - 1, b);\n\t}\n};\ntemplate\
+    \ <typename T, typename std::enable_if_t<is_ModInt<T>::value,\n\t\t\t\t\t\t\t\t\
+    \t\t\t\tstd::nullptr_t> = nullptr>\nclass ModCombinatorics : public Combinatorics<T>\
+    \ {\n\tusing Combinatorics<T>::factorial;\n\tstd::vector<T> inv;\n\tvoid append(int\
+    \ n) noexcept {\n\t\tint tmp = factorial.size();\n\t\tif (n < tmp) return;\n\t\
+    \tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\tinv[n] = T(1) / factorial.back();\n\
+    \t\tfor (int i = n; i > tmp; i--) inv[i - 1] = inv[i] * i;\n\t}\n\n  public:\n\
+    \tModCombinatorics() noexcept : Combinatorics<T>(), inv(1, 1) {}\n\tModCombinatorics(int\
+    \ n) noexcept : Combinatorics<T>(n), inv(1, 1) {\n\t\tappend(n);\n\t}\n\tT get_comb(int\
+    \ a, int b) noexcept override {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a\
+    \ - b] * inv[b];\n\t}\n};\n\n/**\n * @title Combinatorics/ModCombinatorics\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../other/type_traits.hpp\"\
     \n#include \"StaticModInt.hpp\"\ntemplate <typename T>\nclass Combinatorics {\n\
     \  protected:\n\tstd::vector<T> factorial;\n\tvoid append(int n) noexcept {\n\t\
     \twhile (factorial.size() <= n) {\n\t\t\tfactorial.emplace_back(factorial.back()\
     \ * factorial.size());\n\t\t}\n\t}\n\n  public:\n\tCombinatorics() noexcept :\
     \ factorial(1, 1) {}\n\tCombinatorics(int n) noexcept : factorial(1, 1) { append(n);\
-    \ }\n\tvirtual T get_comb(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn\
+    \ }\n\tvirtual T get_fact(int a) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a];\n\
+    \t}\n\tvirtual T get_comb(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn\
     \ factorial[a] / factorial[a - b] / factorial[b];\n\t}\n\tvirtual T get_dcomb(int\
-    \ a, int b) noexcept { return get_comb(a + b - 1, b); }\n};\ntemplate <typename\
-    \ T, typename std::enable_if_t<is_ModInt<T>::value,\n\t\t\t\t\t\t\t\t\t\t\t\t\
-    std::nullptr_t> = nullptr>\nclass ModCombinatorics : Combinatorics<T> {\n\tusing\
-    \ Combinatorics<T>::factorial;\n\tstd::vector<T> inv;\n\tvoid append(int n) noexcept\
-    \ {\n\t\tint tmp = factorial.size();\n\t\tif (n < tmp) return;\n\t\tCombinatorics<T>::append(n);\n\
-    \t\tinv.resize(n + 1);\n\t\tinv[n] = T(1) / factorial.back();\n\t\tfor (int i\
-    \ = n; i > tmp; i--) inv[i - 1] = inv[i] * i;\n\t}\n\n  public:\n\tModCombinatorics()\
-    \ noexcept : Combinatorics<T>(), inv(1, 1) {}\n\tModCombinatorics(int n) noexcept\
-    \ : Combinatorics<T>(n), inv(1, 1) {\n\t\tappend(n);\n\t}\n\tT get_comb(int a,\
-    \ int b) noexcept override {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a\
-    \ - b] * inv[b];\n\t}\n\tT get_dcomb(int a, int b) noexcept override {\n\t\treturn\
-    \ get_comb(a + b - 1, b);\n\t}\n\tT perm(int a, int b) noexcept {\n\t\tappend(a);\n\
-    \t\treturn factorial[a] * inv[a - b];\n\t}\n};\n\n/**\n * @title Combinatorics/ModCombinatorics\n\
-    \ */"
+    \ a, int b) noexcept {\n\t\treturn get_comb(a + b - 1, b);\n\t}\n};\ntemplate\
+    \ <typename T, typename std::enable_if_t<is_ModInt<T>::value,\n\t\t\t\t\t\t\t\t\
+    \t\t\t\tstd::nullptr_t> = nullptr>\nclass ModCombinatorics : public Combinatorics<T>\
+    \ {\n\tusing Combinatorics<T>::factorial;\n\tstd::vector<T> inv;\n\tvoid append(int\
+    \ n) noexcept {\n\t\tint tmp = factorial.size();\n\t\tif (n < tmp) return;\n\t\
+    \tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\tinv[n] = T(1) / factorial.back();\n\
+    \t\tfor (int i = n; i > tmp; i--) inv[i - 1] = inv[i] * i;\n\t}\n\n  public:\n\
+    \tModCombinatorics() noexcept : Combinatorics<T>(), inv(1, 1) {}\n\tModCombinatorics(int\
+    \ n) noexcept : Combinatorics<T>(n), inv(1, 1) {\n\t\tappend(n);\n\t}\n\tT get_comb(int\
+    \ a, int b) noexcept override {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a\
+    \ - b] * inv[b];\n\t}\n};\n\n/**\n * @title Combinatorics/ModCombinatorics\n */"
   dependsOn:
   - other/template.hpp
   - other/type_traits.hpp
@@ -190,7 +186,7 @@ data:
   isVerificationFile: false
   path: algebraic/Combinatorics.hpp
   requiredBy: []
-  timestamp: '2021-02-28 19:01:17+09:00'
+  timestamp: '2021-03-02 18:59:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/Combinatorics.hpp
