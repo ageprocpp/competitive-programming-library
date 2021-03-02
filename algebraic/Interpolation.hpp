@@ -17,7 +17,7 @@ class Polynomial {
 		return res;
 	}
 	Polynomial& operator*=(const Polynomial& p) {
-		auto res = NumberTheoreticTransform::
+		auto res = NumberTheoreticTransform::convolution_plain(vec, p.vec);
 		std::vector<T> nvec(vec.size() + p.vec.size() - 1);
 		rep(i, vec.size()) {
 			rep(j, p.vec.size()) nvec[i + j] = vec[i] * p.vec[j];
