@@ -73,7 +73,7 @@ constexpr auto make_vec(size_t n, Args&&... args) {
 		n, make_vec<T>(std::forward<Args>(args)...));
 }
 template <class T, class U>
-constexpr inline bool chmax(T& lhs, const U& rhs) {
+constexpr inline bool chmax(T& lhs, const U& rhs) noexcept {
 	if (lhs < rhs) {
 		lhs = rhs;
 		return true;
@@ -81,14 +81,14 @@ constexpr inline bool chmax(T& lhs, const U& rhs) {
 	return false;
 }
 template <class T, class U>
-constexpr inline bool chmin(T& lhs, const U& rhs) {
+constexpr inline bool chmin(T& lhs, const U& rhs) noexcept {
 	if (lhs > rhs) {
 		lhs = rhs;
 		return true;
 	}
 	return false;
 }
-constexpr inline lint gcd(lint a, lint b) {
+constexpr inline lint gcd(lint a, lint b) noexcept {
 	while (b) {
 		lint c = a;
 		a = b;
@@ -96,8 +96,8 @@ constexpr inline lint gcd(lint a, lint b) {
 	}
 	return a;
 }
-inline lint lcm(lint a, lint b) { return a / gcd(a, b) * b; }
-constexpr bool isprime(lint n) {
+inline lint lcm(lint a, lint b) noexcept { return a / gcd(a, b) * b; }
+constexpr bool isprime(lint n) noexcept {
 	if (n == 1) return false;
 	for (int i = 2; i * i <= n; i++) {
 		if (n % i == 0) return false;
@@ -105,7 +105,7 @@ constexpr bool isprime(lint n) {
 	return true;
 }
 template <class T>
-constexpr T mypow(T a, lint b) {
+constexpr T mypow(T a, lint b) noexcept {
 	T res(1);
 	while (true) {
 		if (b & 1) res *= a;
@@ -115,7 +115,7 @@ constexpr T mypow(T a, lint b) {
 	}
 	return res;
 }
-constexpr lint modpow(lint a, lint b, lint m) {
+constexpr lint modpow(lint a, lint b, lint m) noexcept {
 	a %= m;
 	lint res(1);
 	while (b) {
@@ -144,14 +144,15 @@ constexpr void printArray(InputIter l, InputIter r, char split = ' ') {
 		std::cout << (i == rprev ? '\n' : split);
 	}
 }
-LP extGcd(lint a, lint b) {
+LP extGcd(lint a, lint b) noexcept {
 	if (b == 0) return {1, 0};
 	LP s = extGcd(b, a % b);
 	std::swap(s.first, s.second);
 	s.second -= a / b * s.first;
 	return s;
 }
-LP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const lint& m2) {
+LP ChineseRem(const lint& b1, const lint& m1, const lint& b2,
+			  const lint& m2) noexcept {
 	auto p = extGcd(m1, m2);
 	lint g = gcd(m1, m2), l = m1 / g * m2;
 	lint tmp = (b2 - b1) / g * p.first % (m2 / g);
