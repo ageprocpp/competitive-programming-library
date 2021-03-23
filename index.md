@@ -25,6 +25,9 @@ data:
       path: algebraic/Interpolation.hpp
       title: algebraic/Interpolation.hpp
     - icon: ':warning:'
+      path: algebraic/Matrix.hpp
+      title: algebraic/Matrix.hpp
+    - icon: ':warning:'
       path: algebraic/MyComplex.hpp
       title: MyComplex
     - icon: ':heavy_check_mark:'
@@ -146,6 +149,11 @@ data:
     - icon: ':warning:'
       path: string/ZAlgorithm.hpp
       title: string/ZAlgorithm.hpp
+  - name: .
+    pages:
+    - icon: ':warning:'
+      path: submit.cpp
+      title: submit.cpp
   - name: test/yosupo
     pages:
     - icon: ':warning:'

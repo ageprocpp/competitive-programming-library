@@ -291,8 +291,8 @@ data:
   timestamp: '2021-03-05 17:59:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution_mod.test.cpp
   - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/convolution_mod.test.cpp
 documentation_of: algebraic/NumberTheoreticTransform.hpp
 layout: document
 redirect_from:

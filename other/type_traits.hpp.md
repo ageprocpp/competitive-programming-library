@@ -169,22 +169,22 @@ data:
   isVerificationFile: false
   path: other/type_traits.hpp
   requiredBy:
-  - algebraic/DynamicModInt.hpp
+  - string/RollingHash.hpp
+  - string/HashedString.hpp
   - algebraic/Combinatorics.hpp
   - algebraic/StaticModInt.hpp
+  - algebraic/DynamicModInt.hpp
   - algebraic/Interpolation.hpp
   - algebraic/NumberTheoreticTransform.hpp
-  - string/HashedString.hpp
-  - string/RollingHash.hpp
   timestamp: '2021-03-05 17:59:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/convolution_mod_1000000007.test.cpp
   - test/yosupo/queue_operate_all_composite.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/point_set_range_composite.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
   - test/yosupo/range_affine_range_sum.test.cpp
+  - test/yosupo/convolution_mod.test.cpp
   - test/aoj/ALDS1_14_B_HashedString.test.cpp
 documentation_of: other/type_traits.hpp
 layout: document

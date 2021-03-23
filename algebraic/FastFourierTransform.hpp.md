@@ -121,15 +121,15 @@ data:
     \ =\n\t\t\t\t\t\ta[k + w * j] + a[k + w * j + (sz >> 1)];\n\t\t\t\t\tb[k + ((w\
     \ * j) << 1) + w] =\n\t\t\t\t\t\troots[w * j] *\n\t\t\t\t\t\t(a[k + w * j] - a[k\
     \ + w * j + (sz >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a, b);\n\t\t}\n\t\
-    }\n\n  public:\n\tstatic constexpr bool inverse = false;\n\ttemplate <class T>\n\
-    \tstatic std::vector<double> multiply(std::vector<T> f, std::vector<T> g) {\n\t\
-    \tif (f.size() < g.size()) std::swap(f, g);\n\t\tstd::vector<MyComplex> nf, ng;\n\
-    \t\tint sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz *= 2;\n\t\tnf.resize(sz);\n\
-    \t\tng.resize(sz);\n\t\trep(i, f.size()) {\n\t\t\tnf[i] = f[i];\n\t\t\tif (i <\
-    \ g.size()) ng[i] = g[i];\n\t\t}\n\t\tinverse = false;\n\t\tdft(nf);\n\t\tdft(ng);\n\
-    \t\trep(i, sz) nf[i] *= ng[i];\n\t\tinverse = true;\n\t\tdft(nf);\n\t\tstd::vector<double>\
-    \ res(sz);\n\t\trep(i, sz) res[i] = nf[i].real() / sz;\n\t\treturn res;\n\t}\n\
-    };\n\n/**\n * @title FastFourierTransform\n */\n"
+    }\n\n  public:\n\tstatic bool inverse;\n\ttemplate <class T>\n\tstatic std::vector<double>\
+    \ multiply(std::vector<T> f, std::vector<T> g) {\n\t\tif (f.size() < g.size())\
+    \ std::swap(f, g);\n\t\tstd::vector<MyComplex> nf, ng;\n\t\tint sz = 1;\n\t\t\
+    while (sz < f.size() + g.size()) sz *= 2;\n\t\tnf.resize(sz);\n\t\tng.resize(sz);\n\
+    \t\trep(i, f.size()) {\n\t\t\tnf[i] = f[i];\n\t\t\tif (i < g.size()) ng[i] = g[i];\n\
+    \t\t}\n\t\tinverse = false;\n\t\tdft(nf);\n\t\tdft(ng);\n\t\trep(i, sz) nf[i]\
+    \ *= ng[i];\n\t\tinverse = true;\n\t\tdft(nf);\n\t\tstd::vector<double> res(sz);\n\
+    \t\trep(i, sz) res[i] = nf[i].real() / sz;\n\t\treturn res;\n\t}\n};\n\nbool FastFourierTransform::inverse\
+    \ = false;\n\n/**\n * @title FastFourierTransform\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"MyComplex.hpp\"\
     \nclass FastFourierTransform {\n  private:\n\tstatic void dft(std::vector<MyComplex>&\
     \ a) {\n\t\tint sz = a.size();\n\t\tif (sz == 1) return;\n\t\tMyComplex root =\n\
@@ -140,22 +140,23 @@ data:
     \tb[k + ((w * j) << 1)] =\n\t\t\t\t\t\ta[k + w * j] + a[k + w * j + (sz >> 1)];\n\
     \t\t\t\t\tb[k + ((w * j) << 1) + w] =\n\t\t\t\t\t\troots[w * j] *\n\t\t\t\t\t\t\
     (a[k + w * j] - a[k + w * j + (sz >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a,\
-    \ b);\n\t\t}\n\t}\n\n  public:\n\tstatic constexpr bool inverse = false;\n\ttemplate\
-    \ <class T>\n\tstatic std::vector<double> multiply(std::vector<T> f, std::vector<T>\
-    \ g) {\n\t\tif (f.size() < g.size()) std::swap(f, g);\n\t\tstd::vector<MyComplex>\
-    \ nf, ng;\n\t\tint sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz *= 2;\n\t\t\
-    nf.resize(sz);\n\t\tng.resize(sz);\n\t\trep(i, f.size()) {\n\t\t\tnf[i] = f[i];\n\
-    \t\t\tif (i < g.size()) ng[i] = g[i];\n\t\t}\n\t\tinverse = false;\n\t\tdft(nf);\n\
-    \t\tdft(ng);\n\t\trep(i, sz) nf[i] *= ng[i];\n\t\tinverse = true;\n\t\tdft(nf);\n\
-    \t\tstd::vector<double> res(sz);\n\t\trep(i, sz) res[i] = nf[i].real() / sz;\n\
-    \t\treturn res;\n\t}\n};\n\n/**\n * @title FastFourierTransform\n */"
+    \ b);\n\t\t}\n\t}\n\n  public:\n\tstatic bool inverse;\n\ttemplate <class T>\n\
+    \tstatic std::vector<double> multiply(std::vector<T> f, std::vector<T> g) {\n\t\
+    \tif (f.size() < g.size()) std::swap(f, g);\n\t\tstd::vector<MyComplex> nf, ng;\n\
+    \t\tint sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz *= 2;\n\t\tnf.resize(sz);\n\
+    \t\tng.resize(sz);\n\t\trep(i, f.size()) {\n\t\t\tnf[i] = f[i];\n\t\t\tif (i <\
+    \ g.size()) ng[i] = g[i];\n\t\t}\n\t\tinverse = false;\n\t\tdft(nf);\n\t\tdft(ng);\n\
+    \t\trep(i, sz) nf[i] *= ng[i];\n\t\tinverse = true;\n\t\tdft(nf);\n\t\tstd::vector<double>\
+    \ res(sz);\n\t\trep(i, sz) res[i] = nf[i].real() / sz;\n\t\treturn res;\n\t}\n\
+    };\n\nbool FastFourierTransform::inverse = false;\n\n/**\n * @title FastFourierTransform\n\
+    \ */"
   dependsOn:
   - other/template.hpp
   - algebraic/MyComplex.hpp
   isVerificationFile: false
   path: algebraic/FastFourierTransform.hpp
   requiredBy: []
-  timestamp: '2021-03-05 17:59:54+09:00'
+  timestamp: '2021-03-23 22:32:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/FastFourierTransform.hpp
