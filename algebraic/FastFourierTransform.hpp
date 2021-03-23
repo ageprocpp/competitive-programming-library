@@ -25,7 +25,7 @@ class FastFourierTransform {
 	}
 
   public:
-	static constexpr bool inverse = false;
+	static bool inverse;
 	template <class T>
 	static std::vector<double> multiply(std::vector<T> f, std::vector<T> g) {
 		if (f.size() < g.size()) std::swap(f, g);
@@ -49,6 +49,8 @@ class FastFourierTransform {
 		return res;
 	}
 };
+
+bool FastFourierTransform::inverse = false;
 
 /**
  * @title FastFourierTransform
