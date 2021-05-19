@@ -90,6 +90,9 @@ class FixedSquareMatrix : public FixedMatrix<T, N, N> {
 	using FixedMatrix<T, N, N>::elems;
 
   public:
+	using FixedMatrix<T, N, N>::operator*;
+	FixedSquareMatrix(const FixedMatrix<T, N, N>& obj)
+		: FixedMatrix<T, N, N>(obj) {}
 	FixedSquareMatrix<T, N>& operator=(const FixedMatrix<T, N, N>& rhs) {
 		elems = rhs.data();
 		return *this;
@@ -110,6 +113,12 @@ class FixedSquareMatrix : public FixedMatrix<T, N, N> {
 			p >>= 1;
 			memo *= memo;
 		}
+		return res;
+	}
+
+	static FixedSquareMatrix<T, N> ident() {
+		FixedSquareMatrix<T, N> res;
+		rep(i, N) res[i][i] = 1;
 		return res;
 	}
 };

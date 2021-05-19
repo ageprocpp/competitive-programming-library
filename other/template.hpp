@@ -1,5 +1,6 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
+#ifndef __clang__
 #ifdef ONLINE_JUDGE
 #pragma GCC target("avx512f")
 #elif defined EVAL
@@ -8,6 +9,7 @@
 #endif
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
+#endif
 #include <string.h>
 #include <algorithm>
 #include <array>
@@ -57,6 +59,20 @@ constexpr double PI = 3.141592653589793238462643383279;
 template <class T>
 class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>> {
 };
+int popcount(uint x) {
+#if __cplusplus >= 202002L
+	return std::popcount(x);
+#else
+#ifndef __clang__
+	return __builtin_popcount(x);
+#endif
+#endif
+	x = (x & 0x55555555) + (x >> 1 & 0x55555555);
+	x = (x & 0x33333333) + (x >> 2 & 0x33333333);
+	x = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);
+	x = (x & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);
+	return (x & 0x0000ffff) + (x >> 16 & 0x0000ffff);
+}
 template <class F>
 inline constexpr decltype(auto) lambda_fix(F&& f) {
 	return [f = std::forward<F>(f)](auto&&... args) {
@@ -71,6 +87,14 @@ template <class T, class... Args>
 constexpr auto make_vec(size_t n, Args&&... args) {
 	return std::vector<decltype(make_vec<T>(args...))>(
 		n, make_vec<T>(std::forward<Args>(args)...));
+}
+template <class T, class U>
+std::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {
+	return ist >> x.first >> x.second;
+}
+template <class T, class U>
+std::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {
+	return ost << x.first << " " << x.second;
 }
 template <class T, class U>
 constexpr inline bool chmax(T& lhs, const U& rhs) noexcept {

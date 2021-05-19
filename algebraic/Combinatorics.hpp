@@ -31,11 +31,11 @@ template <typename T, typename std::enable_if_t<is_ModInt<T>::value,
 class ModCombinatorics : Combinatorics<T> {};
 
 template <typename T>
-class ModCombinatorics<T> : Combinatorics<T> {
+class ModCombinatorics<T> : public Combinatorics<T> {
 	using Combinatorics<T>::factorial;
 	static std::vector<T> inv;
 	static void append(int n) noexcept {
-		int tmp = inv.size();
+		int tmp = factorial.size();
 		if (n < tmp) return;
 		Combinatorics<T>::append(n);
 		inv.resize(n + 1);
@@ -44,6 +44,10 @@ class ModCombinatorics<T> : Combinatorics<T> {
 	}
 
   public:
+	static T get_fact(int a) noexcept {
+		append(a);
+		return factorial[a];
+	}
 	static T get_comb(int a, int b) noexcept {
 		append(a);
 		return factorial[a] * inv[a - b] * inv[b];

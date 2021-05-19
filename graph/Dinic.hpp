@@ -59,6 +59,7 @@ class Dinic {
 			}
 		}
 	}
+	void clear() { *this = Dinic(N); }
 	void add_edge(int from, int to, lint cap) {
 		vec[from].push_back({to, cap, (int)vec[to].size(), -1});
 		vec[to].push_back({from, 0, (int)vec[from].size() - 1, idx++});

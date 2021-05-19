@@ -74,14 +74,12 @@ class IntervalSegTree : public SegTree<T, nodef> {
 		while (i /= 2) node[i] = nodef(node[2 * i], node[2 * i + 1]);
 	}
 	void update(int l, int r, U x) {
-		l += n;
-		r += n;
+		l += n, r += n;
 		int nl = l, nr = r;
 		while (!(nl & 1)) nl >>= 1;
 		while (!(nr & 1)) nr >>= 1;
 		nr--;
-		eval(nl);
-		eval(nr);
+		eval(nl), eval(nr);
 		while (l < r) {
 			if (l & 1) {
 				updf(node[l], x, width[l]);
@@ -103,23 +101,19 @@ class IntervalSegTree : public SegTree<T, nodef> {
 					lazy[r] = x;
 				}
 			}
-			l >>= 1;
-			r >>= 1;
+			l >>= 1, r >>= 1;
 		}
 		while (nl >>= 1) node[nl] = nodef(node[2 * nl], node[2 * nl + 1]);
 		while (nr >>= 1) node[nr] = nodef(node[2 * nr], node[2 * nr + 1]);
 	}
 	T query(int l, int r) {
-		l += n;
-		r += n;
-		eval(l);
+		l += n, r += n, eval(l);
 		eval(r - 1);
 		T ls = ident, rs = ident;
 		while (l < r) {
 			if (l & 1) ls = nodef(ls, node[l++]);
 			if (r & 1) rs = nodef(node[--r], rs);
-			l >>= 1;
-			r >>= 1;
+			l >>= 1, r >>= 1;
 		}
 		return nodef(ls, rs);
 	}
@@ -147,6 +141,24 @@ class IntervalSegTree : public SegTree<T, nodef> {
 		return max_right(st, check, acc, (k << 1) | 1, m, r);
 	}
 
+	template <class F>
+	int min_left(int st, F& check, T& acc, int k, int l, int r) {
+		eval(k);
+		if (l + 1 == r) {
+			acc = nodef(node[k], acc);
+			return check(acc) ? -1 : k - n + 1;
+		}
+		int m = (l + r) >> 1;
+		if (st <= m) return min_left(st, check, acc, k << 1, l, m);
+		if (r <= st && check(nodef(node[k], acc))) {
+			acc = nodef(node[k], acc);
+			return -1;
+		}
+		int vr = min_left(st, check, acc, (k << 1) | 1, m, r);
+		if (vr != -1) return vr;
+		return min_left(st, check, acc, k << 1, l, m);
+	}
+
   public:
 	template <class F>
 	int max_right(int st, F check) {
@@ -157,6 +169,17 @@ class IntervalSegTree : public SegTree<T, nodef> {
 	int max_right(int st) {
 		T acc = ident;
 		return max_right(st, check, acc, 1, 0, n);
+	}
+
+	template <class F>
+	int min_left(int st, F check) {
+		T acc = ident;
+		return min_left(st, check, acc, 1, 0, n);
+	}
+	template <bool (*check)(const T&)>
+	int min_left(int st) {
+		T acc = ident;
+		return min_left(st, check, acc, 1, 0, n);
 	}
 };
 namespace {
