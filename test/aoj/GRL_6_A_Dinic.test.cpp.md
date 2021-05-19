@@ -18,29 +18,38 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A
   bundledCode: "#line 1 \"test/aoj/GRL_6_A_Dinic.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A\"\
-    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n\
-    #pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n#pragma GCC target(\"\
-    avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
-    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
-    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
-    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
-    #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
-    \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
-    #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
-    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
-    using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
-    using ulint = unsigned long long;\nusing IP = std::pair<int, int>;\nusing LP =\
-    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
-    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
-    \ 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique : public\
-    \ std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate <class\
-    \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
-    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
-    template <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
-    }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
-    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n\
+    #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n\
+    #pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC\
+    \ optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include <algorithm>\n\
+    #include <array>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
+    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
+    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
+    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
+    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
+    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
+    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
+    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
+    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
+    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
+    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
+    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\nint\
+    \ popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
+    #else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\t\
+    x = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >>\
+    \ 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x\
+    \ & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x >> 16\
+    \ & 0x0000ffff);\n}\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&&\
+    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
+    return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
+    \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
+    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class\
+    \ U>\nstd::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn\
+    \ ist >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
+    \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
     }\ntemplate <class T, class U>\nconstexpr inline bool chmax(T& lhs, const U& rhs)\
     \ noexcept {\n\tif (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn\
     \ false;\n}\ntemplate <class T, class U>\nconstexpr inline bool chmin(T& lhs,\
@@ -99,15 +108,16 @@ data:
     Dinic(int n) : N(n) {\n\t\tvec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\
     \t}\n\tvoid reset() {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\
     \tif (j.id != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap\
-    \ = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tvoid add_edge(int from, int to, lint\
-    \ cap) {\n\t\tvec[from].push_back({to, cap, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from,\
-    \ 0, (int)vec[from].size() - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\
-    \t\tlint res = 0;\n\t\twhile (true) {\n\t\t\tbfs(s, t);\n\t\t\tif (level[t] <\
-    \ 0) return res;\n\t\t\titer.assign(N, 0);\n\t\t\tlint f;\n\t\t\twhile ((f = dfs(s,\
-    \ t, LINF)) > 0) res += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\
-    \t\tstd::vector<lint> res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i])\
-    \ {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\
-    \t}\n};\n\n/**\n * @title Dinic's algorithm\n */\n#line 4 \"test/aoj/GRL_6_A_Dinic.test.cpp\"\
+    \ = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tvoid clear() { *this = Dinic(N); }\n\
+    \tvoid add_edge(int from, int to, lint cap) {\n\t\tvec[from].push_back({to, cap,\
+    \ (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size()\
+    \ - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\t\
+    while (true) {\n\t\t\tbfs(s, t);\n\t\t\tif (level[t] < 0) return res;\n\t\t\t\
+    iter.assign(N, 0);\n\t\t\tlint f;\n\t\t\twhile ((f = dfs(s, t, LINF)) > 0) res\
+    \ += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\t\tstd::vector<lint>\
+    \ res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif\
+    \ (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n\
+    /**\n * @title Dinic's algorithm\n */\n#line 4 \"test/aoj/GRL_6_A_Dinic.test.cpp\"\
     \nint v, e;\nint main() {\n\tscanf(\"%d%d\", &v, &e);\n\tDinic flow(v);\n\trep(i,\
     \ e) {\n\t\tint a, b, c;\n\t\tscanf(\"%d%d%d\", &a, &b, &c);\n\t\tflow.add_edge(a,\
     \ b, c);\n\t}\n\tprintf(\"%d\\n\", flow.max_flow(0, v - 1));\n\treturn 0;\n}\n"
@@ -122,7 +132,7 @@ data:
   isVerificationFile: true
   path: test/aoj/GRL_6_A_Dinic.test.cpp
   requiredBy: []
-  timestamp: '2021-03-05 17:59:54+09:00'
+  timestamp: '2021-05-20 00:07:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/GRL_6_A_Dinic.test.cpp

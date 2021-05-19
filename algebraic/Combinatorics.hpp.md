@@ -19,34 +19,43 @@ data:
     document_title: Combinatorics/ModCombinatorics
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
-    #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n\
-    #pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC\
-    \ optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n#include\
-    \ <array>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
-    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
-    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
-    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
-    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
-    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
-    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
-    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
-    using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
-    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
-    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
-    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
-    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
-    \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
-    return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
-    \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
-    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class\
-    \ U>\nconstexpr inline bool chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs\
-    \ < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate\
-    \ <class T, class U>\nconstexpr inline bool chmin(T& lhs, const U& rhs) noexcept\
-    \ {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n\
-    }\nconstexpr inline lint gcd(lint a, lint b) noexcept {\n\twhile (b) {\n\t\tlint\
+    #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
+    \ defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"\
+    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include\
+    \ <algorithm>\n#include <array>\n#include <bitset>\n#include <cassert>\n#include\
+    \ <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n#include\
+    \ <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n#include\
+    \ <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n#include\
+    \ <map>\n#include <memory>\n#include <queue>\n#include <random>\n#include <set>\n\
+    #include <stack>\n#include <string>\n#include <unordered_map>\n#include <unordered_set>\n\
+    #include <utility>\n#include <vector>\n\n#define rep(i, n) for (int i = 0; i <\
+    \ int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V)\
+    \ V.begin(), V.end()\n\nusing i128 = __int128_t;\nusing u128 = __uint128_t;\n\
+    using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
+    \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
+    constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
+    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
+    \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
+    \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
+    #endif\n#endif\n\tx = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333)\
+    \ + (x >> 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\t\
+    x = (x & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x\
+    \ >> 16 & 0x0000ffff);\n}\ntemplate <class F>\ninline constexpr decltype(auto)\
+    \ lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\
+    \treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\ntemplate <class\
+    \ T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
+    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    }\ntemplate <class T, class U>\nstd::istream& operator>>(std::istream& ist, std::pair<T,\
+    \ U>& x) {\n\treturn ist >> x.first >> x.second;\n}\ntemplate <class T, class\
+    \ U>\nstd::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {\n\
+    \treturn ost << x.first << \" \" << x.second;\n}\ntemplate <class T, class U>\n\
+    constexpr inline bool chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs < rhs)\
+    \ {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate <class\
+    \ T, class U>\nconstexpr inline bool chmin(T& lhs, const U& rhs) noexcept {\n\t\
+    if (lhs > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\n\
+    constexpr inline lint gcd(lint a, lint b) noexcept {\n\twhile (b) {\n\t\tlint\
     \ c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint\
     \ a, lint b) noexcept { return a / gcd(a, b) * b; }\nconstexpr bool isprime(lint\
     \ n) noexcept {\n\tif (n == 1) return false;\n\tfor (int i = 2; i * i <= n; i++)\
@@ -151,16 +160,18 @@ data:
     \ + b - 1, b); }\n};\ntemplate <typename T>\nstd::vector<T> Combinatorics<T>::factorial\
     \ = std::vector<T>(1, 1);\n\ntemplate <typename T, typename std::enable_if_t<is_ModInt<T>::value,\n\
     \t\t\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nclass ModCombinatorics : Combinatorics<T>\
-    \ {};\n\ntemplate <typename T>\nclass ModCombinatorics<T> : Combinatorics<T> {\n\
-    \tusing Combinatorics<T>::factorial;\n\tstatic std::vector<T> inv;\n\tstatic void\
-    \ append(int n) noexcept {\n\t\tint tmp = inv.size();\n\t\tif (n < tmp) return;\n\
-    \t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\tinv[n] = T(1) /\
-    \ factorial.back();\n\t\tfor (int i = n; i > tmp; i--) inv[i - 1] = inv[i] * i;\n\
-    \t}\n\n  public:\n\tstatic T get_comb(int a, int b) noexcept {\n\t\tappend(a);\n\
-    \t\treturn factorial[a] * inv[a - b] * inv[b];\n\t}\n\tstatic T get_perm(int a,\
-    \ int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a - b];\n\t\
-    }\n};\n/**\n * @title Combinatorics/ModCombinatorics\n */\ntemplate <typename\
-    \ T>\nstd::vector<T> ModCombinatorics<T, nullptr>::inv = std::vector<T>(1, 1);\n"
+    \ {};\n\ntemplate <typename T>\nclass ModCombinatorics<T> : public Combinatorics<T>\
+    \ {\n\tusing Combinatorics<T>::factorial;\n\tstatic std::vector<T> inv;\n\tstatic\
+    \ void append(int n) noexcept {\n\t\tint tmp = factorial.size();\n\t\tif (n <\
+    \ tmp) return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\t\
+    inv[n] = T(1) / factorial.back();\n\t\tfor (int i = n; i > tmp; i--) inv[i - 1]\
+    \ = inv[i] * i;\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept {\n\t\t\
+    append(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_comb(int a, int b) noexcept\
+    \ {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a - b] * inv[b];\n\t}\n\tstatic\
+    \ T get_perm(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a]\
+    \ * inv[a - b];\n\t}\n};\n/**\n * @title Combinatorics/ModCombinatorics\n */\n\
+    template <typename T>\nstd::vector<T> ModCombinatorics<T, nullptr>::inv = std::vector<T>(1,\
+    \ 1);\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../other/type_traits.hpp\"\
     \n#include \"StaticModInt.hpp\"\ntemplate <typename T>\nclass Combinatorics {\n\
     \  protected:\n\tstatic std::vector<T> factorial;\n\tstatic void append(int n)\
@@ -172,16 +183,18 @@ data:
     \ + b - 1, b); }\n};\ntemplate <typename T>\nstd::vector<T> Combinatorics<T>::factorial\
     \ = std::vector<T>(1, 1);\n\ntemplate <typename T, typename std::enable_if_t<is_ModInt<T>::value,\n\
     \t\t\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nclass ModCombinatorics : Combinatorics<T>\
-    \ {};\n\ntemplate <typename T>\nclass ModCombinatorics<T> : Combinatorics<T> {\n\
-    \tusing Combinatorics<T>::factorial;\n\tstatic std::vector<T> inv;\n\tstatic void\
-    \ append(int n) noexcept {\n\t\tint tmp = inv.size();\n\t\tif (n < tmp) return;\n\
-    \t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\tinv[n] = T(1) /\
-    \ factorial.back();\n\t\tfor (int i = n; i > tmp; i--) inv[i - 1] = inv[i] * i;\n\
-    \t}\n\n  public:\n\tstatic T get_comb(int a, int b) noexcept {\n\t\tappend(a);\n\
-    \t\treturn factorial[a] * inv[a - b] * inv[b];\n\t}\n\tstatic T get_perm(int a,\
-    \ int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a - b];\n\t\
-    }\n};\n/**\n * @title Combinatorics/ModCombinatorics\n */\ntemplate <typename\
-    \ T>\nstd::vector<T> ModCombinatorics<T, nullptr>::inv = std::vector<T>(1, 1);"
+    \ {};\n\ntemplate <typename T>\nclass ModCombinatorics<T> : public Combinatorics<T>\
+    \ {\n\tusing Combinatorics<T>::factorial;\n\tstatic std::vector<T> inv;\n\tstatic\
+    \ void append(int n) noexcept {\n\t\tint tmp = factorial.size();\n\t\tif (n <\
+    \ tmp) return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\t\
+    inv[n] = T(1) / factorial.back();\n\t\tfor (int i = n; i > tmp; i--) inv[i - 1]\
+    \ = inv[i] * i;\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept {\n\t\t\
+    append(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_comb(int a, int b) noexcept\
+    \ {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a - b] * inv[b];\n\t}\n\tstatic\
+    \ T get_perm(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a]\
+    \ * inv[a - b];\n\t}\n};\n/**\n * @title Combinatorics/ModCombinatorics\n */\n\
+    template <typename T>\nstd::vector<T> ModCombinatorics<T, nullptr>::inv = std::vector<T>(1,\
+    \ 1);"
   dependsOn:
   - other/template.hpp
   - other/type_traits.hpp
@@ -189,7 +202,7 @@ data:
   isVerificationFile: false
   path: algebraic/Combinatorics.hpp
   requiredBy: []
-  timestamp: '2021-03-23 22:32:21+09:00'
+  timestamp: '2021-05-20 00:07:02+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/Combinatorics.hpp

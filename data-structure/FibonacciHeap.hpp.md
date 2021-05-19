@@ -4,16 +4,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: graph/Dijkstra.hpp
+    title: Dijkstra's algorithm
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-    title: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
+    path: test/yosupo/shortest_path.test.cpp
+    title: test/yosupo/shortest_path.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: Convex Hull Trick
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -89,80 +91,91 @@ data:
     \t}\n}\ntemplate <class InputIter>\nvoid compress(InputIter l, InputIter r) {\n\
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
-    \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 2 \"\
-    data-structure/ConvexHullTrick.hpp\"\ntemplate <class T, bool isMin>\nclass ConvexHullTrick\
-    \ {\n\tstatic constexpr double DBL_INF = DBL_MAX;\n\tclass Line {\n\t  public:\n\
-    \t\tT m, b;\n\t\tint id;\n\t\tdouble x;\n\t\tbool isQuery;\n\t\tinline Line(int\
-    \ id = -1, T m = 0, T b = 0)\n\t\t\t: m(m), b(b), id(id), isQuery(false) {}\n\t\
-    \tT eval(T x) const { return m * x + b; }\n\t\tbool parallel(const Line& l) const\
-    \ { return m == l.m; }\n\t\tdouble intersect(const Line& l) const {\n\t\t\treturn\
-    \ parallel(l) ? DBL_INF : double(l.b - b) / (m - l.m);\n\t\t}\n\t\tinline bool\
-    \ operator<(const Line& l) const {\n\t\t\tif (l.isQuery) return x < l.m;\n\t\t\
-    \tif (isQuery) return m < l.x;\n\t\t\treturn m < l.m;\n\t\t}\n\t};\n\tint index\
-    \ = 1;\n\tstd::set<Line> st;\n\tusing iter = typename std::set<Line>::iterator;\n\
-    \tinline bool cPrev(iter it) const { return it != st.begin(); }\n\tinline bool\
-    \ cNext(iter it) const {\n\t\treturn it != st.end() && std::next(it) != st.end();\n\
-    \t}\n\tbool bad(const Line& l1, const Line& l2, const Line& l3) const {\n\t\t\
-    return l1.intersect(l3) <= l1.intersect(l2);\n\t}\n\tbool bad(iter it) const {\n\
-    \t\treturn cPrev(it) && cNext(it) &&\n\t\t\t   bad(*std::prev(it), *it, *std::next(it));\n\
-    \t}\n\titer update(iter it) {\n\t\tdouble x;\n\t\tif (!cPrev(it))\n\t\t\tx = -DBL_INF;\n\
-    \t\telse\n\t\t\tx = it->intersect(*std::prev(it));\n\t\tLine tmp(*it);\n\t\ttmp.x\
-    \ = x;\n\t\tit = st.erase(it);\n\t\treturn st.insert(it, tmp);\n\t}\n\n  public:\n\
-    \tvoid addLine(T m, T b) {\n\t\tif (isMin) m = -m, b = -b;\n\t\tLine l(index++,\
-    \ m, b);\n\t\tif (st.empty()) l.x = -DBL_INF;\n\t\titer it = st.lower_bound(l);\n\
-    \t\tif (it != st.end() && l.parallel(*it)) {\n\t\t\tif (it->b < b)\n\t\t\t\tit\
-    \ = st.erase(it);\n\t\t\telse\n\t\t\t\treturn;\n\t\t}\n\t\tit = st.insert(it,\
-    \ l);\n\t\tif (bad(it)) {\n\t\t\tst.erase(it);\n\t\t\treturn;\n\t\t}\n\t\twhile\
-    \ (cPrev(it) && bad(std::prev(it))) st.erase(std::prev(it));\n\t\twhile (cNext(it)\
-    \ && bad(std::next(it))) st.erase(std::next(it));\n\t\tit = update(it);\n\t\t\
-    if (cPrev(it)) update(std::prev(it));\n\t\tif (cNext(it)) update(std::next(it));\n\
-    \t}\n\tstd::pair<T, int> query(T x) {\n\t\tLine q;\n\t\tq.m = x;\n\t\tq.isQuery\
-    \ = true;\n\t\titer it = --st.upper_bound(q);\n\t\tif (isMin) return {-it->eval(x),\
-    \ it->id};\n\t\treturn {it->eval(x), it->id};\n\t}\n\tvoid clear() {\n\t\tst.clear();\n\
-    \t\tindex = 0;\n\t}\n};\n\n/**\n * @title Convex Hull Trick\n */\n"
-  code: "#include \"../other/template.hpp\"\ntemplate <class T, bool isMin>\nclass\
-    \ ConvexHullTrick {\n\tstatic constexpr double DBL_INF = DBL_MAX;\n\tclass Line\
-    \ {\n\t  public:\n\t\tT m, b;\n\t\tint id;\n\t\tdouble x;\n\t\tbool isQuery;\n\
-    \t\tinline Line(int id = -1, T m = 0, T b = 0)\n\t\t\t: m(m), b(b), id(id), isQuery(false)\
-    \ {}\n\t\tT eval(T x) const { return m * x + b; }\n\t\tbool parallel(const Line&\
-    \ l) const { return m == l.m; }\n\t\tdouble intersect(const Line& l) const {\n\
-    \t\t\treturn parallel(l) ? DBL_INF : double(l.b - b) / (m - l.m);\n\t\t}\n\t\t\
-    inline bool operator<(const Line& l) const {\n\t\t\tif (l.isQuery) return x <\
-    \ l.m;\n\t\t\tif (isQuery) return m < l.x;\n\t\t\treturn m < l.m;\n\t\t}\n\t};\n\
-    \tint index = 1;\n\tstd::set<Line> st;\n\tusing iter = typename std::set<Line>::iterator;\n\
-    \tinline bool cPrev(iter it) const { return it != st.begin(); }\n\tinline bool\
-    \ cNext(iter it) const {\n\t\treturn it != st.end() && std::next(it) != st.end();\n\
-    \t}\n\tbool bad(const Line& l1, const Line& l2, const Line& l3) const {\n\t\t\
-    return l1.intersect(l3) <= l1.intersect(l2);\n\t}\n\tbool bad(iter it) const {\n\
-    \t\treturn cPrev(it) && cNext(it) &&\n\t\t\t   bad(*std::prev(it), *it, *std::next(it));\n\
-    \t}\n\titer update(iter it) {\n\t\tdouble x;\n\t\tif (!cPrev(it))\n\t\t\tx = -DBL_INF;\n\
-    \t\telse\n\t\t\tx = it->intersect(*std::prev(it));\n\t\tLine tmp(*it);\n\t\ttmp.x\
-    \ = x;\n\t\tit = st.erase(it);\n\t\treturn st.insert(it, tmp);\n\t}\n\n  public:\n\
-    \tvoid addLine(T m, T b) {\n\t\tif (isMin) m = -m, b = -b;\n\t\tLine l(index++,\
-    \ m, b);\n\t\tif (st.empty()) l.x = -DBL_INF;\n\t\titer it = st.lower_bound(l);\n\
-    \t\tif (it != st.end() && l.parallel(*it)) {\n\t\t\tif (it->b < b)\n\t\t\t\tit\
-    \ = st.erase(it);\n\t\t\telse\n\t\t\t\treturn;\n\t\t}\n\t\tit = st.insert(it,\
-    \ l);\n\t\tif (bad(it)) {\n\t\t\tst.erase(it);\n\t\t\treturn;\n\t\t}\n\t\twhile\
-    \ (cPrev(it) && bad(std::prev(it))) st.erase(std::prev(it));\n\t\twhile (cNext(it)\
-    \ && bad(std::next(it))) st.erase(std::next(it));\n\t\tit = update(it);\n\t\t\
-    if (cPrev(it)) update(std::prev(it));\n\t\tif (cNext(it)) update(std::next(it));\n\
-    \t}\n\tstd::pair<T, int> query(T x) {\n\t\tLine q;\n\t\tq.m = x;\n\t\tq.isQuery\
-    \ = true;\n\t\titer it = --st.upper_bound(q);\n\t\tif (isMin) return {-it->eval(x),\
-    \ it->id};\n\t\treturn {it->eval(x), it->id};\n\t}\n\tvoid clear() {\n\t\tst.clear();\n\
-    \t\tindex = 0;\n\t}\n};\n\n/**\n * @title Convex Hull Trick\n */"
+    \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
+    data-structure/FibonacciHeap.hpp\"\ntemplate <class T, class Compare = std::less<T>>\n\
+    class FibonacciHeap {\n\tclass Tree {\n\t  public:\n\t\tTree* par;\n\t\ttypename\
+    \ std::list<Tree*>::iterator in_par;\n\t\tint root_index;\n\t\tT root_key;\n\t\
+    \tstd::list<Tree*> children;\n\t\tint rank = 0;\n\t\tbool damaged = false;\n\n\
+    \t\tTree(int index, T key, Tree* par_ = nullptr)\n\t\t\t: root_index(index), root_key(key),\
+    \ par(par_) {}\n\t\tTree& meld(Tree& t) {\n\t\t\tif (comp(root_key, t.root_key))\
+    \ std::swap(*this, t);\n\t\t\tchildren.push_back(&t);\n\t\t\trank++;\n\t\t\treturn\
+    \ *this;\n\t\t}\n\t\tvoid cut(FibonacciHeap& heap) {\n\t\t\tif (!par) return;\n\
+    \t\t\tif (par->damaged) par->cut(heap);\n\t\t\tpar->children.erase(in_par);\n\t\
+    \t\theap.l.emplace_front(this);\n\t\t}\n\t};\n\n\tstatic constexpr int MAX_DEPTH\
+    \ = 30;\n\n\tsize_t n = 0;\n\tstd::list<Tree*> l;\n\tstd::vector<Tree*> rev;\n\
+    \ttypename std::list<Tree*>::iterator top_itr = l.end();\n\tstatic Compare comp;\n\
+    \tvoid update_top() {\n\t\tif (empty()) return;\n\t\ttop_itr = l.begin();\n\t\t\
+    auto itr = l.begin();\n\t\twhile (++itr != l.end()) {\n\t\t\tif (comp((*top_itr)->root_key,\
+    \ (*itr)->root_key)) top_itr = itr;\n\t\t}\n\t}\n\n  public:\n\tFibonacciHeap(int\
+    \ n_) : rev(n_) {}\n\t~FibonacciHeap() {\n\t\tlambda_fix([&](auto self, std::list<Tree*>\
+    \ l) -> void {\n\t\t\tfor (auto& i : l) {\n\t\t\t\tself(self, i->children);\n\t\
+    \t\t\tdelete i;\n\t\t\t}\n\t\t})(l);\n\t}\n\t[[nodiscard]] bool empty() const\
+    \ { return l.empty(); }\n\t[[nodiscard]] size_t size() const { return n; }\n\t\
+    void push(int index, T key) {\n\t\tn++;\n\t\tl.emplace_front(new Tree(index, key));\n\
+    \t\tif (top_itr == l.end() || (*top_itr)->root_key < key)\n\t\t\ttop_itr = l.begin();\n\
+    \t}\n\tvoid meld(FibonacciHeap& t) { meld(t.l); }\n\tvoid meld(std::list<Tree*>&\
+    \ l_) {\n\t\tstd::array<Tree*, MAX_DEPTH> ar;\n\t\tar.fill(nullptr);\n\t\tl.splice(l.end(),\
+    \ l_);\n\t\tauto add = lambda_fix([&](auto self, Tree* t) -> void {\n\t\t\tif\
+    \ (!ar[t->rank])\n\t\t\t\tar[t->rank] = t;\n\t\t\telse {\n\t\t\t\tint rank = t->rank;\n\
+    \t\t\t\tt->meld(*ar[rank]);\n\t\t\t\tar[rank] = nullptr;\n\t\t\t\tself(self, t);\n\
+    \t\t\t}\n\t\t});\n\t\tfor (const auto& i : l) add(i);\n\t\tl.clear();\n\t\tfor\
+    \ (const auto& i : ar)\n\t\t\tif (i) l.emplace_back(i);\n\t\tupdate_top();\n\t\
+    }\n\t[[nodiscard]] std::pair<int, T> top() const {\n\t\treturn {(*top_itr)->root_index,\
+    \ (*top_itr)->root_key};\n\t}\n\tvoid pop() {\n\t\tn--;\n\t\tauto new_trees =\
+    \ (*top_itr)->children;\n\t\tauto tree_address = *top_itr;\n\t\tl.erase(top_itr);\n\
+    \t\ttop_itr = l.end();\n\t\tmeld(new_trees);\n\t\tdelete tree_address;\n\t\tupdate_top();\n\
+    \t}\n\tvoid increase_key(int id, T key) {\n\t\trev[id]->root_key = key;\n\t\t\
+    rev[id]->cut(*this);\n\t}\n};\ntemplate <class T, class Compare>\nCompare FibonacciHeap<T,\
+    \ Compare>::comp = Compare();\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, class\
+    \ Compare = std::less<T>>\nclass FibonacciHeap {\n\tclass Tree {\n\t  public:\n\
+    \t\tTree* par;\n\t\ttypename std::list<Tree*>::iterator in_par;\n\t\tint root_index;\n\
+    \t\tT root_key;\n\t\tstd::list<Tree*> children;\n\t\tint rank = 0;\n\t\tbool damaged\
+    \ = false;\n\n\t\tTree(int index, T key, Tree* par_ = nullptr)\n\t\t\t: root_index(index),\
+    \ root_key(key), par(par_) {}\n\t\tTree& meld(Tree& t) {\n\t\t\tif (comp(root_key,\
+    \ t.root_key)) std::swap(*this, t);\n\t\t\tchildren.push_back(&t);\n\t\t\trank++;\n\
+    \t\t\treturn *this;\n\t\t}\n\t\tvoid cut(FibonacciHeap& heap) {\n\t\t\tif (!par)\
+    \ return;\n\t\t\tif (par->damaged) par->cut(heap);\n\t\t\tpar->children.erase(in_par);\n\
+    \t\t\theap.l.emplace_front(this);\n\t\t}\n\t};\n\n\tstatic constexpr int MAX_DEPTH\
+    \ = 30;\n\n\tsize_t n = 0;\n\tstd::list<Tree*> l;\n\tstd::vector<Tree*> rev;\n\
+    \ttypename std::list<Tree*>::iterator top_itr = l.end();\n\tstatic Compare comp;\n\
+    \tvoid update_top() {\n\t\tif (empty()) return;\n\t\ttop_itr = l.begin();\n\t\t\
+    auto itr = l.begin();\n\t\twhile (++itr != l.end()) {\n\t\t\tif (comp((*top_itr)->root_key,\
+    \ (*itr)->root_key)) top_itr = itr;\n\t\t}\n\t}\n\n  public:\n\tFibonacciHeap(int\
+    \ n_) : rev(n_) {}\n\t~FibonacciHeap() {\n\t\tlambda_fix([&](auto self, std::list<Tree*>\
+    \ l) -> void {\n\t\t\tfor (auto& i : l) {\n\t\t\t\tself(self, i->children);\n\t\
+    \t\t\tdelete i;\n\t\t\t}\n\t\t})(l);\n\t}\n\t[[nodiscard]] bool empty() const\
+    \ { return l.empty(); }\n\t[[nodiscard]] size_t size() const { return n; }\n\t\
+    void push(int index, T key) {\n\t\tn++;\n\t\tl.emplace_front(new Tree(index, key));\n\
+    \t\tif (top_itr == l.end() || (*top_itr)->root_key < key)\n\t\t\ttop_itr = l.begin();\n\
+    \t}\n\tvoid meld(FibonacciHeap& t) { meld(t.l); }\n\tvoid meld(std::list<Tree*>&\
+    \ l_) {\n\t\tstd::array<Tree*, MAX_DEPTH> ar;\n\t\tar.fill(nullptr);\n\t\tl.splice(l.end(),\
+    \ l_);\n\t\tauto add = lambda_fix([&](auto self, Tree* t) -> void {\n\t\t\tif\
+    \ (!ar[t->rank])\n\t\t\t\tar[t->rank] = t;\n\t\t\telse {\n\t\t\t\tint rank = t->rank;\n\
+    \t\t\t\tt->meld(*ar[rank]);\n\t\t\t\tar[rank] = nullptr;\n\t\t\t\tself(self, t);\n\
+    \t\t\t}\n\t\t});\n\t\tfor (const auto& i : l) add(i);\n\t\tl.clear();\n\t\tfor\
+    \ (const auto& i : ar)\n\t\t\tif (i) l.emplace_back(i);\n\t\tupdate_top();\n\t\
+    }\n\t[[nodiscard]] std::pair<int, T> top() const {\n\t\treturn {(*top_itr)->root_index,\
+    \ (*top_itr)->root_key};\n\t}\n\tvoid pop() {\n\t\tn--;\n\t\tauto new_trees =\
+    \ (*top_itr)->children;\n\t\tauto tree_address = *top_itr;\n\t\tl.erase(top_itr);\n\
+    \t\ttop_itr = l.end();\n\t\tmeld(new_trees);\n\t\tdelete tree_address;\n\t\tupdate_top();\n\
+    \t}\n\tvoid increase_key(int id, T key) {\n\t\trev[id]->root_key = key;\n\t\t\
+    rev[id]->cut(*this);\n\t}\n};\ntemplate <class T, class Compare>\nCompare FibonacciHeap<T,\
+    \ Compare>::comp = Compare();"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: data-structure/ConvexHullTrick.hpp
-  requiredBy: []
+  path: data-structure/FibonacciHeap.hpp
+  requiredBy:
+  - graph/Dijkstra.hpp
   timestamp: '2021-05-20 00:07:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-documentation_of: data-structure/ConvexHullTrick.hpp
+  - test/yosupo/shortest_path.test.cpp
+documentation_of: data-structure/FibonacciHeap.hpp
 layout: document
 redirect_from:
-- /library/data-structure/ConvexHullTrick.hpp
-- /library/data-structure/ConvexHullTrick.hpp.html
-title: Convex Hull Trick
+- /library/data-structure/FibonacciHeap.hpp
+- /library/data-structure/FibonacciHeap.hpp.html
+title: data-structure/FibonacciHeap.hpp
 ---

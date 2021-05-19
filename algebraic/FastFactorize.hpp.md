@@ -17,34 +17,43 @@ data:
     links:
     - http://ceur-ws.org/Vol-1326/020-Forisek.pdf
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
-    #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n\
-    #pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC\
-    \ optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n#include\
-    \ <array>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
-    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
-    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
-    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
-    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
-    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
-    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
-    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
-    using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
-    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
-    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
-    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
-    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
-    \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
-    return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
-    \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
-    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class\
-    \ U>\nconstexpr inline bool chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs\
-    \ < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate\
-    \ <class T, class U>\nconstexpr inline bool chmin(T& lhs, const U& rhs) noexcept\
-    \ {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n\
-    }\nconstexpr inline lint gcd(lint a, lint b) noexcept {\n\twhile (b) {\n\t\tlint\
+    #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
+    \ defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"\
+    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include\
+    \ <algorithm>\n#include <array>\n#include <bitset>\n#include <cassert>\n#include\
+    \ <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n#include\
+    \ <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n#include\
+    \ <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n#include\
+    \ <map>\n#include <memory>\n#include <queue>\n#include <random>\n#include <set>\n\
+    #include <stack>\n#include <string>\n#include <unordered_map>\n#include <unordered_set>\n\
+    #include <utility>\n#include <vector>\n\n#define rep(i, n) for (int i = 0; i <\
+    \ int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V)\
+    \ V.begin(), V.end()\n\nusing i128 = __int128_t;\nusing u128 = __uint128_t;\n\
+    using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
+    \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
+    constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
+    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
+    \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
+    \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
+    #endif\n#endif\n\tx = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333)\
+    \ + (x >> 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\t\
+    x = (x & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x\
+    \ >> 16 & 0x0000ffff);\n}\ntemplate <class F>\ninline constexpr decltype(auto)\
+    \ lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\
+    \treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\ntemplate <class\
+    \ T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
+    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    }\ntemplate <class T, class U>\nstd::istream& operator>>(std::istream& ist, std::pair<T,\
+    \ U>& x) {\n\treturn ist >> x.first >> x.second;\n}\ntemplate <class T, class\
+    \ U>\nstd::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {\n\
+    \treturn ost << x.first << \" \" << x.second;\n}\ntemplate <class T, class U>\n\
+    constexpr inline bool chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs < rhs)\
+    \ {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate <class\
+    \ T, class U>\nconstexpr inline bool chmin(T& lhs, const U& rhs) noexcept {\n\t\
+    if (lhs > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\n\
+    constexpr inline lint gcd(lint a, lint b) noexcept {\n\twhile (b) {\n\t\tlint\
     \ c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint\
     \ a, lint b) noexcept { return a / gcd(a, b) * b; }\nconstexpr bool isprime(lint\
     \ n) noexcept {\n\tif (n == 1) return false;\n\tfor (int i = 2; i * i <= n; i++)\
@@ -4415,7 +4424,7 @@ data:
   isVerificationFile: false
   path: algebraic/FastFactorize.hpp
   requiredBy: []
-  timestamp: '2021-03-05 17:59:54+09:00'
+  timestamp: '2021-05-20 00:07:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/factorize.test.cpp

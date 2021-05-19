@@ -21,29 +21,38 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I
   bundledCode: "#line 1 \"test/aoj/DSL_2_I.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I\"\
-    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n\
-    #pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n#pragma GCC target(\"\
-    avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
-    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
-    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
-    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
-    #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
-    \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
-    #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
-    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
-    using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
-    using ulint = unsigned long long;\nusing IP = std::pair<int, int>;\nusing LP =\
-    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
-    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
-    \ 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique : public\
-    \ std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate <class\
-    \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
-    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
-    template <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
-    }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
-    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n\
+    #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n\
+    #pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC\
+    \ optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include <algorithm>\n\
+    #include <array>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
+    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
+    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
+    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
+    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
+    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
+    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
+    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
+    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
+    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
+    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
+    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\nint\
+    \ popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
+    #else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\t\
+    x = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >>\
+    \ 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x\
+    \ & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x >> 16\
+    \ & 0x0000ffff);\n}\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&&\
+    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
+    return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
+    \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
+    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class\
+    \ U>\nstd::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn\
+    \ ist >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
+    \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
     }\ntemplate <class T, class U>\nconstexpr inline bool chmax(T& lhs, const U& rhs)\
     \ noexcept {\n\tif (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn\
     \ false;\n}\ntemplate <class T, class U>\nconstexpr inline bool chmin(T& lhs,\
@@ -156,79 +165,90 @@ data:
     \t\teval(i);\n\t\tupdf(node[i], x, width[i]);\n\t\tif (lazyflag[i])\n\t\t\tlazyf(lazy[i],\
     \ x);\n\t\telse {\n\t\t\tlazyflag[i] = true;\n\t\t\tlazy[i] = x;\n\t\t}\n\t\t\
     while (i /= 2) node[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t}\n\tvoid update(int\
-    \ l, int r, U x) {\n\t\tl += n;\n\t\tr += n;\n\t\tint nl = l, nr = r;\n\t\twhile\
-    \ (!(nl & 1)) nl >>= 1;\n\t\twhile (!(nr & 1)) nr >>= 1;\n\t\tnr--;\n\t\teval(nl);\n\
-    \t\teval(nr);\n\t\twhile (l < r) {\n\t\t\tif (l & 1) {\n\t\t\t\tupdf(node[l],\
-    \ x, width[l]);\n\t\t\t\tif (lazyflag[l])\n\t\t\t\t\tlazyf(lazy[l], x);\n\t\t\t\
-    \telse {\n\t\t\t\t\tlazyflag[l] = true;\n\t\t\t\t\tlazy[l] = x;\n\t\t\t\t}\n\t\
-    \t\t\tl++;\n\t\t\t}\n\t\t\tif (r & 1) {\n\t\t\t\tr--;\n\t\t\t\tupdf(node[r], x,\
-    \ width[r]);\n\t\t\t\tif (lazyflag[r])\n\t\t\t\t\tlazyf(lazy[r], x);\n\t\t\t\t\
-    else {\n\t\t\t\t\tlazyflag[r] = true;\n\t\t\t\t\tlazy[r] = x;\n\t\t\t\t}\n\t\t\
-    \t}\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\twhile (nl >>= 1) node[nl] = nodef(node[2\
-    \ * nl], node[2 * nl + 1]);\n\t\twhile (nr >>= 1) node[nr] = nodef(node[2 * nr],\
-    \ node[2 * nr + 1]);\n\t}\n\tT query(int l, int r) {\n\t\tl += n;\n\t\tr += n;\n\
-    \t\teval(l);\n\t\teval(r - 1);\n\t\tT ls = ident, rs = ident;\n\t\twhile (l <\
-    \ r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r],\
-    \ rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\
-    \tT operator[](const int& x) {\n\t\teval(n + x);\n\t\treturn node[n + x];\n\t\
-    }\n\n  private:\n\ttemplate <class F>\n\tint max_right(int st, F& check, T& acc,\
-    \ int k, int l, int r) {\n\t\teval(k);\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc,\
-    \ node[k]);\n\t\t\treturn check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r)\
-    \ >> 1;\n\t\tif (m <= st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\
-    \t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\
-    \t\t\treturn -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\
-    \t\tif (vl != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) |\
-    \ 1, m, r);\n\t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F\
+    \ l, int r, U x) {\n\t\tl += n, r += n;\n\t\tint nl = l, nr = r;\n\t\twhile (!(nl\
+    \ & 1)) nl >>= 1;\n\t\twhile (!(nr & 1)) nr >>= 1;\n\t\tnr--;\n\t\teval(nl), eval(nr);\n\
+    \t\twhile (l < r) {\n\t\t\tif (l & 1) {\n\t\t\t\tupdf(node[l], x, width[l]);\n\
+    \t\t\t\tif (lazyflag[l])\n\t\t\t\t\tlazyf(lazy[l], x);\n\t\t\t\telse {\n\t\t\t\
+    \t\tlazyflag[l] = true;\n\t\t\t\t\tlazy[l] = x;\n\t\t\t\t}\n\t\t\t\tl++;\n\t\t\
+    \t}\n\t\t\tif (r & 1) {\n\t\t\t\tr--;\n\t\t\t\tupdf(node[r], x, width[r]);\n\t\
+    \t\t\tif (lazyflag[r])\n\t\t\t\t\tlazyf(lazy[r], x);\n\t\t\t\telse {\n\t\t\t\t\
+    \tlazyflag[r] = true;\n\t\t\t\t\tlazy[r] = x;\n\t\t\t\t}\n\t\t\t}\n\t\t\tl >>=\
+    \ 1, r >>= 1;\n\t\t}\n\t\twhile (nl >>= 1) node[nl] = nodef(node[2 * nl], node[2\
+    \ * nl + 1]);\n\t\twhile (nr >>= 1) node[nr] = nodef(node[2 * nr], node[2 * nr\
+    \ + 1]);\n\t}\n\tT query(int l, int r) {\n\t\tl += n, r += n, eval(l);\n\t\teval(r\
+    \ - 1);\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1)\
+    \ ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\
+    \tl >>= 1, r >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tT operator[](const\
+    \ int& x) {\n\t\teval(n + x);\n\t\treturn node[n + x];\n\t}\n\n  private:\n\t\
+    template <class F>\n\tint max_right(int st, F& check, T& acc, int k, int l, int\
+    \ r) {\n\t\teval(k);\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\
+    \t\t\treturn check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\t\
+    if (m <= st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\t\tif (st\
+    \ <= l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\
+    \treturn -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\t\
+    \tif (vl != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) | 1,\
+    \ m, r);\n\t}\n\n\ttemplate <class F>\n\tint min_left(int st, F& check, T& acc,\
+    \ int k, int l, int r) {\n\t\teval(k);\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(node[k],\
+    \ acc);\n\t\t\treturn check(acc) ? -1 : k - n + 1;\n\t\t}\n\t\tint m = (l + r)\
+    \ >> 1;\n\t\tif (st <= m) return min_left(st, check, acc, k << 1, l, m);\n\t\t\
+    if (r <= st && check(nodef(node[k], acc))) {\n\t\t\tacc = nodef(node[k], acc);\n\
+    \t\t\treturn -1;\n\t\t}\n\t\tint vr = min_left(st, check, acc, (k << 1) | 1, m,\
+    \ r);\n\t\tif (vr != -1) return vr;\n\t\treturn min_left(st, check, acc, k <<\
+    \ 1, l, m);\n\t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F\
     \ check) {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\
     \t}\n\ttemplate <bool (*check)(const T&)>\n\tint max_right(int st) {\n\t\tT acc\
-    \ = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n};\nnamespace\
-    \ {\n\tlint RAQRSQ_nodef(const lint& a, const lint& b) { return a + b; }\n\tvoid\
-    \ RAQRSQ_lazyf(lint& a, const lint& b) { a += b; }\n\tvoid RAQRSQ_updf(lint& a,\
-    \ const lint& b, const unsigned int& width) {\n\t\ta += width * b;\n\t}\n\tlint\
-    \ RAQRMiQ_nodef(const lint& a, const lint& b) { return std::min(a, b); }\n\tvoid\
-    \ RAQRMiQ_lazyf(lint& a, const lint& b) { a += b; }\n\tvoid RAQRMiQ_updf(lint&\
-    \ a, const lint& b, const unsigned int& width) {\n\t\ta += b;\n\t}\n\tlint RAQRMaQ_nodef(const\
-    \ lint& a, const lint& b) { return std::max(a, b); }\n\tvoid RAQRMaQ_lazyf(lint&\
-    \ a, const lint& b) { a += b; }\n\tvoid RAQRMaQ_updf(lint& a, const lint& b, const\
-    \ unsigned int& width) {\n\t\ta += b;\n\t}\n\tlint RUQRSQ_nodef(const lint& a,\
-    \ const lint& b) { return a + b; }\n\tvoid RUQRSQ_lazyf(lint& a, const lint& b)\
-    \ { a = b; }\n\tvoid RUQRSQ_updf(lint& a, const lint& b, const unsigned int& width)\
-    \ {\n\t\ta = width * b;\n\t}\n\tlint RUQRMiQ_nodef(const lint& a, const lint&\
-    \ b) { return std::min(a, b); }\n\tvoid RUQRMiQ_lazyf(lint& a, const lint& b)\
-    \ { a = b; }\n\tvoid RUQRMiQ_updf(lint& a, const lint& b, const unsigned int&\
-    \ width) {\n\t\ta = b;\n\t}\n\tlint RUQRMaQ_nodef(const lint& a, const lint& b)\
-    \ { return std::max(a, b); }\n\tvoid RUQRMaQ_lazyf(lint& a, const lint& b) { a\
-    \ = b; }\n\tvoid RUQRMaQ_updf(lint& a, const lint& b, const unsigned int& width)\
-    \ {\n\t\ta = b;\n\t}\n}  // namespace\n\nclass RAQRSQ : public IntervalSegTree<lint,\
-    \ lint, RAQRSQ_nodef, RAQRSQ_lazyf,\n\t\t\t\t\t\t\t\t\t  RAQRSQ_updf> {\n\tusing\
-    \ Base =\n\t\tIntervalSegTree<lint, lint, RAQRSQ_nodef, RAQRSQ_lazyf, RAQRSQ_updf>;\n\
-    \n  public:\n\ttemplate <class... Args>\n\tRAQRSQ(Args&&... args) : Base(std::forward<Args>(args)...,\
-    \ 0) {}\n};\nclass RAQRMiQ : public IntervalSegTree<lint, lint, RAQRMiQ_nodef,\
-    \ RAQRMiQ_lazyf,\n\t\t\t\t\t\t\t\t\t   RAQRMiQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint,\
-    \ lint, RAQRMiQ_nodef, RAQRMiQ_lazyf, RAQRMiQ_updf>;\n\n  public:\n\ttemplate\
-    \ <class... Args>\n\tRAQRMiQ(Args&&... args) : Base(std::forward<Args>(args)...,\
-    \ LINF) {}\n};\nclass RAQRMaQ : public IntervalSegTree<lint, lint, RAQRMaQ_nodef,\
-    \ RAQRMaQ_lazyf,\n\t\t\t\t\t\t\t\t\t   RAQRMaQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint,\
-    \ lint, RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf>;\n\n  public:\n\ttemplate\
-    \ <class... Args>\n\tRAQRMaQ(Args&&... args) : Base(std::forward<Args>(args)...,\
-    \ -LINF) {}\n};\nclass RUQRSQ : public IntervalSegTree<lint, lint, RUQRSQ_nodef,\
-    \ RUQRSQ_lazyf,\n\t\t\t\t\t\t\t\t\t  RUQRSQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint,\
-    \ lint, RUQRSQ_nodef, RUQRSQ_lazyf, RUQRSQ_updf>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRUQRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}\n\
-    };\nclass RUQRMiQ : public IntervalSegTree<lint, lint, RUQRMiQ_nodef, RUQRMiQ_lazyf,\n\
-    \t\t\t\t\t\t\t\t\t   RUQRMiQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint,\
-    \ lint, RUQRMiQ_nodef, RUQRMiQ_lazyf, RUQRMiQ_updf>;\n\n  public:\n\ttemplate\
-    \ <class... Args>\n\tRUQRMiQ(Args&&... args) : Base(std::forward<Args>(args)...,\
-    \ LINF) {}\n};\nclass RUQRMaQ : public IntervalSegTree<lint, lint, RUQRMaQ_nodef,\
-    \ RUQRMaQ_lazyf,\n\t\t\t\t\t\t\t\t\t   RUQRMaQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint,\
-    \ lint, RUQRMaQ_nodef, RUQRMaQ_lazyf, RUQRMaQ_updf>;\n\n  public:\n\ttemplate\
-    \ <class... Args>\n\tRUQRMaQ(Args&&... args) : Base(std::forward<Args>(args)...,\
-    \ -LINF) {}\n};\n\n/**\n * @title Interval Segment Tree\n */\n#line 4 \"test/aoj/DSL_2_I.test.cpp\"\
-    \nint n, q;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tRUQRSQ st(n, 0);\n\t\
-    rep(i, q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint\
-    \ s, t, x;\n\t\t\tscanf(\"%d%d%d\", &s, &t, &x);\n\t\t\tst.update(s, t + 1, x);\n\
-    \t\t} else {\n\t\t\tint s, t;\n\t\t\tscanf(\"%d%d\", &s, &t);\n\t\t\tprintf(\"\
-    %lld\\n\", st.query(s, t + 1));\n\t\t}\n\t}\n}\n"
+    \ = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n\n\ttemplate\
+    \ <class F>\n\tint min_left(int st, F check) {\n\t\tT acc = ident;\n\t\treturn\
+    \ min_left(st, check, acc, 1, 0, n);\n\t}\n\ttemplate <bool (*check)(const T&)>\n\
+    \tint min_left(int st) {\n\t\tT acc = ident;\n\t\treturn min_left(st, check, acc,\
+    \ 1, 0, n);\n\t}\n};\nnamespace {\n\tlint RAQRSQ_nodef(const lint& a, const lint&\
+    \ b) { return a + b; }\n\tvoid RAQRSQ_lazyf(lint& a, const lint& b) { a += b;\
+    \ }\n\tvoid RAQRSQ_updf(lint& a, const lint& b, const unsigned int& width) {\n\
+    \t\ta += width * b;\n\t}\n\tlint RAQRMiQ_nodef(const lint& a, const lint& b) {\
+    \ return std::min(a, b); }\n\tvoid RAQRMiQ_lazyf(lint& a, const lint& b) { a +=\
+    \ b; }\n\tvoid RAQRMiQ_updf(lint& a, const lint& b, const unsigned int& width)\
+    \ {\n\t\ta += b;\n\t}\n\tlint RAQRMaQ_nodef(const lint& a, const lint& b) { return\
+    \ std::max(a, b); }\n\tvoid RAQRMaQ_lazyf(lint& a, const lint& b) { a += b; }\n\
+    \tvoid RAQRMaQ_updf(lint& a, const lint& b, const unsigned int& width) {\n\t\t\
+    a += b;\n\t}\n\tlint RUQRSQ_nodef(const lint& a, const lint& b) { return a + b;\
+    \ }\n\tvoid RUQRSQ_lazyf(lint& a, const lint& b) { a = b; }\n\tvoid RUQRSQ_updf(lint&\
+    \ a, const lint& b, const unsigned int& width) {\n\t\ta = width * b;\n\t}\n\t\
+    lint RUQRMiQ_nodef(const lint& a, const lint& b) { return std::min(a, b); }\n\t\
+    void RUQRMiQ_lazyf(lint& a, const lint& b) { a = b; }\n\tvoid RUQRMiQ_updf(lint&\
+    \ a, const lint& b, const unsigned int& width) {\n\t\ta = b;\n\t}\n\tlint RUQRMaQ_nodef(const\
+    \ lint& a, const lint& b) { return std::max(a, b); }\n\tvoid RUQRMaQ_lazyf(lint&\
+    \ a, const lint& b) { a = b; }\n\tvoid RUQRMaQ_updf(lint& a, const lint& b, const\
+    \ unsigned int& width) {\n\t\ta = b;\n\t}\n}  // namespace\n\nclass RAQRSQ : public\
+    \ IntervalSegTree<lint, lint, RAQRSQ_nodef, RAQRSQ_lazyf,\n\t\t\t\t\t\t\t\t\t\
+    \  RAQRSQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint, lint, RAQRSQ_nodef,\
+    \ RAQRSQ_lazyf, RAQRSQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\tRAQRSQ(Args&&...\
+    \ args) : Base(std::forward<Args>(args)..., 0) {}\n};\nclass RAQRMiQ : public\
+    \ IntervalSegTree<lint, lint, RAQRMiQ_nodef, RAQRMiQ_lazyf,\n\t\t\t\t\t\t\t\t\t\
+    \   RAQRMiQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint, lint, RAQRMiQ_nodef,\
+    \ RAQRMiQ_lazyf, RAQRMiQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\tRAQRMiQ(Args&&...\
+    \ args) : Base(std::forward<Args>(args)..., LINF) {}\n};\nclass RAQRMaQ : public\
+    \ IntervalSegTree<lint, lint, RAQRMaQ_nodef, RAQRMaQ_lazyf,\n\t\t\t\t\t\t\t\t\t\
+    \   RAQRMaQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint, lint, RAQRMaQ_nodef,\
+    \ RAQRMaQ_lazyf, RAQRMaQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\tRAQRMaQ(Args&&...\
+    \ args) : Base(std::forward<Args>(args)..., -LINF) {}\n};\nclass RUQRSQ : public\
+    \ IntervalSegTree<lint, lint, RUQRSQ_nodef, RUQRSQ_lazyf,\n\t\t\t\t\t\t\t\t\t\
+    \  RUQRSQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint, lint, RUQRSQ_nodef,\
+    \ RUQRSQ_lazyf, RUQRSQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\tRUQRSQ(Args&&...\
+    \ args) : Base(std::forward<Args>(args)..., 0) {}\n};\nclass RUQRMiQ : public\
+    \ IntervalSegTree<lint, lint, RUQRMiQ_nodef, RUQRMiQ_lazyf,\n\t\t\t\t\t\t\t\t\t\
+    \   RUQRMiQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint, lint, RUQRMiQ_nodef,\
+    \ RUQRMiQ_lazyf, RUQRMiQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\tRUQRMiQ(Args&&...\
+    \ args) : Base(std::forward<Args>(args)..., LINF) {}\n};\nclass RUQRMaQ : public\
+    \ IntervalSegTree<lint, lint, RUQRMaQ_nodef, RUQRMaQ_lazyf,\n\t\t\t\t\t\t\t\t\t\
+    \   RUQRMaQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<lint, lint, RUQRMaQ_nodef,\
+    \ RUQRMaQ_lazyf, RUQRMaQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\tRUQRMaQ(Args&&...\
+    \ args) : Base(std::forward<Args>(args)..., -LINF) {}\n};\n\n/**\n * @title Interval\
+    \ Segment Tree\n */\n#line 4 \"test/aoj/DSL_2_I.test.cpp\"\nint n, q;\nint main()\
+    \ {\n\tscanf(\"%d%d\", &n, &q);\n\tRUQRSQ st(n, 0);\n\trep(i, q) {\n\t\tint t;\n\
+    \t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint s, t, x;\n\t\t\tscanf(\"\
+    %d%d%d\", &s, &t, &x);\n\t\t\tst.update(s, t + 1, x);\n\t\t} else {\n\t\t\tint\
+    \ s, t;\n\t\t\tscanf(\"%d%d\", &s, &t);\n\t\t\tprintf(\"%lld\\n\", st.query(s,\
+    \ t + 1));\n\t\t}\n\t}\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I\"\n#include\
     \ \"../../data-structure/IntervalSegTree.hpp\"\n#include \"../../other/template.hpp\"\
     \nint n, q;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tRUQRSQ st(n, 0);\n\t\
@@ -243,7 +263,7 @@ data:
   isVerificationFile: true
   path: test/aoj/DSL_2_I.test.cpp
   requiredBy: []
-  timestamp: '2021-03-05 17:59:54+09:00'
+  timestamp: '2021-05-20 00:07:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/DSL_2_I.test.cpp

@@ -4,16 +4,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: graph/Dijkstra.hpp
+    title: Dijkstra's algorithm
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-    title: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
+    path: test/yosupo/shortest_path.test.cpp
+    title: test/yosupo/shortest_path.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: Convex Hull Trick
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -89,80 +91,75 @@ data:
     \t}\n}\ntemplate <class InputIter>\nvoid compress(InputIter l, InputIter r) {\n\
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
-    \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 2 \"\
-    data-structure/ConvexHullTrick.hpp\"\ntemplate <class T, bool isMin>\nclass ConvexHullTrick\
-    \ {\n\tstatic constexpr double DBL_INF = DBL_MAX;\n\tclass Line {\n\t  public:\n\
-    \t\tT m, b;\n\t\tint id;\n\t\tdouble x;\n\t\tbool isQuery;\n\t\tinline Line(int\
-    \ id = -1, T m = 0, T b = 0)\n\t\t\t: m(m), b(b), id(id), isQuery(false) {}\n\t\
-    \tT eval(T x) const { return m * x + b; }\n\t\tbool parallel(const Line& l) const\
-    \ { return m == l.m; }\n\t\tdouble intersect(const Line& l) const {\n\t\t\treturn\
-    \ parallel(l) ? DBL_INF : double(l.b - b) / (m - l.m);\n\t\t}\n\t\tinline bool\
-    \ operator<(const Line& l) const {\n\t\t\tif (l.isQuery) return x < l.m;\n\t\t\
-    \tif (isQuery) return m < l.x;\n\t\t\treturn m < l.m;\n\t\t}\n\t};\n\tint index\
-    \ = 1;\n\tstd::set<Line> st;\n\tusing iter = typename std::set<Line>::iterator;\n\
-    \tinline bool cPrev(iter it) const { return it != st.begin(); }\n\tinline bool\
-    \ cNext(iter it) const {\n\t\treturn it != st.end() && std::next(it) != st.end();\n\
-    \t}\n\tbool bad(const Line& l1, const Line& l2, const Line& l3) const {\n\t\t\
-    return l1.intersect(l3) <= l1.intersect(l2);\n\t}\n\tbool bad(iter it) const {\n\
-    \t\treturn cPrev(it) && cNext(it) &&\n\t\t\t   bad(*std::prev(it), *it, *std::next(it));\n\
-    \t}\n\titer update(iter it) {\n\t\tdouble x;\n\t\tif (!cPrev(it))\n\t\t\tx = -DBL_INF;\n\
-    \t\telse\n\t\t\tx = it->intersect(*std::prev(it));\n\t\tLine tmp(*it);\n\t\ttmp.x\
-    \ = x;\n\t\tit = st.erase(it);\n\t\treturn st.insert(it, tmp);\n\t}\n\n  public:\n\
-    \tvoid addLine(T m, T b) {\n\t\tif (isMin) m = -m, b = -b;\n\t\tLine l(index++,\
-    \ m, b);\n\t\tif (st.empty()) l.x = -DBL_INF;\n\t\titer it = st.lower_bound(l);\n\
-    \t\tif (it != st.end() && l.parallel(*it)) {\n\t\t\tif (it->b < b)\n\t\t\t\tit\
-    \ = st.erase(it);\n\t\t\telse\n\t\t\t\treturn;\n\t\t}\n\t\tit = st.insert(it,\
-    \ l);\n\t\tif (bad(it)) {\n\t\t\tst.erase(it);\n\t\t\treturn;\n\t\t}\n\t\twhile\
-    \ (cPrev(it) && bad(std::prev(it))) st.erase(std::prev(it));\n\t\twhile (cNext(it)\
-    \ && bad(std::next(it))) st.erase(std::next(it));\n\t\tit = update(it);\n\t\t\
-    if (cPrev(it)) update(std::prev(it));\n\t\tif (cNext(it)) update(std::next(it));\n\
-    \t}\n\tstd::pair<T, int> query(T x) {\n\t\tLine q;\n\t\tq.m = x;\n\t\tq.isQuery\
-    \ = true;\n\t\titer it = --st.upper_bound(q);\n\t\tif (isMin) return {-it->eval(x),\
-    \ it->id};\n\t\treturn {it->eval(x), it->id};\n\t}\n\tvoid clear() {\n\t\tst.clear();\n\
-    \t\tindex = 0;\n\t}\n};\n\n/**\n * @title Convex Hull Trick\n */\n"
-  code: "#include \"../other/template.hpp\"\ntemplate <class T, bool isMin>\nclass\
-    \ ConvexHullTrick {\n\tstatic constexpr double DBL_INF = DBL_MAX;\n\tclass Line\
-    \ {\n\t  public:\n\t\tT m, b;\n\t\tint id;\n\t\tdouble x;\n\t\tbool isQuery;\n\
-    \t\tinline Line(int id = -1, T m = 0, T b = 0)\n\t\t\t: m(m), b(b), id(id), isQuery(false)\
-    \ {}\n\t\tT eval(T x) const { return m * x + b; }\n\t\tbool parallel(const Line&\
-    \ l) const { return m == l.m; }\n\t\tdouble intersect(const Line& l) const {\n\
-    \t\t\treturn parallel(l) ? DBL_INF : double(l.b - b) / (m - l.m);\n\t\t}\n\t\t\
-    inline bool operator<(const Line& l) const {\n\t\t\tif (l.isQuery) return x <\
-    \ l.m;\n\t\t\tif (isQuery) return m < l.x;\n\t\t\treturn m < l.m;\n\t\t}\n\t};\n\
-    \tint index = 1;\n\tstd::set<Line> st;\n\tusing iter = typename std::set<Line>::iterator;\n\
-    \tinline bool cPrev(iter it) const { return it != st.begin(); }\n\tinline bool\
-    \ cNext(iter it) const {\n\t\treturn it != st.end() && std::next(it) != st.end();\n\
-    \t}\n\tbool bad(const Line& l1, const Line& l2, const Line& l3) const {\n\t\t\
-    return l1.intersect(l3) <= l1.intersect(l2);\n\t}\n\tbool bad(iter it) const {\n\
-    \t\treturn cPrev(it) && cNext(it) &&\n\t\t\t   bad(*std::prev(it), *it, *std::next(it));\n\
-    \t}\n\titer update(iter it) {\n\t\tdouble x;\n\t\tif (!cPrev(it))\n\t\t\tx = -DBL_INF;\n\
-    \t\telse\n\t\t\tx = it->intersect(*std::prev(it));\n\t\tLine tmp(*it);\n\t\ttmp.x\
-    \ = x;\n\t\tit = st.erase(it);\n\t\treturn st.insert(it, tmp);\n\t}\n\n  public:\n\
-    \tvoid addLine(T m, T b) {\n\t\tif (isMin) m = -m, b = -b;\n\t\tLine l(index++,\
-    \ m, b);\n\t\tif (st.empty()) l.x = -DBL_INF;\n\t\titer it = st.lower_bound(l);\n\
-    \t\tif (it != st.end() && l.parallel(*it)) {\n\t\t\tif (it->b < b)\n\t\t\t\tit\
-    \ = st.erase(it);\n\t\t\telse\n\t\t\t\treturn;\n\t\t}\n\t\tit = st.insert(it,\
-    \ l);\n\t\tif (bad(it)) {\n\t\t\tst.erase(it);\n\t\t\treturn;\n\t\t}\n\t\twhile\
-    \ (cPrev(it) && bad(std::prev(it))) st.erase(std::prev(it));\n\t\twhile (cNext(it)\
-    \ && bad(std::next(it))) st.erase(std::next(it));\n\t\tit = update(it);\n\t\t\
-    if (cPrev(it)) update(std::prev(it));\n\t\tif (cNext(it)) update(std::next(it));\n\
-    \t}\n\tstd::pair<T, int> query(T x) {\n\t\tLine q;\n\t\tq.m = x;\n\t\tq.isQuery\
-    \ = true;\n\t\titer it = --st.upper_bound(q);\n\t\tif (isMin) return {-it->eval(x),\
-    \ it->id};\n\t\treturn {it->eval(x), it->id};\n\t}\n\tvoid clear() {\n\t\tst.clear();\n\
-    \t\tindex = 0;\n\t}\n};\n\n/**\n * @title Convex Hull Trick\n */"
+    \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
+    data-structure/PrioritizableBinaryHeap.hpp\"\n\n// assign priorities to indexed\
+    \ nodes\ntemplate <class T, class Compare = std::less<>>\nclass PrioritizableBinaryHeap\
+    \ {\n\tstd::vector<std::pair<int, T>> heap;\n\tstd::vector<int> rev;\n\tCompare\
+    \ comp;\n\n\tvoid up_heap(int id = -1) {\n\t\tif (id == -1) id = heap.size() -\
+    \ 1;\n\t\twhile (id > 1) {\n\t\t\tauto &vp = heap[id >> 1], &vx = heap[id];\n\t\
+    \t\tif (comp(vp.second, vx.second)) {\n\t\t\t\tstd::swap(rev[vp.first], rev[vx.first]);\n\
+    \t\t\t\tstd::swap(vp, vx);\n\t\t\t\tid >>= 1;\n\t\t\t} else\n\t\t\t\treturn;\n\
+    \t\t}\n\t}\n\tvoid down_heap(int id = 1) {\n\t\twhile ((id << 1) < heap.size())\
+    \ {\n\t\t\tint il = id << 1, ir = id << 1 | 1, swap = -1;\n\t\t\tauto &vl = heap[il],\
+    \ &vx = heap[id];\n\t\t\tif (comp(vx.second, vl.second)) swap = il;\n\t\t\tif\
+    \ (ir < heap.size()) {\n\t\t\t\tauto& vr = heap[ir];\n\t\t\t\tif (comp(vx.second,\
+    \ vr.second)) {\n\t\t\t\t\tif (swap == -1 || comp(vl.second, vr.second)) swap\
+    \ = ir;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (swap == -1) return;\n\t\t\tstd::swap(rev[vx.first],\
+    \ rev[heap[swap].first]);\n\t\t\tstd::swap(vx, heap[swap]);\n\t\t\tid = swap;\n\
+    \t\t}\n\t}\n\n  public:\n\tPrioritizableBinaryHeap(int n) : heap(1), rev(n, -1)\
+    \ {}\n\t[[nodiscard]] bool empty() const noexcept { return heap.size() == 1; }\n\
+    \t[[nodiscard]] size_t size() const noexcept { return heap.size() - 1; }\n\t[[nodiscard]]\
+    \ auto top() const noexcept { return heap[1]; }\n\tvoid pop() {\n\t\trev[heap.back().first]\
+    \ = 1;\n\t\trev[heap[1].first] = -1;\n\t\theap[1] = std::move(heap.back());\n\t\
+    \theap.pop_back();\n\t\tdown_heap();\n\t}\n\tvoid push(int id, const T& x) {\n\
+    \t\trev[id] = heap.size();\n\t\theap.emplace_back(id, x);\n\t\tup_heap();\n\t\
+    }\n\tvoid prioritize(int id, const T& x) {\n\t\tif (heap[rev[id]].second > x)\
+    \ decrease_key(id, x);\n\t\telse increase_key(id, x);\n\t}\n\tvoid decrease_key(int\
+    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
+    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tdown_heap(rev[id]);\n\t}\n\tvoid increase_key(int\
+    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
+    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tup_heap(rev[id]);\n\t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\n\n// assign priorities\
+    \ to indexed nodes\ntemplate <class T, class Compare = std::less<>>\nclass PrioritizableBinaryHeap\
+    \ {\n\tstd::vector<std::pair<int, T>> heap;\n\tstd::vector<int> rev;\n\tCompare\
+    \ comp;\n\n\tvoid up_heap(int id = -1) {\n\t\tif (id == -1) id = heap.size() -\
+    \ 1;\n\t\twhile (id > 1) {\n\t\t\tauto &vp = heap[id >> 1], &vx = heap[id];\n\t\
+    \t\tif (comp(vp.second, vx.second)) {\n\t\t\t\tstd::swap(rev[vp.first], rev[vx.first]);\n\
+    \t\t\t\tstd::swap(vp, vx);\n\t\t\t\tid >>= 1;\n\t\t\t} else\n\t\t\t\treturn;\n\
+    \t\t}\n\t}\n\tvoid down_heap(int id = 1) {\n\t\twhile ((id << 1) < heap.size())\
+    \ {\n\t\t\tint il = id << 1, ir = id << 1 | 1, swap = -1;\n\t\t\tauto &vl = heap[il],\
+    \ &vx = heap[id];\n\t\t\tif (comp(vx.second, vl.second)) swap = il;\n\t\t\tif\
+    \ (ir < heap.size()) {\n\t\t\t\tauto& vr = heap[ir];\n\t\t\t\tif (comp(vx.second,\
+    \ vr.second)) {\n\t\t\t\t\tif (swap == -1 || comp(vl.second, vr.second)) swap\
+    \ = ir;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (swap == -1) return;\n\t\t\tstd::swap(rev[vx.first],\
+    \ rev[heap[swap].first]);\n\t\t\tstd::swap(vx, heap[swap]);\n\t\t\tid = swap;\n\
+    \t\t}\n\t}\n\n  public:\n\tPrioritizableBinaryHeap(int n) : heap(1), rev(n, -1)\
+    \ {}\n\t[[nodiscard]] bool empty() const noexcept { return heap.size() == 1; }\n\
+    \t[[nodiscard]] size_t size() const noexcept { return heap.size() - 1; }\n\t[[nodiscard]]\
+    \ auto top() const noexcept { return heap[1]; }\n\tvoid pop() {\n\t\trev[heap.back().first]\
+    \ = 1;\n\t\trev[heap[1].first] = -1;\n\t\theap[1] = std::move(heap.back());\n\t\
+    \theap.pop_back();\n\t\tdown_heap();\n\t}\n\tvoid push(int id, const T& x) {\n\
+    \t\trev[id] = heap.size();\n\t\theap.emplace_back(id, x);\n\t\tup_heap();\n\t\
+    }\n\tvoid prioritize(int id, const T& x) {\n\t\tif (heap[rev[id]].second > x)\
+    \ decrease_key(id, x);\n\t\telse increase_key(id, x);\n\t}\n\tvoid decrease_key(int\
+    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
+    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tdown_heap(rev[id]);\n\t}\n\tvoid increase_key(int\
+    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
+    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tup_heap(rev[id]);\n\t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: data-structure/ConvexHullTrick.hpp
-  requiredBy: []
+  path: data-structure/PrioritizableBinaryHeap.hpp
+  requiredBy:
+  - graph/Dijkstra.hpp
   timestamp: '2021-05-20 00:07:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-documentation_of: data-structure/ConvexHullTrick.hpp
+  - test/yosupo/shortest_path.test.cpp
+documentation_of: data-structure/PrioritizableBinaryHeap.hpp
 layout: document
 redirect_from:
-- /library/data-structure/ConvexHullTrick.hpp
-- /library/data-structure/ConvexHullTrick.hpp.html
-title: Convex Hull Trick
+- /library/data-structure/PrioritizableBinaryHeap.hpp
+- /library/data-structure/PrioritizableBinaryHeap.hpp.html
+title: data-structure/PrioritizableBinaryHeap.hpp
 ---

@@ -38,12 +38,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/BIT.hpp
     title: Binary Indexed Tree
+  - icon: ':warning:'
+    path: data-structure/BinaryHeap.hpp
+    title: data-structure/BinaryHeap.hpp
   - icon: ':heavy_check_mark:'
     path: data-structure/ConvexHullTrick.hpp
     title: Convex Hull Trick
   - icon: ':heavy_check_mark:'
     path: data-structure/DynamicSegTree.hpp
     title: data-structure/DynamicSegTree.hpp
+  - icon: ':heavy_check_mark:'
+    path: data-structure/FibonacciHeap.hpp
+    title: data-structure/FibonacciHeap.hpp
   - icon: ':heavy_check_mark:'
     path: data-structure/IntervalSegTree.hpp
     title: Interval Segment Tree
@@ -56,6 +62,9 @@ data:
   - icon: ':warning:'
     path: data-structure/PersistentStack.hpp
     title: Persistent Stack
+  - icon: ':heavy_check_mark:'
+    path: data-structure/PrioritizableBinaryHeap.hpp
+    title: data-structure/PrioritizableBinaryHeap.hpp
   - icon: ':warning:'
     path: data-structure/RBST.hpp
     title: Randomized Binary Search Tree
@@ -279,34 +288,43 @@ data:
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
-    #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n\
-    #pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC\
-    \ optimize(\"unroll-loops\")\n#include <string.h>\n#include <algorithm>\n#include\
-    \ <array>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
-    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
-    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
-    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
-    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
-    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
-    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
-    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
-    using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
-    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
-    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate\
-    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
-    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
-    \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
-    return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
-    \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
-    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class\
-    \ U>\nconstexpr inline bool chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs\
-    \ < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate\
-    \ <class T, class U>\nconstexpr inline bool chmin(T& lhs, const U& rhs) noexcept\
-    \ {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n\
-    }\nconstexpr inline lint gcd(lint a, lint b) noexcept {\n\twhile (b) {\n\t\tlint\
+    #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
+    \ defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"\
+    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include\
+    \ <algorithm>\n#include <array>\n#include <bitset>\n#include <cassert>\n#include\
+    \ <cfloat>\n#include <climits>\n#include <cmath>\n#include <complex>\n#include\
+    \ <ctime>\n#include <deque>\n#include <fstream>\n#include <functional>\n#include\
+    \ <iomanip>\n#include <iostream>\n#include <iterator>\n#include <list>\n#include\
+    \ <map>\n#include <memory>\n#include <queue>\n#include <random>\n#include <set>\n\
+    #include <stack>\n#include <string>\n#include <unordered_map>\n#include <unordered_set>\n\
+    #include <utility>\n#include <vector>\n\n#define rep(i, n) for (int i = 0; i <\
+    \ int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V)\
+    \ V.begin(), V.end()\n\nusing i128 = __int128_t;\nusing u128 = __uint128_t;\n\
+    using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
+    \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
+    constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
+    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
+    \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
+    \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
+    #endif\n#endif\n\tx = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333)\
+    \ + (x >> 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\t\
+    x = (x & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x\
+    \ >> 16 & 0x0000ffff);\n}\ntemplate <class F>\ninline constexpr decltype(auto)\
+    \ lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\
+    \treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\ntemplate <class\
+    \ T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
+    }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
+    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    }\ntemplate <class T, class U>\nstd::istream& operator>>(std::istream& ist, std::pair<T,\
+    \ U>& x) {\n\treturn ist >> x.first >> x.second;\n}\ntemplate <class T, class\
+    \ U>\nstd::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {\n\
+    \treturn ost << x.first << \" \" << x.second;\n}\ntemplate <class T, class U>\n\
+    constexpr inline bool chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs < rhs)\
+    \ {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate <class\
+    \ T, class U>\nconstexpr inline bool chmin(T& lhs, const U& rhs) noexcept {\n\t\
+    if (lhs > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\n\
+    constexpr inline lint gcd(lint a, lint b) noexcept {\n\twhile (b) {\n\t\tlint\
     \ c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint\
     \ a, lint b) noexcept { return a / gcd(a, b) * b; }\nconstexpr bool isprime(lint\
     \ n) noexcept {\n\tif (n == 1) return false;\n\tfor (int i = 2; i * i <= n; i++)\
@@ -344,29 +362,38 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n"
-  code: "#pragma once\n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n#pragma\
-    \ GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\"\
-    )\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
-    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
-    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
-    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
-    #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
-    \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
-    #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
-    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
-    using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
-    using ulint = unsigned long long;\nusing IP = std::pair<int, int>;\nusing LP =\
-    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
-    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
-    \ 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique : public\
-    \ std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate <class\
-    \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
-    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
-    template <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
-    }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
-    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+  code: "#pragma once\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#ifdef\
+    \ ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n#pragma\
+    \ GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"\
+    unroll-loops\")\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n\
+    #include <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n\
+    #include <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include\
+    \ <fstream>\n#include <functional>\n#include <iomanip>\n#include <iostream>\n\
+    #include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n#include\
+    \ <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include <string>\n\
+    #include <unordered_map>\n#include <unordered_set>\n#include <utility>\n#include\
+    \ <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define REP(i,\
+    \ n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\n\
+    using i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
+    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
+    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
+    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\nint\
+    \ popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
+    #else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\t\
+    x = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >>\
+    \ 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x\
+    \ & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x >> 16\
+    \ & 0x0000ffff);\n}\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&&\
+    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
+    return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
+    \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
+    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class\
+    \ U>\nstd::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn\
+    \ ist >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
+    \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
     }\ntemplate <class T, class U>\nconstexpr inline bool chmax(T& lhs, const U& rhs)\
     \ noexcept {\n\tif (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn\
     \ false;\n}\ntemplate <class T, class U>\nconstexpr inline bool chmin(T& lhs,\
@@ -413,99 +440,102 @@ data:
   isVerificationFile: false
   path: other/template.hpp
   requiredBy:
-  - string/RollingHash.hpp
-  - string/HashedString.hpp
-  - string/SuffixArray.hpp
-  - string/EerTree.hpp
-  - string/ZAlgorithm.hpp
-  - string/Trie.hpp
-  - algebraic/Combinatorics.hpp
-  - algebraic/Matrix.hpp
-  - algebraic/FastFactorize.hpp
-  - algebraic/StaticModInt.hpp
-  - algebraic/DiscreteLogarithm.hpp
-  - algebraic/MyComplex.hpp
-  - algebraic/DynamicModInt.hpp
-  - algebraic/FloorSum.hpp
-  - algebraic/Interpolation.hpp
-  - algebraic/FastFourierTransform.hpp
-  - algebraic/NumberTheoreticTransform.hpp
+  - data-structure/MonotoneConvexHullTrick.hpp
+  - data-structure/SuccinctBitVector.hpp
+  - data-structure/RBSTset.hpp
   - data-structure/SWAG.hpp
-  - data-structure/WaveletMatrix.hpp
+  - data-structure/SegTreeBeats.hpp
+  - data-structure/SegTree.hpp
   - data-structure/IntervalSegTree.hpp
   - data-structure/ConvexHullTrick.hpp
-  - data-structure/MonotoneConvexHullTrick.hpp
-  - data-structure/SegTreeBeats.hpp
-  - data-structure/PersistentStack.hpp
   - data-structure/BIT.hpp
-  - data-structure/RBSTset.hpp
   - data-structure/DynamicSegTree.hpp
-  - data-structure/RBST.hpp
+  - data-structure/PrioritizableBinaryHeap.hpp
   - data-structure/LiChaoTree.hpp
-  - data-structure/SuccinctBitVector.hpp
-  - data-structure/SegTree.hpp
+  - data-structure/FibonacciHeap.hpp
   - data-structure/SparseTable.hpp
-  - graph/PrimalDual.hpp
+  - data-structure/BinaryHeap.hpp
+  - data-structure/RBST.hpp
+  - data-structure/PersistentStack.hpp
+  - data-structure/WaveletMatrix.hpp
+  - string/ZAlgorithm.hpp
+  - string/EerTree.hpp
+  - string/SuffixArray.hpp
+  - string/Trie.hpp
+  - string/HashedString.hpp
+  - string/RollingHash.hpp
+  - test/yosupo/discrete_logarithm_mod.cpp
+  - test/yosupo/zalgorithm.cpp
+  - algebraic/FloorSum.hpp
+  - algebraic/Combinatorics.hpp
+  - algebraic/NumberTheoreticTransform.hpp
+  - algebraic/FastFactorize.hpp
+  - algebraic/DiscreteLogarithm.hpp
+  - algebraic/FastFourierTransform.hpp
+  - algebraic/Interpolation.hpp
+  - algebraic/Matrix.hpp
+  - algebraic/StaticModInt.hpp
+  - algebraic/MyComplex.hpp
+  - algebraic/DynamicModInt.hpp
+  - other/FastIO.hpp
+  - other/type_traits.hpp
+  - graph/StronglyConnectedComponents.hpp
+  - graph/Dijkstra.hpp
+  - graph/PersistentUnionFind.hpp
+  - graph/Tree.hpp
   - graph/HeavyLightDecomposition.hpp
   - graph/UnionFind.hpp
   - graph/Dinic.hpp
-  - graph/StronglyConnectedComponents.hpp
-  - graph/Dijkstra.hpp
-  - graph/TwoSat.hpp
-  - graph/Tree.hpp
-  - graph/PersistentUnionFind.hpp
+  - graph/PrimalDual.hpp
   - graph/FordFulkerson.hpp
-  - test/yosupo/discrete_logarithm_mod.cpp
-  - test/yosupo/zalgorithm.cpp
-  - other/FastIO.hpp
-  - other/type_traits.hpp
-  timestamp: '2021-03-05 17:59:54+09:00'
+  - graph/TwoSat.hpp
+  timestamp: '2021-05-20 00:07:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/range_kth_smallest.test.cpp
-  - test/yosupo/aplusb.test.cpp
+  - test/yosupo/set_xor_min.test.cpp
+  - test/yosupo/unionfind.test.cpp
   - test/yosupo/queue_operate_all_composite.test.cpp
   - test/yosupo/two_sat.test.cpp
-  - test/yosupo/segment_add_get_min.test.cpp
-  - test/yosupo/staticrmq.test.cpp
   - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/yosupo/unionfind.test.cpp
-  - test/yosupo/convolution_mod_1000000007.test.cpp
-  - test/yosupo/set_xor_min.test.cpp
-  - test/yosupo/point_add_range_sum.test.cpp
-  - test/yosupo/lca.test.cpp
-  - test/yosupo/static_range_sum.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
-  - test/yosupo/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/segment_add_get_min.test.cpp
   - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
-  - test/yosupo/scc.test.cpp
-  - test/yosupo/associative_array.test.cpp
+  - test/yosupo/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/bipartitematching.test.cpp
   - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
+  - test/yosupo/shortest_path.test.cpp
+  - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
+  - test/yosupo/tree_diameter.test.cpp
+  - test/yosupo/point_add_range_sum.test.cpp
+  - test/yosupo/staticrmq.test.cpp
+  - test/yosupo/range_kth_smallest.test.cpp
+  - test/yosupo/suffixarray.test.cpp
+  - test/yosupo/point_set_range_composite.test.cpp
+  - test/yosupo/scc.test.cpp
   - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/aplusb.test.cpp
+  - test/yosupo/associative_array.test.cpp
+  - test/yosupo/static_range_sum.test.cpp
+  - test/yosupo/factorize.test.cpp
+  - test/yosupo/many_aplusb.test.cpp
+  - test/yosupo/range_affine_range_sum.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/lca.test.cpp
   - test/yosupo/sum_of_floor_of_linear.test.cpp
   - test/yosupo/vertex_add_path_sum.test.cpp
-  - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-  - test/yosupo/suffixarray.test.cpp
-  - test/yosupo/tree_diameter.test.cpp
-  - test/yosupo/factorize.test.cpp
-  - test/yosupo/bipartitematching.test.cpp
-  - test/yosupo/shortest_path.test.cpp
-  - test/yosupo/many_aplusb.test.cpp
   - test/yukicoder/0789.test.cpp
-  - test/aoj/DSL_2_F.test.cpp
+  - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
   - test/aoj/DSL_2_H.test.cpp
-  - test/aoj/DSL_2_D.test.cpp
   - test/aoj/GRL_6_A_Dinic.test.cpp
+  - test/aoj/DSL_2_G.test.cpp
+  - test/aoj/DSL_2_A.test.cpp
+  - test/aoj/DSL_2_D.test.cpp
   - test/aoj/DSL_2_I.test.cpp
   - test/aoj/DSL_2_E.test.cpp
-  - test/aoj/DSL_2_B.test.cpp
-  - test/aoj/DSL_2_G.test.cpp
   - test/aoj/GRL_6_A_FordFulkerson.test.cpp
-  - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
-  - test/aoj/GRL_6_B.test.cpp
-  - test/aoj/DSL_2_A.test.cpp
+  - test/aoj/DSL_2_F.test.cpp
   - test/aoj/ALDS1_14_B_HashedString.test.cpp
+  - test/aoj/GRL_6_B.test.cpp
+  - test/aoj/DSL_2_B.test.cpp
 documentation_of: other/template.hpp
 layout: document
 redirect_from:

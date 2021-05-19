@@ -41,12 +41,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/BIT.hpp
       title: Binary Indexed Tree
+    - icon: ':warning:'
+      path: data-structure/BinaryHeap.hpp
+      title: data-structure/BinaryHeap.hpp
     - icon: ':heavy_check_mark:'
       path: data-structure/ConvexHullTrick.hpp
       title: Convex Hull Trick
     - icon: ':heavy_check_mark:'
       path: data-structure/DynamicSegTree.hpp
       title: data-structure/DynamicSegTree.hpp
+    - icon: ':heavy_check_mark:'
+      path: data-structure/FibonacciHeap.hpp
+      title: data-structure/FibonacciHeap.hpp
     - icon: ':heavy_check_mark:'
       path: data-structure/IntervalSegTree.hpp
       title: Interval Segment Tree
@@ -59,6 +65,9 @@ data:
     - icon: ':warning:'
       path: data-structure/PersistentStack.hpp
       title: Persistent Stack
+    - icon: ':heavy_check_mark:'
+      path: data-structure/PrioritizableBinaryHeap.hpp
+      title: data-structure/PrioritizableBinaryHeap.hpp
     - icon: ':warning:'
       path: data-structure/RBST.hpp
       title: Randomized Binary Search Tree
@@ -149,11 +158,6 @@ data:
     - icon: ':warning:'
       path: string/ZAlgorithm.hpp
       title: string/ZAlgorithm.hpp
-  - name: .
-    pages:
-    - icon: ':warning:'
-      path: submit.cpp
-      title: submit.cpp
   - name: test/yosupo
     pages:
     - icon: ':warning:'

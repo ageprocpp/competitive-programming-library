@@ -18,29 +18,38 @@ data:
     links:
     - https://judge.yosupo.jp/problem/suffixarray
   bundledCode: "#line 1 \"test/yosupo/suffixarray.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/suffixarray\"\
-    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifdef ONLINE_JUDGE\n\
-    #pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n#pragma GCC target(\"\
-    avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
-    #include <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n\
-    #include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
-    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
-    #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
-    \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
-    #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
-    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
-    using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
-    using ulint = unsigned long long;\nusing IP = std::pair<int, int>;\nusing LP =\
-    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
-    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr double PI =\
-    \ 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique : public\
-    \ std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\ntemplate <class\
-    \ F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f = std::forward<F>(f)](auto&&...\
-    \ args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\n\
-    template <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
-    }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
-    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n\
+    #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n\
+    #pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC\
+    \ optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include <algorithm>\n\
+    #include <array>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
+    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
+    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
+    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
+    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
+    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
+    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
+    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
+    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
+    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
+    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
+    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\nint\
+    \ popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
+    #else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\t\
+    x = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >>\
+    \ 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x\
+    \ & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x >> 16\
+    \ & 0x0000ffff);\n}\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&&\
+    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
+    return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
+    \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
+    \t\tn, make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class\
+    \ U>\nstd::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn\
+    \ ist >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
+    \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
     }\ntemplate <class T, class U>\nconstexpr inline bool chmax(T& lhs, const U& rhs)\
     \ noexcept {\n\tif (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn\
     \ false;\n}\ntemplate <class T, class U>\nconstexpr inline bool chmin(T& lhs,\
@@ -152,7 +161,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/suffixarray.test.cpp
   requiredBy: []
-  timestamp: '2021-03-05 17:59:54+09:00'
+  timestamp: '2021-05-20 00:07:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/suffixarray.test.cpp
