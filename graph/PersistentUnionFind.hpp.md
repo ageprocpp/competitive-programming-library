@@ -100,17 +100,16 @@ data:
     \ += size[a];\n\t}\n\tbool same(int n, int m) { return find(n) == find(m); }\n\
     \tint getsize(int n) { return size[find(n)]; }\n\tbool is_root(int n) { return\
     \ find(n) == n; }\n};\n\n/**\n * @title Disjoint set\n */\n#line 4 \"graph/PersistentUnionFind.hpp\"\
-    \nclass PersistentUnionFind : UnionFind {\n\tstd::vector<P> notparent;\n\tstd::vector<std::vector<std::pair<int,\
+    \nclass PersistentUnionFind {\n\tstd::vector<IP> notparent;\n\tstd::vector<std::vector<std::pair<int,\
     \ int>>> sizevec;\n\tint opcount = 0;\n\n  public:\n\tPersistentUnionFind(unsigned\
-    \ int size) : UnionFind(size) {\n\t\tnotparent.resize(size);\n\t\tsizevec.resize(size);\n\
-    \t\trep(i, size) {\n\t\t\tpar[i] = i;\n\t\t\tsizevec[i].push_back(std::make_pair(-1,\
-    \ 1));\n\t\t\tnotparent[i] = std::make_pair(INF, i);\n\t\t}\n\t}\n\tint find(int\
-    \ n, int t = INF) {\n\t\tif (opcount <= t) {\n\t\t\tif (par[n] == n) return n;\n\
-    \t\t\treturn par[n] = find(par[n]);\n\t\t}\n\t\tif (notparent[n].first <= t) return\
-    \ find(notparent[n].second, t);\n\t\treturn n;\n\t}\n\tvoid unite(int n, int m)\
-    \ {\n\t\tn = find(n);\n\t\tm = find(m);\n\t\tif (n == m) {\n\t\t\topcount++;\n\
-    \t\t\treturn;\n\t\t}\n\t\tif (size[n] > size[m]) std::swap(n, m);\n\t\tpar[n]\
-    \ = m;\n\t\tnotparent[n] = std::make_pair(opcount, m);\n\t\tsizevec[m].emplace_back(\n\
+    \ int size) {\n\t\tnotparent.resize(size);\n\t\tsizevec.resize(size);\n\t\trep(i,\
+    \ size) {\n\t\t\tsizevec[i].push_back(std::make_pair(-1, 1));\n\t\t\tnotparent[i]\
+    \ = std::make_pair(INF, i);\n\t\t}\n\t}\n\tint find(int n, int t = INF) {\n\t\t\
+    if (t < notparent[n].first || notparent[n].second == n) return n;\n\t\treturn\
+    \ find(notparent[n].second, t);\n\t}\n\tvoid unite(int n, int m) {\n\t\tn = find(n);\n\
+    \t\tm = find(m);\n\t\tif (n == m) {\n\t\t\topcount++;\n\t\t\treturn;\n\t\t}\n\t\
+    \tif (sizevec[n].back().second > sizevec[m].back().second)\n\t\t\tstd::swap(n,\
+    \ m);\n\t\tnotparent[n] = std::make_pair(opcount, m);\n\t\tsizevec[m].emplace_back(\n\
     \t\t\topcount, sizevec[m].back().second + sizevec[n].back().second);\n\t\topcount++;\n\
     \t}\n\tbool same(int n, int m, int t = INF) { return find(n, t) == find(m, t);\
     \ }\n\tint getsize(int n, int t = INF) {\n\t\tn = find(n, t);\n\t\tauto ite =\
@@ -118,17 +117,16 @@ data:
     \ ite--;\n\t\tif (t < (*ite).first) ite--;\n\t\treturn (*ite).second;\n\t}\n};\n\
     \n/**\n * @title Partially persistent disjoint set\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"UnionFind.hpp\"\
-    \nclass PersistentUnionFind : UnionFind {\n\tstd::vector<P> notparent;\n\tstd::vector<std::vector<std::pair<int,\
+    \nclass PersistentUnionFind {\n\tstd::vector<IP> notparent;\n\tstd::vector<std::vector<std::pair<int,\
     \ int>>> sizevec;\n\tint opcount = 0;\n\n  public:\n\tPersistentUnionFind(unsigned\
-    \ int size) : UnionFind(size) {\n\t\tnotparent.resize(size);\n\t\tsizevec.resize(size);\n\
-    \t\trep(i, size) {\n\t\t\tpar[i] = i;\n\t\t\tsizevec[i].push_back(std::make_pair(-1,\
-    \ 1));\n\t\t\tnotparent[i] = std::make_pair(INF, i);\n\t\t}\n\t}\n\tint find(int\
-    \ n, int t = INF) {\n\t\tif (opcount <= t) {\n\t\t\tif (par[n] == n) return n;\n\
-    \t\t\treturn par[n] = find(par[n]);\n\t\t}\n\t\tif (notparent[n].first <= t) return\
-    \ find(notparent[n].second, t);\n\t\treturn n;\n\t}\n\tvoid unite(int n, int m)\
-    \ {\n\t\tn = find(n);\n\t\tm = find(m);\n\t\tif (n == m) {\n\t\t\topcount++;\n\
-    \t\t\treturn;\n\t\t}\n\t\tif (size[n] > size[m]) std::swap(n, m);\n\t\tpar[n]\
-    \ = m;\n\t\tnotparent[n] = std::make_pair(opcount, m);\n\t\tsizevec[m].emplace_back(\n\
+    \ int size) {\n\t\tnotparent.resize(size);\n\t\tsizevec.resize(size);\n\t\trep(i,\
+    \ size) {\n\t\t\tsizevec[i].push_back(std::make_pair(-1, 1));\n\t\t\tnotparent[i]\
+    \ = std::make_pair(INF, i);\n\t\t}\n\t}\n\tint find(int n, int t = INF) {\n\t\t\
+    if (t < notparent[n].first || notparent[n].second == n) return n;\n\t\treturn\
+    \ find(notparent[n].second, t);\n\t}\n\tvoid unite(int n, int m) {\n\t\tn = find(n);\n\
+    \t\tm = find(m);\n\t\tif (n == m) {\n\t\t\topcount++;\n\t\t\treturn;\n\t\t}\n\t\
+    \tif (sizevec[n].back().second > sizevec[m].back().second)\n\t\t\tstd::swap(n,\
+    \ m);\n\t\tnotparent[n] = std::make_pair(opcount, m);\n\t\tsizevec[m].emplace_back(\n\
     \t\t\topcount, sizevec[m].back().second + sizevec[n].back().second);\n\t\topcount++;\n\
     \t}\n\tbool same(int n, int m, int t = INF) { return find(n, t) == find(m, t);\
     \ }\n\tint getsize(int n, int t = INF) {\n\t\tn = find(n, t);\n\t\tauto ite =\
@@ -141,7 +139,7 @@ data:
   isVerificationFile: false
   path: graph/PersistentUnionFind.hpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-05-22 18:52:51+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: graph/PersistentUnionFind.hpp
