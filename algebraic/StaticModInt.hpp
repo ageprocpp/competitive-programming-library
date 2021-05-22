@@ -4,18 +4,32 @@
 template <uint modulo>
 class StaticModInt : StaticModInt__Base {
 	std::conditional_t<(modulo > INT_MAX >> 1), lint, int> value;
+	static constexpr int inv1000000007[] = {0,		   1,		  500000004,
+											333333336, 250000002, 400000003,
+											166666668, 142857144, 125000001,
+											111111112, 700000005},
+						 inv998244353[] = {0,		  1,		 499122177,
+										   332748118, 748683265, 598946612,
+										   166374059, 855638017, 873463809,
+										   443664157, 299473306};
 
   public:
 	static constexpr uint mod_value = modulo;
+
 	constexpr StaticModInt() : value(0) {}
 	template <class T,
 			  std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,
 							   std::nullptr_t> = nullptr>
 	constexpr StaticModInt(T value = 0) : value(value) {
-		this->value =
-			(value < 0 ? -(-value % modulo) + modulo : lint(value)) % modulo;
+		this->value %= modulo;
+		if (this->value < 0) this->value += modulo;
 	}
 	inline constexpr StaticModInt inv() const {
+		if constexpr (modulo == 1000000007) {
+			if (*this <= 10) return inv1000000007[*this];
+		} else if constexpr (modulo == 998244353) {
+			if (*this <= 10) return inv998244353[*this];
+		}
 		return mypow(*this, modulo - 2);
 	}
 	inline constexpr operator int() const { return value; }
@@ -57,7 +71,7 @@ class StaticModInt : StaticModInt__Base {
 		return res;
 	}
 	inline constexpr StaticModInt& operator*=(const StaticModInt& x) {
-		value = (lint)value * x.value % modulo;
+		value = (ulint)value * x.value % modulo;
 		return *this;
 	}
 	inline constexpr StaticModInt& operator/=(const StaticModInt& rhs) {
@@ -115,7 +129,6 @@ class StaticModInt : StaticModInt__Base {
 		}
 		if (tmp != 1) vec.emplace_back(tmp);
 
-		vec.erase(std::unique(all(vec)), vec.end());
 		while (true) {
 			p = uid(mt);
 			bool f = true;
