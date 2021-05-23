@@ -13,6 +13,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: Dynamic Segment Tree
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -115,7 +116,8 @@ data:
     \ T x) {\n\t\tNode *cur = ptr_from_id(i).get();\n\t\tcur->set(x);\n\t\twhile (cur\
     \ != root.get()) {\n\t\t\tcur = cur->get_parent();\n\t\t\tcur->eval();\n\t\t}\n\
     \t}\n\tT query(lint a, lint b) { return query(a, b, 0, n, root); }\n\tconst T\
-    \ &operator[](const lint &x) { return ptr_from_id(x)->get(); }\n};\n"
+    \ &operator[](const lint &x) { return ptr_from_id(x)->get(); }\n};\n\n/**\n *\
+    \ @title Dynamic Segment Tree\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, T (*nodef)(const\
     \ T &, const T &), T (*ident)(),\n\t\t  T (*init)() = ident>\nclass DynamicSegTree\
     \ {\n\tclass Node {\n\t\tNode *par;\n\t\tstd::shared_ptr<Node> left = nullptr,\
@@ -142,13 +144,14 @@ data:
     \ T x) {\n\t\tNode *cur = ptr_from_id(i).get();\n\t\tcur->set(x);\n\t\twhile (cur\
     \ != root.get()) {\n\t\t\tcur = cur->get_parent();\n\t\t\tcur->eval();\n\t\t}\n\
     \t}\n\tT query(lint a, lint b) { return query(a, b, 0, n, root); }\n\tconst T\
-    \ &operator[](const lint &x) { return ptr_from_id(x)->get(); }\n};"
+    \ &operator[](const lint &x) { return ptr_from_id(x)->get(); }\n};\n\n/**\n *\
+    \ @title Dynamic Segment Tree\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/DynamicSegTree.hpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-05-23 09:27:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/0789.test.cpp
@@ -157,5 +160,5 @@ layout: document
 redirect_from:
 - /library/data-structure/DynamicSegTree.hpp
 - /library/data-structure/DynamicSegTree.hpp.html
-title: data-structure/DynamicSegTree.hpp
+title: Dynamic Segment Tree
 ---

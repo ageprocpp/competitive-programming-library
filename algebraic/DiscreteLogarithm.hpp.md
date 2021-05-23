@@ -13,6 +13,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: Discrete Logarithm
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -102,7 +103,8 @@ data:
     \ != mp.end()) break;\n\t\tmp.insert({cur, p});\n\t}\n\tcur = Y;\n\tint res =\
     \ INF;\n\trep(i, m) {\n\t\tif (mp.find(cur) != mp.end()) {\n\t\t\tif (modpow(X,\
     \ mp[cur] - i, M) == Y) chmin(res, mp[cur] - i);\n\t\t}\n\t\tcur = lint(cur) *\
-    \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}\n"
+    \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}\n\n/**\n * @title Discrete Logarithm\n\
+    \ */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nint DiscreteLogarithm(int\
     \ X, int Y, int M) {\n\tif (Y == 0 && M == 1) return 0;\n\tif (X == 0) {\n\t\t\
     if (Y == 0) return 1;\n\t\tif (Y == 1) return 0;\n\t\treturn -1;\n\t}\n\tif (Y\
@@ -116,14 +118,15 @@ data:
     \ != mp.end()) break;\n\t\tmp.insert({cur, p});\n\t}\n\tcur = Y;\n\tint res =\
     \ INF;\n\trep(i, m) {\n\t\tif (mp.find(cur) != mp.end()) {\n\t\t\tif (modpow(X,\
     \ mp[cur] - i, M) == Y) chmin(res, mp[cur] - i);\n\t\t}\n\t\tcur = lint(cur) *\
-    \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}"
+    \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}\n\n/**\n * @title Discrete Logarithm\n\
+    \ */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: algebraic/DiscreteLogarithm.hpp
   requiredBy:
   - test/yosupo/discrete_logarithm_mod.cpp
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-05-23 09:27:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/DiscreteLogarithm.hpp
@@ -131,5 +134,5 @@ layout: document
 redirect_from:
 - /library/algebraic/DiscreteLogarithm.hpp
 - /library/algebraic/DiscreteLogarithm.hpp.html
-title: algebraic/DiscreteLogarithm.hpp
+title: Discrete Logarithm
 ---

@@ -8,10 +8,10 @@ data:
       title: Combinatorics/ModCombinatorics
     - icon: ':warning:'
       path: algebraic/DiscreteLogarithm.hpp
-      title: algebraic/DiscreteLogarithm.hpp
+      title: Discrete Logarithm
     - icon: ':warning:'
       path: algebraic/DynamicModInt.hpp
-      title: algebraic/DynamicModInt.hpp
+      title: DynamicModInt
     - icon: ':heavy_check_mark:'
       path: algebraic/FastFactorize.hpp
       title: FastFactorize
@@ -26,7 +26,7 @@ data:
       title: algebraic/Interpolation.hpp
     - icon: ':warning:'
       path: algebraic/Matrix.hpp
-      title: algebraic/Matrix.hpp
+      title: Matrix
     - icon: ':warning:'
       path: algebraic/MyComplex.hpp
       title: MyComplex
@@ -43,16 +43,16 @@ data:
       title: Binary Indexed Tree
     - icon: ':warning:'
       path: data-structure/BinaryHeap.hpp
-      title: data-structure/BinaryHeap.hpp
+      title: Binary Heap
     - icon: ':heavy_check_mark:'
       path: data-structure/ConvexHullTrick.hpp
       title: Convex Hull Trick
     - icon: ':heavy_check_mark:'
       path: data-structure/DynamicSegTree.hpp
-      title: data-structure/DynamicSegTree.hpp
+      title: Dynamic Segment Tree
     - icon: ':heavy_check_mark:'
       path: data-structure/FibonacciHeap.hpp
-      title: data-structure/FibonacciHeap.hpp
+      title: Fibonacci Heap
     - icon: ':heavy_check_mark:'
       path: data-structure/IntervalSegTree.hpp
       title: Interval Segment Tree
@@ -67,7 +67,7 @@ data:
       title: Persistent Stack
     - icon: ':heavy_check_mark:'
       path: data-structure/PrioritizableBinaryHeap.hpp
-      title: data-structure/PrioritizableBinaryHeap.hpp
+      title: Prioritizable Binary Heap
     - icon: ':warning:'
       path: data-structure/RBST.hpp
       title: Randomized Binary Search Tree

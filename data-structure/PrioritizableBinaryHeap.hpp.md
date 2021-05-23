@@ -16,6 +16,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: Prioritizable Binary Heap
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -113,12 +114,13 @@ data:
     \ = 1;\n\t\trev[heap[1].first] = -1;\n\t\theap[1] = std::move(heap.back());\n\t\
     \theap.pop_back();\n\t\tdown_heap();\n\t}\n\tvoid push(int id, const T& x) {\n\
     \t\trev[id] = heap.size();\n\t\theap.emplace_back(id, x);\n\t\tup_heap();\n\t\
-    }\n\tvoid prioritize(int id, const T& x) {\n\t\tif (heap[rev[id]].second > x)\
-    \ decrease_key(id, x);\n\t\telse increase_key(id, x);\n\t}\n\tvoid decrease_key(int\
-    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
-    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tdown_heap(rev[id]);\n\t}\n\tvoid increase_key(int\
-    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
-    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tup_heap(rev[id]);\n\t}\n};\n"
+    }\n\tvoid prioritize(int id, const T& x) {\n\t\tif (heap[rev[id]].second > x)\n\
+    \t\t\tdecrease_key(id, x);\n\t\telse\n\t\t\tincrease_key(id, x);\n\t}\n\tvoid\
+    \ decrease_key(int id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id,\
+    \ x);\n\t\t\treturn;\n\t\t}\n\t\theap[rev[id]].second = x;\n\t\tdown_heap(rev[id]);\n\
+    \t}\n\tvoid increase_key(int id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\
+    \tpush(id, x);\n\t\t\treturn;\n\t\t}\n\t\theap[rev[id]].second = x;\n\t\tup_heap(rev[id]);\n\
+    \t}\n};\n\n/**\n * @title Prioritizable Binary Heap\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n\n// assign priorities\
     \ to indexed nodes\ntemplate <class T, class Compare = std::less<>>\nclass PrioritizableBinaryHeap\
     \ {\n\tstd::vector<std::pair<int, T>> heap;\n\tstd::vector<int> rev;\n\tCompare\
@@ -140,19 +142,20 @@ data:
     \ = 1;\n\t\trev[heap[1].first] = -1;\n\t\theap[1] = std::move(heap.back());\n\t\
     \theap.pop_back();\n\t\tdown_heap();\n\t}\n\tvoid push(int id, const T& x) {\n\
     \t\trev[id] = heap.size();\n\t\theap.emplace_back(id, x);\n\t\tup_heap();\n\t\
-    }\n\tvoid prioritize(int id, const T& x) {\n\t\tif (heap[rev[id]].second > x)\
-    \ decrease_key(id, x);\n\t\telse increase_key(id, x);\n\t}\n\tvoid decrease_key(int\
-    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
-    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tdown_heap(rev[id]);\n\t}\n\tvoid increase_key(int\
-    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
-    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tup_heap(rev[id]);\n\t}\n};"
+    }\n\tvoid prioritize(int id, const T& x) {\n\t\tif (heap[rev[id]].second > x)\n\
+    \t\t\tdecrease_key(id, x);\n\t\telse\n\t\t\tincrease_key(id, x);\n\t}\n\tvoid\
+    \ decrease_key(int id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id,\
+    \ x);\n\t\t\treturn;\n\t\t}\n\t\theap[rev[id]].second = x;\n\t\tdown_heap(rev[id]);\n\
+    \t}\n\tvoid increase_key(int id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\
+    \tpush(id, x);\n\t\t\treturn;\n\t\t}\n\t\theap[rev[id]].second = x;\n\t\tup_heap(rev[id]);\n\
+    \t}\n};\n\n/**\n * @title Prioritizable Binary Heap\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/PrioritizableBinaryHeap.hpp
   requiredBy:
   - graph/Dijkstra.hpp
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-05-23 09:27:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/shortest_path.test.cpp
@@ -161,5 +164,5 @@ layout: document
 redirect_from:
 - /library/data-structure/PrioritizableBinaryHeap.hpp
 - /library/data-structure/PrioritizableBinaryHeap.hpp.html
-title: data-structure/PrioritizableBinaryHeap.hpp
+title: Prioritizable Binary Heap
 ---

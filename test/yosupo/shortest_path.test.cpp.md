@@ -3,10 +3,10 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: data-structure/FibonacciHeap.hpp
-    title: data-structure/FibonacciHeap.hpp
+    title: Fibonacci Heap
   - icon: ':heavy_check_mark:'
     path: data-structure/PrioritizableBinaryHeap.hpp
-    title: data-structure/PrioritizableBinaryHeap.hpp
+    title: Prioritizable Binary Heap
   - icon: ':heavy_check_mark:'
     path: graph/Dijkstra.hpp
     title: Dijkstra's algorithm
@@ -195,49 +195,50 @@ data:
     \ = 1;\n\t\trev[heap[1].first] = -1;\n\t\theap[1] = std::move(heap.back());\n\t\
     \theap.pop_back();\n\t\tdown_heap();\n\t}\n\tvoid push(int id, const T& x) {\n\
     \t\trev[id] = heap.size();\n\t\theap.emplace_back(id, x);\n\t\tup_heap();\n\t\
-    }\n\tvoid prioritize(int id, const T& x) {\n\t\tif (heap[rev[id]].second > x)\
-    \ decrease_key(id, x);\n\t\telse increase_key(id, x);\n\t}\n\tvoid decrease_key(int\
-    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
-    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tdown_heap(rev[id]);\n\t}\n\tvoid increase_key(int\
-    \ id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id, x);\n\t\t\treturn;\n\
-    \t\t}\n\t\theap[rev[id]].second = x;\n\t\tup_heap(rev[id]);\n\t}\n};\n#line 3\
-    \ \"data-structure/FibonacciHeap.hpp\"\ntemplate <class T, class Compare = std::less<T>>\n\
-    class FibonacciHeap {\n\tclass Tree {\n\t  public:\n\t\tTree* par;\n\t\ttypename\
-    \ std::list<Tree*>::iterator in_par;\n\t\tint root_index;\n\t\tT root_key;\n\t\
-    \tstd::list<Tree*> children;\n\t\tint rank = 0;\n\t\tbool damaged = false;\n\n\
-    \t\tTree(int index, T key, Tree* par_ = nullptr)\n\t\t\t: root_index(index), root_key(key),\
-    \ par(par_) {}\n\t\tTree& meld(Tree& t) {\n\t\t\tif (comp(root_key, t.root_key))\
-    \ std::swap(*this, t);\n\t\t\tchildren.push_back(&t);\n\t\t\trank++;\n\t\t\treturn\
-    \ *this;\n\t\t}\n\t\tvoid cut(FibonacciHeap& heap) {\n\t\t\tif (!par) return;\n\
-    \t\t\tif (par->damaged) par->cut(heap);\n\t\t\tpar->children.erase(in_par);\n\t\
-    \t\theap.l.emplace_front(this);\n\t\t}\n\t};\n\n\tstatic constexpr int MAX_DEPTH\
-    \ = 30;\n\n\tsize_t n = 0;\n\tstd::list<Tree*> l;\n\tstd::vector<Tree*> rev;\n\
-    \ttypename std::list<Tree*>::iterator top_itr = l.end();\n\tstatic Compare comp;\n\
-    \tvoid update_top() {\n\t\tif (empty()) return;\n\t\ttop_itr = l.begin();\n\t\t\
-    auto itr = l.begin();\n\t\twhile (++itr != l.end()) {\n\t\t\tif (comp((*top_itr)->root_key,\
-    \ (*itr)->root_key)) top_itr = itr;\n\t\t}\n\t}\n\n  public:\n\tFibonacciHeap(int\
-    \ n_) : rev(n_) {}\n\t~FibonacciHeap() {\n\t\tlambda_fix([&](auto self, std::list<Tree*>\
-    \ l) -> void {\n\t\t\tfor (auto& i : l) {\n\t\t\t\tself(self, i->children);\n\t\
-    \t\t\tdelete i;\n\t\t\t}\n\t\t})(l);\n\t}\n\t[[nodiscard]] bool empty() const\
-    \ { return l.empty(); }\n\t[[nodiscard]] size_t size() const { return n; }\n\t\
-    void push(int index, T key) {\n\t\tn++;\n\t\tl.emplace_front(new Tree(index, key));\n\
-    \t\tif (top_itr == l.end() || (*top_itr)->root_key < key)\n\t\t\ttop_itr = l.begin();\n\
-    \t}\n\tvoid meld(FibonacciHeap& t) { meld(t.l); }\n\tvoid meld(std::list<Tree*>&\
-    \ l_) {\n\t\tstd::array<Tree*, MAX_DEPTH> ar;\n\t\tar.fill(nullptr);\n\t\tl.splice(l.end(),\
-    \ l_);\n\t\tauto add = lambda_fix([&](auto self, Tree* t) -> void {\n\t\t\tif\
-    \ (!ar[t->rank])\n\t\t\t\tar[t->rank] = t;\n\t\t\telse {\n\t\t\t\tint rank = t->rank;\n\
-    \t\t\t\tt->meld(*ar[rank]);\n\t\t\t\tar[rank] = nullptr;\n\t\t\t\tself(self, t);\n\
-    \t\t\t}\n\t\t});\n\t\tfor (const auto& i : l) add(i);\n\t\tl.clear();\n\t\tfor\
-    \ (const auto& i : ar)\n\t\t\tif (i) l.emplace_back(i);\n\t\tupdate_top();\n\t\
-    }\n\t[[nodiscard]] std::pair<int, T> top() const {\n\t\treturn {(*top_itr)->root_index,\
-    \ (*top_itr)->root_key};\n\t}\n\tvoid pop() {\n\t\tn--;\n\t\tauto new_trees =\
-    \ (*top_itr)->children;\n\t\tauto tree_address = *top_itr;\n\t\tl.erase(top_itr);\n\
-    \t\ttop_itr = l.end();\n\t\tmeld(new_trees);\n\t\tdelete tree_address;\n\t\tupdate_top();\n\
-    \t}\n\tvoid increase_key(int id, T key) {\n\t\trev[id]->root_key = key;\n\t\t\
-    rev[id]->cut(*this);\n\t}\n};\ntemplate <class T, class Compare>\nCompare FibonacciHeap<T,\
-    \ Compare>::comp = Compare();\n#line 5 \"graph/Dijkstra.hpp\"\ntemplate <class\
-    \ T>\nclass Dijkstra {\n\tint N;\n\tstd::vector<std::vector<std::pair<int, T>>>\
-    \ vec, rev;\n\tbool exec(int s, int t, std::vector<T> &dist) {\n\t\tdist.assign(N,\
+    }\n\tvoid prioritize(int id, const T& x) {\n\t\tif (heap[rev[id]].second > x)\n\
+    \t\t\tdecrease_key(id, x);\n\t\telse\n\t\t\tincrease_key(id, x);\n\t}\n\tvoid\
+    \ decrease_key(int id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\tpush(id,\
+    \ x);\n\t\t\treturn;\n\t\t}\n\t\theap[rev[id]].second = x;\n\t\tdown_heap(rev[id]);\n\
+    \t}\n\tvoid increase_key(int id, const T& x) {\n\t\tif (rev[id] == -1) {\n\t\t\
+    \tpush(id, x);\n\t\t\treturn;\n\t\t}\n\t\theap[rev[id]].second = x;\n\t\tup_heap(rev[id]);\n\
+    \t}\n};\n\n/**\n * @title Prioritizable Binary Heap\n */\n#line 3 \"data-structure/FibonacciHeap.hpp\"\
+    \ntemplate <class T, class Compare = std::less<T>>\nclass FibonacciHeap {\n\t\
+    class Tree {\n\t  public:\n\t\tTree* par;\n\t\ttypename std::list<Tree*>::iterator\
+    \ in_par;\n\t\tint root_index;\n\t\tT root_key;\n\t\tstd::list<Tree*> children;\n\
+    \t\tint rank = 0;\n\t\tbool damaged = false;\n\n\t\tTree(int index, T key, Tree*\
+    \ par_ = nullptr)\n\t\t\t: root_index(index), root_key(key), par(par_) {}\n\t\t\
+    Tree& meld(Tree& t) {\n\t\t\tif (comp(root_key, t.root_key)) std::swap(*this,\
+    \ t);\n\t\t\tchildren.push_back(&t);\n\t\t\trank++;\n\t\t\treturn *this;\n\t\t\
+    }\n\t\tvoid cut(FibonacciHeap& heap) {\n\t\t\tif (!par) return;\n\t\t\tif (par->damaged)\
+    \ par->cut(heap);\n\t\t\tpar->children.erase(in_par);\n\t\t\theap.l.emplace_front(this);\n\
+    \t\t}\n\t};\n\n\tstatic constexpr int MAX_DEPTH = 30;\n\n\tsize_t n = 0;\n\tstd::list<Tree*>\
+    \ l;\n\tstd::vector<Tree*> rev;\n\ttypename std::list<Tree*>::iterator top_itr\
+    \ = l.end();\n\tstatic Compare comp;\n\tvoid update_top() {\n\t\tif (empty())\
+    \ return;\n\t\ttop_itr = l.begin();\n\t\tauto itr = l.begin();\n\t\twhile (++itr\
+    \ != l.end()) {\n\t\t\tif (comp((*top_itr)->root_key, (*itr)->root_key)) top_itr\
+    \ = itr;\n\t\t}\n\t}\n\n  public:\n\tFibonacciHeap(int n_) : rev(n_) {}\n\t~FibonacciHeap()\
+    \ {\n\t\tlambda_fix([&](auto self, std::list<Tree*> l) -> void {\n\t\t\tfor (auto&\
+    \ i : l) {\n\t\t\t\tself(self, i->children);\n\t\t\t\tdelete i;\n\t\t\t}\n\t\t\
+    })(l);\n\t}\n\t[[nodiscard]] bool empty() const { return l.empty(); }\n\t[[nodiscard]]\
+    \ size_t size() const { return n; }\n\tvoid push(int index, T key) {\n\t\tn++;\n\
+    \t\tl.emplace_front(new Tree(index, key));\n\t\tif (top_itr == l.end() || (*top_itr)->root_key\
+    \ < key)\n\t\t\ttop_itr = l.begin();\n\t}\n\tvoid meld(FibonacciHeap& t) { meld(t.l);\
+    \ }\n\tvoid meld(std::list<Tree*>& l_) {\n\t\tstd::array<Tree*, MAX_DEPTH> ar;\n\
+    \t\tar.fill(nullptr);\n\t\tl.splice(l.end(), l_);\n\t\tauto add = lambda_fix([&](auto\
+    \ self, Tree* t) -> void {\n\t\t\tif (!ar[t->rank])\n\t\t\t\tar[t->rank] = t;\n\
+    \t\t\telse {\n\t\t\t\tint rank = t->rank;\n\t\t\t\tt->meld(*ar[rank]);\n\t\t\t\
+    \tar[rank] = nullptr;\n\t\t\t\tself(self, t);\n\t\t\t}\n\t\t});\n\t\tfor (const\
+    \ auto& i : l) add(i);\n\t\tl.clear();\n\t\tfor (const auto& i : ar)\n\t\t\tif\
+    \ (i) l.emplace_back(i);\n\t\tupdate_top();\n\t}\n\t[[nodiscard]] std::pair<int,\
+    \ T> top() const {\n\t\treturn {(*top_itr)->root_index, (*top_itr)->root_key};\n\
+    \t}\n\tvoid pop() {\n\t\tn--;\n\t\tauto new_trees = (*top_itr)->children;\n\t\t\
+    auto tree_address = *top_itr;\n\t\tl.erase(top_itr);\n\t\ttop_itr = l.end();\n\
+    \t\tmeld(new_trees);\n\t\tdelete tree_address;\n\t\tupdate_top();\n\t}\n\tvoid\
+    \ increase_key(int id, T key) {\n\t\trev[id]->root_key = key;\n\t\trev[id]->cut(*this);\n\
+    \t}\n};\ntemplate <class T, class Compare>\nCompare FibonacciHeap<T, Compare>::comp\
+    \ = Compare();\n\n/**\n * @title Fibonacci Heap\n */\n#line 5 \"graph/Dijkstra.hpp\"\
+    \ntemplate <class T>\nclass Dijkstra {\n\tint N;\n\tstd::vector<std::vector<std::pair<int,\
+    \ T>>> vec, rev;\n\tbool exec(int s, int t, std::vector<T> &dist) {\n\t\tdist.assign(N,\
     \ std::numeric_limits<T>::max());\n\t\tdist[s] = 0;\n\t\tPrioritizableBinaryHeap<T,\
     \ std::greater<T>> que(N);\n\t\t// FibonacciHeap<T, std::greater<T>> que;\n\t\t\
     que.push(s, 0);\n\t\twhile (!que.empty()) {\n\t\t\tauto p = que.top();\n\t\t\t\
@@ -284,7 +285,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-05-23 09:27:56+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/shortest_path.test.cpp

@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':warning:'
     path: algebraic/DiscreteLogarithm.hpp
-    title: algebraic/DiscreteLogarithm.hpp
+    title: Discrete Logarithm
   - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
@@ -104,10 +104,10 @@ data:
     \ != mp.end()) break;\n\t\tmp.insert({cur, p});\n\t}\n\tcur = Y;\n\tint res =\
     \ INF;\n\trep(i, m) {\n\t\tif (mp.find(cur) != mp.end()) {\n\t\t\tif (modpow(X,\
     \ mp[cur] - i, M) == Y) chmin(res, mp[cur] - i);\n\t\t}\n\t\tcur = lint(cur) *\
-    \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}\n#line 4 \"test/yosupo/discrete_logarithm_mod.cpp\"\
-    \nint main() {\n\tint T, X, Y, M;\n\tstd::cin >> T;\n\trep(i, T) {\n\t\tstd::cin\
-    \ >> X >> Y >> M;\n\t\tstd::cout << DiscreteLogarithm(X, Y, M) << std::endl;\n\
-    \t}\n}\n"
+    \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}\n\n/**\n * @title Discrete Logarithm\n\
+    \ */\n#line 4 \"test/yosupo/discrete_logarithm_mod.cpp\"\nint main() {\n\tint\
+    \ T, X, Y, M;\n\tstd::cin >> T;\n\trep(i, T) {\n\t\tstd::cin >> X >> Y >> M;\n\
+    \t\tstd::cout << DiscreteLogarithm(X, Y, M) << std::endl;\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/discrete_logarithm_mod\"\
     \n#include \"../../other/template.hpp\"\n#include \"../../algebraic/DiscreteLogarithm.hpp\"\
     \nint main() {\n\tint T, X, Y, M;\n\tstd::cin >> T;\n\trep(i, T) {\n\t\tstd::cin\
@@ -119,7 +119,7 @@ data:
   isVerificationFile: false
   path: test/yosupo/discrete_logarithm_mod.cpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-05-23 09:27:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: test/yosupo/discrete_logarithm_mod.cpp

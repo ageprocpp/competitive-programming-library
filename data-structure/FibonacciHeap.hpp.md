@@ -16,6 +16,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    document_title: Fibonacci Heap
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -126,7 +127,7 @@ data:
     \t\ttop_itr = l.end();\n\t\tmeld(new_trees);\n\t\tdelete tree_address;\n\t\tupdate_top();\n\
     \t}\n\tvoid increase_key(int id, T key) {\n\t\trev[id]->root_key = key;\n\t\t\
     rev[id]->cut(*this);\n\t}\n};\ntemplate <class T, class Compare>\nCompare FibonacciHeap<T,\
-    \ Compare>::comp = Compare();\n"
+    \ Compare>::comp = Compare();\n\n/**\n * @title Fibonacci Heap\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, class\
     \ Compare = std::less<T>>\nclass FibonacciHeap {\n\tclass Tree {\n\t  public:\n\
     \t\tTree* par;\n\t\ttypename std::list<Tree*>::iterator in_par;\n\t\tint root_index;\n\
@@ -161,14 +162,14 @@ data:
     \t\ttop_itr = l.end();\n\t\tmeld(new_trees);\n\t\tdelete tree_address;\n\t\tupdate_top();\n\
     \t}\n\tvoid increase_key(int id, T key) {\n\t\trev[id]->root_key = key;\n\t\t\
     rev[id]->cut(*this);\n\t}\n};\ntemplate <class T, class Compare>\nCompare FibonacciHeap<T,\
-    \ Compare>::comp = Compare();"
+    \ Compare>::comp = Compare();\n\n/**\n * @title Fibonacci Heap\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/FibonacciHeap.hpp
   requiredBy:
   - graph/Dijkstra.hpp
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-05-23 09:27:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/shortest_path.test.cpp
@@ -177,5 +178,5 @@ layout: document
 redirect_from:
 - /library/data-structure/FibonacciHeap.hpp
 - /library/data-structure/FibonacciHeap.hpp.html
-title: data-structure/FibonacciHeap.hpp
+title: Fibonacci Heap
 ---

@@ -10,6 +10,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: Matrix
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -136,7 +137,7 @@ data:
     while (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\tmemo *= memo;\n\
     \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static FixedSquareMatrix<T, N> ident()\
     \ {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\t\treturn\
-    \ res;\n\t}\n};\n"
+    \ res;\n\t}\n};\n\n/**\n * @title Matrix\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n\ntemplate <class T>\n\
     class Matrix {\n  protected:\n\tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\
     \n  public:\n\tMatrix() = default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_),\
@@ -188,13 +189,13 @@ data:
     while (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\tmemo *= memo;\n\
     \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static FixedSquareMatrix<T, N> ident()\
     \ {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\t\treturn\
-    \ res;\n\t}\n};"
+    \ res;\n\t}\n};\n\n/**\n * @title Matrix\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: algebraic/Matrix.hpp
   requiredBy: []
-  timestamp: '2021-05-20 00:46:10+09:00'
+  timestamp: '2021-05-23 09:27:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/Matrix.hpp
@@ -202,5 +203,5 @@ layout: document
 redirect_from:
 - /library/algebraic/Matrix.hpp
 - /library/algebraic/Matrix.hpp.html
-title: algebraic/Matrix.hpp
+title: Matrix
 ---

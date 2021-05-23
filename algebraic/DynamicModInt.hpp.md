@@ -13,6 +13,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: DynamicModInt
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -139,7 +140,7 @@ data:
     p = uid(mt);\n\t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\t\
     if (mypow(DynamicModInt(p), (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\
     \t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\nuint\
-    \ DynamicModInt::modulo = 1000000007;\n"
+    \ DynamicModInt::modulo = 1000000007;\n\n/**\n * @title DynamicModInt\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../other/type_traits.hpp\"\
     \nclass DynamicModInt : DynamicModInt__Base {\n\tstatic uint modulo;\n\tint value;\n\
     \n  public:\n\tstatic void setMod(uint mod) { modulo = mod; }\n\tconstexpr DynamicModInt()\
@@ -182,14 +183,14 @@ data:
     p = uid(mt);\n\t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\t\
     if (mypow(DynamicModInt(p), (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\
     \t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\nuint\
-    \ DynamicModInt::modulo = 1000000007;"
+    \ DynamicModInt::modulo = 1000000007;\n\n/**\n * @title DynamicModInt\n */"
   dependsOn:
   - other/template.hpp
   - other/type_traits.hpp
   isVerificationFile: false
   path: algebraic/DynamicModInt.hpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-05-23 09:27:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: algebraic/DynamicModInt.hpp
@@ -197,5 +198,5 @@ layout: document
 redirect_from:
 - /library/algebraic/DynamicModInt.hpp
 - /library/algebraic/DynamicModInt.hpp.html
-title: algebraic/DynamicModInt.hpp
+title: DynamicModInt
 ---

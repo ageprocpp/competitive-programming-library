@@ -10,6 +10,7 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    document_title: Binary Heap
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -106,7 +107,7 @@ data:
     \t\theap.pop_back();\n\t\tdown_heap();\n\t}\n\n\tvoid push(const T& x) {\n\t\t\
     heap.push_back(x);\n\t\tup_heap();\n\t}\n\ttemplate <class... Args>\n\tvoid emplace(Args&&...\
     \ args) {\n\t\theap.emplace_back(std::forward<Args...>(args...));\n\t\tup_heap();\n\
-    \t}\n};\n"
+    \t}\n};\n\n/**\n * @title Binary Heap\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, class\
     \ Compare = std::less<>>\nclass BinaryHeap {\n\tstd::vector<T> heap;\n\tCompare\
     \ comp;\n\n\tvoid up_heap() {\n\t\tsize_t id = heap.size() - 1;\n\t\twhile (id\
@@ -127,13 +128,13 @@ data:
     \theap[1] = std::move(heap.back());\n\t\theap.pop_back();\n\t\tdown_heap();\n\t\
     }\n\n\tvoid push(const T& x) {\n\t\theap.push_back(x);\n\t\tup_heap();\n\t}\n\t\
     template <class... Args>\n\tvoid emplace(Args&&... args) {\n\t\theap.emplace_back(std::forward<Args...>(args...));\n\
-    \t\tup_heap();\n\t}\n};"
+    \t\tup_heap();\n\t}\n};\n\n/**\n * @title Binary Heap\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/BinaryHeap.hpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-05-23 09:27:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/BinaryHeap.hpp
@@ -141,5 +142,5 @@ layout: document
 redirect_from:
 - /library/data-structure/BinaryHeap.hpp
 - /library/data-structure/BinaryHeap.hpp.html
-title: data-structure/BinaryHeap.hpp
+title: Binary Heap
 ---
