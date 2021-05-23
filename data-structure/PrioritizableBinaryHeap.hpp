@@ -56,8 +56,10 @@ class PrioritizableBinaryHeap {
 		up_heap();
 	}
 	void prioritize(int id, const T& x) {
-		if (heap[rev[id]].second > x) decrease_key(id, x);
-		else increase_key(id, x);
+		if (heap[rev[id]].second > x)
+			decrease_key(id, x);
+		else
+			increase_key(id, x);
 	}
 	void decrease_key(int id, const T& x) {
 		if (rev[id] == -1) {
@@ -76,3 +78,7 @@ class PrioritizableBinaryHeap {
 		up_heap(rev[id]);
 	}
 };
+
+/**
+ * @title Prioritizable Binary Heap
+ */

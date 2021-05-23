@@ -103,3 +103,7 @@ class FibonacciHeap {
 };
 template <class T, class Compare>
 Compare FibonacciHeap<T, Compare>::comp = Compare();
+
+/**
+ * @title Fibonacci Heap
+ */

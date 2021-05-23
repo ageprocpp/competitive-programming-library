@@ -149,3 +149,7 @@ class FixedSquareMatrix : public FixedMatrix<T, N, N> {
 		return res;
 	}
 };
+
+/**
+ * @title Matrix
+ */

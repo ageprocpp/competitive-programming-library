@@ -61,3 +61,7 @@ class BinaryHeap {
 		up_heap();
 	}
 };
+
+/**
+ * @title Binary Heap
+ */

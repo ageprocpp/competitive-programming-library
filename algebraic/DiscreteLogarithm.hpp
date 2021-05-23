@@ -40,3 +40,7 @@ int DiscreteLogarithm(int X, int Y, int M) {
 	}
 	return res == INF ? -1 : res;
 }
+
+/**
+ * @title Discrete Logarithm
+ */

@@ -74,3 +74,7 @@ class DynamicSegTree {
 	T query(lint a, lint b) { return query(a, b, 0, n, root); }
 	const T &operator[](const lint &x) { return ptr_from_id(x)->get(); }
 };
+
+/**
+ * @title Dynamic Segment Tree
+ */

@@ -124,3 +124,7 @@ class DynamicModInt : DynamicModInt__Base {
 	}
 };
 uint DynamicModInt::modulo = 1000000007;
+
+/**
+ * @title DynamicModInt
+ */
