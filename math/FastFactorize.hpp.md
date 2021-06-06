@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -91,7 +91,7 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    algebraic/FastFactorize.hpp\"\nnamespace FastFactorize {\n\t// safe multiplication\
+    math/FastFactorize.hpp\"\nnamespace FastFactorize {\n\t// safe multiplication\
     \ for modulo\n\tinline static lint mul(lint a, lint b, lint n) { return i128(a)\
     \ * b % n; }\n\n\t// refers to http://ceur-ws.org/Vol-1326/020-Forisek.pdf\n\t\
     // determine if x is a prime for x < 2 ^ 64\n\tinline bool is_prime(lint x) {\n\
@@ -4422,16 +4422,16 @@ data:
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: algebraic/FastFactorize.hpp
+  path: math/FastFactorize.hpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/factorize.test.cpp
-documentation_of: algebraic/FastFactorize.hpp
+documentation_of: math/FastFactorize.hpp
 layout: document
 redirect_from:
-- /library/algebraic/FastFactorize.hpp
-- /library/algebraic/FastFactorize.hpp.html
+- /library/math/FastFactorize.hpp
+- /library/math/FastFactorize.hpp.html
 title: FastFactorize
 ---

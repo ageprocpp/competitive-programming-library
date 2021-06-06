@@ -2,18 +2,18 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: algebraic/NumberTheoreticTransform.hpp
+    path: math/NumberTheoreticTransform.hpp
     title: NumberTheoreticTransform
-  - icon: ':heavy_check_mark:'
-    path: algebraic/StaticModInt.hpp
+  - icon: ':question:'
+    path: math/StaticModInt.hpp
     title: StaticModInt
   - icon: ':heavy_check_mark:'
     path: other/FastIO.hpp
     title: Fast IO library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy: []
@@ -181,7 +181,7 @@ data:
     \ T> {};\ntemplate <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
     \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
     \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
-    #line 4 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
+    #line 4 \"math/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
     \ : StaticModInt__Base {\n\tstd::conditional_t<(modulo > INT_MAX >> 1), lint,\
     \ int> value;\n\tstatic constexpr int inv1000000007[] = {0,\t\t   1,\t\t  500000004,\n\
     \t\t\t\t\t\t\t\t\t\t\t333333336, 250000002, 400000003,\n\t\t\t\t\t\t\t\t\t\t\t\
@@ -237,7 +237,7 @@ data:
     }\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
     \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
     \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 4\
-    \ \"algebraic/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n// 924844033,\
+    \ \"math/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n// 924844033,\
     \ 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769, 3, 2^24\n// 167772161, 3, 2^25\n\
     // 469762049, 3, 2^26\nclass NumberTheoreticTransform {\n\tstatic constexpr uint\
     \ bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t 1224736769,\
@@ -309,22 +309,22 @@ data:
     \ M - 2] << '\\n';\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod_1000000007\"\
     \n#include \"../../other/template.hpp\"\n#include \"../../other/FastIO.hpp\"\n\
-    #include \"../../algebraic/NumberTheoreticTransform.hpp\"\nFastIO::Scanner cin;\n\
-    FastIO::Printer cout;\nint N, M;\nstd::vector<int> a, b;\nint main() {\n\tcin\
-    \ >> N >> M;\n\ta.resize(N);\n\tb.resize(M);\n\trep(i, N) cin >> a[i];\n\trep(i,\
-    \ M) cin >> b[i];\n\tauto res = NumberTheoreticTransform::convolution<1000000007>(a,\
-    \ b);\n\trep(i, N + M - 2) cout << (int)res[i] << ' ';\n\tcout << (int)res[N +\
-    \ M - 2] << '\\n';\n}"
+    #include \"../../math/NumberTheoreticTransform.hpp\"\nFastIO::Scanner cin;\nFastIO::Printer\
+    \ cout;\nint N, M;\nstd::vector<int> a, b;\nint main() {\n\tcin >> N >> M;\n\t\
+    a.resize(N);\n\tb.resize(M);\n\trep(i, N) cin >> a[i];\n\trep(i, M) cin >> b[i];\n\
+    \tauto res = NumberTheoreticTransform::convolution<1000000007>(a, b);\n\trep(i,\
+    \ N + M - 2) cout << (int)res[i] << ' ';\n\tcout << (int)res[N + M - 2] << '\\\
+    n';\n}"
   dependsOn:
   - other/template.hpp
   - other/FastIO.hpp
-  - algebraic/NumberTheoreticTransform.hpp
-  - algebraic/StaticModInt.hpp
+  - math/NumberTheoreticTransform.hpp
+  - math/StaticModInt.hpp
   - other/type_traits.hpp
   isVerificationFile: true
   path: test/yosupo/convolution_mod_1000000007.test.cpp
   requiredBy: []
-  timestamp: '2021-05-23 08:46:46+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution_mod_1000000007.test.cpp

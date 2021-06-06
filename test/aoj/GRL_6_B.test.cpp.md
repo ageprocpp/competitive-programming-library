@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/PrimalDual.hpp
     title: Primal-dual algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []

@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: algebraic/FastFourierTransform.hpp
+    path: math/FastFourierTransform.hpp
     title: FastFourierTransform
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -90,9 +90,9 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    algebraic/MyComplex.hpp\"\nclass MyComplex {\n\tdouble realvalue, imagvalue;\n\
-    \n  public:\n\tMyComplex() : realvalue(0), imagvalue(0) {}\n\ttemplate <class\
-    \ T, class U>\n\tMyComplex(const T& realvalue, const U& imagvalue)\n\t\t: realvalue(realvalue),\
+    math/MyComplex.hpp\"\nclass MyComplex {\n\tdouble realvalue, imagvalue;\n\n  public:\n\
+    \tMyComplex() : realvalue(0), imagvalue(0) {}\n\ttemplate <class T, class U>\n\
+    \tMyComplex(const T& realvalue, const U& imagvalue)\n\t\t: realvalue(realvalue),\
     \ imagvalue(imagvalue) {}\n\ttemplate <class T>\n\tMyComplex(const T& realvalue)\
     \ : realvalue(realvalue), imagvalue(0) {}\n\ttemplate <class T>\n\tMyComplex(const\
     \ std::complex<T>& c)\n\t\t: realvalue(c.real()), imagvalue(c.imag()) {}\n\tdouble&\
@@ -154,16 +154,16 @@ data:
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: algebraic/MyComplex.hpp
+  path: math/MyComplex.hpp
   requiredBy:
-  - algebraic/FastFourierTransform.hpp
-  timestamp: '2021-05-20 00:07:02+09:00'
+  - math/FastFourierTransform.hpp
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: algebraic/MyComplex.hpp
+documentation_of: math/MyComplex.hpp
 layout: document
 redirect_from:
-- /library/algebraic/MyComplex.hpp
-- /library/algebraic/MyComplex.hpp.html
+- /library/math/MyComplex.hpp
+- /library/math/MyComplex.hpp.html
 title: MyComplex
 ---

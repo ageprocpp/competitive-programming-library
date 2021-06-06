@@ -1,14 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/yosupo/matrix_det.test.cpp
+    title: test/yosupo/matrix_det.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':x:'
   attributes:
     document_title: Matrix
     links: []
@@ -87,10 +90,11 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    algebraic/Matrix.hpp\"\n\ntemplate <class T>\nclass Matrix {\n  protected:\n\t\
-    uint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\tMatrix() = default;\n\
-    \tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M)) {}\n\t\
-    std::vector<T>& operator[](uint idx) { return elems[idx]; }\n\tconst std::vector<T>&\
+    math/Matrix.hpp\"\n\ntemplate <class T, std::enable_if_t<std::is_same_v<decltype(T()\
+    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tnullptr_t> = nullptr>\nclass Matrix {\n  protected:\n\
+    \tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\tMatrix() =\
+    \ default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
+    \ {}\n\tstd::vector<T>& operator[](uint idx) { return elems[idx]; }\n\tconst std::vector<T>&\
     \ operator[](uint idx) const { return elems[idx]; }\n\tdecltype(elems)& data()\
     \ { return elems; }\n\tconst decltype(elems)& data() const { return elems; }\n\
     \n\tvoid resize(int N_, int M_) {\n\t\telems.resize(N_);\n\t\trep(i, N_) elems[i].resize(M_);\n\
@@ -105,26 +109,34 @@ data:
     \ {\n\t\t*this = *this * rhs;\n\t\treturn *this;\n\t}\n\tSquareMatrix<T> pow(lint\
     \ p) const {\n\t\tSquareMatrix<T> res{N}, memo = *this;\n\t\trep(i, N) res[i][i]\
     \ = 1;\n\t\twhile (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\t\
-    memo *= memo;\n\t\t}\n\t\treturn res;\n\t}\n};\n\ntemplate <class T, uint N, uint\
-    \ M>\nclass FixedMatrix {\n  protected:\n\tstd::array<std::array<T, M>, N> elems;\n\
-    \n  public:\n\tconstexpr FixedMatrix() { rep(i, N) elems[i].fill(0); }\n\tconstexpr\
-    \ FixedMatrix(std::initializer_list<T> init) {\n\t\tauto ite = init.begin();\n\
-    \t\trep(i, N) rep(j, M) elems[i][j] = *ite++;\n\t}\n\tconstexpr FixedMatrix(const\
-    \ FixedMatrix<T, N, M>& rhs) {\n\t\telems = rhs.elems;\n\t}\n\tconstexpr FixedMatrix(FixedMatrix<T,\
-    \ N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\t}\n\tconstexpr std::array<T,\
-    \ N>& operator[](uint idx) { return elems[idx]; }\n\tconstexpr const std::array<T,\
-    \ N>& operator[](uint idx) const {\n\t\treturn elems[idx];\n\t}\n\tconstexpr decltype(elems)&\
-    \ data() { return elems; }\n\tconstexpr const decltype(elems)& data() const {\
-    \ return elems; }\n\n\tconstexpr FixedMatrix<T, N, M> operator=(const FixedMatrix<T,\
-    \ N, M>& rhs) {\n\t\telems = rhs.elems;\n\t\treturn *this;\n\t}\n\tconstexpr FixedMatrix<T,\
-    \ N, M> operator=(FixedMatrix<T, N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\
-    \t\treturn *this;\n\t}\n\n\tconstexpr FixedMatrix<T, N, M> operator+=(const FixedMatrix<T,\
-    \ N, M>& rhs) {\n\t\trep(i, N) rep(j, M) elems[i][j] += rhs.elems[i][j];\n\t\t\
-    return *this;\n\t}\n\n\tconstexpr FixedMatrix<T, N, M> operator+(\n\t\tconst FixedMatrix<T,\
-    \ N, M>& rhs) const {\n\t\tFixedMatrix<T, N, M> res = *this;\n\t\treturn res +=\
-    \ rhs;\n\t}\n\n\ttemplate <uint L>\n\tconstexpr FixedMatrix<T, N, L> operator*(\n\
-    \t\tconst FixedMatrix<T, M, L>& rhs) const {\n\t\tFixedMatrix<T, N, L> res;\n\t\
-    \trep(i, N) rep(j, M) rep(k, L) res[i][k] +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\
+    memo *= memo;\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const\
+    \ {\n\t\tSquareMatrix<T> tmp = *this;\n\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\t\
+    if (tmp[i][i] == 0) {\n\t\t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\t\tif\
+    \ (tmp[j][i]) {\n\t\t\t\t\t\tstd::swap(tmp[i], tmp[j]);\n\t\t\t\t\t\tres = -res;\n\
+    \t\t\t\t\t\tbreak;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tres *= tmp[i][i];\n\
+    \t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\tT inv = T(1) / tmp[i][i];\n\t\
+    \t\t\tfor (int k = i + 1; k < N; k++) {\n\t\t\t\t\ttmp[j][k] -= tmp[j][i] * inv\
+    \ * tmp[i][k];\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\ntemplate\
+    \ <class T, uint N, uint M>\nclass FixedMatrix {\n  protected:\n\tstd::array<std::array<T,\
+    \ M>, N> elems;\n\n  public:\n\tconstexpr FixedMatrix() { rep(i, N) elems[i].fill(0);\
+    \ }\n\tconstexpr FixedMatrix(std::initializer_list<T> init) {\n\t\tauto ite =\
+    \ init.begin();\n\t\trep(i, N) rep(j, M) elems[i][j] = *ite++;\n\t}\n\tconstexpr\
+    \ FixedMatrix(const FixedMatrix<T, N, M>& rhs) {\n\t\telems = rhs.elems;\n\t}\n\
+    \tconstexpr FixedMatrix(FixedMatrix<T, N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\
+    \t}\n\tconstexpr std::array<T, N>& operator[](uint idx) { return elems[idx]; }\n\
+    \tconstexpr const std::array<T, N>& operator[](uint idx) const {\n\t\treturn elems[idx];\n\
+    \t}\n\tconstexpr decltype(elems)& data() { return elems; }\n\tconstexpr const\
+    \ decltype(elems)& data() const { return elems; }\n\n\tconstexpr FixedMatrix<T,\
+    \ N, M> operator=(const FixedMatrix<T, N, M>& rhs) {\n\t\telems = rhs.elems;\n\
+    \t\treturn *this;\n\t}\n\tconstexpr FixedMatrix<T, N, M> operator=(FixedMatrix<T,\
+    \ N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\t\treturn *this;\n\t}\n\n\
+    \tconstexpr FixedMatrix<T, N, M> operator+=(const FixedMatrix<T, N, M>& rhs) {\n\
+    \t\trep(i, N) rep(j, M) elems[i][j] += rhs.elems[i][j];\n\t\treturn *this;\n\t\
+    }\n\n\tconstexpr FixedMatrix<T, N, M> operator+(\n\t\tconst FixedMatrix<T, N,\
+    \ M>& rhs) const {\n\t\tFixedMatrix<T, N, M> res = *this;\n\t\treturn res += rhs;\n\
+    \t}\n\n\ttemplate <uint L>\n\tconstexpr FixedMatrix<T, N, L> operator*(\n\t\t\
+    const FixedMatrix<T, M, L>& rhs) const {\n\t\tFixedMatrix<T, N, L> res;\n\t\t\
+    rep(i, N) rep(j, M) rep(k, L) res[i][k] +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\
     \t\treturn res;\n\t}\n};\n\ntemplate <class T, uint N>\nclass FixedSquareMatrix\
     \ : public FixedMatrix<T, N, N> {\n\tusing FixedMatrix<T, N, N>::FixedMatrix;\n\
     \tusing FixedMatrix<T, N, N>::elems;\n\n  public:\n\tusing FixedMatrix<T, N, N>::operator*;\n\
@@ -135,48 +147,59 @@ data:
     \ *this;\n\t}\n\n\tconstexpr FixedSquareMatrix<T, N> pow(lint p) const {\n\t\t\
     FixedSquareMatrix<T, N> res, memo = *this;\n\t\trep(i, N) res[i][i] = 1;\n\t\t\
     while (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\tmemo *= memo;\n\
-    \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static FixedSquareMatrix<T, N> ident()\
-    \ {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\t\treturn\
-    \ res;\n\t}\n};\n\n/**\n * @title Matrix\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n\ntemplate <class T>\n\
-    class Matrix {\n  protected:\n\tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\
-    \n  public:\n\tMatrix() = default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_),\
-    \ elems(N, std::vector<T>(M)) {}\n\tstd::vector<T>& operator[](uint idx) { return\
-    \ elems[idx]; }\n\tconst std::vector<T>& operator[](uint idx) const { return elems[idx];\
-    \ }\n\tdecltype(elems)& data() { return elems; }\n\tconst decltype(elems)& data()\
-    \ const { return elems; }\n\n\tvoid resize(int N_, int M_) {\n\t\telems.resize(N_);\n\
-    \t\trep(i, N_) elems[i].resize(M_);\n\t}\n\n\tMatrix operator*(Matrix rhs) const\
-    \ {\n\t\tMatrix<T> res(N, rhs.M);\n\t\trep(i, N) rep(j, M) rep(k, rhs.M) res[i][k]\
-    \ +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\t\treturn res;\n\t}\n};\n\ntemplate\
-    \ <class T>\nclass SquareMatrix : public Matrix<T> {\n\tusing Matrix<T>::N;\n\t\
-    using Matrix<T>::Matrix;\n\tusing Matrix<T>::elems;\n\n  public:\n\tSquareMatrix(uint\
-    \ N_) : Matrix<T>(N_, N_) {}\n\tSquareMatrix<T>& operator=(const Matrix<T>& rhs)\
-    \ {\n\t\telems = rhs.data();\n\t\treturn *this;\n\t}\n\tSquareMatrix<T>& operator=(Matrix<T>&&\
-    \ rhs) {\n\t\telems = std::move(rhs.data());\n\t\treturn *this;\n\t}\n\tSquareMatrix<T>\
-    \ operator*=(const SquareMatrix<T>& rhs) {\n\t\t*this = *this * rhs;\n\t\treturn\
-    \ *this;\n\t}\n\tSquareMatrix<T> pow(lint p) const {\n\t\tSquareMatrix<T> res{N},\
-    \ memo = *this;\n\t\trep(i, N) res[i][i] = 1;\n\t\twhile (p) {\n\t\t\tif (p &\
-    \ 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\tmemo *= memo;\n\t\t}\n\t\treturn res;\n\
-    \t}\n};\n\ntemplate <class T, uint N, uint M>\nclass FixedMatrix {\n  protected:\n\
-    \tstd::array<std::array<T, M>, N> elems;\n\n  public:\n\tconstexpr FixedMatrix()\
-    \ { rep(i, N) elems[i].fill(0); }\n\tconstexpr FixedMatrix(std::initializer_list<T>\
-    \ init) {\n\t\tauto ite = init.begin();\n\t\trep(i, N) rep(j, M) elems[i][j] =\
-    \ *ite++;\n\t}\n\tconstexpr FixedMatrix(const FixedMatrix<T, N, M>& rhs) {\n\t\
-    \telems = rhs.elems;\n\t}\n\tconstexpr FixedMatrix(FixedMatrix<T, N, M>&& rhs)\
-    \ {\n\t\telems = std::move(rhs.elems);\n\t}\n\tconstexpr std::array<T, N>& operator[](uint\
-    \ idx) { return elems[idx]; }\n\tconstexpr const std::array<T, N>& operator[](uint\
-    \ idx) const {\n\t\treturn elems[idx];\n\t}\n\tconstexpr decltype(elems)& data()\
-    \ { return elems; }\n\tconstexpr const decltype(elems)& data() const { return\
-    \ elems; }\n\n\tconstexpr FixedMatrix<T, N, M> operator=(const FixedMatrix<T,\
-    \ N, M>& rhs) {\n\t\telems = rhs.elems;\n\t\treturn *this;\n\t}\n\tconstexpr FixedMatrix<T,\
-    \ N, M> operator=(FixedMatrix<T, N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\
-    \t\treturn *this;\n\t}\n\n\tconstexpr FixedMatrix<T, N, M> operator+=(const FixedMatrix<T,\
-    \ N, M>& rhs) {\n\t\trep(i, N) rep(j, M) elems[i][j] += rhs.elems[i][j];\n\t\t\
-    return *this;\n\t}\n\n\tconstexpr FixedMatrix<T, N, M> operator+(\n\t\tconst FixedMatrix<T,\
-    \ N, M>& rhs) const {\n\t\tFixedMatrix<T, N, M> res = *this;\n\t\treturn res +=\
-    \ rhs;\n\t}\n\n\ttemplate <uint L>\n\tconstexpr FixedMatrix<T, N, L> operator*(\n\
-    \t\tconst FixedMatrix<T, M, L>& rhs) const {\n\t\tFixedMatrix<T, N, L> res;\n\t\
-    \trep(i, N) rep(j, M) rep(k, L) res[i][k] +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\
+    \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const {\n\t\tFixedSquareMatrix<T,\
+    \ N> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N - 1) {\n\t\t\tfor (int j = i +\
+    \ 1; j < N; j++) {\n\t\t\t\trep(k, N) tmp[j][k] -= tmp[j][i] / tmp[i][i] * tmp[i][k];\n\
+    \t\t\t}\n\t\t\tres *= tmp[i][i];\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static\
+    \ FixedSquareMatrix<T, N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i,\
+    \ N) res[i][i] = 1;\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\n\ntemplate <class T, std::enable_if_t<std::is_same_v<decltype(T()\
+    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tnullptr_t> = nullptr>\nclass Matrix {\n  protected:\n\
+    \tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\tMatrix() =\
+    \ default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
+    \ {}\n\tstd::vector<T>& operator[](uint idx) { return elems[idx]; }\n\tconst std::vector<T>&\
+    \ operator[](uint idx) const { return elems[idx]; }\n\tdecltype(elems)& data()\
+    \ { return elems; }\n\tconst decltype(elems)& data() const { return elems; }\n\
+    \n\tvoid resize(int N_, int M_) {\n\t\telems.resize(N_);\n\t\trep(i, N_) elems[i].resize(M_);\n\
+    \t}\n\n\tMatrix operator*(Matrix rhs) const {\n\t\tMatrix<T> res(N, rhs.M);\n\t\
+    \trep(i, N) rep(j, M) rep(k, rhs.M) res[i][k] +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\
+    \t\treturn res;\n\t}\n};\n\ntemplate <class T>\nclass SquareMatrix : public Matrix<T>\
+    \ {\n\tusing Matrix<T>::N;\n\tusing Matrix<T>::Matrix;\n\tusing Matrix<T>::elems;\n\
+    \n  public:\n\tSquareMatrix(uint N_) : Matrix<T>(N_, N_) {}\n\tSquareMatrix<T>&\
+    \ operator=(const Matrix<T>& rhs) {\n\t\telems = rhs.data();\n\t\treturn *this;\n\
+    \t}\n\tSquareMatrix<T>& operator=(Matrix<T>&& rhs) {\n\t\telems = std::move(rhs.data());\n\
+    \t\treturn *this;\n\t}\n\tSquareMatrix<T> operator*=(const SquareMatrix<T>& rhs)\
+    \ {\n\t\t*this = *this * rhs;\n\t\treturn *this;\n\t}\n\tSquareMatrix<T> pow(lint\
+    \ p) const {\n\t\tSquareMatrix<T> res{N}, memo = *this;\n\t\trep(i, N) res[i][i]\
+    \ = 1;\n\t\twhile (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\t\
+    memo *= memo;\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const\
+    \ {\n\t\tSquareMatrix<T> tmp = *this;\n\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\t\
+    if (tmp[i][i] == 0) {\n\t\t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\t\tif\
+    \ (tmp[j][i]) {\n\t\t\t\t\t\tstd::swap(tmp[i], tmp[j]);\n\t\t\t\t\t\tres = -res;\n\
+    \t\t\t\t\t\tbreak;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tres *= tmp[i][i];\n\
+    \t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\tT inv = T(1) / tmp[i][i];\n\t\
+    \t\t\tfor (int k = i + 1; k < N; k++) {\n\t\t\t\t\ttmp[j][k] -= tmp[j][i] * inv\
+    \ * tmp[i][k];\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\ntemplate\
+    \ <class T, uint N, uint M>\nclass FixedMatrix {\n  protected:\n\tstd::array<std::array<T,\
+    \ M>, N> elems;\n\n  public:\n\tconstexpr FixedMatrix() { rep(i, N) elems[i].fill(0);\
+    \ }\n\tconstexpr FixedMatrix(std::initializer_list<T> init) {\n\t\tauto ite =\
+    \ init.begin();\n\t\trep(i, N) rep(j, M) elems[i][j] = *ite++;\n\t}\n\tconstexpr\
+    \ FixedMatrix(const FixedMatrix<T, N, M>& rhs) {\n\t\telems = rhs.elems;\n\t}\n\
+    \tconstexpr FixedMatrix(FixedMatrix<T, N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\
+    \t}\n\tconstexpr std::array<T, N>& operator[](uint idx) { return elems[idx]; }\n\
+    \tconstexpr const std::array<T, N>& operator[](uint idx) const {\n\t\treturn elems[idx];\n\
+    \t}\n\tconstexpr decltype(elems)& data() { return elems; }\n\tconstexpr const\
+    \ decltype(elems)& data() const { return elems; }\n\n\tconstexpr FixedMatrix<T,\
+    \ N, M> operator=(const FixedMatrix<T, N, M>& rhs) {\n\t\telems = rhs.elems;\n\
+    \t\treturn *this;\n\t}\n\tconstexpr FixedMatrix<T, N, M> operator=(FixedMatrix<T,\
+    \ N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\t\treturn *this;\n\t}\n\n\
+    \tconstexpr FixedMatrix<T, N, M> operator+=(const FixedMatrix<T, N, M>& rhs) {\n\
+    \t\trep(i, N) rep(j, M) elems[i][j] += rhs.elems[i][j];\n\t\treturn *this;\n\t\
+    }\n\n\tconstexpr FixedMatrix<T, N, M> operator+(\n\t\tconst FixedMatrix<T, N,\
+    \ M>& rhs) const {\n\t\tFixedMatrix<T, N, M> res = *this;\n\t\treturn res += rhs;\n\
+    \t}\n\n\ttemplate <uint L>\n\tconstexpr FixedMatrix<T, N, L> operator*(\n\t\t\
+    const FixedMatrix<T, M, L>& rhs) const {\n\t\tFixedMatrix<T, N, L> res;\n\t\t\
+    rep(i, N) rep(j, M) rep(k, L) res[i][k] +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\
     \t\treturn res;\n\t}\n};\n\ntemplate <class T, uint N>\nclass FixedSquareMatrix\
     \ : public FixedMatrix<T, N, N> {\n\tusing FixedMatrix<T, N, N>::FixedMatrix;\n\
     \tusing FixedMatrix<T, N, N>::elems;\n\n  public:\n\tusing FixedMatrix<T, N, N>::operator*;\n\
@@ -187,21 +210,25 @@ data:
     \ *this;\n\t}\n\n\tconstexpr FixedSquareMatrix<T, N> pow(lint p) const {\n\t\t\
     FixedSquareMatrix<T, N> res, memo = *this;\n\t\trep(i, N) res[i][i] = 1;\n\t\t\
     while (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\tmemo *= memo;\n\
-    \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static FixedSquareMatrix<T, N> ident()\
-    \ {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\t\treturn\
-    \ res;\n\t}\n};\n\n/**\n * @title Matrix\n */"
+    \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const {\n\t\tFixedSquareMatrix<T,\
+    \ N> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N - 1) {\n\t\t\tfor (int j = i +\
+    \ 1; j < N; j++) {\n\t\t\t\trep(k, N) tmp[j][k] -= tmp[j][i] / tmp[i][i] * tmp[i][k];\n\
+    \t\t\t}\n\t\t\tres *= tmp[i][i];\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static\
+    \ FixedSquareMatrix<T, N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i,\
+    \ N) res[i][i] = 1;\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: algebraic/Matrix.hpp
+  path: math/Matrix.hpp
   requiredBy: []
-  timestamp: '2021-05-23 09:27:56+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: algebraic/Matrix.hpp
+  timestamp: '2021-06-07 02:11:09+09:00'
+  verificationStatus: LIBRARY_ALL_WA
+  verifiedWith:
+  - test/yosupo/matrix_det.test.cpp
+documentation_of: math/Matrix.hpp
 layout: document
 redirect_from:
-- /library/algebraic/Matrix.hpp
-- /library/algebraic/Matrix.hpp.html
+- /library/math/Matrix.hpp
+- /library/math/Matrix.hpp.html
 title: Matrix
 ---

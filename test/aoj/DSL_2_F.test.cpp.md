@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: Segment Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -97,38 +97,38 @@ data:
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
     data-structure/SegTree.hpp\"\ntemplate <class T, T (*nodef)(const T&, const T&)>\n\
     class SegTree {\n  protected:\n\tunsigned int n = 1, rank = 0;\n\tstd::vector<T>\
-    \ node;\n\tT ident;\n\n  public:\n\tSegTree(unsigned int m, T e_) : ident(e_)\
-    \ {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2\
-    \ * n, ident);\n\t}\n\tSegTree(unsigned int m, T init, T e_) : ident(e_) {\n\t\
-    \twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n,\
-    \ ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++) node[i] = init;\n\t\t\
-    for (unsigned int i = n - 1; i > 0; i--)\n\t\t\tnode[i] = nodef(node[i << 1],\
-    \ node[i << 1 | 1]);\n\t}\n\ttemplate <class U>\n\tSegTree(const std::vector<U>&\
-    \ initvec, T e_) : ident(e_) {\n\t\tunsigned int m = initvec.size();\n\t\twhile\
-    \ (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\
-    \t\tfor (unsigned int i = n; i < 2 * n; i++) {\n\t\t\tif (i - n < m) node[i] =\
-    \ initvec[i - n];\n\t\t}\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\t\t\t\
-    node[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\tvoid update(int i, T\
-    \ x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\
-    \t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t\t}\n\t}\n\tT query(int\
-    \ l, int r) const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls = ident, rs = ident;\n\
-    \t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r\
-    \ & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\t\
-    return nodef(ls, rs);\n\t}\n\tconst T& operator[](const int& x) const { return\
-    \ node[n + x]; }\n\tT queryForAll() const { return node[1]; }\n\n  private:\n\t\
-    template <class F>\n\tint max_right(int st, F& check, T& acc, int k, int l, int\
-    \ r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\t\
-    return check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\tif (m <=\
-    \ st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\t\tif (st <= l &&\
-    \ check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\treturn\
-    \ -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\t\tif (vl\
-    \ != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) | 1, m, r);\n\
-    \t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F check) const\
-    \ {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n\
-    \ttemplate <bool (*check)(const T&)>\n\tint max_right(int st) const {\n\t\tT acc\
-    \ = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n};\nnamespace\
-    \ {\n\tlint RSQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn lhs + rhs;\n\
-    \t}\n\tlint RMiQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn std::min(lhs,\
+    \ node;\n\tT ident;\n\n  public:\n\tSegTree(T e_) : ident(e_) {}\n\tSegTree(unsigned\
+    \ int m, T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\
+    \t\t}\n\t\tnode.resize(2 * n, ident);\n\t}\n\tSegTree(unsigned int m, T init,\
+    \ T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t\
+    }\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++)\
+    \ node[i] = init;\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\t\t\tnode[i]\
+    \ = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\ttemplate <class U>\n\tSegTree(const\
+    \ std::vector<U>& initvec, T e_) : ident(e_) {\n\t\tunsigned int m = initvec.size();\n\
+    \t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 *\
+    \ n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++) {\n\t\t\tif (i - n\
+    \ < m) node[i] = initvec[i - n];\n\t\t}\n\t\tfor (unsigned int i = n - 1; i >\
+    \ 0; i--)\n\t\t\tnode[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\tvoid\
+    \ update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i != 1) {\n\t\
+    \t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t\t}\n\t\
+    }\n\tT query(int l, int r) const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls = ident,\
+    \ rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\
+    \t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\
+    \t}\n\t\treturn nodef(ls, rs);\n\t}\n\tconst T& operator[](const int& x) const\
+    \ { return node[n + x]; }\n\tT queryForAll() const { return node[1]; }\n\n  private:\n\
+    \ttemplate <class F>\n\tint max_right(int st, F& check, T& acc, int k, int l,\
+    \ int r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\
+    \treturn check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\tif (m\
+    \ <= st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\t\tif (st <=\
+    \ l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\t\
+    return -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\t\t\
+    if (vl != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) | 1, m,\
+    \ r);\n\t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F check)\
+    \ const {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\
+    \t}\n\ttemplate <bool (*check)(const T&)>\n\tint max_right(int st) const {\n\t\
+    \tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n};\nnamespace\
+    \ {\n\tlint RSQ_nodef(const lint& lhs, const lint& rhs) { return lhs + rhs; }\n\
+    \tlint RMiQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn std::min(lhs,\
     \ rhs);\n\t}\n\tlint RMaQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn\
     \ std::max(lhs, rhs);\n\t}\n}  // namespace\n\nclass RSQ : public SegTree<lint,\
     \ RSQ_nodef> {\n\tusing Base = SegTree<lint, RSQ_nodef>;\n\n  public:\n\ttemplate\
@@ -263,7 +263,7 @@ data:
   isVerificationFile: true
   path: test/aoj/DSL_2_F.test.cpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/DSL_2_F.test.cpp

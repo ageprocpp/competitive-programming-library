@@ -1,22 +1,58 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: algebraic/StaticModInt.hpp
-    title: StaticModInt
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: math/Combinatorics.hpp
+    title: Combinatorics/ModCombinatorics
+  - icon: ':warning:'
+    path: math/Interpolation.hpp
+    title: math/Interpolation.hpp
+  - icon: ':heavy_check_mark:'
+    path: math/NumberTheoreticTransform.hpp
+    title: NumberTheoreticTransform
+  - icon: ':heavy_check_mark:'
+    path: string/HashedString.hpp
+    title: Hash library for strings
+  - icon: ':heavy_check_mark:'
+    path: string/RollingHash.hpp
+    title: Rolling hash
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
+    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution_mod.test.cpp
+    title: test/yosupo/convolution_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution_mod_1000000007.test.cpp
+    title: test/yosupo/convolution_mod_1000000007.test.cpp
+  - icon: ':x:'
+    path: test/yosupo/matrix_det.test.cpp
+    title: test/yosupo/matrix_det.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/point_set_range_composite.test.cpp
+    title: test/yosupo/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/queue_operate_all_composite.test.cpp
+    title: test/yosupo/queue_operate_all_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/range_affine_range_sum.test.cpp
+    title: test/yosupo/range_affine_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/vertex_set_path_composite.test.cpp
+    title: test/yosupo/vertex_set_path_composite.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':question:'
   attributes:
-    document_title: Combinatorics/ModCombinatorics
+    document_title: StaticModInt
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif\
@@ -101,7 +137,7 @@ data:
     template <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
     \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
     \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
-    #line 4 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
+    #line 4 \"math/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
     \ : StaticModInt__Base {\n\tstd::conditional_t<(modulo > INT_MAX >> 1), lint,\
     \ int> value;\n\tstatic constexpr int inv1000000007[] = {0,\t\t   1,\t\t  500000004,\n\
     \t\t\t\t\t\t\t\t\t\t\t333333336, 250000002, 400000003,\n\t\t\t\t\t\t\t\t\t\t\t\
@@ -156,66 +192,90 @@ data:
     \ (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\t\t\t\tbreak;\n\t\t\t\t\
     }\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
     \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
-    \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 5\
-    \ \"algebraic/Combinatorics.hpp\"\ntemplate <typename T>\nclass Combinatorics\
-    \ {\n  protected:\n\tstatic std::vector<T> factorial;\n\tstatic void append(int\
-    \ n) noexcept {\n\t\twhile (factorial.size() <= n) {\n\t\t\tfactorial.emplace_back(factorial.back()\
-    \ * factorial.size());\n\t\t}\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept\
-    \ {\n\t\tappend(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_comb(int a,\
-    \ int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] / factorial[a - b]\
-    \ / factorial[b];\n\t}\n\tstatic T get_dcomb(int a, int b) noexcept { return get_comb(a\
-    \ + b - 1, b); }\n};\ntemplate <typename T>\nstd::vector<T> Combinatorics<T>::factorial\
-    \ = std::vector<T>(1, 1);\n\ntemplate <typename T, typename std::enable_if_t<is_ModInt<T>::value,\n\
-    \t\t\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nclass ModCombinatorics : Combinatorics<T>\
-    \ {};\n\ntemplate <typename T>\nclass ModCombinatorics<T> : public Combinatorics<T>\
-    \ {\n\tusing Combinatorics<T>::factorial;\n\tstatic std::vector<T> inv;\n\tstatic\
-    \ void append(int n) noexcept {\n\t\tint tmp = factorial.size();\n\t\tif (n <\
-    \ tmp) return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\t\
-    inv[n] = T(1) / factorial.back();\n\t\tfor (int i = n; i > tmp; i--) inv[i - 1]\
-    \ = inv[i] * i;\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept {\n\t\t\
-    append(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_comb(int a, int b) noexcept\
-    \ {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a - b] * inv[b];\n\t}\n\tstatic\
-    \ T get_perm(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a]\
-    \ * inv[a - b];\n\t}\n};\n/**\n * @title Combinatorics/ModCombinatorics\n */\n\
-    template <typename T>\nstd::vector<T> ModCombinatorics<T, nullptr>::inv = std::vector<T>(1,\
-    \ 1);\n"
+    \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../other/type_traits.hpp\"\
-    \n#include \"StaticModInt.hpp\"\ntemplate <typename T>\nclass Combinatorics {\n\
-    \  protected:\n\tstatic std::vector<T> factorial;\n\tstatic void append(int n)\
-    \ noexcept {\n\t\twhile (factorial.size() <= n) {\n\t\t\tfactorial.emplace_back(factorial.back()\
-    \ * factorial.size());\n\t\t}\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept\
-    \ {\n\t\tappend(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_comb(int a,\
-    \ int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] / factorial[a - b]\
-    \ / factorial[b];\n\t}\n\tstatic T get_dcomb(int a, int b) noexcept { return get_comb(a\
-    \ + b - 1, b); }\n};\ntemplate <typename T>\nstd::vector<T> Combinatorics<T>::factorial\
-    \ = std::vector<T>(1, 1);\n\ntemplate <typename T, typename std::enable_if_t<is_ModInt<T>::value,\n\
-    \t\t\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nclass ModCombinatorics : Combinatorics<T>\
-    \ {};\n\ntemplate <typename T>\nclass ModCombinatorics<T> : public Combinatorics<T>\
-    \ {\n\tusing Combinatorics<T>::factorial;\n\tstatic std::vector<T> inv;\n\tstatic\
-    \ void append(int n) noexcept {\n\t\tint tmp = factorial.size();\n\t\tif (n <\
-    \ tmp) return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\t\
-    inv[n] = T(1) / factorial.back();\n\t\tfor (int i = n; i > tmp; i--) inv[i - 1]\
-    \ = inv[i] * i;\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept {\n\t\t\
-    append(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_comb(int a, int b) noexcept\
-    \ {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a - b] * inv[b];\n\t}\n\tstatic\
-    \ T get_perm(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a]\
-    \ * inv[a - b];\n\t}\n};\n/**\n * @title Combinatorics/ModCombinatorics\n */\n\
-    template <typename T>\nstd::vector<T> ModCombinatorics<T, nullptr>::inv = std::vector<T>(1,\
-    \ 1);"
+    \ntemplate <uint modulo>\nclass StaticModInt : StaticModInt__Base {\n\tstd::conditional_t<(modulo\
+    \ > INT_MAX >> 1), lint, int> value;\n\tstatic constexpr int inv1000000007[] =\
+    \ {0,\t\t   1,\t\t  500000004,\n\t\t\t\t\t\t\t\t\t\t\t333333336, 250000002, 400000003,\n\
+    \t\t\t\t\t\t\t\t\t\t\t166666668, 142857144, 125000001,\n\t\t\t\t\t\t\t\t\t\t\t\
+    111111112, 700000005},\n\t\t\t\t\t\t inv998244353[] = {0,\t\t  1,\t\t 499122177,\n\
+    \t\t\t\t\t\t\t\t\t\t   332748118, 748683265, 598946612,\n\t\t\t\t\t\t\t\t\t\t\
+    \   166374059, 855638017, 873463809,\n\t\t\t\t\t\t\t\t\t\t   443664157, 299473306};\n\
+    \n  public:\n\tstatic constexpr uint mod_value = modulo;\n\n\tconstexpr StaticModInt()\
+    \ : value(0) {}\n\ttemplate <class T,\n\t\t\t  std::enable_if_t<!std::is_convertible<T,\
+    \ StaticModInt>::value,\n\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\tconstexpr\
+    \ StaticModInt(T value = 0) : value(value) {\n\t\tthis->value %= modulo;\n\t\t\
+    if (this->value < 0) this->value += modulo;\n\t}\n\tinline constexpr StaticModInt\
+    \ inv() const {\n\t\tif constexpr (modulo == 1000000007) {\n\t\t\tif (*this <=\
+    \ 10) return inv1000000007[*this];\n\t\t} else if constexpr (modulo == 998244353)\
+    \ {\n\t\t\tif (*this <= 10) return inv998244353[*this];\n\t\t}\n\t\treturn mypow(*this,\
+    \ modulo - 2);\n\t}\n\tinline constexpr operator int() const { return value; }\n\
+    \tinline constexpr StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue\
+    \ = value + x.value;\n\t\tif (value >= modulo) value -= modulo;\n\t\treturn *this;\n\
+    \t}\n\tinline constexpr StaticModInt& operator++() {\n\t\tif (value == modulo\
+    \ - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn *this;\n\t}\n\t\
+    inline constexpr StaticModInt operator++(int) {\n\t\tStaticModInt res = *this;\n\
+    \t\t++*this;\n\t\treturn res;\n\t}\n\tinline constexpr StaticModInt operator-()\
+    \ const {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator-=(const StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value <\
+    \ 0) value += modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator--() {\n\t\tif (value == 0)\n\t\t\tvalue = modulo - 1;\n\t\telse\n\t\
+    \t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator--(int)\
+    \ {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline\
+    \ constexpr StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = (ulint)value\
+    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator/=(const StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\
+    \ttemplate <class T>\n\tconstexpr StaticModInt operator+(const T& rhs) const {\n\
+    \t\treturn StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator-(const T& rhs) const\
+    \ {\n\t\treturn StaticModInt(*this) -= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator-=(const T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator*(const T& rhs) const\
+    \ {\n\t\treturn StaticModInt(*this) *= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator*=(const T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator/(const T& rhs) const\
+    \ {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
+    \t}\n\tstatic int primitive_root() {\n\t\tstatic int p = 0;\n\t\tstatic std::random_device\
+    \ rd;\n\t\tstatic std::mt19937 mt(rd());\n\t\tstatic std::uniform_int_distribution<>\
+    \ uid(1, modulo - 1);\n\t\tif (p) return 0;\n\n\t\t// use naive factorize due\
+    \ to file size limit\n\t\tstd::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\
+    \tfor (int i = 2; i * i <= tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\
+    \t\t\t\tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\
+    \t}\n\t\tif (tmp != 1) vec.emplace_back(tmp);\n\n\t\twhile (true) {\n\t\t\tp =\
+    \ uid(mt);\n\t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\t\
+    if (mypow(StaticModInt(p), (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\
+    \t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate\
+    \ <uint modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
+    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
+    \ */"
   dependsOn:
   - other/template.hpp
   - other/type_traits.hpp
-  - algebraic/StaticModInt.hpp
   isVerificationFile: false
-  path: algebraic/Combinatorics.hpp
-  requiredBy: []
-  timestamp: '2021-05-23 08:46:46+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: algebraic/Combinatorics.hpp
+  path: math/StaticModInt.hpp
+  requiredBy:
+  - string/HashedString.hpp
+  - string/RollingHash.hpp
+  - math/Combinatorics.hpp
+  - math/NumberTheoreticTransform.hpp
+  - math/Interpolation.hpp
+  timestamp: '2021-06-07 02:11:09+09:00'
+  verificationStatus: LIBRARY_SOME_WA
+  verifiedWith:
+  - test/yosupo/queue_operate_all_composite.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/matrix_det.test.cpp
+  - test/yosupo/point_set_range_composite.test.cpp
+  - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/range_affine_range_sum.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/aoj/ALDS1_14_B_HashedString.test.cpp
+documentation_of: math/StaticModInt.hpp
 layout: document
 redirect_from:
-- /library/algebraic/Combinatorics.hpp
-- /library/algebraic/Combinatorics.hpp.html
-title: Combinatorics/ModCombinatorics
+- /library/math/StaticModInt.hpp
+- /library/math/StaticModInt.hpp.html
+title: StaticModInt
 ---

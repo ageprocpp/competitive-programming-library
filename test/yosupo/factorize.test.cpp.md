@@ -2,9 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: algebraic/FastFactorize.hpp
+    path: math/FastFactorize.hpp
     title: FastFactorize
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -92,7 +92,7 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    algebraic/FastFactorize.hpp\"\nnamespace FastFactorize {\n\t// safe multiplication\
+    math/FastFactorize.hpp\"\nnamespace FastFactorize {\n\t// safe multiplication\
     \ for modulo\n\tinline static lint mul(lint a, lint b, lint n) { return i128(a)\
     \ * b % n; }\n\n\t// refers to http://ceur-ws.org/Vol-1326/020-Forisek.pdf\n\t\
     // determine if x is a prime for x < 2 ^ 64\n\tinline bool is_prime(lint x) {\n\
@@ -2261,18 +2261,18 @@ data:
     \tstd::vector<lint> res = FastFactorize::factorize(a);\n\t\t\tstd::cout << res.size()\
     \ << \" \";\n\t\t\tprintArray(res);\n\t\t}\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/factorize\"\n#include \"\
-    ../../other/template.hpp\"\n#include \"../../algebraic/FastFactorize.hpp\"\nint\
-    \ main() {\n\tint Q;\n\tlint a;\n\tstd::cin >> Q;\n\twhile (Q--) {\n\t\tstd::cin\
-    \ >> a;\n\t\tif (a == 1)\n\t\t\tstd::cout << 0 << std::endl;\n\t\telse {\n\t\t\
-    \tstd::vector<lint> res = FastFactorize::factorize(a);\n\t\t\tstd::cout << res.size()\
-    \ << \" \";\n\t\t\tprintArray(res);\n\t\t}\n\t}\n}"
+    ../../other/template.hpp\"\n#include \"../../math/FastFactorize.hpp\"\nint main()\
+    \ {\n\tint Q;\n\tlint a;\n\tstd::cin >> Q;\n\twhile (Q--) {\n\t\tstd::cin >> a;\n\
+    \t\tif (a == 1)\n\t\t\tstd::cout << 0 << std::endl;\n\t\telse {\n\t\t\tstd::vector<lint>\
+    \ res = FastFactorize::factorize(a);\n\t\t\tstd::cout << res.size() << \" \";\n\
+    \t\t\tprintArray(res);\n\t\t}\n\t}\n}"
   dependsOn:
   - other/template.hpp
-  - algebraic/FastFactorize.hpp
+  - math/FastFactorize.hpp
   isVerificationFile: true
   path: test/yosupo/factorize.test.cpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/factorize.test.cpp

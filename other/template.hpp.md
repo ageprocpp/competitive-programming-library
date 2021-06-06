@@ -2,39 +2,6 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: algebraic/Combinatorics.hpp
-    title: Combinatorics/ModCombinatorics
-  - icon: ':warning:'
-    path: algebraic/DiscreteLogarithm.hpp
-    title: Discrete Logarithm
-  - icon: ':warning:'
-    path: algebraic/DynamicModInt.hpp
-    title: DynamicModInt
-  - icon: ':heavy_check_mark:'
-    path: algebraic/FastFactorize.hpp
-    title: FastFactorize
-  - icon: ':warning:'
-    path: algebraic/FastFourierTransform.hpp
-    title: FastFourierTransform
-  - icon: ':heavy_check_mark:'
-    path: algebraic/FloorSum.hpp
-    title: FloorSum
-  - icon: ':warning:'
-    path: algebraic/Interpolation.hpp
-    title: algebraic/Interpolation.hpp
-  - icon: ':warning:'
-    path: algebraic/Matrix.hpp
-    title: Matrix
-  - icon: ':warning:'
-    path: algebraic/MyComplex.hpp
-    title: MyComplex
-  - icon: ':heavy_check_mark:'
-    path: algebraic/NumberTheoreticTransform.hpp
-    title: NumberTheoreticTransform
-  - icon: ':heavy_check_mark:'
-    path: algebraic/StaticModInt.hpp
-    title: StaticModInt
   - icon: ':heavy_check_mark:'
     path: data-structure/BIT.hpp
     title: Binary Indexed Tree
@@ -119,10 +86,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/UnionFind.hpp
     title: Disjoint set
+  - icon: ':warning:'
+    path: math/Combinatorics.hpp
+    title: Combinatorics/ModCombinatorics
+  - icon: ':warning:'
+    path: math/DiscreteLogarithm.hpp
+    title: Discrete Logarithm
+  - icon: ':warning:'
+    path: math/DynamicModInt.hpp
+    title: DynamicModInt
+  - icon: ':heavy_check_mark:'
+    path: math/FastFactorize.hpp
+    title: FastFactorize
+  - icon: ':warning:'
+    path: math/FastFourierTransform.hpp
+    title: FastFourierTransform
+  - icon: ':heavy_check_mark:'
+    path: math/FloorSum.hpp
+    title: FloorSum
+  - icon: ':warning:'
+    path: math/Interpolation.hpp
+    title: math/Interpolation.hpp
+  - icon: ':x:'
+    path: math/Matrix.hpp
+    title: Matrix
+  - icon: ':warning:'
+    path: math/MyComplex.hpp
+    title: MyComplex
+  - icon: ':heavy_check_mark:'
+    path: math/NumberTheoreticTransform.hpp
+    title: NumberTheoreticTransform
+  - icon: ':question:'
+    path: math/StaticModInt.hpp
+    title: StaticModInt
   - icon: ':heavy_check_mark:'
     path: other/FastIO.hpp
     title: Fast IO library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   - icon: ':warning:'
@@ -219,6 +219,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/many_aplusb.test.cpp
     title: test/yosupo/many_aplusb.test.cpp
+  - icon: ':x:'
+    path: test/yosupo/matrix_det.test.cpp
+    title: test/yosupo/matrix_det.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/point_add_range_sum.test.cpp
     title: test/yosupo/point_add_range_sum.test.cpp
@@ -282,9 +285,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/0789.test.cpp
     title: test/yukicoder/0789.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -466,17 +469,17 @@ data:
   - string/RollingHash.hpp
   - test/yosupo/discrete_logarithm_mod.cpp
   - test/yosupo/zalgorithm.cpp
-  - algebraic/FloorSum.hpp
-  - algebraic/Combinatorics.hpp
-  - algebraic/NumberTheoreticTransform.hpp
-  - algebraic/FastFactorize.hpp
-  - algebraic/DiscreteLogarithm.hpp
-  - algebraic/FastFourierTransform.hpp
-  - algebraic/Interpolation.hpp
-  - algebraic/Matrix.hpp
-  - algebraic/StaticModInt.hpp
-  - algebraic/MyComplex.hpp
-  - algebraic/DynamicModInt.hpp
+  - math/FloorSum.hpp
+  - math/Combinatorics.hpp
+  - math/NumberTheoreticTransform.hpp
+  - math/FastFactorize.hpp
+  - math/DiscreteLogarithm.hpp
+  - math/FastFourierTransform.hpp
+  - math/Interpolation.hpp
+  - math/Matrix.hpp
+  - math/StaticModInt.hpp
+  - math/MyComplex.hpp
+  - math/DynamicModInt.hpp
   - other/FastIO.hpp
   - other/type_traits.hpp
   - graph/StronglyConnectedComponents.hpp
@@ -490,7 +493,7 @@ data:
   - graph/FordFulkerson.hpp
   - graph/TwoSat.hpp
   timestamp: '2021-05-20 00:07:02+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/yosupo/set_xor_min.test.cpp
   - test/yosupo/unionfind.test.cpp
@@ -502,6 +505,7 @@ data:
   - test/yosupo/vertex_add_subtree_sum.test.cpp
   - test/yosupo/bipartitematching.test.cpp
   - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
+  - test/yosupo/matrix_det.test.cpp
   - test/yosupo/shortest_path.test.cpp
   - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
   - test/yosupo/tree_diameter.test.cpp

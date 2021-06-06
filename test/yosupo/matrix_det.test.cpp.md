@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: data-structure/SWAG.hpp
-    title: Sliding Window Aggregation
+  - icon: ':x:'
+    path: math/Matrix.hpp
+    title: Matrix
   - icon: ':question:'
     path: math/StaticModInt.hpp
     title: StaticModInt
@@ -15,17 +15,16 @@ data:
     title: other/type_traits.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/queue_operate_all_composite
+    PROBLEM: https://judge.yosupo.jp/problem/matrix_det
     links:
-    - https://judge.yosupo.jp/problem/queue_operate_all_composite
-  bundledCode: "#line 1 \"test/yosupo/queue_operate_all_composite.test.cpp\"\n#define\
-    \ PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\n#line\
-    \ 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n\
+    - https://judge.yosupo.jp/problem/matrix_det
+  bundledCode: "#line 1 \"test/yosupo/matrix_det.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_det\"\
+    \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n\
     #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n\
     #pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC\
     \ optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include <algorithm>\n\
@@ -163,57 +162,94 @@ data:
     }\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
     \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
     \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 3\
-    \ \"data-structure/SWAG.hpp\"\ntemplate <class T, T (*op)(const T&, const T&)>\n\
-    class SWAG {\n\tstd::stack<std::pair<T, T>> front, back;\n\n  public:\n\tSWAG()\
-    \ {}\n\tSWAG(const std::vector<T> vec) {\n\t\tfor (const T& i : vec) {\n\t\t\t\
-    back.emplace(i, op(back.top().second, i));\n\t\t}\n\t}\n\tvoid push(const T& x)\
-    \ {\n\t\tif (back.empty())\n\t\t\tback.emplace(x, x);\n\t\telse\n\t\t\tback.emplace(x,\
-    \ op(back.top().second, x));\n\t}\n\tvoid pop() {\n\t\tif (!front.empty())\n\t\
-    \t\tfront.pop();\n\t\telse {\n\t\t\tauto btop = back.top();\n\t\t\tfront.emplace(btop.first,\
-    \ btop.first);\n\t\t\tback.pop();\n\t\t\twhile (!back.empty()) {\n\t\t\t\tbtop\
-    \ = back.top();\n\t\t\t\tfront.emplace(btop.first, op(btop.first, front.top().second));\n\
-    \t\t\t\tback.pop();\n\t\t\t}\n\t\t\tfront.pop();\n\t\t}\n\t}\n\tT fold() const\
-    \ {\n\t\tif (front.empty()) return back.top().second;\n\t\tif (back.empty()) return\
-    \ front.top().second;\n\t\treturn op(front.top().second, back.top().second);\n\
-    \t}\n\tunsigned int size() const { return front.size() + back.size(); }\n\tbool\
-    \ empty() const { return front.empty() && back.empty(); }\n};\n\n/**\n * @title\
-    \ Sliding Window Aggregation\n */\n#line 5 \"test/yosupo/queue_operate_all_composite.test.cpp\"\
-    \nusing ModInt = StaticModInt<998244353>;\nusing MP = std::pair<ModInt, ModInt>;\n\
-    MP op(const MP& lhs, const MP& rhs) {\n\treturn MP{lhs.first * rhs.first, lhs.second\
-    \ * rhs.first + rhs.second};\n}\nint Q;\nint main() {\n\tscanf(\"%d\", &Q);\n\t\
-    SWAG<MP, op> swag;\n\trep(i, Q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif\
-    \ (t == 0) {\n\t\t\tint a, b;\n\t\t\tscanf(\"%d%d\", &a, &b);\n\t\t\tswag.push(MP{a,\
-    \ b});\n\t\t}\n\t\tif (t == 1) swag.pop();\n\t\tif (t == 2) {\n\t\t\tint x;\n\t\
-    \t\tscanf(\"%d\", &x);\n\t\t\tif (swag.empty())\n\t\t\t\tprintf(\"%d\\n\", x);\n\
-    \t\t\telse {\n\t\t\t\tauto res = swag.fold();\n\t\t\t\tprintf(\"%d\\n\", res.first\
-    \ * x + res.second);\n\t\t\t}\n\t\t}\n\t}\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/queue_operate_all_composite\"\
-    \n#include \"../../math/StaticModInt.hpp\"\n#include \"../../data-structure/SWAG.hpp\"\
-    \n#include \"../../other/template.hpp\"\nusing ModInt = StaticModInt<998244353>;\n\
-    using MP = std::pair<ModInt, ModInt>;\nMP op(const MP& lhs, const MP& rhs) {\n\
-    \treturn MP{lhs.first * rhs.first, lhs.second * rhs.first + rhs.second};\n}\n\
-    int Q;\nint main() {\n\tscanf(\"%d\", &Q);\n\tSWAG<MP, op> swag;\n\trep(i, Q)\
-    \ {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint a, b;\n\t\
-    \t\tscanf(\"%d%d\", &a, &b);\n\t\t\tswag.push(MP{a, b});\n\t\t}\n\t\tif (t ==\
-    \ 1) swag.pop();\n\t\tif (t == 2) {\n\t\t\tint x;\n\t\t\tscanf(\"%d\", &x);\n\t\
-    \t\tif (swag.empty())\n\t\t\t\tprintf(\"%d\\n\", x);\n\t\t\telse {\n\t\t\t\tauto\
-    \ res = swag.fold();\n\t\t\t\tprintf(\"%d\\n\", res.first * x + res.second);\n\
-    \t\t\t}\n\t\t}\n\t}\n}"
+    \ \"math/Matrix.hpp\"\n\ntemplate <class T, std::enable_if_t<std::is_same_v<decltype(T()\
+    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tnullptr_t> = nullptr>\nclass Matrix {\n  protected:\n\
+    \tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\tMatrix() =\
+    \ default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
+    \ {}\n\tstd::vector<T>& operator[](uint idx) { return elems[idx]; }\n\tconst std::vector<T>&\
+    \ operator[](uint idx) const { return elems[idx]; }\n\tdecltype(elems)& data()\
+    \ { return elems; }\n\tconst decltype(elems)& data() const { return elems; }\n\
+    \n\tvoid resize(int N_, int M_) {\n\t\telems.resize(N_);\n\t\trep(i, N_) elems[i].resize(M_);\n\
+    \t}\n\n\tMatrix operator*(Matrix rhs) const {\n\t\tMatrix<T> res(N, rhs.M);\n\t\
+    \trep(i, N) rep(j, M) rep(k, rhs.M) res[i][k] +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\
+    \t\treturn res;\n\t}\n};\n\ntemplate <class T>\nclass SquareMatrix : public Matrix<T>\
+    \ {\n\tusing Matrix<T>::N;\n\tusing Matrix<T>::Matrix;\n\tusing Matrix<T>::elems;\n\
+    \n  public:\n\tSquareMatrix(uint N_) : Matrix<T>(N_, N_) {}\n\tSquareMatrix<T>&\
+    \ operator=(const Matrix<T>& rhs) {\n\t\telems = rhs.data();\n\t\treturn *this;\n\
+    \t}\n\tSquareMatrix<T>& operator=(Matrix<T>&& rhs) {\n\t\telems = std::move(rhs.data());\n\
+    \t\treturn *this;\n\t}\n\tSquareMatrix<T> operator*=(const SquareMatrix<T>& rhs)\
+    \ {\n\t\t*this = *this * rhs;\n\t\treturn *this;\n\t}\n\tSquareMatrix<T> pow(lint\
+    \ p) const {\n\t\tSquareMatrix<T> res{N}, memo = *this;\n\t\trep(i, N) res[i][i]\
+    \ = 1;\n\t\twhile (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\t\
+    memo *= memo;\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const\
+    \ {\n\t\tSquareMatrix<T> tmp = *this;\n\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\t\
+    if (tmp[i][i] == 0) {\n\t\t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\t\tif\
+    \ (tmp[j][i]) {\n\t\t\t\t\t\tstd::swap(tmp[i], tmp[j]);\n\t\t\t\t\t\tres = -res;\n\
+    \t\t\t\t\t\tbreak;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tres *= tmp[i][i];\n\
+    \t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\tT inv = T(1) / tmp[i][i];\n\t\
+    \t\t\tfor (int k = i + 1; k < N; k++) {\n\t\t\t\t\ttmp[j][k] -= tmp[j][i] * inv\
+    \ * tmp[i][k];\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\ntemplate\
+    \ <class T, uint N, uint M>\nclass FixedMatrix {\n  protected:\n\tstd::array<std::array<T,\
+    \ M>, N> elems;\n\n  public:\n\tconstexpr FixedMatrix() { rep(i, N) elems[i].fill(0);\
+    \ }\n\tconstexpr FixedMatrix(std::initializer_list<T> init) {\n\t\tauto ite =\
+    \ init.begin();\n\t\trep(i, N) rep(j, M) elems[i][j] = *ite++;\n\t}\n\tconstexpr\
+    \ FixedMatrix(const FixedMatrix<T, N, M>& rhs) {\n\t\telems = rhs.elems;\n\t}\n\
+    \tconstexpr FixedMatrix(FixedMatrix<T, N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\
+    \t}\n\tconstexpr std::array<T, N>& operator[](uint idx) { return elems[idx]; }\n\
+    \tconstexpr const std::array<T, N>& operator[](uint idx) const {\n\t\treturn elems[idx];\n\
+    \t}\n\tconstexpr decltype(elems)& data() { return elems; }\n\tconstexpr const\
+    \ decltype(elems)& data() const { return elems; }\n\n\tconstexpr FixedMatrix<T,\
+    \ N, M> operator=(const FixedMatrix<T, N, M>& rhs) {\n\t\telems = rhs.elems;\n\
+    \t\treturn *this;\n\t}\n\tconstexpr FixedMatrix<T, N, M> operator=(FixedMatrix<T,\
+    \ N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\t\treturn *this;\n\t}\n\n\
+    \tconstexpr FixedMatrix<T, N, M> operator+=(const FixedMatrix<T, N, M>& rhs) {\n\
+    \t\trep(i, N) rep(j, M) elems[i][j] += rhs.elems[i][j];\n\t\treturn *this;\n\t\
+    }\n\n\tconstexpr FixedMatrix<T, N, M> operator+(\n\t\tconst FixedMatrix<T, N,\
+    \ M>& rhs) const {\n\t\tFixedMatrix<T, N, M> res = *this;\n\t\treturn res += rhs;\n\
+    \t}\n\n\ttemplate <uint L>\n\tconstexpr FixedMatrix<T, N, L> operator*(\n\t\t\
+    const FixedMatrix<T, M, L>& rhs) const {\n\t\tFixedMatrix<T, N, L> res;\n\t\t\
+    rep(i, N) rep(j, M) rep(k, L) res[i][k] +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\
+    \t\treturn res;\n\t}\n};\n\ntemplate <class T, uint N>\nclass FixedSquareMatrix\
+    \ : public FixedMatrix<T, N, N> {\n\tusing FixedMatrix<T, N, N>::FixedMatrix;\n\
+    \tusing FixedMatrix<T, N, N>::elems;\n\n  public:\n\tusing FixedMatrix<T, N, N>::operator*;\n\
+    \tconstexpr FixedSquareMatrix(const FixedMatrix<T, N, N>& obj)\n\t\t: FixedMatrix<T,\
+    \ N, N>(obj) {}\n\tconstexpr FixedSquareMatrix(FixedMatrix<T, N, N>&& obj)\n\t\
+    \t: FixedMatrix<T, N, N>(obj) {}\n\n\tconstexpr FixedSquareMatrix<T, N>& operator*=(\n\
+    \t\tconst FixedSquareMatrix<T, N>& rhs) {\n\t\t*this = *this * rhs;\n\t\treturn\
+    \ *this;\n\t}\n\n\tconstexpr FixedSquareMatrix<T, N> pow(lint p) const {\n\t\t\
+    FixedSquareMatrix<T, N> res, memo = *this;\n\t\trep(i, N) res[i][i] = 1;\n\t\t\
+    while (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\tmemo *= memo;\n\
+    \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const {\n\t\tFixedSquareMatrix<T,\
+    \ N> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N - 1) {\n\t\t\tfor (int j = i +\
+    \ 1; j < N; j++) {\n\t\t\t\trep(k, N) tmp[j][k] -= tmp[j][i] / tmp[i][i] * tmp[i][k];\n\
+    \t\t\t}\n\t\t\tres *= tmp[i][i];\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static\
+    \ FixedSquareMatrix<T, N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i,\
+    \ N) res[i][i] = 1;\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */\n\
+    #line 5 \"test/yosupo/matrix_det.test.cpp\"\nusing ModInt = StaticModInt<998244353>;\n\
+    int N;\nint main() {\n\tscanf(\"%d\", &N);\n\tSquareMatrix<ModInt> m(N);\n\trep(i,\
+    \ N) rep(j, N) std::cin >> m[i][j];\n\tstd::cout << m.determinant() << std::endl;\n\
+    \treturn 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_det\"\n#include\
+    \ \"../../other/template.hpp\"\n#include \"../../math/StaticModInt.hpp\"\n#include\
+    \ \"../../math/Matrix.hpp\"\nusing ModInt = StaticModInt<998244353>;\nint N;\n\
+    int main() {\n\tscanf(\"%d\", &N);\n\tSquareMatrix<ModInt> m(N);\n\trep(i, N)\
+    \ rep(j, N) std::cin >> m[i][j];\n\tstd::cout << m.determinant() << std::endl;\n\
+    \treturn 0;\n}"
   dependsOn:
-  - math/StaticModInt.hpp
   - other/template.hpp
+  - math/StaticModInt.hpp
   - other/type_traits.hpp
-  - data-structure/SWAG.hpp
+  - math/Matrix.hpp
   isVerificationFile: true
-  path: test/yosupo/queue_operate_all_composite.test.cpp
+  path: test/yosupo/matrix_det.test.cpp
   requiredBy: []
   timestamp: '2021-06-07 02:11:09+09:00'
-  verificationStatus: TEST_ACCEPTED
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: test/yosupo/queue_operate_all_composite.test.cpp
+documentation_of: test/yosupo/matrix_det.test.cpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/queue_operate_all_composite.test.cpp
-- /verify/test/yosupo/queue_operate_all_composite.test.cpp.html
-title: test/yosupo/queue_operate_all_composite.test.cpp
+- /verify/test/yosupo/matrix_det.test.cpp
+- /verify/test/yosupo/matrix_det.test.cpp.html
+title: test/yosupo/matrix_det.test.cpp
 ---

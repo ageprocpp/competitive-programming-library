@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy: []
@@ -98,7 +98,7 @@ data:
     template <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
     \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
     \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
-    #line 4 \"algebraic/DynamicModInt.hpp\"\nclass DynamicModInt : DynamicModInt__Base\
+    #line 4 \"math/DynamicModInt.hpp\"\nclass DynamicModInt : DynamicModInt__Base\
     \ {\n\tstatic uint modulo;\n\tint value;\n\n  public:\n\tstatic void setMod(uint\
     \ mod) { modulo = mod; }\n\tconstexpr DynamicModInt() : value(0) {}\n\ttemplate\
     \ <class T>\n\tDynamicModInt(T value = 0) : value(value) {\n\t\tthis->value =\n\
@@ -188,15 +188,15 @@ data:
   - other/template.hpp
   - other/type_traits.hpp
   isVerificationFile: false
-  path: algebraic/DynamicModInt.hpp
+  path: math/DynamicModInt.hpp
   requiredBy: []
-  timestamp: '2021-05-23 09:27:56+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: algebraic/DynamicModInt.hpp
+documentation_of: math/DynamicModInt.hpp
 layout: document
 redirect_from:
-- /library/algebraic/DynamicModInt.hpp
-- /library/algebraic/DynamicModInt.hpp.html
+- /library/math/DynamicModInt.hpp
+- /library/math/DynamicModInt.hpp.html
 title: DynamicModInt
 ---

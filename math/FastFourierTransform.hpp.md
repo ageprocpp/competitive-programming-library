@@ -2,9 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':warning:'
-    path: algebraic/MyComplex.hpp
+    path: math/MyComplex.hpp
     title: MyComplex
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -90,9 +90,9 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    algebraic/MyComplex.hpp\"\nclass MyComplex {\n\tdouble realvalue, imagvalue;\n\
-    \n  public:\n\tMyComplex() : realvalue(0), imagvalue(0) {}\n\ttemplate <class\
-    \ T, class U>\n\tMyComplex(const T& realvalue, const U& imagvalue)\n\t\t: realvalue(realvalue),\
+    math/MyComplex.hpp\"\nclass MyComplex {\n\tdouble realvalue, imagvalue;\n\n  public:\n\
+    \tMyComplex() : realvalue(0), imagvalue(0) {}\n\ttemplate <class T, class U>\n\
+    \tMyComplex(const T& realvalue, const U& imagvalue)\n\t\t: realvalue(realvalue),\
     \ imagvalue(imagvalue) {}\n\ttemplate <class T>\n\tMyComplex(const T& realvalue)\
     \ : realvalue(realvalue), imagvalue(0) {}\n\ttemplate <class T>\n\tMyComplex(const\
     \ std::complex<T>& c)\n\t\t: realvalue(c.real()), imagvalue(c.imag()) {}\n\tdouble&\
@@ -120,7 +120,7 @@ data:
     \ operator/(const T& rhs) const {\n\t\treturn MyComplex(*this) /= rhs;\n\t}\n\t\
     template <class T>\n\tMyComplex& operator/=(const T& rhs) const {\n\t\treturn\
     \ operator/=(MyComplex(rhs));\n\t}\n};\n\n/**\n * @title MyComplex\n */\n#line\
-    \ 4 \"algebraic/FastFourierTransform.hpp\"\nclass FastFourierTransform {\n  private:\n\
+    \ 4 \"math/FastFourierTransform.hpp\"\nclass FastFourierTransform {\n  private:\n\
     \tstatic void dft(std::vector<MyComplex>& a) {\n\t\tint sz = a.size();\n\t\tif\
     \ (sz == 1) return;\n\t\tMyComplex root =\n\t\t\tstd::polar(1.0, (inverse ? -1\
     \ : 1) * 2.0 * acos(-1) / sz);\n\t\tstd::vector<MyComplex> b(sz), roots((sz >>\
@@ -161,17 +161,17 @@ data:
     \ */"
   dependsOn:
   - other/template.hpp
-  - algebraic/MyComplex.hpp
+  - math/MyComplex.hpp
   isVerificationFile: false
-  path: algebraic/FastFourierTransform.hpp
+  path: math/FastFourierTransform.hpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: algebraic/FastFourierTransform.hpp
+documentation_of: math/FastFourierTransform.hpp
 layout: document
 redirect_from:
-- /library/algebraic/FastFourierTransform.hpp
-- /library/algebraic/FastFourierTransform.hpp.html
+- /library/math/FastFourierTransform.hpp
+- /library/math/FastFourierTransform.hpp.html
 title: FastFourierTransform
 ---

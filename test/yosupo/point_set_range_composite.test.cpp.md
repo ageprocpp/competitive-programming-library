@@ -2,15 +2,15 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: algebraic/StaticModInt.hpp
-    title: StaticModInt
-  - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: Segment Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: math/StaticModInt.hpp
+    title: StaticModInt
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy: []
@@ -107,7 +107,7 @@ data:
     template <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
     \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
     \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
-    #line 4 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
+    #line 4 \"math/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
     \ : StaticModInt__Base {\n\tstd::conditional_t<(modulo > INT_MAX >> 1), lint,\
     \ int> value;\n\tstatic constexpr int inv1000000007[] = {0,\t\t   1,\t\t  500000004,\n\
     \t\t\t\t\t\t\t\t\t\t\t333333336, 250000002, 400000003,\n\t\t\t\t\t\t\t\t\t\t\t\
@@ -165,38 +165,38 @@ data:
     \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 3\
     \ \"data-structure/SegTree.hpp\"\ntemplate <class T, T (*nodef)(const T&, const\
     \ T&)>\nclass SegTree {\n  protected:\n\tunsigned int n = 1, rank = 0;\n\tstd::vector<T>\
-    \ node;\n\tT ident;\n\n  public:\n\tSegTree(unsigned int m, T e_) : ident(e_)\
-    \ {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2\
-    \ * n, ident);\n\t}\n\tSegTree(unsigned int m, T init, T e_) : ident(e_) {\n\t\
-    \twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n,\
-    \ ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++) node[i] = init;\n\t\t\
-    for (unsigned int i = n - 1; i > 0; i--)\n\t\t\tnode[i] = nodef(node[i << 1],\
-    \ node[i << 1 | 1]);\n\t}\n\ttemplate <class U>\n\tSegTree(const std::vector<U>&\
-    \ initvec, T e_) : ident(e_) {\n\t\tunsigned int m = initvec.size();\n\t\twhile\
-    \ (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\
-    \t\tfor (unsigned int i = n; i < 2 * n; i++) {\n\t\t\tif (i - n < m) node[i] =\
-    \ initvec[i - n];\n\t\t}\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\t\t\t\
-    node[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\tvoid update(int i, T\
-    \ x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\
-    \t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t\t}\n\t}\n\tT query(int\
-    \ l, int r) const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls = ident, rs = ident;\n\
-    \t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r\
-    \ & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\t\
-    return nodef(ls, rs);\n\t}\n\tconst T& operator[](const int& x) const { return\
-    \ node[n + x]; }\n\tT queryForAll() const { return node[1]; }\n\n  private:\n\t\
-    template <class F>\n\tint max_right(int st, F& check, T& acc, int k, int l, int\
-    \ r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\t\
-    return check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\tif (m <=\
-    \ st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\t\tif (st <= l &&\
-    \ check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\treturn\
-    \ -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\t\tif (vl\
-    \ != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) | 1, m, r);\n\
-    \t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F check) const\
-    \ {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n\
-    \ttemplate <bool (*check)(const T&)>\n\tint max_right(int st) const {\n\t\tT acc\
-    \ = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n};\nnamespace\
-    \ {\n\tlint RSQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn lhs + rhs;\n\
-    \t}\n\tlint RMiQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn std::min(lhs,\
+    \ node;\n\tT ident;\n\n  public:\n\tSegTree(T e_) : ident(e_) {}\n\tSegTree(unsigned\
+    \ int m, T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\
+    \t\t}\n\t\tnode.resize(2 * n, ident);\n\t}\n\tSegTree(unsigned int m, T init,\
+    \ T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t\
+    }\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++)\
+    \ node[i] = init;\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\t\t\tnode[i]\
+    \ = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\ttemplate <class U>\n\tSegTree(const\
+    \ std::vector<U>& initvec, T e_) : ident(e_) {\n\t\tunsigned int m = initvec.size();\n\
+    \t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 *\
+    \ n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++) {\n\t\t\tif (i - n\
+    \ < m) node[i] = initvec[i - n];\n\t\t}\n\t\tfor (unsigned int i = n - 1; i >\
+    \ 0; i--)\n\t\t\tnode[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\tvoid\
+    \ update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i != 1) {\n\t\
+    \t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t\t}\n\t\
+    }\n\tT query(int l, int r) const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls = ident,\
+    \ rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\
+    \t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\
+    \t}\n\t\treturn nodef(ls, rs);\n\t}\n\tconst T& operator[](const int& x) const\
+    \ { return node[n + x]; }\n\tT queryForAll() const { return node[1]; }\n\n  private:\n\
+    \ttemplate <class F>\n\tint max_right(int st, F& check, T& acc, int k, int l,\
+    \ int r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\
+    \treturn check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\tif (m\
+    \ <= st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\t\tif (st <=\
+    \ l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\t\
+    return -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\t\t\
+    if (vl != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) | 1, m,\
+    \ r);\n\t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F check)\
+    \ const {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\
+    \t}\n\ttemplate <bool (*check)(const T&)>\n\tint max_right(int st) const {\n\t\
+    \tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n};\nnamespace\
+    \ {\n\tlint RSQ_nodef(const lint& lhs, const lint& rhs) { return lhs + rhs; }\n\
+    \tlint RMiQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn std::min(lhs,\
     \ rhs);\n\t}\n\tlint RMaQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn\
     \ std::max(lhs, rhs);\n\t}\n}  // namespace\n\nclass RSQ : public SegTree<lint,\
     \ RSQ_nodef> {\n\tusing Base = SegTree<lint, RSQ_nodef>;\n\n  public:\n\ttemplate\
@@ -219,7 +219,7 @@ data:
     , &l, &r, &x);\n\t\t\tauto p = st.query(l, r);\n\t\t\tprintf(\"%d\\n\", p.first\
     \ * x + p.second);\n\t\t}\n\t}\n\treturn 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_set_range_composite\"\
-    \n#include \"../../algebraic/StaticModInt.hpp\"\n#include \"../../data-structure/SegTree.hpp\"\
+    \n#include \"../../math/StaticModInt.hpp\"\n#include \"../../data-structure/SegTree.hpp\"\
     \n#include \"../../other/template.hpp\"\nusing ModInt = StaticModInt<998244353>;\n\
     using MP = std::pair<ModInt, ModInt>;\nMP nodef(const MP& lhs, const MP& rhs)\
     \ {\n\treturn {lhs.first * rhs.first, lhs.second * rhs.first + rhs.second};\n\
@@ -233,14 +233,14 @@ data:
     \ p = st.query(l, r);\n\t\t\tprintf(\"%d\\n\", p.first * x + p.second);\n\t\t\
     }\n\t}\n\treturn 0;\n}"
   dependsOn:
-  - algebraic/StaticModInt.hpp
+  - math/StaticModInt.hpp
   - other/template.hpp
   - other/type_traits.hpp
   - data-structure/SegTree.hpp
   isVerificationFile: true
   path: test/yosupo/point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2021-05-23 08:46:46+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/point_set_range_composite.test.cpp

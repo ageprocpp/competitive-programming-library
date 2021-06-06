@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/TwoSat.hpp
     title: Two-sat solver
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []

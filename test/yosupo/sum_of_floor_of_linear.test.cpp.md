@@ -2,9 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: algebraic/FloorSum.hpp
+    path: math/FloorSum.hpp
     title: FloorSum
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -93,27 +93,27 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 2 \"\
-    algebraic/FloorSum.hpp\"\nlint FloorSum(lint N, lint M, lint A, lint B) {\n\t\
-    lint ans = 0;\n\tif (A >= M) {\n\t\tans += (N - 1) * N / 2 * (A / M);\n\t\tA %=\
-    \ M;\n\t}\n\tif (B >= M) {\n\t\tans += B / M * N;\n\t\tB %= M;\n\t}\n\tlint ymax\
-    \ = (A * N + B) / M, xmax = ymax * M - B;\n\tif (ymax == 0) return ans;\n\tans\
-    \ += (N - (xmax + A - 1) / A) * ymax;\n\tans += FloorSum(ymax, A, M, (A - xmax\
-    \ % A) % A);\n\treturn ans;\n}\n\n/**\n * @title FloorSum\n */\n#line 4 \"test/yosupo/sum_of_floor_of_linear.test.cpp\"\
+    math/FloorSum.hpp\"\nlint FloorSum(lint N, lint M, lint A, lint B) {\n\tlint ans\
+    \ = 0;\n\tif (A >= M) {\n\t\tans += (N - 1) * N / 2 * (A / M);\n\t\tA %= M;\n\t\
+    }\n\tif (B >= M) {\n\t\tans += B / M * N;\n\t\tB %= M;\n\t}\n\tlint ymax = (A\
+    \ * N + B) / M, xmax = ymax * M - B;\n\tif (ymax == 0) return ans;\n\tans += (N\
+    \ - (xmax + A - 1) / A) * ymax;\n\tans += FloorSum(ymax, A, M, (A - xmax % A)\
+    \ % A);\n\treturn ans;\n}\n\n/**\n * @title FloorSum\n */\n#line 4 \"test/yosupo/sum_of_floor_of_linear.test.cpp\"\
     \nint main() {\n\tint T, N, M, A, B;\n\tscanf(\"%d\", &T);\n\trep(_, T) {\n\t\t\
     scanf(\"%d%d%d%d\", &N, &M, &A, &B);\n\t\tprintf(\"%lld\\n\", FloorSum(N, M, A,\
     \ B));\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sum_of_floor_of_linear\"\
-    \n#include \"../../algebraic/FloorSum.hpp\"\n#include \"../../other/template.hpp\"\
-    \nint main() {\n\tint T, N, M, A, B;\n\tscanf(\"%d\", &T);\n\trep(_, T) {\n\t\t\
+    \n#include \"../../math/FloorSum.hpp\"\n#include \"../../other/template.hpp\"\n\
+    int main() {\n\tint T, N, M, A, B;\n\tscanf(\"%d\", &T);\n\trep(_, T) {\n\t\t\
     scanf(\"%d%d%d%d\", &N, &M, &A, &B);\n\t\tprintf(\"%lld\\n\", FloorSum(N, M, A,\
     \ B));\n\t}\n}"
   dependsOn:
-  - algebraic/FloorSum.hpp
+  - math/FloorSum.hpp
   - other/template.hpp
   isVerificationFile: true
   path: test/yosupo/sum_of_floor_of_linear.test.cpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/sum_of_floor_of_linear.test.cpp

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy:
@@ -90,21 +90,20 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    algebraic/DiscreteLogarithm.hpp\"\nint DiscreteLogarithm(int X, int Y, int M)\
-    \ {\n\tif (Y == 0 && M == 1) return 0;\n\tif (X == 0) {\n\t\tif (Y == 0) return\
-    \ 1;\n\t\tif (Y == 1) return 0;\n\t\treturn -1;\n\t}\n\tif (Y == 1) return 0;\n\
-    \tif (Y == 0) {\n\t\tint inf_p = 1, tmp = M, cur = 1;\n\t\twhile (tmp) inf_p =\
-    \ lint(inf_p) * X % M, tmp >>= 1, cur <<= 1;\n\t\tif (inf_p) return -1;\n\t\t\
-    int ans = 0, now = 1;\n\t\twhile (cur >>= 1) {\n\t\t\tif (lint(now) * modpow(X,\
-    \ cur, M) % M) {\n\t\t\t\tnow = lint(now) * modpow(X, cur, M) % M;\n\t\t\t\tans\
-    \ += cur;\n\t\t\t}\n\t\t}\n\t\treturn ans + 1;\n\t}\n\tint m = std::sqrt(M) +\
-    \ 1, c = modpow(X, m, M);\n\tstd::unordered_map<int, int> mp;\n\tint cur = 1,\
-    \ p = 0;\n\tREP(i, m) {\n\t\tcur = lint(cur) * c % M;\n\t\tp += m;\n\t\tif (mp.find(cur)\
-    \ != mp.end()) break;\n\t\tmp.insert({cur, p});\n\t}\n\tcur = Y;\n\tint res =\
-    \ INF;\n\trep(i, m) {\n\t\tif (mp.find(cur) != mp.end()) {\n\t\t\tif (modpow(X,\
-    \ mp[cur] - i, M) == Y) chmin(res, mp[cur] - i);\n\t\t}\n\t\tcur = lint(cur) *\
-    \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}\n\n/**\n * @title Discrete Logarithm\n\
-    \ */\n"
+    math/DiscreteLogarithm.hpp\"\nint DiscreteLogarithm(int X, int Y, int M) {\n\t\
+    if (Y == 0 && M == 1) return 0;\n\tif (X == 0) {\n\t\tif (Y == 0) return 1;\n\t\
+    \tif (Y == 1) return 0;\n\t\treturn -1;\n\t}\n\tif (Y == 1) return 0;\n\tif (Y\
+    \ == 0) {\n\t\tint inf_p = 1, tmp = M, cur = 1;\n\t\twhile (tmp) inf_p = lint(inf_p)\
+    \ * X % M, tmp >>= 1, cur <<= 1;\n\t\tif (inf_p) return -1;\n\t\tint ans = 0,\
+    \ now = 1;\n\t\twhile (cur >>= 1) {\n\t\t\tif (lint(now) * modpow(X, cur, M) %\
+    \ M) {\n\t\t\t\tnow = lint(now) * modpow(X, cur, M) % M;\n\t\t\t\tans += cur;\n\
+    \t\t\t}\n\t\t}\n\t\treturn ans + 1;\n\t}\n\tint m = std::sqrt(M) + 1, c = modpow(X,\
+    \ m, M);\n\tstd::unordered_map<int, int> mp;\n\tint cur = 1, p = 0;\n\tREP(i,\
+    \ m) {\n\t\tcur = lint(cur) * c % M;\n\t\tp += m;\n\t\tif (mp.find(cur) != mp.end())\
+    \ break;\n\t\tmp.insert({cur, p});\n\t}\n\tcur = Y;\n\tint res = INF;\n\trep(i,\
+    \ m) {\n\t\tif (mp.find(cur) != mp.end()) {\n\t\t\tif (modpow(X, mp[cur] - i,\
+    \ M) == Y) chmin(res, mp[cur] - i);\n\t\t}\n\t\tcur = lint(cur) * X % M;\n\t}\n\
+    \treturn res == INF ? -1 : res;\n}\n\n/**\n * @title Discrete Logarithm\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nint DiscreteLogarithm(int\
     \ X, int Y, int M) {\n\tif (Y == 0 && M == 1) return 0;\n\tif (X == 0) {\n\t\t\
     if (Y == 0) return 1;\n\t\tif (Y == 1) return 0;\n\t\treturn -1;\n\t}\n\tif (Y\
@@ -123,16 +122,16 @@ data:
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: algebraic/DiscreteLogarithm.hpp
+  path: math/DiscreteLogarithm.hpp
   requiredBy:
   - test/yosupo/discrete_logarithm_mod.cpp
-  timestamp: '2021-05-23 09:27:56+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: algebraic/DiscreteLogarithm.hpp
+documentation_of: math/DiscreteLogarithm.hpp
 layout: document
 redirect_from:
-- /library/algebraic/DiscreteLogarithm.hpp
-- /library/algebraic/DiscreteLogarithm.hpp.html
+- /library/math/DiscreteLogarithm.hpp
+- /library/math/DiscreteLogarithm.hpp.html
 title: Discrete Logarithm
 ---

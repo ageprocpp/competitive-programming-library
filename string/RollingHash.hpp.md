@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: algebraic/StaticModInt.hpp
+  - icon: ':question:'
+    path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy:
@@ -107,7 +107,7 @@ data:
     template <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
     \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
     \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
-    #line 4 \"algebraic/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
+    #line 4 \"math/StaticModInt.hpp\"\ntemplate <uint modulo>\nclass StaticModInt\
     \ : StaticModInt__Base {\n\tstd::conditional_t<(modulo > INT_MAX >> 1), lint,\
     \ int> value;\n\tstatic constexpr int inv1000000007[] = {0,\t\t   1,\t\t  500000004,\n\
     \t\t\t\t\t\t\t\t\t\t\t333333336, 250000002, 400000003,\n\t\t\t\t\t\t\t\t\t\t\t\
@@ -181,7 +181,7 @@ data:
     \thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t\
     }\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n};\n\n/**\n * @title Rolling\
     \ hash\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../algebraic/StaticModInt.hpp\"\
+  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../math/StaticModInt.hpp\"\
     \ntemplate <unsigned int mod, unsigned int base>\nclass RollingHash {\n\tusing\
     \ M = StaticModInt<mod>;\n\tstd::string s;\n\tint n;\n\tstd::vector<M> has, power;\n\
     \n  public:\n\tRollingHash() {}\n\tRollingHash(const std::string& s) { init(s);\
@@ -201,13 +201,13 @@ data:
     \t\t}\n\t\treturn *this;\n\t}\n};\n\n/**\n * @title Rolling hash\n */"
   dependsOn:
   - other/template.hpp
-  - algebraic/StaticModInt.hpp
+  - math/StaticModInt.hpp
   - other/type_traits.hpp
   isVerificationFile: false
   path: string/RollingHash.hpp
   requiredBy:
   - string/HashedString.hpp
-  timestamp: '2021-05-23 08:46:46+09:00'
+  timestamp: '2021-06-07 02:11:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/ALDS1_14_B_HashedString.test.cpp

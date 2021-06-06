@@ -1,41 +1,6 @@
 ---
 data:
   libraryCategories:
-  - name: algebraic
-    pages:
-    - icon: ':warning:'
-      path: algebraic/Combinatorics.hpp
-      title: Combinatorics/ModCombinatorics
-    - icon: ':warning:'
-      path: algebraic/DiscreteLogarithm.hpp
-      title: Discrete Logarithm
-    - icon: ':warning:'
-      path: algebraic/DynamicModInt.hpp
-      title: DynamicModInt
-    - icon: ':heavy_check_mark:'
-      path: algebraic/FastFactorize.hpp
-      title: FastFactorize
-    - icon: ':warning:'
-      path: algebraic/FastFourierTransform.hpp
-      title: FastFourierTransform
-    - icon: ':heavy_check_mark:'
-      path: algebraic/FloorSum.hpp
-      title: FloorSum
-    - icon: ':warning:'
-      path: algebraic/Interpolation.hpp
-      title: algebraic/Interpolation.hpp
-    - icon: ':warning:'
-      path: algebraic/Matrix.hpp
-      title: Matrix
-    - icon: ':warning:'
-      path: algebraic/MyComplex.hpp
-      title: MyComplex
-    - icon: ':heavy_check_mark:'
-      path: algebraic/NumberTheoreticTransform.hpp
-      title: NumberTheoreticTransform
-    - icon: ':heavy_check_mark:'
-      path: algebraic/StaticModInt.hpp
-      title: StaticModInt
   - name: data-structure
     pages:
     - icon: ':heavy_check_mark:'
@@ -124,18 +89,53 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/UnionFind.hpp
       title: Disjoint set
+  - name: math
+    pages:
+    - icon: ':warning:'
+      path: math/Combinatorics.hpp
+      title: Combinatorics/ModCombinatorics
+    - icon: ':warning:'
+      path: math/DiscreteLogarithm.hpp
+      title: Discrete Logarithm
+    - icon: ':warning:'
+      path: math/DynamicModInt.hpp
+      title: DynamicModInt
+    - icon: ':heavy_check_mark:'
+      path: math/FastFactorize.hpp
+      title: FastFactorize
+    - icon: ':warning:'
+      path: math/FastFourierTransform.hpp
+      title: FastFourierTransform
+    - icon: ':heavy_check_mark:'
+      path: math/FloorSum.hpp
+      title: FloorSum
+    - icon: ':warning:'
+      path: math/Interpolation.hpp
+      title: math/Interpolation.hpp
+    - icon: ':x:'
+      path: math/Matrix.hpp
+      title: Matrix
+    - icon: ':warning:'
+      path: math/MyComplex.hpp
+      title: MyComplex
+    - icon: ':heavy_check_mark:'
+      path: math/NumberTheoreticTransform.hpp
+      title: NumberTheoreticTransform
+    - icon: ':question:'
+      path: math/StaticModInt.hpp
+      title: StaticModInt
   - name: other
     pages:
     - icon: ':heavy_check_mark:'
       path: other/FastIO.hpp
       title: Fast IO library
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: other/template.hpp
       title: other/template.hpp
     - icon: ':warning:'
       path: other/testlib.h
       title: other/testlib.h
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: other/type_traits.hpp
       title: other/type_traits.hpp
   - name: string
@@ -240,6 +240,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/many_aplusb.test.cpp
       title: test/yosupo/many_aplusb.test.cpp
+    - icon: ':x:'
+      path: test/yosupo/matrix_det.test.cpp
+      title: test/yosupo/matrix_det.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/point_add_range_sum.test.cpp
       title: test/yosupo/point_add_range_sum.test.cpp
