@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/vertex_set_path_composite"
-#include "../../algebraic/StaticModInt.hpp"
+#include "../../math/StaticModInt.hpp"
 #include "../../data-structure/SegTree.hpp"
 #include "../../graph/HeavyLightDecomposition.hpp"
 #include "../../other/template.hpp"

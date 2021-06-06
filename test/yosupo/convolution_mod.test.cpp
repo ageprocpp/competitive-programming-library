@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/convolution_mod"
-#include "../../algebraic/NumberTheoreticTransform.hpp"
+#include "../../math/NumberTheoreticTransform.hpp"
 #include "../../other/template.hpp"
 int n, m;
 std::vector<int> a, b;

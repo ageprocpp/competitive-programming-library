@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
-#include "../../algebraic/StaticModInt.hpp"
+#include "../../math/StaticModInt.hpp"
 #include "../../data-structure/IntervalSegTree.hpp"
 #include "../../other/template.hpp"
 using ModInt = StaticModInt<998244353>;

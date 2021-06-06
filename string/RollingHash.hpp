@@ -1,6 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-#include "../algebraic/StaticModInt.hpp"
+#include "../math/StaticModInt.hpp"
 template <unsigned int mod, unsigned int base>
 class RollingHash {
 	using M = StaticModInt<mod>;

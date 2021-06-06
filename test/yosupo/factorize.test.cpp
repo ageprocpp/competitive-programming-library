@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/factorize"
 #include "../../other/template.hpp"
-#include "../../algebraic/FastFactorize.hpp"
+#include "../../math/FastFactorize.hpp"
 int main() {
 	int Q;
 	lint a;

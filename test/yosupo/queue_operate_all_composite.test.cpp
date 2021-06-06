@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/queue_operate_all_composite"
-#include "../../algebraic/StaticModInt.hpp"
+#include "../../math/StaticModInt.hpp"
 #include "../../data-structure/SWAG.hpp"
 #include "../../other/template.hpp"
 using ModInt = StaticModInt<998244353>;

@@ -8,6 +8,7 @@ class SegTree {
 	T ident;
 
   public:
+	SegTree(T e_) : ident(e_) {}
 	SegTree(unsigned int m, T e_) : ident(e_) {
 		while (n < m) {
 			n *= 2;
@@ -93,9 +94,7 @@ class SegTree {
 	}
 };
 namespace {
-	lint RSQ_nodef(const lint& lhs, const lint& rhs) {
-		return lhs + rhs;
-	}
+	lint RSQ_nodef(const lint& lhs, const lint& rhs) { return lhs + rhs; }
 	lint RMiQ_nodef(const lint& lhs, const lint& rhs) {
 		return std::min(lhs, rhs);
 	}

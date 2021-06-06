@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
-#include "../../algebraic/StaticModInt.hpp"
+#include "../../math/StaticModInt.hpp"
 #include "../../data-structure/SegTree.hpp"
 #include "../../other/template.hpp"
 using ModInt = StaticModInt<998244353>;

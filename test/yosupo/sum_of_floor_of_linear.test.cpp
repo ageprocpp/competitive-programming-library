@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/sum_of_floor_of_linear"
-#include "../../algebraic/FloorSum.hpp"
+#include "../../math/FloorSum.hpp"
 #include "../../other/template.hpp"
 int main() {
 	int T, N, M, A, B;

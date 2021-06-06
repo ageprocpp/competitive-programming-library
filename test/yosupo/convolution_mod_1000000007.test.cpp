@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/convolution_mod_1000000007"
 #include "../../other/template.hpp"
 #include "../../other/FastIO.hpp"
-#include "../../algebraic/NumberTheoreticTransform.hpp"
+#include "../../math/NumberTheoreticTransform.hpp"
 FastIO::Scanner cin;
 FastIO::Printer cout;
 int N, M;
