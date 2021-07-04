@@ -64,7 +64,7 @@ data:
     using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
     \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
     constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
-    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ double eps = DBL_EPSILON * 10;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
     \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
     \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
     \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
@@ -217,19 +217,19 @@ data:
   path: data-structure/SegTree.hpp
   requiredBy:
   - data-structure/IntervalSegTree.hpp
-  timestamp: '2021-06-07 02:11:09+09:00'
+  timestamp: '2021-07-04 16:12:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
   - test/yosupo/range_affine_range_sum.test.cpp
-  - test/aoj/DSL_2_H.test.cpp
-  - test/aoj/DSL_2_G.test.cpp
-  - test/aoj/DSL_2_A.test.cpp
-  - test/aoj/DSL_2_D.test.cpp
-  - test/aoj/DSL_2_I.test.cpp
+  - test/yosupo/point_set_range_composite.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
   - test/aoj/DSL_2_E.test.cpp
+  - test/aoj/DSL_2_D.test.cpp
+  - test/aoj/DSL_2_G.test.cpp
+  - test/aoj/DSL_2_I.test.cpp
   - test/aoj/DSL_2_F.test.cpp
+  - test/aoj/DSL_2_A.test.cpp
+  - test/aoj/DSL_2_H.test.cpp
   - test/aoj/DSL_2_B.test.cpp
 documentation_of: data-structure/SegTree.hpp
 layout: document

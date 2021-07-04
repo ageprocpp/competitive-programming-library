@@ -33,10 +33,10 @@ data:
     \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
     using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
     \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
-    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\nint\
-    \ popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON * 10;\n\
+    constexpr double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\n\
+    class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
     #else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\t\
     x = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >>\
     \ 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x\
@@ -122,11 +122,16 @@ data:
     \ binary[i] - '0';\n\t\t\tif (nodes[node_id].next[c] == -1 ||\n\t\t\t\tnodes[nodes[node_id].next[c]].cnt\
     \ == 0) {\n\t\t\t\tres += 1 << (bit - i - 1);\n\t\t\t\tnode_id = nodes[node_id].next[1\
     \ - c];\n\t\t\t} else\n\t\t\t\tnode_id = nodes[node_id].next[c];\n\t\t}\n\t\t\
-    return res;\n\t}\n};\n\n/**\n * @title Trie\n */\n#line 4 \"test/yosupo/set_xor_min.test.cpp\"\
-    \nint Q, t, x;\nint main() {\n\tscanf(\"%d\", &Q);\n\tBinaryTrie<30> trie;\n\t\
-    rep(i, Q) {\n\t\tscanf(\"%d%d\", &t, &x);\n\t\tif (t == 0 && !trie.search(x))\
-    \ trie.insert(x);\n\t\tif (t == 1) trie.erase(x);\n\t\tif (t == 2) printf(\"%d\\\
-    n\", trie.xor_min(x));\n\t}\n}\n"
+    return res;\n\t}\n\tint xor_max(int n) const {\n\t\tint node_id = 0, res = 0;\n\
+    \t\tstd::string binary = std::bitset<bit>(n).to_string();\n\t\trep(i, bit) {\n\
+    \t\t\tint c = binary[i] - '0';\n\t\t\tif (nodes[node_id].next[1 - c] == -1 ||\n\
+    \t\t\t\tnodes[nodes[node_id].next[1 - c]].cnt == 0) {\n\t\t\t\tnode_id = nodes[node_id].next[c];\n\
+    \t\t\t} else {\n\t\t\t\tres += 1 << (bit - i - 1);\n\t\t\t\tnode_id = nodes[node_id].next[1\
+    \ - c];\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Trie\n */\n\
+    #line 4 \"test/yosupo/set_xor_min.test.cpp\"\nint Q, t, x;\nint main() {\n\tscanf(\"\
+    %d\", &Q);\n\tBinaryTrie<30> trie;\n\trep(i, Q) {\n\t\tscanf(\"%d%d\", &t, &x);\n\
+    \t\tif (t == 0 && !trie.search(x)) trie.insert(x);\n\t\tif (t == 1) trie.erase(x);\n\
+    \t\tif (t == 2) printf(\"%d\\n\", trie.xor_min(x));\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/set_xor_min\"\n#include\
     \ \"../../other/template.hpp\"\n#include \"../../string/Trie.hpp\"\nint Q, t,\
     \ x;\nint main() {\n\tscanf(\"%d\", &Q);\n\tBinaryTrie<30> trie;\n\trep(i, Q)\
@@ -139,7 +144,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/set_xor_min.test.cpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-07-04 16:12:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/set_xor_min.test.cpp

@@ -43,10 +43,10 @@ data:
     \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
     using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
     \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
-    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\nint\
-    \ popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON * 10;\n\
+    constexpr double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\n\
+    class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
     #else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\t\
     x = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >>\
     \ 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x\
@@ -121,90 +121,90 @@ data:
     \ constexpr uint mod_value = modulo;\n\n\tconstexpr StaticModInt() : value(0)\
     \ {}\n\ttemplate <class T,\n\t\t\t  std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,\n\
     \t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\tconstexpr StaticModInt(T value\
-    \ = 0) : value(value) {\n\t\tthis->value %= modulo;\n\t\tif (this->value < 0)\
-    \ this->value += modulo;\n\t}\n\tinline constexpr StaticModInt inv() const {\n\
-    \t\tif constexpr (modulo == 1000000007) {\n\t\t\tif (*this <= 10) return inv1000000007[*this];\n\
-    \t\t} else if constexpr (modulo == 998244353) {\n\t\t\tif (*this <= 10) return\
-    \ inv998244353[*this];\n\t\t}\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline\
-    \ constexpr operator int() const { return value; }\n\tinline constexpr StaticModInt&\
-    \ operator+=(const StaticModInt& x) {\n\t\tvalue = value + x.value;\n\t\tif (value\
-    \ >= modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
-    \ operator++() {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\
-    \t\tvalue++;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator++(int)\
-    \ {\n\t\tStaticModInt res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline\
-    \ constexpr StaticModInt operator-() const {\n\t\treturn StaticModInt(0) -= *this;\n\
-    \t}\n\tinline constexpr StaticModInt& operator-=(const StaticModInt& x) {\n\t\t\
-    value -= x.value;\n\t\tif (value < 0) value += modulo;\n\t\treturn *this;\n\t\
-    }\n\tinline constexpr StaticModInt& operator--() {\n\t\tif (value == 0)\n\t\t\t\
-    value = modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline\
-    \ constexpr StaticModInt operator--(int) {\n\t\tStaticModInt res = *this;\n\t\t\
-    --*this;\n\t\treturn res;\n\t}\n\tinline constexpr StaticModInt& operator*=(const\
-    \ StaticModInt& x) {\n\t\tvalue = (ulint)value * x.value % modulo;\n\t\treturn\
-    \ *this;\n\t}\n\tinline constexpr StaticModInt& operator/=(const StaticModInt&\
-    \ rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\ttemplate <class T>\n\tconstexpr\
-    \ StaticModInt operator+(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ += rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator+=(const\
-    \ T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
-    \ T>\n\tconstexpr StaticModInt operator-(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ -= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator-=(const\
-    \ T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
-    \ T>\n\tconstexpr StaticModInt operator*(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ *= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator*=(const\
-    \ T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
-    \ T>\n\tconstexpr StaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator/=(const\
-    \ T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n\tstatic int primitive_root()\
-    \ {\n\t\tstatic int p = 0;\n\t\tstatic std::random_device rd;\n\t\tstatic std::mt19937\
-    \ mt(rd());\n\t\tstatic std::uniform_int_distribution<> uid(1, modulo - 1);\n\t\
-    \tif (p) return 0;\n\n\t\t// use naive factorize due to file size limit\n\t\t\
-    std::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\tfor (int i = 2; i * i <=\
-    \ tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\t\t\t\
-    \tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\t}\n\
-    \t\tif (tmp != 1) vec.emplace_back(tmp);\n\n\t\twhile (true) {\n\t\t\tp = uid(mt);\n\
-    \t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\tif (mypow(StaticModInt(p),\
-    \ (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\t\t\t\tbreak;\n\t\t\t\t\
-    }\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
-    \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
-    \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 3\
-    \ \"data-structure/SegTree.hpp\"\ntemplate <class T, T (*nodef)(const T&, const\
-    \ T&)>\nclass SegTree {\n  protected:\n\tunsigned int n = 1, rank = 0;\n\tstd::vector<T>\
-    \ node;\n\tT ident;\n\n  public:\n\tSegTree(T e_) : ident(e_) {}\n\tSegTree(unsigned\
-    \ int m, T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\
-    \t\t}\n\t\tnode.resize(2 * n, ident);\n\t}\n\tSegTree(unsigned int m, T init,\
-    \ T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t\
-    }\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++)\
-    \ node[i] = init;\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\t\t\tnode[i]\
-    \ = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\ttemplate <class U>\n\tSegTree(const\
-    \ std::vector<U>& initvec, T e_) : ident(e_) {\n\t\tunsigned int m = initvec.size();\n\
-    \t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 *\
-    \ n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++) {\n\t\t\tif (i - n\
-    \ < m) node[i] = initvec[i - n];\n\t\t}\n\t\tfor (unsigned int i = n - 1; i >\
-    \ 0; i--)\n\t\t\tnode[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\tvoid\
-    \ update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i != 1) {\n\t\
-    \t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t\t}\n\t\
-    }\n\tT query(int l, int r) const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls = ident,\
-    \ rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\
-    \t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\
-    \t}\n\t\treturn nodef(ls, rs);\n\t}\n\tconst T& operator[](const int& x) const\
-    \ { return node[n + x]; }\n\tT queryForAll() const { return node[1]; }\n\n  private:\n\
-    \ttemplate <class F>\n\tint max_right(int st, F& check, T& acc, int k, int l,\
-    \ int r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\
-    \treturn check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\tif (m\
-    \ <= st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\t\tif (st <=\
-    \ l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\t\
-    return -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\t\t\
-    if (vl != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) | 1, m,\
-    \ r);\n\t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F check)\
-    \ const {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\
-    \t}\n\ttemplate <bool (*check)(const T&)>\n\tint max_right(int st) const {\n\t\
-    \tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n};\nnamespace\
-    \ {\n\tlint RSQ_nodef(const lint& lhs, const lint& rhs) { return lhs + rhs; }\n\
-    \tlint RMiQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn std::min(lhs,\
-    \ rhs);\n\t}\n\tlint RMaQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn\
-    \ std::max(lhs, rhs);\n\t}\n}  // namespace\n\nclass RSQ : public SegTree<lint,\
-    \ RSQ_nodef> {\n\tusing Base = SegTree<lint, RSQ_nodef>;\n\n  public:\n\ttemplate\
-    \ <class... Args>\n\tRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0)\
-    \ {}\n};\nclass RMiQ : public SegTree<lint, RMiQ_nodef> {\n\tusing Base = SegTree<lint,\
+    \ = 0) : value(value) {\n\t\tthis->value %= int(modulo);\n\t\tif (this->value\
+    \ < 0) this->value += modulo;\n\t}\n\tinline constexpr StaticModInt inv() const\
+    \ {\n\t\tif constexpr (modulo == 1000000007) {\n\t\t\tif (*this <= 10) return\
+    \ inv1000000007[*this];\n\t\t} else if constexpr (modulo == 998244353) {\n\t\t\
+    \tif (*this <= 10) return inv998244353[*this];\n\t\t}\n\t\treturn mypow(*this,\
+    \ modulo - 2);\n\t}\n\tinline constexpr operator int() const { return value; }\n\
+    \tinline constexpr StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue\
+    \ = value + x.value;\n\t\tif (value >= modulo) value -= modulo;\n\t\treturn *this;\n\
+    \t}\n\tinline constexpr StaticModInt& operator++() {\n\t\tif (value == modulo\
+    \ - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn *this;\n\t}\n\t\
+    inline constexpr StaticModInt operator++(int) {\n\t\tStaticModInt res = *this;\n\
+    \t\t++*this;\n\t\treturn res;\n\t}\n\tinline constexpr StaticModInt operator-()\
+    \ const {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator-=(const StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value <\
+    \ 0) value += modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator--() {\n\t\tif (value == 0)\n\t\t\tvalue = modulo - 1;\n\t\telse\n\t\
+    \t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator--(int)\
+    \ {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline\
+    \ constexpr StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = (ulint)value\
+    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator/=(const StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\
+    \ttemplate <class T>\n\tconstexpr StaticModInt operator+(const T& rhs) const {\n\
+    \t\treturn StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator-(const T& rhs) const\
+    \ {\n\t\treturn StaticModInt(*this) -= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator-=(const T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator*(const T& rhs) const\
+    \ {\n\t\treturn StaticModInt(*this) *= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator*=(const T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator/(const T& rhs) const\
+    \ {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
+    \t}\n\tstatic int primitive_root() {\n\t\tstatic int p = 0;\n\t\tstatic std::random_device\
+    \ rd;\n\t\tstatic std::mt19937 mt(rd());\n\t\tstatic std::uniform_int_distribution<>\
+    \ uid(1, modulo - 1);\n\t\tif (p) return 0;\n\n\t\t// use naive factorize due\
+    \ to file size limit\n\t\tstd::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\
+    \tfor (int i = 2; i * i <= tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\
+    \t\t\t\tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\
+    \t}\n\t\tif (tmp != 1) vec.emplace_back(tmp);\n\n\t\twhile (true) {\n\t\t\tp =\
+    \ uid(mt);\n\t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\t\
+    if (mypow(StaticModInt(p), (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\
+    \t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate\
+    \ <uint modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
+    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
+    \ */\n#line 3 \"data-structure/SegTree.hpp\"\ntemplate <class T, T (*nodef)(const\
+    \ T&, const T&)>\nclass SegTree {\n  protected:\n\tunsigned int n = 1, rank =\
+    \ 0;\n\tstd::vector<T> node;\n\tT ident;\n\n  public:\n\tSegTree(T e_) : ident(e_)\
+    \ {}\n\tSegTree(unsigned int m, T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\
+    \tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\t}\n\tSegTree(unsigned\
+    \ int m, T init, T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\
+    \trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n;\
+    \ i < 2 * n; i++) node[i] = init;\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\
+    \t\t\tnode[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\ttemplate <class\
+    \ U>\n\tSegTree(const std::vector<U>& initvec, T e_) : ident(e_) {\n\t\tunsigned\
+    \ int m = initvec.size();\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\
+    \t\t}\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n;\
+    \ i++) {\n\t\t\tif (i - n < m) node[i] = initvec[i - n];\n\t\t}\n\t\tfor (unsigned\
+    \ int i = n - 1; i > 0; i--)\n\t\t\tnode[i] = nodef(node[i << 1], node[i << 1\
+    \ | 1]);\n\t}\n\tvoid update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\t\
+    while (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2 *\
+    \ i + 1]);\n\t\t}\n\t}\n\tT query(int l, int r) const {\n\t\tl += n;\n\t\tr +=\
+    \ n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls\
+    \ = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\t\
+    l >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tconst T& operator[](const\
+    \ int& x) const { return node[n + x]; }\n\tT queryForAll() const { return node[1];\
+    \ }\n\n  private:\n\ttemplate <class F>\n\tint max_right(int st, F& check, T&\
+    \ acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc,\
+    \ node[k]);\n\t\t\treturn check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r)\
+    \ >> 1;\n\t\tif (m <= st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\
+    \t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\
+    \t\t\treturn -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\
+    \t\tif (vl != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) |\
+    \ 1, m, r);\n\t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F\
+    \ check) const {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1,\
+    \ 0, n);\n\t}\n\ttemplate <bool (*check)(const T&)>\n\tint max_right(int st) const\
+    \ {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n\
+    };\nnamespace {\n\tlint RSQ_nodef(const lint& lhs, const lint& rhs) { return lhs\
+    \ + rhs; }\n\tlint RMiQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn\
+    \ std::min(lhs, rhs);\n\t}\n\tlint RMaQ_nodef(const lint& lhs, const lint& rhs)\
+    \ {\n\t\treturn std::max(lhs, rhs);\n\t}\n}  // namespace\n\nclass RSQ : public\
+    \ SegTree<lint, RSQ_nodef> {\n\tusing Base = SegTree<lint, RSQ_nodef>;\n\n  public:\n\
+    \ttemplate <class... Args>\n\tRSQ(Args&&... args) : Base(std::forward<Args>(args)...,\
+    \ 0) {}\n};\nclass RMiQ : public SegTree<lint, RMiQ_nodef> {\n\tusing Base = SegTree<lint,\
     \ RMiQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMiQ(Args&&... args)\
     \ : Base(std::forward<Args>(args)..., LINF) {}\n};\nclass RMaQ : public SegTree<lint,\
     \ RMaQ_nodef> {\n\tusing Base = SegTree<lint, RMaQ_nodef>;\n\n  public:\n\ttemplate\
@@ -295,7 +295,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/vertex_set_path_composite.test.cpp
   requiredBy: []
-  timestamp: '2021-06-07 02:11:09+09:00'
+  timestamp: '2021-07-04 16:12:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/vertex_set_path_composite.test.cpp

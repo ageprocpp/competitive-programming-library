@@ -9,6 +9,9 @@ data:
   - icon: ':x:'
     path: test/yosupo/matrix_det.test.cpp
     title: test/yosupo/matrix_det.test.cpp
+  - icon: ':x:'
+    path: test/yosupo/matrix_product.test.cpp
+    title: test/yosupo/matrix_product.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
   _verificationStatusIcon: ':x:'
@@ -31,7 +34,7 @@ data:
     using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
     \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
     constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
-    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ double eps = DBL_EPSILON * 10;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
     \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
     \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
     \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
@@ -110,7 +113,7 @@ data:
     \ p) const {\n\t\tSquareMatrix<T> res{N}, memo = *this;\n\t\trep(i, N) res[i][i]\
     \ = 1;\n\t\twhile (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\t\
     memo *= memo;\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const\
-    \ {\n\t\tSquareMatrix<T> tmp = *this;\n\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\t\
+    \ {\n\t\tSquareMatrix<T> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\t\
     if (tmp[i][i] == 0) {\n\t\t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\t\tif\
     \ (tmp[j][i]) {\n\t\t\t\t\t\tstd::swap(tmp[i], tmp[j]);\n\t\t\t\t\t\tres = -res;\n\
     \t\t\t\t\t\tbreak;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tres *= tmp[i][i];\n\
@@ -148,11 +151,15 @@ data:
     FixedSquareMatrix<T, N> res, memo = *this;\n\t\trep(i, N) res[i][i] = 1;\n\t\t\
     while (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\tmemo *= memo;\n\
     \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const {\n\t\tFixedSquareMatrix<T,\
-    \ N> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N - 1) {\n\t\t\tfor (int j = i +\
-    \ 1; j < N; j++) {\n\t\t\t\trep(k, N) tmp[j][k] -= tmp[j][i] / tmp[i][i] * tmp[i][k];\n\
-    \t\t\t}\n\t\t\tres *= tmp[i][i];\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static\
-    \ FixedSquareMatrix<T, N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i,\
-    \ N) res[i][i] = 1;\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */\n"
+    \ N> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\tif (tmp[i][i] == 0) {\n\
+    \t\t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\t\tif (tmp[j][i]) {\n\t\t\t\t\
+    \t\tstd::swap(tmp[i], tmp[j]);\n\t\t\t\t\t\tres = -res;\n\t\t\t\t\t\tbreak;\n\t\
+    \t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tres *= tmp[i][i];\n\t\t\tfor (int j = i +\
+    \ 1; j < N; j++) {\n\t\t\t\tT inv = T(1) / tmp[i][i];\n\t\t\t\tfor (int k = i\
+    \ + 1; k < N; k++) {\n\t\t\t\t\ttmp[j][k] -= tmp[j][i] * inv * tmp[i][k];\n\t\t\
+    \t\t}\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static FixedSquareMatrix<T,\
+    \ N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\
+    \t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n\ntemplate <class T, std::enable_if_t<std::is_same_v<decltype(T()\
     \ / T()), T>,\n\t\t\t\t\t\t\t\t\tnullptr_t> = nullptr>\nclass Matrix {\n  protected:\n\
     \tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\tMatrix() =\
@@ -173,7 +180,7 @@ data:
     \ p) const {\n\t\tSquareMatrix<T> res{N}, memo = *this;\n\t\trep(i, N) res[i][i]\
     \ = 1;\n\t\twhile (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\t\
     memo *= memo;\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const\
-    \ {\n\t\tSquareMatrix<T> tmp = *this;\n\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\t\
+    \ {\n\t\tSquareMatrix<T> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\t\
     if (tmp[i][i] == 0) {\n\t\t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\t\tif\
     \ (tmp[j][i]) {\n\t\t\t\t\t\tstd::swap(tmp[i], tmp[j]);\n\t\t\t\t\t\tres = -res;\n\
     \t\t\t\t\t\tbreak;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tres *= tmp[i][i];\n\
@@ -211,19 +218,24 @@ data:
     FixedSquareMatrix<T, N> res, memo = *this;\n\t\trep(i, N) res[i][i] = 1;\n\t\t\
     while (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\tmemo *= memo;\n\
     \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const {\n\t\tFixedSquareMatrix<T,\
-    \ N> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N - 1) {\n\t\t\tfor (int j = i +\
-    \ 1; j < N; j++) {\n\t\t\t\trep(k, N) tmp[j][k] -= tmp[j][i] / tmp[i][i] * tmp[i][k];\n\
-    \t\t\t}\n\t\t\tres *= tmp[i][i];\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static\
-    \ FixedSquareMatrix<T, N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i,\
-    \ N) res[i][i] = 1;\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */"
+    \ N> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\tif (tmp[i][i] == 0) {\n\
+    \t\t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\t\tif (tmp[j][i]) {\n\t\t\t\t\
+    \t\tstd::swap(tmp[i], tmp[j]);\n\t\t\t\t\t\tres = -res;\n\t\t\t\t\t\tbreak;\n\t\
+    \t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tres *= tmp[i][i];\n\t\t\tfor (int j = i +\
+    \ 1; j < N; j++) {\n\t\t\t\tT inv = T(1) / tmp[i][i];\n\t\t\t\tfor (int k = i\
+    \ + 1; k < N; k++) {\n\t\t\t\t\ttmp[j][k] -= tmp[j][i] * inv * tmp[i][k];\n\t\t\
+    \t\t}\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static FixedSquareMatrix<T,\
+    \ N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\
+    \t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: math/Matrix.hpp
   requiredBy: []
-  timestamp: '2021-06-07 02:11:09+09:00'
+  timestamp: '2021-07-04 16:12:00+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
+  - test/yosupo/matrix_product.test.cpp
   - test/yosupo/matrix_det.test.cpp
 documentation_of: math/Matrix.hpp
 layout: document

@@ -243,6 +243,9 @@ data:
     - icon: ':x:'
       path: test/yosupo/matrix_det.test.cpp
       title: test/yosupo/matrix_det.test.cpp
+    - icon: ':x:'
+      path: test/yosupo/matrix_product.test.cpp
+      title: test/yosupo/matrix_product.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/point_add_range_sum.test.cpp
       title: test/yosupo/point_add_range_sum.test.cpp

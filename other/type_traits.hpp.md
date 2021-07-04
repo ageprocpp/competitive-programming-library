@@ -39,6 +39,9 @@ data:
   - icon: ':x:'
     path: test/yosupo/matrix_det.test.cpp
     title: test/yosupo/matrix_det.test.cpp
+  - icon: ':x:'
+    path: test/yosupo/matrix_product.test.cpp
+    title: test/yosupo/matrix_product.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/point_set_range_composite.test.cpp
     title: test/yosupo/point_set_range_composite.test.cpp
@@ -72,7 +75,7 @@ data:
     using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
     \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
     constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
-    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ double eps = DBL_EPSILON * 10;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
     \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
     \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
     \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
@@ -181,23 +184,24 @@ data:
   isVerificationFile: false
   path: other/type_traits.hpp
   requiredBy:
-  - string/HashedString.hpp
-  - string/RollingHash.hpp
-  - math/Combinatorics.hpp
   - math/NumberTheoreticTransform.hpp
   - math/Interpolation.hpp
   - math/StaticModInt.hpp
   - math/DynamicModInt.hpp
-  timestamp: '2021-05-20 00:07:02+09:00'
+  - math/Combinatorics.hpp
+  - string/RollingHash.hpp
+  - string/HashedString.hpp
+  timestamp: '2021-07-04 16:12:00+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/yosupo/queue_operate_all_composite.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/matrix_det.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/matrix_product.test.cpp
   - test/yosupo/range_affine_range_sum.test.cpp
+  - test/yosupo/point_set_range_composite.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
   - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/matrix_det.test.cpp
+  - test/yosupo/queue_operate_all_composite.test.cpp
   - test/aoj/ALDS1_14_B_HashedString.test.cpp
 documentation_of: other/type_traits.hpp
 layout: document

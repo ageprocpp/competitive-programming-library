@@ -31,7 +31,7 @@ data:
     using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
     \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
     constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
-    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ double eps = DBL_EPSILON * 10;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
     \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
     \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
     \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
@@ -120,7 +120,12 @@ data:
     \ binary[i] - '0';\n\t\t\tif (nodes[node_id].next[c] == -1 ||\n\t\t\t\tnodes[nodes[node_id].next[c]].cnt\
     \ == 0) {\n\t\t\t\tres += 1 << (bit - i - 1);\n\t\t\t\tnode_id = nodes[node_id].next[1\
     \ - c];\n\t\t\t} else\n\t\t\t\tnode_id = nodes[node_id].next[c];\n\t\t}\n\t\t\
-    return res;\n\t}\n};\n\n/**\n * @title Trie\n */\n"
+    return res;\n\t}\n\tint xor_max(int n) const {\n\t\tint node_id = 0, res = 0;\n\
+    \t\tstd::string binary = std::bitset<bit>(n).to_string();\n\t\trep(i, bit) {\n\
+    \t\t\tint c = binary[i] - '0';\n\t\t\tif (nodes[node_id].next[1 - c] == -1 ||\n\
+    \t\t\t\tnodes[nodes[node_id].next[1 - c]].cnt == 0) {\n\t\t\t\tnode_id = nodes[node_id].next[c];\n\
+    \t\t\t} else {\n\t\t\t\tres += 1 << (bit - i - 1);\n\t\t\t\tnode_id = nodes[node_id].next[1\
+    \ - c];\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Trie\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <int char_size,\
     \ int base>\nclass Trie {\n\tclass Node {\n\t  public:\n\t\tstd::vector<int> next;\n\
     \t\tint c, cnt = 0, lastcnt = 0;\n\t\tNode(int c_) : c(c_) { next.assign(char_size,\
@@ -152,13 +157,18 @@ data:
     \ binary[i] - '0';\n\t\t\tif (nodes[node_id].next[c] == -1 ||\n\t\t\t\tnodes[nodes[node_id].next[c]].cnt\
     \ == 0) {\n\t\t\t\tres += 1 << (bit - i - 1);\n\t\t\t\tnode_id = nodes[node_id].next[1\
     \ - c];\n\t\t\t} else\n\t\t\t\tnode_id = nodes[node_id].next[c];\n\t\t}\n\t\t\
-    return res;\n\t}\n};\n\n/**\n * @title Trie\n */"
+    return res;\n\t}\n\tint xor_max(int n) const {\n\t\tint node_id = 0, res = 0;\n\
+    \t\tstd::string binary = std::bitset<bit>(n).to_string();\n\t\trep(i, bit) {\n\
+    \t\t\tint c = binary[i] - '0';\n\t\t\tif (nodes[node_id].next[1 - c] == -1 ||\n\
+    \t\t\t\tnodes[nodes[node_id].next[1 - c]].cnt == 0) {\n\t\t\t\tnode_id = nodes[node_id].next[c];\n\
+    \t\t\t} else {\n\t\t\t\tres += 1 << (bit - i - 1);\n\t\t\t\tnode_id = nodes[node_id].next[1\
+    \ - c];\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Trie\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: string/Trie.hpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-07-04 16:12:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/set_xor_min.test.cpp

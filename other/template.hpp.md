@@ -222,6 +222,9 @@ data:
   - icon: ':x:'
     path: test/yosupo/matrix_det.test.cpp
     title: test/yosupo/matrix_det.test.cpp
+  - icon: ':x:'
+    path: test/yosupo/matrix_product.test.cpp
+    title: test/yosupo/matrix_product.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/point_add_range_sum.test.cpp
     title: test/yosupo/point_add_range_sum.test.cpp
@@ -306,7 +309,7 @@ data:
     using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
     \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
     constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
-    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ double eps = DBL_EPSILON * 10;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
     \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
     \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
     \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
@@ -380,10 +383,10 @@ data:
     using i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
     using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
     \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
-    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\nint\
-    \ popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON * 10;\n\
+    constexpr double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\n\
+    class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
     #else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\t\
     x = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >>\
     \ 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x\
@@ -443,102 +446,103 @@ data:
   isVerificationFile: false
   path: other/template.hpp
   requiredBy:
-  - data-structure/MonotoneConvexHullTrick.hpp
-  - data-structure/SuccinctBitVector.hpp
-  - data-structure/RBSTset.hpp
-  - data-structure/SWAG.hpp
-  - data-structure/SegTreeBeats.hpp
-  - data-structure/SegTree.hpp
-  - data-structure/IntervalSegTree.hpp
-  - data-structure/ConvexHullTrick.hpp
-  - data-structure/BIT.hpp
-  - data-structure/DynamicSegTree.hpp
-  - data-structure/PrioritizableBinaryHeap.hpp
-  - data-structure/LiChaoTree.hpp
-  - data-structure/FibonacciHeap.hpp
-  - data-structure/SparseTable.hpp
-  - data-structure/BinaryHeap.hpp
-  - data-structure/RBST.hpp
-  - data-structure/PersistentStack.hpp
-  - data-structure/WaveletMatrix.hpp
-  - string/ZAlgorithm.hpp
-  - string/EerTree.hpp
-  - string/SuffixArray.hpp
-  - string/Trie.hpp
-  - string/HashedString.hpp
-  - string/RollingHash.hpp
-  - test/yosupo/discrete_logarithm_mod.cpp
-  - test/yosupo/zalgorithm.cpp
-  - math/FloorSum.hpp
-  - math/Combinatorics.hpp
-  - math/NumberTheoreticTransform.hpp
-  - math/FastFactorize.hpp
-  - math/DiscreteLogarithm.hpp
-  - math/FastFourierTransform.hpp
-  - math/Interpolation.hpp
-  - math/Matrix.hpp
-  - math/StaticModInt.hpp
-  - math/MyComplex.hpp
-  - math/DynamicModInt.hpp
-  - other/FastIO.hpp
-  - other/type_traits.hpp
-  - graph/StronglyConnectedComponents.hpp
-  - graph/Dijkstra.hpp
   - graph/PersistentUnionFind.hpp
-  - graph/Tree.hpp
-  - graph/HeavyLightDecomposition.hpp
   - graph/UnionFind.hpp
+  - graph/Dijkstra.hpp
+  - graph/HeavyLightDecomposition.hpp
   - graph/Dinic.hpp
+  - graph/Tree.hpp
+  - graph/TwoSat.hpp
   - graph/PrimalDual.hpp
   - graph/FordFulkerson.hpp
-  - graph/TwoSat.hpp
-  timestamp: '2021-05-20 00:07:02+09:00'
+  - graph/StronglyConnectedComponents.hpp
+  - data-structure/RBST.hpp
+  - data-structure/SegTree.hpp
+  - data-structure/BIT.hpp
+  - data-structure/DynamicSegTree.hpp
+  - data-structure/SparseTable.hpp
+  - data-structure/LiChaoTree.hpp
+  - data-structure/WaveletMatrix.hpp
+  - data-structure/IntervalSegTree.hpp
+  - data-structure/RBSTset.hpp
+  - data-structure/PersistentStack.hpp
+  - data-structure/ConvexHullTrick.hpp
+  - data-structure/SWAG.hpp
+  - data-structure/FibonacciHeap.hpp
+  - data-structure/BinaryHeap.hpp
+  - data-structure/MonotoneConvexHullTrick.hpp
+  - data-structure/PrioritizableBinaryHeap.hpp
+  - data-structure/SuccinctBitVector.hpp
+  - data-structure/SegTreeBeats.hpp
+  - test/yosupo/zalgorithm.cpp
+  - test/yosupo/discrete_logarithm_mod.cpp
+  - math/FastFactorize.hpp
+  - math/NumberTheoreticTransform.hpp
+  - math/Interpolation.hpp
+  - math/FloorSum.hpp
+  - math/StaticModInt.hpp
+  - math/DiscreteLogarithm.hpp
+  - math/MyComplex.hpp
+  - math/Matrix.hpp
+  - math/FastFourierTransform.hpp
+  - math/DynamicModInt.hpp
+  - math/Combinatorics.hpp
+  - other/FastIO.hpp
+  - other/type_traits.hpp
+  - string/Trie.hpp
+  - string/RollingHash.hpp
+  - string/HashedString.hpp
+  - string/EerTree.hpp
+  - string/ZAlgorithm.hpp
+  - string/SuffixArray.hpp
+  timestamp: '2021-07-04 16:12:00+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/yosupo/set_xor_min.test.cpp
-  - test/yosupo/unionfind.test.cpp
-  - test/yosupo/queue_operate_all_composite.test.cpp
-  - test/yosupo/two_sat.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/segment_add_get_min.test.cpp
-  - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
-  - test/yosupo/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/bipartitematching.test.cpp
   - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-  - test/yosupo/matrix_det.test.cpp
-  - test/yosupo/shortest_path.test.cpp
-  - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-  - test/yosupo/tree_diameter.test.cpp
-  - test/yosupo/point_add_range_sum.test.cpp
-  - test/yosupo/staticrmq.test.cpp
-  - test/yosupo/range_kth_smallest.test.cpp
-  - test/yosupo/suffixarray.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
   - test/yosupo/scc.test.cpp
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/aplusb.test.cpp
-  - test/yosupo/associative_array.test.cpp
-  - test/yosupo/static_range_sum.test.cpp
-  - test/yosupo/factorize.test.cpp
-  - test/yosupo/many_aplusb.test.cpp
+  - test/yosupo/matrix_product.test.cpp
   - test/yosupo/range_affine_range_sum.test.cpp
-  - test/yosupo/convolution_mod_1000000007.test.cpp
-  - test/yosupo/lca.test.cpp
-  - test/yosupo/sum_of_floor_of_linear.test.cpp
+  - test/yosupo/point_add_range_sum.test.cpp
+  - test/yosupo/point_set_range_composite.test.cpp
   - test/yosupo/vertex_add_path_sum.test.cpp
+  - test/yosupo/static_range_sum.test.cpp
+  - test/yosupo/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/unionfind.test.cpp
+  - test/yosupo/many_aplusb.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/bipartitematching.test.cpp
+  - test/yosupo/suffixarray.test.cpp
+  - test/yosupo/segment_add_get_min.test.cpp
+  - test/yosupo/shortest_path.test.cpp
+  - test/yosupo/aplusb.test.cpp
+  - test/yosupo/set_xor_min.test.cpp
+  - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/matrix_det.test.cpp
+  - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
+  - test/yosupo/two_sat.test.cpp
+  - test/yosupo/associative_array.test.cpp
+  - test/yosupo/range_kth_smallest.test.cpp
+  - test/yosupo/factorize.test.cpp
+  - test/yosupo/sum_of_floor_of_linear.test.cpp
+  - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
+  - test/yosupo/staticrmq.test.cpp
+  - test/yosupo/lca.test.cpp
+  - test/yosupo/queue_operate_all_composite.test.cpp
+  - test/yosupo/tree_diameter.test.cpp
   - test/yukicoder/0789.test.cpp
-  - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
-  - test/aoj/DSL_2_H.test.cpp
+  - test/aoj/DSL_2_E.test.cpp
+  - test/aoj/DSL_2_D.test.cpp
+  - test/aoj/GRL_6_B.test.cpp
   - test/aoj/GRL_6_A_Dinic.test.cpp
   - test/aoj/DSL_2_G.test.cpp
-  - test/aoj/DSL_2_A.test.cpp
-  - test/aoj/DSL_2_D.test.cpp
+  - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
   - test/aoj/DSL_2_I.test.cpp
-  - test/aoj/DSL_2_E.test.cpp
-  - test/aoj/GRL_6_A_FordFulkerson.test.cpp
   - test/aoj/DSL_2_F.test.cpp
+  - test/aoj/GRL_6_A_FordFulkerson.test.cpp
+  - test/aoj/DSL_2_A.test.cpp
   - test/aoj/ALDS1_14_B_HashedString.test.cpp
-  - test/aoj/GRL_6_B.test.cpp
+  - test/aoj/DSL_2_H.test.cpp
   - test/aoj/DSL_2_B.test.cpp
 documentation_of: other/template.hpp
 layout: document

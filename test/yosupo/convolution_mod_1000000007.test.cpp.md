@@ -43,10 +43,10 @@ data:
     \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
     using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
     \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON;\nconstexpr\
-    \ double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique\
-    \ : public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\nint\
-    \ popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
+    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON * 10;\n\
+    constexpr double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\n\
+    class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
+    \ {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
     #else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\t\
     x = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >>\
     \ 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x\
@@ -192,55 +192,55 @@ data:
     \ constexpr uint mod_value = modulo;\n\n\tconstexpr StaticModInt() : value(0)\
     \ {}\n\ttemplate <class T,\n\t\t\t  std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,\n\
     \t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\tconstexpr StaticModInt(T value\
-    \ = 0) : value(value) {\n\t\tthis->value %= modulo;\n\t\tif (this->value < 0)\
-    \ this->value += modulo;\n\t}\n\tinline constexpr StaticModInt inv() const {\n\
-    \t\tif constexpr (modulo == 1000000007) {\n\t\t\tif (*this <= 10) return inv1000000007[*this];\n\
-    \t\t} else if constexpr (modulo == 998244353) {\n\t\t\tif (*this <= 10) return\
-    \ inv998244353[*this];\n\t\t}\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline\
-    \ constexpr operator int() const { return value; }\n\tinline constexpr StaticModInt&\
-    \ operator+=(const StaticModInt& x) {\n\t\tvalue = value + x.value;\n\t\tif (value\
-    \ >= modulo) value -= modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
-    \ operator++() {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\
-    \t\tvalue++;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator++(int)\
-    \ {\n\t\tStaticModInt res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline\
-    \ constexpr StaticModInt operator-() const {\n\t\treturn StaticModInt(0) -= *this;\n\
-    \t}\n\tinline constexpr StaticModInt& operator-=(const StaticModInt& x) {\n\t\t\
-    value -= x.value;\n\t\tif (value < 0) value += modulo;\n\t\treturn *this;\n\t\
-    }\n\tinline constexpr StaticModInt& operator--() {\n\t\tif (value == 0)\n\t\t\t\
-    value = modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline\
-    \ constexpr StaticModInt operator--(int) {\n\t\tStaticModInt res = *this;\n\t\t\
-    --*this;\n\t\treturn res;\n\t}\n\tinline constexpr StaticModInt& operator*=(const\
-    \ StaticModInt& x) {\n\t\tvalue = (ulint)value * x.value % modulo;\n\t\treturn\
-    \ *this;\n\t}\n\tinline constexpr StaticModInt& operator/=(const StaticModInt&\
-    \ rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\ttemplate <class T>\n\tconstexpr\
-    \ StaticModInt operator+(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ += rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator+=(const\
-    \ T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
-    \ T>\n\tconstexpr StaticModInt operator-(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ -= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator-=(const\
-    \ T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
-    \ T>\n\tconstexpr StaticModInt operator*(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ *= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator*=(const\
-    \ T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
-    \ T>\n\tconstexpr StaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
-    \ /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator/=(const\
-    \ T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n\tstatic int primitive_root()\
-    \ {\n\t\tstatic int p = 0;\n\t\tstatic std::random_device rd;\n\t\tstatic std::mt19937\
-    \ mt(rd());\n\t\tstatic std::uniform_int_distribution<> uid(1, modulo - 1);\n\t\
-    \tif (p) return 0;\n\n\t\t// use naive factorize due to file size limit\n\t\t\
-    std::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\tfor (int i = 2; i * i <=\
-    \ tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\t\t\t\
-    \tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\t}\n\
-    \t\tif (tmp != 1) vec.emplace_back(tmp);\n\n\t\twhile (true) {\n\t\t\tp = uid(mt);\n\
-    \t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\tif (mypow(StaticModInt(p),\
-    \ (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\t\t\t\tbreak;\n\t\t\t\t\
-    }\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
-    \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
-    \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 4\
-    \ \"math/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n// 924844033,\
-    \ 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769, 3, 2^24\n// 167772161, 3, 2^25\n\
-    // 469762049, 3, 2^26\nclass NumberTheoreticTransform {\n\tstatic constexpr uint\
-    \ bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t 1224736769,\
+    \ = 0) : value(value) {\n\t\tthis->value %= int(modulo);\n\t\tif (this->value\
+    \ < 0) this->value += modulo;\n\t}\n\tinline constexpr StaticModInt inv() const\
+    \ {\n\t\tif constexpr (modulo == 1000000007) {\n\t\t\tif (*this <= 10) return\
+    \ inv1000000007[*this];\n\t\t} else if constexpr (modulo == 998244353) {\n\t\t\
+    \tif (*this <= 10) return inv998244353[*this];\n\t\t}\n\t\treturn mypow(*this,\
+    \ modulo - 2);\n\t}\n\tinline constexpr operator int() const { return value; }\n\
+    \tinline constexpr StaticModInt& operator+=(const StaticModInt& x) {\n\t\tvalue\
+    \ = value + x.value;\n\t\tif (value >= modulo) value -= modulo;\n\t\treturn *this;\n\
+    \t}\n\tinline constexpr StaticModInt& operator++() {\n\t\tif (value == modulo\
+    \ - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn *this;\n\t}\n\t\
+    inline constexpr StaticModInt operator++(int) {\n\t\tStaticModInt res = *this;\n\
+    \t\t++*this;\n\t\treturn res;\n\t}\n\tinline constexpr StaticModInt operator-()\
+    \ const {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator-=(const StaticModInt& x) {\n\t\tvalue -= x.value;\n\t\tif (value <\
+    \ 0) value += modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator--() {\n\t\tif (value == 0)\n\t\t\tvalue = modulo - 1;\n\t\telse\n\t\
+    \t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator--(int)\
+    \ {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline\
+    \ constexpr StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = (ulint)value\
+    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator/=(const StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\
+    \ttemplate <class T>\n\tconstexpr StaticModInt operator+(const T& rhs) const {\n\
+    \t\treturn StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator-(const T& rhs) const\
+    \ {\n\t\treturn StaticModInt(*this) -= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator-=(const T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator*(const T& rhs) const\
+    \ {\n\t\treturn StaticModInt(*this) *= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator*=(const T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\
+    \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator/(const T& rhs) const\
+    \ {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
+    \t}\n\tstatic int primitive_root() {\n\t\tstatic int p = 0;\n\t\tstatic std::random_device\
+    \ rd;\n\t\tstatic std::mt19937 mt(rd());\n\t\tstatic std::uniform_int_distribution<>\
+    \ uid(1, modulo - 1);\n\t\tif (p) return 0;\n\n\t\t// use naive factorize due\
+    \ to file size limit\n\t\tstd::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\
+    \tfor (int i = 2; i * i <= tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\
+    \t\t\t\tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\
+    \t}\n\t\tif (tmp != 1) vec.emplace_back(tmp);\n\n\t\twhile (true) {\n\t\t\tp =\
+    \ uid(mt);\n\t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\t\
+    if (mypow(StaticModInt(p), (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\
+    \t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate\
+    \ <uint modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
+    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
+    \ */\n#line 4 \"math/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n\
+    // 924844033, 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769, 3, 2^24\n// 167772161,\
+    \ 3, 2^25\n// 469762049, 3, 2^26\nclass NumberTheoreticTransform {\n\tstatic constexpr\
+    \ uint bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t 1224736769,\
     \ 167772161, 469762049};\n\n  private:\n\ttemplate <uint modulo>\n\tstatic void\
     \ ntt(std::vector<StaticModInt<modulo>>& a) {\n\t\tint sz = a.size();\n\t\tif\
     \ (sz == 1) return;\n\t\tStaticModInt<modulo> root =\n\t\t\tmodulo == 924844033\
@@ -324,7 +324,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/convolution_mod_1000000007.test.cpp
   requiredBy: []
-  timestamp: '2021-06-07 02:11:09+09:00'
+  timestamp: '2021-07-04 16:12:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution_mod_1000000007.test.cpp

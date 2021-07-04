@@ -40,7 +40,7 @@ data:
     using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
     \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
     constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
-    \ double eps = DBL_EPSILON;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
+    \ double eps = DBL_EPSILON * 10;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
     \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
     \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
     \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
@@ -248,13 +248,13 @@ data:
   isVerificationFile: false
   path: other/FastIO.hpp
   requiredBy: []
-  timestamp: '2021-05-20 00:07:02+09:00'
+  timestamp: '2021-07-04 16:12:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/shortest_path.test.cpp
-  - test/yosupo/range_kth_smallest.test.cpp
   - test/yosupo/many_aplusb.test.cpp
   - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/shortest_path.test.cpp
+  - test/yosupo/range_kth_smallest.test.cpp
 documentation_of: other/FastIO.hpp
 layout: document
 redirect_from:

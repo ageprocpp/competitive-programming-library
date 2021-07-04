@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: data-structure/SegTree.hpp
-    title: Segment Tree
+  - icon: ':x:'
+    path: math/Matrix.hpp
+    title: Matrix
   - icon: ':question:'
     path: math/StaticModInt.hpp
     title: StaticModInt
@@ -15,41 +15,41 @@ data:
     title: other/type_traits.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/point_set_range_composite
+    PROBLEM: https://judge.yosupo.jp/problem/matrix_product
     links:
-    - https://judge.yosupo.jp/problem/point_set_range_composite
-  bundledCode: "#line 1 \"test/yosupo/point_set_range_composite.test.cpp\"\n#define\
-    \ PROBLEM \"https://judge.yosupo.jp/problem/point_set_range_composite\"\n#line\
-    \ 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n\
-    #ifdef ONLINE_JUDGE\n#pragma GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n\
-    #pragma GCC target(\"avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC\
-    \ optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include <algorithm>\n\
-    #include <array>\n#include <bitset>\n#include <cassert>\n#include <cfloat>\n#include\
-    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
-    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
-    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
-    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
-    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
-    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
-    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
-    using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
-    \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
-    constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON * 10;\n\
-    constexpr double PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\n\
-    class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>>\
-    \ {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n\
-    #else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\t\
-    x = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >>\
-    \ 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x\
-    \ & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x >> 16\
-    \ & 0x0000ffff);\n}\ntemplate <class F>\ninline constexpr decltype(auto) lambda_fix(F&&\
-    \ f) {\n\treturn [f = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
+    - https://judge.yosupo.jp/problem/matrix_product
+  bundledCode: "#line 1 \"test/yosupo/matrix_product.test.cpp\"\n#define PROBLEM \"\
+    https://judge.yosupo.jp/problem/matrix_product\"\n#line 2 \"other/template.hpp\"\
+    \n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma\
+    \ GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\"\
+    )\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
+    )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
+    \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n#include\
+    \ <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n\
+    #include <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
+    \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
+    #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
+    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
+    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
+    using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
+    using ulint = unsigned long long;\nusing IP = std::pair<int, int>;\nusing LP =\
+    \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
+    \ = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON * 10;\nconstexpr double\
+    \ PI = 3.141592653589793238462643383279;\n\ntemplate <class T>\nclass prique :\
+    \ public std::priority_queue<T, std::vector<T>, std::greater<T>> {\n};\nint popcount(uint\
+    \ x) {\n#if __cplusplus >= 202002L\n\treturn std::popcount(x);\n#else\n#ifndef\
+    \ __clang__\n\treturn __builtin_popcount(x);\n#endif\n#endif\n\tx = (x & 0x55555555)\
+    \ + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333) + (x >> 2 & 0x33333333);\n\t\
+    x = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\tx = (x & 0x00ff00ff) + (x >>\
+    \ 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x >> 16 & 0x0000ffff);\n}\ntemplate\
+    \ <class F>\ninline constexpr decltype(auto) lambda_fix(F&& f) {\n\treturn [f\
+    \ = std::forward<F>(f)](auto&&... args) {\n\t\treturn f(f, std::forward<decltype(args)>(args)...);\n\
     \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
     return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
     \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\
@@ -163,90 +163,99 @@ data:
     \t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate\
     \ <uint modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
     \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n\
-    \ */\n#line 3 \"data-structure/SegTree.hpp\"\ntemplate <class T, T (*nodef)(const\
-    \ T&, const T&)>\nclass SegTree {\n  protected:\n\tunsigned int n = 1, rank =\
-    \ 0;\n\tstd::vector<T> node;\n\tT ident;\n\n  public:\n\tSegTree(T e_) : ident(e_)\
-    \ {}\n\tSegTree(unsigned int m, T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\
-    \tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\t}\n\tSegTree(unsigned\
-    \ int m, T init, T e_) : ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\
-    \trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n;\
-    \ i < 2 * n; i++) node[i] = init;\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\
-    \t\t\tnode[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\ttemplate <class\
-    \ U>\n\tSegTree(const std::vector<U>& initvec, T e_) : ident(e_) {\n\t\tunsigned\
-    \ int m = initvec.size();\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\
-    \t\t}\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n;\
-    \ i++) {\n\t\t\tif (i - n < m) node[i] = initvec[i - n];\n\t\t}\n\t\tfor (unsigned\
-    \ int i = n - 1; i > 0; i--)\n\t\t\tnode[i] = nodef(node[i << 1], node[i << 1\
-    \ | 1]);\n\t}\n\tvoid update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\t\
-    while (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2 *\
-    \ i + 1]);\n\t\t}\n\t}\n\tT query(int l, int r) const {\n\t\tl += n;\n\t\tr +=\
-    \ n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls\
-    \ = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\t\
-    l >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\tconst T& operator[](const\
-    \ int& x) const { return node[n + x]; }\n\tT queryForAll() const { return node[1];\
-    \ }\n\n  private:\n\ttemplate <class F>\n\tint max_right(int st, F& check, T&\
-    \ acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc,\
-    \ node[k]);\n\t\t\treturn check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r)\
-    \ >> 1;\n\t\tif (m <= st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\
-    \t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\
-    \t\t\treturn -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\
-    \t\tif (vl != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) |\
-    \ 1, m, r);\n\t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F\
-    \ check) const {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1,\
-    \ 0, n);\n\t}\n\ttemplate <bool (*check)(const T&)>\n\tint max_right(int st) const\
-    \ {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n\
-    };\nnamespace {\n\tlint RSQ_nodef(const lint& lhs, const lint& rhs) { return lhs\
-    \ + rhs; }\n\tlint RMiQ_nodef(const lint& lhs, const lint& rhs) {\n\t\treturn\
-    \ std::min(lhs, rhs);\n\t}\n\tlint RMaQ_nodef(const lint& lhs, const lint& rhs)\
-    \ {\n\t\treturn std::max(lhs, rhs);\n\t}\n}  // namespace\n\nclass RSQ : public\
-    \ SegTree<lint, RSQ_nodef> {\n\tusing Base = SegTree<lint, RSQ_nodef>;\n\n  public:\n\
-    \ttemplate <class... Args>\n\tRSQ(Args&&... args) : Base(std::forward<Args>(args)...,\
-    \ 0) {}\n};\nclass RMiQ : public SegTree<lint, RMiQ_nodef> {\n\tusing Base = SegTree<lint,\
-    \ RMiQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMiQ(Args&&... args)\
-    \ : Base(std::forward<Args>(args)..., LINF) {}\n};\nclass RMaQ : public SegTree<lint,\
-    \ RMaQ_nodef> {\n\tusing Base = SegTree<lint, RMaQ_nodef>;\n\n  public:\n\ttemplate\
-    \ <class... Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)...,\
-    \ -LINF) {}\n};\n\n/**\n * @title Segment Tree\n */\n#line 5 \"test/yosupo/point_set_range_composite.test.cpp\"\
-    \nusing ModInt = StaticModInt<998244353>;\nusing MP = std::pair<ModInt, ModInt>;\n\
-    MP nodef(const MP& lhs, const MP& rhs) {\n\treturn {lhs.first * rhs.first, lhs.second\
-    \ * rhs.first + rhs.second};\n}\nclass MySeg : public SegTree<MP, nodef> {\n\t\
-    using Base = SegTree<MP, nodef>;\n\n  public:\n\tMySeg(int n) : Base(n, MP{0,\
-    \ 0}, MP{1, 0}) {}\n};\nint n, q;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\t\
-    MySeg st(n);\n\trep(i, n) {\n\t\tint a, b;\n\t\tscanf(\"%d%d\", &a, &b);\n\t\t\
-    st.update(i, {a, b});\n\t}\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\
-    \t\tif (t == 0) {\n\t\t\tint p, c, d;\n\t\t\tscanf(\"%d%d%d\", &p, &c, &d);\n\t\
-    \t\tst.update(p, {c, d});\n\t\t} else {\n\t\t\tint l, r, x;\n\t\t\tscanf(\"%d%d%d\"\
-    , &l, &r, &x);\n\t\t\tauto p = st.query(l, r);\n\t\t\tprintf(\"%d\\n\", p.first\
-    \ * x + p.second);\n\t\t}\n\t}\n\treturn 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_set_range_composite\"\
-    \n#include \"../../math/StaticModInt.hpp\"\n#include \"../../data-structure/SegTree.hpp\"\
-    \n#include \"../../other/template.hpp\"\nusing ModInt = StaticModInt<998244353>;\n\
-    using MP = std::pair<ModInt, ModInt>;\nMP nodef(const MP& lhs, const MP& rhs)\
-    \ {\n\treturn {lhs.first * rhs.first, lhs.second * rhs.first + rhs.second};\n\
-    }\nclass MySeg : public SegTree<MP, nodef> {\n\tusing Base = SegTree<MP, nodef>;\n\
-    \n  public:\n\tMySeg(int n) : Base(n, MP{0, 0}, MP{1, 0}) {}\n};\nint n, q;\n\
-    int main() {\n\tscanf(\"%d%d\", &n, &q);\n\tMySeg st(n);\n\trep(i, n) {\n\t\t\
-    int a, b;\n\t\tscanf(\"%d%d\", &a, &b);\n\t\tst.update(i, {a, b});\n\t}\n\trep(i,\
-    \ q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint p, c,\
-    \ d;\n\t\t\tscanf(\"%d%d%d\", &p, &c, &d);\n\t\t\tst.update(p, {c, d});\n\t\t\
-    } else {\n\t\t\tint l, r, x;\n\t\t\tscanf(\"%d%d%d\", &l, &r, &x);\n\t\t\tauto\
-    \ p = st.query(l, r);\n\t\t\tprintf(\"%d\\n\", p.first * x + p.second);\n\t\t\
-    }\n\t}\n\treturn 0;\n}"
+    \ */\n#line 3 \"math/Matrix.hpp\"\n\ntemplate <class T, std::enable_if_t<std::is_same_v<decltype(T()\
+    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tnullptr_t> = nullptr>\nclass Matrix {\n  protected:\n\
+    \tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\tMatrix() =\
+    \ default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
+    \ {}\n\tstd::vector<T>& operator[](uint idx) { return elems[idx]; }\n\tconst std::vector<T>&\
+    \ operator[](uint idx) const { return elems[idx]; }\n\tdecltype(elems)& data()\
+    \ { return elems; }\n\tconst decltype(elems)& data() const { return elems; }\n\
+    \n\tvoid resize(int N_, int M_) {\n\t\telems.resize(N_);\n\t\trep(i, N_) elems[i].resize(M_);\n\
+    \t}\n\n\tMatrix operator*(Matrix rhs) const {\n\t\tMatrix<T> res(N, rhs.M);\n\t\
+    \trep(i, N) rep(j, M) rep(k, rhs.M) res[i][k] +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\
+    \t\treturn res;\n\t}\n};\n\ntemplate <class T>\nclass SquareMatrix : public Matrix<T>\
+    \ {\n\tusing Matrix<T>::N;\n\tusing Matrix<T>::Matrix;\n\tusing Matrix<T>::elems;\n\
+    \n  public:\n\tSquareMatrix(uint N_) : Matrix<T>(N_, N_) {}\n\tSquareMatrix<T>&\
+    \ operator=(const Matrix<T>& rhs) {\n\t\telems = rhs.data();\n\t\treturn *this;\n\
+    \t}\n\tSquareMatrix<T>& operator=(Matrix<T>&& rhs) {\n\t\telems = std::move(rhs.data());\n\
+    \t\treturn *this;\n\t}\n\tSquareMatrix<T> operator*=(const SquareMatrix<T>& rhs)\
+    \ {\n\t\t*this = *this * rhs;\n\t\treturn *this;\n\t}\n\tSquareMatrix<T> pow(lint\
+    \ p) const {\n\t\tSquareMatrix<T> res{N}, memo = *this;\n\t\trep(i, N) res[i][i]\
+    \ = 1;\n\t\twhile (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\t\
+    memo *= memo;\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const\
+    \ {\n\t\tSquareMatrix<T> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\t\
+    if (tmp[i][i] == 0) {\n\t\t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\t\tif\
+    \ (tmp[j][i]) {\n\t\t\t\t\t\tstd::swap(tmp[i], tmp[j]);\n\t\t\t\t\t\tres = -res;\n\
+    \t\t\t\t\t\tbreak;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tres *= tmp[i][i];\n\
+    \t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\tT inv = T(1) / tmp[i][i];\n\t\
+    \t\t\tfor (int k = i + 1; k < N; k++) {\n\t\t\t\t\ttmp[j][k] -= tmp[j][i] * inv\
+    \ * tmp[i][k];\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\ntemplate\
+    \ <class T, uint N, uint M>\nclass FixedMatrix {\n  protected:\n\tstd::array<std::array<T,\
+    \ M>, N> elems;\n\n  public:\n\tconstexpr FixedMatrix() { rep(i, N) elems[i].fill(0);\
+    \ }\n\tconstexpr FixedMatrix(std::initializer_list<T> init) {\n\t\tauto ite =\
+    \ init.begin();\n\t\trep(i, N) rep(j, M) elems[i][j] = *ite++;\n\t}\n\tconstexpr\
+    \ FixedMatrix(const FixedMatrix<T, N, M>& rhs) {\n\t\telems = rhs.elems;\n\t}\n\
+    \tconstexpr FixedMatrix(FixedMatrix<T, N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\
+    \t}\n\tconstexpr std::array<T, N>& operator[](uint idx) { return elems[idx]; }\n\
+    \tconstexpr const std::array<T, N>& operator[](uint idx) const {\n\t\treturn elems[idx];\n\
+    \t}\n\tconstexpr decltype(elems)& data() { return elems; }\n\tconstexpr const\
+    \ decltype(elems)& data() const { return elems; }\n\n\tconstexpr FixedMatrix<T,\
+    \ N, M> operator=(const FixedMatrix<T, N, M>& rhs) {\n\t\telems = rhs.elems;\n\
+    \t\treturn *this;\n\t}\n\tconstexpr FixedMatrix<T, N, M> operator=(FixedMatrix<T,\
+    \ N, M>&& rhs) {\n\t\telems = std::move(rhs.elems);\n\t\treturn *this;\n\t}\n\n\
+    \tconstexpr FixedMatrix<T, N, M> operator+=(const FixedMatrix<T, N, M>& rhs) {\n\
+    \t\trep(i, N) rep(j, M) elems[i][j] += rhs.elems[i][j];\n\t\treturn *this;\n\t\
+    }\n\n\tconstexpr FixedMatrix<T, N, M> operator+(\n\t\tconst FixedMatrix<T, N,\
+    \ M>& rhs) const {\n\t\tFixedMatrix<T, N, M> res = *this;\n\t\treturn res += rhs;\n\
+    \t}\n\n\ttemplate <uint L>\n\tconstexpr FixedMatrix<T, N, L> operator*(\n\t\t\
+    const FixedMatrix<T, M, L>& rhs) const {\n\t\tFixedMatrix<T, N, L> res;\n\t\t\
+    rep(i, N) rep(j, M) rep(k, L) res[i][k] +=\n\t\t\telems[i][j] * rhs.elems[j][k];\n\
+    \t\treturn res;\n\t}\n};\n\ntemplate <class T, uint N>\nclass FixedSquareMatrix\
+    \ : public FixedMatrix<T, N, N> {\n\tusing FixedMatrix<T, N, N>::FixedMatrix;\n\
+    \tusing FixedMatrix<T, N, N>::elems;\n\n  public:\n\tusing FixedMatrix<T, N, N>::operator*;\n\
+    \tconstexpr FixedSquareMatrix(const FixedMatrix<T, N, N>& obj)\n\t\t: FixedMatrix<T,\
+    \ N, N>(obj) {}\n\tconstexpr FixedSquareMatrix(FixedMatrix<T, N, N>&& obj)\n\t\
+    \t: FixedMatrix<T, N, N>(obj) {}\n\n\tconstexpr FixedSquareMatrix<T, N>& operator*=(\n\
+    \t\tconst FixedSquareMatrix<T, N>& rhs) {\n\t\t*this = *this * rhs;\n\t\treturn\
+    \ *this;\n\t}\n\n\tconstexpr FixedSquareMatrix<T, N> pow(lint p) const {\n\t\t\
+    FixedSquareMatrix<T, N> res, memo = *this;\n\t\trep(i, N) res[i][i] = 1;\n\t\t\
+    while (p) {\n\t\t\tif (p & 1) res *= memo;\n\t\t\tp >>= 1;\n\t\t\tmemo *= memo;\n\
+    \t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr T determinant() const {\n\t\tFixedSquareMatrix<T,\
+    \ N> tmp = *this;\n\t\tT res(1);\n\t\trep(i, N) {\n\t\t\tif (tmp[i][i] == 0) {\n\
+    \t\t\t\tfor (int j = i + 1; j < N; j++) {\n\t\t\t\t\tif (tmp[j][i]) {\n\t\t\t\t\
+    \t\tstd::swap(tmp[i], tmp[j]);\n\t\t\t\t\t\tres = -res;\n\t\t\t\t\t\tbreak;\n\t\
+    \t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tres *= tmp[i][i];\n\t\t\tfor (int j = i +\
+    \ 1; j < N; j++) {\n\t\t\t\tT inv = T(1) / tmp[i][i];\n\t\t\t\tfor (int k = i\
+    \ + 1; k < N; k++) {\n\t\t\t\t\ttmp[j][k] -= tmp[j][i] * inv * tmp[i][k];\n\t\t\
+    \t\t}\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static FixedSquareMatrix<T,\
+    \ N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\
+    \t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */\n#line 5 \"test/yosupo/matrix_product.test.cpp\"\
+    \nusing ModInt = StaticModInt<998244353>;\nint N, M, K;\nint main() {\n\tscanf(\"\
+    %d%d%d\", &N, &M, &K);\n\tMatrix<ModInt> mat1(N, M), mat2(M, K);\n\trep(i, N)\
+    \ rep(j, M) std::cin >> mat1[i][j];\n\trep(i, M) rep(j, K) std::cin >> mat2[i][j];\n\
+    \tauto res = mat1 * mat2;\n\trep(i, N) printArray(res[i]);\n\treturn 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_product\"\n#include\
+    \ \"../../other/template.hpp\"\n#include \"../../math/StaticModInt.hpp\"\n#include\
+    \ \"../../math/Matrix.hpp\"\nusing ModInt = StaticModInt<998244353>;\nint N, M,\
+    \ K;\nint main() {\n\tscanf(\"%d%d%d\", &N, &M, &K);\n\tMatrix<ModInt> mat1(N,\
+    \ M), mat2(M, K);\n\trep(i, N) rep(j, M) std::cin >> mat1[i][j];\n\trep(i, M)\
+    \ rep(j, K) std::cin >> mat2[i][j];\n\tauto res = mat1 * mat2;\n\trep(i, N) printArray(res[i]);\n\
+    \treturn 0;\n}"
   dependsOn:
-  - math/StaticModInt.hpp
   - other/template.hpp
+  - math/StaticModInt.hpp
   - other/type_traits.hpp
-  - data-structure/SegTree.hpp
+  - math/Matrix.hpp
   isVerificationFile: true
-  path: test/yosupo/point_set_range_composite.test.cpp
+  path: test/yosupo/matrix_product.test.cpp
   requiredBy: []
   timestamp: '2021-07-04 16:12:00+09:00'
-  verificationStatus: TEST_ACCEPTED
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: test/yosupo/point_set_range_composite.test.cpp
+documentation_of: test/yosupo/matrix_product.test.cpp
 layout: document
 redirect_from:
-- /verify/test/yosupo/point_set_range_composite.test.cpp
-- /verify/test/yosupo/point_set_range_composite.test.cpp.html
-title: test/yosupo/point_set_range_composite.test.cpp
+- /verify/test/yosupo/matrix_product.test.cpp
+- /verify/test/yosupo/matrix_product.test.cpp.html
+title: test/yosupo/matrix_product.test.cpp
 ---
