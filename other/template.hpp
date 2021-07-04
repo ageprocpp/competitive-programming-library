@@ -53,7 +53,7 @@ using LP = std::pair<lint, lint>;
 
 constexpr int INF = INT_MAX / 2;
 constexpr lint LINF = LLONG_MAX / 2;
-constexpr double eps = DBL_EPSILON;
+constexpr double eps = DBL_EPSILON * 10;
 constexpr double PI = 3.141592653589793238462643383279;
 
 template <class T>

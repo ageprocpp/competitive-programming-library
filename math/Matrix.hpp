@@ -62,7 +62,6 @@ class SquareMatrix : public Matrix<T> {
 
 	constexpr T determinant() const {
 		SquareMatrix<T> tmp = *this;
-
 		T res(1);
 		rep(i, N) {
 			if (tmp[i][i] == 0) {
@@ -172,11 +171,23 @@ class FixedSquareMatrix : public FixedMatrix<T, N, N> {
 	constexpr T determinant() const {
 		FixedSquareMatrix<T, N> tmp = *this;
 		T res(1);
-		rep(i, N - 1) {
-			for (int j = i + 1; j < N; j++) {
-				rep(k, N) tmp[j][k] -= tmp[j][i] / tmp[i][i] * tmp[i][k];
+		rep(i, N) {
+			if (tmp[i][i] == 0) {
+				for (int j = i + 1; j < N; j++) {
+					if (tmp[j][i]) {
+						std::swap(tmp[i], tmp[j]);
+						res = -res;
+						break;
+					}
+				}
 			}
 			res *= tmp[i][i];
+			for (int j = i + 1; j < N; j++) {
+				T inv = T(1) / tmp[i][i];
+				for (int k = i + 1; k < N; k++) {
+					tmp[j][k] -= tmp[j][i] * inv * tmp[i][k];
+				}
+			}
 		}
 		return res;
 	}

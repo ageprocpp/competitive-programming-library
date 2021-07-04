@@ -21,7 +21,7 @@ class StaticModInt : StaticModInt__Base {
 			  std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,
 							   std::nullptr_t> = nullptr>
 	constexpr StaticModInt(T value = 0) : value(value) {
-		this->value %= modulo;
+		this->value %= int(modulo);
 		if (this->value < 0) this->value += modulo;
 	}
 	inline constexpr StaticModInt inv() const {

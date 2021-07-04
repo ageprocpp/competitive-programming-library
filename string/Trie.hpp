@@ -86,6 +86,21 @@ class BinaryTrie : public Trie<2, '0'> {
 		}
 		return res;
 	}
+	int xor_max(int n) const {
+		int node_id = 0, res = 0;
+		std::string binary = std::bitset<bit>(n).to_string();
+		rep(i, bit) {
+			int c = binary[i] - '0';
+			if (nodes[node_id].next[1 - c] == -1 ||
+				nodes[nodes[node_id].next[1 - c]].cnt == 0) {
+				node_id = nodes[node_id].next[c];
+			} else {
+				res += 1 << (bit - i - 1);
+				node_id = nodes[node_id].next[1 - c];
+			}
+		}
+		return res;
+	}
 };
 
 /**
