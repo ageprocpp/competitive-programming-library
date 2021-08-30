@@ -14,7 +14,7 @@ int main() {
 	printf("%d\n", vec.size());
 	rep(i, vec.size()) {
 		printf("%d ", vec[i].size());
-		printArray(vec[i]);
+		std::cout << vec[i] << std::endl;
 	}
 	return 0;
 }

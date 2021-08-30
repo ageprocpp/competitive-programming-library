@@ -48,6 +48,10 @@ class ModCombinatorics<T> : public Combinatorics<T> {
 		append(a);
 		return factorial[a];
 	}
+	static T get_fact_inv(int a) noexcept {
+		append(a);
+		return inv[a];
+	}
 	static T get_comb(int a, int b) noexcept {
 		append(a);
 		return factorial[a] * inv[a - b] * inv[b];

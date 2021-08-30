@@ -35,31 +35,19 @@ class IntervalSegTree : public SegTree<T, nodef> {
 
   public:
 	IntervalSegTree(unsigned int m, T e_) : Base(m, T(), e_) {
-		lazy.resize(2 * n);
-		lazyflag.resize(2 * n);
-		width.resize(2 * n);
+		lazy.resize(2 * n), lazyflag.resize(2 * n), width.resize(2 * n);
 		width[1] = n;
-		for (unsigned int i = 2; i < 2 * n; i++) {
-			width[i] = width[i >> 1] >> 1;
-		}
+		for (unsigned int i = 2; i < 2 * n; i++) width[i] = width[i >> 1] >> 1;
 	}
 	IntervalSegTree(unsigned int m, T init, T e_) : Base(m, init, e_) {
-		lazy.resize(2 * n);
-		lazyflag.resize(2 * n);
-		width.resize(2 * n);
+		lazy.resize(2 * n), lazyflag.resize(2 * n), width.resize(2 * n);
 		width[1] = n;
-		for (unsigned int i = 2; i < 2 * n; i++) {
-			width[i] = width[i >> 1] >> 1;
-		}
+		for (unsigned int i = 2; i < 2 * n; i++) width[i] = width[i >> 1] >> 1;
 	}
 	IntervalSegTree(const std::vector<T>& initvec, T e_) : Base(initvec, e_) {
-		lazy.resize(2 * n);
-		lazyflag.resize(2 * n);
-		width.resize(2 * n);
-		width[1] = n;
-		for (unsigned int i = 2; i < 2 * n; i++) {
-			width[i] = width[i >> 1] >> 1;
-		}
+		lazy.resize(2 * n), lazyflag.resize(2 * n), width.resize(2 * n),
+			width[1] = n;
+		for (unsigned int i = 2; i < 2 * n; i++) width[i] = width[i >> 1] >> 1;
 	}
 	void update(int i, U x) {
 		i += n;
@@ -85,10 +73,8 @@ class IntervalSegTree : public SegTree<T, nodef> {
 				updf(node[l], x, width[l]);
 				if (lazyflag[l])
 					lazyf(lazy[l], x);
-				else {
-					lazyflag[l] = true;
-					lazy[l] = x;
-				}
+				else
+					lazyflag[l] = true, lazy[l] = x;
 				l++;
 			}
 			if (r & 1) {
@@ -96,10 +82,8 @@ class IntervalSegTree : public SegTree<T, nodef> {
 				updf(node[r], x, width[r]);
 				if (lazyflag[r])
 					lazyf(lazy[r], x);
-				else {
-					lazyflag[r] = true;
-					lazy[r] = x;
-				}
+				else
+					lazyflag[r] = true, lazy[r] = x;
 			}
 			l >>= 1, r >>= 1;
 		}
@@ -116,6 +100,10 @@ class IntervalSegTree : public SegTree<T, nodef> {
 			l >>= 1, r >>= 1;
 		}
 		return nodef(ls, rs);
+	}
+	T query_all() {
+		eval(1);
+		return node[1];
 	}
 	T operator[](const int& x) {
 		eval(n + x);
@@ -183,91 +171,146 @@ class IntervalSegTree : public SegTree<T, nodef> {
 	}
 };
 namespace {
-	lint RAQRSQ_nodef(const lint& a, const lint& b) { return a + b; }
-	void RAQRSQ_lazyf(lint& a, const lint& b) { a += b; }
-	void RAQRSQ_updf(lint& a, const lint& b, const unsigned int& width) {
+	template <class T>
+	T RAQRSQ_nodef(const T& a, const T& b) {
+		return a + b;
+	}
+	template <class T>
+	void RAQRSQ_lazyf(T& a, const T& b) {
+		a += b;
+	}
+	template <class T>
+	void RAQRSQ_updf(T& a, const T& b, const unsigned int& width) {
 		a += width * b;
 	}
-	lint RAQRMiQ_nodef(const lint& a, const lint& b) { return std::min(a, b); }
-	void RAQRMiQ_lazyf(lint& a, const lint& b) { a += b; }
-	void RAQRMiQ_updf(lint& a, const lint& b, const unsigned int& width) {
+
+	template <class T>
+	T RAQRMiQ_nodef(const T& a, const T& b) {
+		return std::min(a, b);
+	}
+	template <class T>
+	void RAQRMiQ_lazyf(T& a, const T& b) {
 		a += b;
 	}
-	lint RAQRMaQ_nodef(const lint& a, const lint& b) { return std::max(a, b); }
-	void RAQRMaQ_lazyf(lint& a, const lint& b) { a += b; }
-	void RAQRMaQ_updf(lint& a, const lint& b, const unsigned int& width) {
+	template <class T>
+	void RAQRMiQ_updf(T& a, const T& b, const unsigned int& width) {
 		a += b;
 	}
-	lint RUQRSQ_nodef(const lint& a, const lint& b) { return a + b; }
-	void RUQRSQ_lazyf(lint& a, const lint& b) { a = b; }
-	void RUQRSQ_updf(lint& a, const lint& b, const unsigned int& width) {
-		a = width * b;
+
+	template <class T>
+	T RAQRMaQ_nodef(const T& a, const T& b) {
+		return std::max(a, b);
 	}
-	lint RUQRMiQ_nodef(const lint& a, const lint& b) { return std::min(a, b); }
-	void RUQRMiQ_lazyf(lint& a, const lint& b) { a = b; }
-	void RUQRMiQ_updf(lint& a, const lint& b, const unsigned int& width) {
+	template <class T>
+	void RAQRMaQ_lazyf(T& a, const T& b) {
+		a += b;
+	}
+	template <class T>
+	void RAQRMaQ_updf(T& a, const T& b, const unsigned int& width) {
+		a += b;
+	}
+
+	template <class T>
+	T RUQRSQ_nodef(const T& a, const T& b) {
+		return a + b;
+	}
+	template <class T>
+	void RUQRSQ_lazyf(T& a, const T& b) {
 		a = b;
 	}
-	lint RUQRMaQ_nodef(const lint& a, const lint& b) { return std::max(a, b); }
-	void RUQRMaQ_lazyf(lint& a, const lint& b) { a = b; }
-	void RUQRMaQ_updf(lint& a, const lint& b, const unsigned int& width) {
+	template <class T>
+	void RUQRSQ_updf(T& a, const T& b, const unsigned int& width) {
+		a = width * b;
+	}
+
+	template <class T>
+	T RUQRMiQ_nodef(const T& a, const T& b) {
+		return std::min(a, b);
+	}
+	template <class T>
+	void RUQRMiQ_lazyf(T& a, const T& b) {
+		a = b;
+	}
+	template <class T>
+	void RUQRMiQ_updf(T& a, const T& b, const unsigned int& width) {
+		a = b;
+	}
+
+	template <class T>
+	T RUQRMaQ_nodef(const T& a, const T& b) {
+		return std::max(a, b);
+	}
+	template <class T>
+	void RUQRMaQ_lazyf(T& a, const T& b) {
+		a = b;
+	}
+	template <class T>
+	void RUQRMaQ_updf(T& a, const T& b, const unsigned int& width) {
 		a = b;
 	}
 }  // namespace
 
-class RAQRSQ : public IntervalSegTree<lint, lint, RAQRSQ_nodef, RAQRSQ_lazyf,
-									  RAQRSQ_updf> {
-	using Base =
-		IntervalSegTree<lint, lint, RAQRSQ_nodef, RAQRSQ_lazyf, RAQRSQ_updf>;
+template <class T>
+class RAQRSQ
+	: public IntervalSegTree<T, T, RAQRSQ_nodef, RAQRSQ_lazyf, RAQRSQ_updf> {
+	using Base = IntervalSegTree<T, T, RAQRSQ_nodef, RAQRSQ_lazyf, RAQRSQ_updf>;
 
   public:
 	template <class... Args>
 	RAQRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}
 };
-class RAQRMiQ : public IntervalSegTree<lint, lint, RAQRMiQ_nodef, RAQRMiQ_lazyf,
-									   RAQRMiQ_updf> {
+template <class T>
+class RAQRMiQ
+	: public IntervalSegTree<T, T, RAQRMiQ_nodef, RAQRMiQ_lazyf, RAQRMiQ_updf> {
 	using Base =
-		IntervalSegTree<lint, lint, RAQRMiQ_nodef, RAQRMiQ_lazyf, RAQRMiQ_updf>;
+		IntervalSegTree<T, T, RAQRMiQ_nodef, RAQRMiQ_lazyf, RAQRMiQ_updf>;
 
   public:
 	template <class... Args>
-	RAQRMiQ(Args&&... args) : Base(std::forward<Args>(args)..., LINF) {}
+	RAQRMiQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}
 };
-class RAQRMaQ : public IntervalSegTree<lint, lint, RAQRMaQ_nodef, RAQRMaQ_lazyf,
-									   RAQRMaQ_updf> {
+template <class T>
+class RAQRMaQ
+	: public IntervalSegTree<T, T, RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf> {
 	using Base =
-		IntervalSegTree<lint, lint, RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf>;
+		IntervalSegTree<T, T, RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf>;
 
   public:
 	template <class... Args>
-	RAQRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}
+	RAQRMaQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
 };
-class RUQRSQ : public IntervalSegTree<lint, lint, RUQRSQ_nodef, RUQRSQ_lazyf,
-									  RUQRSQ_updf> {
-	using Base =
-		IntervalSegTree<lint, lint, RUQRSQ_nodef, RUQRSQ_lazyf, RUQRSQ_updf>;
+template <class T>
+class RUQRSQ
+	: public IntervalSegTree<T, T, RUQRSQ_nodef, RUQRSQ_lazyf, RUQRSQ_updf> {
+	using Base = IntervalSegTree<T, T, RUQRSQ_nodef, RUQRSQ_lazyf, RUQRSQ_updf>;
 
   public:
 	template <class... Args>
 	RUQRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}
 };
-class RUQRMiQ : public IntervalSegTree<lint, lint, RUQRMiQ_nodef, RUQRMiQ_lazyf,
-									   RUQRMiQ_updf> {
+template <class T>
+class RUQRMiQ
+	: public IntervalSegTree<T, T, RUQRMiQ_nodef, RUQRMiQ_lazyf, RUQRMiQ_updf> {
 	using Base =
-		IntervalSegTree<lint, lint, RUQRMiQ_nodef, RUQRMiQ_lazyf, RUQRMiQ_updf>;
+		IntervalSegTree<T, T, RUQRMiQ_nodef, RUQRMiQ_lazyf, RUQRMiQ_updf>;
 
   public:
 	template <class... Args>
-	RUQRMiQ(Args&&... args) : Base(std::forward<Args>(args)..., LINF) {}
+	RUQRMiQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}
 };
-class RUQRMaQ : public IntervalSegTree<lint, lint, RUQRMaQ_nodef, RUQRMaQ_lazyf,
-									   RUQRMaQ_updf> {
+template <class T>
+class RUQRMaQ
+	: public IntervalSegTree<T, T, RUQRMaQ_nodef, RUQRMaQ_lazyf, RUQRMaQ_updf> {
 	using Base =
-		IntervalSegTree<lint, lint, RUQRMaQ_nodef, RUQRMaQ_lazyf, RUQRMaQ_updf>;
+		IntervalSegTree<T, T, RUQRMaQ_nodef, RUQRMaQ_lazyf, RUQRMaQ_updf>;
 
   public:
 	template <class... Args>
-	RUQRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}
+	RUQRMaQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
 };
 
 /**

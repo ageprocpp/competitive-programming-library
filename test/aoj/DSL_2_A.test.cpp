@@ -4,7 +4,7 @@
 int n, q;
 int main() {
 	scanf("%d%d", &n, &q);
-	RMiQ st(n, INT_MAX);
+	RMiQ<int> st(n, INT_MAX);
 	rep(i, q) {
 		int com, x, y;
 		scanf("%d%d%d", &com, &x, &y);

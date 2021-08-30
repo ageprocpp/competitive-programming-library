@@ -2,7 +2,11 @@
 #define _CRT_SECURE_NO_WARNINGS
 #ifndef __clang__
 #ifdef ONLINE_JUDGE
+#ifdef _WIN64
+#pragma GCC target("avx2")
+#else
 #pragma GCC target("avx512f")
+#endif
 #elif defined EVAL
 #else
 #pragma GCC target("avx2")
@@ -39,8 +43,8 @@
 #include <utility>
 #include <vector>
 
-#define rep(i, n) for (int i = 0; i < int(n); i++)
-#define REP(i, n) for (int i = 1; i <= int(n); i++)
+#define rep(i, n) for (int i = 0; i < lint(n); i++)
+#define REP(i, n) for (int i = 1; i <= lint(n); i++)
 #define all(V) V.begin(), V.end()
 
 using i128 = __int128_t;
@@ -96,6 +100,40 @@ template <class T, class U>
 std::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {
 	return ost << x.first << " " << x.second;
 }
+template <
+	class Container,
+	std::enable_if_t<std::negation_v<std::is_same<Container, std::string>>,
+					 std::nullptr_t> = nullptr>
+auto operator>>(std::istream& ist, Container& cont)
+	-> decltype(typename Container::iterator(), std::cin)& {
+	std::vector<typename Container::value_type> tmp;
+	while (true) {
+		typename Container::value_type t;
+		ist >> t;
+		tmp.emplace_back(t);
+		if (getchar() == '\n') break;
+	}
+	cont = Container(std::move(tmp));
+	return ist;
+}
+template <class Container,
+		  std::enable_if_t<!std::is_same_v<Container, std::string>,
+						   std::nullptr_t> = nullptr>
+auto operator<<(std::ostream& ost, const Container& cont)
+	-> decltype(typename Container::iterator(), std::cout)& {
+	for (auto it = cont.begin(); it != cont.end(); it++) {
+		if (it != cont.begin()) ost << ' ';
+		ost << *it;
+	}
+	return ost;
+}
+template <class Container>
+auto sum(const Container& cont)
+	-> decltype(typename Container::iterator(), 0LL) {
+	lint res = 0;
+	for (auto it = cont.begin(); it != cont.end(); it++) res += *it;
+	return res;
+}
 template <class T, class U>
 constexpr inline bool chmax(T& lhs, const U& rhs) noexcept {
 	if (lhs < rhs) {
@@ -143,30 +181,10 @@ constexpr lint modpow(lint a, lint b, lint m) noexcept {
 	a %= m;
 	lint res(1);
 	while (b) {
-		if (b & 1) {
-			res *= a;
-			res %= m;
-		}
-		a *= a;
-		a %= m;
-		b >>= 1;
+		if (b & 1) res *= a, res %= m;
+		a *= a, a %= m, b >>= 1;
 	}
 	return res;
-}
-template <class T>
-constexpr void printArray(const std::vector<T>& vec, char split = ' ') {
-	rep(i, vec.size()) {
-		std::cout << vec[i];
-		std::cout << (i == (int)vec.size() - 1 ? '\n' : split);
-	}
-}
-template <class InputIter>
-constexpr void printArray(InputIter l, InputIter r, char split = ' ') {
-	auto rprev = std::prev(r);
-	for (auto i = l; i != r; i++) {
-		std::cout << *i;
-		std::cout << (i == rprev ? '\n' : split);
-	}
 }
 LP extGcd(lint a, lint b) noexcept {
 	if (b == 0) return {1, 0};

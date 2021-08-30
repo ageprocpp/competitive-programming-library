@@ -16,5 +16,5 @@ int main() {
 	auto res = tree.DiameterPath();
 	printf("%lld %d\n", res.second, res.first.size());
 	std::for_each(all(res.first), [](int &n) { n--; });
-	printArray(res.first);
+	std::cout << res.first << std::endl;
 }

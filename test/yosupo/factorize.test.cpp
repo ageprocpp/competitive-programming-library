@@ -11,8 +11,7 @@ int main() {
 			std::cout << 0 << std::endl;
 		else {
 			std::vector<lint> res = FastFactorize::factorize(a);
-			std::cout << res.size() << " ";
-			printArray(res);
+			std::cout << res.size() << ' ' << res << std::endl;
 		}
 	}
 }

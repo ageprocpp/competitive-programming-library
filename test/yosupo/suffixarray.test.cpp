@@ -7,5 +7,5 @@ int main() {
 	SuffixArray sa(s);
 	std::vector<int> vec = sa;
 	vec.erase(vec.begin());
-	printArray(vec);
+	std::cout << vec << std::endl;
 }

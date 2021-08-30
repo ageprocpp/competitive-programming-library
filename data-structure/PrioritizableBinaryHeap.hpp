@@ -43,12 +43,14 @@ class PrioritizableBinaryHeap {
 	[[nodiscard]] bool empty() const noexcept { return heap.size() == 1; }
 	[[nodiscard]] size_t size() const noexcept { return heap.size() - 1; }
 	[[nodiscard]] auto top() const noexcept { return heap[1]; }
-	void pop() {
+	auto pop() {
+		const auto tmp = heap[1];
 		rev[heap.back().first] = 1;
 		rev[heap[1].first] = -1;
 		heap[1] = std::move(heap.back());
 		heap.pop_back();
 		down_heap();
+		return tmp;
 	}
 	void push(int id, const T& x) {
 		rev[id] = heap.size();

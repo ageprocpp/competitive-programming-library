@@ -94,35 +94,69 @@ class SegTree {
 	}
 };
 namespace {
-	lint RSQ_nodef(const lint& lhs, const lint& rhs) { return lhs + rhs; }
-	lint RMiQ_nodef(const lint& lhs, const lint& rhs) {
+	template <typename T>
+	T RSQ_nodef(const T& lhs, const T& rhs) {
+		return lhs + rhs;
+	}
+	template <typename T>
+	T RMiQ_nodef(const T& lhs, const T& rhs) {
 		return std::min(lhs, rhs);
 	}
-	lint RMaQ_nodef(const lint& lhs, const lint& rhs) {
+	template <typename T>
+	T RMaQ_nodef(const T& lhs, const T& rhs) {
 		return std::max(lhs, rhs);
 	}
 }  // namespace
 
-class RSQ : public SegTree<lint, RSQ_nodef> {
-	using Base = SegTree<lint, RSQ_nodef>;
+template <typename T>
+class RSQ : public SegTree<T, RSQ_nodef> {
+	using Base = SegTree<T, RSQ_nodef>;
 
   public:
 	template <class... Args>
 	RSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}
 };
-class RMiQ : public SegTree<lint, RMiQ_nodef> {
-	using Base = SegTree<lint, RMiQ_nodef>;
+
+template <typename T, typename U = void>
+class RMiQ : public SegTree<T, RMiQ_nodef> {
+	using Base = SegTree<T, RMiQ_nodef>;
 
   public:
 	template <class... Args>
-	RMiQ(Args&&... args) : Base(std::forward<Args>(args)..., LINF) {}
+	RMiQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}
 };
-class RMaQ : public SegTree<lint, RMaQ_nodef> {
-	using Base = SegTree<lint, RMaQ_nodef>;
+template <typename T>
+class RMiQ<
+	T, std::enable_if_t<std::numeric_limits<T>::is_specialized, std::nullptr_t>>
+	: public SegTree<T, RMiQ_nodef> {
+	using Base = SegTree<T, RMiQ_nodef>;
 
   public:
 	template <class... Args>
-	RMaQ(Args&&... args) : Base(std::forward<Args>(args)..., -LINF) {}
+	RMiQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}
+};
+
+template <typename T, typename U = void>
+class RMaQ : public SegTree<T, RMaQ_nodef> {
+	using Base = SegTree<T, RMaQ_nodef>;
+
+  public:
+	template <class... Args>
+	RMaQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
+};
+template <typename T>
+class RMaQ<
+	T, std::enable_if_t<std::numeric_limits<T>::is_specialized, std::nullptr_t>>
+	: public SegTree<T, RMaQ_nodef> {
+	using Base = SegTree<T, RMaQ_nodef>;
+
+  public:
+	template <class... Args>
+	RMaQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
 };
 
 /**

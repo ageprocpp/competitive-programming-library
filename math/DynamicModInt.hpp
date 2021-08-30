@@ -125,6 +125,13 @@ class DynamicModInt : DynamicModInt__Base {
 };
 uint DynamicModInt::modulo = 1000000007;
 
+std::istream& operator>>(std::istream& ist, DynamicModInt& x) {
+	lint a;
+	ist >> a;
+	x = a;
+	return ist;
+}
+
 /**
  * @title DynamicModInt
  */

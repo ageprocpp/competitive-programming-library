@@ -4,7 +4,7 @@
 int n, q;
 int main() {
 	scanf("%d%d", &n, &q);
-	RAQRMiQ st(n, 0);
+	RAQRMiQ<lint> st(n, 0);
 	rep(i, q) {
 		int t;
 		scanf("%d", &t);

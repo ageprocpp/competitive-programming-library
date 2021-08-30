@@ -10,6 +10,6 @@ int main() {
 	rep(i, N) rep(j, M) std::cin >> mat1[i][j];
 	rep(i, M) rep(j, K) std::cin >> mat2[i][j];
 	auto res = mat1 * mat2;
-	rep(i, N) printArray(res[i]);
+	rep(i, N) std::cout << res[i] << std::endl;
 	return 0;
 }

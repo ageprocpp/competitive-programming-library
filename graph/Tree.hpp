@@ -8,16 +8,16 @@ class Tree {
 	std::vector<std::vector<ET>> vec;
 
   public:
-	template <class T, class U>
-	Tree(int M, const std::vector<std::pair<T, U>> es) : N(M) {
+	template <class T>
+	Tree(int M, const std::vector<std::pair<T, T>> es) : N(M) {
 		vec.resize(N + 1);
 		for (const auto& e : es) {
 			vec[e.first].emplace_back(e.second, 1);
 			vec[e.second].emplace_back(e.first, 1);
 		}
 	}
-	template <class T, class U, class V>
-	Tree(int M, const std::vector<std::pair<std::pair<T, U>, V>> es) : N(M) {
+	template <class T, class U>
+	Tree(int M, const std::vector<std::pair<std::pair<T, T>, U>> es) : N(M) {
 		vec.resize(N + 1);
 		for (const auto& e : es) {
 			vec[e.first.first].emplace_back(e.first.second, e.second);

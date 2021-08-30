@@ -3,7 +3,7 @@
 #include "../other/type_traits.hpp"
 template <uint modulo>
 class StaticModInt : StaticModInt__Base {
-	std::conditional_t<(modulo > INT_MAX >> 1), lint, int> value;
+	std::conditional_t<(modulo > (INT_MAX >> 1)), lint, int> value;
 	static constexpr int inv1000000007[] = {0,		   1,		  500000004,
 											333333336, 250000002, 400000003,
 											166666668, 142857144, 125000001,
@@ -20,8 +20,7 @@ class StaticModInt : StaticModInt__Base {
 	template <class T,
 			  std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,
 							   std::nullptr_t> = nullptr>
-	constexpr StaticModInt(T value = 0) : value(value) {
-		this->value %= int(modulo);
+	constexpr StaticModInt(T value = 0) : value(value % int(modulo)) {
 		if (this->value < 0) this->value += modulo;
 	}
 	inline constexpr StaticModInt inv() const {

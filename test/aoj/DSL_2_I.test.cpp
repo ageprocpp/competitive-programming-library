@@ -4,7 +4,7 @@
 int n, q;
 int main() {
 	scanf("%d%d", &n, &q);
-	RUQRSQ st(n, 0);
+	RUQRSQ<lint> st(n, 0);
 	rep(i, q) {
 		int t;
 		scanf("%d", &t);
