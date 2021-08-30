@@ -7,13 +7,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/HeavyLightDecomposition.hpp
     title: Heavy light decomposition
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy: []

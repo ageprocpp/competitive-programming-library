@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/Matrix.hpp
     title: Matrix
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/matrix_product
@@ -172,9 +172,9 @@ data:
     \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
     \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 3\
     \ \"math/Matrix.hpp\"\n\ntemplate <class T, std::enable_if_t<std::is_same_v<decltype(T()\
-    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tnullptr_t> = nullptr>\nclass Matrix {\n  protected:\n\
-    \tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\tMatrix() =\
-    \ default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
+    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nclass Matrix {\n\
+    \  protected:\n\tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\
+    \tMatrix() = default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
     \ {}\n\tstd::vector<T>& operator[](uint idx) { return elems[idx]; }\n\tconst std::vector<T>&\
     \ operator[](uint idx) const { return elems[idx]; }\n\tdecltype(elems)& data()\
     \ { return elems; }\n\tconst decltype(elems)& data() const { return elems; }\n\
@@ -258,8 +258,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/matrix_product.test.cpp
   requiredBy: []
-  timestamp: '2021-08-31 00:37:11+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-08-31 01:09:52+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/matrix_product.test.cpp
 layout: document

@@ -104,7 +104,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: math/FloorSum.hpp
     title: FloorSum
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/Matrix.hpp
     title: Matrix
   - icon: ':warning:'
@@ -116,7 +116,7 @@ data:
   - icon: ':warning:'
     path: math/Polynomial.hpp
     title: math/Polynomial.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: math/StaticModInt.hpp
     title: StaticModInt
   - icon: ':warning:'
@@ -125,7 +125,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: other/FastIO.hpp
     title: Fast IO library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   - icon: ':warning:'
@@ -222,10 +222,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/many_aplusb.test.cpp
     title: test/yosupo/many_aplusb.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix_det.test.cpp
     title: test/yosupo/matrix_det.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix_product.test.cpp
     title: test/yosupo/matrix_product.test.cpp
   - icon: ':heavy_check_mark:'
@@ -291,9 +291,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/0789.test.cpp
     title: test/yukicoder/0789.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -515,7 +515,7 @@ data:
   - test/yosupo/zalgorithm.cpp
   - test/yosupo/discrete_logarithm_mod.cpp
   timestamp: '2021-08-31 00:37:11+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/staticrmq.test.cpp
   - test/yosupo/matrix_product.test.cpp

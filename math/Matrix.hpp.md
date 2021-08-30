@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix_det.test.cpp
     title: test/yosupo/matrix_det.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix_product.test.cpp
     title: test/yosupo/matrix_product.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Matrix
     links: []
@@ -101,9 +101,9 @@ data:
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
     math/Matrix.hpp\"\n\ntemplate <class T, std::enable_if_t<std::is_same_v<decltype(T()\
-    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tnullptr_t> = nullptr>\nclass Matrix {\n  protected:\n\
-    \tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\tMatrix() =\
-    \ default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
+    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nclass Matrix {\n\
+    \  protected:\n\tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\
+    \tMatrix() = default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
     \ {}\n\tstd::vector<T>& operator[](uint idx) { return elems[idx]; }\n\tconst std::vector<T>&\
     \ operator[](uint idx) const { return elems[idx]; }\n\tdecltype(elems)& data()\
     \ { return elems; }\n\tconst decltype(elems)& data() const { return elems; }\n\
@@ -168,9 +168,9 @@ data:
     \ N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\
     \t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n\ntemplate <class T, std::enable_if_t<std::is_same_v<decltype(T()\
-    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tnullptr_t> = nullptr>\nclass Matrix {\n  protected:\n\
-    \tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\tMatrix() =\
-    \ default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
+    \ / T()), T>,\n\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nclass Matrix {\n\
+    \  protected:\n\tuint N, M;\n\tstd::vector<std::vector<T>> elems;\n\n  public:\n\
+    \tMatrix() = default;\n\tMatrix(uint N_, uint M_) : N(N_), M(M_), elems(N, std::vector<T>(M))\
     \ {}\n\tstd::vector<T>& operator[](uint idx) { return elems[idx]; }\n\tconst std::vector<T>&\
     \ operator[](uint idx) const { return elems[idx]; }\n\tdecltype(elems)& data()\
     \ { return elems; }\n\tconst decltype(elems)& data() const { return elems; }\n\
@@ -239,8 +239,8 @@ data:
   isVerificationFile: false
   path: math/Matrix.hpp
   requiredBy: []
-  timestamp: '2021-08-31 00:37:11+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2021-08-31 01:09:52+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/matrix_product.test.cpp
   - test/yosupo/matrix_det.test.cpp

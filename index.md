@@ -109,7 +109,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/FloorSum.hpp
       title: FloorSum
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: math/Matrix.hpp
       title: Matrix
     - icon: ':warning:'
@@ -121,7 +121,7 @@ data:
     - icon: ':warning:'
       path: math/Polynomial.hpp
       title: math/Polynomial.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: math/StaticModInt.hpp
       title: StaticModInt
     - icon: ':warning:'
@@ -132,13 +132,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: other/FastIO.hpp
       title: Fast IO library
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: other/template.hpp
       title: other/template.hpp
     - icon: ':warning:'
       path: other/testlib.h
       title: other/testlib.h
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: other/type_traits.hpp
       title: other/type_traits.hpp
   - name: string
@@ -243,10 +243,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/many_aplusb.test.cpp
       title: test/yosupo/many_aplusb.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/matrix_det.test.cpp
       title: test/yosupo/matrix_det.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/matrix_product.test.cpp
       title: test/yosupo/matrix_product.test.cpp
     - icon: ':heavy_check_mark:'
