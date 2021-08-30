@@ -2,7 +2,7 @@
 #include "../other/template.hpp"
 
 template <class T, std::enable_if_t<std::is_same_v<decltype(T() / T()), T>,
-									nullptr_t> = nullptr>
+									std::nullptr_t> = nullptr>
 class Matrix {
   protected:
 	uint N, M;
