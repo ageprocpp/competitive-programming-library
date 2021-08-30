@@ -19,18 +19,19 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B
   bundledCode: "#line 1 \"test/aoj/ALDS1_14_B_SuffixArray.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B\"\n#line 2 \"other/template.hpp\"\
-    \n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#ifdef ONLINE_JUDGE\n#pragma\
-    \ GCC target(\"avx512f\")\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\"\
-    )\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
-    \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <climits>\n#include\
-    \ <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n\
-    #include <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    \n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef\
+    \ _WIN64\n#pragma GCC target(\"avx2\")\n#else\n#pragma GCC target(\"avx512f\"\
+    )\n#endif\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma\
+    \ GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include\
+    \ <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n#include\
+    \ <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n#include\
+    \ <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
     #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
-    \ n) for (int i = 0; i < int(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
-    \ int(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
+    \ n) for (int i = 0; i < lint(n); i++)\n#define REP(i, n) for (int i = 1; i <=\
+    \ lint(n); i++)\n#define all(V) V.begin(), V.end()\n\nusing i128 = __int128_t;\n\
     using u128 = __uint128_t;\nusing uint = unsigned int;\nusing lint = long long;\n\
     using ulint = unsigned long long;\nusing IP = std::pair<int, int>;\nusing LP =\
     \ std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\nconstexpr lint LINF\
@@ -51,33 +52,40 @@ data:
     \ U>\nstd::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn\
     \ ist >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
     \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
-    }\ntemplate <class T, class U>\nconstexpr inline bool chmax(T& lhs, const U& rhs)\
-    \ noexcept {\n\tif (lhs < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn\
-    \ false;\n}\ntemplate <class T, class U>\nconstexpr inline bool chmin(T& lhs,\
-    \ const U& rhs) noexcept {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\
-    \t}\n\treturn false;\n}\nconstexpr inline lint gcd(lint a, lint b) noexcept {\n\
-    \twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n\
-    }\ninline lint lcm(lint a, lint b) noexcept { return a / gcd(a, b) * b; }\nconstexpr\
-    \ bool isprime(lint n) noexcept {\n\tif (n == 1) return false;\n\tfor (int i =\
-    \ 2; i * i <= n; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn true;\n\
-    }\ntemplate <class T>\nconstexpr T mypow(T a, lint b) noexcept {\n\tT res(1);\n\
-    \twhile (true) {\n\t\tif (b & 1) res *= a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\
-    \t\ta *= a;\n\t}\n\treturn res;\n}\nconstexpr lint modpow(lint a, lint b, lint\
-    \ m) noexcept {\n\ta %= m;\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) {\n\t\
-    \t\tres *= a;\n\t\t\tres %= m;\n\t\t}\n\t\ta *= a;\n\t\ta %= m;\n\t\tb >>= 1;\n\
-    \t}\n\treturn res;\n}\ntemplate <class T>\nconstexpr void printArray(const std::vector<T>&\
-    \ vec, char split = ' ') {\n\trep(i, vec.size()) {\n\t\tstd::cout << vec[i];\n\
-    \t\tstd::cout << (i == (int)vec.size() - 1 ? '\\n' : split);\n\t}\n}\ntemplate\
-    \ <class InputIter>\nconstexpr void printArray(InputIter l, InputIter r, char\
-    \ split = ' ') {\n\tauto rprev = std::prev(r);\n\tfor (auto i = l; i != r; i++)\
-    \ {\n\t\tstd::cout << *i;\n\t\tstd::cout << (i == rprev ? '\\n' : split);\n\t\
-    }\n}\nLP extGcd(lint a, lint b) noexcept {\n\tif (b == 0) return {1, 0};\n\tLP\
-    \ s = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b\
-    \ * s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const\
-    \ lint& b2,\n\t\t\t  const lint& m2) noexcept {\n\tauto p = extGcd(m1, m2);\n\t\
-    lint g = gcd(m1, m2), l = m1 / g * m2;\n\tlint tmp = (b2 - b1) / g * p.first %\
-    \ (m2 / g);\n\tlint r = (b1 + m1 * tmp + l) % l;\n\treturn {r, l};\n}\nint LCS(const\
-    \ std::string& a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size()\
+    }\ntemplate <\n\tclass Container,\n\tstd::enable_if_t<std::negation_v<std::is_same<Container,\
+    \ std::string>>,\n\t\t\t\t\t std::nullptr_t> = nullptr>\nauto operator>>(std::istream&\
+    \ ist, Container& cont)\n\t-> decltype(typename Container::iterator(), std::cin)&\
+    \ {\n\tstd::vector<typename Container::value_type> tmp;\n\twhile (true) {\n\t\t\
+    typename Container::value_type t;\n\t\tist >> t;\n\t\ttmp.emplace_back(t);\n\t\
+    \tif (getchar() == '\\n') break;\n\t}\n\tcont = Container(std::move(tmp));\n\t\
+    return ist;\n}\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same_v<Container,\
+    \ std::string>,\n\t\t\t\t\t\t   std::nullptr_t> = nullptr>\nauto operator<<(std::ostream&\
+    \ ost, const Container& cont)\n\t-> decltype(typename Container::iterator(), std::cout)&\
+    \ {\n\tfor (auto it = cont.begin(); it != cont.end(); it++) {\n\t\tif (it != cont.begin())\
+    \ ost << ' ';\n\t\tost << *it;\n\t}\n\treturn ost;\n}\ntemplate <class Container>\n\
+    auto sum(const Container& cont)\n\t-> decltype(typename Container::iterator(),\
+    \ 0LL) {\n\tlint res = 0;\n\tfor (auto it = cont.begin(); it != cont.end(); it++)\
+    \ res += *it;\n\treturn res;\n}\ntemplate <class T, class U>\nconstexpr inline\
+    \ bool chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs < rhs) {\n\t\tlhs = rhs;\n\
+    \t\treturn true;\n\t}\n\treturn false;\n}\ntemplate <class T, class U>\nconstexpr\
+    \ inline bool chmin(T& lhs, const U& rhs) noexcept {\n\tif (lhs > rhs) {\n\t\t\
+    lhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\nconstexpr inline lint gcd(lint\
+    \ a, lint b) noexcept {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\tb = c\
+    \ % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) noexcept { return\
+    \ a / gcd(a, b) * b; }\nconstexpr bool isprime(lint n) noexcept {\n\tif (n ==\
+    \ 1) return false;\n\tfor (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0)\
+    \ return false;\n\t}\n\treturn true;\n}\ntemplate <class T>\nconstexpr T mypow(T\
+    \ a, lint b) noexcept {\n\tT res(1);\n\twhile (true) {\n\t\tif (b & 1) res *=\
+    \ a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\t\ta *= a;\n\t}\n\treturn res;\n}\nconstexpr\
+    \ lint modpow(lint a, lint b, lint m) noexcept {\n\ta %= m;\n\tlint res(1);\n\t\
+    while (b) {\n\t\tif (b & 1) res *= a, res %= m;\n\t\ta *= a, a %= m, b >>= 1;\n\
+    \t}\n\treturn res;\n}\nLP extGcd(lint a, lint b) noexcept {\n\tif (b == 0) return\
+    \ {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second\
+    \ -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint&\
+    \ m1, const lint& b2,\n\t\t\t  const lint& m2) noexcept {\n\tauto p = extGcd(m1,\
+    \ m2);\n\tlint g = gcd(m1, m2), l = m1 / g * m2;\n\tlint tmp = (b2 - b1) / g *\
+    \ p.first % (m2 / g);\n\tlint r = (b1 + m1 * tmp + l) % l;\n\treturn {r, l};\n\
+    }\nint LCS(const std::string& a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size()\
     \ + 1, b.size() + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i\
     \ + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] ==\
     \ b[j]) chmax(dp[i + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()],\
@@ -164,7 +172,7 @@ data:
   isVerificationFile: true
   path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
   requiredBy: []
-  timestamp: '2021-07-04 16:12:00+09:00'
+  timestamp: '2021-08-31 00:37:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/ALDS1_14_B_SuffixArray.test.cpp

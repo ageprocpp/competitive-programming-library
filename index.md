@@ -16,9 +16,6 @@ data:
       path: data-structure/DynamicSegTree.hpp
       title: Dynamic Segment Tree
     - icon: ':heavy_check_mark:'
-      path: data-structure/FibonacciHeap.hpp
-      title: Fibonacci Heap
-    - icon: ':heavy_check_mark:'
       path: data-structure/IntervalSegTree.hpp
       title: Interval Segment Tree
     - icon: ':heavy_check_mark:'
@@ -69,6 +66,9 @@ data:
       path: graph/FordFulkerson.hpp
       title: Ford-Fulkerson algorithm
     - icon: ':heavy_check_mark:'
+      path: graph/Graph.hpp
+      title: graph/Graph.hpp
+    - icon: ':heavy_check_mark:'
       path: graph/HeavyLightDecomposition.hpp
       title: Heavy light decomposition
     - icon: ':warning:'
@@ -109,9 +109,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/FloorSum.hpp
       title: FloorSum
-    - icon: ':warning:'
-      path: math/Interpolation.hpp
-      title: math/Interpolation.hpp
     - icon: ':x:'
       path: math/Matrix.hpp
       title: Matrix
@@ -121,9 +118,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/NumberTheoreticTransform.hpp
       title: NumberTheoreticTransform
+    - icon: ':warning:'
+      path: math/Polynomial.hpp
+      title: math/Polynomial.hpp
     - icon: ':question:'
       path: math/StaticModInt.hpp
       title: StaticModInt
+    - icon: ':warning:'
+      path: math/XorConvolution.hpp
+      title: math/XorConvolution.hpp
   - name: other
     pages:
     - icon: ':heavy_check_mark:'

@@ -1,6 +1,9 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: math/NumberTheoreticTransform.hpp
+    title: NumberTheoreticTransform
   - icon: ':question:'
     path: math/StaticModInt.hpp
     title: StaticModInt
@@ -16,7 +19,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    document_title: Combinatorics/ModCombinatorics
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef _WIN64\n#pragma GCC target(\"avx2\"\
@@ -163,68 +165,169 @@ data:
     \ (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\t\t\t\tbreak;\n\t\t\t\t\
     }\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate <uint modulo>\nstd::istream&\
     \ operator>>(std::istream& ist, StaticModInt<modulo>& x) {\n\tlint a;\n\tist >>\
-    \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 5\
-    \ \"math/Combinatorics.hpp\"\ntemplate <typename T>\nclass Combinatorics {\n \
-    \ protected:\n\tstatic std::vector<T> factorial;\n\tstatic void append(int n)\
-    \ noexcept {\n\t\twhile (factorial.size() <= n) {\n\t\t\tfactorial.emplace_back(factorial.back()\
-    \ * factorial.size());\n\t\t}\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept\
-    \ {\n\t\tappend(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_comb(int a,\
-    \ int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] / factorial[a - b]\
-    \ / factorial[b];\n\t}\n\tstatic T get_dcomb(int a, int b) noexcept { return get_comb(a\
-    \ + b - 1, b); }\n};\ntemplate <typename T>\nstd::vector<T> Combinatorics<T>::factorial\
-    \ = std::vector<T>(1, 1);\n\ntemplate <typename T, typename std::enable_if_t<is_ModInt<T>::value,\n\
-    \t\t\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nclass ModCombinatorics : Combinatorics<T>\
-    \ {};\n\ntemplate <typename T>\nclass ModCombinatorics<T> : public Combinatorics<T>\
-    \ {\n\tusing Combinatorics<T>::factorial;\n\tstatic std::vector<T> inv;\n\tstatic\
-    \ void append(int n) noexcept {\n\t\tint tmp = factorial.size();\n\t\tif (n <\
-    \ tmp) return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\t\
-    inv[n] = T(1) / factorial.back();\n\t\tfor (int i = n; i > tmp; i--) inv[i - 1]\
-    \ = inv[i] * i;\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept {\n\t\t\
-    append(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_fact_inv(int a) noexcept\
-    \ {\n\t\tappend(a);\n\t\treturn inv[a];\n\t}\n\tstatic T get_comb(int a, int b)\
-    \ noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a - b] * inv[b];\n\
-    \t}\n\tstatic T get_perm(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn\
-    \ factorial[a] * inv[a - b];\n\t}\n};\n/**\n * @title Combinatorics/ModCombinatorics\n\
-    \ */\ntemplate <typename T>\nstd::vector<T> ModCombinatorics<T, nullptr>::inv\
-    \ = std::vector<T>(1, 1);\n"
+    \ a;\n\tx = a;\n\treturn ist;\n}\n\n/**\n * @title StaticModInt\n */\n#line 4\
+    \ \"math/NumberTheoreticTransform.hpp\"\n// 1012924417, 5, 2^21\n// 924844033,\
+    \ 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769, 3, 2^24\n// 167772161, 3, 2^25\n\
+    // 469762049, 3, 2^26\nclass NumberTheoreticTransform {\n\tstatic constexpr uint\
+    \ bases[] = {1012924417, 924844033, 998244353,\n\t\t\t\t\t\t\t\t\t 1224736769,\
+    \ 167772161, 469762049};\n\n  private:\n\ttemplate <uint modulo>\n\tstatic void\
+    \ ntt(std::vector<StaticModInt<modulo>>& a) {\n\t\tint sz = a.size();\n\t\tif\
+    \ (sz == 1) return;\n\t\tStaticModInt<modulo> root =\n\t\t\tmodulo == 924844033\
+    \ || modulo == 1012924417 ? 5 : 3;\n\t\tif (inverse)\n\t\t\troot = mypow(root,\
+    \ modulo - 1 - (modulo - 1) / sz);\n\t\telse\n\t\t\troot = mypow(root, (modulo\
+    \ - 1) / sz);\n\t\tstd::vector<StaticModInt<modulo>> b(sz), roots((sz >> 1) +\
+    \ 1, 1);\n\t\trep(i, sz >> 1) roots[i + 1] = roots[i] * root;\n\t\tfor (int i\
+    \ = sz >> 1, w = 1; w < sz; i >>= 1, w <<= 1) {\n\t\t\tfor (int j = 0; j < i;\
+    \ j++) {\n\t\t\t\tfor (int k = 0; k < w; k++) {\n\t\t\t\t\tb[k + ((w * j) << 1)]\
+    \ =\n\t\t\t\t\t\ta[k + w * j] + a[k + w * j + (sz >> 1)];\n\t\t\t\t\tb[k + ((w\
+    \ * j) << 1) + w] =\n\t\t\t\t\t\troots[w * j] *\n\t\t\t\t\t\t(a[k + w * j] - a[k\
+    \ + w * j + (sz >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a, b);\n\t\t}\n\t\
+    }\n\ttemplate <uint modulo, typename T>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ internal_convolution(\n\t\tconst std::vector<T>& f, const std::vector<T>& g)\
+    \ {\n\t\tstd::vector<StaticModInt<modulo>> nf(f.size()), ng(g.size());\n\t\trep(j,\
+    \ f.size()) nf[j] = f[j];\n\t\trep(j, g.size()) ng[j] = g[j];\n\t\tinverse = false;\n\
+    \t\tntt(nf);\n\t\tntt(ng);\n\t\trep(i, nf.size()) nf[i] *= ng[i];\n\t\tinverse\
+    \ = true;\n\t\tntt(nf);\n\t\tStaticModInt<modulo> inv = StaticModInt<modulo>(nf.size()).inv();\n\
+    \t\trep(i, nf.size()) nf[i] *= inv;\n\t\treturn nf;\n\t}\n\ttemplate <uint modulo>\n\
+    \tstatic std::vector<StaticModInt<modulo>> internal_convolution(\n\t\tstd::vector<StaticModInt<modulo>>\
+    \ f,\n\t\tstd::vector<StaticModInt<modulo>> g) {\n\t\tinverse = false;\n\t\tntt(f);\n\
+    \t\tntt(g);\n\t\trep(i, f.size()) f[i] *= g[i];\n\t\tinverse = true;\n\t\tntt(f);\n\
+    \t\tStaticModInt<modulo> inv = StaticModInt<modulo>(f.size()).inv();\n\t\trep(i,\
+    \ f.size()) f[i] *= inv;\n\t\treturn f;\n\t}\n\n  public:\n\tstatic bool inverse;\n\
+    \n\ttemplate <uint modulo, class T>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ convolution(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t std::vector<T> g)\
+    \ {\n\t\tsize_t sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz <<= 1;\n\t\t\
+    f.resize(sz);\n\t\tg.resize(sz);\n\t\trep(i, 6) {\n\t\t\tif (modulo == bases[i])\
+    \ return internal_convolution<modulo>(std::move(f), std::move(g));\n\t\t}\n\t\t\
+    constexpr uint base1 = 998244353, base2 = 1224736769, base3 = 469762049;\n\t\t\
+    auto re1 = internal_convolution<base1>(f, g);\n\t\tauto re2 = internal_convolution<base2>(f,\
+    \ g);\n\t\tauto re3 = internal_convolution<base3>(std::move(f), std::move(g));\n\
+    \t\tstd::vector<StaticModInt<modulo>> res(re1.size());\n\t\tconstexpr int r12\
+    \ = StaticModInt<base2>(base1).inv();\n\t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\
+    \t\tconstexpr int r23 = StaticModInt<base3>(base2).inv();\n\t\trep(i, re1.size())\
+    \ {\n\t\t\tre2[i] = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i]\
+    \ =\n\t\t\t\t(StaticModInt<base3>(re3[i] - re1[i]) * r13 - re2[i]) * r23;\n\t\t\
+    \tres[i] = (StaticModInt<modulo>(re1[i]) +\n\t\t\t\t\t  StaticModInt<modulo>(re2[i])\
+    \ * base1 +\n\t\t\t\t\t  StaticModInt<modulo>(re3[i]) * base1 * base2);\n\t\t\
+    }\n\t\treturn res;\n\t}\n\ttemplate <uint modulo>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ convolution(\n\t\tstd::vector<StaticModInt<modulo>> f,\n\t\tstd::vector<StaticModInt<modulo>>\
+    \ g) {\n\t\tsize_t sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz <<= 1;\n\t\
+    \tf.resize(sz);\n\t\tg.resize(sz);\n\t\trep(i, 6) {\n\t\t\tif (modulo == bases[i])\
+    \ return internal_convolution(f, g);\n\t\t}\n\t\tconstexpr uint base1 = 998244353,\
+    \ base2 = 1224736769, base3 = 469762049;\n\t\tauto re1 = internal_convolution<base1>(f,\
+    \ g);\n\t\tauto re2 = internal_convolution<base2>(f, g);\n\t\tauto re3 = internal_convolution<base3>(f,\
+    \ g);\n\t\tstd::vector<StaticModInt<modulo>> res(re1.size());\n\t\tconstexpr int\
+    \ r12 = StaticModInt<base2>(base1).inv();\n\t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\
+    \t\tconstexpr int r23 = StaticModInt<base3>(base2).inv();\n\t\trep(i, re1.size())\
+    \ {\n\t\t\tre2[i] = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i]\
+    \ =\n\t\t\t\t(StaticModInt<base3>(re3[i] - re1[i]) * r13 - re2[i]) * r23;\n\t\t\
+    \tres[i] = (StaticModInt<modulo>(re1[i]) +\n\t\t\t\t\t  StaticModInt<modulo>(re2[i])\
+    \ * base1 +\n\t\t\t\t\t  StaticModInt<modulo>(re3[i]) * base1 * base2);\n\t\t\
+    }\n\t\treturn res;\n\t}\n\ttemplate <class T>\n\tstatic std::vector<lint> convolution_plain(std::vector<T>\
+    \ f,\n\t\t\t\t\t\t\t\t\t\t\t   std::vector<T> g) {\n\t\tconst uint mod1 = 998244353,\
+    \ mod2 = 1224736769;\n\t\tstd::vector<StaticModInt<mod1>> mul1 = internal_convolution<mod1>(f,\
+    \ g);\n\t\tstd::vector<StaticModInt<mod2>> mul2 = internal_convolution<mod2>(f,\
+    \ g);\n\t\tstd::vector<lint> res(mul1.size());\n\t\trep(i, mul1.size()) res[i]\
+    \ =\n\t\t\tChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\t\treturn res;\n\t\
+    }\n};\nbool NumberTheoreticTransform::inverse = false;\n\n/**\n * @title NumberTheoreticTransform\n\
+    \ */\n#line 5 \"math/Polynomial.hpp\"\ntemplate <typename T, typename mod_specify\
+    \ = void>\nclass Polynomial {\n\tstd::vector<T> vec;\n\n  public:\n\tPolynomial()\
+    \ : vec() {}\n\tPolynomial(const std::vector<T>& v) : vec(v) {}\n\tPolynomial\
+    \ operator*(const Polynomial& p) {\n\t\tauto res = *this;\n\t\tres *= p;\n\t\t\
+    return res;\n\t}\n\tPolynomial& operator*=(const Polynomial& p) {\n\t\tauto conv_func\
+    \ = [](const std::vector<T>& x, const std::vector<T>& y) {\n\t\t\tif constexpr\
+    \ (is_ModInt_v<T>)\n\t\t\t\treturn NumberTheoreticTransform::convolution(x, y);\n\
+    \t\t\telse\n\t\t\t\treturn NumberTheoreticTransform::convolution_plain(x, y);\n\
+    \t\t};\n\t\tauto res = conv_func(vec, p.vec);\n\t\tstd::vector<T> nvec(vec.size()\
+    \ + p.vec.size() - 1);\n\t\trep(i, vec.size()) {\n\t\t\trep(j, p.vec.size()) nvec[i\
+    \ + j] = vec[i] * p.vec[j];\n\t\t}\n\t\tvec = std::move(nvec);\n\t\treturn *this;\n\
+    \t}\n\n\ttemplate <typename U>\n\tfriend std::ostream& operator<<(std::ostream&,\
+    \ const Polynomial<U>&);\n};\n\ntemplate <typename T, typename U,\n\t\t  std::enable_if_t<is_ModInt_v<U>,\
+    \ std::nullptr_t> = nullptr>\nPolynomial<U> interpolate(const std::vector<T>&\
+    \ x, std::vector<U> y) {\n\tconst size_t N = x.size() - 1;\n\trep(i, N + 1) {\n\
+    \t\tU t = 1;\n\t\trep(j, N + 1) if (i != j) t *= x[i] - x[j];\n\t\ty[i] /= t;\n\
+    \t}\n\tU cur = 0, nxt = 1;\n\tauto dp = make_vec<U>(2, N + 2);\n\tdp[0][0] = -x[0],\
+    \ dp[0][1] = 1;\n\tREP(i, N) {\n\t\trep(j, N + 2) {\n\t\t\tdp[nxt][j] = -dp[cur][j]\
+    \ * x[i];\n\t\t\tif (j) dp[nxt][j] += dp[cur][j - 1];\n\t\t}\n\t\tstd::swap(nxt,\
+    \ cur);\n\t}\n\tstd::vector<U> xinv(N + 1), ret(N + 1);\n\trep(i, N + 1) xinv[i]\
+    \ = x[i].inv();\n\trep(i, N + 1) {\n\t\tif (!y[i]) continue;\n\t\tif (!x[i]) {\n\
+    \t\t\trep(j, N + 1) ret[j] += dp[cur][j + 1] * y[i];\n\t\t} else {\n\t\t\tret[0]\
+    \ -= dp[cur][0] * xinv[i] * y[i];\n\t\t\tU pre = -dp[cur][0] * xinv[i];\n\t\t\t\
+    REP(j, N) {\n\t\t\t\tret[j] -= (dp[cur][j] - pre) * xinv[i] * y[i];\n\t\t\t\t\
+    pre = (pre - dp[cur][j]) * xinv[i];\n\t\t\t}\n\t\t}\n\t}\n\treturn ret;\n}\n\n\
+    template <typename T, typename U,\n\t\t  std::enable_if_t<is_ModInt_v<U>, std::nullptr_t>\
+    \ = nullptr>\nU interpolate(const std::vector<T>& x, const std::vector<U>& y,\
+    \ T S) {\n\tconst size_t N = x.size() - 1;\n\tU ret = 0;\n\trep(i, N + 1) {\n\t\
+    \tU t = 1;\n\t\trep(j, N + 1) {\n\t\t\tif (i == j) continue;\n\t\t\tt *= S - x[j];\n\
+    \t\t\tt /= x[i] - x[j];\n\t\t}\n\t\tret += t * y[i];\n\t}\n\treturn ret;\n}\n\n\
+    template <typename T, typename U,\n\t\t  std::enable_if_t<is_ModInt_v<U>, std::nullptr_t>\
+    \ = nullptr>\nU interpolate_arithmetic(T a, T d, const std::vector<U>& y, T S)\
+    \ {\n\tconst size_t N = y.size() - 1;\n\tauto ft = make_vec<U>(2, N);\n\tft[0][0]\
+    \ = S - a;\n\tREP(i, N - 1) ft[0][i] = ft[0][i - 1] * (S - a - U(d) * i);\n\t\
+    ft[1][N - 1] = 1;\n\tfor (int i = N - 2; i >= 0; i--)\n\t\tft[1][i] = ft[1][i\
+    \ + 1] * (S - a - U(d) * (i + 2));\n\tU f = 1;\n\tREP(i, N) f *= -U(d) * i;\n\t\
+    f = f.inv();\n\tU ret = y[0] * f * ft[1][0] * (S - a - d);\n\trep(i, N) {\n\t\t\
+    f *= U(i - N) / (i + 1);\n\t\tret += y[i + 1] * f * ft[0][i] * ft[1][i];\n\t}\n\
+    \treturn ret;\n}\n\ntemplate <typename T>\nstd::ostream& operator<<(std::ostream&\
+    \ ost, const Polynomial<T>& p) {\n\trep(i, p.vec.size()) {\n\t\tost << p.vec[i];\n\
+    \t\tif (i != (int)p.vec.size() - 1) ost << ' ';\n\t}\n\treturn ost;\n}\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../other/type_traits.hpp\"\
-    \n#include \"StaticModInt.hpp\"\ntemplate <typename T>\nclass Combinatorics {\n\
-    \  protected:\n\tstatic std::vector<T> factorial;\n\tstatic void append(int n)\
-    \ noexcept {\n\t\twhile (factorial.size() <= n) {\n\t\t\tfactorial.emplace_back(factorial.back()\
-    \ * factorial.size());\n\t\t}\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept\
-    \ {\n\t\tappend(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_comb(int a,\
-    \ int b) noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] / factorial[a - b]\
-    \ / factorial[b];\n\t}\n\tstatic T get_dcomb(int a, int b) noexcept { return get_comb(a\
-    \ + b - 1, b); }\n};\ntemplate <typename T>\nstd::vector<T> Combinatorics<T>::factorial\
-    \ = std::vector<T>(1, 1);\n\ntemplate <typename T, typename std::enable_if_t<is_ModInt<T>::value,\n\
-    \t\t\t\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nclass ModCombinatorics : Combinatorics<T>\
-    \ {};\n\ntemplate <typename T>\nclass ModCombinatorics<T> : public Combinatorics<T>\
-    \ {\n\tusing Combinatorics<T>::factorial;\n\tstatic std::vector<T> inv;\n\tstatic\
-    \ void append(int n) noexcept {\n\t\tint tmp = factorial.size();\n\t\tif (n <\
-    \ tmp) return;\n\t\tCombinatorics<T>::append(n);\n\t\tinv.resize(n + 1);\n\t\t\
-    inv[n] = T(1) / factorial.back();\n\t\tfor (int i = n; i > tmp; i--) inv[i - 1]\
-    \ = inv[i] * i;\n\t}\n\n  public:\n\tstatic T get_fact(int a) noexcept {\n\t\t\
-    append(a);\n\t\treturn factorial[a];\n\t}\n\tstatic T get_fact_inv(int a) noexcept\
-    \ {\n\t\tappend(a);\n\t\treturn inv[a];\n\t}\n\tstatic T get_comb(int a, int b)\
-    \ noexcept {\n\t\tappend(a);\n\t\treturn factorial[a] * inv[a - b] * inv[b];\n\
-    \t}\n\tstatic T get_perm(int a, int b) noexcept {\n\t\tappend(a);\n\t\treturn\
-    \ factorial[a] * inv[a - b];\n\t}\n};\n/**\n * @title Combinatorics/ModCombinatorics\n\
-    \ */\ntemplate <typename T>\nstd::vector<T> ModCombinatorics<T, nullptr>::inv\
-    \ = std::vector<T>(1, 1);"
+    \n#include \"NumberTheoreticTransform.hpp\"\ntemplate <typename T, typename mod_specify\
+    \ = void>\nclass Polynomial {\n\tstd::vector<T> vec;\n\n  public:\n\tPolynomial()\
+    \ : vec() {}\n\tPolynomial(const std::vector<T>& v) : vec(v) {}\n\tPolynomial\
+    \ operator*(const Polynomial& p) {\n\t\tauto res = *this;\n\t\tres *= p;\n\t\t\
+    return res;\n\t}\n\tPolynomial& operator*=(const Polynomial& p) {\n\t\tauto conv_func\
+    \ = [](const std::vector<T>& x, const std::vector<T>& y) {\n\t\t\tif constexpr\
+    \ (is_ModInt_v<T>)\n\t\t\t\treturn NumberTheoreticTransform::convolution(x, y);\n\
+    \t\t\telse\n\t\t\t\treturn NumberTheoreticTransform::convolution_plain(x, y);\n\
+    \t\t};\n\t\tauto res = conv_func(vec, p.vec);\n\t\tstd::vector<T> nvec(vec.size()\
+    \ + p.vec.size() - 1);\n\t\trep(i, vec.size()) {\n\t\t\trep(j, p.vec.size()) nvec[i\
+    \ + j] = vec[i] * p.vec[j];\n\t\t}\n\t\tvec = std::move(nvec);\n\t\treturn *this;\n\
+    \t}\n\n\ttemplate <typename U>\n\tfriend std::ostream& operator<<(std::ostream&,\
+    \ const Polynomial<U>&);\n};\n\ntemplate <typename T, typename U,\n\t\t  std::enable_if_t<is_ModInt_v<U>,\
+    \ std::nullptr_t> = nullptr>\nPolynomial<U> interpolate(const std::vector<T>&\
+    \ x, std::vector<U> y) {\n\tconst size_t N = x.size() - 1;\n\trep(i, N + 1) {\n\
+    \t\tU t = 1;\n\t\trep(j, N + 1) if (i != j) t *= x[i] - x[j];\n\t\ty[i] /= t;\n\
+    \t}\n\tU cur = 0, nxt = 1;\n\tauto dp = make_vec<U>(2, N + 2);\n\tdp[0][0] = -x[0],\
+    \ dp[0][1] = 1;\n\tREP(i, N) {\n\t\trep(j, N + 2) {\n\t\t\tdp[nxt][j] = -dp[cur][j]\
+    \ * x[i];\n\t\t\tif (j) dp[nxt][j] += dp[cur][j - 1];\n\t\t}\n\t\tstd::swap(nxt,\
+    \ cur);\n\t}\n\tstd::vector<U> xinv(N + 1), ret(N + 1);\n\trep(i, N + 1) xinv[i]\
+    \ = x[i].inv();\n\trep(i, N + 1) {\n\t\tif (!y[i]) continue;\n\t\tif (!x[i]) {\n\
+    \t\t\trep(j, N + 1) ret[j] += dp[cur][j + 1] * y[i];\n\t\t} else {\n\t\t\tret[0]\
+    \ -= dp[cur][0] * xinv[i] * y[i];\n\t\t\tU pre = -dp[cur][0] * xinv[i];\n\t\t\t\
+    REP(j, N) {\n\t\t\t\tret[j] -= (dp[cur][j] - pre) * xinv[i] * y[i];\n\t\t\t\t\
+    pre = (pre - dp[cur][j]) * xinv[i];\n\t\t\t}\n\t\t}\n\t}\n\treturn ret;\n}\n\n\
+    template <typename T, typename U,\n\t\t  std::enable_if_t<is_ModInt_v<U>, std::nullptr_t>\
+    \ = nullptr>\nU interpolate(const std::vector<T>& x, const std::vector<U>& y,\
+    \ T S) {\n\tconst size_t N = x.size() - 1;\n\tU ret = 0;\n\trep(i, N + 1) {\n\t\
+    \tU t = 1;\n\t\trep(j, N + 1) {\n\t\t\tif (i == j) continue;\n\t\t\tt *= S - x[j];\n\
+    \t\t\tt /= x[i] - x[j];\n\t\t}\n\t\tret += t * y[i];\n\t}\n\treturn ret;\n}\n\n\
+    template <typename T, typename U,\n\t\t  std::enable_if_t<is_ModInt_v<U>, std::nullptr_t>\
+    \ = nullptr>\nU interpolate_arithmetic(T a, T d, const std::vector<U>& y, T S)\
+    \ {\n\tconst size_t N = y.size() - 1;\n\tauto ft = make_vec<U>(2, N);\n\tft[0][0]\
+    \ = S - a;\n\tREP(i, N - 1) ft[0][i] = ft[0][i - 1] * (S - a - U(d) * i);\n\t\
+    ft[1][N - 1] = 1;\n\tfor (int i = N - 2; i >= 0; i--)\n\t\tft[1][i] = ft[1][i\
+    \ + 1] * (S - a - U(d) * (i + 2));\n\tU f = 1;\n\tREP(i, N) f *= -U(d) * i;\n\t\
+    f = f.inv();\n\tU ret = y[0] * f * ft[1][0] * (S - a - d);\n\trep(i, N) {\n\t\t\
+    f *= U(i - N) / (i + 1);\n\t\tret += y[i + 1] * f * ft[0][i] * ft[1][i];\n\t}\n\
+    \treturn ret;\n}\n\ntemplate <typename T>\nstd::ostream& operator<<(std::ostream&\
+    \ ost, const Polynomial<T>& p) {\n\trep(i, p.vec.size()) {\n\t\tost << p.vec[i];\n\
+    \t\tif (i != (int)p.vec.size() - 1) ost << ' ';\n\t}\n\treturn ost;\n}"
   dependsOn:
   - other/template.hpp
   - other/type_traits.hpp
+  - math/NumberTheoreticTransform.hpp
   - math/StaticModInt.hpp
   isVerificationFile: false
-  path: math/Combinatorics.hpp
+  path: math/Polynomial.hpp
   requiredBy: []
   timestamp: '2021-08-31 00:37:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: math/Combinatorics.hpp
+documentation_of: math/Polynomial.hpp
 layout: document
 redirect_from:
-- /library/math/Combinatorics.hpp
-- /library/math/Combinatorics.hpp.html
-title: Combinatorics/ModCombinatorics
+- /library/math/Polynomial.hpp
+- /library/math/Polynomial.hpp.html
+title: math/Polynomial.hpp
 ---

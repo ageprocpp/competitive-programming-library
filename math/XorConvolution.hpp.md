@@ -1,22 +1,15 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: graph/StronglyConnectedComponents.hpp
-    title: Strongly connected components
   - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/two_sat.test.cpp
-    title: test/yosupo/two_sat.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
-    document_title: Two-sat solver
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef _WIN64\n#pragma GCC target(\"avx2\"\
@@ -100,54 +93,46 @@ data:
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
     \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    graph/StronglyConnectedComponents.hpp\"\nclass StronglyConnectedComponents {\n\
-    \tint N;\n\tstd::vector<std::vector<int>> vec, rvec;\n\n  public:\n\tStronglyConnectedComponents(int\
-    \ N_) : N(N_) {\n\t\tvec.resize(N);\n\t\trvec.resize(N);\n\t}\n\tvoid add_edge(int\
-    \ from, int to) {\n\t\tvec[from].emplace_back(to);\n\t\trvec[to].emplace_back(from);\n\
-    \t}\n\tstd::vector<std::vector<int>> get_scc() {\n\t\tstd::vector<bool> used(N);\n\
-    \t\tstd::vector<int> vs;\n\t\tstd::vector<std::vector<int>> res;\n\t\tauto dfs\
-    \ = lambda_fix([&](auto self, int node) -> void {\n\t\t\tused[node] = true;\n\t\
-    \t\tfor (const int& i : vec[node]) {\n\t\t\t\tif (!used[i]) self(self, i);\n\t\
-    \t\t}\n\t\t\tvs.emplace_back(node);\n\t\t});\n\t\tauto rdfs = lambda_fix([&](auto\
-    \ self, int node) -> void {\n\t\t\tused[node] = true;\n\t\t\tres.back().emplace_back(node);\n\
-    \t\t\tfor (const int& i : rvec[node]) {\n\t\t\t\tif (!used[i]) self(self, i);\n\
-    \t\t\t}\n\t\t});\n\t\trep(i, N) {\n\t\t\tif (!used[i]) dfs(i);\n\t\t}\n\t\tused.assign(N,\
-    \ false);\n\t\tfor (int i = N - 1; i >= 0; i--) {\n\t\t\tif (!used[vs[i]]) {\n\
-    \t\t\t\tres.emplace_back();\n\t\t\t\trdfs(vs[i]);\n\t\t\t}\n\t\t}\n\t\treturn\
-    \ res;\n\t}\n\tstd::vector<int> get_ids() {\n\t\tauto vec = get_scc();\n\t\tstd::vector<int>\
-    \ res(N);\n\t\trep(i, vec.size()) {\n\t\t\tfor (const auto& j : vec[i]) res[j]\
-    \ = i;\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Strongly connected components\n\
-    \ */\n#line 4 \"graph/TwoSat.hpp\"\nclass TwoSat {\n\tint N;\n\tStronglyConnectedComponents\
-    \ scc;\n\tstd::vector<int> ans;\n\n  public:\n\tTwoSat(int N_) : N(N_), scc(2\
-    \ * N_), ans(N_) {}\n\tvoid add_clause(int i, bool f, int j, bool g) {\n\t\tscc.add_edge(2\
-    \ * i + int(!f), 2 * j + int(g));\n\t\tscc.add_edge(2 * j + int(!g), 2 * i + int(f));\n\
-    \t}\n\tbool satisfiable() {\n\t\tauto ids = scc.get_ids();\n\t\trep(i, N) {\n\t\
-    \t\tif (ids[2 * i] == ids[2 * i + 1]) return false;\n\t\t\tans[i] = ids[2 * i]\
-    \ < ids[2 * i + 1];\n\t\t}\n\t\treturn true;\n\t}\n\tstd::vector<int> answer()\
-    \ { return ans; }\n};\n\n/**\n * @title Two-sat solver\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"StronglyConnectedComponents.hpp\"\
-    \nclass TwoSat {\n\tint N;\n\tStronglyConnectedComponents scc;\n\tstd::vector<int>\
-    \ ans;\n\n  public:\n\tTwoSat(int N_) : N(N_), scc(2 * N_), ans(N_) {}\n\tvoid\
-    \ add_clause(int i, bool f, int j, bool g) {\n\t\tscc.add_edge(2 * i + int(!f),\
-    \ 2 * j + int(g));\n\t\tscc.add_edge(2 * j + int(!g), 2 * i + int(f));\n\t}\n\t\
-    bool satisfiable() {\n\t\tauto ids = scc.get_ids();\n\t\trep(i, N) {\n\t\t\tif\
-    \ (ids[2 * i] == ids[2 * i + 1]) return false;\n\t\t\tans[i] = ids[2 * i] < ids[2\
-    \ * i + 1];\n\t\t}\n\t\treturn true;\n\t}\n\tstd::vector<int> answer() { return\
-    \ ans; }\n};\n\n/**\n * @title Two-sat solver\n */"
+    math/XorConvolution.hpp\"\nclass XorConvolution {\n  private:\n\ttemplate <typename\
+    \ T>\n\tstatic void fwt(std::vector<T>& f) {\n\t\tsize_t n = f.size();\n\t\tfor\
+    \ (int i = 1; i < n; i <<= 1) {\n\t\t\trep(j, n) {\n\t\t\t\tif ((j & i) == 0)\
+    \ {\n\t\t\t\t\tT x = f[j], y = f[j | i];\n\t\t\t\t\tf[j] = x + y, f[j | i] = x\
+    \ - y;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\ttemplate <typename T>\n\tstatic void\
+    \ ifwt(std::vector<T>& f) {\n\t\tint n = f.size();\n\t\tfor (int i = 1; i < n;\
+    \ i <<= 1) {\n\t\t\trep(j, n) {\n\t\t\t\tif ((j & i) == 0) {\n\t\t\t\t\tT x =\
+    \ f[j], y = f[j | i];\n\t\t\t\t\tf[j] = (x + y) / 2, f[j | i] = (x - y) / 2;\n\
+    \t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\ttemplate <typename T>\n\tstatic std::vector<T>\
+    \ convolution(const std::vector<T>& f,\n\t\t\t\t\t\t\t\t\t  const std::vector<T>&\
+    \ g) {\n\t\tauto nf = f, ng = g;\n\t\tint tmp = 1;\n\t\twhile (tmp < nf.size()\
+    \ || tmp < ng.size()) tmp <<= 1;\n\t\tnf.resize(tmp), ng.resize(tmp);\n\t\tfwt(f),\
+    \ fwt(g);\n\t\trep(i, nf.size()) nf[i] *= ng[i];\n\t\tifwt(f);\n\t\treturn nf;\n\
+    \t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\nclass XorConvolution {\n\
+    \  private:\n\ttemplate <typename T>\n\tstatic void fwt(std::vector<T>& f) {\n\
+    \t\tsize_t n = f.size();\n\t\tfor (int i = 1; i < n; i <<= 1) {\n\t\t\trep(j,\
+    \ n) {\n\t\t\t\tif ((j & i) == 0) {\n\t\t\t\t\tT x = f[j], y = f[j | i];\n\t\t\
+    \t\t\tf[j] = x + y, f[j | i] = x - y;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\ttemplate\
+    \ <typename T>\n\tstatic void ifwt(std::vector<T>& f) {\n\t\tint n = f.size();\n\
+    \t\tfor (int i = 1; i < n; i <<= 1) {\n\t\t\trep(j, n) {\n\t\t\t\tif ((j & i)\
+    \ == 0) {\n\t\t\t\t\tT x = f[j], y = f[j | i];\n\t\t\t\t\tf[j] = (x + y) / 2,\
+    \ f[j | i] = (x - y) / 2;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\ttemplate <typename\
+    \ T>\n\tstatic std::vector<T> convolution(const std::vector<T>& f,\n\t\t\t\t\t\
+    \t\t\t\t  const std::vector<T>& g) {\n\t\tauto nf = f, ng = g;\n\t\tint tmp =\
+    \ 1;\n\t\twhile (tmp < nf.size() || tmp < ng.size()) tmp <<= 1;\n\t\tnf.resize(tmp),\
+    \ ng.resize(tmp);\n\t\tfwt(f), fwt(g);\n\t\trep(i, nf.size()) nf[i] *= ng[i];\n\
+    \t\tifwt(f);\n\t\treturn nf;\n\t}\n};"
   dependsOn:
   - other/template.hpp
-  - graph/StronglyConnectedComponents.hpp
   isVerificationFile: false
-  path: graph/TwoSat.hpp
+  path: math/XorConvolution.hpp
   requiredBy: []
   timestamp: '2021-08-31 00:37:11+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/two_sat.test.cpp
-documentation_of: graph/TwoSat.hpp
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: math/XorConvolution.hpp
 layout: document
 redirect_from:
-- /library/graph/TwoSat.hpp
-- /library/graph/TwoSat.hpp.html
-title: Two-sat solver
+- /library/math/XorConvolution.hpp
+- /library/math/XorConvolution.hpp.html
+title: math/XorConvolution.hpp
 ---
