@@ -110,6 +110,12 @@ data:
       path: math/FloorSum.hpp
       title: FloorSum
     - icon: ':heavy_check_mark:'
+      path: math/FormalPowerSeries.hpp
+      title: math/FormalPowerSeries.hpp
+    - icon: ':heavy_check_mark:'
+      path: math/Geometry.hpp
+      title: math/Geometry.hpp
+    - icon: ':heavy_check_mark:'
       path: math/Matrix.hpp
       title: Matrix
     - icon: ':warning:'
@@ -179,6 +185,42 @@ data:
       path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
       title: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_1_A.test.cpp
+      title: test/aoj/CGL_1_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_1_B.test.cpp
+      title: test/aoj/CGL_1_B.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_1_C.test.cpp
+      title: test/aoj/CGL_1_C.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_2_A.test.cpp
+      title: test/aoj/CGL_2_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_2_B.test.cpp
+      title: test/aoj/CGL_2_B.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_2_C.test.cpp
+      title: test/aoj/CGL_2_C.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_2_D.test.cpp
+      title: test/aoj/CGL_2_D.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_3_A.test.cpp
+      title: test/aoj/CGL_3_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_3_B.test.cpp
+      title: test/aoj/CGL_3_B.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_3_C.test.cpp
+      title: test/aoj/CGL_3_C.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_4_A.test.cpp
+      title: test/aoj/CGL_4_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/CGL_4_B.test.cpp
+      title: test/aoj/CGL_4_B.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/aoj/DSL_2_A.test.cpp
       title: test/aoj/DSL_2_A.test.cpp
     - icon: ':heavy_check_mark:'
@@ -229,8 +271,14 @@ data:
       path: test/yosupo/convolution_mod_1000000007.test.cpp
       title: test/yosupo/convolution_mod_1000000007.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/yosupo/exp_of_formal_power_series.test.cpp
+      title: test/yosupo/exp_of_formal_power_series.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/yosupo/factorize.test.cpp
       title: test/yosupo/factorize.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/inv_of_formal_power_series.test.cpp
+      title: test/yosupo/inv_of_formal_power_series.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/lca.test.cpp
       title: test/yosupo/lca.test.cpp
@@ -240,6 +288,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
       title: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/log_of_formal_power_series.test.cpp
+      title: test/yosupo/log_of_formal_power_series.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/many_aplusb.test.cpp
       title: test/yosupo/many_aplusb.test.cpp
