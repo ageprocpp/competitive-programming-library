@@ -43,8 +43,8 @@
 #include <utility>
 #include <vector>
 
-#define rep(i, n) for (int i = 0; i < lint(n); i++)
-#define REP(i, n) for (int i = 1; i <= lint(n); i++)
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define REP(i, n) for (int i = 1; i <= (n); i++)
 #define all(V) V.begin(), V.end()
 
 using i128 = __int128_t;
@@ -100,10 +100,13 @@ template <class T, class U>
 std::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {
 	return ost << x.first << " " << x.second;
 }
-template <
-	class Container,
-	std::enable_if_t<std::negation_v<std::is_same<Container, std::string>>,
-					 std::nullptr_t> = nullptr>
+template <class Container,
+#if __cplusplus >= 201703L
+		  std::enable_if_t<!std::is_same_v<Container, std::string>,
+#else
+		  std::enable_if_t<!std::is_same<Container, std::string>::value,
+#endif
+						   std::nullptr_t> = nullptr>
 auto operator>>(std::istream& ist, Container& cont)
 	-> decltype(typename Container::iterator(), std::cin)& {
 	std::vector<typename Container::value_type> tmp;
@@ -117,7 +120,11 @@ auto operator>>(std::istream& ist, Container& cont)
 	return ist;
 }
 template <class Container,
+#if __cplusplus >= 201703L
 		  std::enable_if_t<!std::is_same_v<Container, std::string>,
+#else
+		  std::enable_if_t<!std::is_same<Container, std::string>::value,
+#endif
 						   std::nullptr_t> = nullptr>
 auto operator<<(std::ostream& ost, const Container& cont)
 	-> decltype(typename Container::iterator(), std::cout)& {

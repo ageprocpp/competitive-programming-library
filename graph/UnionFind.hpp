@@ -2,31 +2,32 @@
 #include "../other/template.hpp"
 class UnionFind {
   protected:
-	std::vector<int> par, size;
+	std::vector<int> par_vec, size_vec;
 
   public:
 	UnionFind() {}
 	UnionFind(int size) { init(size); }
+	size_t size() const { return par_vec.size(); }
 	void init(int size) {
-		par.resize(size);
-		this->size.resize(size, 1);
-		std::iota(all(par), 0);
+		par_vec.resize(size);
+		this->size_vec.resize(size, 1);
+		std::iota(all(par_vec), 0);
 	}
 	int find(int n) {
-		if (par[n] == n) return n;
-		return par[n] = find(par[n]);
+		if (par_vec[n] == n) return n;
+		return par_vec[n] = find(par_vec[n]);
 	}
 	void unite(int n, int m) {
 		n = find(n);
 		m = find(m);
 		if (n == m) return;
 		int a = n, b = m;
-		if (size[a] > size[b]) std::swap(a, b);
-		par[a] = b;
-		size[b] += size[a];
+		if (size_vec[a] > size_vec[b]) std::swap(a, b);
+		par_vec[a] = b;
+		size_vec[b] += size_vec[a];
 	}
 	bool same(int n, int m) { return find(n) == find(m); }
-	int getsize(int n) { return size[find(n)]; }
+	int get_size(int n) { return size_vec[find(n)]; }
 	bool is_root(int n) { return find(n) == n; }
 };
 

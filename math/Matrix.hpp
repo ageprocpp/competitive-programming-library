@@ -1,8 +1,14 @@
 #pragma once
 #include "../other/template.hpp"
 
-template <class T, std::enable_if_t<std::is_same_v<decltype(T() / T()), T>,
-									std::nullptr_t> = nullptr>
+template <class T, std::enable_if_t<
+#if __cplusplus >= 201703L
+					   std::is_same_v<decltype(T() / T()), T>
+#else
+					   std::is_same<decltype(T() / T()), T>::value
+#endif
+					   ,
+					   std::nullptr_t> = nullptr>
 class Matrix {
   protected:
 	uint N, M;

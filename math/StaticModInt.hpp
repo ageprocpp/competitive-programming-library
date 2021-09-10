@@ -1,7 +1,7 @@
 #pragma once
 #include "../other/template.hpp"
 #include "../other/type_traits.hpp"
-template <uint modulo>
+template <int modulo>
 class StaticModInt : StaticModInt__Base {
 	std::conditional_t<(modulo > (INT_MAX >> 1)), lint, int> value;
 	static constexpr int inv1000000007[] = {0,		   1,		  500000004,
@@ -14,7 +14,7 @@ class StaticModInt : StaticModInt__Base {
 										   443664157, 299473306};
 
   public:
-	static constexpr uint mod_value = modulo;
+	static constexpr int mod_value = modulo;
 
 	constexpr StaticModInt() : value(0) {}
 	template <class T,
@@ -24,11 +24,19 @@ class StaticModInt : StaticModInt__Base {
 		if (this->value < 0) this->value += modulo;
 	}
 	inline constexpr StaticModInt inv() const {
+#if __cplusplus >= 201703L
 		if constexpr (modulo == 1000000007) {
 			if (*this <= 10) return inv1000000007[*this];
 		} else if constexpr (modulo == 998244353) {
 			if (*this <= 10) return inv998244353[*this];
 		}
+#else
+		if (modulo == 1000000007) {
+			if (*this <= 10) return inv1000000007[*this];
+		} else if (modulo == 998244353) {
+			if (*this <= 10) return inv998244353[*this];
+		}
+#endif
 		return mypow(*this, modulo - 2);
 	}
 	inline constexpr operator int() const { return value; }
@@ -53,8 +61,8 @@ class StaticModInt : StaticModInt__Base {
 		return StaticModInt(0) -= *this;
 	}
 	inline constexpr StaticModInt& operator-=(const StaticModInt& x) {
+		if (value < x.value) value += modulo;
 		value -= x.value;
-		if (value < 0) value += modulo;
 		return *this;
 	}
 	inline constexpr StaticModInt& operator--() {
@@ -141,13 +149,20 @@ class StaticModInt : StaticModInt__Base {
 		}
 	}
 };
-template <uint modulo>
+template <int modulo>
 std::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x) {
 	lint a;
 	ist >> a;
 	x = a;
 	return ist;
 }
+
+#if __cplusplus < 201703L
+template <int modulo>
+constexpr int StaticModInt<modulo>::inv1000000007[];
+template <int modulo>
+constexpr int StaticModInt<modulo>::inv998244353[];
+#endif
 
 /**
  * @title StaticModInt

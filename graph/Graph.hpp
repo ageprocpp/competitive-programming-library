@@ -33,7 +33,11 @@ class Graph {
 		Graph<weighted, W> res(N);
 		rep(i, N) {
 			for (const auto& j : vec[i]) {
+#if __cplusplus >= 201703L
 				if constexpr (weighted)
+#else
+				if (weighted)
+#endif
 					res.vec[j.first].emplace_back(i, j.second);
 				else
 					res.vec[j].emplace_back(i);

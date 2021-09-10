@@ -16,7 +16,12 @@ class Polynomial {
 	}
 	Polynomial& operator*=(const Polynomial& p) {
 		auto conv_func = [](const std::vector<T>& x, const std::vector<T>& y) {
-			if constexpr (is_ModInt_v<T>)
+#if __cplusplus >= 201703L
+			if constexpr
+#else
+			if
+#endif
+				(is_ModInt_v<T>)
 				return NumberTheoreticTransform::convolution(x, y);
 			else
 				return NumberTheoreticTransform::convolution_plain(x, y);

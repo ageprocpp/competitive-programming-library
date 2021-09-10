@@ -8,16 +8,16 @@
 // 167772161, 3, 2^25
 // 469762049, 3, 2^26
 class NumberTheoreticTransform {
-	static constexpr uint bases[] = {1012924417, 924844033, 998244353,
-									 1224736769, 167772161, 469762049};
+	static constexpr int bases[] = {1012924417, 924844033, 998244353,
+									1224736769, 167772161, 469762049};
+	static constexpr int roots[] = {5, 5, 3, 3, 3, 3};
 
   private:
-	template <uint modulo>
-	static void ntt(std::vector<StaticModInt<modulo>>& a) {
+	template <int modulo>
+	static void ntt(std::vector<StaticModInt<modulo>>& a,
+					StaticModInt<modulo> root) {
 		int sz = a.size();
 		if (sz == 1) return;
-		StaticModInt<modulo> root =
-			modulo == 924844033 || modulo == 1012924417 ? 5 : 3;
 		if (inverse)
 			root = mypow(root, modulo - 1 - (modulo - 1) / sz);
 		else
@@ -37,54 +37,97 @@ class NumberTheoreticTransform {
 			std::swap(a, b);
 		}
 	}
-	template <uint modulo, typename T>
+	template <class T, int modulo>
 	static std::vector<StaticModInt<modulo>> internal_convolution(
-		const std::vector<T>& f, const std::vector<T>& g) {
-		std::vector<StaticModInt<modulo>> nf(f.size()), ng(g.size());
-		rep(j, f.size()) nf[j] = f[j];
-		rep(j, g.size()) ng[j] = g[j];
-		inverse = false;
-		ntt(nf);
-		ntt(ng);
-		rep(i, nf.size()) nf[i] *= ng[i];
-		inverse = true;
-		ntt(nf);
-		StaticModInt<modulo> inv = StaticModInt<modulo>(nf.size()).inv();
-		rep(i, nf.size()) nf[i] *= inv;
-		return nf;
+		const std::vector<T>& f_, const std::vector<T>& g_,
+		StaticModInt<modulo> root) {
+		std::vector<StaticModInt<modulo>> f(f_.size()), g(g_.size());
+		rep(j, f_.size()) f[j] = f_[j];
+		rep(j, g_.size()) g[j] = g_[j];
+		return internal_convolution(f, g, root);
 	}
-	template <uint modulo>
+	template <int modulo>
 	static std::vector<StaticModInt<modulo>> internal_convolution(
 		std::vector<StaticModInt<modulo>> f,
-		std::vector<StaticModInt<modulo>> g) {
+		std::vector<StaticModInt<modulo>> g, StaticModInt<modulo> root) {
+		size_t target_size = f.size() + g.size() - 1, sz = 1;
+		while (sz < f.size() + g.size()) sz <<= 1;
+		f.resize(sz), g.resize(sz);
+
 		inverse = false;
-		ntt(f);
-		ntt(g);
+		ntt(f, root), ntt(g, root);
 		rep(i, f.size()) f[i] *= g[i];
 		inverse = true;
-		ntt(f);
+		ntt(f, root);
 		StaticModInt<modulo> inv = StaticModInt<modulo>(f.size()).inv();
 		rep(i, f.size()) f[i] *= inv;
+		f.resize(target_size);
 		return f;
 	}
 
   public:
 	static bool inverse;
 
-	template <uint modulo, class T>
-	static std::vector<StaticModInt<modulo>> convolution(std::vector<T> f,
-														 std::vector<T> g) {
-		size_t sz = 1;
-		while (sz < f.size() + g.size()) sz <<= 1;
-		f.resize(sz);
-		g.resize(sz);
-		rep(i, 6) {
-			if (modulo == bases[i]) return internal_convolution<modulo>(std::move(f), std::move(g));
+	template <int modulo, class T>
+	static std::vector<StaticModInt<modulo>> convolution(
+		const std::vector<T>& f, const std::vector<T>& g) {
+#if __cplusplus >= 201703L
+		if constexpr
+#else
+		if
+#endif
+			(modulo == bases[0] || modulo == bases[1] || modulo == bases[2] ||
+			 modulo == bases[3] || modulo == bases[4] || modulo == bases[5]) {
+			std::vector<StaticModInt<modulo>> f_(f.size()), g_(g.size());
+			rep(i, f.size()) f_[i] = f[i];
+			rep(i, g.size()) g_[i] = g[i];
+#if __cplusplus >= 201703L
+			if constexpr (modulo == bases[0]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[0]));
+			} else if constexpr (modulo == bases[1]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[1]));
+			} else if constexpr (modulo == bases[2]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[2]));
+			} else if constexpr (modulo == bases[3]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[3]));
+			} else if constexpr (modulo == bases[4]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[4]));
+			} else {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[5]));
+			}
+#else
+
+			if (modulo == bases[0]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[0]));
+			} else if (modulo == bases[1]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[1]));
+			} else if (modulo == bases[2]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[2]));
+			} else if (modulo == bases[3]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[3]));
+			} else if (modulo == bases[4]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[4]));
+			} else {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[5]));
+			}
+#endif
 		}
-		constexpr uint base1 = 998244353, base2 = 1224736769, base3 = 469762049;
-		auto re1 = internal_convolution<base1>(f, g);
-		auto re2 = internal_convolution<base2>(f, g);
-		auto re3 = internal_convolution<base3>(std::move(f), std::move(g));
+		constexpr int base1 = 998244353, base2 = 1224736769, base3 = 469762049;
+		auto re1 = internal_convolution<T, base1>(f, g, 3);
+		auto re2 = internal_convolution<T, base2>(f, g, 3);
+		auto re3 = internal_convolution<T, base3>(f, g, 3);
 		std::vector<StaticModInt<modulo>> res(re1.size());
 		constexpr int r12 = StaticModInt<base2>(base1).inv();
 		constexpr int r13 = StaticModInt<base3>(base1).inv();
@@ -99,21 +142,70 @@ class NumberTheoreticTransform {
 		}
 		return res;
 	}
-	template <uint modulo>
+	template <int modulo>
 	static std::vector<StaticModInt<modulo>> convolution(
 		std::vector<StaticModInt<modulo>> f,
 		std::vector<StaticModInt<modulo>> g) {
-		size_t sz = 1;
-		while (sz < f.size() + g.size()) sz <<= 1;
-		f.resize(sz);
-		g.resize(sz);
-		rep(i, 6) {
-			if (modulo == bases[i]) return internal_convolution(f, g);
+#if __cplusplus >= 201703L
+		if constexpr
+#else
+		if
+#endif
+			(modulo == bases[0] || modulo == bases[1] || modulo == bases[2] ||
+			 modulo == bases[3] || modulo == bases[4] || modulo == bases[5]) {
+			std::vector<StaticModInt<modulo>> f_(f.size()), g_(g.size());
+			rep(i, f.size()) f_[i] = f[i];
+			rep(i, g.size()) g_[i] = g[i];
+#if __cplusplus >= 201703L
+			if constexpr (modulo == bases[0]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[0]));
+			} else if constexpr (modulo == bases[1]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[1]));
+			} else if constexpr (modulo == bases[2]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[2]));
+			} else if constexpr (modulo == bases[3]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[3]));
+			} else if constexpr (modulo == bases[4]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[4]));
+			} else {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[5]));
+			}
+#else
+
+			if (modulo == bases[0]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[0]));
+			} else if (modulo == bases[1]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[1]));
+			} else if (modulo == bases[2]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[2]));
+			} else if (modulo == bases[3]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[3]));
+			} else if (modulo == bases[4]) {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[4]));
+			} else {
+				return internal_convolution<modulo>(
+					f_, g_, StaticModInt<modulo>(roots[5]));
+			}
+#endif
 		}
-		constexpr uint base1 = 998244353, base2 = 1224736769, base3 = 469762049;
-		auto re1 = internal_convolution<base1>(f, g);
-		auto re2 = internal_convolution<base2>(f, g);
-		auto re3 = internal_convolution<base3>(f, g);
+		constexpr int base1 = 998244353, base2 = 1224736769, base3 = 469762049;
+		auto re1 = internal_convolution<StaticModInt<modulo>, base1>(
+			f, g, StaticModInt<base1>(3));
+		auto re2 = internal_convolution<StaticModInt<modulo>, base2>(
+			f, g, StaticModInt<base2>(3));
+		auto re3 = internal_convolution<StaticModInt<modulo>, base3>(
+			f, g, StaticModInt<base3>(3));
 		std::vector<StaticModInt<modulo>> res(re1.size());
 		constexpr int r12 = StaticModInt<base2>(base1).inv();
 		constexpr int r13 = StaticModInt<base3>(base1).inv();
@@ -131,9 +223,11 @@ class NumberTheoreticTransform {
 	template <class T>
 	static std::vector<lint> convolution_plain(std::vector<T> f,
 											   std::vector<T> g) {
-		const uint mod1 = 998244353, mod2 = 1224736769;
-		std::vector<StaticModInt<mod1>> mul1 = internal_convolution<mod1>(f, g);
-		std::vector<StaticModInt<mod2>> mul2 = internal_convolution<mod2>(f, g);
+		const int mod1 = 998244353, mod2 = 1224736769;
+		std::vector<StaticModInt<mod1>> mul1 =
+			internal_convolution<mod1>(f, g, 3);
+		std::vector<StaticModInt<mod2>> mul2 =
+			internal_convolution<mod2>(f, g, 3);
 		std::vector<lint> res(mul1.size());
 		rep(i, mul1.size()) res[i] =
 			ChineseRem(mul1[i], mod1, mul2[i], mod2).first;

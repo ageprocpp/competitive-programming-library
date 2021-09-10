@@ -47,7 +47,11 @@ class Tree {
 	}
 	std::pair<std::vector<int>, lint> DiameterPath() {
 		auto tmp = Diameter();
+#if __cplusplus >= 201703L
 		auto [x, y] = tmp.first;
+#else
+		int x = tmp.first.first, y = tmp.first.second;
+#endif
 		lint dist = tmp.second;
 		std::vector<bool> used(N + 1);
 		std::vector<int> res;
