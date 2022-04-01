@@ -33,9 +33,9 @@ data:
     )\n#endif\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma\
     \ GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include\
     \ <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n#include\
-    \ <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n#include\
-    \ <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
-    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    \ <cassert>\n#include <cfloat>\n#include <chrono>\n#include <climits>\n#include\
+    \ <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n\
+    #include <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
     #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
@@ -90,21 +90,23 @@ data:
     \t\tif (b & 1) res *= a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\t\ta *= a;\n\t}\n\
     \treturn res;\n}\nconstexpr lint modpow(lint a, lint b, lint m) noexcept {\n\t\
     a %= m;\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a, res %= m;\n\t\
-    \ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n}\nLP extGcd(lint a, lint b) noexcept\
-    \ {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first,\
-    \ s.second);\n\ts.second -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const\
-    \ lint& b1, const lint& m1, const lint& b2,\n\t\t\t  const lint& m2) noexcept\
-    \ {\n\tauto p = extGcd(m1, m2);\n\tlint g = gcd(m1, m2), l = m1 / g * m2;\n\t\
-    lint tmp = (b2 - b1) / g * p.first % (m2 / g);\n\tlint r = (b1 + m1 * tmp + l)\
-    \ % l;\n\treturn {r, l};\n}\nint LCS(const std::string& a, const std::string&\
-    \ b) {\n\tauto dp = make_vec<int>(a.size() + 1, b.size() + 1);\n\trep(i, a.size())\
-    \ {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j\
-    \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
-    \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
-    \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
-    }\ntemplate <class T, std::enable_if_t<std::is_convertible<int, T>::value,\n\t\
-    \t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nvoid compress(std::vector<T>& vec)\
-    \ {\n\tauto tmp = vec;\n\tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)),\
+    \ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n}\nconstexpr i128 modpow(i128\
+    \ a, i128 b, i128 m) noexcept {\n\ta %= m;\n\ti128 res(1);\n\twhile (b) {\n\t\t\
+    if (b & 1) res *= a, res %= m;\n\t\ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n\
+    }\nLP extGcd(lint a, lint b) noexcept {\n\tif (b == 0) return {1, 0};\n\tLP s\
+    \ = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b *\
+    \ s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const\
+    \ lint& b2,\n\t\t\t  const lint& m2) noexcept {\n\tauto p = extGcd(m1, m2);\n\t\
+    lint g = gcd(m1, m2), l = m1 / g * m2;\n\tlint tmp = (b2 - b1) / g * p.first %\
+    \ (m2 / g);\n\tlint r = (b1 + m1 * tmp + l) % l;\n\treturn {r, l};\n}\nint LCS(const\
+    \ std::string& a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size()\
+    \ + 1, b.size() + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i\
+    \ + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] ==\
+    \ b[j]) chmax(dp[i + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()],\
+    \ dp[i][b.size()]);\n\t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\
+    \treturn dp[a.size()][b.size()];\n}\ntemplate <class T, std::enable_if_t<std::is_convertible<int,\
+    \ T>::value,\n\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nvoid compress(std::vector<T>&\
+    \ vec) {\n\tauto tmp = vec;\n\tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)),\
     \ tmp.end());\n\tfor (T& i : vec) i = std::lower_bound(all(tmp), i) - tmp.begin();\n\
     }\ntemplate <class T>\nvoid compress(T* l, T* r) {\n\tstd::vector<T> tmp(l, r);\n\
     \tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor\
@@ -183,40 +185,41 @@ data:
     template <int modulo>\nconstexpr int StaticModInt<modulo>::inv998244353[];\n#endif\n\
     \n/**\n * @title StaticModInt\n */\n#line 3 \"data-structure/SegTree.hpp\"\ntemplate\
     \ <class T, T (*nodef)(const T&, const T&)>\nclass SegTree {\n  protected:\n\t\
-    unsigned int n = 1, rank = 0;\n\tstd::vector<T> node;\n\tT ident;\n\n  public:\n\
-    \tSegTree(T e_) : ident(e_) {}\n\tSegTree(unsigned int m, T e_) : ident(e_) {\n\
-    \t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 *\
-    \ n, ident);\n\t}\n\tSegTree(unsigned int m, T init, T e_) : ident(e_) {\n\t\t\
+    unsigned int n = 1, m = 1, rank = 0;\n\tstd::vector<T> node;\n\tT ident;\n\n \
+    \ public:\n\tSegTree(T e_) : ident(e_) {}\n\tSegTree(unsigned int m_, T e_) :\
+    \ m(m_), ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t\
+    }\n\t\tnode.resize(2 * n, ident);\n\t}\n\tSegTree(unsigned int m_, T init, T e_)\
+    \ : m(m_), ident(e_) {\n\t\twhile (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t\
+    }\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n; i++)\
+    \ node[i] = init;\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\t\t\tnode[i]\
+    \ = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\ttemplate <class U>\n\tSegTree(const\
+    \ std::vector<U>& initvec, T e_) : ident(e_) {\n\t\tm = initvec.size();\n\t\t\
     while (n < m) {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\
-    \t\tfor (unsigned int i = n; i < 2 * n; i++) node[i] = init;\n\t\tfor (unsigned\
-    \ int i = n - 1; i > 0; i--)\n\t\t\tnode[i] = nodef(node[i << 1], node[i << 1\
-    \ | 1]);\n\t}\n\ttemplate <class U>\n\tSegTree(const std::vector<U>& initvec,\
-    \ T e_) : ident(e_) {\n\t\tunsigned int m = initvec.size();\n\t\twhile (n < m)\
-    \ {\n\t\t\tn *= 2;\n\t\t\trank++;\n\t\t}\n\t\tnode.resize(2 * n, ident);\n\t\t\
-    for (unsigned int i = n; i < 2 * n; i++) {\n\t\t\tif (i - n < m) node[i] = initvec[i\
-    \ - n];\n\t\t}\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\t\t\tnode[i] =\
-    \ nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\tvoid update(int i, T x) {\n\t\
-    \ti += n;\n\t\tnode[i] = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i]\
-    \ = nodef(node[2 * i], node[2 * i + 1]);\n\t\t}\n\t}\n\tT query(int l, int r)\
-    \ const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls = ident, rs = ident;\n\t\twhile\
-    \ (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs\
-    \ = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls,\
-    \ rs);\n\t}\n\tconst T& operator[](const int& x) const { return node[n + x]; }\n\
-    \tT queryForAll() const { return node[1]; }\n\n  private:\n\ttemplate <class F>\n\
-    \tint max_right(int st, F& check, T& acc, int k, int l, int r) const {\n\t\tif\
-    \ (l + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\treturn check(acc) ?\
-    \ -1 : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\tif (m <= st) return max_right(st,\
-    \ check, acc, (k << 1) | 1, m, r);\n\t\tif (st <= l && check(nodef(acc, node[k])))\
-    \ {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\treturn -1;\n\t\t}\n\t\tint vl = max_right(st,\
-    \ check, acc, k << 1, l, m);\n\t\tif (vl != -1) return vl;\n\t\treturn max_right(st,\
-    \ check, acc, (k << 1) | 1, m, r);\n\t}\n\n  public:\n\ttemplate <class F>\n\t\
-    int max_right(int st, F check) const {\n\t\tT acc = ident;\n\t\treturn max_right(st,\
-    \ check, acc, 1, 0, n);\n\t}\n\ttemplate <bool (*check)(const T&)>\n\tint max_right(int\
-    \ st) const {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0,\
-    \ n);\n\t}\n};\nnamespace {\n\ttemplate <typename T>\n\tT RSQ_nodef(const T& lhs,\
-    \ const T& rhs) {\n\t\treturn lhs + rhs;\n\t}\n\ttemplate <typename T>\n\tT RMiQ_nodef(const\
-    \ T& lhs, const T& rhs) {\n\t\treturn std::min(lhs, rhs);\n\t}\n\ttemplate <typename\
-    \ T>\n\tT RMaQ_nodef(const T& lhs, const T& rhs) {\n\t\treturn std::max(lhs, rhs);\n\
+    \t\tfor (unsigned int i = n; i < 2 * n; i++) {\n\t\t\tif (i - n < m) node[i] =\
+    \ initvec[i - n];\n\t\t}\n\t\tfor (unsigned int i = n - 1; i > 0; i--)\n\t\t\t\
+    node[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\t}\n\tvoid update(int i, T\
+    \ x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\
+    \t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\t\t}\n\t}\n\tT query(int\
+    \ l, int r) const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls = ident, rs = ident;\n\
+    \t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r\
+    \ & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\t\
+    return nodef(ls, rs);\n\t}\n\tconst T& operator[](const int& x) const { return\
+    \ node[n + x]; }\n\tT queryForAll() const { return node[1]; }\n\n  private:\n\t\
+    template <class F>\n\tint max_right(int st, F& check, T& acc, int k, int l, int\
+    \ r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\t\
+    return check(acc) ? -1 : k - n;\n\t\t}\n\t\tint m = (l + r) >> 1;\n\t\tif (m <=\
+    \ st) return max_right(st, check, acc, (k << 1) | 1, m, r);\n\t\tif (st <= l &&\
+    \ check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc, node[k]);\n\t\t\treturn\
+    \ -1;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k << 1, l, m);\n\t\tif (vl\
+    \ != -1) return vl;\n\t\treturn max_right(st, check, acc, (k << 1) | 1, m, r);\n\
+    \t}\n\n  public:\n\ttemplate <class F>\n\tint max_right(int st, F check) const\
+    \ {\n\t\tT acc = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n\
+    \ttemplate <bool (*check)(const T&)>\n\tint max_right(int st) const {\n\t\tT acc\
+    \ = ident;\n\t\treturn max_right(st, check, acc, 1, 0, n);\n\t}\n};\nnamespace\
+    \ {\n\ttemplate <typename T>\n\tT RSQ_nodef(const T& lhs, const T& rhs) {\n\t\t\
+    return lhs + rhs;\n\t}\n\ttemplate <typename T>\n\tT RMiQ_nodef(const T& lhs,\
+    \ const T& rhs) {\n\t\treturn std::min(lhs, rhs);\n\t}\n\ttemplate <typename T>\n\
+    \tT RMaQ_nodef(const T& lhs, const T& rhs) {\n\t\treturn std::max(lhs, rhs);\n\
     \t}\n}  // namespace\n\ntemplate <typename T>\nclass RSQ : public SegTree<T, RSQ_nodef>\
     \ {\n\tusing Base = SegTree<T, RSQ_nodef>;\n\n  public:\n\ttemplate <class...\
     \ Args>\n\tRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}\n};\n\
@@ -303,29 +306,46 @@ data:
     template <class T>\n\tT RAQRMiQ_nodef(const T& a, const T& b) {\n\t\treturn std::min(a,\
     \ b);\n\t}\n\ttemplate <class T>\n\tvoid RAQRMiQ_lazyf(T& a, const T& b) {\n\t\
     \ta += b;\n\t}\n\ttemplate <class T>\n\tvoid RAQRMiQ_updf(T& a, const T& b, const\
-    \ unsigned int& width) {\n\t\ta += b;\n\t}\n\n\ttemplate <class T>\n\tT RAQRMaQ_nodef(const\
-    \ T& a, const T& b) {\n\t\treturn std::max(a, b);\n\t}\n\ttemplate <class T>\n\
-    \tvoid RAQRMaQ_lazyf(T& a, const T& b) {\n\t\ta += b;\n\t}\n\ttemplate <class\
-    \ T>\n\tvoid RAQRMaQ_updf(T& a, const T& b, const unsigned int& width) {\n\t\t\
-    a += b;\n\t}\n\n\ttemplate <class T>\n\tT RUQRSQ_nodef(const T& a, const T& b)\
-    \ {\n\t\treturn a + b;\n\t}\n\ttemplate <class T>\n\tvoid RUQRSQ_lazyf(T& a, const\
-    \ T& b) {\n\t\ta = b;\n\t}\n\ttemplate <class T>\n\tvoid RUQRSQ_updf(T& a, const\
-    \ T& b, const unsigned int& width) {\n\t\ta = width * b;\n\t}\n\n\ttemplate <class\
-    \ T>\n\tT RUQRMiQ_nodef(const T& a, const T& b) {\n\t\treturn std::min(a, b);\n\
-    \t}\n\ttemplate <class T>\n\tvoid RUQRMiQ_lazyf(T& a, const T& b) {\n\t\ta = b;\n\
-    \t}\n\ttemplate <class T>\n\tvoid RUQRMiQ_updf(T& a, const T& b, const unsigned\
-    \ int& width) {\n\t\ta = b;\n\t}\n\n\ttemplate <class T>\n\tT RUQRMaQ_nodef(const\
-    \ T& a, const T& b) {\n\t\treturn std::max(a, b);\n\t}\n\ttemplate <class T>\n\
-    \tvoid RUQRMaQ_lazyf(T& a, const T& b) {\n\t\ta = b;\n\t}\n\ttemplate <class T>\n\
-    \tvoid RUQRMaQ_updf(T& a, const T& b, const unsigned int& width) {\n\t\ta = b;\n\
-    \t}\n}  // namespace\n\ntemplate <class T>\nclass RAQRSQ\n\t: public IntervalSegTree<T,\
-    \ T, RAQRSQ_nodef, RAQRSQ_lazyf, RAQRSQ_updf> {\n\tusing Base = IntervalSegTree<T,\
-    \ T, RAQRSQ_nodef, RAQRSQ_lazyf, RAQRSQ_updf>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRAQRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}\n\
-    };\ntemplate <class T>\nclass RAQRMiQ\n\t: public IntervalSegTree<T, T, RAQRMiQ_nodef,\
-    \ RAQRMiQ_lazyf, RAQRMiQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<T, T, RAQRMiQ_nodef,\
-    \ RAQRMiQ_lazyf, RAQRMiQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\tRAQRMiQ(Args&&...\
-    \ args)\n\t\t: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max())\
+    \ unsigned int& width) {\n\t\ta += b;\n\t}\n\n\ttemplate <class T>\n\tT RCHMiQRMiQ_nodef(const\
+    \ T& a, const T& b) {\n\t\treturn std::min(a, b);\n\t}\n\ttemplate <class T>\n\
+    \tvoid RCHMiQRMiQ_lazyf(T& a, const T& b) {\n\t\tchmin(a, b);\n\t}\n\ttemplate\
+    \ <class T>\n\tvoid RCHMiQRMiQ_updf(T& a, const T& b, const unsigned int& width)\
+    \ {\n\t\tchmin(a, b);\n\t}\n\n\ttemplate <class T>\n\tT RAQRMaQ_nodef(const T&\
+    \ a, const T& b) {\n\t\treturn std::max(a, b);\n\t}\n\ttemplate <class T>\n\t\
+    void RAQRMaQ_lazyf(T& a, const T& b) {\n\t\ta += b;\n\t}\n\ttemplate <class T>\n\
+    \tvoid RAQRMaQ_updf(T& a, const T& b, const unsigned int& width) {\n\t\ta += b;\n\
+    \t}\n\n\ttemplate <class T>\n\tT RCHMaQRMaQ_nodef(const T& a, const T& b) {\n\t\
+    \treturn std::max(a, b);\n\t}\n\ttemplate <class T>\n\tvoid RCHMaQRMaQ_lazyf(T&\
+    \ a, const T& b) {\n\t\tchmax(a, b);\n\t}\n\ttemplate <class T>\n\tvoid RCHMaQRMaQ_updf(T&\
+    \ a, const T& b, const unsigned int& width) {\n\t\tchmax(a, b);\n\t}\n\n\ttemplate\
+    \ <class T>\n\tT RUQRSQ_nodef(const T& a, const T& b) {\n\t\treturn a + b;\n\t\
+    }\n\ttemplate <class T>\n\tvoid RUQRSQ_lazyf(T& a, const T& b) {\n\t\ta = b;\n\
+    \t}\n\ttemplate <class T>\n\tvoid RUQRSQ_updf(T& a, const T& b, const unsigned\
+    \ int& width) {\n\t\ta = width * b;\n\t}\n\n\ttemplate <class T>\n\tT RUQRMiQ_nodef(const\
+    \ T& a, const T& b) {\n\t\treturn std::min(a, b);\n\t}\n\ttemplate <class T>\n\
+    \tvoid RUQRMiQ_lazyf(T& a, const T& b) {\n\t\ta = b;\n\t}\n\ttemplate <class T>\n\
+    \tvoid RUQRMiQ_updf(T& a, const T& b, const unsigned int& width) {\n\t\ta = b;\n\
+    \t}\n\n\ttemplate <class T>\n\tT RUQRMaQ_nodef(const T& a, const T& b) {\n\t\t\
+    return std::max(a, b);\n\t}\n\ttemplate <class T>\n\tvoid RUQRMaQ_lazyf(T& a,\
+    \ const T& b) {\n\t\ta = b;\n\t}\n\ttemplate <class T>\n\tvoid RUQRMaQ_updf(T&\
+    \ a, const T& b, const unsigned int& width) {\n\t\ta = b;\n\t}\n}  // namespace\n\
+    \ntemplate <class T>\nclass RAQRSQ\n\t: public IntervalSegTree<T, T, RAQRSQ_nodef,\
+    \ RAQRSQ_lazyf, RAQRSQ_updf> {\n\tusing Base = IntervalSegTree<T, T, RAQRSQ_nodef,\
+    \ RAQRSQ_lazyf, RAQRSQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\tRAQRSQ(Args&&...\
+    \ args) : Base(std::forward<Args>(args)..., 0) {}\n};\ntemplate <class T>\nclass\
+    \ RAQRMiQ\n\t: public IntervalSegTree<T, T, RAQRMiQ_nodef, RAQRMiQ_lazyf, RAQRMiQ_updf>\
+    \ {\n\tusing Base =\n\t\tIntervalSegTree<T, T, RAQRMiQ_nodef, RAQRMiQ_lazyf, RAQRMiQ_updf>;\n\
+    \n  public:\n\ttemplate <class... Args>\n\tRAQRMiQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)...,\
+    \ std::numeric_limits<T>::max()) {}\n};\ntemplate <class T>\nclass RCHMiQRMiQ\
+    \ : public IntervalSegTree<T, T, RCHMiQRMiQ_nodef,\n\t\t\t\t\t\t\t\t\t\t  RCHMiQRMiQ_lazyf,\
+    \ RCHMiQRMiQ_updf> {\n\tusing Base = IntervalSegTree<T, T, RCHMiQRMiQ_nodef, RCHMiQRMiQ_lazyf,\n\
+    \t\t\t\t\t\t\t\t RCHMiQRMiQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\t\
+    RCHMiQRMiQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max())\
+    \ {}\n};\ntemplate <class T>\nclass RCHMaQRMaQ : public IntervalSegTree<T, T,\
+    \ RCHMaQRMaQ_nodef,\n\t\t\t\t\t\t\t\t\t\t  RCHMaQRMaQ_lazyf, RCHMaQRMaQ_updf>\
+    \ {\n\tusing Base = IntervalSegTree<T, T, RCHMaQRMaQ_nodef, RCHMaQRMaQ_lazyf,\n\
+    \t\t\t\t\t\t\t\t RCHMaQRMaQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\t\
+    RCHMaQRMaQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min())\
     \ {}\n};\ntemplate <class T>\nclass RAQRMaQ\n\t: public IntervalSegTree<T, T,\
     \ RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<T,\
     \ T, RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf>;\n\n  public:\n\ttemplate <class...\
@@ -382,7 +402,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/range_affine_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2021-09-11 00:07:32+09:00'
+  timestamp: '2022-04-01 21:43:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/range_affine_range_sum.test.cpp

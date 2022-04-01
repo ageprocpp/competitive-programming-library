@@ -30,9 +30,9 @@ data:
     )\n#endif\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma\
     \ GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include\
     \ <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n#include\
-    \ <cassert>\n#include <cfloat>\n#include <climits>\n#include <cmath>\n#include\
-    \ <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
-    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    \ <cassert>\n#include <cfloat>\n#include <chrono>\n#include <climits>\n#include\
+    \ <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n\
+    #include <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
     #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
@@ -87,21 +87,23 @@ data:
     \t\tif (b & 1) res *= a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\t\ta *= a;\n\t}\n\
     \treturn res;\n}\nconstexpr lint modpow(lint a, lint b, lint m) noexcept {\n\t\
     a %= m;\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a, res %= m;\n\t\
-    \ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n}\nLP extGcd(lint a, lint b) noexcept\
-    \ {\n\tif (b == 0) return {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first,\
-    \ s.second);\n\ts.second -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const\
-    \ lint& b1, const lint& m1, const lint& b2,\n\t\t\t  const lint& m2) noexcept\
-    \ {\n\tauto p = extGcd(m1, m2);\n\tlint g = gcd(m1, m2), l = m1 / g * m2;\n\t\
-    lint tmp = (b2 - b1) / g * p.first % (m2 / g);\n\tlint r = (b1 + m1 * tmp + l)\
-    \ % l;\n\treturn {r, l};\n}\nint LCS(const std::string& a, const std::string&\
-    \ b) {\n\tauto dp = make_vec<int>(a.size() + 1, b.size() + 1);\n\trep(i, a.size())\
-    \ {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j\
-    \ + 1], dp[i][j]);\n\t\t\tif (a[i] == b[j]) chmax(dp[i + 1][j + 1], dp[i][j] +\
-    \ 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()], dp[i][b.size()]);\n\t}\n\trep(j,\
-    \ b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\treturn dp[a.size()][b.size()];\n\
-    }\ntemplate <class T, std::enable_if_t<std::is_convertible<int, T>::value,\n\t\
-    \t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nvoid compress(std::vector<T>& vec)\
-    \ {\n\tauto tmp = vec;\n\tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)),\
+    \ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n}\nconstexpr i128 modpow(i128\
+    \ a, i128 b, i128 m) noexcept {\n\ta %= m;\n\ti128 res(1);\n\twhile (b) {\n\t\t\
+    if (b & 1) res *= a, res %= m;\n\t\ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n\
+    }\nLP extGcd(lint a, lint b) noexcept {\n\tif (b == 0) return {1, 0};\n\tLP s\
+    \ = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b *\
+    \ s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const\
+    \ lint& b2,\n\t\t\t  const lint& m2) noexcept {\n\tauto p = extGcd(m1, m2);\n\t\
+    lint g = gcd(m1, m2), l = m1 / g * m2;\n\tlint tmp = (b2 - b1) / g * p.first %\
+    \ (m2 / g);\n\tlint r = (b1 + m1 * tmp + l) % l;\n\treturn {r, l};\n}\nint LCS(const\
+    \ std::string& a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size()\
+    \ + 1, b.size() + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i\
+    \ + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] ==\
+    \ b[j]) chmax(dp[i + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()],\
+    \ dp[i][b.size()]);\n\t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\
+    \treturn dp[a.size()][b.size()];\n}\ntemplate <class T, std::enable_if_t<std::is_convertible<int,\
+    \ T>::value,\n\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nvoid compress(std::vector<T>&\
+    \ vec) {\n\tauto tmp = vec;\n\tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)),\
     \ tmp.end());\n\tfor (T& i : vec) i = std::lower_bound(all(tmp), i) - tmp.begin();\n\
     }\ntemplate <class T>\nvoid compress(T* l, T* r) {\n\tstd::vector<T> tmp(l, r);\n\
     \tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor\
@@ -284,17 +286,17 @@ data:
     \ * base1 * base2);\n\t\t}\n\t\treturn res;\n\t}\n\ttemplate <class T>\n\tstatic\
     \ std::vector<lint> convolution_plain(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\t\
     \   std::vector<T> g) {\n\t\tconst int mod1 = 998244353, mod2 = 1224736769;\n\t\
-    \tstd::vector<StaticModInt<mod1>> mul1 =\n\t\t\tinternal_convolution<mod1>(f,\
-    \ g, 3);\n\t\tstd::vector<StaticModInt<mod2>> mul2 =\n\t\t\tinternal_convolution<mod2>(f,\
-    \ g, 3);\n\t\tstd::vector<lint> res(mul1.size());\n\t\trep(i, mul1.size()) res[i]\
-    \ =\n\t\t\tChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\t\treturn res;\n\t\
-    }\n};\nbool NumberTheoreticTransform::inverse = false;\n\n/**\n * @title NumberTheoreticTransform\n\
-    \ */\n#line 4 \"test/yosupo/convolution_mod.test.cpp\"\nint n, m;\nstd::vector<int>\
-    \ a, b;\nint main() {\n\tscanf(\"%d%d\", &n, &m);\n\ta.resize(n);\n\tb.resize(m);\n\
-    \trep(i, n) scanf(\"%d\", a.data() + i);\n\trep(i, m) scanf(\"%d\", b.data() +\
-    \ i);\n\tstd::vector<StaticModInt<998244353>> c =\n\t\tNumberTheoreticTransform::convolution<998244353>(a,\
-    \ b);\n\trep(i, n + m - 1) printf((i == n + m ? \"%d\\n\" : \"%d \"), c[i]);\n\
-    }\n"
+    \tstd::vector<StaticModInt<mod1>> mul1 =\n\t\t\tinternal_convolution<T, mod1>(f,\
+    \ g, StaticModInt<mod1>(3));\n\t\tstd::vector<StaticModInt<mod2>> mul2 =\n\t\t\
+    \tinternal_convolution<T, mod2>(f, g, StaticModInt<mod2>(3));\n\t\tstd::vector<lint>\
+    \ res(mul1.size());\n\t\trep(i, mul1.size()) res[i] =\n\t\t\tChineseRem(mul1[i],\
+    \ mod1, mul2[i], mod2).first;\n\t\treturn res;\n\t}\n};\nbool NumberTheoreticTransform::inverse\
+    \ = false;\n\n/**\n * @title NumberTheoreticTransform\n */\n#line 4 \"test/yosupo/convolution_mod.test.cpp\"\
+    \nint n, m;\nstd::vector<int> a, b;\nint main() {\n\tscanf(\"%d%d\", &n, &m);\n\
+    \ta.resize(n);\n\tb.resize(m);\n\trep(i, n) scanf(\"%d\", a.data() + i);\n\trep(i,\
+    \ m) scanf(\"%d\", b.data() + i);\n\tstd::vector<StaticModInt<998244353>> c =\n\
+    \t\tNumberTheoreticTransform::convolution<998244353>(a, b);\n\trep(i, n + m -\
+    \ 1) printf((i == n + m ? \"%d\\n\" : \"%d \"), c[i]);\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod\"\n#include\
     \ \"../../math/NumberTheoreticTransform.hpp\"\n#include \"../../other/template.hpp\"\
     \nint n, m;\nstd::vector<int> a, b;\nint main() {\n\tscanf(\"%d%d\", &n, &m);\n\
@@ -310,7 +312,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/convolution_mod.test.cpp
   requiredBy: []
-  timestamp: '2021-09-11 00:07:32+09:00'
+  timestamp: '2022-04-01 21:43:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/convolution_mod.test.cpp
