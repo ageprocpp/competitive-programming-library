@@ -20,6 +20,7 @@
 #include <bitset>
 #include <cassert>
 #include <cfloat>
+#include <chrono>
 #include <climits>
 #include <cmath>
 #include <complex>
@@ -187,6 +188,15 @@ constexpr T mypow(T a, lint b) noexcept {
 constexpr lint modpow(lint a, lint b, lint m) noexcept {
 	a %= m;
 	lint res(1);
+	while (b) {
+		if (b & 1) res *= a, res %= m;
+		a *= a, a %= m, b >>= 1;
+	}
+	return res;
+}
+constexpr i128 modpow(i128 a, i128 b, i128 m) noexcept {
+	a %= m;
+	i128 res(1);
 	while (b) {
 		if (b & 1) res *= a, res %= m;
 		a *= a, a %= m, b >>= 1;

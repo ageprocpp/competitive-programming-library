@@ -41,6 +41,22 @@ class SWAG {
 	bool empty() const { return front.empty() && back.empty(); }
 };
 
+namespace {
+	template <class T>
+	T minSWAG_op(const T& lhs, const T& rhs) {
+		return std::min(lhs, rhs);
+	}
+	template <class T>
+	T maxSWAG_op(const T& lhs, const T& rhs) {
+		return std::max(lhs, rhs);
+	}
+}  // namespace
+
+template <class T>
+class minSWAG : public SWAG<T, minSWAG_op> {};
+template <class T>
+class maxSWAG : public SWAG<T, maxSWAG_op> {};
+
 /**
  * @title Sliding Window Aggregation
  */

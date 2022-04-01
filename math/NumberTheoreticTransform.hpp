@@ -225,9 +225,9 @@ class NumberTheoreticTransform {
 											   std::vector<T> g) {
 		const int mod1 = 998244353, mod2 = 1224736769;
 		std::vector<StaticModInt<mod1>> mul1 =
-			internal_convolution<mod1>(f, g, 3);
+			internal_convolution<T, mod1>(f, g, StaticModInt<mod1>(3));
 		std::vector<StaticModInt<mod2>> mul2 =
-			internal_convolution<mod2>(f, g, 3);
+			internal_convolution<T, mod2>(f, g, StaticModInt<mod2>(3));
 		std::vector<lint> res(mul1.size());
 		rep(i, mul1.size()) res[i] =
 			ChineseRem(mul1[i], mod1, mul2[i], mod2).first;

@@ -3,20 +3,20 @@
 template <class T, T (*nodef)(const T&, const T&)>
 class SegTree {
   protected:
-	unsigned int n = 1, rank = 0;
+	unsigned int n = 1, m = 1, rank = 0;
 	std::vector<T> node;
 	T ident;
 
   public:
 	SegTree(T e_) : ident(e_) {}
-	SegTree(unsigned int m, T e_) : ident(e_) {
+	SegTree(unsigned int m_, T e_) : m(m_), ident(e_) {
 		while (n < m) {
 			n *= 2;
 			rank++;
 		}
 		node.resize(2 * n, ident);
 	}
-	SegTree(unsigned int m, T init, T e_) : ident(e_) {
+	SegTree(unsigned int m_, T init, T e_) : m(m_), ident(e_) {
 		while (n < m) {
 			n *= 2;
 			rank++;
@@ -28,7 +28,7 @@ class SegTree {
 	}
 	template <class U>
 	SegTree(const std::vector<U>& initvec, T e_) : ident(e_) {
-		unsigned int m = initvec.size();
+		m = initvec.size();
 		while (n < m) {
 			n *= 2;
 			rank++;
