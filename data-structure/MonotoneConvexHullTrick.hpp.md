@@ -24,15 +24,15 @@ data:
     \ <map>\n#include <memory>\n#include <queue>\n#include <random>\n#include <set>\n\
     #include <stack>\n#include <string>\n#include <unordered_map>\n#include <unordered_set>\n\
     #include <utility>\n#include <vector>\n\n#define rep(i, n) for (int i = 0; i <\
-    \ (n); i++)\n#define REP(i, n) for (int i = 1; i <= (n); i++)\n#define all(V)\
+    \ int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V)\
     \ V.begin(), V.end()\n\nusing i128 = __int128_t;\nusing u128 = __uint128_t;\n\
     using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
     \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
     constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
     \ double eps = DBL_EPSILON * 10;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
     \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
-    \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
-    \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
+    \ std::greater<T>> {};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\t\
+    return std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
     #endif\n#endif\n\tx = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333)\
     \ + (x >> 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\t\
     x = (x & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x\
@@ -41,57 +41,51 @@ data:
     \treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\ntemplate <class\
     \ T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
-    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(n, make_vec<T>(std::forward<Args>(args)...));\n\
     }\ntemplate <class T, class U>\nstd::istream& operator>>(std::istream& ist, std::pair<T,\
     \ U>& x) {\n\treturn ist >> x.first >> x.second;\n}\ntemplate <class T, class\
     \ U>\nstd::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {\n\
     \treturn ost << x.first << \" \" << x.second;\n}\ntemplate <class Container,\n\
-    #if __cplusplus >= 201703L\n\t\t  std::enable_if_t<!std::is_same_v<Container,\
-    \ std::string>,\n#else\n\t\t  std::enable_if_t<!std::is_same<Container, std::string>::value,\n\
-    #endif\n\t\t\t\t\t\t   std::nullptr_t> = nullptr>\nauto operator>>(std::istream&\
-    \ ist, Container& cont)\n\t-> decltype(typename Container::iterator(), std::cin)&\
-    \ {\n\tstd::vector<typename Container::value_type> tmp;\n\twhile (true) {\n\t\t\
+    \t\t  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t>\
+    \ = nullptr>\nauto operator>>(std::istream& ist, Container& cont)\n\t-> decltype(typename\
+    \ Container::iterator(), std::cin)& {\n\tContainer tmp;\n\twhile (true) {\n\t\t\
     typename Container::value_type t;\n\t\tist >> t;\n\t\ttmp.emplace_back(t);\n\t\
     \tif (getchar() == '\\n') break;\n\t}\n\tcont = Container(std::move(tmp));\n\t\
-    return ist;\n}\ntemplate <class Container,\n#if __cplusplus >= 201703L\n\t\t \
-    \ std::enable_if_t<!std::is_same_v<Container, std::string>,\n#else\n\t\t  std::enable_if_t<!std::is_same<Container,\
-    \ std::string>::value,\n#endif\n\t\t\t\t\t\t   std::nullptr_t> = nullptr>\nauto\
-    \ operator<<(std::ostream& ost, const Container& cont)\n\t-> decltype(typename\
-    \ Container::iterator(), std::cout)& {\n\tfor (auto it = cont.begin(); it != cont.end();\
-    \ it++) {\n\t\tif (it != cont.begin()) ost << ' ';\n\t\tost << *it;\n\t}\n\treturn\
-    \ ost;\n}\ntemplate <class Container>\nauto sum(const Container& cont)\n\t-> decltype(typename\
-    \ Container::iterator(), 0LL) {\n\tlint res = 0;\n\tfor (auto it = cont.begin();\
-    \ it != cont.end(); it++) res += *it;\n\treturn res;\n}\ntemplate <class T, class\
-    \ U>\nconstexpr inline bool chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs\
-    \ < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate\
-    \ <class T, class U>\nconstexpr inline bool chmin(T& lhs, const U& rhs) noexcept\
-    \ {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n\
-    }\nconstexpr inline lint gcd(lint a, lint b) noexcept {\n\twhile (b) {\n\t\tlint\
-    \ c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint\
-    \ a, lint b) noexcept { return a / gcd(a, b) * b; }\nconstexpr bool isprime(lint\
-    \ n) noexcept {\n\tif (n == 1) return false;\n\tfor (int i = 2; i * i <= n; i++)\
-    \ {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn true;\n}\ntemplate <class\
-    \ T>\nconstexpr T mypow(T a, lint b) noexcept {\n\tT res(1);\n\twhile (true) {\n\
-    \t\tif (b & 1) res *= a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\t\ta *= a;\n\t}\n\
-    \treturn res;\n}\nconstexpr lint modpow(lint a, lint b, lint m) noexcept {\n\t\
-    a %= m;\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a, res %= m;\n\t\
-    \ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n}\nconstexpr i128 modpow(i128\
-    \ a, i128 b, i128 m) noexcept {\n\ta %= m;\n\ti128 res(1);\n\twhile (b) {\n\t\t\
-    if (b & 1) res *= a, res %= m;\n\t\ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n\
-    }\nLP extGcd(lint a, lint b) noexcept {\n\tif (b == 0) return {1, 0};\n\tLP s\
-    \ = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b *\
-    \ s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const\
-    \ lint& b2,\n\t\t\t  const lint& m2) noexcept {\n\tauto p = extGcd(m1, m2);\n\t\
-    lint g = gcd(m1, m2), l = m1 / g * m2;\n\tlint tmp = (b2 - b1) / g * p.first %\
-    \ (m2 / g);\n\tlint r = (b1 + m1 * tmp + l) % l;\n\treturn {r, l};\n}\nint LCS(const\
+    return ist;\n}\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
+    \ std::string>::value, std::nullptr_t> = nullptr>\nauto operator<<(std::ostream&\
+    \ ost, const Container& cont)\n\t-> decltype(typename Container::iterator(), std::cout)&\
+    \ {\n\tfor (auto it = cont.begin(); it != cont.end(); it++) {\n\t\tif (it != cont.begin())\
+    \ ost << ' ';\n\t\tost << *it;\n\t}\n\treturn ost;\n}\ntemplate <class Container>\n\
+    auto sum(const Container& cont) -> decltype(typename Container::iterator(), 0LL)\
+    \ {\n\tlint res = 0;\n\tfor (auto it = cont.begin(); it != cont.end(); it++) res\
+    \ += *it;\n\treturn res;\n}\ntemplate <class T, class U>\nconstexpr inline bool\
+    \ chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs < rhs) {\n\t\tlhs = rhs;\n\
+    \t\treturn true;\n\t}\n\treturn false;\n}\ntemplate <class T, class U>\nconstexpr\
+    \ inline bool chmin(T& lhs, const U& rhs) noexcept {\n\tif (lhs > rhs) {\n\t\t\
+    lhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\nconstexpr inline lint gcd(lint\
+    \ a, lint b) noexcept {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\tb = c\
+    \ % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) noexcept { return\
+    \ a / gcd(a, b) * b; }\nconstexpr bool isprime(lint n) noexcept {\n\tif (n ==\
+    \ 1) return false;\n\tfor (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0)\
+    \ return false;\n\t}\n\treturn true;\n}\ntemplate <class T>\nconstexpr T mypow(T\
+    \ a, lint b) noexcept {\n\tT res(1);\n\twhile (true) {\n\t\tif (b & 1) res *=\
+    \ a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\t\ta *= a;\n\t}\n\treturn res;\n}\nconstexpr\
+    \ lint modpow(lint a, lint b, lint m) noexcept {\n\ta %= m;\n\tlint res(1);\n\t\
+    while (b) {\n\t\tif (b & 1) res *= a, res %= m;\n\t\ta *= a, a %= m, b >>= 1;\n\
+    \t}\n\treturn res;\n}\nLP extGcd(lint a, lint b) noexcept {\n\tif (b == 0) return\
+    \ {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second\
+    \ -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint&\
+    \ m1, const lint& b2, const lint& m2) noexcept {\n\tauto p = extGcd(m1, m2);\n\
+    \tlint g = gcd(m1, m2), l = m1 / g * m2;\n\tlint tmp = (b2 - b1) / g * p.first\
+    \ % (m2 / g);\n\tlint r = (b1 + m1 * tmp + l) % l;\n\treturn {r, l};\n}\nint LCS(const\
     \ std::string& a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size()\
     \ + 1, b.size() + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i\
     \ + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] ==\
     \ b[j]) chmax(dp[i + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()],\
     \ dp[i][b.size()]);\n\t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\
     \treturn dp[a.size()][b.size()];\n}\ntemplate <class T, std::enable_if_t<std::is_convertible<int,\
-    \ T>::value,\n\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nvoid compress(std::vector<T>&\
-    \ vec) {\n\tauto tmp = vec;\n\tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)),\
+    \ T>::value, std::nullptr_t> = nullptr>\nvoid compress(std::vector<T>& vec) {\n\
+    \tauto tmp = vec;\n\tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)),\
     \ tmp.end());\n\tfor (T& i : vec) i = std::lower_bound(all(tmp), i) - tmp.begin();\n\
     }\ntemplate <class T>\nvoid compress(T* l, T* r) {\n\tstd::vector<T> tmp(l, r);\n\
     \tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor\
@@ -99,41 +93,55 @@ data:
     \t}\n}\ntemplate <class InputIter>\nvoid compress(InputIter l, InputIter r) {\n\
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
-    \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 2 \"\
-    data-structure/MonotoneConvexHullTrick.hpp\"\ntemplate <class T, bool isMin>\n\
-    class MonotoneConvexHullTrick {\n\tstatic constexpr double INF = DBL_MAX;\n\t\
-    using TP = std::pair<std::pair<T, T>, int>;\n\tint index = 0;\n\tstd::deque<TP>\
-    \ deq;\n\tinline int sgn(T x) { return x == 0 ? 0 : (x < 0 ? -1 : 1); }\n\tinline\
-    \ T eval(const TP& a, const T& x) {\n\t\treturn a.first.first * x + a.first.second;\n\
-    \t}\n\tinline bool bad(const TP& l1, const TP& l2, const TP& l3) {\n\t\tif (l1.first.second\
-    \ == l2.first.second ||\n\t\t\tl2.first.second == l3.first.second) {\n\t\t\treturn\
-    \ sgn(l2.first.first - l1.first.first) *\n\t\t\t\t\t   sgn(l3.first.second - l2.first.second)\
-    \ >=\n\t\t\t\t   sgn(l3.first.first - l2.first.first) *\n\t\t\t\t\t   sgn(l2.first.second\
-    \ - l1.first.second);\n\t\t}\n\t\treturn (double)(l2.first.first - l1.first.first)\
-    \ *\n\t\t\t\t   sgn(l3.first.second - l2.first.second) /\n\t\t\t\t   std::abs(l2.first.second\
-    \ - l1.first.second) >=\n\t\t\t   (double)(l3.first.first - l2.first.first) *\n\
-    \t\t\t\t   sgn(l2.first.second - l1.first.second) /\n\t\t\t\t   std::abs(l3.first.second\
-    \ - l2.first.second);\n\t}\n\n  public:\n\tvoid addLine(T m, T b) {\n\t\tif (!isMin)\
-    \ m = -m, b = -b;\n\t\tTP line = {{m, b}, index++};\n\t\tif (empty()) {\n\t\t\t\
-    deq.emplace_front(line);\n\t\t\treturn;\n\t\t}\n\t\tif (deq.front().first.first\
-    \ <= m) {\n\t\t\tif (deq.front().first.first == m) {\n\t\t\t\tif (deq.front().first.second\
-    \ <= b) return;\n\t\t\t\tdeq.pop_front();\n\t\t\t}\n\t\t\twhile (deq.size() >=\
-    \ 2 && bad(line, deq[0], deq[1]))\n\t\t\t\tdeq.pop_front();\n\t\t\tdeq.emplace_front(line);\n\
-    \t\t} else {\n\t\t\tif (deq.back().first.first == m) {\n\t\t\t\tif (deq.back().first.second\
-    \ <= b) return;\n\t\t\t\tdeq.pop_back();\n\t\t\t}\n\t\t\twhile (deq.size() >=\
-    \ 2 &&\n\t\t\t\t   bad(deq[deq.size() - 2], deq.back(), line))\n\t\t\t\tdeq.pop_back();\n\
-    \t\t\tdeq.emplace_back(line);\n\t\t}\n\t}\n\tstd::pair<T, int> query(T x) {\n\t\
-    \tint l = -1, r = deq.size() - 1;\n\t\twhile (l + 1 < r) {\n\t\t\tint m = (l +\
-    \ r) / 2;\n\t\t\tif (eval(deq[m], x) >= eval(deq[m + 1], x))\n\t\t\t\tl = m;\n\
-    \t\t\telse\n\t\t\t\tr = m;\n\t\t}\n\t\treturn {(isMin ? 1 : -1) * eval(deq[r],\
-    \ x), deq[r].second};\n\t}\n\tstd::pair<T, int> queryMonotoneInc(T x) {\n\t\t\
-    while (deq.size() >= 2 && eval(deq[0], x) >= eval(deq[1], x))\n\t\t\tdeq.pop_front();\n\
-    \t\treturn {(isMin ? 1 : -1) * eval(deq[0], x), deq[0].second};\n\t}\n\tstd::pair<T,\
-    \ int> queryMonotoneDec(T x) {\n\t\twhile (deq.size() >= 2 &&\n\t\t\t   eval(deq.back(),\
-    \ x) >= eval(deq[deq.size() - 2]))\n\t\t\tdeq.pop_back();\n\t\treturn {(isMin\
-    \ ? 1 : -1) * eval(deq.back(), x), deq.back().second};\n\t}\n\tbool empty() const\
-    \ { return deq.empty(); }\n\tvoid clear() {\n\t\tdeq.clear();\n\t\tindex = 0;\n\
-    \t}\n};\n\n/**\n * @title Convex Hull Trick for monotone queries\n */\n"
+    \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\ntemplate\
+    \ <class InputIter,\n\t\t  std::enable_if_t<std::is_same<typename InputIter::value_type,\
+    \ std::pair<IP, int>>::value,\n\t\t\t\t\t\t   std::nullptr_t> = nullptr>\nvoid\
+    \ mo_sort(InputIter l, InputIter r, int N) {\n\tconst int M = std::max(1.0, std::sqrt(lint(N)\
+    \ * N / std::distance(l, r)));\n\tstd::sort(l, r, [M](const auto& lhs, const auto&\
+    \ rhs) {\n\t\tif (lhs.first.first / M < rhs.first.first / M) return true;\n\t\t\
+    if (lhs.first.first / M == rhs.first.first / M) return lhs.first.second < rhs.first.second;\n\
+    \t\treturn false;\n\t});\n\tint before = -1, cnt = 0;\n\tbool f = false;\n\tfor\
+    \ (InputIter i = l; i != r; i++) {\n\t\tif (before != i->first.first / M) {\n\t\
+    \t\tif (f) std::reverse(i - cnt, i);\n\t\t\tf ^= true, before = i->first.first\
+    \ / M, cnt = 1;\n\t\t} else\n\t\t\tcnt++;\n\t}\n\tif (f) std::reverse(r - cnt,\
+    \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
+    \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
+    chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
+    }\n#line 2 \"data-structure/MonotoneConvexHullTrick.hpp\"\ntemplate <class T,\
+    \ bool isMin>\nclass MonotoneConvexHullTrick {\n\tstatic constexpr double INF\
+    \ = DBL_MAX;\n\tusing TP = std::pair<std::pair<T, T>, int>;\n\tint index = 0;\n\
+    \tstd::deque<TP> deq;\n\tinline int sgn(T x) { return x == 0 ? 0 : (x < 0 ? -1\
+    \ : 1); }\n\tinline T eval(const TP& a, const T& x) {\n\t\treturn a.first.first\
+    \ * x + a.first.second;\n\t}\n\tinline bool bad(const TP& l1, const TP& l2, const\
+    \ TP& l3) {\n\t\tif (l1.first.second == l2.first.second ||\n\t\t\tl2.first.second\
+    \ == l3.first.second) {\n\t\t\treturn sgn(l2.first.first - l1.first.first) *\n\
+    \t\t\t\t\t   sgn(l3.first.second - l2.first.second) >=\n\t\t\t\t   sgn(l3.first.first\
+    \ - l2.first.first) *\n\t\t\t\t\t   sgn(l2.first.second - l1.first.second);\n\t\
+    \t}\n\t\treturn (double)(l2.first.first - l1.first.first) *\n\t\t\t\t   sgn(l3.first.second\
+    \ - l2.first.second) /\n\t\t\t\t   std::abs(l2.first.second - l1.first.second)\
+    \ >=\n\t\t\t   (double)(l3.first.first - l2.first.first) *\n\t\t\t\t   sgn(l2.first.second\
+    \ - l1.first.second) /\n\t\t\t\t   std::abs(l3.first.second - l2.first.second);\n\
+    \t}\n\n  public:\n\tvoid addLine(T m, T b) {\n\t\tif (!isMin) m = -m, b = -b;\n\
+    \t\tTP line = {{m, b}, index++};\n\t\tif (empty()) {\n\t\t\tdeq.emplace_front(line);\n\
+    \t\t\treturn;\n\t\t}\n\t\tif (deq.front().first.first <= m) {\n\t\t\tif (deq.front().first.first\
+    \ == m) {\n\t\t\t\tif (deq.front().first.second <= b) return;\n\t\t\t\tdeq.pop_front();\n\
+    \t\t\t}\n\t\t\twhile (deq.size() >= 2 && bad(line, deq[0], deq[1]))\n\t\t\t\t\
+    deq.pop_front();\n\t\t\tdeq.emplace_front(line);\n\t\t} else {\n\t\t\tif (deq.back().first.first\
+    \ == m) {\n\t\t\t\tif (deq.back().first.second <= b) return;\n\t\t\t\tdeq.pop_back();\n\
+    \t\t\t}\n\t\t\twhile (deq.size() >= 2 &&\n\t\t\t\t   bad(deq[deq.size() - 2],\
+    \ deq.back(), line))\n\t\t\t\tdeq.pop_back();\n\t\t\tdeq.emplace_back(line);\n\
+    \t\t}\n\t}\n\tstd::pair<T, int> query(T x) {\n\t\tint l = -1, r = deq.size() -\
+    \ 1;\n\t\twhile (l + 1 < r) {\n\t\t\tint m = (l + r) / 2;\n\t\t\tif (eval(deq[m],\
+    \ x) >= eval(deq[m + 1], x))\n\t\t\t\tl = m;\n\t\t\telse\n\t\t\t\tr = m;\n\t\t\
+    }\n\t\treturn {(isMin ? 1 : -1) * eval(deq[r], x), deq[r].second};\n\t}\n\tstd::pair<T,\
+    \ int> queryMonotoneInc(T x) {\n\t\twhile (deq.size() >= 2 && eval(deq[0], x)\
+    \ >= eval(deq[1], x))\n\t\t\tdeq.pop_front();\n\t\treturn {(isMin ? 1 : -1) *\
+    \ eval(deq[0], x), deq[0].second};\n\t}\n\tstd::pair<T, int> queryMonotoneDec(T\
+    \ x) {\n\t\twhile (deq.size() >= 2 &&\n\t\t\t   eval(deq.back(), x) >= eval(deq[deq.size()\
+    \ - 2]))\n\t\t\tdeq.pop_back();\n\t\treturn {(isMin ? 1 : -1) * eval(deq.back(),\
+    \ x), deq.back().second};\n\t}\n\tbool empty() const { return deq.empty(); }\n\
+    \tvoid clear() {\n\t\tdeq.clear();\n\t\tindex = 0;\n\t}\n};\n\n/**\n * @title\
+    \ Convex Hull Trick for monotone queries\n */\n"
   code: "#include \"../other/template.hpp\"\ntemplate <class T, bool isMin>\nclass\
     \ MonotoneConvexHullTrick {\n\tstatic constexpr double INF = DBL_MAX;\n\tusing\
     \ TP = std::pair<std::pair<T, T>, int>;\n\tint index = 0;\n\tstd::deque<TP> deq;\n\
@@ -173,7 +181,7 @@ data:
   isVerificationFile: false
   path: data-structure/MonotoneConvexHullTrick.hpp
   requiredBy: []
-  timestamp: '2022-04-01 21:43:29+09:00'
+  timestamp: '2023-01-08 03:21:50+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/MonotoneConvexHullTrick.hpp

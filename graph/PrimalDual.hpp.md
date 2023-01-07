@@ -27,15 +27,15 @@ data:
     \ <map>\n#include <memory>\n#include <queue>\n#include <random>\n#include <set>\n\
     #include <stack>\n#include <string>\n#include <unordered_map>\n#include <unordered_set>\n\
     #include <utility>\n#include <vector>\n\n#define rep(i, n) for (int i = 0; i <\
-    \ (n); i++)\n#define REP(i, n) for (int i = 1; i <= (n); i++)\n#define all(V)\
+    \ int(n); i++)\n#define REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V)\
     \ V.begin(), V.end()\n\nusing i128 = __int128_t;\nusing u128 = __uint128_t;\n\
     using uint = unsigned int;\nusing lint = long long;\nusing ulint = unsigned long\
     \ long;\nusing IP = std::pair<int, int>;\nusing LP = std::pair<lint, lint>;\n\n\
     constexpr int INF = INT_MAX / 2;\nconstexpr lint LINF = LLONG_MAX / 2;\nconstexpr\
     \ double eps = DBL_EPSILON * 10;\nconstexpr double PI = 3.141592653589793238462643383279;\n\
     \ntemplate <class T>\nclass prique : public std::priority_queue<T, std::vector<T>,\
-    \ std::greater<T>> {\n};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\
-    \treturn std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
+    \ std::greater<T>> {};\nint popcount(uint x) {\n#if __cplusplus >= 202002L\n\t\
+    return std::popcount(x);\n#else\n#ifndef __clang__\n\treturn __builtin_popcount(x);\n\
     #endif\n#endif\n\tx = (x & 0x55555555) + (x >> 1 & 0x55555555);\n\tx = (x & 0x33333333)\
     \ + (x >> 2 & 0x33333333);\n\tx = (x & 0x0f0f0f0f) + (x >> 4 & 0x0f0f0f0f);\n\t\
     x = (x & 0x00ff00ff) + (x >> 8 & 0x00ff00ff);\n\treturn (x & 0x0000ffff) + (x\
@@ -44,57 +44,51 @@ data:
     \treturn f(f, std::forward<decltype(args)>(args)...);\n\t};\n}\ntemplate <class\
     \ T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\treturn std::vector<T>(n);\n\
     }\ntemplate <class T, class... Args>\nconstexpr auto make_vec(size_t n, Args&&...\
-    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(\n\t\tn, make_vec<T>(std::forward<Args>(args)...));\n\
+    \ args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(n, make_vec<T>(std::forward<Args>(args)...));\n\
     }\ntemplate <class T, class U>\nstd::istream& operator>>(std::istream& ist, std::pair<T,\
     \ U>& x) {\n\treturn ist >> x.first >> x.second;\n}\ntemplate <class T, class\
     \ U>\nstd::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {\n\
     \treturn ost << x.first << \" \" << x.second;\n}\ntemplate <class Container,\n\
-    #if __cplusplus >= 201703L\n\t\t  std::enable_if_t<!std::is_same_v<Container,\
-    \ std::string>,\n#else\n\t\t  std::enable_if_t<!std::is_same<Container, std::string>::value,\n\
-    #endif\n\t\t\t\t\t\t   std::nullptr_t> = nullptr>\nauto operator>>(std::istream&\
-    \ ist, Container& cont)\n\t-> decltype(typename Container::iterator(), std::cin)&\
-    \ {\n\tstd::vector<typename Container::value_type> tmp;\n\twhile (true) {\n\t\t\
+    \t\t  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t>\
+    \ = nullptr>\nauto operator>>(std::istream& ist, Container& cont)\n\t-> decltype(typename\
+    \ Container::iterator(), std::cin)& {\n\tContainer tmp;\n\twhile (true) {\n\t\t\
     typename Container::value_type t;\n\t\tist >> t;\n\t\ttmp.emplace_back(t);\n\t\
     \tif (getchar() == '\\n') break;\n\t}\n\tcont = Container(std::move(tmp));\n\t\
-    return ist;\n}\ntemplate <class Container,\n#if __cplusplus >= 201703L\n\t\t \
-    \ std::enable_if_t<!std::is_same_v<Container, std::string>,\n#else\n\t\t  std::enable_if_t<!std::is_same<Container,\
-    \ std::string>::value,\n#endif\n\t\t\t\t\t\t   std::nullptr_t> = nullptr>\nauto\
-    \ operator<<(std::ostream& ost, const Container& cont)\n\t-> decltype(typename\
-    \ Container::iterator(), std::cout)& {\n\tfor (auto it = cont.begin(); it != cont.end();\
-    \ it++) {\n\t\tif (it != cont.begin()) ost << ' ';\n\t\tost << *it;\n\t}\n\treturn\
-    \ ost;\n}\ntemplate <class Container>\nauto sum(const Container& cont)\n\t-> decltype(typename\
-    \ Container::iterator(), 0LL) {\n\tlint res = 0;\n\tfor (auto it = cont.begin();\
-    \ it != cont.end(); it++) res += *it;\n\treturn res;\n}\ntemplate <class T, class\
-    \ U>\nconstexpr inline bool chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs\
-    \ < rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\ntemplate\
-    \ <class T, class U>\nconstexpr inline bool chmin(T& lhs, const U& rhs) noexcept\
-    \ {\n\tif (lhs > rhs) {\n\t\tlhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n\
-    }\nconstexpr inline lint gcd(lint a, lint b) noexcept {\n\twhile (b) {\n\t\tlint\
-    \ c = a;\n\t\ta = b;\n\t\tb = c % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint\
-    \ a, lint b) noexcept { return a / gcd(a, b) * b; }\nconstexpr bool isprime(lint\
-    \ n) noexcept {\n\tif (n == 1) return false;\n\tfor (int i = 2; i * i <= n; i++)\
-    \ {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn true;\n}\ntemplate <class\
-    \ T>\nconstexpr T mypow(T a, lint b) noexcept {\n\tT res(1);\n\twhile (true) {\n\
-    \t\tif (b & 1) res *= a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\t\ta *= a;\n\t}\n\
-    \treturn res;\n}\nconstexpr lint modpow(lint a, lint b, lint m) noexcept {\n\t\
-    a %= m;\n\tlint res(1);\n\twhile (b) {\n\t\tif (b & 1) res *= a, res %= m;\n\t\
-    \ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n}\nconstexpr i128 modpow(i128\
-    \ a, i128 b, i128 m) noexcept {\n\ta %= m;\n\ti128 res(1);\n\twhile (b) {\n\t\t\
-    if (b & 1) res *= a, res %= m;\n\t\ta *= a, a %= m, b >>= 1;\n\t}\n\treturn res;\n\
-    }\nLP extGcd(lint a, lint b) noexcept {\n\tif (b == 0) return {1, 0};\n\tLP s\
-    \ = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second -= a / b *\
-    \ s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint& m1, const\
-    \ lint& b2,\n\t\t\t  const lint& m2) noexcept {\n\tauto p = extGcd(m1, m2);\n\t\
-    lint g = gcd(m1, m2), l = m1 / g * m2;\n\tlint tmp = (b2 - b1) / g * p.first %\
-    \ (m2 / g);\n\tlint r = (b1 + m1 * tmp + l) % l;\n\treturn {r, l};\n}\nint LCS(const\
+    return ist;\n}\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
+    \ std::string>::value, std::nullptr_t> = nullptr>\nauto operator<<(std::ostream&\
+    \ ost, const Container& cont)\n\t-> decltype(typename Container::iterator(), std::cout)&\
+    \ {\n\tfor (auto it = cont.begin(); it != cont.end(); it++) {\n\t\tif (it != cont.begin())\
+    \ ost << ' ';\n\t\tost << *it;\n\t}\n\treturn ost;\n}\ntemplate <class Container>\n\
+    auto sum(const Container& cont) -> decltype(typename Container::iterator(), 0LL)\
+    \ {\n\tlint res = 0;\n\tfor (auto it = cont.begin(); it != cont.end(); it++) res\
+    \ += *it;\n\treturn res;\n}\ntemplate <class T, class U>\nconstexpr inline bool\
+    \ chmax(T& lhs, const U& rhs) noexcept {\n\tif (lhs < rhs) {\n\t\tlhs = rhs;\n\
+    \t\treturn true;\n\t}\n\treturn false;\n}\ntemplate <class T, class U>\nconstexpr\
+    \ inline bool chmin(T& lhs, const U& rhs) noexcept {\n\tif (lhs > rhs) {\n\t\t\
+    lhs = rhs;\n\t\treturn true;\n\t}\n\treturn false;\n}\nconstexpr inline lint gcd(lint\
+    \ a, lint b) noexcept {\n\twhile (b) {\n\t\tlint c = a;\n\t\ta = b;\n\t\tb = c\
+    \ % b;\n\t}\n\treturn a;\n}\ninline lint lcm(lint a, lint b) noexcept { return\
+    \ a / gcd(a, b) * b; }\nconstexpr bool isprime(lint n) noexcept {\n\tif (n ==\
+    \ 1) return false;\n\tfor (int i = 2; i * i <= n; i++) {\n\t\tif (n % i == 0)\
+    \ return false;\n\t}\n\treturn true;\n}\ntemplate <class T>\nconstexpr T mypow(T\
+    \ a, lint b) noexcept {\n\tT res(1);\n\twhile (true) {\n\t\tif (b & 1) res *=\
+    \ a;\n\t\tb >>= 1;\n\t\tif (!b) break;\n\t\ta *= a;\n\t}\n\treturn res;\n}\nconstexpr\
+    \ lint modpow(lint a, lint b, lint m) noexcept {\n\ta %= m;\n\tlint res(1);\n\t\
+    while (b) {\n\t\tif (b & 1) res *= a, res %= m;\n\t\ta *= a, a %= m, b >>= 1;\n\
+    \t}\n\treturn res;\n}\nLP extGcd(lint a, lint b) noexcept {\n\tif (b == 0) return\
+    \ {1, 0};\n\tLP s = extGcd(b, a % b);\n\tstd::swap(s.first, s.second);\n\ts.second\
+    \ -= a / b * s.first;\n\treturn s;\n}\nLP ChineseRem(const lint& b1, const lint&\
+    \ m1, const lint& b2, const lint& m2) noexcept {\n\tauto p = extGcd(m1, m2);\n\
+    \tlint g = gcd(m1, m2), l = m1 / g * m2;\n\tlint tmp = (b2 - b1) / g * p.first\
+    \ % (m2 / g);\n\tlint r = (b1 + m1 * tmp + l) % l;\n\treturn {r, l};\n}\nint LCS(const\
     \ std::string& a, const std::string& b) {\n\tauto dp = make_vec<int>(a.size()\
     \ + 1, b.size() + 1);\n\trep(i, a.size()) {\n\t\trep(j, b.size()) {\n\t\t\tchmax(dp[i\
     \ + 1][j], dp[i][j]);\n\t\t\tchmax(dp[i][j + 1], dp[i][j]);\n\t\t\tif (a[i] ==\
     \ b[j]) chmax(dp[i + 1][j + 1], dp[i][j] + 1);\n\t\t}\n\t\tchmax(dp[i + 1][b.size()],\
     \ dp[i][b.size()]);\n\t}\n\trep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);\n\
     \treturn dp[a.size()][b.size()];\n}\ntemplate <class T, std::enable_if_t<std::is_convertible<int,\
-    \ T>::value,\n\t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\nvoid compress(std::vector<T>&\
-    \ vec) {\n\tauto tmp = vec;\n\tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)),\
+    \ T>::value, std::nullptr_t> = nullptr>\nvoid compress(std::vector<T>& vec) {\n\
+    \tauto tmp = vec;\n\tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)),\
     \ tmp.end());\n\tfor (T& i : vec) i = std::lower_bound(all(tmp), i) - tmp.begin();\n\
     }\ntemplate <class T>\nvoid compress(T* l, T* r) {\n\tstd::vector<T> tmp(l, r);\n\
     \tstd::sort(all(tmp));\n\ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor\
@@ -102,58 +96,30 @@ data:
     \t}\n}\ntemplate <class InputIter>\nvoid compress(InputIter l, InputIter r) {\n\
     \tstd::vector<typename InputIter::value_type> tmp(l, r);\n\tstd::sort(all(tmp));\n\
     \ttmp.erase(std::unique(all(tmp)), tmp.end());\n\tfor (auto i = l; i < r; i++)\
-    \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\n#line 3 \"\
-    graph/PrimalDual.hpp\"\nclass PrimalDual {\n\tclass edge {\n\t  public:\n\t\t\
-    int to, cap;\n\t\tlint cost;\n\t\tint rev, id;\n\t};\n\tint n, idx = 0, s, t;\n\
-    \tlint curres = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int>\
-    \ prevv, preve;\n\tstd::vector<lint> h, dist;\n\tbool negative = false;\n\tlint\
-    \ BellmanFord() {\n\t\tdist.assign(n, LINF);\n\t\tdist[s] = 0;\n\t\trep(i, n -\
-    \ 1) {\n\t\t\trep(j, n) {\n\t\t\t\trep(k, vec[j].size()) {\n\t\t\t\t\tconst edge&\
-    \ e = vec[j][k];\n\t\t\t\t\tif (e.cap > 0 &&\n\t\t\t\t\t\tchmin(dist[e.to], dist[j]\
-    \ + e.cost + h[j] - h[e.to])) {\n\t\t\t\t\t\tprevv[e.to] = j;\n\t\t\t\t\t\tpreve[e.to]\
-    \ = k;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif (dist[t] == LINF) {\n\t\
-    \t\tstd::cerr << \"The demand is over maximum flow.\" << std::endl;\n\t\t\treturn\
-    \ -1;\n\t\t}\n\t\trep(i, n) h[i] += dist[i];\n\t\tfor (int i = t; i != s; i =\
-    \ prevv[i]) {\n\t\t\tvec[prevv[i]][preve[i]].cap--;\n\t\t\tvec[i][vec[prevv[i]][preve[i]].rev].cap++;\n\
-    \t\t}\n\t\treturn h[t];\n\t}\n\n  public:\n\tPrimalDual(int n, int s, int t) :\
-    \ n(n), s(s), t(t) {\n\t\tvec.resize(n);\n\t\th.resize(n);\n\t\tdist.resize(n);\n\
-    \t\tprevv.resize(n);\n\t\tpreve.resize(n);\n\t}\n\tvoid add_edge(int from, int\
-    \ to, int cap, lint cost) {\n\t\tif (cost < 0) negative = true;\n\t\tvec[from].push_back({to,\
-    \ cap, cost, (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, -cost,\
-    \ (int)vec[from].size() - 1, idx++});\n\t}\n\tlint add_flow(int f) {\n\t\tif (negative)\
-    \ {\n\t\t\tcurres += BellmanFord();\n\t\t\tf--;\n\t\t\tnegative = false;\n\t\t\
-    }\n\t\twhile (f > 0) {\n\t\t\tdist.assign(n, LINF);\n\t\t\tdist[s] = 0;\n\t\t\t\
-    prique<std::pair<lint, int>> que;\n\t\t\tque.push({0, s});\n\t\t\twhile (!que.empty())\
-    \ {\n\t\t\t\tauto p = que.top();\n\t\t\t\tque.pop();\n\t\t\t\tif (dist[p.second]\
-    \ < p.first) continue;\n\t\t\t\trep(i, vec[p.second].size()) {\n\t\t\t\t\tedge&\
-    \ e = vec[p.second][i];\n\t\t\t\t\tif (e.cap > 0 &&\n\t\t\t\t\t\tchmin(dist[e.to],\
-    \ dist[p.second] + e.cost +\n\t\t\t\t\t\t\t\t\t\t\t  h[p.second] - h[e.to])) {\n\
-    \t\t\t\t\t\tprevv[e.to] = p.second;\n\t\t\t\t\t\tpreve[e.to] = i;\n\t\t\t\t\t\t\
-    que.push({dist[e.to], e.to});\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (dist[t]\
-    \ == LINF) {\n\t\t\t\tstd::cerr << \"The demand is over the maximum flow.\"\n\t\
-    \t\t\t\t\t  << std::endl;\n\t\t\t\treturn -1;\n\t\t\t}\n\t\t\trep(i, n) h[i] +=\
-    \ dist[i];\n\t\t\tint d = f;\n\t\t\tfor (int i = t; i != s; i = prevv[i]) {\n\t\
-    \t\t\tchmin(d, vec[prevv[i]][preve[i]].cap);\n\t\t\t}\n\t\t\tf -= d;\n\t\t\tcurres\
-    \ += (lint)d * h[t];\n\t\t\tfor (int i = t; i != s; i = prevv[i]) {\n\t\t\t\t\
-    vec[prevv[i]][preve[i]].cap -= d;\n\t\t\t\tvec[i][vec[prevv[i]][preve[i]].rev].cap\
-    \ += d;\n\t\t\t}\n\t\t}\n\t\treturn curres;\n\t}\n\tstd::vector<lint> restore()\
-    \ {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i, n) {\n\t\t\tfor (const auto&\
-    \ j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\
-    \treturn res;\n\t}\n\tvoid reset() {\n\t\trep(i, n) {\n\t\t\tfor (auto& j : vec[i])\
-    \ {\n\t\t\t\tif (j.id != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\
-    \t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n};\n\n/**\n * @title Primal-dual\
-    \ algorithm\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass PrimalDual {\n\t\
-    class edge {\n\t  public:\n\t\tint to, cap;\n\t\tlint cost;\n\t\tint rev, id;\n\
-    \t};\n\tint n, idx = 0, s, t;\n\tlint curres = 0;\n\tstd::vector<std::vector<edge>>\
+    \ {\n\t\t*i = std::lower_bound(all(tmp), *i) - tmp.begin();\n\t}\n}\ntemplate\
+    \ <class InputIter,\n\t\t  std::enable_if_t<std::is_same<typename InputIter::value_type,\
+    \ std::pair<IP, int>>::value,\n\t\t\t\t\t\t   std::nullptr_t> = nullptr>\nvoid\
+    \ mo_sort(InputIter l, InputIter r, int N) {\n\tconst int M = std::max(1.0, std::sqrt(lint(N)\
+    \ * N / std::distance(l, r)));\n\tstd::sort(l, r, [M](const auto& lhs, const auto&\
+    \ rhs) {\n\t\tif (lhs.first.first / M < rhs.first.first / M) return true;\n\t\t\
+    if (lhs.first.first / M == rhs.first.first / M) return lhs.first.second < rhs.first.second;\n\
+    \t\treturn false;\n\t});\n\tint before = -1, cnt = 0;\n\tbool f = false;\n\tfor\
+    \ (InputIter i = l; i != r; i++) {\n\t\tif (before != i->first.first / M) {\n\t\
+    \t\tif (f) std::reverse(i - cnt, i);\n\t\t\tf ^= true, before = i->first.first\
+    \ / M, cnt = 1;\n\t\t} else\n\t\t\tcnt++;\n\t}\n\tif (f) std::reverse(r - cnt,\
+    \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
+    \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
+    chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
+    }\n#line 3 \"graph/PrimalDual.hpp\"\nclass PrimalDualDemandOver {};\nclass PrimalDual\
+    \ {\n\tclass edge {\n\t  public:\n\t\tint to, cap;\n\t\tlint cost;\n\t\tint rev,\
+    \ id;\n\t};\n\tint n, idx = 0, s, t;\n\tlint curres = 0;\n\tstd::vector<std::vector<edge>>\
     \ vec;\n\tstd::vector<int> prevv, preve;\n\tstd::vector<lint> h, dist;\n\tbool\
     \ negative = false;\n\tlint BellmanFord() {\n\t\tdist.assign(n, LINF);\n\t\tdist[s]\
     \ = 0;\n\t\trep(i, n - 1) {\n\t\t\trep(j, n) {\n\t\t\t\trep(k, vec[j].size())\
-    \ {\n\t\t\t\t\tconst edge& e = vec[j][k];\n\t\t\t\t\tif (e.cap > 0 &&\n\t\t\t\t\
-    \t\tchmin(dist[e.to], dist[j] + e.cost + h[j] - h[e.to])) {\n\t\t\t\t\t\tprevv[e.to]\
-    \ = j;\n\t\t\t\t\t\tpreve[e.to] = k;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\
-    \t\tif (dist[t] == LINF) {\n\t\t\tstd::cerr << \"The demand is over maximum flow.\"\
-    \ << std::endl;\n\t\t\treturn -1;\n\t\t}\n\t\trep(i, n) h[i] += dist[i];\n\t\t\
+    \ {\n\t\t\t\t\tconst edge& e = vec[j][k];\n\t\t\t\t\tif (e.cap > 0 && chmin(dist[e.to],\
+    \ dist[j] + e.cost + h[j] - h[e.to])) {\n\t\t\t\t\t\tprevv[e.to] = j;\n\t\t\t\t\
+    \t\tpreve[e.to] = k;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif (dist[t]\
+    \ == LINF) throw PrimalDualDemandOver();\n\t\trep(i, n) h[i] += dist[i];\n\t\t\
     for (int i = t; i != s; i = prevv[i]) {\n\t\t\tvec[prevv[i]][preve[i]].cap--;\n\
     \t\t\tvec[i][vec[prevv[i]][preve[i]].rev].cap++;\n\t\t}\n\t\treturn h[t];\n\t\
     }\n\n  public:\n\tPrimalDual(int n, int s, int t) : n(n), s(s), t(t) {\n\t\tvec.resize(n);\n\
@@ -167,28 +133,65 @@ data:
     que.push({0, s});\n\t\t\twhile (!que.empty()) {\n\t\t\t\tauto p = que.top();\n\
     \t\t\t\tque.pop();\n\t\t\t\tif (dist[p.second] < p.first) continue;\n\t\t\t\t\
     rep(i, vec[p.second].size()) {\n\t\t\t\t\tedge& e = vec[p.second][i];\n\t\t\t\t\
-    \tif (e.cap > 0 &&\n\t\t\t\t\t\tchmin(dist[e.to], dist[p.second] + e.cost +\n\t\
-    \t\t\t\t\t\t\t\t\t\t  h[p.second] - h[e.to])) {\n\t\t\t\t\t\tprevv[e.to] = p.second;\n\
-    \t\t\t\t\t\tpreve[e.to] = i;\n\t\t\t\t\t\tque.push({dist[e.to], e.to});\n\t\t\t\
-    \t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (dist[t] == LINF) {\n\t\t\t\tstd::cerr <<\
-    \ \"The demand is over the maximum flow.\"\n\t\t\t\t\t\t  << std::endl;\n\t\t\t\
-    \treturn -1;\n\t\t\t}\n\t\t\trep(i, n) h[i] += dist[i];\n\t\t\tint d = f;\n\t\t\
-    \tfor (int i = t; i != s; i = prevv[i]) {\n\t\t\t\tchmin(d, vec[prevv[i]][preve[i]].cap);\n\
-    \t\t\t}\n\t\t\tf -= d;\n\t\t\tcurres += (lint)d * h[t];\n\t\t\tfor (int i = t;\
-    \ i != s; i = prevv[i]) {\n\t\t\t\tvec[prevv[i]][preve[i]].cap -= d;\n\t\t\t\t\
-    vec[i][vec[prevv[i]][preve[i]].rev].cap += d;\n\t\t\t}\n\t\t}\n\t\treturn curres;\n\
-    \t}\n\tstd::vector<lint> restore() {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i,\
-    \ n) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id]\
-    \ = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\tvoid reset() {\n\t\trep(i,\
-    \ n) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) {\n\t\t\t\t\t\
-    vec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t\
-    }\n\t}\n};\n\n/**\n * @title Primal-dual algorithm\n */"
+    \tif (e.cap > 0 &&\n\t\t\t\t\t\tchmin(dist[e.to], dist[p.second] + e.cost + h[p.second]\
+    \ - h[e.to])) {\n\t\t\t\t\t\tprevv[e.to] = p.second;\n\t\t\t\t\t\tpreve[e.to]\
+    \ = i;\n\t\t\t\t\t\tque.push({dist[e.to], e.to});\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\
+    \t}\n\t\t\tif (dist[t] == LINF) throw PrimalDualDemandOver();\n\t\t\trep(i, n)\
+    \ h[i] += dist[i];\n\t\t\tint d = f;\n\t\t\tfor (int i = t; i != s; i = prevv[i])\
+    \ {\n\t\t\t\tchmin(d, vec[prevv[i]][preve[i]].cap);\n\t\t\t}\n\t\t\tf -= d;\n\t\
+    \t\tcurres += (lint)d * h[t];\n\t\t\tfor (int i = t; i != s; i = prevv[i]) {\n\
+    \t\t\t\tvec[prevv[i]][preve[i]].cap -= d;\n\t\t\t\tvec[i][vec[prevv[i]][preve[i]].rev].cap\
+    \ += d;\n\t\t\t}\n\t\t}\n\t\treturn curres;\n\t}\n\tstd::vector<lint> restore()\
+    \ {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i, n) {\n\t\t\tfor (const auto&\
+    \ j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\
+    \treturn res;\n\t}\n\tvoid reset() {\n\t\trep(i, n) {\n\t\t\tfor (auto& j : vec[i])\
+    \ {\n\t\t\t\tif (j.id != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\
+    \t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n};\n\n/**\n * @title Primal-dual\
+    \ algorithm\n */\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\nclass PrimalDualDemandOver\
+    \ {};\nclass PrimalDual {\n\tclass edge {\n\t  public:\n\t\tint to, cap;\n\t\t\
+    lint cost;\n\t\tint rev, id;\n\t};\n\tint n, idx = 0, s, t;\n\tlint curres = 0;\n\
+    \tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int> prevv, preve;\n\tstd::vector<lint>\
+    \ h, dist;\n\tbool negative = false;\n\tlint BellmanFord() {\n\t\tdist.assign(n,\
+    \ LINF);\n\t\tdist[s] = 0;\n\t\trep(i, n - 1) {\n\t\t\trep(j, n) {\n\t\t\t\trep(k,\
+    \ vec[j].size()) {\n\t\t\t\t\tconst edge& e = vec[j][k];\n\t\t\t\t\tif (e.cap\
+    \ > 0 && chmin(dist[e.to], dist[j] + e.cost + h[j] - h[e.to])) {\n\t\t\t\t\t\t\
+    prevv[e.to] = j;\n\t\t\t\t\t\tpreve[e.to] = k;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\
+    }\n\t\t}\n\t\tif (dist[t] == LINF) throw PrimalDualDemandOver();\n\t\trep(i, n)\
+    \ h[i] += dist[i];\n\t\tfor (int i = t; i != s; i = prevv[i]) {\n\t\t\tvec[prevv[i]][preve[i]].cap--;\n\
+    \t\t\tvec[i][vec[prevv[i]][preve[i]].rev].cap++;\n\t\t}\n\t\treturn h[t];\n\t\
+    }\n\n  public:\n\tPrimalDual(int n, int s, int t) : n(n), s(s), t(t) {\n\t\tvec.resize(n);\n\
+    \t\th.resize(n);\n\t\tdist.resize(n);\n\t\tprevv.resize(n);\n\t\tpreve.resize(n);\n\
+    \t}\n\tvoid add_edge(int from, int to, int cap, lint cost) {\n\t\tif (cost < 0)\
+    \ negative = true;\n\t\tvec[from].push_back({to, cap, cost, (int)vec[to].size(),\
+    \ -1});\n\t\tvec[to].push_back({from, 0, -cost, (int)vec[from].size() - 1, idx++});\n\
+    \t}\n\tlint add_flow(int f) {\n\t\tif (negative) {\n\t\t\tcurres += BellmanFord();\n\
+    \t\t\tf--;\n\t\t\tnegative = false;\n\t\t}\n\t\twhile (f > 0) {\n\t\t\tdist.assign(n,\
+    \ LINF);\n\t\t\tdist[s] = 0;\n\t\t\tprique<std::pair<lint, int>> que;\n\t\t\t\
+    que.push({0, s});\n\t\t\twhile (!que.empty()) {\n\t\t\t\tauto p = que.top();\n\
+    \t\t\t\tque.pop();\n\t\t\t\tif (dist[p.second] < p.first) continue;\n\t\t\t\t\
+    rep(i, vec[p.second].size()) {\n\t\t\t\t\tedge& e = vec[p.second][i];\n\t\t\t\t\
+    \tif (e.cap > 0 &&\n\t\t\t\t\t\tchmin(dist[e.to], dist[p.second] + e.cost + h[p.second]\
+    \ - h[e.to])) {\n\t\t\t\t\t\tprevv[e.to] = p.second;\n\t\t\t\t\t\tpreve[e.to]\
+    \ = i;\n\t\t\t\t\t\tque.push({dist[e.to], e.to});\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\
+    \t}\n\t\t\tif (dist[t] == LINF) throw PrimalDualDemandOver();\n\t\t\trep(i, n)\
+    \ h[i] += dist[i];\n\t\t\tint d = f;\n\t\t\tfor (int i = t; i != s; i = prevv[i])\
+    \ {\n\t\t\t\tchmin(d, vec[prevv[i]][preve[i]].cap);\n\t\t\t}\n\t\t\tf -= d;\n\t\
+    \t\tcurres += (lint)d * h[t];\n\t\t\tfor (int i = t; i != s; i = prevv[i]) {\n\
+    \t\t\t\tvec[prevv[i]][preve[i]].cap -= d;\n\t\t\t\tvec[i][vec[prevv[i]][preve[i]].rev].cap\
+    \ += d;\n\t\t\t}\n\t\t}\n\t\treturn curres;\n\t}\n\tstd::vector<lint> restore()\
+    \ {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i, n) {\n\t\t\tfor (const auto&\
+    \ j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\
+    \treturn res;\n\t}\n\tvoid reset() {\n\t\trep(i, n) {\n\t\t\tfor (auto& j : vec[i])\
+    \ {\n\t\t\t\tif (j.id != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\
+    \t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n};\n\n/**\n * @title Primal-dual\
+    \ algorithm\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: graph/PrimalDual.hpp
   requiredBy: []
-  timestamp: '2022-04-01 21:43:29+09:00'
+  timestamp: '2023-01-08 03:21:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/GRL_6_B.test.cpp
