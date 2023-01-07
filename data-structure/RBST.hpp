@@ -47,8 +47,7 @@ class RBST {
 	}
 	static Node* insert(Node* node, int idx, const T& val) {
 		auto tmp = split(node, idx);
-		return merge(merge(tmp.first, new Node{nullptr, nullptr, val, 1}),
-					 tmp.second);
+		return merge(merge(tmp.first, new Node{nullptr, nullptr, val, 1}), tmp.second);
 	}
 	static Node* erase(Node* node, int idx) {
 		auto left = split(node, idx);
@@ -60,8 +59,7 @@ class RBST {
 		if (r == -1) r = data.size();
 		if (data.empty() || l >= r) return nullptr;
 		int idx = engine() % (r - l) + l;
-		return apply(new Node{build(data, l, idx), build(data, idx + 1, r),
-							  data[idx], 1});
+		return apply(new Node{build(data, l, idx), build(data, idx + 1, r), data[idx], 1});
 	}
 	void clear(Node* trg) {
 		if (!trg) return;
@@ -90,6 +88,7 @@ class RBST {
 				cnt += size(cur->left) + 1, cur = cur->right;
 		}
 	}
+	T& operator[](int idx) const { return find(idx); }
 	void insert(int idx, const T& val) { root = insert(root, idx, val); }
 	void erase(int idx) { root = erase(root, idx); }
 	int upper_bound(int val) const {

@@ -6,6 +6,6 @@ int main() {
 	scanf("%d", &T);
 	rep(_, T) {
 		scanf("%d%d%d%d", &N, &M, &A, &B);
-		printf("%lld\n", FloorSum(N, M, A, B));
+		printf("%lld\n", floor_sum(N, M, A, B));
 	}
 }

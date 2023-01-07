@@ -1,5 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
+class PrimalDualDemandOver {};
 class PrimalDual {
 	class edge {
 	  public:
@@ -20,18 +21,14 @@ class PrimalDual {
 			rep(j, n) {
 				rep(k, vec[j].size()) {
 					const edge& e = vec[j][k];
-					if (e.cap > 0 &&
-						chmin(dist[e.to], dist[j] + e.cost + h[j] - h[e.to])) {
+					if (e.cap > 0 && chmin(dist[e.to], dist[j] + e.cost + h[j] - h[e.to])) {
 						prevv[e.to] = j;
 						preve[e.to] = k;
 					}
 				}
 			}
 		}
-		if (dist[t] == LINF) {
-			std::cerr << "The demand is over maximum flow." << std::endl;
-			return -1;
-		}
+		if (dist[t] == LINF) throw PrimalDualDemandOver();
 		rep(i, n) h[i] += dist[i];
 		for (int i = t; i != s; i = prevv[i]) {
 			vec[prevv[i]][preve[i]].cap--;
@@ -71,19 +68,14 @@ class PrimalDual {
 				rep(i, vec[p.second].size()) {
 					edge& e = vec[p.second][i];
 					if (e.cap > 0 &&
-						chmin(dist[e.to], dist[p.second] + e.cost +
-											  h[p.second] - h[e.to])) {
+						chmin(dist[e.to], dist[p.second] + e.cost + h[p.second] - h[e.to])) {
 						prevv[e.to] = p.second;
 						preve[e.to] = i;
 						que.push({dist[e.to], e.to});
 					}
 				}
 			}
-			if (dist[t] == LINF) {
-				std::cerr << "The demand is over the maximum flow."
-						  << std::endl;
-				return -1;
-			}
+			if (dist[t] == LINF) throw PrimalDualDemandOver();
 			rep(i, n) h[i] += dist[i];
 			int d = f;
 			for (int i = t; i != s; i = prevv[i]) {

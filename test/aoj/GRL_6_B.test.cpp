@@ -10,5 +10,9 @@ int main() {
 		scanf("%d%d%d%d", &u, &v, &c, &d);
 		mcf.add_edge(u, v, c, d);
 	}
-	printf("%d\n", mcf.add_flow(f));
+	try {
+		printf("%d\n", mcf.add_flow(f));
+	} catch (const PrimalDualDemandOver& e) {
+		printf("-1\n");
+	}
 }

@@ -10,6 +10,7 @@ int main() {
 		scanf("%d%d 0", &a, &b);
 		ts.add_clause(std::abs(a), a > 0, std::abs(b), b > 0);
 	}
+	ts.build();
 	if (!ts.satisfiable()) {
 		puts("s UNSATISFIABLE");
 		return 0;

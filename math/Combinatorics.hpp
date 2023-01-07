@@ -26,12 +26,10 @@ class Combinatorics {
 template <typename T>
 std::vector<T> Combinatorics<T>::factorial = std::vector<T>(1, 1);
 
-template <typename T, typename std::enable_if_t<is_ModInt<T>::value,
-												std::nullptr_t> = nullptr>
-class ModCombinatorics : Combinatorics<T> {};
-
 template <typename T>
-class ModCombinatorics<T> : public Combinatorics<T> {
+class ModCombinatorics : public Combinatorics<T> {
+	static_assert(is_ModInt<T>::value, "ModCombinatorics template is not ModInt");
+
 	using Combinatorics<T>::factorial;
 	static std::vector<T> inv;
 	static void append(int n) noexcept {
@@ -65,4 +63,4 @@ class ModCombinatorics<T> : public Combinatorics<T> {
  * @title Combinatorics/ModCombinatorics
  */
 template <typename T>
-std::vector<T> ModCombinatorics<T, nullptr>::inv = std::vector<T>(1, 1);
+std::vector<T> ModCombinatorics<T>::inv = std::vector<T>(1, 1);

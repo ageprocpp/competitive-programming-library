@@ -12,6 +12,7 @@ class TwoSat {
 		scc.add_edge(2 * i + int(!f), 2 * j + int(g));
 		scc.add_edge(2 * j + int(!g), 2 * i + int(f));
 	}
+	void build() { scc.build(); }
 	bool satisfiable() {
 		auto ids = scc.get_ids();
 		rep(i, N) {

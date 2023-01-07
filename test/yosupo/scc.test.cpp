@@ -10,6 +10,7 @@ int main() {
 		scanf("%d%d", &a, &b);
 		scc.add_edge(a, b);
 	}
+	scc.build();
 	auto vec = scc.get_scc();
 	printf("%d\n", vec.size());
 	rep(i, vec.size()) {

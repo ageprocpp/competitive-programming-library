@@ -44,8 +44,8 @@
 #include <utility>
 #include <vector>
 
-#define rep(i, n) for (int i = 0; i < (n); i++)
-#define REP(i, n) for (int i = 1; i <= (n); i++)
+#define rep(i, n) for (int i = 0; i < int(n); i++)
+#define REP(i, n) for (int i = 1; i <= int(n); i++)
 #define all(V) V.begin(), V.end()
 
 using i128 = __int128_t;
@@ -62,8 +62,7 @@ constexpr double eps = DBL_EPSILON * 10;
 constexpr double PI = 3.141592653589793238462643383279;
 
 template <class T>
-class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>> {
-};
+class prique : public std::priority_queue<T, std::vector<T>, std::greater<T>> {};
 int popcount(uint x) {
 #if __cplusplus >= 202002L
 	return std::popcount(x);
@@ -90,8 +89,7 @@ constexpr std::vector<T> make_vec(size_t n) {
 }
 template <class T, class... Args>
 constexpr auto make_vec(size_t n, Args&&... args) {
-	return std::vector<decltype(make_vec<T>(args...))>(
-		n, make_vec<T>(std::forward<Args>(args)...));
+	return std::vector<decltype(make_vec<T>(args...))>(n, make_vec<T>(std::forward<Args>(args)...));
 }
 template <class T, class U>
 std::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {
@@ -102,15 +100,10 @@ std::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {
 	return ost << x.first << " " << x.second;
 }
 template <class Container,
-#if __cplusplus >= 201703L
-		  std::enable_if_t<!std::is_same_v<Container, std::string>,
-#else
-		  std::enable_if_t<!std::is_same<Container, std::string>::value,
-#endif
-						   std::nullptr_t> = nullptr>
+		  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t> = nullptr>
 auto operator>>(std::istream& ist, Container& cont)
 	-> decltype(typename Container::iterator(), std::cin)& {
-	std::vector<typename Container::value_type> tmp;
+	Container tmp;
 	while (true) {
 		typename Container::value_type t;
 		ist >> t;
@@ -121,12 +114,7 @@ auto operator>>(std::istream& ist, Container& cont)
 	return ist;
 }
 template <class Container,
-#if __cplusplus >= 201703L
-		  std::enable_if_t<!std::is_same_v<Container, std::string>,
-#else
-		  std::enable_if_t<!std::is_same<Container, std::string>::value,
-#endif
-						   std::nullptr_t> = nullptr>
+		  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t> = nullptr>
 auto operator<<(std::ostream& ost, const Container& cont)
 	-> decltype(typename Container::iterator(), std::cout)& {
 	for (auto it = cont.begin(); it != cont.end(); it++) {
@@ -136,8 +124,7 @@ auto operator<<(std::ostream& ost, const Container& cont)
 	return ost;
 }
 template <class Container>
-auto sum(const Container& cont)
-	-> decltype(typename Container::iterator(), 0LL) {
+auto sum(const Container& cont) -> decltype(typename Container::iterator(), 0LL) {
 	lint res = 0;
 	for (auto it = cont.begin(); it != cont.end(); it++) res += *it;
 	return res;
@@ -194,15 +181,6 @@ constexpr lint modpow(lint a, lint b, lint m) noexcept {
 	}
 	return res;
 }
-constexpr i128 modpow(i128 a, i128 b, i128 m) noexcept {
-	a %= m;
-	i128 res(1);
-	while (b) {
-		if (b & 1) res *= a, res %= m;
-		a *= a, a %= m, b >>= 1;
-	}
-	return res;
-}
 LP extGcd(lint a, lint b) noexcept {
 	if (b == 0) return {1, 0};
 	LP s = extGcd(b, a % b);
@@ -210,8 +188,7 @@ LP extGcd(lint a, lint b) noexcept {
 	s.second -= a / b * s.first;
 	return s;
 }
-LP ChineseRem(const lint& b1, const lint& m1, const lint& b2,
-			  const lint& m2) noexcept {
+LP ChineseRem(const lint& b1, const lint& m1, const lint& b2, const lint& m2) noexcept {
 	auto p = extGcd(m1, m2);
 	lint g = gcd(m1, m2), l = m1 / g * m2;
 	lint tmp = (b2 - b1) / g * p.first % (m2 / g);
@@ -231,8 +208,7 @@ int LCS(const std::string& a, const std::string& b) {
 	rep(j, b.size()) chmax(dp[a.size()][j + 1], dp[a.size()][j]);
 	return dp[a.size()][b.size()];
 }
-template <class T, std::enable_if_t<std::is_convertible<int, T>::value,
-									std::nullptr_t> = nullptr>
+template <class T, std::enable_if_t<std::is_convertible<int, T>::value, std::nullptr_t> = nullptr>
 void compress(std::vector<T>& vec) {
 	auto tmp = vec;
 	std::sort(all(tmp));
@@ -256,4 +232,36 @@ void compress(InputIter l, InputIter r) {
 	for (auto i = l; i < r; i++) {
 		*i = std::lower_bound(all(tmp), *i) - tmp.begin();
 	}
+}
+template <class InputIter,
+		  std::enable_if_t<std::is_same<typename InputIter::value_type, std::pair<IP, int>>::value,
+						   std::nullptr_t> = nullptr>
+void mo_sort(InputIter l, InputIter r, int N) {
+	const int M = std::max(1.0, std::sqrt(lint(N) * N / std::distance(l, r)));
+	std::sort(l, r, [M](const auto& lhs, const auto& rhs) {
+		if (lhs.first.first / M < rhs.first.first / M) return true;
+		if (lhs.first.first / M == rhs.first.first / M) return lhs.first.second < rhs.first.second;
+		return false;
+	});
+	int before = -1, cnt = 0;
+	bool f = false;
+	for (InputIter i = l; i != r; i++) {
+		if (before != i->first.first / M) {
+			if (f) std::reverse(i - cnt, i);
+			f ^= true, before = i->first.first / M, cnt = 1;
+		} else
+			cnt++;
+	}
+	if (f) std::reverse(r - cnt, r);
+}
+template <class T>
+std::vector<T> xor_bases(const std::vector<T>& vec) {
+	std::vector<T> res;
+	for (T i : vec) {
+		for (T j : res) {
+			chmin(i, i ^ j);
+		}
+		if (i) res.emplace_back(i);
+	}
+	return res;
 }
