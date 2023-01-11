@@ -54,6 +54,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/WaveletMatrix.hpp
       title: Wavelet Matrix
+    - icon: ':heavy_check_mark:'
+      path: data-structure/vanEmdeBoasTree.hpp
+      title: data-structure/vanEmdeBoasTree.hpp
   - name: graph
     pages:
     - icon: ':heavy_check_mark:'
@@ -306,6 +309,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/point_set_range_composite.test.cpp
       title: test/yosupo/point_set_range_composite.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/predecessor_problem.test.cpp
+      title: test/yosupo/predecessor_problem.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/queue_operate_all_composite.test.cpp
       title: test/yosupo/queue_operate_all_composite.test.cpp

@@ -7,22 +7,12 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/yosupo/lca.test.cpp
-    title: test/yosupo/lca.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_add_path_sum.test.cpp
-    title: test/yosupo/vertex_add_path_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_add_subtree_sum.test.cpp
-    title: test/yosupo/vertex_add_subtree_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_set_path_composite.test.cpp
-    title: test/yosupo/vertex_set_path_composite.test.cpp
+    path: test/yosupo/predecessor_problem.test.cpp
+    title: test/yosupo/predecessor_problem.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: Heavy light decomposition
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef _WIN64\n#pragma GCC target(\"avx2\"\
@@ -119,80 +109,107 @@ data:
     \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
-    }\n#line 3 \"graph/HeavyLightDecomposition.hpp\"\nclass HeavyLightDecomposition\
-    \ {\n\tint n, index = 0;\n\tvoid size_dfs(int node) {\n\t\tsize[node] = 1;\n\t\
-    \tfor (int& i : vec[node]) {\n\t\t\tif (par[node] == i) continue;\n\t\t\tpar[i]\
-    \ = node;\n\t\t\tsize_dfs(i);\n\t\t\tsize[node] += size[i];\n\t\t\tif (size[i]\
-    \ > size[vec[node][0]]) std::swap(i, vec[node][0]);\n\t\t}\n\t}\n\tvoid build_dfs(int\
-    \ node) {\n\t\tlabel[node] = index++;\n\t\tfor (int& i : vec[node]) {\n\t\t\t\
-    if (par[node] != i) {\n\t\t\t\thead[i] = (i == vec[node][0] ? head[node] : i);\n\
-    \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\
-    \tstd::vector<std::vector<int>> vec;\n\tstd::vector<int> size, par, head, label,\
-    \ last;\n\tHeavyLightDecomposition() {}\n\tHeavyLightDecomposition(int m) : n(m)\
-    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\
-    \t\tpar.resize(n);\n\t\thead.resize(n);\n\t\tlabel.resize(n);\n\t\tlast.resize(n);\n\
-    \t}\n\tvoid add_edge(int u, int v) {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\
-    \t}\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\
-    \t\tbuild_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
-    \ const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u,\
-    \ v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u]\
-    \ + 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
-    \t\t\tv = par[head[v]];\n\t\t}\n\t}\n\ttemplate <class F>\n\tvoid each_vertex(int\
-    \ u, int v, const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v])\
-    \ std::swap(u, v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tfunc(label[u], label[v]);\n\
-    \t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\t\t\tv = par[head[v]];\n\
-    \t\t}\n\t}\n\ttemplate <class F>\n\tvoid each_vertex_subtree(int u, const F& func)\
-    \ const {\n\t\tfunc(label[u], last[u]);\n\t}\n\tint lca(int u, int v) const {\n\
-    \t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif\
-    \ (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
-    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
-    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n\
-    \ */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass HeavyLightDecomposition\
-    \ {\n\tint n, index = 0;\n\tvoid size_dfs(int node) {\n\t\tsize[node] = 1;\n\t\
-    \tfor (int& i : vec[node]) {\n\t\t\tif (par[node] == i) continue;\n\t\t\tpar[i]\
-    \ = node;\n\t\t\tsize_dfs(i);\n\t\t\tsize[node] += size[i];\n\t\t\tif (size[i]\
-    \ > size[vec[node][0]]) std::swap(i, vec[node][0]);\n\t\t}\n\t}\n\tvoid build_dfs(int\
-    \ node) {\n\t\tlabel[node] = index++;\n\t\tfor (int& i : vec[node]) {\n\t\t\t\
-    if (par[node] != i) {\n\t\t\t\thead[i] = (i == vec[node][0] ? head[node] : i);\n\
-    \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\
-    \tstd::vector<std::vector<int>> vec;\n\tstd::vector<int> size, par, head, label,\
-    \ last;\n\tHeavyLightDecomposition() {}\n\tHeavyLightDecomposition(int m) : n(m)\
-    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\
-    \t\tpar.resize(n);\n\t\thead.resize(n);\n\t\tlabel.resize(n);\n\t\tlast.resize(n);\n\
-    \t}\n\tvoid add_edge(int u, int v) {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\
-    \t}\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\
-    \t\tbuild_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
-    \ const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u,\
-    \ v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u]\
-    \ + 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
-    \t\t\tv = par[head[v]];\n\t\t}\n\t}\n\ttemplate <class F>\n\tvoid each_vertex(int\
-    \ u, int v, const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v])\
-    \ std::swap(u, v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tfunc(label[u], label[v]);\n\
-    \t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\t\t\tv = par[head[v]];\n\
-    \t\t}\n\t}\n\ttemplate <class F>\n\tvoid each_vertex_subtree(int u, const F& func)\
-    \ const {\n\t\tfunc(label[u], last[u]);\n\t}\n\tint lca(int u, int v) const {\n\
-    \t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif\
-    \ (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
-    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
-    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n\
-    \ */"
+    }\n#line 3 \"data-structure/vanEmdeBoasTree.hpp\"\n\ntemplate <uint bit>\nclass\
+    \ vanEmdeBoasTree {\n\tint min = -1, max = -1;\n\tstatic int upper(int x) { return\
+    \ x >> bit / 2; }\n\tstatic int lower(int x) { return x & (1 << bit / 2) - 1;\
+    \ }\n\tstatic int index(int x, int y) { return (x << bit / 2) | y; }\n\tvanEmdeBoasTree<(bit\
+    \ + 1) / 2> summary;\n\tstd::array<vanEmdeBoasTree<bit / 2>, 1 << (bit + 1) /\
+    \ 2> cluster;\n\n  public:\n\tvanEmdeBoasTree() {}\n\tint minimum() const { return\
+    \ min; }\n\tint maximum() const { return max; }\n\tbool contains(int x) const\
+    \ {\n\t\tif (x == min || x == max) return true;\n\t\treturn cluster[upper(x)].contains(lower(x));\n\
+    \t}\n\tint successor(int x) const {\n\t\tif (min != -1 && x < min) return min;\n\
+    \t\tconst int x_upper = upper(x), x_lower = lower(x);\n\t\tconst int max_low =\
+    \ cluster[x_upper].maximum();\n\t\tif (max_low != -1 && x_lower < max_low)\n\t\
+    \t\treturn index(x_upper, cluster[x_upper].successor(x_lower));\n\t\tconst int\
+    \ succ_cluster = summary.successor(x_upper);\n\t\tif (succ_cluster == -1) return\
+    \ -1;\n\t\treturn index(succ_cluster, cluster[succ_cluster].minimum());\n\t}\n\
+    \tint predecessor(int x) const {\n\t\tif (max != -1 && max < x) return max;\n\t\
+    \tconst int x_upper = upper(x), x_lower = lower(x);\n\t\tconst int min_low = cluster[x_upper].minimum();\n\
+    \t\tif (min_low != -1 && min_low < x_lower)\n\t\t\treturn index(x_upper, cluster[x_upper].predecessor(x_lower));\n\
+    \t\tconst int pred_cluster = summary.predecessor(x_upper);\n\t\tif (pred_cluster\
+    \ == -1) {\n\t\t\tif (min != -1 && min < x) return min;\n\t\t\treturn -1;\n\t\t\
+    }\n\t\treturn index(pred_cluster, cluster[pred_cluster].maximum());\n\t}\n\tvoid\
+    \ insert(int x) {\n\t\tif (min == -1) {\n\t\t\tmin = max = x;\n\t\t\treturn;\n\
+    \t\t}\n\t\tif (x == min) return;\n\t\tif (x < min) std::swap(x, min);\n\n\t\t\
+    const int x_upper = upper(x), x_lower = lower(x);\n\t\tif (cluster[x_upper].minimum()\
+    \ == -1) summary.insert(x_upper);\n\t\tcluster[x_upper].insert(x_lower);\n\t\t\
+    if (x > max) max = x;\n\t}\n\tvoid erase(int x) {\n\t\tif (min == max) {\n\t\t\
+    \tif (x == min) min = max = -1;\n\t\t\treturn;\n\t\t}\n\t\tif (x == min) {\n\t\
+    \t\tint first_cluster = summary.minimum();\n\t\t\tx = index(first_cluster, cluster[first_cluster].minimum());\n\
+    \t\t\tmin = x;\n\t\t}\n\t\tconst int x_upper = upper(x), x_lower = lower(x);\n\
+    \t\tcluster[x_upper].erase(x_lower);\n\t\tif (cluster[x_upper].minimum() == -1)\
+    \ {\n\t\t\tsummary.erase(x_upper);\n\t\t\tif (x == max) {\n\t\t\t\tint summary_max\
+    \ = summary.maximum();\n\t\t\t\tif (summary_max == -1)\n\t\t\t\t\tmax = min;\n\
+    \t\t\t\telse\n\t\t\t\t\tmax = index(summary_max, cluster[summary_max].maximum());\n\
+    \t\t\t}\n\t\t} else if (x == max)\n\t\t\tmax = index(x_upper, cluster[x_upper].maximum());\n\
+    \t}\n};\n\ntemplate <>\nclass vanEmdeBoasTree<1> {\n\tint min = -1, max = -1;\n\
+    \n  public:\n\tvanEmdeBoasTree() {}\n\tint minimum() const { return min; }\n\t\
+    int maximum() const { return max; }\n\tbool contains(int x) const {\n\t\tif (x\
+    \ == min || x == max) return true;\n\t\treturn false;\n\t}\n\tint successor(int\
+    \ x) const {\n\t\tif (x == 0 && max == 1) return 1;\n\t\treturn -1;\n\t}\n\tint\
+    \ predecessor(int x) const {\n\t\tif (x == 1 && min == 0) return 0;\n\t\treturn\
+    \ -1;\n\t}\n\tvoid insert(int x) {\n\t\tif (min == -1) min = max = x;\n\t\tif\
+    \ (x < min) std::swap(x, min);\n\t\tif (x > max) max = x;\n\t}\n\tvoid erase(int\
+    \ x) {\n\t\tif (min == max) {\n\t\t\tif (x == min) min = max = -1;\n\t\t\treturn;\n\
+    \t\t}\n\t\tif (x == 0)\n\t\t\tmin = max = 1;\n\t\telse\n\t\t\tmin = max = 0;\n\
+    \t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\n\ntemplate <uint bit>\n\
+    class vanEmdeBoasTree {\n\tint min = -1, max = -1;\n\tstatic int upper(int x)\
+    \ { return x >> bit / 2; }\n\tstatic int lower(int x) { return x & (1 << bit /\
+    \ 2) - 1; }\n\tstatic int index(int x, int y) { return (x << bit / 2) | y; }\n\
+    \tvanEmdeBoasTree<(bit + 1) / 2> summary;\n\tstd::array<vanEmdeBoasTree<bit /\
+    \ 2>, 1 << (bit + 1) / 2> cluster;\n\n  public:\n\tvanEmdeBoasTree() {}\n\tint\
+    \ minimum() const { return min; }\n\tint maximum() const { return max; }\n\tbool\
+    \ contains(int x) const {\n\t\tif (x == min || x == max) return true;\n\t\treturn\
+    \ cluster[upper(x)].contains(lower(x));\n\t}\n\tint successor(int x) const {\n\
+    \t\tif (min != -1 && x < min) return min;\n\t\tconst int x_upper = upper(x), x_lower\
+    \ = lower(x);\n\t\tconst int max_low = cluster[x_upper].maximum();\n\t\tif (max_low\
+    \ != -1 && x_lower < max_low)\n\t\t\treturn index(x_upper, cluster[x_upper].successor(x_lower));\n\
+    \t\tconst int succ_cluster = summary.successor(x_upper);\n\t\tif (succ_cluster\
+    \ == -1) return -1;\n\t\treturn index(succ_cluster, cluster[succ_cluster].minimum());\n\
+    \t}\n\tint predecessor(int x) const {\n\t\tif (max != -1 && max < x) return max;\n\
+    \t\tconst int x_upper = upper(x), x_lower = lower(x);\n\t\tconst int min_low =\
+    \ cluster[x_upper].minimum();\n\t\tif (min_low != -1 && min_low < x_lower)\n\t\
+    \t\treturn index(x_upper, cluster[x_upper].predecessor(x_lower));\n\t\tconst int\
+    \ pred_cluster = summary.predecessor(x_upper);\n\t\tif (pred_cluster == -1) {\n\
+    \t\t\tif (min != -1 && min < x) return min;\n\t\t\treturn -1;\n\t\t}\n\t\treturn\
+    \ index(pred_cluster, cluster[pred_cluster].maximum());\n\t}\n\tvoid insert(int\
+    \ x) {\n\t\tif (min == -1) {\n\t\t\tmin = max = x;\n\t\t\treturn;\n\t\t}\n\t\t\
+    if (x == min) return;\n\t\tif (x < min) std::swap(x, min);\n\n\t\tconst int x_upper\
+    \ = upper(x), x_lower = lower(x);\n\t\tif (cluster[x_upper].minimum() == -1) summary.insert(x_upper);\n\
+    \t\tcluster[x_upper].insert(x_lower);\n\t\tif (x > max) max = x;\n\t}\n\tvoid\
+    \ erase(int x) {\n\t\tif (min == max) {\n\t\t\tif (x == min) min = max = -1;\n\
+    \t\t\treturn;\n\t\t}\n\t\tif (x == min) {\n\t\t\tint first_cluster = summary.minimum();\n\
+    \t\t\tx = index(first_cluster, cluster[first_cluster].minimum());\n\t\t\tmin =\
+    \ x;\n\t\t}\n\t\tconst int x_upper = upper(x), x_lower = lower(x);\n\t\tcluster[x_upper].erase(x_lower);\n\
+    \t\tif (cluster[x_upper].minimum() == -1) {\n\t\t\tsummary.erase(x_upper);\n\t\
+    \t\tif (x == max) {\n\t\t\t\tint summary_max = summary.maximum();\n\t\t\t\tif\
+    \ (summary_max == -1)\n\t\t\t\t\tmax = min;\n\t\t\t\telse\n\t\t\t\t\tmax = index(summary_max,\
+    \ cluster[summary_max].maximum());\n\t\t\t}\n\t\t} else if (x == max)\n\t\t\t\
+    max = index(x_upper, cluster[x_upper].maximum());\n\t}\n};\n\ntemplate <>\nclass\
+    \ vanEmdeBoasTree<1> {\n\tint min = -1, max = -1;\n\n  public:\n\tvanEmdeBoasTree()\
+    \ {}\n\tint minimum() const { return min; }\n\tint maximum() const { return max;\
+    \ }\n\tbool contains(int x) const {\n\t\tif (x == min || x == max) return true;\n\
+    \t\treturn false;\n\t}\n\tint successor(int x) const {\n\t\tif (x == 0 && max\
+    \ == 1) return 1;\n\t\treturn -1;\n\t}\n\tint predecessor(int x) const {\n\t\t\
+    if (x == 1 && min == 0) return 0;\n\t\treturn -1;\n\t}\n\tvoid insert(int x) {\n\
+    \t\tif (min == -1) min = max = x;\n\t\tif (x < min) std::swap(x, min);\n\t\tif\
+    \ (x > max) max = x;\n\t}\n\tvoid erase(int x) {\n\t\tif (min == max) {\n\t\t\t\
+    if (x == min) min = max = -1;\n\t\t\treturn;\n\t\t}\n\t\tif (x == 0)\n\t\t\tmin\
+    \ = max = 1;\n\t\telse\n\t\t\tmin = max = 0;\n\t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
-  path: graph/HeavyLightDecomposition.hpp
+  path: data-structure/vanEmdeBoasTree.hpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-01-12 00:26:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/vertex_add_path_sum.test.cpp
-  - test/yosupo/lca.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/vertex_add_subtree_sum.test.cpp
-documentation_of: graph/HeavyLightDecomposition.hpp
+  - test/yosupo/predecessor_problem.test.cpp
+documentation_of: data-structure/vanEmdeBoasTree.hpp
 layout: document
 redirect_from:
-- /library/graph/HeavyLightDecomposition.hpp
-- /library/graph/HeavyLightDecomposition.hpp.html
-title: Heavy light decomposition
+- /library/data-structure/vanEmdeBoasTree.hpp
+- /library/data-structure/vanEmdeBoasTree.hpp.html
+title: data-structure/vanEmdeBoasTree.hpp
 ---
