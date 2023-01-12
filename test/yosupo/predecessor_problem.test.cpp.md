@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/vanEmdeBoasTree.hpp
     title: van Emde Boas Tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/FastIO.hpp
     title: Fast IO library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/predecessor_problem
@@ -193,7 +193,7 @@ data:
     static int upper(int x) { return x >> bit / 2; }\n\tstatic int lower(int x) {\
     \ return x & (1 << bit / 2) - 1; }\n\tstatic int index(int x, int y) { return\
     \ (x << bit / 2) | y; }\n\tvanEmdeBoasTree<(bit + 1) / 2> summary;\n\tstd::array<vanEmdeBoasTree<bit\
-    \ / 2>, 1 << (bit + 1) / 2> cluster;\n\n  public:\n\tvanEmdeBoasTree(){} = default;\n\
+    \ / 2>, 1 << (bit + 1) / 2> cluster;\n\n  public:\n\tvanEmdeBoasTree() = default;\n\
     \tint minimum() const { return min; }\n\tint maximum() const { return max; }\n\
     \tbool contains(int x) const {\n\t\tif (x == min || x == max) return true;\n\t\
     \treturn cluster[upper(x)].contains(lower(x));\n\t}\n\tint successor(int x) const\
@@ -259,8 +259,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/predecessor_problem.test.cpp
   requiredBy: []
-  timestamp: '2023-01-12 00:57:34+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2023-01-12 13:20:20+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/predecessor_problem.test.cpp
 layout: document

@@ -53,7 +53,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/WaveletMatrix.hpp
     title: Wavelet Matrix
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/vanEmdeBoasTree.hpp
     title: van Emde Boas Tree
   - icon: ':heavy_check_mark:'
@@ -131,7 +131,7 @@ data:
   - icon: ':warning:'
     path: math/XorConvolution.hpp
     title: math/XorConvolution.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/FastIO.hpp
     title: Fast IO library
   - icon: ':heavy_check_mark:'
@@ -288,7 +288,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/point_set_range_composite.test.cpp
     title: test/yosupo/point_set_range_composite.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/predecessor_problem.test.cpp
     title: test/yosupo/predecessor_problem.test.cpp
   - icon: ':heavy_check_mark:'
@@ -348,9 +348,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/0789.test.cpp
     title: test/yukicoder/0789.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -603,7 +603,7 @@ data:
   - data-structure/SegTreeBeats.hpp
   - data-structure/RBST.hpp
   timestamp: '2023-01-08 03:21:50+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/DSL_2_G.test.cpp
   - test/aoj/ALDS1_14_B_HashedString.test.cpp

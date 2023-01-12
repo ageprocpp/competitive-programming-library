@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/predecessor_problem.test.cpp
     title: test/yosupo/predecessor_problem.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -114,8 +114,8 @@ data:
     \ x >> bit / 2; }\n\tstatic int lower(int x) { return x & (1 << bit / 2) - 1;\
     \ }\n\tstatic int index(int x, int y) { return (x << bit / 2) | y; }\n\tvanEmdeBoasTree<(bit\
     \ + 1) / 2> summary;\n\tstd::array<vanEmdeBoasTree<bit / 2>, 1 << (bit + 1) /\
-    \ 2> cluster;\n\n  public:\n\tvanEmdeBoasTree(){} = default;\n\tint minimum()\
-    \ const { return min; }\n\tint maximum() const { return max; }\n\tbool contains(int\
+    \ 2> cluster;\n\n  public:\n\tvanEmdeBoasTree() = default;\n\tint minimum() const\
+    \ { return min; }\n\tint maximum() const { return max; }\n\tbool contains(int\
     \ x) const {\n\t\tif (x == min || x == max) return true;\n\t\treturn cluster[upper(x)].contains(lower(x));\n\
     \t}\n\tint successor(int x) const {\n\t\tif (min != -1 && x < min) return min;\n\
     \t\tconst int x_upper = upper(x), x_lower = lower(x);\n\t\tconst int max_low =\
@@ -158,7 +158,7 @@ data:
     \ { return x >> bit / 2; }\n\tstatic int lower(int x) { return x & (1 << bit /\
     \ 2) - 1; }\n\tstatic int index(int x, int y) { return (x << bit / 2) | y; }\n\
     \tvanEmdeBoasTree<(bit + 1) / 2> summary;\n\tstd::array<vanEmdeBoasTree<bit /\
-    \ 2>, 1 << (bit + 1) / 2> cluster;\n\n  public:\n\tvanEmdeBoasTree(){} = default;\n\
+    \ 2>, 1 << (bit + 1) / 2> cluster;\n\n  public:\n\tvanEmdeBoasTree() = default;\n\
     \tint minimum() const { return min; }\n\tint maximum() const { return max; }\n\
     \tbool contains(int x) const {\n\t\tif (x == min || x == max) return true;\n\t\
     \treturn cluster[upper(x)].contains(lower(x));\n\t}\n\tint successor(int x) const\
@@ -202,8 +202,8 @@ data:
   isVerificationFile: false
   path: data-structure/vanEmdeBoasTree.hpp
   requiredBy: []
-  timestamp: '2023-01-12 00:57:34+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2023-01-12 13:20:20+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/predecessor_problem.test.cpp
 documentation_of: data-structure/vanEmdeBoasTree.hpp
@@ -220,7 +220,7 @@ template<uint bit>
 class vanEmdeBoasTree;
 ```
 
-`bit` は扱う整数のビット幅を表し、$1\leq bit < 32$ である必要があります。
+`bit` は扱う整数のビット幅を表し、$1\leq \mathrm{bit} < 32$ である必要があります。
 
 ## Constructor
 
