@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -12,7 +12,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/many_aplusb.test.cpp
     title: test/yosupo/many_aplusb.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/predecessor_problem.test.cpp
     title: test/yosupo/predecessor_problem.test.cpp
   - icon: ':heavy_check_mark:'
@@ -21,9 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/shortest_path.test.cpp
     title: test/yosupo/shortest_path.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     document_title: Fast IO library
     links: []
@@ -272,12 +272,12 @@ data:
   path: other/FastIO.hpp
   requiredBy: []
   timestamp: '2023-01-08 03:21:50+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - test/yosupo/predecessor_problem.test.cpp
   - test/yosupo/convolution_mod_1000000007.test.cpp
   - test/yosupo/shortest_path.test.cpp
   - test/yosupo/range_kth_smallest.test.cpp
-  - test/yosupo/predecessor_problem.test.cpp
   - test/yosupo/many_aplusb.test.cpp
 documentation_of: other/FastIO.hpp
 layout: document

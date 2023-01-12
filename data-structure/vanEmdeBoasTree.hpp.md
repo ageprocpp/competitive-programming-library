@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/predecessor_problem.test.cpp
     title: test/yosupo/predecessor_problem.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -114,9 +114,9 @@ data:
     \ x >> bit / 2; }\n\tstatic int lower(int x) { return x & (1 << bit / 2) - 1;\
     \ }\n\tstatic int index(int x, int y) { return (x << bit / 2) | y; }\n\tvanEmdeBoasTree<(bit\
     \ + 1) / 2> summary;\n\tstd::array<vanEmdeBoasTree<bit / 2>, 1 << (bit + 1) /\
-    \ 2> cluster;\n\n  public:\n\tvanEmdeBoasTree() {}\n\tint minimum() const { return\
-    \ min; }\n\tint maximum() const { return max; }\n\tbool contains(int x) const\
-    \ {\n\t\tif (x == min || x == max) return true;\n\t\treturn cluster[upper(x)].contains(lower(x));\n\
+    \ 2> cluster;\n\n  public:\n\tvanEmdeBoasTree(){} = default;\n\tint minimum()\
+    \ const { return min; }\n\tint maximum() const { return max; }\n\tbool contains(int\
+    \ x) const {\n\t\tif (x == min || x == max) return true;\n\t\treturn cluster[upper(x)].contains(lower(x));\n\
     \t}\n\tint successor(int x) const {\n\t\tif (min != -1 && x < min) return min;\n\
     \t\tconst int x_upper = upper(x), x_lower = lower(x);\n\t\tconst int max_low =\
     \ cluster[x_upper].maximum();\n\t\tif (max_low != -1 && x_lower < max_low)\n\t\
@@ -158,13 +158,13 @@ data:
     \ { return x >> bit / 2; }\n\tstatic int lower(int x) { return x & (1 << bit /\
     \ 2) - 1; }\n\tstatic int index(int x, int y) { return (x << bit / 2) | y; }\n\
     \tvanEmdeBoasTree<(bit + 1) / 2> summary;\n\tstd::array<vanEmdeBoasTree<bit /\
-    \ 2>, 1 << (bit + 1) / 2> cluster;\n\n  public:\n\tvanEmdeBoasTree() {}\n\tint\
-    \ minimum() const { return min; }\n\tint maximum() const { return max; }\n\tbool\
-    \ contains(int x) const {\n\t\tif (x == min || x == max) return true;\n\t\treturn\
-    \ cluster[upper(x)].contains(lower(x));\n\t}\n\tint successor(int x) const {\n\
-    \t\tif (min != -1 && x < min) return min;\n\t\tconst int x_upper = upper(x), x_lower\
-    \ = lower(x);\n\t\tconst int max_low = cluster[x_upper].maximum();\n\t\tif (max_low\
-    \ != -1 && x_lower < max_low)\n\t\t\treturn index(x_upper, cluster[x_upper].successor(x_lower));\n\
+    \ 2>, 1 << (bit + 1) / 2> cluster;\n\n  public:\n\tvanEmdeBoasTree(){} = default;\n\
+    \tint minimum() const { return min; }\n\tint maximum() const { return max; }\n\
+    \tbool contains(int x) const {\n\t\tif (x == min || x == max) return true;\n\t\
+    \treturn cluster[upper(x)].contains(lower(x));\n\t}\n\tint successor(int x) const\
+    \ {\n\t\tif (min != -1 && x < min) return min;\n\t\tconst int x_upper = upper(x),\
+    \ x_lower = lower(x);\n\t\tconst int max_low = cluster[x_upper].maximum();\n\t\
+    \tif (max_low != -1 && x_lower < max_low)\n\t\t\treturn index(x_upper, cluster[x_upper].successor(x_lower));\n\
     \t\tconst int succ_cluster = summary.successor(x_upper);\n\t\tif (succ_cluster\
     \ == -1) return -1;\n\t\treturn index(succ_cluster, cluster[succ_cluster].minimum());\n\
     \t}\n\tint predecessor(int x) const {\n\t\tif (max != -1 && max < x) return max;\n\
@@ -202,14 +202,84 @@ data:
   isVerificationFile: false
   path: data-structure/vanEmdeBoasTree.hpp
   requiredBy: []
-  timestamp: '2023-01-12 00:26:42+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-01-12 00:57:34+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/yosupo/predecessor_problem.test.cpp
 documentation_of: data-structure/vanEmdeBoasTree.hpp
 layout: document
-redirect_from:
-- /library/data-structure/vanEmdeBoasTree.hpp
-- /library/data-structure/vanEmdeBoasTree.hpp.html
-title: data-structure/vanEmdeBoasTree.hpp
+title: van Emde Boas Tree
 ---
+
+整数の集合を高速に扱うデータ構造です。
+
+## Declaration
+
+```cpp
+template<uint bit>
+class vanEmdeBoasTree;
+```
+
+`bit` は扱う整数のビット幅を表し、$1\leq bit < 32$ である必要があります。
+
+## Constructor
+
+```cpp
+vanEmdeBoasTree(){} = default;
+```
+
+$O(1)$ で動作します。
+
+## Methods
+
+### minimum
+
+```cpp
+int minimum() const;
+```
+
+最小値を返します。$O(1)$ で動作します。
+
+### maximum
+
+```cpp
+int maximum() const;
+```
+
+最大値を返します。$O(1)$ で動作します。
+
+### contains
+
+```cpp
+bool contains(int x) const;
+```
+
+$x$ が集合に含まれるかを返します。$O(\log \mathrm{bit})$ で動作します。
+
+### successor
+
+```cpp
+int successor(int x) const;
+```
+集合に含まれる、$x$ より大きい最小の値を返します。そのような値がない場合は $-1$ を返します。$O(\log \mathrm{bit})$ で動作します。
+
+### predecessor
+
+```cpp
+int predecessor(int x) const;
+```
+集合に含まれる、$x$ より小さい最大の値を返します。そのような値がない場合は $-1$ を返します。$O(\log \mathrm{bit})$ で動作します。
+
+### insert
+
+```cpp
+void insert(int x);
+```
+集合に $x$ が含まれていない場合、挿入します。$O(\log \mathrm{bit})$ で動作します。
+
+### erase
+
+```cpp
+void erase(int x);
+```
+集合に $x$ が含まれていない場合、削除します。$O(\log \mathrm{bit})$ で動作します。

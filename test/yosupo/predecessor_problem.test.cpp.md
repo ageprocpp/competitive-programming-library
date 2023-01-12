@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: data-structure/vanEmdeBoasTree.hpp
-    title: data-structure/vanEmdeBoasTree.hpp
-  - icon: ':heavy_check_mark:'
+    title: van Emde Boas Tree
+  - icon: ':question:'
     path: other/FastIO.hpp
     title: Fast IO library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/predecessor_problem
@@ -193,10 +193,10 @@ data:
     static int upper(int x) { return x >> bit / 2; }\n\tstatic int lower(int x) {\
     \ return x & (1 << bit / 2) - 1; }\n\tstatic int index(int x, int y) { return\
     \ (x << bit / 2) | y; }\n\tvanEmdeBoasTree<(bit + 1) / 2> summary;\n\tstd::array<vanEmdeBoasTree<bit\
-    \ / 2>, 1 << (bit + 1) / 2> cluster;\n\n  public:\n\tvanEmdeBoasTree() {}\n\t\
-    int minimum() const { return min; }\n\tint maximum() const { return max; }\n\t\
-    bool contains(int x) const {\n\t\tif (x == min || x == max) return true;\n\t\t\
-    return cluster[upper(x)].contains(lower(x));\n\t}\n\tint successor(int x) const\
+    \ / 2>, 1 << (bit + 1) / 2> cluster;\n\n  public:\n\tvanEmdeBoasTree(){} = default;\n\
+    \tint minimum() const { return min; }\n\tint maximum() const { return max; }\n\
+    \tbool contains(int x) const {\n\t\tif (x == min || x == max) return true;\n\t\
+    \treturn cluster[upper(x)].contains(lower(x));\n\t}\n\tint successor(int x) const\
     \ {\n\t\tif (min != -1 && x < min) return min;\n\t\tconst int x_upper = upper(x),\
     \ x_lower = lower(x);\n\t\tconst int max_low = cluster[x_upper].maximum();\n\t\
     \tif (max_low != -1 && x_lower < max_low)\n\t\t\treturn index(x_upper, cluster[x_upper].successor(x_lower));\n\
@@ -259,8 +259,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/predecessor_problem.test.cpp
   requiredBy: []
-  timestamp: '2023-01-12 00:26:42+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-01-12 00:57:34+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/predecessor_problem.test.cpp
 layout: document

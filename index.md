@@ -54,9 +54,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/WaveletMatrix.hpp
       title: Wavelet Matrix
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: data-structure/vanEmdeBoasTree.hpp
-      title: data-structure/vanEmdeBoasTree.hpp
+      title: van Emde Boas Tree
   - name: graph
     pages:
     - icon: ':heavy_check_mark:'
@@ -138,10 +138,10 @@ data:
       title: math/XorConvolution.hpp
   - name: other
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: other/FastIO.hpp
       title: Fast IO library
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: other/template.hpp
       title: other/template.hpp
     - icon: ':warning:'
@@ -309,7 +309,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/point_set_range_composite.test.cpp
       title: test/yosupo/point_set_range_composite.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/predecessor_problem.test.cpp
       title: test/yosupo/predecessor_problem.test.cpp
     - icon: ':heavy_check_mark:'
