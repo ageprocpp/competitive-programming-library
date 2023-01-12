@@ -6,7 +6,7 @@ class BIT {
 	std::vector<T> bit;
 
   private:
-	T query(int a) {
+	T query(int a) const {
 		T cnt = 0;
 		while (a > 0) {
 			cnt += bit[a];
@@ -24,9 +24,9 @@ class BIT {
 			a += a & -a;
 		}
 	}
-	T query(int l, int r) { return query(r) - query(l); }
+	T query(int l, int r) const { return query(r) - query(l); }
 	void clear() { bit.assign(n + 1, 0); }
-	int lower_bound(T x) {
+	int lower_bound(T x) const {
 		int p = 0, k = 1;
 		while (k * 2 <= n) k *= 2;
 		while (k > 0) {
@@ -38,7 +38,7 @@ class BIT {
 		}
 		return p;
 	}
-	int upper_bound(T x) {
+	int upper_bound(T x) const {
 		int p = 0, k = 1;
 		while (k * 2 <= n) k *= 2;
 		while (k > 0) {
@@ -51,7 +51,3 @@ class BIT {
 		return p;
 	}
 };
-
-/**
- * @title Binary Indexed Tree
- */

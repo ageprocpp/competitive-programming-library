@@ -1,6 +1,6 @@
 ---
 title: van Emde Boas Tree
-documentation_of: ../data-structure/vanEmdeBoasTree.hpp
+documentation_of: ../../data-structure/vanEmdeBoasTree.hpp
 ---
 
 整数の集合を高速に扱うデータ構造です。
