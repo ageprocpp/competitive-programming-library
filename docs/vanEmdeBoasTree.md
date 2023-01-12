@@ -12,7 +12,7 @@ template<uint bit>
 class vanEmdeBoasTree;
 ```
 
-`bit` は扱う整数のビット幅を表し、$1\leq bit < 32$ である必要があります。
+`bit` は扱う整数のビット幅を表し、$1\leq \mathrm{bit} < 32$ である必要があります。
 
 ## Constructor
 

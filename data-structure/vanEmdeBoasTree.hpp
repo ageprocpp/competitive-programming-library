@@ -11,7 +11,7 @@ class vanEmdeBoasTree {
 	std::array<vanEmdeBoasTree<bit / 2>, 1 << (bit + 1) / 2> cluster;
 
   public:
-	vanEmdeBoasTree(){} = default;
+	vanEmdeBoasTree() = default;
 	int minimum() const { return min; }
 	int maximum() const { return max; }
 	bool contains(int x) const {
