@@ -118,23 +118,23 @@ data:
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
     }\n#line 3 \"data-structure/BIT.hpp\"\ntemplate <class T>\nclass BIT {\n\tint\
-    \ n;\n\tstd::vector<T> bit;\n\n  private:\n\tT query(int a) {\n\t\tT cnt = 0;\n\
-    \t\twhile (a > 0) {\n\t\t\tcnt += bit[a];\n\t\t\ta -= a & -a;\n\t\t}\n\t\treturn\
-    \ cnt;\n\t}\n\n  public:\n\tBIT(int n) : n(n) { bit.resize(n + 1); }\n\tvoid add(int\
-    \ a, T x) {\n\t\ta++;\n\t\twhile (a <= n) {\n\t\t\tbit[a] += x;\n\t\t\ta += a\
-    \ & -a;\n\t\t}\n\t}\n\tT query(int l, int r) { return query(r) - query(l); }\n\
-    \tvoid clear() { bit.assign(n + 1, 0); }\n\tint lower_bound(T x) {\n\t\tint p\
-    \ = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile (k > 0) {\n\t\t\tif (p\
-    \ + k <= n && bit[p + k] < x) {\n\t\t\t\tx -= bit[p + k];\n\t\t\t\tp += k;\n\t\
-    \t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n\tint upper_bound(T x) {\n\t\t\
-    int p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile (k > 0) {\n\t\t\t\
-    if (p + k <= n && bit[p + k] <= x) {\n\t\t\t\tx -= bit[p + k];\n\t\t\t\tp += k;\n\
-    \t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n};\n\n/**\n * @title Binary\
-    \ Indexed Tree\n */\n#line 3 \"graph/HeavyLightDecomposition.hpp\"\nclass HeavyLightDecomposition\
-    \ {\n\tint n, index = 0;\n\tvoid size_dfs(int node) {\n\t\tsize[node] = 1;\n\t\
-    \tfor (int& i : vec[node]) {\n\t\t\tif (par[node] == i) continue;\n\t\t\tpar[i]\
-    \ = node;\n\t\t\tsize_dfs(i);\n\t\t\tsize[node] += size[i];\n\t\t\tif (size[i]\
-    \ > size[vec[node][0]]) std::swap(i, vec[node][0]);\n\t\t}\n\t}\n\tvoid build_dfs(int\
+    \ n;\n\tstd::vector<T> bit;\n\n  private:\n\tT query(int a) const {\n\t\tT cnt\
+    \ = 0;\n\t\twhile (a > 0) {\n\t\t\tcnt += bit[a];\n\t\t\ta -= a & -a;\n\t\t}\n\
+    \t\treturn cnt;\n\t}\n\n  public:\n\tBIT(int n) : n(n) { bit.resize(n + 1); }\n\
+    \tvoid add(int a, T x) {\n\t\ta++;\n\t\twhile (a <= n) {\n\t\t\tbit[a] += x;\n\
+    \t\t\ta += a & -a;\n\t\t}\n\t}\n\tT query(int l, int r) const { return query(r)\
+    \ - query(l); }\n\tvoid clear() { bit.assign(n + 1, 0); }\n\tint lower_bound(T\
+    \ x) const {\n\t\tint p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile\
+    \ (k > 0) {\n\t\t\tif (p + k <= n && bit[p + k] < x) {\n\t\t\t\tx -= bit[p + k];\n\
+    \t\t\t\tp += k;\n\t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n\tint upper_bound(T\
+    \ x) const {\n\t\tint p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile\
+    \ (k > 0) {\n\t\t\tif (p + k <= n && bit[p + k] <= x) {\n\t\t\t\tx -= bit[p +\
+    \ k];\n\t\t\t\tp += k;\n\t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n};\n\
+    #line 3 \"graph/HeavyLightDecomposition.hpp\"\nclass HeavyLightDecomposition {\n\
+    \tint n, index = 0;\n\tvoid size_dfs(int node) {\n\t\tsize[node] = 1;\n\t\tfor\
+    \ (int& i : vec[node]) {\n\t\t\tif (par[node] == i) continue;\n\t\t\tpar[i] =\
+    \ node;\n\t\t\tsize_dfs(i);\n\t\t\tsize[node] += size[i];\n\t\t\tif (size[i] >\
+    \ size[vec[node][0]]) std::swap(i, vec[node][0]);\n\t\t}\n\t}\n\tvoid build_dfs(int\
     \ node) {\n\t\tlabel[node] = index++;\n\t\tfor (int& i : vec[node]) {\n\t\t\t\
     if (par[node] != i) {\n\t\t\t\thead[i] = (i == vec[node][0] ? head[node] : i);\n\
     \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\
@@ -186,7 +186,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/vertex_add_path_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-01-12 15:47:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/vertex_add_path_sum.test.cpp

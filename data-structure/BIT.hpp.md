@@ -19,7 +19,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: Binary Indexed Tree
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef _WIN64\n#pragma GCC target(\"avx2\"\
@@ -117,39 +116,37 @@ data:
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
     }\n#line 3 \"data-structure/BIT.hpp\"\ntemplate <class T>\nclass BIT {\n\tint\
-    \ n;\n\tstd::vector<T> bit;\n\n  private:\n\tT query(int a) {\n\t\tT cnt = 0;\n\
-    \t\twhile (a > 0) {\n\t\t\tcnt += bit[a];\n\t\t\ta -= a & -a;\n\t\t}\n\t\treturn\
-    \ cnt;\n\t}\n\n  public:\n\tBIT(int n) : n(n) { bit.resize(n + 1); }\n\tvoid add(int\
-    \ a, T x) {\n\t\ta++;\n\t\twhile (a <= n) {\n\t\t\tbit[a] += x;\n\t\t\ta += a\
-    \ & -a;\n\t\t}\n\t}\n\tT query(int l, int r) { return query(r) - query(l); }\n\
-    \tvoid clear() { bit.assign(n + 1, 0); }\n\tint lower_bound(T x) {\n\t\tint p\
-    \ = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile (k > 0) {\n\t\t\tif (p\
-    \ + k <= n && bit[p + k] < x) {\n\t\t\t\tx -= bit[p + k];\n\t\t\t\tp += k;\n\t\
-    \t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n\tint upper_bound(T x) {\n\t\t\
-    int p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile (k > 0) {\n\t\t\t\
-    if (p + k <= n && bit[p + k] <= x) {\n\t\t\t\tx -= bit[p + k];\n\t\t\t\tp += k;\n\
-    \t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n};\n\n/**\n * @title Binary\
-    \ Indexed Tree\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T>\nclass\
-    \ BIT {\n\tint n;\n\tstd::vector<T> bit;\n\n  private:\n\tT query(int a) {\n\t\
-    \tT cnt = 0;\n\t\twhile (a > 0) {\n\t\t\tcnt += bit[a];\n\t\t\ta -= a & -a;\n\t\
-    \t}\n\t\treturn cnt;\n\t}\n\n  public:\n\tBIT(int n) : n(n) { bit.resize(n + 1);\
-    \ }\n\tvoid add(int a, T x) {\n\t\ta++;\n\t\twhile (a <= n) {\n\t\t\tbit[a] +=\
-    \ x;\n\t\t\ta += a & -a;\n\t\t}\n\t}\n\tT query(int l, int r) { return query(r)\
+    \ n;\n\tstd::vector<T> bit;\n\n  private:\n\tT query(int a) const {\n\t\tT cnt\
+    \ = 0;\n\t\twhile (a > 0) {\n\t\t\tcnt += bit[a];\n\t\t\ta -= a & -a;\n\t\t}\n\
+    \t\treturn cnt;\n\t}\n\n  public:\n\tBIT(int n) : n(n) { bit.resize(n + 1); }\n\
+    \tvoid add(int a, T x) {\n\t\ta++;\n\t\twhile (a <= n) {\n\t\t\tbit[a] += x;\n\
+    \t\t\ta += a & -a;\n\t\t}\n\t}\n\tT query(int l, int r) const { return query(r)\
     \ - query(l); }\n\tvoid clear() { bit.assign(n + 1, 0); }\n\tint lower_bound(T\
-    \ x) {\n\t\tint p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile (k >\
-    \ 0) {\n\t\t\tif (p + k <= n && bit[p + k] < x) {\n\t\t\t\tx -= bit[p + k];\n\t\
-    \t\t\tp += k;\n\t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n\tint upper_bound(T\
-    \ x) {\n\t\tint p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile (k >\
-    \ 0) {\n\t\t\tif (p + k <= n && bit[p + k] <= x) {\n\t\t\t\tx -= bit[p + k];\n\
-    \t\t\t\tp += k;\n\t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n};\n\n/**\n\
-    \ * @title Binary Indexed Tree\n */"
+    \ x) const {\n\t\tint p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile\
+    \ (k > 0) {\n\t\t\tif (p + k <= n && bit[p + k] < x) {\n\t\t\t\tx -= bit[p + k];\n\
+    \t\t\t\tp += k;\n\t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n\tint upper_bound(T\
+    \ x) const {\n\t\tint p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile\
+    \ (k > 0) {\n\t\t\tif (p + k <= n && bit[p + k] <= x) {\n\t\t\t\tx -= bit[p +\
+    \ k];\n\t\t\t\tp += k;\n\t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n};\n"
+  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T>\nclass\
+    \ BIT {\n\tint n;\n\tstd::vector<T> bit;\n\n  private:\n\tT query(int a) const\
+    \ {\n\t\tT cnt = 0;\n\t\twhile (a > 0) {\n\t\t\tcnt += bit[a];\n\t\t\ta -= a &\
+    \ -a;\n\t\t}\n\t\treturn cnt;\n\t}\n\n  public:\n\tBIT(int n) : n(n) { bit.resize(n\
+    \ + 1); }\n\tvoid add(int a, T x) {\n\t\ta++;\n\t\twhile (a <= n) {\n\t\t\tbit[a]\
+    \ += x;\n\t\t\ta += a & -a;\n\t\t}\n\t}\n\tT query(int l, int r) const { return\
+    \ query(r) - query(l); }\n\tvoid clear() { bit.assign(n + 1, 0); }\n\tint lower_bound(T\
+    \ x) const {\n\t\tint p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile\
+    \ (k > 0) {\n\t\t\tif (p + k <= n && bit[p + k] < x) {\n\t\t\t\tx -= bit[p + k];\n\
+    \t\t\t\tp += k;\n\t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n\tint upper_bound(T\
+    \ x) const {\n\t\tint p = 0, k = 1;\n\t\twhile (k * 2 <= n) k *= 2;\n\t\twhile\
+    \ (k > 0) {\n\t\t\tif (p + k <= n && bit[p + k] <= x) {\n\t\t\t\tx -= bit[p +\
+    \ k];\n\t\t\t\tp += k;\n\t\t\t}\n\t\t\tk /= 2;\n\t\t}\n\t\treturn p;\n\t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/BIT.hpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-01-12 15:47:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/vertex_add_path_sum.test.cpp
@@ -157,8 +154,67 @@ data:
   - test/yosupo/vertex_add_subtree_sum.test.cpp
 documentation_of: data-structure/BIT.hpp
 layout: document
-redirect_from:
-- /library/data-structure/BIT.hpp
-- /library/data-structure/BIT.hpp.html
 title: Binary Indexed Tree
 ---
+
+Binary Indexed Tree (Fenwick Tree) です。
+数列の区間和が高速に求められます。
+
+## Declaration
+
+```cpp
+template<class T>
+class BIT;
+```
+
+`T` は扱うデータの型を表します。
+
+## Constructor
+
+```cpp
+BIT(int n);
+```
+
+`n` は扱う配列の長さを表します。$O(1)$ で動作します。
+
+## Methods
+
+### add
+
+```cpp
+void add(int a, T x);
+```
+
+index が `a` の位置に `x` を加算します。$O(\log n)$ で動作します。
+
+### query
+
+```cpp
+T query(int l, int r) const;
+```
+
+$[l, r)$ の総和を返します。$O(\log n)$ で動作します。
+
+### clear
+
+```cpp
+void clear();
+```
+
+全体を $0$ で初期化します。$O(n)$ で動作します。
+
+### lower_bound
+
+```cpp
+int lower_bound(T x) const;
+```
+
+`query(0, r)` $ >= x$ となる最小の x を返します。$O(\log n)$ で動作します。
+
+### upper_bound
+
+```cpp
+int upper_bound(T x) const;
+```
+
+`query(0, r)` $ > x$ となる最小の x を返します。$O(\log n)$ で動作します。
