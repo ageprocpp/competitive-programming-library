@@ -274,10 +274,10 @@ data:
   timestamp: '2023-01-08 03:21:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/predecessor_problem.test.cpp
   - test/yosupo/convolution_mod_1000000007.test.cpp
   - test/yosupo/shortest_path.test.cpp
   - test/yosupo/range_kth_smallest.test.cpp
-  - test/yosupo/predecessor_problem.test.cpp
   - test/yosupo/many_aplusb.test.cpp
 documentation_of: other/FastIO.hpp
 layout: document
