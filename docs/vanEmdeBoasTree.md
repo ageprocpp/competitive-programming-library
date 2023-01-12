@@ -17,7 +17,7 @@ class vanEmdeBoasTree;
 ## Constructor
 
 ```cpp
-vanEmdeBoasTree(){} = default;
+vanEmdeBoasTree() = default;
 ```
 
 $O(1)$ で動作します。
