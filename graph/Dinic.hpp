@@ -18,6 +18,7 @@ class Dinic {
 		while (!que.empty()) {
 			int node = que.front();
 			que.pop();
+			if (level[node] == level[t]) break;
 			for (const auto& i : vec[node]) {
 				if (i.cap > 0 && level[i.to] == -1) {
 					level[i.to] = level[node] + 1;
@@ -31,7 +32,7 @@ class Dinic {
 		if (node == t) return f;
 		for (int& i = iter[node]; i < vec[node].size(); i++) {
 			edge& e = vec[node][i];
-			if (e.cap > 0 && level[node] < level[e.to]) {
+			if (e.cap > 0 && level[node] < level[e.to] && level[e.to] <= level[t]) {
 				lint d = dfs(e.to, t, std::min(f, e.cap));
 				if (d > 0) {
 					e.cap -= d;
@@ -66,12 +67,20 @@ class Dinic {
 	}
 	lint max_flow(int s, int t) {
 		lint res = 0;
+		std::chrono::system_clock::time_point start, end;
+		int sum = 0;
 		while (true) {
+			// start = std::chrono::system_clock::now();
 			bfs(s, t);
-			if (level[t] < 0) return res;
+			if (level[t] < 0) {
+				// std::cout << sum << '\n';
+				return res;
+			}
 			iter.assign(N, 0);
 			lint f;
 			while ((f = dfs(s, t, LINF)) > 0) res += f;
+			// end = std::chrono::system_clock::now();
+			// sum += std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 		}
 	}
 	std::vector<lint> restore() const {
