@@ -10,7 +10,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    document_title: Binary Heap
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef _WIN64\n#pragma GCC target(\"avx2\"\
@@ -127,7 +126,7 @@ data:
     heap[1] = std::move(heap.back());\n\t\theap.pop_back();\n\t\tdown_heap();\n\t\
     }\n\n\tvoid push(const T& x) {\n\t\theap.push_back(x);\n\t\tup_heap();\n\t}\n\t\
     template <class... Args>\n\tvoid emplace(Args&&... args) {\n\t\theap.emplace_back(std::forward<Args...>(args...));\n\
-    \t\tup_heap();\n\t}\n};\n\n/**\n * @title Binary Heap\n */\n"
+    \t\tup_heap();\n\t}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, class\
     \ Compare = std::less<>>\nclass BinaryHeap {\n\tstd::vector<T> heap;\n\tCompare\
     \ comp;\n\n\tvoid up_heap() {\n\t\tsize_t id = heap.size() - 1;\n\t\twhile (id\
@@ -148,19 +147,75 @@ data:
     \theap[1] = std::move(heap.back());\n\t\theap.pop_back();\n\t\tdown_heap();\n\t\
     }\n\n\tvoid push(const T& x) {\n\t\theap.push_back(x);\n\t\tup_heap();\n\t}\n\t\
     template <class... Args>\n\tvoid emplace(Args&&... args) {\n\t\theap.emplace_back(std::forward<Args...>(args...));\n\
-    \t\tup_heap();\n\t}\n};\n\n/**\n * @title Binary Heap\n */"
+    \t\tup_heap();\n\t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/BinaryHeap.hpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-01-14 02:52:16+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/BinaryHeap.hpp
 layout: document
-redirect_from:
-- /library/data-structure/BinaryHeap.hpp
-- /library/data-structure/BinaryHeap.hpp.html
 title: Binary Heap
 ---
+
+Binary Heap(二項ヒープ) です。
+値の集合を管理し、最小値を取得できます。
+
+## Declaration
+```cpp
+template<class T, class Compare = std::less()>
+class BinaryHeap;
+```
+
+`T` は扱うデータの型、`Compare` は比較関数オブジェクトです。
+
+## Constructor
+```cpp
+BinaryHeap();
+```
+
+## Methods
+
+### empty
+```cpp
+[[nodiscard]] bool empty() const noexcept;
+```
+
+ヒープが空かどうかを返します。$O(1)$ で動作します。
+
+### size
+```cpp
+[[nodiscard]] size_t size() const noexcept;
+```
+
+ヒープの要素数を返します。$O(1)$ で動作します。
+
+### top
+```cpp
+[[nodiscard]] T top() const;
+```
+
+ヒープ内の最小値を返します。$O(1)$ で動作します。
+
+### pop
+```cpp
+void pop();
+```
+
+ヒープ内の最小値を削除します。$O(\log N)$ で動作します。
+
+### push
+```cpp
+void push(const T& x);
+```
+
+ヒープに値 $x$ を追加します。$O(\log N)$ で動作します。
+
+### emplace
+```cpp
+template<class... Args>
+void emplace(Args&&... args);
+```
