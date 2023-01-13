@@ -117,13 +117,14 @@ data:
     \tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t};\n\tint N, idx = 0;\n\tstd::vector<std::vector<edge>>\
     \ vec;\n\tstd::vector<int> iter, level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N,\
     \ -1);\n\t\tlevel[s] = 0;\n\t\tstd::queue<int> que;\n\t\tque.push(s);\n\t\twhile\
-    \ (!que.empty()) {\n\t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tfor\
-    \ (const auto& i : vec[node]) {\n\t\t\t\tif (i.cap > 0 && level[i.to] == -1) {\n\
-    \t\t\t\t\tlevel[i.to] = level[node] + 1;\n\t\t\t\t\tque.push(i.to);\n\t\t\t\t\
-    }\n\t\t\t}\n\t\t}\n\t\treturn level[t] != -1;\n\t}\n\tlint dfs(int node, int t,\
-    \ lint f) {\n\t\tif (node == t) return f;\n\t\tfor (int& i = iter[node]; i < vec[node].size();\
-    \ i++) {\n\t\t\tedge& e = vec[node][i];\n\t\t\tif (e.cap > 0 && level[node] <\
-    \ level[e.to]) {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\t\
+    \ (!que.empty()) {\n\t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tif\
+    \ (level[node] == level[t]) break;\n\t\t\tfor (const auto& i : vec[node]) {\n\t\
+    \t\t\tif (i.cap > 0 && level[i.to] == -1) {\n\t\t\t\t\tlevel[i.to] = level[node]\
+    \ + 1;\n\t\t\t\t\tque.push(i.to);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn level[t]\
+    \ != -1;\n\t}\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node == t) return\
+    \ f;\n\t\tfor (int& i = iter[node]; i < vec[node].size(); i++) {\n\t\t\tedge&\
+    \ e = vec[node][i];\n\t\t\tif (e.cap > 0 && level[node] < level[e.to] && level[e.to]\
+    \ <= level[t]) {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\t\
     if (d > 0) {\n\t\t\t\t\te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\
     \t\t\treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\t\
     Dinic(int n) : N(n) {\n\t\tvec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\
@@ -133,45 +134,53 @@ data:
     \tvoid add_edge(int from, int to, lint cap) {\n\t\tvec[from].push_back({to, cap,\
     \ (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size()\
     \ - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\t\
-    while (true) {\n\t\t\tbfs(s, t);\n\t\t\tif (level[t] < 0) return res;\n\t\t\t\
-    iter.assign(N, 0);\n\t\t\tlint f;\n\t\t\twhile ((f = dfs(s, t, LINF)) > 0) res\
-    \ += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\t\tstd::vector<lint>\
-    \ res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif\
-    \ (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n\
-    /**\n * @title Dinic's algorithm\n */\n"
+    std::chrono::system_clock::time_point start, end;\n\t\tint sum = 0;\n\t\twhile\
+    \ (true) {\n\t\t\t// start = std::chrono::system_clock::now();\n\t\t\tbfs(s, t);\n\
+    \t\t\tif (level[t] < 0) {\n\t\t\t\t// std::cout << sum << '\\n';\n\t\t\t\treturn\
+    \ res;\n\t\t\t}\n\t\t\titer.assign(N, 0);\n\t\t\tlint f;\n\t\t\twhile ((f = dfs(s,\
+    \ t, LINF)) > 0) res += f;\n\t\t\t// end = std::chrono::system_clock::now();\n\
+    \t\t\t// sum += std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();\n\
+    \t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\t\tstd::vector<lint> res(idx);\n\
+    \t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1)\
+    \ res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title\
+    \ Dinic's algorithm\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nclass Dinic {\n\tclass\
     \ edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t};\n\t\
     int N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int> iter,\
     \ level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N, -1);\n\t\tlevel[s] =\
     \ 0;\n\t\tstd::queue<int> que;\n\t\tque.push(s);\n\t\twhile (!que.empty()) {\n\
-    \t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tfor (const auto& i : vec[node])\
-    \ {\n\t\t\t\tif (i.cap > 0 && level[i.to] == -1) {\n\t\t\t\t\tlevel[i.to] = level[node]\
-    \ + 1;\n\t\t\t\t\tque.push(i.to);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn level[t]\
-    \ != -1;\n\t}\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node == t) return\
-    \ f;\n\t\tfor (int& i = iter[node]; i < vec[node].size(); i++) {\n\t\t\tedge&\
-    \ e = vec[node][i];\n\t\t\tif (e.cap > 0 && level[node] < level[e.to]) {\n\t\t\
-    \t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\tif (d > 0) {\n\t\t\t\t\
-    \te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\treturn d;\n\t\t\
-    \t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tDinic(int n) : N(n)\
-    \ {\n\t\tvec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\t}\n\tvoid\
-    \ reset() {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id\
-    \ != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\
-    \t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tvoid clear() { *this = Dinic(N); }\n\tvoid add_edge(int\
+    \t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tif (level[node] == level[t])\
+    \ break;\n\t\t\tfor (const auto& i : vec[node]) {\n\t\t\t\tif (i.cap > 0 && level[i.to]\
+    \ == -1) {\n\t\t\t\t\tlevel[i.to] = level[node] + 1;\n\t\t\t\t\tque.push(i.to);\n\
+    \t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn level[t] != -1;\n\t}\n\tlint dfs(int node,\
+    \ int t, lint f) {\n\t\tif (node == t) return f;\n\t\tfor (int& i = iter[node];\
+    \ i < vec[node].size(); i++) {\n\t\t\tedge& e = vec[node][i];\n\t\t\tif (e.cap\
+    \ > 0 && level[node] < level[e.to] && level[e.to] <= level[t]) {\n\t\t\t\tlint\
+    \ d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\tif (d > 0) {\n\t\t\t\t\te.cap\
+    \ -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\treturn d;\n\t\t\t\t}\n\
+    \t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tDinic(int n) : N(n) {\n\t\t\
+    vec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\t}\n\tvoid reset()\
+    \ {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1)\
+    \ {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\t\t\t\
+    }\n\t\t\t}\n\t\t}\n\t}\n\tvoid clear() { *this = Dinic(N); }\n\tvoid add_edge(int\
     \ from, int to, lint cap) {\n\t\tvec[from].push_back({to, cap, (int)vec[to].size(),\
     \ -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size() - 1, idx++});\n\
-    \t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\twhile (true) {\n\t\
-    \t\tbfs(s, t);\n\t\t\tif (level[t] < 0) return res;\n\t\t\titer.assign(N, 0);\n\
-    \t\t\tlint f;\n\t\t\twhile ((f = dfs(s, t, LINF)) > 0) res += f;\n\t\t}\n\t}\n\
-    \tstd::vector<lint> restore() const {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i,\
-    \ N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id]\
-    \ = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Dinic's\
-    \ algorithm\n */"
+    \t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\tstd::chrono::system_clock::time_point\
+    \ start, end;\n\t\tint sum = 0;\n\t\twhile (true) {\n\t\t\t// start = std::chrono::system_clock::now();\n\
+    \t\t\tbfs(s, t);\n\t\t\tif (level[t] < 0) {\n\t\t\t\t// std::cout << sum << '\\\
+    n';\n\t\t\t\treturn res;\n\t\t\t}\n\t\t\titer.assign(N, 0);\n\t\t\tlint f;\n\t\
+    \t\twhile ((f = dfs(s, t, LINF)) > 0) res += f;\n\t\t\t// end = std::chrono::system_clock::now();\n\
+    \t\t\t// sum += std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();\n\
+    \t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\t\tstd::vector<lint> res(idx);\n\
+    \t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1)\
+    \ res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title\
+    \ Dinic's algorithm\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: graph/Dinic.hpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-01-13 15:09:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/GRL_6_A_Dinic.test.cpp

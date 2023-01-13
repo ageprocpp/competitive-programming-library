@@ -5,6 +5,9 @@ data:
     path: graph/Dinic.hpp
     title: Dinic's algorithm
   - icon: ':heavy_check_mark:'
+    path: other/FastIO.hpp
+    title: Fast IO library
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -114,55 +117,133 @@ data:
     \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
-    }\n#line 3 \"graph/Dinic.hpp\"\nclass Dinic {\n\tclass edge {\n\t  public:\n\t\
-    \tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t};\n\tint N, idx = 0;\n\tstd::vector<std::vector<edge>>\
-    \ vec;\n\tstd::vector<int> iter, level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N,\
-    \ -1);\n\t\tlevel[s] = 0;\n\t\tstd::queue<int> que;\n\t\tque.push(s);\n\t\twhile\
-    \ (!que.empty()) {\n\t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tfor\
-    \ (const auto& i : vec[node]) {\n\t\t\t\tif (i.cap > 0 && level[i.to] == -1) {\n\
-    \t\t\t\t\tlevel[i.to] = level[node] + 1;\n\t\t\t\t\tque.push(i.to);\n\t\t\t\t\
-    }\n\t\t\t}\n\t\t}\n\t\treturn level[t] != -1;\n\t}\n\tlint dfs(int node, int t,\
-    \ lint f) {\n\t\tif (node == t) return f;\n\t\tfor (int& i = iter[node]; i < vec[node].size();\
-    \ i++) {\n\t\t\tedge& e = vec[node][i];\n\t\t\tif (e.cap > 0 && level[node] <\
-    \ level[e.to]) {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\t\
-    if (d > 0) {\n\t\t\t\t\te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\
-    \t\t\treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\t\
-    Dinic(int n) : N(n) {\n\t\tvec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\
-    \t}\n\tvoid reset() {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\
-    \tif (j.id != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap\
-    \ = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tvoid clear() { *this = Dinic(N); }\n\
-    \tvoid add_edge(int from, int to, lint cap) {\n\t\tvec[from].push_back({to, cap,\
-    \ (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size()\
-    \ - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\t\
-    while (true) {\n\t\t\tbfs(s, t);\n\t\t\tif (level[t] < 0) return res;\n\t\t\t\
-    iter.assign(N, 0);\n\t\t\tlint f;\n\t\t\twhile ((f = dfs(s, t, LINF)) > 0) res\
-    \ += f;\n\t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\t\tstd::vector<lint>\
-    \ res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif\
-    \ (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n\
-    /**\n * @title Dinic's algorithm\n */\n#line 4 \"test/yosupo/bipartitematching.test.cpp\"\
-    \nint L, R, M, a[200010], b[200010];\nint main() {\n\tscanf(\"%d%d%d\", &L, &R,\
-    \ &M);\n\tDinic flow(L + R + 2);\n\tREP(i, L) flow.add_edge(0, i, 1);\n\tfor (int\
-    \ i = L + 1; i <= L + R; i++) flow.add_edge(i, L + R + 1, 1);\n\trep(i, M) {\n\
-    \t\tscanf(\"%d%d\", a + i, b + i);\n\t\tflow.add_edge(a[i] + 1, b[i] + L + 1,\
-    \ 1);\n\t}\n\tstd::cout << flow.max_flow(0, L + R + 1) << std::endl;\n\tauto vec\
-    \ = flow.restore();\n\trep(i, M) {\n\t\tif (vec[i + L + R]) std::cout << a[i]\
-    \ << \" \" << b[i] << std::endl;\n\t}\n\treturn 0;\n}\n"
+    }\n#line 3 \"other/FastIO.hpp\"\nnamespace FastIO {\n\tstatic constexpr size_t\
+    \ buf_size = 1 << 18;\n\tstatic constexpr size_t integer_size = 19;\n\n\tstatic\
+    \ char inbuf[buf_size + 1] = {};\n\tstatic char outbuf[buf_size + 1] = {};\n\n\
+    \tclass Scanner {\n\t\tsize_t pos = 0, end = buf_size;\n\t\tvoid load() {\n\t\t\
+    \tend = fread(inbuf, 1, buf_size, stdin);\n\t\t\tinbuf[end] = '\\0';\n\t\t}\n\t\
+    \tvoid ignore_space() {\n\t\t\twhile (inbuf[pos] <= ' ') {\n\t\t\t\tif (__builtin_expect(++pos\
+    \ == end, 0)) reload();\n\t\t\t}\n\t\t}\n\t\tchar next() { return inbuf[pos++];\
+    \ }\n\t\tchar next_nonspace() {\n\t\t\tignore_space();\n\t\t\treturn inbuf[pos++];\n\
+    \t\t}\n\n\t  public:\n\t\tScanner() { load(); }\n\t\tvoid reload() {\n\t\t\tsize_t\
+    \ length = end - pos;\n\t\t\tmemmove(inbuf, inbuf + pos, length);\n\t\t\tend =\
+    \ length + fread(inbuf + length, 1, buf_size - length, stdin);\n\t\t\tinbuf[end]\
+    \ = '\\0';\n\t\t\tpos = 0;\n\t\t}\n\t\tvoid scan() {}\n\t\tvoid scan(char& c)\
+    \ { c = next_nonspace(); }\n\t\tvoid scan(std::string& s) {\n\t\t\tignore_space();\n\
+    \t\t\ts = \"\";\n\t\t\tdo {\n\t\t\t\tsize_t start = pos;\n\t\t\t\twhile (inbuf[pos]\
+    \ > ' ') pos++;\n\t\t\t\ts += std::string(inbuf + start, inbuf + pos);\n\t\t\t\
+    \tif (inbuf[pos] != '\\0') break;\n\t\t\t\treload();\n\t\t\t} while (true);\n\t\
+    \t}\n\t\ttemplate <typename T, std::enable_if_t<std::is_integral<T>::value,\n\t\
+    \t\t\t\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\
+    \tchar c = next_nonspace();\n\t\t\tif (__builtin_expect(pos + integer_size >=\
+    \ end, 0)) reload();\n\t\t\tbool minus = false;\n\t\t\tif (c == '-')\n\t\t\t\t\
+    minus = true, x = 0;\n\t\t\telse\n\t\t\t\tx = c & 15;\n\t\t\twhile ((c = next())\
+    \ >= '0') x = x * 10 + (c & 15);\n\t\t\tif (minus) x = -x;\n\t\t}\n\t\ttemplate\
+    \ <typename T, class... Args>\n\t\tvoid scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\
+    \t\t\tscan(args...);\n\t\t}\n\t\ttemplate <typename T>\n\t\tScanner& operator>>(T&\
+    \ x) {\n\t\t\tscan(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\
+    \t\tstatic constexpr size_t block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]>\
+    \ block_str;\n\t\tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\
+    \t\t\t\t\t\t\t\t\t\t  10,\n\t\t\t\t\t\t\t\t\t\t  100,\n\t\t\t\t\t\t\t\t\t\t  1000,\n\
+    \t\t\t\t\t\t\t\t\t\t  10000,\n\t\t\t\t\t\t\t\t\t\t  100000,\n\t\t\t\t\t\t\t\t\t\
+    \t  1000000,\n\t\t\t\t\t\t\t\t\t\t  10000000,\n\t\t\t\t\t\t\t\t\t\t  100000000,\n\
+    \t\t\t\t\t\t\t\t\t\t  1000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000,\n\t\t\t\t\
+    \t\t\t\t\t\t  100000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  10000000000000,\n\t\t\t\t\t\t\t\t\t\t  100000000000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  1000000000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000000000,\n\t\t\t\t\
+    \t\t\t\t\t\t  100000000000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000000000};\n\
+    \n\t\tstatic std::unique_ptr<char[]> precompute() {\n\t\t\tstd::unique_ptr<char[]>\
+    \ res(new char[block_size * 4]);\n\t\t\trep(i, block_size) {\n\t\t\t\tsize_t j\
+    \ = 4, k = i;\n\t\t\t\twhile (j--) {\n\t\t\t\t\tres[i * 4 + j] = k % 10 + '0';\n\
+    \t\t\t\t\tk /= 10;\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn res;\n\t\t}\n\t\ttemplate\
+    \ <typename T>\n\t\tsize_t integer_digits(T n) {\n\t\t\tif (n >= powers[9]) {\n\
+    \t\t\t\tif (n >= powers[13]) {\n\t\t\t\t\tif (n >= powers[16]) {\n\t\t\t\t\t\t\
+    if (n >= powers[17]) {\n\t\t\t\t\t\t\tif (n >= powers[18]) return 19;\n\t\t\t\t\
+    \t\t\treturn 18;\n\t\t\t\t\t\t}\n\t\t\t\t\t\treturn 17;\n\t\t\t\t\t}\n\t\t\t\t\
+    \tif (n >= powers[14]) {\n\t\t\t\t\t\tif (n >= powers[15]) return 16;\n\t\t\t\t\
+    \t\treturn 15;\n\t\t\t\t\t}\n\t\t\t\t\treturn 14;\n\t\t\t\t}\n\t\t\t\tif (n >=\
+    \ powers[11]) {\n\t\t\t\t\tif (n >= powers[12]) return 13;\n\t\t\t\t\treturn 12;\n\
+    \t\t\t\t}\n\t\t\t\tif (n >= powers[10]) return 11;\n\t\t\t\treturn 10;\n\t\t\t\
+    }\n\t\t\tif (n >= powers[4]) {\n\t\t\t\tif (n >= powers[7]) {\n\t\t\t\t\tif (n\
+    \ >= powers[8]) return 9;\n\t\t\t\t\treturn 8;\n\t\t\t\t}\n\t\t\t\tif (n >= powers[5])\
+    \ {\n\t\t\t\t\tif (n >= powers[6]) return 7;\n\t\t\t\t\treturn 6;\n\t\t\t\t}\n\
+    \t\t\t\treturn 5;\n\t\t\t}\n\t\t\tif (n >= powers[2]) {\n\t\t\t\tif (n >= powers[3])\
+    \ return 4;\n\t\t\t\treturn 3;\n\t\t\t}\n\t\t\tif (n >= powers[1]) return 2;\n\
+    \t\t\treturn 1;\n\t\t}\n\n\t  public:\n\t\tPrinter() = default;\n\t\t~Printer()\
+    \ { flush(); }\n\t\tvoid flush() {\n\t\t\tfwrite(outbuf, 1, pos, stdout);\n\t\t\
+    \tpos = 0;\n\t\t}\n\t\tvoid print() {}\n\t\tvoid print(char c) {\n\t\t\toutbuf[pos++]\
+    \ = c;\n\t\t\tif (__builtin_expect(pos == buf_size, 0)) flush();\n\t\t}\n\t\t\
+    void print(char* s) {\n\t\t\twhile (*s != 0) {\n\t\t\t\toutbuf[pos++] = *s++;\n\
+    \t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename\
+    \ T, std::enable_if_t<std::is_integral<T>::value,\n\t\t\t\t\t\t\t\t\t\t\t   std::nullptr_t>\
+    \ = nullptr>\n\t\tvoid print(T x) {\n\t\t\tif (__builtin_expect(pos + integer_size\
+    \ >= buf_size, 0)) flush();\n\t\t\tif (x < 0) print('-'), x = -x;\n\t\t\tsize_t\
+    \ digit = integer_digits(x);\n\t\t\tsize_t len = digit;\n\t\t\twhile (len >= 4)\
+    \ {\n\t\t\t\tlen -= 4;\n\t\t\t\tmemcpy(outbuf + pos + len,\n\t\t\t\t\t   block_str.get()\
+    \ + (x % block_size) * 4, 4);\n\t\t\t\tx /= 10000;\n\t\t\t}\n\t\t\tmemcpy(outbuf\
+    \ + pos, block_str.get() + x * 4 + 4 - len, len);\n\t\t\tpos += digit;\n\t\t}\n\
+    \t\ttemplate <typename T, class... Args>\n\t\tvoid print(const T& x, const Args&...\
+    \ args) {\n\t\t\tprint(x);\n\t\t\tprint(' ');\n\t\t\tprint(args...);\n\t\t}\n\t\
+    \ttemplate <class... Args>\n\t\tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\
+    \t\t\tprint('\\n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const\
+    \ T& x) {\n\t\t\tprint(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]>\
+    \ Printer::block_str = Printer::precompute();\n};\t// namespace FastIO\n\n/**\n\
+    \ * @title Fast IO library\n */\n#line 3 \"graph/Dinic.hpp\"\nclass Dinic {\n\t\
+    class edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t};\n\
+    \tint N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int> iter,\
+    \ level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N, -1);\n\t\tlevel[s] =\
+    \ 0;\n\t\tstd::queue<int> que;\n\t\tque.push(s);\n\t\twhile (!que.empty()) {\n\
+    \t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tif (level[node] == level[t])\
+    \ break;\n\t\t\tfor (const auto& i : vec[node]) {\n\t\t\t\tif (i.cap > 0 && level[i.to]\
+    \ == -1) {\n\t\t\t\t\tlevel[i.to] = level[node] + 1;\n\t\t\t\t\tque.push(i.to);\n\
+    \t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn level[t] != -1;\n\t}\n\tlint dfs(int node,\
+    \ int t, lint f) {\n\t\tif (node == t) return f;\n\t\tfor (int& i = iter[node];\
+    \ i < vec[node].size(); i++) {\n\t\t\tedge& e = vec[node][i];\n\t\t\tif (e.cap\
+    \ > 0 && level[node] < level[e.to] && level[e.to] <= level[t]) {\n\t\t\t\tlint\
+    \ d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\tif (d > 0) {\n\t\t\t\t\te.cap\
+    \ -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\treturn d;\n\t\t\t\t}\n\
+    \t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tDinic(int n) : N(n) {\n\t\t\
+    vec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\t}\n\tvoid reset()\
+    \ {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1)\
+    \ {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\t\t\t\
+    }\n\t\t\t}\n\t\t}\n\t}\n\tvoid clear() { *this = Dinic(N); }\n\tvoid add_edge(int\
+    \ from, int to, lint cap) {\n\t\tvec[from].push_back({to, cap, (int)vec[to].size(),\
+    \ -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size() - 1, idx++});\n\
+    \t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\tstd::chrono::system_clock::time_point\
+    \ start, end;\n\t\tint sum = 0;\n\t\twhile (true) {\n\t\t\t// start = std::chrono::system_clock::now();\n\
+    \t\t\tbfs(s, t);\n\t\t\tif (level[t] < 0) {\n\t\t\t\t// std::cout << sum << '\\\
+    n';\n\t\t\t\treturn res;\n\t\t\t}\n\t\t\titer.assign(N, 0);\n\t\t\tlint f;\n\t\
+    \t\twhile ((f = dfs(s, t, LINF)) > 0) res += f;\n\t\t\t// end = std::chrono::system_clock::now();\n\
+    \t\t\t// sum += std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();\n\
+    \t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\t\tstd::vector<lint> res(idx);\n\
+    \t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1)\
+    \ res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title\
+    \ Dinic's algorithm\n */\n#line 5 \"test/yosupo/bipartitematching.test.cpp\"\n\
+    FastIO::Scanner cin;\nFastIO::Printer cout;\nint L, R, M, a[200010], b[200010];\n\
+    int main() {\n\tcin >> L >> R >> M;\n\tDinic flow(L + R + 2);\n\tREP(i, L) flow.add_edge(0,\
+    \ i, 1);\n\tfor (int i = L + 1; i <= L + R; i++) flow.add_edge(i, L + R + 1, 1);\n\
+    \trep(i, M) {\n\t\tcin >> a[i] >> b[i];\n\t\tflow.add_edge(a[i] + 1, b[i] + L\
+    \ + 1, 1);\n\t}\n\tcout << flow.max_flow(0, L + R + 1) << '\\n';\n\tauto vec =\
+    \ flow.restore();\n\trep(i, M) {\n\t\tif (vec[i + L + R]) cout << a[i] << ' '\
+    \ << b[i] << '\\n';\n\t}\n\treturn 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bipartitematching\"\n#include\
-    \ \"../../other/template.hpp\"\n#include \"../../graph/Dinic.hpp\"\nint L, R,\
-    \ M, a[200010], b[200010];\nint main() {\n\tscanf(\"%d%d%d\", &L, &R, &M);\n\t\
-    Dinic flow(L + R + 2);\n\tREP(i, L) flow.add_edge(0, i, 1);\n\tfor (int i = L\
-    \ + 1; i <= L + R; i++) flow.add_edge(i, L + R + 1, 1);\n\trep(i, M) {\n\t\tscanf(\"\
-    %d%d\", a + i, b + i);\n\t\tflow.add_edge(a[i] + 1, b[i] + L + 1, 1);\n\t}\n\t\
-    std::cout << flow.max_flow(0, L + R + 1) << std::endl;\n\tauto vec = flow.restore();\n\
-    \trep(i, M) {\n\t\tif (vec[i + L + R]) std::cout << a[i] << \" \" << b[i] << std::endl;\n\
-    \t}\n\treturn 0;\n}"
+    \ \"../../other/template.hpp\"\n#include \"../../other/FastIO.hpp\"\n#include\
+    \ \"../../graph/Dinic.hpp\"\nFastIO::Scanner cin;\nFastIO::Printer cout;\nint\
+    \ L, R, M, a[200010], b[200010];\nint main() {\n\tcin >> L >> R >> M;\n\tDinic\
+    \ flow(L + R + 2);\n\tREP(i, L) flow.add_edge(0, i, 1);\n\tfor (int i = L + 1;\
+    \ i <= L + R; i++) flow.add_edge(i, L + R + 1, 1);\n\trep(i, M) {\n\t\tcin >>\
+    \ a[i] >> b[i];\n\t\tflow.add_edge(a[i] + 1, b[i] + L + 1, 1);\n\t}\n\tcout <<\
+    \ flow.max_flow(0, L + R + 1) << '\\n';\n\tauto vec = flow.restore();\n\trep(i,\
+    \ M) {\n\t\tif (vec[i + L + R]) cout << a[i] << ' ' << b[i] << '\\n';\n\t}\n\t\
+    return 0;\n}"
   dependsOn:
   - other/template.hpp
+  - other/FastIO.hpp
   - graph/Dinic.hpp
   isVerificationFile: true
   path: test/yosupo/bipartitematching.test.cpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-01-13 15:09:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/bipartitematching.test.cpp
