@@ -1,6 +1,6 @@
 ---
 title: Interval Segment Tree
-documentation_of: ../../data-structure/IntervalSegmentTree.hpp
+documentation_of: ../../data-structure/IntervalSegTree.hpp
 ---
 
 Interval Segment Tree（遅延セグ木）です。
