@@ -143,7 +143,7 @@ data:
     \t}\n\tstd::pair<T, int> query(T x) const {\n\t\tLine q;\n\t\tq.m = x;\n\t\tq.isQuery\
     \ = true;\n\t\titer it = --st.upper_bound(q);\n\t\tif (isMin) return {-it->eval(x),\
     \ it->id};\n\t\treturn {it->eval(x), it->id};\n\t}\n\tvoid clear() {\n\t\tst.clear();\n\
-    \t\tindex = 0;\n\t}\n};\n\n/**\n * @title Convex Hull Trick\n */\n#line 4 \"test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp\"\
+    \t\tindex = 0;\n\t}\n};\n#line 4 \"test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp\"\
     \nint N, Q;\nint main() {\n\tscanf(\"%d%d\", &N, &Q);\n\tConvexHullTrick<lint,\
     \ true> cht;\n\trep(i, N) {\n\t\tint a;\n\t\tlint b;\n\t\tscanf(\"%d%lld\", &a,\
     \ &b);\n\t\tcht.addLine(a, b);\n\t}\n\trep(i, Q) {\n\t\tint t;\n\t\tscanf(\"%d\"\
@@ -164,7 +164,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
   requiredBy: []
-  timestamp: '2023-01-14 13:19:52+09:00'
+  timestamp: '2023-01-14 13:46:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp

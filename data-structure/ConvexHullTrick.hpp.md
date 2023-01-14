@@ -13,7 +13,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: Convex Hull Trick
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef _WIN64\n#pragma GCC target(\"avx2\"\
@@ -139,7 +138,7 @@ data:
     \t}\n\tstd::pair<T, int> query(T x) const {\n\t\tLine q;\n\t\tq.m = x;\n\t\tq.isQuery\
     \ = true;\n\t\titer it = --st.upper_bound(q);\n\t\tif (isMin) return {-it->eval(x),\
     \ it->id};\n\t\treturn {it->eval(x), it->id};\n\t}\n\tvoid clear() {\n\t\tst.clear();\n\
-    \t\tindex = 0;\n\t}\n};\n\n/**\n * @title Convex Hull Trick\n */\n"
+    \t\tindex = 0;\n\t}\n};\n"
   code: "#include \"../other/template.hpp\"\ntemplate <class T, bool isMin>\nclass\
     \ ConvexHullTrick {\n\tstatic constexpr double DBL_INF = DBL_MAX;\n\tclass Line\
     \ {\n\t  public:\n\t\tT m, b;\n\t\tint id;\n\t\tdouble x;\n\t\tbool isQuery;\n\
@@ -169,13 +168,13 @@ data:
     \t}\n\tstd::pair<T, int> query(T x) const {\n\t\tLine q;\n\t\tq.m = x;\n\t\tq.isQuery\
     \ = true;\n\t\titer it = --st.upper_bound(q);\n\t\tif (isMin) return {-it->eval(x),\
     \ it->id};\n\t\treturn {it->eval(x), it->id};\n\t}\n\tvoid clear() {\n\t\tst.clear();\n\
-    \t\tindex = 0;\n\t}\n};\n\n/**\n * @title Convex Hull Trick\n */"
+    \t\tindex = 0;\n\t}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/ConvexHullTrick.hpp
   requiredBy: []
-  timestamp: '2023-01-14 13:19:52+09:00'
+  timestamp: '2023-01-14 13:46:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
