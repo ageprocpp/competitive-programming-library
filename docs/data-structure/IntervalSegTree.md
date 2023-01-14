@@ -11,7 +11,7 @@ template <class T, class U, T (*nodef)(const T&, const T&), void (*lazyf)(U&, co
 class IntervalSegTree : public SegTree<T, nodef>;
 ```
 
-`T` は扱う要素の型を表します。`U` は値の更新時に適用する演算の対象の型を表します。`nodef` は要素同士に適用する演算を表します。`lazyf` は更新時に適用する演算を表します。`updf` は、区間内のすべての要素に `lazyf` を適用した際、すべての要素に `nodef` を適用した結果を元の結果から導出する演算を表します。
+`T` は扱う要素の型、`U` は値の更新時に適用する演算の対象の型、`nodef` は要素同士に適用する演算、`lazyf` は更新時に適用する演算、`updf` は、区間内のすべての要素に `lazyf` を適用した際、すべての要素に `nodef` を適用した結果を元の結果から導出する演算を表します。
 
 ## Constructor
 ```cpp
@@ -21,10 +21,10 @@ IntervalSegTree(const std::vector<T>& initvec, T e_); // (3)
 ```
 
 #### (1)
-長さ $m$, 単位元 `e_` の Interval Segment Tree を構築します。$O(m)$ で動作します。
+長さ $m$、単位元 `e_` の Interval Segment Tree を構築し、`T()` で初期化します。$O(m)$ で動作します。
 
 #### (2)
-長さ $m$, 単位元 `e_` の Interval Segment Tree を構築し、`init` で初期化します。$O(m)$ で動作します。
+長さ $m$、単位元 `e_` の Interval Segment Tree を構築し、`init` で初期化します。$O(m)$ で動作します。
 
 #### (3)
 単位元 `e_` で初期状態 `initvec` をもつ Interval Segment Tree を構築します。$m$ を `initvec` の長さとして、$O(m)$ で動作します。

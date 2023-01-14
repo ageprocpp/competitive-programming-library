@@ -38,10 +38,6 @@ class SegTree {
 		}
 		for (unsigned int i = n - 1; i > 0; i--) node[i] = nodef(node[i << 1], node[i << 1 | 1]);
 	}
-	void fill(T x) {
-		for (unsigned int i = n; i < 2 * n; i++) node[i] = x;
-		for (unsigned int i = n - 1; i > 0; i--) node[i] = nodef(node[i << 1], node[i << 1 | 1]);
-	}
 	void update(int i, T x) {
 		i += n;
 		node[i] = x;
@@ -62,8 +58,12 @@ class SegTree {
 		}
 		return nodef(ls, rs);
 	}
-	const T& operator[](const int& x) const { return node[n + x]; }
-	T queryForAll() const { return node[1]; }
+	const T& operator[](const int& i) const { return node[n + i]; }
+	T query_all() const { return node[1]; }
+	void fill(T x) {
+		for (unsigned int i = n; i < 2 * n; i++) node[i] = x;
+		for (unsigned int i = n - 1; i > 0; i--) node[i] = nodef(node[i << 1], node[i << 1 | 1]);
+	}
 
   private:
 	template <class F>
@@ -153,7 +153,7 @@ class RMiQ : public SegTree<T, RMiQ_nodef> {
 
   public:
 	template <class... Args>
-	RMiQ(Args&&... args) : Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}
+	RMiQ(Args&&... args) : Base(std::forward<Args>(args)...) {}
 };
 template <typename T>
 class RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized, std::nullptr_t>>
@@ -171,7 +171,7 @@ class RMaQ : public SegTree<T, RMaQ_nodef> {
 
   public:
 	template <class... Args>
-	RMaQ(Args&&... args) : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
+	RMaQ(Args&&... args) : Base(std::forward<Args>(args)...) {}
 };
 template <typename T>
 class RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized, std::nullptr_t>>
@@ -182,7 +182,3 @@ class RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized, std::null
 	template <class... Args>
 	RMaQ(Args&&... args) : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
 };
-
-/**
- * @title Segment Tree
- */
