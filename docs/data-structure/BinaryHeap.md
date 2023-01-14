@@ -19,6 +19,8 @@ class BinaryHeap;
 BinaryHeap();
 ```
 
+$O(1)$ で動作します。
+
 ## Methods
 
 ### empty
@@ -47,14 +49,14 @@ BinaryHeap();
 void pop();
 ```
 
-次に処理する要素を削除します。$O(\log N)$ で動作します。
+次に処理する要素を削除します。ヒープの含む要素数を $N$ として $O(\log N)$ で動作します。
 
 ### push
 ```cpp
 void push(const T& x);
 ```
 
-ヒープに値 $x$ を追加します。$O(\log N)$ で動作します。
+ヒープに値 $x$ を追加します。ヒープの含む要素数を $N$ として $O(\log N)$ で動作します。
 
 ### emplace
 ```cpp
@@ -62,4 +64,4 @@ template<class... Args>
 void emplace(Args&&... args);
 ```
 
-ヒープに値を構築して追加します。$O(\log N)$ で動作します。
+ヒープに値を構築して追加します。ヒープの含む要素数を $N$ として $O(\log N)$ で動作します。

@@ -8,8 +8,7 @@ class ConvexHullTrick {
 		int id;
 		double x;
 		bool isQuery;
-		inline Line(int id = -1, T m = 0, T b = 0)
-			: m(m), b(b), id(id), isQuery(false) {}
+		inline Line(int id = -1, T m = 0, T b = 0) : m(m), b(b), id(id), isQuery(false) {}
 		T eval(T x) const { return m * x + b; }
 		bool parallel(const Line& l) const { return m == l.m; }
 		double intersect(const Line& l) const {
@@ -25,15 +24,12 @@ class ConvexHullTrick {
 	std::set<Line> st;
 	using iter = typename std::set<Line>::iterator;
 	inline bool cPrev(iter it) const { return it != st.begin(); }
-	inline bool cNext(iter it) const {
-		return it != st.end() && std::next(it) != st.end();
-	}
+	inline bool cNext(iter it) const { return it != st.end() && std::next(it) != st.end(); }
 	bool bad(const Line& l1, const Line& l2, const Line& l3) const {
 		return l1.intersect(l3) <= l1.intersect(l2);
 	}
 	bool bad(iter it) const {
-		return cPrev(it) && cNext(it) &&
-			   bad(*std::prev(it), *it, *std::next(it));
+		return cPrev(it) && cNext(it) && bad(*std::prev(it), *it, *std::next(it));
 	}
 	iter update(iter it) {
 		double x;
@@ -48,6 +44,7 @@ class ConvexHullTrick {
 	}
 
   public:
+	ConvexHullTrick() = default;
 	void addLine(T m, T b) {
 		if (isMin) m = -m, b = -b;
 		Line l(index++, m, b);
@@ -70,7 +67,7 @@ class ConvexHullTrick {
 		if (cPrev(it)) update(std::prev(it));
 		if (cNext(it)) update(std::next(it));
 	}
-	std::pair<T, int> query(T x) {
+	std::pair<T, int> query(T x) const {
 		Line q;
 		q.m = x;
 		q.isQuery = true;
