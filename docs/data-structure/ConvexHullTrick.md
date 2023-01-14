@@ -7,7 +7,7 @@ documentation_of: ../../data-structure/ConvexHullTrick.hpp
 
 ## Declaration
 ```cpp
-template<class T, bool isMin>
+template <class T, bool isMin>
 class ConvexHullTrick
 ```
 

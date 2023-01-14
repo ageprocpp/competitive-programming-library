@@ -7,7 +7,7 @@ Segment Tree で必要な部分だけ追加的にメモリを確保してメモ�
 
 ## Declaration
 ```cpp
-template<class T, T (*nodef)(const T&, const T&), T (*ident)(), T (*init)() = ident>
+template <class T, T (*nodef)(const T&, const T&), T (*ident)(), T (*init)() = ident>
 class DynamicSegTree;
 ```
 

@@ -8,7 +8,7 @@ documentation_of: ../../data-structure/vanEmdeBoasTree.hpp
 ## Declaration
 
 ```cpp
-template<uint bit>
+template <uint bit>
 class vanEmdeBoasTree;
 ```
 

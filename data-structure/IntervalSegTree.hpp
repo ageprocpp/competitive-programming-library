@@ -198,15 +198,15 @@ namespace {
 	}
 
 	template <class T>
-	T RCHMiQRMiQ_nodef(const T& a, const T& b) {
+	T RChMiQRMiQ_nodef(const T& a, const T& b) {
 		return std::min(a, b);
 	}
 	template <class T>
-	void RCHMiQRMiQ_lazyf(T& a, const T& b) {
+	void RChMiQRMiQ_lazyf(T& a, const T& b) {
 		chmin(a, b);
 	}
 	template <class T>
-	void RCHMiQRMiQ_updf(T& a, const T& b, const unsigned int& width) {
+	void RChMiQRMiQ_updf(T& a, const T& b, const unsigned int& width) {
 		chmin(a, b);
 	}
 
@@ -224,15 +224,15 @@ namespace {
 	}
 
 	template <class T>
-	T RCHMaQRMaQ_nodef(const T& a, const T& b) {
+	T RChMaQRMaQ_nodef(const T& a, const T& b) {
 		return std::max(a, b);
 	}
 	template <class T>
-	void RCHMaQRMaQ_lazyf(T& a, const T& b) {
+	void RChMaQRMaQ_lazyf(T& a, const T& b) {
 		chmax(a, b);
 	}
 	template <class T>
-	void RCHMaQRMaQ_updf(T& a, const T& b, const unsigned int& width) {
+	void RChMaQRMaQ_updf(T& a, const T& b, const unsigned int& width) {
 		chmax(a, b);
 	}
 
@@ -297,28 +297,6 @@ class RAQRMiQ
 		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}
 };
 template <class T>
-class RCHMiQRMiQ : public IntervalSegTree<T, T, RCHMiQRMiQ_nodef,
-										  RCHMiQRMiQ_lazyf, RCHMiQRMiQ_updf> {
-	using Base = IntervalSegTree<T, T, RCHMiQRMiQ_nodef, RCHMiQRMiQ_lazyf,
-								 RCHMiQRMiQ_updf>;
-
-  public:
-	template <class... Args>
-	RCHMiQRMiQ(Args&&... args)
-		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}
-};
-template <class T>
-class RCHMaQRMaQ : public IntervalSegTree<T, T, RCHMaQRMaQ_nodef,
-										  RCHMaQRMaQ_lazyf, RCHMaQRMaQ_updf> {
-	using Base = IntervalSegTree<T, T, RCHMaQRMaQ_nodef, RCHMaQRMaQ_lazyf,
-								 RCHMaQRMaQ_updf>;
-
-  public:
-	template <class... Args>
-	RCHMaQRMaQ(Args&&... args)
-		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
-};
-template <class T>
 class RAQRMaQ
 	: public IntervalSegTree<T, T, RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf> {
 	using Base =
@@ -327,6 +305,28 @@ class RAQRMaQ
   public:
 	template <class... Args>
 	RAQRMaQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
+};
+template <class T>
+class RChMiQRMiQ : public IntervalSegTree<T, T, RChMiQRMiQ_nodef,
+										  RChMiQRMiQ_lazyf, RChMiQRMiQ_updf> {
+	using Base = IntervalSegTree<T, T, RChMiQRMiQ_nodef, RChMiQRMiQ_lazyf,
+								 RChMiQRMiQ_updf>;
+
+  public:
+	template <class... Args>
+	RChMiQRMiQ(Args&&... args)
+		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}
+};
+template <class T>
+class RChMaQRMaQ : public IntervalSegTree<T, T, RChMaQRMaQ_nodef,
+										  RChMaQRMaQ_lazyf, RChMaQRMaQ_updf> {
+	using Base = IntervalSegTree<T, T, RChMaQRMaQ_nodef, RChMaQRMaQ_lazyf,
+								 RChMaQRMaQ_updf>;
+
+  public:
+	template <class... Args>
+	RChMaQRMaQ(Args&&... args)
 		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
 };
 template <class T>
@@ -360,7 +360,3 @@ class RUQRMaQ
 	RUQRMaQ(Args&&... args)
 		: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}
 };
-
-/**
- * @title Interval Segment Tree
- */

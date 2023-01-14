@@ -9,7 +9,7 @@ Binary Indexed Tree (Fenwick Tree) です。
 ## Declaration
 
 ```cpp
-template<class T>
+template <class T>
 class BIT;
 ```
 
