@@ -4,7 +4,7 @@ documentation_of: ../../data-structure/BinaryHeap.hpp
 ---
 
 Binary Heap(二項ヒープ) です。
-値の集合を管理し、最小値を取得できます。
+値の集合を管理し、優先度付きキューを実現します。
 
 ## Declaration
 ```cpp
@@ -40,14 +40,14 @@ BinaryHeap();
 [[nodiscard]] T top() const;
 ```
 
-ヒープ内の最小値を返します。$O(1)$ で動作します。
+次に処理する要素を返します。$O(1)$ で動作します。
 
 ### pop
 ```cpp
 void pop();
 ```
 
-ヒープ内の最小値を削除します。$O(\log N)$ で動作します。
+次に処理する要素を削除します。$O(\log N)$ で動作します。
 
 ### push
 ```cpp
