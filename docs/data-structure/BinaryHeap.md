@@ -61,3 +61,5 @@ void push(const T& x);
 template<class... Args>
 void emplace(Args&&... args);
 ```
+
+ヒープに値を構築して追加します。$O(\log N)$ で動作します。
