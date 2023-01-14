@@ -24,13 +24,13 @@ SegTree(const std::vector<U>& initvec, T e_); // (4)
 単位元 `e_` の Segment Tree を構築します。
 
 #### (2)
-長さ `m_`、単位元 `e_` の Segment Tree を構築し、`T()` で初期化します。$O(m_)$ で動作します。
+長さ `m_`、単位元 `e_` の Segment Tree を構築し、`T()` で初期化します。$O(m\_)$ で動作します。
 
 #### (3)
-長さ `m_`、単位元 `e_` の Segment Tree を構築し、`init` で初期化します。$O(m_)$ で動作します。
+長さ `m_`、単位元 `e_` の Segment Tree を構築し、`init` で初期化します。$O(m\_)$ で動作します。
 
 #### (4)
-単位元 `e_` で初期状態 `initvec` をもつ Segment Tree を構築します。$m\_$ を `initvec` の長さとして、$O(m_)$ で動作します。
+単位元 `e_` で初期状態 `initvec` をもつ Segment Tree を構築します。$m\_$ を `initvec` の長さとして、$O(m\_)$ で動作します。
 
 ## Methods
 
