@@ -39,35 +39,35 @@ SegTree(const std::vector<U>& initvec, T e_); // (4)
 void update(int i, T x);
 ```
 
-$i$ 番目の要素を $x$ に変更します。$O(m_)$ で動作します。
+$i$ 番目の要素を $x$ に変更します。$O(\log m\\_)$ で動作します。
 
 ### query
 ```cpp
 T query(int l, int r) const;
 ```
 
-$[l, r)$ に `nodef` を作用させた結果を返します。
+$[l, r)$ に `nodef` を作用させた結果を返します。$O(\log m\\_)$ で動作します。
 
 ### query_all
 ```cpp
 T query_all() const;
 ```
 
-全体に `nodef` を作用させた結果を返します。
+全体に `nodef` を作用させた結果を返します。$O(1)$ で動作します。
 
 ### operator[]
 ```cpp
 const T& operator[](const int& x) const;
 ```
 
-$i$ 番目の要素への `const` な参照を返します。
+$i$ 番目の要素への `const` な参照を返します。$O(1)$ で動作します。
 
 ### fill
 ```cpp
 void fill(T x);
 ```
 
-全体を $x$ に変更します。
+全体を $x$ に変更します。$O(m\\_)$ で動作します。
 
 ### max_right
 ```cpp
@@ -77,7 +77,7 @@ template <bool (*check)(const T&)>
 int max_right(int st) const; // (2)
 ```
 
-$[st, r)$ に `nodef` を作用させた結果が `check` を満たす最小の $r$ を返します。$O(\log m)$ で動作します。
+$[st, r)$ に `nodef` を作用させた結果が `check` を満たす最小の $r$ を返します。$O(\log m\\_)$ で動作します。
 
 ### min_left
 ```cpp
@@ -87,7 +87,7 @@ template <bool (*check)(const T&)>
 int min_left(int st) const; // (2)
 ```
 
-$[l, st)$ に `nodef` を作用させた結果が `check` を満たす最大の $l$ を返します。$O(\log m)$ で動作します。
+$[l, st)$ に `nodef` を作用させた結果が `check` を満たす最大の $l$ を返します。$O(\log m\\_)$ で動作します。
 
 ## Subclasses
 
