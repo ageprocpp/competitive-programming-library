@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: data-structure/IntervalSegTree.hpp
-    title: data-structure/IntervalSegTree.hpp
+    title: Interval Segment Tree
   - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: Segment Tree
