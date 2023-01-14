@@ -127,23 +127,23 @@ data:
     \t\t}\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n;\
     \ i++) {\n\t\t\tif (i - n < m) node[i] = initvec[i - n];\n\t\t}\n\t\tfor (unsigned\
     \ int i = n - 1; i > 0; i--) node[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\
-    \t}\n\tvoid fill(T x) {\n\t\tfor (unsigned int i = n; i < 2 * n; i++) node[i]\
-    \ = x;\n\t\tfor (unsigned int i = n - 1; i > 0; i--) node[i] = nodef(node[i <<\
-    \ 1], node[i << 1 | 1]);\n\t}\n\tvoid update(int i, T x) {\n\t\ti += n;\n\t\t\
-    node[i] = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2\
-    \ * i], node[2 * i + 1]);\n\t\t}\n\t}\n\tT query(int l, int r) const {\n\t\tl\
-    \ += n;\n\t\tr += n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\
-    \tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r],\
-    \ rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\
-    \tconst T& operator[](const int& x) const { return node[n + x]; }\n\tT queryForAll()\
-    \ const { return node[1]; }\n\n  private:\n\ttemplate <class F>\n\tint max_right(int\
-    \ st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\
-    \t\tacc = nodef(acc, node[k]);\n\t\t\treturn check(acc) ? m : k - n;\n\t\t}\n\t\
-    \tint mid = (l + r) >> 1;\n\t\tif (mid <= st) return max_right(st, check, acc,\
-    \ (k << 1) | 1, mid, r);\n\t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\
-    \t\tacc = nodef(acc, node[k]);\n\t\t\treturn m;\n\t\t}\n\t\tint vl = max_right(st,\
-    \ check, acc, k << 1, l, mid);\n\t\tif (vl != m) return vl;\n\t\treturn max_right(st,\
-    \ check, acc, (k << 1) | 1, mid, r);\n\t}\n\n\ttemplate <class F>\n\tint min_left(int\
+    \t}\n\tvoid update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i\
+    \ != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\
+    \t\t}\n\t}\n\tT query(int l, int r) const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls\
+    \ = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\
+    \t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\
+    \t}\n\t\treturn nodef(ls, rs);\n\t}\n\tconst T& operator[](const int& i) const\
+    \ { return node[n + i]; }\n\tT query_all() const { return node[1]; }\n\tvoid fill(T\
+    \ x) {\n\t\tfor (unsigned int i = n; i < 2 * n; i++) node[i] = x;\n\t\tfor (unsigned\
+    \ int i = n - 1; i > 0; i--) node[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\
+    \t}\n\n  private:\n\ttemplate <class F>\n\tint max_right(int st, F& check, T&\
+    \ acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc,\
+    \ node[k]);\n\t\t\treturn check(acc) ? m : k - n;\n\t\t}\n\t\tint mid = (l + r)\
+    \ >> 1;\n\t\tif (mid <= st) return max_right(st, check, acc, (k << 1) | 1, mid,\
+    \ r);\n\t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc,\
+    \ node[k]);\n\t\t\treturn m;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k\
+    \ << 1, l, mid);\n\t\tif (vl != m) return vl;\n\t\treturn max_right(st, check,\
+    \ acc, (k << 1) | 1, mid, r);\n\t}\n\n\ttemplate <class F>\n\tint min_left(int\
     \ st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\
     \t\tacc = nodef(node[k], acc);\n\t\t\treturn check(acc) ? 0 : k - n + 1;\n\t\t\
     }\n\t\tint mid = (l + r) >> 1;\n\t\tif (st <= mid) return min_left(st, check,\
@@ -167,23 +167,22 @@ data:
     \ Args>\n\tRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}\n};\n\
     \ntemplate <typename T, typename U = void>\nclass RMiQ : public SegTree<T, RMiQ_nodef>\
     \ {\n\tusing Base = SegTree<T, RMiQ_nodef>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)..., std::numeric_limits<T>::max())\
-    \ {}\n};\ntemplate <typename T>\nclass RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
+    \ Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)...) {}\n};\ntemplate\
+    \ <typename T>\nclass RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
     \ std::nullptr_t>>\n\t: public SegTree<T, RMiQ_nodef> {\n\tusing Base = SegTree<T,\
     \ RMiQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMiQ(Args&&... args)\
     \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}\n};\n\n\
     template <typename T, typename U = void>\nclass RMaQ : public SegTree<T, RMaQ_nodef>\
     \ {\n\tusing Base = SegTree<T, RMaQ_nodef>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min())\
-    \ {}\n};\ntemplate <typename T>\nclass RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
+    \ Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)...) {}\n};\ntemplate\
+    \ <typename T>\nclass RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
     \ std::nullptr_t>>\n\t: public SegTree<T, RMaQ_nodef> {\n\tusing Base = SegTree<T,\
     \ RMaQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMaQ(Args&&... args)\
-    \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}\n};\n\n\
-    /**\n * @title Segment Tree\n */\n#line 4 \"test/aoj/DSL_2_A.test.cpp\"\nint n,\
-    \ q;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tRMiQ<int> st(n, INT_MAX);\n\t\
-    rep(i, q) {\n\t\tint com, x, y;\n\t\tscanf(\"%d%d%d\", &com, &x, &y);\n\t\tif\
-    \ (com == 0)\n\t\t\tst.update(x, y);\n\t\telse\n\t\t\tprintf(\"%d\\n\", st.query(x,\
-    \ y + 1));\n\t}\n}\n"
+    \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}\n};\n\
+    #line 4 \"test/aoj/DSL_2_A.test.cpp\"\nint n, q;\nint main() {\n\tscanf(\"%d%d\"\
+    , &n, &q);\n\tRMiQ<int> st(n, INT_MAX);\n\trep(i, q) {\n\t\tint com, x, y;\n\t\
+    \tscanf(\"%d%d%d\", &com, &x, &y);\n\t\tif (com == 0)\n\t\t\tst.update(x, y);\n\
+    \t\telse\n\t\t\tprintf(\"%d\\n\", st.query(x, y + 1));\n\t}\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_A\"\n#include\
     \ \"../../data-structure/SegTree.hpp\"\n#include \"../../other/template.hpp\"\n\
     int n, q;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tRMiQ<int> st(n, INT_MAX);\n\
@@ -196,7 +195,7 @@ data:
   isVerificationFile: true
   path: test/aoj/DSL_2_A.test.cpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-01-15 02:50:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/DSL_2_A.test.cpp

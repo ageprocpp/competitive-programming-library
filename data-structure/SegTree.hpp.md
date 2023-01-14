@@ -46,7 +46,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    document_title: Segment Tree
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef _WIN64\n#pragma GCC target(\"avx2\"\
@@ -157,23 +156,23 @@ data:
     \t\t}\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n;\
     \ i++) {\n\t\t\tif (i - n < m) node[i] = initvec[i - n];\n\t\t}\n\t\tfor (unsigned\
     \ int i = n - 1; i > 0; i--) node[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\
-    \t}\n\tvoid fill(T x) {\n\t\tfor (unsigned int i = n; i < 2 * n; i++) node[i]\
-    \ = x;\n\t\tfor (unsigned int i = n - 1; i > 0; i--) node[i] = nodef(node[i <<\
-    \ 1], node[i << 1 | 1]);\n\t}\n\tvoid update(int i, T x) {\n\t\ti += n;\n\t\t\
-    node[i] = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2\
-    \ * i], node[2 * i + 1]);\n\t\t}\n\t}\n\tT query(int l, int r) const {\n\t\tl\
-    \ += n;\n\t\tr += n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\
-    \tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r],\
-    \ rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\
-    \tconst T& operator[](const int& x) const { return node[n + x]; }\n\tT queryForAll()\
-    \ const { return node[1]; }\n\n  private:\n\ttemplate <class F>\n\tint max_right(int\
-    \ st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\
-    \t\tacc = nodef(acc, node[k]);\n\t\t\treturn check(acc) ? m : k - n;\n\t\t}\n\t\
-    \tint mid = (l + r) >> 1;\n\t\tif (mid <= st) return max_right(st, check, acc,\
-    \ (k << 1) | 1, mid, r);\n\t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\
-    \t\tacc = nodef(acc, node[k]);\n\t\t\treturn m;\n\t\t}\n\t\tint vl = max_right(st,\
-    \ check, acc, k << 1, l, mid);\n\t\tif (vl != m) return vl;\n\t\treturn max_right(st,\
-    \ check, acc, (k << 1) | 1, mid, r);\n\t}\n\n\ttemplate <class F>\n\tint min_left(int\
+    \t}\n\tvoid update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i\
+    \ != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\
+    \t\t}\n\t}\n\tT query(int l, int r) const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls\
+    \ = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\
+    \t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\
+    \t}\n\t\treturn nodef(ls, rs);\n\t}\n\tconst T& operator[](const int& i) const\
+    \ { return node[n + i]; }\n\tT query_all() const { return node[1]; }\n\tvoid fill(T\
+    \ x) {\n\t\tfor (unsigned int i = n; i < 2 * n; i++) node[i] = x;\n\t\tfor (unsigned\
+    \ int i = n - 1; i > 0; i--) node[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\
+    \t}\n\n  private:\n\ttemplate <class F>\n\tint max_right(int st, F& check, T&\
+    \ acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc,\
+    \ node[k]);\n\t\t\treturn check(acc) ? m : k - n;\n\t\t}\n\t\tint mid = (l + r)\
+    \ >> 1;\n\t\tif (mid <= st) return max_right(st, check, acc, (k << 1) | 1, mid,\
+    \ r);\n\t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc,\
+    \ node[k]);\n\t\t\treturn m;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k\
+    \ << 1, l, mid);\n\t\tif (vl != m) return vl;\n\t\treturn max_right(st, check,\
+    \ acc, (k << 1) | 1, mid, r);\n\t}\n\n\ttemplate <class F>\n\tint min_left(int\
     \ st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\
     \t\tacc = nodef(node[k], acc);\n\t\t\treturn check(acc) ? 0 : k - n + 1;\n\t\t\
     }\n\t\tint mid = (l + r) >> 1;\n\t\tif (st <= mid) return min_left(st, check,\
@@ -197,19 +196,18 @@ data:
     \ Args>\n\tRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}\n};\n\
     \ntemplate <typename T, typename U = void>\nclass RMiQ : public SegTree<T, RMiQ_nodef>\
     \ {\n\tusing Base = SegTree<T, RMiQ_nodef>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)..., std::numeric_limits<T>::max())\
-    \ {}\n};\ntemplate <typename T>\nclass RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
+    \ Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)...) {}\n};\ntemplate\
+    \ <typename T>\nclass RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
     \ std::nullptr_t>>\n\t: public SegTree<T, RMiQ_nodef> {\n\tusing Base = SegTree<T,\
     \ RMiQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMiQ(Args&&... args)\
     \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}\n};\n\n\
     template <typename T, typename U = void>\nclass RMaQ : public SegTree<T, RMaQ_nodef>\
     \ {\n\tusing Base = SegTree<T, RMaQ_nodef>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min())\
-    \ {}\n};\ntemplate <typename T>\nclass RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
+    \ Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)...) {}\n};\ntemplate\
+    \ <typename T>\nclass RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
     \ std::nullptr_t>>\n\t: public SegTree<T, RMaQ_nodef> {\n\tusing Base = SegTree<T,\
     \ RMaQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMaQ(Args&&... args)\
-    \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}\n};\n\n\
-    /**\n * @title Segment Tree\n */\n"
+    \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}\n};\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, T (*nodef)(const\
     \ T&, const T&)>\nclass SegTree {\n  protected:\n\tunsigned int n = 1, m = 1,\
     \ rank = 0;\n\tstd::vector<T> node;\n\tT ident;\n\n  public:\n\tSegTree(T e_)\
@@ -224,23 +222,23 @@ data:
     \t\t}\n\t\tnode.resize(2 * n, ident);\n\t\tfor (unsigned int i = n; i < 2 * n;\
     \ i++) {\n\t\t\tif (i - n < m) node[i] = initvec[i - n];\n\t\t}\n\t\tfor (unsigned\
     \ int i = n - 1; i > 0; i--) node[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\
-    \t}\n\tvoid fill(T x) {\n\t\tfor (unsigned int i = n; i < 2 * n; i++) node[i]\
-    \ = x;\n\t\tfor (unsigned int i = n - 1; i > 0; i--) node[i] = nodef(node[i <<\
-    \ 1], node[i << 1 | 1]);\n\t}\n\tvoid update(int i, T x) {\n\t\ti += n;\n\t\t\
-    node[i] = x;\n\t\twhile (i != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2\
-    \ * i], node[2 * i + 1]);\n\t\t}\n\t}\n\tT query(int l, int r) const {\n\t\tl\
-    \ += n;\n\t\tr += n;\n\t\tT ls = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\
-    \tif (l & 1) ls = nodef(ls, node[l++]);\n\t\t\tif (r & 1) rs = nodef(node[--r],\
-    \ rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t\treturn nodef(ls, rs);\n\t}\n\
-    \tconst T& operator[](const int& x) const { return node[n + x]; }\n\tT queryForAll()\
-    \ const { return node[1]; }\n\n  private:\n\ttemplate <class F>\n\tint max_right(int\
-    \ st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\
-    \t\tacc = nodef(acc, node[k]);\n\t\t\treturn check(acc) ? m : k - n;\n\t\t}\n\t\
-    \tint mid = (l + r) >> 1;\n\t\tif (mid <= st) return max_right(st, check, acc,\
-    \ (k << 1) | 1, mid, r);\n\t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\
-    \t\tacc = nodef(acc, node[k]);\n\t\t\treturn m;\n\t\t}\n\t\tint vl = max_right(st,\
-    \ check, acc, k << 1, l, mid);\n\t\tif (vl != m) return vl;\n\t\treturn max_right(st,\
-    \ check, acc, (k << 1) | 1, mid, r);\n\t}\n\n\ttemplate <class F>\n\tint min_left(int\
+    \t}\n\tvoid update(int i, T x) {\n\t\ti += n;\n\t\tnode[i] = x;\n\t\twhile (i\
+    \ != 1) {\n\t\t\ti >>= 1;\n\t\t\tnode[i] = nodef(node[2 * i], node[2 * i + 1]);\n\
+    \t\t}\n\t}\n\tT query(int l, int r) const {\n\t\tl += n;\n\t\tr += n;\n\t\tT ls\
+    \ = ident, rs = ident;\n\t\twhile (l < r) {\n\t\t\tif (l & 1) ls = nodef(ls, node[l++]);\n\
+    \t\t\tif (r & 1) rs = nodef(node[--r], rs);\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\
+    \t}\n\t\treturn nodef(ls, rs);\n\t}\n\tconst T& operator[](const int& i) const\
+    \ { return node[n + i]; }\n\tT query_all() const { return node[1]; }\n\tvoid fill(T\
+    \ x) {\n\t\tfor (unsigned int i = n; i < 2 * n; i++) node[i] = x;\n\t\tfor (unsigned\
+    \ int i = n - 1; i > 0; i--) node[i] = nodef(node[i << 1], node[i << 1 | 1]);\n\
+    \t}\n\n  private:\n\ttemplate <class F>\n\tint max_right(int st, F& check, T&\
+    \ acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\t\tacc = nodef(acc,\
+    \ node[k]);\n\t\t\treturn check(acc) ? m : k - n;\n\t\t}\n\t\tint mid = (l + r)\
+    \ >> 1;\n\t\tif (mid <= st) return max_right(st, check, acc, (k << 1) | 1, mid,\
+    \ r);\n\t\tif (st <= l && check(nodef(acc, node[k]))) {\n\t\t\tacc = nodef(acc,\
+    \ node[k]);\n\t\t\treturn m;\n\t\t}\n\t\tint vl = max_right(st, check, acc, k\
+    \ << 1, l, mid);\n\t\tif (vl != m) return vl;\n\t\treturn max_right(st, check,\
+    \ acc, (k << 1) | 1, mid, r);\n\t}\n\n\ttemplate <class F>\n\tint min_left(int\
     \ st, F& check, T& acc, int k, int l, int r) const {\n\t\tif (l + 1 == r) {\n\t\
     \t\tacc = nodef(node[k], acc);\n\t\t\treturn check(acc) ? 0 : k - n + 1;\n\t\t\
     }\n\t\tint mid = (l + r) >> 1;\n\t\tif (st <= mid) return min_left(st, check,\
@@ -264,26 +262,25 @@ data:
     \ Args>\n\tRSQ(Args&&... args) : Base(std::forward<Args>(args)..., 0) {}\n};\n\
     \ntemplate <typename T, typename U = void>\nclass RMiQ : public SegTree<T, RMiQ_nodef>\
     \ {\n\tusing Base = SegTree<T, RMiQ_nodef>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)..., std::numeric_limits<T>::max())\
-    \ {}\n};\ntemplate <typename T>\nclass RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
+    \ Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)...) {}\n};\ntemplate\
+    \ <typename T>\nclass RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
     \ std::nullptr_t>>\n\t: public SegTree<T, RMiQ_nodef> {\n\tusing Base = SegTree<T,\
     \ RMiQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMiQ(Args&&... args)\
     \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}\n};\n\n\
     template <typename T, typename U = void>\nclass RMaQ : public SegTree<T, RMaQ_nodef>\
     \ {\n\tusing Base = SegTree<T, RMaQ_nodef>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min())\
-    \ {}\n};\ntemplate <typename T>\nclass RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
+    \ Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)...) {}\n};\ntemplate\
+    \ <typename T>\nclass RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
     \ std::nullptr_t>>\n\t: public SegTree<T, RMaQ_nodef> {\n\tusing Base = SegTree<T,\
     \ RMaQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMaQ(Args&&... args)\
-    \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}\n};\n\n\
-    /**\n * @title Segment Tree\n */"
+    \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}\n};"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/SegTree.hpp
   requiredBy:
   - data-structure/IntervalSegTree.hpp
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-01-15 02:50:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/DSL_2_A.test.cpp
@@ -299,8 +296,123 @@ data:
   - test/yosupo/range_affine_range_sum.test.cpp
 documentation_of: data-structure/SegTree.hpp
 layout: document
-redirect_from:
-- /library/data-structure/SegTree.hpp
-- /library/data-structure/SegTree.hpp.html
 title: Segment Tree
 ---
+
+## Declaration
+```cpp
+template <class T, T (*nodef)(const T&, const T&)>
+class SegTree;
+```
+
+`T` は扱う要素の型、`nodef` は要素同士に適用する演算を表します。
+
+## Constructor
+```cpp
+SegTree(T e_); // (1)
+SegTree(unsigned int m_, T e_); // (2)
+SegTree(unsigned int m_, T init, T e_); // (3)
+template <class U>
+SegTree(const std::vector<U>& initvec, T e_); // (4)
+```
+
+#### (1)
+単位元 `e_` の Segment Tree を構築します。
+
+#### (2)
+長さ `m_`、単位元 `e_` の Segment Tree を構築し、`T()` で初期化します。$O(m_)$ で動作します。
+
+#### (3)
+長さ `m_`、単位元 `e_` の Segment Tree を構築し、`init` で初期化します。$O(m_)$ で動作します。
+
+#### (4)
+単位元 `e_` で初期状態 `initvec` をもつ Segment Tree を構築します。$m_$ を `initvec` の長さとして、$O(m_)$ で動作します。
+
+## Methods
+
+### update
+```cpp
+void update(int i, T x);
+```
+
+$i$ 番目の要素を $x$ に変更します。$O(m_)$ で動作します。
+
+### query
+```cpp
+T query(int l, int r) const;
+```
+
+$[l, r)$ に `nodef` を作用させた結果を返します。
+
+### query_all
+```cpp
+T query_all() const;
+```
+
+全体に `nodef` を作用させた結果を返します。
+
+### operator[]
+```cpp
+const T& operator[](const int& x) const;
+```
+
+$i$ 番目の要素への `const` な参照を返します。
+
+### fill
+```cpp
+void fill(T x);
+```
+
+全体を $x$ に変更します。
+
+### max_right
+```cpp
+template <class F>
+int max_right(int st, F check) const; // (1)
+template <bool (*check)(const T&)>
+int max_right(int st) const; // (2)
+```
+
+$[st, r)$ に `nodef` を作用させた結果が `check` を満たす最小の $r$ を返します。$O(\log m)$ で動作します。
+
+### min_left
+```cpp
+template <class F>
+int min_left(int st, F check) const; // (1)
+template <bool (*check)(const T&)>
+int min_left(int st) const; // (2)
+```
+
+$[l, st)$ に `nodef` を作用させた結果が `check` を満たす最大の $l$ を返します。$O(\log m)$ で動作します。
+
+## Subclasses
+
+### RSQ
+```cpp
+template <typename T>
+class RSQ : public SegTree<T, RSQ_nodef>;
+```
+
+`RSQ_nodef` は加法を表します。
+
+### RMiQ
+```cpp
+template <typename T, typename U = void>
+class RMiQ : public SegTree<T, RMiQ_nodef>; // (1)
+template <typename T>
+class RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized, std::nullptr_t>> : public SegTree<T, RMiQ_nodef>; // (2)
+```
+
+`RMiQ_nodef` は `min` 演算を表します。
+`T` が `std::numeric_limits` で特殊化された型の場合、その型の最大値を単位元とします。
+
+### RMaQ
+```cpp
+template <typename T, typename U = void>
+class RMaQ : public SegTree<T, RMaQ_nodef>; // (1)
+template <typename T>
+class RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized, std::nullptr_t>> : public SegTree<T, RMaQ_nodef>; // (2)
+```
+
+`RMaQ_nodef` は `max` 演算を表します。
+`T` が `std::numeric_limits` で特殊化された型の場合、その型の最小値を単位元とします。
