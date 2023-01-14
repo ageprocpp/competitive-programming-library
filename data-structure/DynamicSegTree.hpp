@@ -1,7 +1,6 @@
 #pragma once
 #include "../other/template.hpp"
-template <class T, T (*nodef)(const T &, const T &), T (*ident)(),
-		  T (*init)() = ident>
+template <class T, T (*nodef)(const T &, const T &), T (*ident)(), T (*init)() = ident>
 class DynamicSegTree {
 	class Node {
 		Node *par;
@@ -28,7 +27,7 @@ class DynamicSegTree {
 			if (!exist_right()) right.reset(new Node(this));
 			return right;
 		}
-		auto get_parent() { return par; }
+		auto get_parent() const { return par; }
 	};
 	lint n = 1;
 	std::shared_ptr<Node> root;
@@ -46,15 +45,12 @@ class DynamicSegTree {
 		return cur;
 	}
 
-	T query(lint a, lint b, lint l, lint r, std::shared_ptr<Node> ptr) {
+	T query(lint a, lint b, lint l, lint r, std::shared_ptr<Node> ptr) const {
 		if (r == -1) r = n;
 		if (r <= a || b <= l) return ident();
 		if (a <= l && r <= b) return ptr->value;
-		T vl = ptr->exist_left() ? query(a, b, l, (l + r) >> 1, ptr->get_left())
-								 : ident();
-		T vr = ptr->exist_right()
-				   ? query(a, b, (l + r) >> 1, r, ptr->get_right())
-				   : ident();
+		T vl = ptr->exist_left() ? query(a, b, l, (l + r) >> 1, ptr->get_left()) : ident();
+		T vr = ptr->exist_right() ? query(a, b, (l + r) >> 1, r, ptr->get_right()) : ident();
 		return nodef(vl, vr);
 	}
 
@@ -71,10 +67,6 @@ class DynamicSegTree {
 			cur->eval();
 		}
 	}
-	T query(lint a, lint b) { return query(a, b, 0, n, root); }
+	T query(lint l, lint r) const { return query(l, r, 0, n, root); }
 	const T &operator[](const lint &x) { return ptr_from_id(x)->get(); }
 };
-
-/**
- * @title Dynamic Segment Tree
- */

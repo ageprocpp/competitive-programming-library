@@ -80,7 +80,3 @@ class ConvexHullTrick {
 		index = 0;
 	}
 };
-
-/**
- * @title Convex Hull Trick
- */
