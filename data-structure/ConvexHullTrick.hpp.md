@@ -187,7 +187,7 @@ title: Convex Hull Trick
 
 ## Declaration
 ```cpp
-template<class T, bool isMin>
+template <class T, bool isMin>
 class ConvexHullTrick
 ```
 

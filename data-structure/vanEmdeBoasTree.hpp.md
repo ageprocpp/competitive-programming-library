@@ -216,7 +216,7 @@ title: van Emde Boas Tree
 ## Declaration
 
 ```cpp
-template<uint bit>
+template <uint bit>
 class vanEmdeBoasTree;
 ```
 

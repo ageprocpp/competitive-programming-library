@@ -7,7 +7,7 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: data-structure/IntervalSegTree.hpp
-    title: Interval Segment Tree
+    title: data-structure/IntervalSegTree.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/DSL_2_A.test.cpp

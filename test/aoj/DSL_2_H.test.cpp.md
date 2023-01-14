@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: data-structure/IntervalSegTree.hpp
-    title: Interval Segment Tree
+    title: data-structure/IntervalSegTree.hpp
   - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: Segment Tree
@@ -251,17 +251,17 @@ data:
     template <class T>\n\tT RAQRMiQ_nodef(const T& a, const T& b) {\n\t\treturn std::min(a,\
     \ b);\n\t}\n\ttemplate <class T>\n\tvoid RAQRMiQ_lazyf(T& a, const T& b) {\n\t\
     \ta += b;\n\t}\n\ttemplate <class T>\n\tvoid RAQRMiQ_updf(T& a, const T& b, const\
-    \ unsigned int& width) {\n\t\ta += b;\n\t}\n\n\ttemplate <class T>\n\tT RCHMiQRMiQ_nodef(const\
+    \ unsigned int& width) {\n\t\ta += b;\n\t}\n\n\ttemplate <class T>\n\tT RChMiQRMiQ_nodef(const\
     \ T& a, const T& b) {\n\t\treturn std::min(a, b);\n\t}\n\ttemplate <class T>\n\
-    \tvoid RCHMiQRMiQ_lazyf(T& a, const T& b) {\n\t\tchmin(a, b);\n\t}\n\ttemplate\
-    \ <class T>\n\tvoid RCHMiQRMiQ_updf(T& a, const T& b, const unsigned int& width)\
+    \tvoid RChMiQRMiQ_lazyf(T& a, const T& b) {\n\t\tchmin(a, b);\n\t}\n\ttemplate\
+    \ <class T>\n\tvoid RChMiQRMiQ_updf(T& a, const T& b, const unsigned int& width)\
     \ {\n\t\tchmin(a, b);\n\t}\n\n\ttemplate <class T>\n\tT RAQRMaQ_nodef(const T&\
     \ a, const T& b) {\n\t\treturn std::max(a, b);\n\t}\n\ttemplate <class T>\n\t\
     void RAQRMaQ_lazyf(T& a, const T& b) {\n\t\ta += b;\n\t}\n\ttemplate <class T>\n\
     \tvoid RAQRMaQ_updf(T& a, const T& b, const unsigned int& width) {\n\t\ta += b;\n\
-    \t}\n\n\ttemplate <class T>\n\tT RCHMaQRMaQ_nodef(const T& a, const T& b) {\n\t\
-    \treturn std::max(a, b);\n\t}\n\ttemplate <class T>\n\tvoid RCHMaQRMaQ_lazyf(T&\
-    \ a, const T& b) {\n\t\tchmax(a, b);\n\t}\n\ttemplate <class T>\n\tvoid RCHMaQRMaQ_updf(T&\
+    \t}\n\n\ttemplate <class T>\n\tT RChMaQRMaQ_nodef(const T& a, const T& b) {\n\t\
+    \treturn std::max(a, b);\n\t}\n\ttemplate <class T>\n\tvoid RChMaQRMaQ_lazyf(T&\
+    \ a, const T& b) {\n\t\tchmax(a, b);\n\t}\n\ttemplate <class T>\n\tvoid RChMaQRMaQ_updf(T&\
     \ a, const T& b, const unsigned int& width) {\n\t\tchmax(a, b);\n\t}\n\n\ttemplate\
     \ <class T>\n\tT RUQRSQ_nodef(const T& a, const T& b) {\n\t\treturn a + b;\n\t\
     }\n\ttemplate <class T>\n\tvoid RUQRSQ_lazyf(T& a, const T& b) {\n\t\ta = b;\n\
@@ -281,20 +281,20 @@ data:
     \ RAQRMiQ\n\t: public IntervalSegTree<T, T, RAQRMiQ_nodef, RAQRMiQ_lazyf, RAQRMiQ_updf>\
     \ {\n\tusing Base =\n\t\tIntervalSegTree<T, T, RAQRMiQ_nodef, RAQRMiQ_lazyf, RAQRMiQ_updf>;\n\
     \n  public:\n\ttemplate <class... Args>\n\tRAQRMiQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)...,\
-    \ std::numeric_limits<T>::max()) {}\n};\ntemplate <class T>\nclass RCHMiQRMiQ\
-    \ : public IntervalSegTree<T, T, RCHMiQRMiQ_nodef,\n\t\t\t\t\t\t\t\t\t\t  RCHMiQRMiQ_lazyf,\
-    \ RCHMiQRMiQ_updf> {\n\tusing Base = IntervalSegTree<T, T, RCHMiQRMiQ_nodef, RCHMiQRMiQ_lazyf,\n\
-    \t\t\t\t\t\t\t\t RCHMiQRMiQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\t\
-    RCHMiQRMiQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max())\
-    \ {}\n};\ntemplate <class T>\nclass RCHMaQRMaQ : public IntervalSegTree<T, T,\
-    \ RCHMaQRMaQ_nodef,\n\t\t\t\t\t\t\t\t\t\t  RCHMaQRMaQ_lazyf, RCHMaQRMaQ_updf>\
-    \ {\n\tusing Base = IntervalSegTree<T, T, RCHMaQRMaQ_nodef, RCHMaQRMaQ_lazyf,\n\
-    \t\t\t\t\t\t\t\t RCHMaQRMaQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\t\
-    RCHMaQRMaQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min())\
-    \ {}\n};\ntemplate <class T>\nclass RAQRMaQ\n\t: public IntervalSegTree<T, T,\
-    \ RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf> {\n\tusing Base =\n\t\tIntervalSegTree<T,\
-    \ T, RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRAQRMaQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min())\
+    \ std::numeric_limits<T>::max()) {}\n};\ntemplate <class T>\nclass RAQRMaQ\n\t\
+    : public IntervalSegTree<T, T, RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf> {\n\
+    \tusing Base =\n\t\tIntervalSegTree<T, T, RAQRMaQ_nodef, RAQRMaQ_lazyf, RAQRMaQ_updf>;\n\
+    \n  public:\n\ttemplate <class... Args>\n\tRAQRMaQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)...,\
+    \ std::numeric_limits<T>::min()) {}\n};\ntemplate <class T>\nclass RChMiQRMiQ\
+    \ : public IntervalSegTree<T, T, RChMiQRMiQ_nodef,\n\t\t\t\t\t\t\t\t\t\t  RChMiQRMiQ_lazyf,\
+    \ RChMiQRMiQ_updf> {\n\tusing Base = IntervalSegTree<T, T, RChMiQRMiQ_nodef, RChMiQRMiQ_lazyf,\n\
+    \t\t\t\t\t\t\t\t RChMiQRMiQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\t\
+    RChMiQRMiQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)..., std::numeric_limits<T>::max())\
+    \ {}\n};\ntemplate <class T>\nclass RChMaQRMaQ : public IntervalSegTree<T, T,\
+    \ RChMaQRMaQ_nodef,\n\t\t\t\t\t\t\t\t\t\t  RChMaQRMaQ_lazyf, RChMaQRMaQ_updf>\
+    \ {\n\tusing Base = IntervalSegTree<T, T, RChMaQRMaQ_nodef, RChMaQRMaQ_lazyf,\n\
+    \t\t\t\t\t\t\t\t RChMaQRMaQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\t\
+    RChMaQRMaQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)..., std::numeric_limits<T>::min())\
     \ {}\n};\ntemplate <class T>\nclass RUQRSQ\n\t: public IntervalSegTree<T, T, RUQRSQ_nodef,\
     \ RUQRSQ_lazyf, RUQRSQ_updf> {\n\tusing Base = IntervalSegTree<T, T, RUQRSQ_nodef,\
     \ RUQRSQ_lazyf, RUQRSQ_updf>;\n\n  public:\n\ttemplate <class... Args>\n\tRUQRSQ(Args&&...\
@@ -306,13 +306,12 @@ data:
     : public IntervalSegTree<T, T, RUQRMaQ_nodef, RUQRMaQ_lazyf, RUQRMaQ_updf> {\n\
     \tusing Base =\n\t\tIntervalSegTree<T, T, RUQRMaQ_nodef, RUQRMaQ_lazyf, RUQRMaQ_updf>;\n\
     \n  public:\n\ttemplate <class... Args>\n\tRUQRMaQ(Args&&... args)\n\t\t: Base(std::forward<Args>(args)...,\
-    \ std::numeric_limits<T>::min()) {}\n};\n\n/**\n * @title Interval Segment Tree\n\
-    \ */\n#line 4 \"test/aoj/DSL_2_H.test.cpp\"\nint n, q;\nint main() {\n\tscanf(\"\
-    %d%d\", &n, &q);\n\tRAQRMiQ<lint> st(n, 0);\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"\
-    %d\", &t);\n\t\tif (t == 0) {\n\t\t\tint s, t, x;\n\t\t\tscanf(\"%d%d%d\", &s,\
-    \ &t, &x);\n\t\t\tst.update(s, t + 1, x);\n\t\t} else {\n\t\t\tint s, t;\n\t\t\
-    \tscanf(\"%d%d\", &s, &t);\n\t\t\tprintf(\"%lld\\n\", st.query(s, t + 1));\n\t\
-    \t}\n\t}\n}\n"
+    \ std::numeric_limits<T>::min()) {}\n};\n#line 4 \"test/aoj/DSL_2_H.test.cpp\"\
+    \nint n, q;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tRAQRMiQ<lint> st(n, 0);\n\
+    \trep(i, q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint\
+    \ s, t, x;\n\t\t\tscanf(\"%d%d%d\", &s, &t, &x);\n\t\t\tst.update(s, t + 1, x);\n\
+    \t\t} else {\n\t\t\tint s, t;\n\t\t\tscanf(\"%d%d\", &s, &t);\n\t\t\tprintf(\"\
+    %lld\\n\", st.query(s, t + 1));\n\t\t}\n\t}\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_H\"\n#include\
     \ \"../../data-structure/IntervalSegTree.hpp\"\n#include \"../../other/template.hpp\"\
     \nint n, q;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\tRAQRMiQ<lint> st(n, 0);\n\
@@ -327,7 +326,7 @@ data:
   isVerificationFile: true
   path: test/aoj/DSL_2_H.test.cpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-01-15 02:07:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/DSL_2_H.test.cpp

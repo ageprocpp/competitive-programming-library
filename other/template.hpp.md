@@ -16,7 +16,7 @@ data:
     title: Dynamic Segment Tree
   - icon: ':heavy_check_mark:'
     path: data-structure/IntervalSegTree.hpp
-    title: Interval Segment Tree
+    title: data-structure/IntervalSegTree.hpp
   - icon: ':heavy_check_mark:'
     path: data-structure/LiChaoTree.hpp
     title: Li Chao Tree

@@ -166,7 +166,7 @@ Binary Heap(二項ヒープ) です。
 
 ## Declaration
 ```cpp
-template<class T, class Compare = std::less()>
+template <class T, class Compare = std::less()>
 class BinaryHeap;
 ```
 
