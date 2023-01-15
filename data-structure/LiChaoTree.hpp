@@ -6,7 +6,7 @@ class LiChaoTree {
 	std::vector<std::tuple<lint, lint, lint>> interval;
 	std::vector<std::pair<LP, int>> node;
 	std::vector<lint> cord;
-	lint calc(std::pair<LP, int> l, lint x) { return l.first.first * x + l.first.second; }
+	static lint calc(std::pair<LP, int> l, lint x) { return l.first.first * x + l.first.second; }
 	void addSegment(std::pair<LP, int>& newLine, lint cnt) {
 		lint l = std::get<0>(interval[cnt]), m = std::get<1>(interval[cnt]),
 			 r = std::get<2>(interval[cnt]);
