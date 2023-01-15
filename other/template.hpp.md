@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/IntervalSegTree.hpp
     title: Interval Segment Tree
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/LiChaoTree.hpp
     title: Li Chao Tree
   - icon: ':warning:'
@@ -267,7 +267,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
     title: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
     title: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -306,7 +306,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/scc.test.cpp
     title: test/yosupo/scc.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/segment_add_get_min.test.cpp
     title: test/yosupo/segment_add_get_min.test.cpp
   - icon: ':heavy_check_mark:'
@@ -348,9 +348,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/0789.test.cpp
     title: test/yukicoder/0789.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -603,7 +603,7 @@ data:
   - other/FastIO.hpp
   - other/type_traits.hpp
   timestamp: '2023-01-08 03:21:50+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/0789.test.cpp
   - test/aoj/CGL_3_A.test.cpp

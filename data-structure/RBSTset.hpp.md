@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: data-structure/RBST.hpp
     title: Randomized Binary Search Tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []

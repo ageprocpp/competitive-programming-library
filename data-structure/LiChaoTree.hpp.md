@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
     title: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/segment_add_get_min.test.cpp
     title: test/yosupo/segment_add_get_min.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Li Chao Tree
     links: []
@@ -115,8 +115,8 @@ data:
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
     }\n#line 3 \"data-structure/LiChaoTree.hpp\"\ntemplate <bool isMin>\nclass LiChaoTree\
     \ {\n\tint n, id;\n\tstd::vector<std::tuple<lint, lint, lint>> interval;\n\tstd::vector<std::pair<LP,\
-    \ int>> node;\n\tstd::vector<lint> cord;\n\tlint calc(std::pair<LP, int> l, lint\
-    \ x) { return l.first.first * x + l.first.second; }\n\tvoid addSegment(std::pair<LP,\
+    \ int>> node;\n\tstd::vector<lint> cord;\n\tstatic lint calc(std::pair<LP, int>\
+    \ l, lint x) { return l.first.first * x + l.first.second; }\n\tvoid addSegment(std::pair<LP,\
     \ int>& newLine, lint cnt) {\n\t\tlint l = std::get<0>(interval[cnt]), m = std::get<1>(interval[cnt]),\n\
     \t\t\t r = std::get<2>(interval[cnt]);\n\t\tif (n <= cnt) {\n\t\t\tif (calc(node[cnt],\
     \ l) > calc(newLine, l)) node[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt],\
@@ -155,18 +155,18 @@ data:
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <bool isMin>\n\
     class LiChaoTree {\n\tint n, id;\n\tstd::vector<std::tuple<lint, lint, lint>>\
     \ interval;\n\tstd::vector<std::pair<LP, int>> node;\n\tstd::vector<lint> cord;\n\
-    \tlint calc(std::pair<LP, int> l, lint x) { return l.first.first * x + l.first.second;\
-    \ }\n\tvoid addSegment(std::pair<LP, int>& newLine, lint cnt) {\n\t\tlint l =\
-    \ std::get<0>(interval[cnt]), m = std::get<1>(interval[cnt]),\n\t\t\t r = std::get<2>(interval[cnt]);\n\
-    \t\tif (n <= cnt) {\n\t\t\tif (calc(node[cnt], l) > calc(newLine, l)) node[cnt]\
-    \ = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt], l) < calc(newLine,\
-    \ l) && calc(node[cnt], r) < calc(newLine, r)) return;\n\t\tif (calc(node[cnt],\
-    \ l) > calc(newLine, l) && calc(node[cnt], r) > calc(newLine, r)) {\n\t\t\tnode[cnt]\
-    \ = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt], m) > calc(newLine,\
-    \ m)) std::swap(node[cnt], newLine);\n\t\tif (calc(node[cnt], l) > calc(newLine,\
-    \ l))\n\t\t\taddSegment(newLine, cnt << 1);\n\t\telse\n\t\t\taddSegment(newLine,\
-    \ cnt << 1 | 1);\n\t}\n\n  public:\n\tLiChaoTree(const std::vector<lint>& vec)\
-    \ { init(vec); }\n\tLiChaoTree(std::vector<lint>&& vec) { init(std::forward<std::vector<lint>>(vec));\
+    \tstatic lint calc(std::pair<LP, int> l, lint x) { return l.first.first * x +\
+    \ l.first.second; }\n\tvoid addSegment(std::pair<LP, int>& newLine, lint cnt)\
+    \ {\n\t\tlint l = std::get<0>(interval[cnt]), m = std::get<1>(interval[cnt]),\n\
+    \t\t\t r = std::get<2>(interval[cnt]);\n\t\tif (n <= cnt) {\n\t\t\tif (calc(node[cnt],\
+    \ l) > calc(newLine, l)) node[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt],\
+    \ l) < calc(newLine, l) && calc(node[cnt], r) < calc(newLine, r)) return;\n\t\t\
+    if (calc(node[cnt], l) > calc(newLine, l) && calc(node[cnt], r) > calc(newLine,\
+    \ r)) {\n\t\t\tnode[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt],\
+    \ m) > calc(newLine, m)) std::swap(node[cnt], newLine);\n\t\tif (calc(node[cnt],\
+    \ l) > calc(newLine, l))\n\t\t\taddSegment(newLine, cnt << 1);\n\t\telse\n\t\t\
+    \taddSegment(newLine, cnt << 1 | 1);\n\t}\n\n  public:\n\tLiChaoTree(const std::vector<lint>&\
+    \ vec) { init(vec); }\n\tLiChaoTree(std::vector<lint>&& vec) { init(std::forward<std::vector<lint>>(vec));\
     \ }\n\tvoid init(const std::vector<lint>& vec) {\n\t\tstd::vector<lint> tmp =\
     \ vec;\n\t\tinit(std::forward<std::vector<lint>>(tmp));\n\t}\n\tvoid init(std::vector<lint>&&\
     \ vec) {\n\t\tinterval.clear();\n\t\tnode.clear();\n\t\tcord.clear();\n\t\tn =\
@@ -197,8 +197,8 @@ data:
   isVerificationFile: false
   path: data-structure/LiChaoTree.hpp
   requiredBy: []
-  timestamp: '2023-01-15 22:26:21+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2023-01-15 22:31:18+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/segment_add_get_min.test.cpp
   - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
