@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
     title: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/yosupo/segment_add_get_min.test.cpp
     title: test/yosupo/segment_add_get_min.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     document_title: Li Chao Tree
     links: []
@@ -116,91 +116,153 @@ data:
     }\n#line 3 \"data-structure/LiChaoTree.hpp\"\ntemplate <bool isMin>\nclass LiChaoTree\
     \ {\n\tint n, id;\n\tstd::vector<std::tuple<lint, lint, lint>> interval;\n\tstd::vector<std::pair<LP,\
     \ int>> node;\n\tstd::vector<lint> cord;\n\tlint calc(std::pair<LP, int> l, lint\
-    \ x) {\n\t\treturn l.first.first * x + l.first.second;\n\t}\n\tvoid addSegment(std::pair<LP,\
+    \ x) { return l.first.first * x + l.first.second; }\n\tvoid addSegment(std::pair<LP,\
     \ int>& newLine, lint cnt) {\n\t\tlint l = std::get<0>(interval[cnt]), m = std::get<1>(interval[cnt]),\n\
     \t\t\t r = std::get<2>(interval[cnt]);\n\t\tif (n <= cnt) {\n\t\t\tif (calc(node[cnt],\
     \ l) > calc(newLine, l)) node[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt],\
-    \ l) < calc(newLine, l) &&\n\t\t\tcalc(node[cnt], r) < calc(newLine, r))\n\t\t\
-    \treturn;\n\t\tif (calc(node[cnt], l) > calc(newLine, l) &&\n\t\t\tcalc(node[cnt],\
-    \ r) > calc(newLine, r)) {\n\t\t\tnode[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\
-    \t\tif (calc(node[cnt], m) > calc(newLine, m))\n\t\t\tstd::swap(node[cnt], newLine);\n\
-    \t\tif (calc(node[cnt], l) > calc(newLine, l))\n\t\t\taddSegment(newLine, cnt\
-    \ << 1);\n\t\telse\n\t\t\taddSegment(newLine, cnt << 1 | 1);\n\t}\n\n  public:\n\
-    \tLiChaoTree() {}\n\tLiChaoTree(std::vector<lint> vec) { init(vec); }\n\tvoid\
-    \ init(std::vector<lint> con) {\n\t\tinterval.clear();\n\t\tnode.clear();\n\t\t\
-    cord.clear();\n\t\tn = 1;\n\t\tid = 0;\n\t\tcon.emplace_back(con.back() + 1);\n\
-    \t\twhile (n < (int)con.size()) n *= 2;\n\t\twhile ((int)con.size() < n + 1) con.emplace_back(con.back()\
-    \ + 1);\n\t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t\tinterval.emplace_back(0,\
-    \ 0, 0);\n\t\tfor (int range = n; range; range >>= 1) {\n\t\t\tfor (int i = 0;\
-    \ i < n; i += range) {\n\t\t\t\tif (range == 1)\n\t\t\t\t\tinterval.emplace_back(con[i],\
-    \ 0, con[i + range]);\n\t\t\t\telse\n\t\t\t\t\tinterval.emplace_back(con[i], con[i\
-    \ + range / 2],\n\t\t\t\t\t\t\t\t\t\t  con[i + range]);\n\t\t\t}\n\t\t}\n\t\t\
-    cord = con;\n\t}\n\tvoid addLine(lint a, lint b) {\n\t\tstd::pair<LP, int> newLine\
+    \ l) < calc(newLine, l) && calc(node[cnt], r) < calc(newLine, r)) return;\n\t\t\
+    if (calc(node[cnt], l) > calc(newLine, l) && calc(node[cnt], r) > calc(newLine,\
+    \ r)) {\n\t\t\tnode[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt],\
+    \ m) > calc(newLine, m)) std::swap(node[cnt], newLine);\n\t\tif (calc(node[cnt],\
+    \ l) > calc(newLine, l))\n\t\t\taddSegment(newLine, cnt << 1);\n\t\telse\n\t\t\
+    \taddSegment(newLine, cnt << 1 | 1);\n\t}\n\n  public:\n\tLiChaoTree(const std::vector<lint>&\
+    \ vec) { init(vec); }\n\tLiChaoTree(std::vector<lint>&& vec) { init(std::forward<std::vector<lint>>(vec));\
+    \ }\n\tvoid init(const std::vector<lint>& vec) {\n\t\tstd::vector<lint> tmp =\
+    \ vec;\n\t\tinit(std::forward<std::vector<lint>>(tmp));\n\t}\n\tvoid init(std::vector<lint>&&\
+    \ vec) {\n\t\tinterval.clear();\n\t\tnode.clear();\n\t\tcord.clear();\n\t\tn =\
+    \ 1;\n\t\tid = 0;\n\t\tvec.emplace_back(vec.back() + 1);\n\t\twhile (n < (int)vec.size())\
+    \ n *= 2;\n\t\twhile ((int)vec.size() < n + 1) vec.emplace_back(vec.back() + 1);\n\
+    \t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t\tinterval.emplace_back(0, 0, 0);\n\
+    \t\tfor (int range = n; range; range >>= 1) {\n\t\t\tfor (int i = 0; i < n; i\
+    \ += range) {\n\t\t\t\tif (range == 1)\n\t\t\t\t\tinterval.emplace_back(vec[i],\
+    \ 0, vec[i + range]);\n\t\t\t\telse\n\t\t\t\t\tinterval.emplace_back(vec[i], vec[i\
+    \ + range / 2], vec[i + range]);\n\t\t\t}\n\t\t}\n\t\tcord = vec;\n\t}\n\tvoid\
+    \ addLine(lint a, lint b) {\n\t\tstd::pair<LP, int> newLine = {{a, b}, id++};\n\
+    \t\tif (!isMin) {\n\t\t\tnewLine.first.first *= -1;\n\t\t\tnewLine.first.second\
+    \ *= -1;\n\t\t}\n\t\taddSegment(newLine, 1);\n\t}\n\tvoid addSegment(int l, int\
+    \ r, lint a, lint b) {\n\t\tl += n;\n\t\tr += n;\n\t\tstd::pair<LP, int> newLine\
     \ = {{a, b}, id++};\n\t\tif (!isMin) {\n\t\t\tnewLine.first.first *= -1;\n\t\t\
-    \tnewLine.first.second *= -1;\n\t\t}\n\t\taddSegment(newLine, 1);\n\t}\n\tvoid\
-    \ addSegment(int l, int r, lint a, lint b) {\n\t\tl += n;\n\t\tr += n;\n\t\tstd::pair<LP,\
-    \ int> newLine = {{a, b}, id++};\n\t\tif (!isMin) {\n\t\t\tnewLine.first.first\
-    \ *= -1;\n\t\t\tnewLine.first.second *= -1;\n\t\t}\n\t\twhile (l < r) {\n\t\t\t\
-    if (l & 1) {\n\t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp, l++);\n\t\t\
-    \t}\n\t\t\tif (r & 1) {\n\t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp,\
-    \ --r);\n\t\t\t}\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t}\n\tstd::pair<lint,\
-    \ int> query(int idx) {\n\t\tlint x = cord[idx];\n\t\tidx += n;\n\t\tstd::pair<lint,\
-    \ int> res = {LINF, -1};\n\t\twhile (idx) {\n\t\t\tif (chmin(res.first, calc(node[idx],\
-    \ x)))\n\t\t\t\tres.second = node[idx].second;\n\t\t\tidx >>= 1;\n\t\t}\n\t\t\
-    if (!isMin) res.first = -res.first;\n\t\treturn res;\n\t}\n\tvoid clear() {\n\t\
-    \tid = 0;\n\t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t}\n};\n\n/**\n * @title\
-    \ Li Chao Tree\n */\n"
+    \tnewLine.first.second *= -1;\n\t\t}\n\t\twhile (l < r) {\n\t\t\tif (l & 1) {\n\
+    \t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp, l++);\n\t\t\t}\n\t\t\tif\
+    \ (r & 1) {\n\t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp, --r);\n\t\t\t\
+    }\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t}\n\tstd::pair<lint, int> query(int\
+    \ idx) const {\n\t\tlint x = cord[idx];\n\t\tidx += n;\n\t\tstd::pair<lint, int>\
+    \ res = {LINF, -1};\n\t\twhile (idx) {\n\t\t\tif (chmin(res.first, calc(node[idx],\
+    \ x))) res.second = node[idx].second;\n\t\t\tidx >>= 1;\n\t\t}\n\t\tif (!isMin)\
+    \ res.first = -res.first;\n\t\treturn res;\n\t}\n\tvoid clear() {\n\t\tid = 0;\n\
+    \t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t}\n};\n\n/**\n * @title Li Chao Tree\n\
+    \ */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <bool isMin>\n\
     class LiChaoTree {\n\tint n, id;\n\tstd::vector<std::tuple<lint, lint, lint>>\
     \ interval;\n\tstd::vector<std::pair<LP, int>> node;\n\tstd::vector<lint> cord;\n\
-    \tlint calc(std::pair<LP, int> l, lint x) {\n\t\treturn l.first.first * x + l.first.second;\n\
-    \t}\n\tvoid addSegment(std::pair<LP, int>& newLine, lint cnt) {\n\t\tlint l =\
+    \tlint calc(std::pair<LP, int> l, lint x) { return l.first.first * x + l.first.second;\
+    \ }\n\tvoid addSegment(std::pair<LP, int>& newLine, lint cnt) {\n\t\tlint l =\
     \ std::get<0>(interval[cnt]), m = std::get<1>(interval[cnt]),\n\t\t\t r = std::get<2>(interval[cnt]);\n\
     \t\tif (n <= cnt) {\n\t\t\tif (calc(node[cnt], l) > calc(newLine, l)) node[cnt]\
     \ = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt], l) < calc(newLine,\
-    \ l) &&\n\t\t\tcalc(node[cnt], r) < calc(newLine, r))\n\t\t\treturn;\n\t\tif (calc(node[cnt],\
-    \ l) > calc(newLine, l) &&\n\t\t\tcalc(node[cnt], r) > calc(newLine, r)) {\n\t\
-    \t\tnode[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt], m) > calc(newLine,\
-    \ m))\n\t\t\tstd::swap(node[cnt], newLine);\n\t\tif (calc(node[cnt], l) > calc(newLine,\
+    \ l) && calc(node[cnt], r) < calc(newLine, r)) return;\n\t\tif (calc(node[cnt],\
+    \ l) > calc(newLine, l) && calc(node[cnt], r) > calc(newLine, r)) {\n\t\t\tnode[cnt]\
+    \ = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt], m) > calc(newLine,\
+    \ m)) std::swap(node[cnt], newLine);\n\t\tif (calc(node[cnt], l) > calc(newLine,\
     \ l))\n\t\t\taddSegment(newLine, cnt << 1);\n\t\telse\n\t\t\taddSegment(newLine,\
-    \ cnt << 1 | 1);\n\t}\n\n  public:\n\tLiChaoTree() {}\n\tLiChaoTree(std::vector<lint>\
-    \ vec) { init(vec); }\n\tvoid init(std::vector<lint> con) {\n\t\tinterval.clear();\n\
-    \t\tnode.clear();\n\t\tcord.clear();\n\t\tn = 1;\n\t\tid = 0;\n\t\tcon.emplace_back(con.back()\
-    \ + 1);\n\t\twhile (n < (int)con.size()) n *= 2;\n\t\twhile ((int)con.size() <\
-    \ n + 1) con.emplace_back(con.back() + 1);\n\t\tnode.assign(2 * n, {{0, LINF},\
-    \ -1});\n\t\tinterval.emplace_back(0, 0, 0);\n\t\tfor (int range = n; range; range\
-    \ >>= 1) {\n\t\t\tfor (int i = 0; i < n; i += range) {\n\t\t\t\tif (range == 1)\n\
-    \t\t\t\t\tinterval.emplace_back(con[i], 0, con[i + range]);\n\t\t\t\telse\n\t\t\
-    \t\t\tinterval.emplace_back(con[i], con[i + range / 2],\n\t\t\t\t\t\t\t\t\t\t\
-    \  con[i + range]);\n\t\t\t}\n\t\t}\n\t\tcord = con;\n\t}\n\tvoid addLine(lint\
-    \ a, lint b) {\n\t\tstd::pair<LP, int> newLine = {{a, b}, id++};\n\t\tif (!isMin)\
-    \ {\n\t\t\tnewLine.first.first *= -1;\n\t\t\tnewLine.first.second *= -1;\n\t\t\
-    }\n\t\taddSegment(newLine, 1);\n\t}\n\tvoid addSegment(int l, int r, lint a, lint\
-    \ b) {\n\t\tl += n;\n\t\tr += n;\n\t\tstd::pair<LP, int> newLine = {{a, b}, id++};\n\
+    \ cnt << 1 | 1);\n\t}\n\n  public:\n\tLiChaoTree(const std::vector<lint>& vec)\
+    \ { init(vec); }\n\tLiChaoTree(std::vector<lint>&& vec) { init(std::forward<std::vector<lint>>(vec));\
+    \ }\n\tvoid init(const std::vector<lint>& vec) {\n\t\tstd::vector<lint> tmp =\
+    \ vec;\n\t\tinit(std::forward<std::vector<lint>>(tmp));\n\t}\n\tvoid init(std::vector<lint>&&\
+    \ vec) {\n\t\tinterval.clear();\n\t\tnode.clear();\n\t\tcord.clear();\n\t\tn =\
+    \ 1;\n\t\tid = 0;\n\t\tvec.emplace_back(vec.back() + 1);\n\t\twhile (n < (int)vec.size())\
+    \ n *= 2;\n\t\twhile ((int)vec.size() < n + 1) vec.emplace_back(vec.back() + 1);\n\
+    \t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t\tinterval.emplace_back(0, 0, 0);\n\
+    \t\tfor (int range = n; range; range >>= 1) {\n\t\t\tfor (int i = 0; i < n; i\
+    \ += range) {\n\t\t\t\tif (range == 1)\n\t\t\t\t\tinterval.emplace_back(vec[i],\
+    \ 0, vec[i + range]);\n\t\t\t\telse\n\t\t\t\t\tinterval.emplace_back(vec[i], vec[i\
+    \ + range / 2], vec[i + range]);\n\t\t\t}\n\t\t}\n\t\tcord = vec;\n\t}\n\tvoid\
+    \ addLine(lint a, lint b) {\n\t\tstd::pair<LP, int> newLine = {{a, b}, id++};\n\
     \t\tif (!isMin) {\n\t\t\tnewLine.first.first *= -1;\n\t\t\tnewLine.first.second\
-    \ *= -1;\n\t\t}\n\t\twhile (l < r) {\n\t\t\tif (l & 1) {\n\t\t\t\tauto tmp = newLine;\n\
-    \t\t\t\taddSegment(tmp, l++);\n\t\t\t}\n\t\t\tif (r & 1) {\n\t\t\t\tauto tmp =\
-    \ newLine;\n\t\t\t\taddSegment(tmp, --r);\n\t\t\t}\n\t\t\tl >>= 1;\n\t\t\tr >>=\
-    \ 1;\n\t\t}\n\t}\n\tstd::pair<lint, int> query(int idx) {\n\t\tlint x = cord[idx];\n\
-    \t\tidx += n;\n\t\tstd::pair<lint, int> res = {LINF, -1};\n\t\twhile (idx) {\n\
-    \t\t\tif (chmin(res.first, calc(node[idx], x)))\n\t\t\t\tres.second = node[idx].second;\n\
-    \t\t\tidx >>= 1;\n\t\t}\n\t\tif (!isMin) res.first = -res.first;\n\t\treturn res;\n\
-    \t}\n\tvoid clear() {\n\t\tid = 0;\n\t\tnode.assign(2 * n, {{0, LINF}, -1});\n\
-    \t}\n};\n\n/**\n * @title Li Chao Tree\n */"
+    \ *= -1;\n\t\t}\n\t\taddSegment(newLine, 1);\n\t}\n\tvoid addSegment(int l, int\
+    \ r, lint a, lint b) {\n\t\tl += n;\n\t\tr += n;\n\t\tstd::pair<LP, int> newLine\
+    \ = {{a, b}, id++};\n\t\tif (!isMin) {\n\t\t\tnewLine.first.first *= -1;\n\t\t\
+    \tnewLine.first.second *= -1;\n\t\t}\n\t\twhile (l < r) {\n\t\t\tif (l & 1) {\n\
+    \t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp, l++);\n\t\t\t}\n\t\t\tif\
+    \ (r & 1) {\n\t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp, --r);\n\t\t\t\
+    }\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t}\n\tstd::pair<lint, int> query(int\
+    \ idx) const {\n\t\tlint x = cord[idx];\n\t\tidx += n;\n\t\tstd::pair<lint, int>\
+    \ res = {LINF, -1};\n\t\twhile (idx) {\n\t\t\tif (chmin(res.first, calc(node[idx],\
+    \ x))) res.second = node[idx].second;\n\t\t\tidx >>= 1;\n\t\t}\n\t\tif (!isMin)\
+    \ res.first = -res.first;\n\t\treturn res;\n\t}\n\tvoid clear() {\n\t\tid = 0;\n\
+    \t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t}\n};\n\n/**\n * @title Li Chao Tree\n\
+    \ */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: data-structure/LiChaoTree.hpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2023-01-15 22:26:21+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/yosupo/segment_add_get_min.test.cpp
   - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
 documentation_of: data-structure/LiChaoTree.hpp
 layout: document
-redirect_from:
-- /library/data-structure/LiChaoTree.hpp
-- /library/data-structure/LiChaoTree.hpp.html
 title: Li Chao Tree
 ---
+
+直線と線分を管理し、ある $x$ における $y$ の最小値/最大値を求めるデータ構造です。
+
+## Declaration
+```cpp
+template <bool isMin>
+class LiChaoTree;
+```
+
+`isMin` が `true` の場合最小値を、`false` の場合最大値を求めます。
+
+## Constructor
+```cpp
+LiChaoTree(const std::vector<lint>& vec); // (1)
+LiChaoTree(std::vector<lint>&& vec); // (2)
+```
+
+#### (1)
+Li Chao Tree を構築します。$O(1)$ で動作します。
+
+#### (2), (3)
+`vec` に含まれる要素のクエリに答えられる Li Chao Tree を構築します。`vec` の長さを $N$ として $O(N)$ で動作します。
+
+## Methods
+
+### init
+```cpp
+void init(const std::vector<lint>& vec); // (1)
+void init(std::vector<lint>&& vec); // (2)
+```
+
+`vec` に含まれる要素のクエリに答えられる Li Chao Tree に初期化します。
+
+### add_line
+```cpp
+void addLine(lint a, lint b);
+```
+
+直線 $y=ax+b$ を追加します。
+
+### add_segment
+```cpp
+void addSegment(int l, int r, lint a, lint b);
+```
+
+線分 $y=ax+b(l\leq x\leq r)$ を追加します。
+
+### query
+```cpp
+std::pair<lint, int> query(int idx) const;
+```
+
+$x=\mathrm{vec\[idx\]}$ における答えと、それを与える直線/線分の index のペアを返します。
+
+### clear
+```cpp
+void clear();
+```
+
+Li Chao Tree を初期化します。

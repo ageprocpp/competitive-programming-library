@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -161,7 +161,7 @@ layout: document
 title: Binary Heap
 ---
 
-Binary Heap(二項ヒープ) です。
+Binary Heap (二項ヒープ) です。
 値の集合を管理し、優先度付きキューを実現します。
 
 ## Declaration

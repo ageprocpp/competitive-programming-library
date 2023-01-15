@@ -4,7 +4,7 @@ data:
   - icon: ':warning:'
     path: math/DiscreteLogarithm.hpp
     title: Discrete Logarithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []

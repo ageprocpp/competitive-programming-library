@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy:
@@ -298,6 +298,8 @@ documentation_of: data-structure/SegTree.hpp
 layout: document
 title: Segment Tree
 ---
+
+要素の更新と区間への演算の適用を行うデータ構造です。
 
 ## Declaration
 ```cpp

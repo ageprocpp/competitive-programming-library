@@ -18,7 +18,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/IntervalSegTree.hpp
       title: Interval Segment Tree
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: data-structure/LiChaoTree.hpp
       title: Li Chao Tree
     - icon: ':warning:'
@@ -141,7 +141,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: other/FastIO.hpp
       title: Fast IO library
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: other/template.hpp
       title: other/template.hpp
     - icon: ':warning:'
@@ -288,7 +288,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
       title: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
       title: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
     - icon: ':heavy_check_mark:'
@@ -327,7 +327,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/scc.test.cpp
       title: test/yosupo/scc.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/segment_add_get_min.test.cpp
       title: test/yosupo/segment_add_get_min.test.cpp
     - icon: ':heavy_check_mark:'

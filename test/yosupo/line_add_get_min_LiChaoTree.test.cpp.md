@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: data-structure/LiChaoTree.hpp
     title: Li Chao Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/line_add_get_min
@@ -117,49 +117,51 @@ data:
     }\n#line 3 \"data-structure/LiChaoTree.hpp\"\ntemplate <bool isMin>\nclass LiChaoTree\
     \ {\n\tint n, id;\n\tstd::vector<std::tuple<lint, lint, lint>> interval;\n\tstd::vector<std::pair<LP,\
     \ int>> node;\n\tstd::vector<lint> cord;\n\tlint calc(std::pair<LP, int> l, lint\
-    \ x) {\n\t\treturn l.first.first * x + l.first.second;\n\t}\n\tvoid addSegment(std::pair<LP,\
+    \ x) { return l.first.first * x + l.first.second; }\n\tvoid addSegment(std::pair<LP,\
     \ int>& newLine, lint cnt) {\n\t\tlint l = std::get<0>(interval[cnt]), m = std::get<1>(interval[cnt]),\n\
     \t\t\t r = std::get<2>(interval[cnt]);\n\t\tif (n <= cnt) {\n\t\t\tif (calc(node[cnt],\
     \ l) > calc(newLine, l)) node[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt],\
-    \ l) < calc(newLine, l) &&\n\t\t\tcalc(node[cnt], r) < calc(newLine, r))\n\t\t\
-    \treturn;\n\t\tif (calc(node[cnt], l) > calc(newLine, l) &&\n\t\t\tcalc(node[cnt],\
-    \ r) > calc(newLine, r)) {\n\t\t\tnode[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\
-    \t\tif (calc(node[cnt], m) > calc(newLine, m))\n\t\t\tstd::swap(node[cnt], newLine);\n\
-    \t\tif (calc(node[cnt], l) > calc(newLine, l))\n\t\t\taddSegment(newLine, cnt\
-    \ << 1);\n\t\telse\n\t\t\taddSegment(newLine, cnt << 1 | 1);\n\t}\n\n  public:\n\
-    \tLiChaoTree() {}\n\tLiChaoTree(std::vector<lint> vec) { init(vec); }\n\tvoid\
-    \ init(std::vector<lint> con) {\n\t\tinterval.clear();\n\t\tnode.clear();\n\t\t\
-    cord.clear();\n\t\tn = 1;\n\t\tid = 0;\n\t\tcon.emplace_back(con.back() + 1);\n\
-    \t\twhile (n < (int)con.size()) n *= 2;\n\t\twhile ((int)con.size() < n + 1) con.emplace_back(con.back()\
-    \ + 1);\n\t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t\tinterval.emplace_back(0,\
-    \ 0, 0);\n\t\tfor (int range = n; range; range >>= 1) {\n\t\t\tfor (int i = 0;\
-    \ i < n; i += range) {\n\t\t\t\tif (range == 1)\n\t\t\t\t\tinterval.emplace_back(con[i],\
-    \ 0, con[i + range]);\n\t\t\t\telse\n\t\t\t\t\tinterval.emplace_back(con[i], con[i\
-    \ + range / 2],\n\t\t\t\t\t\t\t\t\t\t  con[i + range]);\n\t\t\t}\n\t\t}\n\t\t\
-    cord = con;\n\t}\n\tvoid addLine(lint a, lint b) {\n\t\tstd::pair<LP, int> newLine\
+    \ l) < calc(newLine, l) && calc(node[cnt], r) < calc(newLine, r)) return;\n\t\t\
+    if (calc(node[cnt], l) > calc(newLine, l) && calc(node[cnt], r) > calc(newLine,\
+    \ r)) {\n\t\t\tnode[cnt] = newLine;\n\t\t\treturn;\n\t\t}\n\t\tif (calc(node[cnt],\
+    \ m) > calc(newLine, m)) std::swap(node[cnt], newLine);\n\t\tif (calc(node[cnt],\
+    \ l) > calc(newLine, l))\n\t\t\taddSegment(newLine, cnt << 1);\n\t\telse\n\t\t\
+    \taddSegment(newLine, cnt << 1 | 1);\n\t}\n\n  public:\n\tLiChaoTree(const std::vector<lint>&\
+    \ vec) { init(vec); }\n\tLiChaoTree(std::vector<lint>&& vec) { init(std::forward<std::vector<lint>>(vec));\
+    \ }\n\tvoid init(const std::vector<lint>& vec) {\n\t\tstd::vector<lint> tmp =\
+    \ vec;\n\t\tinit(std::forward<std::vector<lint>>(tmp));\n\t}\n\tvoid init(std::vector<lint>&&\
+    \ vec) {\n\t\tinterval.clear();\n\t\tnode.clear();\n\t\tcord.clear();\n\t\tn =\
+    \ 1;\n\t\tid = 0;\n\t\tvec.emplace_back(vec.back() + 1);\n\t\twhile (n < (int)vec.size())\
+    \ n *= 2;\n\t\twhile ((int)vec.size() < n + 1) vec.emplace_back(vec.back() + 1);\n\
+    \t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t\tinterval.emplace_back(0, 0, 0);\n\
+    \t\tfor (int range = n; range; range >>= 1) {\n\t\t\tfor (int i = 0; i < n; i\
+    \ += range) {\n\t\t\t\tif (range == 1)\n\t\t\t\t\tinterval.emplace_back(vec[i],\
+    \ 0, vec[i + range]);\n\t\t\t\telse\n\t\t\t\t\tinterval.emplace_back(vec[i], vec[i\
+    \ + range / 2], vec[i + range]);\n\t\t\t}\n\t\t}\n\t\tcord = vec;\n\t}\n\tvoid\
+    \ addLine(lint a, lint b) {\n\t\tstd::pair<LP, int> newLine = {{a, b}, id++};\n\
+    \t\tif (!isMin) {\n\t\t\tnewLine.first.first *= -1;\n\t\t\tnewLine.first.second\
+    \ *= -1;\n\t\t}\n\t\taddSegment(newLine, 1);\n\t}\n\tvoid addSegment(int l, int\
+    \ r, lint a, lint b) {\n\t\tl += n;\n\t\tr += n;\n\t\tstd::pair<LP, int> newLine\
     \ = {{a, b}, id++};\n\t\tif (!isMin) {\n\t\t\tnewLine.first.first *= -1;\n\t\t\
-    \tnewLine.first.second *= -1;\n\t\t}\n\t\taddSegment(newLine, 1);\n\t}\n\tvoid\
-    \ addSegment(int l, int r, lint a, lint b) {\n\t\tl += n;\n\t\tr += n;\n\t\tstd::pair<LP,\
-    \ int> newLine = {{a, b}, id++};\n\t\tif (!isMin) {\n\t\t\tnewLine.first.first\
-    \ *= -1;\n\t\t\tnewLine.first.second *= -1;\n\t\t}\n\t\twhile (l < r) {\n\t\t\t\
-    if (l & 1) {\n\t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp, l++);\n\t\t\
-    \t}\n\t\t\tif (r & 1) {\n\t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp,\
-    \ --r);\n\t\t\t}\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t}\n\tstd::pair<lint,\
-    \ int> query(int idx) {\n\t\tlint x = cord[idx];\n\t\tidx += n;\n\t\tstd::pair<lint,\
-    \ int> res = {LINF, -1};\n\t\twhile (idx) {\n\t\t\tif (chmin(res.first, calc(node[idx],\
-    \ x)))\n\t\t\t\tres.second = node[idx].second;\n\t\t\tidx >>= 1;\n\t\t}\n\t\t\
-    if (!isMin) res.first = -res.first;\n\t\treturn res;\n\t}\n\tvoid clear() {\n\t\
-    \tid = 0;\n\t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t}\n};\n\n/**\n * @title\
-    \ Li Chao Tree\n */\n#line 4 \"test/yosupo/line_add_get_min_LiChaoTree.test.cpp\"\
-    \nint n, q;\nlint a[200010], b[200010];\nstd::vector<std::pair<int, lint>> vec;\n\
-    std::vector<lint> cord;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i, n)\
-    \ scanf(\"%lld%lld\", a + i, b + i);\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"\
-    %d\", &t);\n\t\tif (t == 0) {\n\t\t\tint a;\n\t\t\tlint b;\n\t\t\tscanf(\"%d%lld\"\
-    , &a, &b);\n\t\t\tvec.emplace_back(a, b);\n\t\t} else {\n\t\t\tint p;\n\t\t\t\
-    scanf(\"%d\", &p);\n\t\t\tvec.emplace_back(p, LINF);\n\t\t\tcord.emplace_back(p);\n\
-    \t\t}\n\t}\n\tstd::sort(all(cord));\n\tcord.erase(std::unique(all(cord)), cord.end());\n\
-    \tLiChaoTree<true> lct(cord);\n\trep(i, n) lct.addLine(a[i], b[i]);\n\tfor (auto\
-    \ i : vec) {\n\t\tif (i.second == LINF)\n\t\t\tprintf(\"%lld\\n\", lct.query(std::lower_bound(all(cord),\
+    \tnewLine.first.second *= -1;\n\t\t}\n\t\twhile (l < r) {\n\t\t\tif (l & 1) {\n\
+    \t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp, l++);\n\t\t\t}\n\t\t\tif\
+    \ (r & 1) {\n\t\t\t\tauto tmp = newLine;\n\t\t\t\taddSegment(tmp, --r);\n\t\t\t\
+    }\n\t\t\tl >>= 1;\n\t\t\tr >>= 1;\n\t\t}\n\t}\n\tstd::pair<lint, int> query(int\
+    \ idx) const {\n\t\tlint x = cord[idx];\n\t\tidx += n;\n\t\tstd::pair<lint, int>\
+    \ res = {LINF, -1};\n\t\twhile (idx) {\n\t\t\tif (chmin(res.first, calc(node[idx],\
+    \ x))) res.second = node[idx].second;\n\t\t\tidx >>= 1;\n\t\t}\n\t\tif (!isMin)\
+    \ res.first = -res.first;\n\t\treturn res;\n\t}\n\tvoid clear() {\n\t\tid = 0;\n\
+    \t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t}\n};\n\n/**\n * @title Li Chao Tree\n\
+    \ */\n#line 4 \"test/yosupo/line_add_get_min_LiChaoTree.test.cpp\"\nint n, q;\n\
+    lint a[200010], b[200010];\nstd::vector<std::pair<int, lint>> vec;\nstd::vector<lint>\
+    \ cord;\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i, n) scanf(\"%lld%lld\"\
+    , a + i, b + i);\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t\
+    \ == 0) {\n\t\t\tint a;\n\t\t\tlint b;\n\t\t\tscanf(\"%d%lld\", &a, &b);\n\t\t\
+    \tvec.emplace_back(a, b);\n\t\t} else {\n\t\t\tint p;\n\t\t\tscanf(\"%d\", &p);\n\
+    \t\t\tvec.emplace_back(p, LINF);\n\t\t\tcord.emplace_back(p);\n\t\t}\n\t}\n\t\
+    std::sort(all(cord));\n\tcord.erase(std::unique(all(cord)), cord.end());\n\tLiChaoTree<true>\
+    \ lct(cord);\n\trep(i, n) lct.addLine(a[i], b[i]);\n\tfor (auto i : vec) {\n\t\
+    \tif (i.second == LINF)\n\t\t\tprintf(\"%lld\\n\", lct.query(std::lower_bound(all(cord),\
     \ i.first) -\n\t\t\t\t\t\t\t\t\t   cord.begin())\n\t\t\t\t\t\t\t\t .first);\n\t\
     \telse\n\t\t\tlct.addLine(i.first, i.second);\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/line_add_get_min\"\n#include\
@@ -181,8 +183,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-01-15 22:26:21+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
 layout: document
