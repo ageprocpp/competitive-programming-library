@@ -3,7 +3,7 @@ title: Binary Heap
 documentation_of: ../../data-structure/BinaryHeap.hpp
 ---
 
-Binary Heap(二項ヒープ) です。
+Binary Heap (二項ヒープ) です。
 値の集合を管理し、優先度付きキューを実現します。
 
 ## Declaration

@@ -3,6 +3,8 @@ title: Segment Tree
 documentation_of: ../../data-structure/SegTree.hpp
 ---
 
+要素の更新と区間への演算の適用を行うデータ構造です。
+
 ## Declaration
 ```cpp
 template <class T, T (*nodef)(const T&, const T&)>
