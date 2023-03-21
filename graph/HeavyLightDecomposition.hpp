@@ -30,21 +30,13 @@ class HeavyLightDecomposition {
 	HeavyLightDecomposition(int m) : n(m) { init(n); }
 	void init(int m) {
 		n = m;
-		vec.resize(n);
-		size.resize(n);
-		par.resize(n);
-		head.resize(n);
-		label.resize(n);
-		last.resize(n);
+		vec.resize(n), size.resize(n), par.resize(n), head.resize(n), label.resize(n),
+			last.resize(n);
 	}
-	void add_edge(int u, int v) {
-		vec[u].emplace_back(v);
-		vec[v].emplace_back(u);
-	}
+	void add_edge(int u, int v) { vec[u].emplace_back(v), vec[v].emplace_back(u); }
 	void build(int root) {
 		std::fill(all(par), -1);
-		size_dfs(root);
-		build_dfs(root);
+		size_dfs(root), build_dfs(root);
 	}
 	template <class F>
 	void each_edge(int u, int v, const F& func) const {
@@ -82,12 +74,7 @@ class HeavyLightDecomposition {
 		}
 	}
 	void clear() {
-		vec.clear();
-		size.clear();
-		par.clear();
-		head.clear();
-		label.clear();
-		last.clear();
+		vec.clear(), size.clear(), par.clear(), head.clear(), label.clear(), last.clear();
 	}
 };
 
