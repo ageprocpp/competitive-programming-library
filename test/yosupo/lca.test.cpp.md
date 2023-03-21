@@ -123,11 +123,11 @@ data:
     \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\
     \tstd::vector<std::vector<int>> vec;\n\tstd::vector<int> size, par, head, label,\
     \ last;\n\tHeavyLightDecomposition() {}\n\tHeavyLightDecomposition(int m) : n(m)\
-    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\
-    \t\tpar.resize(n);\n\t\thead.resize(n);\n\t\tlabel.resize(n);\n\t\tlast.resize(n);\n\
-    \t}\n\tvoid add_edge(int u, int v) {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\
-    \t}\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\
-    \t\tbuild_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
+    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n), size.resize(n),\
+    \ par.resize(n), head.resize(n), label.resize(n),\n\t\t\tlast.resize(n);\n\t}\n\
+    \tvoid add_edge(int u, int v) { vec[u].emplace_back(v), vec[v].emplace_back(u);\
+    \ }\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root),\
+    \ build_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
     \ const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u,\
     \ v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u]\
     \ + 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
@@ -139,13 +139,13 @@ data:
     \ const {\n\t\tfunc(label[u], last[u]);\n\t}\n\tint lca(int u, int v) const {\n\
     \t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif\
     \ (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
-    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
-    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n\
-    \ */\n#line 4 \"test/yosupo/lca.test.cpp\"\nint n, q;\nint main() {\n\tscanf(\"\
-    %d%d\", &n, &q);\n\tHeavyLightDecomposition hld(n);\n\tREP(i, n - 1) {\n\t\tint\
-    \ p;\n\t\tscanf(\"%d\", &p);\n\t\thld.add_edge(i, p);\n\t}\n\thld.build(0);\n\t\
-    rep(i, q) {\n\t\tint u, v;\n\t\tscanf(\"%d%d\", &u, &v);\n\t\tprintf(\"%d\\n\"\
-    , hld.lca(u, v));\n\t}\n}\n"
+    \ clear() {\n\t\tvec.clear(), size.clear(), par.clear(), head.clear(), label.clear(),\
+    \ last.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n */\n#line\
+    \ 4 \"test/yosupo/lca.test.cpp\"\nint n, q;\nint main() {\n\tscanf(\"%d%d\", &n,\
+    \ &q);\n\tHeavyLightDecomposition hld(n);\n\tREP(i, n - 1) {\n\t\tint p;\n\t\t\
+    scanf(\"%d\", &p);\n\t\thld.add_edge(i, p);\n\t}\n\thld.build(0);\n\trep(i, q)\
+    \ {\n\t\tint u, v;\n\t\tscanf(\"%d%d\", &u, &v);\n\t\tprintf(\"%d\\n\", hld.lca(u,\
+    \ v));\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/lca\"\n#include \"../../graph/HeavyLightDecomposition.hpp\"\
     \n#include \"../../other/template.hpp\"\nint n, q;\nint main() {\n\tscanf(\"%d%d\"\
     , &n, &q);\n\tHeavyLightDecomposition hld(n);\n\tREP(i, n - 1) {\n\t\tint p;\n\
@@ -158,7 +158,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/lca.test.cpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-03-22 00:26:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/lca.test.cpp

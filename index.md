@@ -97,6 +97,9 @@ data:
     - icon: ':warning:'
       path: math/Combinatorics.hpp
       title: Combinatorics/ModCombinatorics
+    - icon: ':heavy_check_mark:'
+      path: math/CountPrime.hpp
+      title: math/CountPrime.hpp
     - icon: ':warning:'
       path: math/DiscreteLogarithm.hpp
       title: Discrete Logarithm
@@ -273,6 +276,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/convolution_mod_1000000007.test.cpp
       title: test/yosupo/convolution_mod_1000000007.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/counting_primes.test.cpp
+      title: test/yosupo/counting_primes.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/exp_of_formal_power_series.test.cpp
       title: test/yosupo/exp_of_formal_power_series.test.cpp

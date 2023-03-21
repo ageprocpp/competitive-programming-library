@@ -431,8 +431,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/exp_of_formal_power_series.test.cpp
-  - test/yosupo/log_of_formal_power_series.test.cpp
   - test/yosupo/inv_of_formal_power_series.test.cpp
+  - test/yosupo/log_of_formal_power_series.test.cpp
 documentation_of: math/FormalPowerSeries.hpp
 layout: document
 redirect_from:

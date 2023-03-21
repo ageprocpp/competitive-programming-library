@@ -140,11 +140,11 @@ data:
     \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\
     \tstd::vector<std::vector<int>> vec;\n\tstd::vector<int> size, par, head, label,\
     \ last;\n\tHeavyLightDecomposition() {}\n\tHeavyLightDecomposition(int m) : n(m)\
-    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\
-    \t\tpar.resize(n);\n\t\thead.resize(n);\n\t\tlabel.resize(n);\n\t\tlast.resize(n);\n\
-    \t}\n\tvoid add_edge(int u, int v) {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\
-    \t}\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\
-    \t\tbuild_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
+    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n), size.resize(n),\
+    \ par.resize(n), head.resize(n), label.resize(n),\n\t\t\tlast.resize(n);\n\t}\n\
+    \tvoid add_edge(int u, int v) { vec[u].emplace_back(v), vec[v].emplace_back(u);\
+    \ }\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root),\
+    \ build_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
     \ const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u,\
     \ v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u]\
     \ + 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
@@ -156,18 +156,17 @@ data:
     \ const {\n\t\tfunc(label[u], last[u]);\n\t}\n\tint lca(int u, int v) const {\n\
     \t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif\
     \ (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
-    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
-    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n\
-    \ */\n#line 5 \"test/yosupo/vertex_add_path_sum.test.cpp\"\nint n, q, a[500010];\n\
-    int main() {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i, n) scanf(\"%d\", a + i);\n\t\
-    HeavyLightDecomposition hld(n);\n\tBIT<lint> bit(n);\n\trep(i, n - 1) {\n\t\t\
-    int u, v;\n\t\tscanf(\"%d%d\", &u, &v);\n\t\thld.add_edge(u, v);\n\t}\n\thld.build(0);\n\
-    \trep(i, n) bit.add(hld.label[i], a[i]);\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"\
-    %d\", &t);\n\t\tif (t == 0) {\n\t\t\tint p, x;\n\t\t\tscanf(\"%d%d\", &p, &x);\n\
-    \t\t\tbit.add(hld.label[p], x);\n\t\t} else {\n\t\t\tint u, v;\n\t\t\tscanf(\"\
-    %d%d\", &u, &v);\n\t\t\tlint ans = 0;\n\t\t\thld.each_vertex(u, v,\n\t\t\t\t\t\
-    \t\t[&](int l, int r) { ans += bit.query(l, r + 1); });\n\t\t\tprintf(\"%lld\\\
-    n\", ans);\n\t\t}\n\t}\n}\n"
+    \ clear() {\n\t\tvec.clear(), size.clear(), par.clear(), head.clear(), label.clear(),\
+    \ last.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n */\n#line\
+    \ 5 \"test/yosupo/vertex_add_path_sum.test.cpp\"\nint n, q, a[500010];\nint main()\
+    \ {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i, n) scanf(\"%d\", a + i);\n\tHeavyLightDecomposition\
+    \ hld(n);\n\tBIT<lint> bit(n);\n\trep(i, n - 1) {\n\t\tint u, v;\n\t\tscanf(\"\
+    %d%d\", &u, &v);\n\t\thld.add_edge(u, v);\n\t}\n\thld.build(0);\n\trep(i, n) bit.add(hld.label[i],\
+    \ a[i]);\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\
+    \t\t\tint p, x;\n\t\t\tscanf(\"%d%d\", &p, &x);\n\t\t\tbit.add(hld.label[p], x);\n\
+    \t\t} else {\n\t\t\tint u, v;\n\t\t\tscanf(\"%d%d\", &u, &v);\n\t\t\tlint ans\
+    \ = 0;\n\t\t\thld.each_vertex(u, v,\n\t\t\t\t\t\t\t[&](int l, int r) { ans +=\
+    \ bit.query(l, r + 1); });\n\t\t\tprintf(\"%lld\\n\", ans);\n\t\t}\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_add_path_sum\"\n\
     #include \"../../data-structure/BIT.hpp\"\n#include \"../../graph/HeavyLightDecomposition.hpp\"\
     \n#include \"../../other/template.hpp\"\nint n, q, a[500010];\nint main() {\n\t\
@@ -186,7 +185,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/vertex_add_path_sum.test.cpp
   requiredBy: []
-  timestamp: '2023-01-12 15:47:16+09:00'
+  timestamp: '2023-03-22 00:26:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/vertex_add_path_sum.test.cpp

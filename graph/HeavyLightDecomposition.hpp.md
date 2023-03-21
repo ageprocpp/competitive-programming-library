@@ -129,11 +129,11 @@ data:
     \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\
     \tstd::vector<std::vector<int>> vec;\n\tstd::vector<int> size, par, head, label,\
     \ last;\n\tHeavyLightDecomposition() {}\n\tHeavyLightDecomposition(int m) : n(m)\
-    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\
-    \t\tpar.resize(n);\n\t\thead.resize(n);\n\t\tlabel.resize(n);\n\t\tlast.resize(n);\n\
-    \t}\n\tvoid add_edge(int u, int v) {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\
-    \t}\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\
-    \t\tbuild_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
+    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n), size.resize(n),\
+    \ par.resize(n), head.resize(n), label.resize(n),\n\t\t\tlast.resize(n);\n\t}\n\
+    \tvoid add_edge(int u, int v) { vec[u].emplace_back(v), vec[v].emplace_back(u);\
+    \ }\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root),\
+    \ build_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
     \ const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u,\
     \ v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u]\
     \ + 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
@@ -145,9 +145,8 @@ data:
     \ const {\n\t\tfunc(label[u], last[u]);\n\t}\n\tint lca(int u, int v) const {\n\
     \t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif\
     \ (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
-    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
-    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n\
-    \ */\n"
+    \ clear() {\n\t\tvec.clear(), size.clear(), par.clear(), head.clear(), label.clear(),\
+    \ last.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n */\n"
   code: "#pragma once\n#include \"../other/template.hpp\"\nclass HeavyLightDecomposition\
     \ {\n\tint n, index = 0;\n\tvoid size_dfs(int node) {\n\t\tsize[node] = 1;\n\t\
     \tfor (int& i : vec[node]) {\n\t\t\tif (par[node] == i) continue;\n\t\t\tpar[i]\
@@ -158,11 +157,11 @@ data:
     \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\
     \tstd::vector<std::vector<int>> vec;\n\tstd::vector<int> size, par, head, label,\
     \ last;\n\tHeavyLightDecomposition() {}\n\tHeavyLightDecomposition(int m) : n(m)\
-    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\
-    \t\tpar.resize(n);\n\t\thead.resize(n);\n\t\tlabel.resize(n);\n\t\tlast.resize(n);\n\
-    \t}\n\tvoid add_edge(int u, int v) {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\
-    \t}\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\
-    \t\tbuild_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
+    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n), size.resize(n),\
+    \ par.resize(n), head.resize(n), label.resize(n),\n\t\t\tlast.resize(n);\n\t}\n\
+    \tvoid add_edge(int u, int v) { vec[u].emplace_back(v), vec[v].emplace_back(u);\
+    \ }\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root),\
+    \ build_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
     \ const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u,\
     \ v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u]\
     \ + 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
@@ -174,21 +173,20 @@ data:
     \ const {\n\t\tfunc(label[u], last[u]);\n\t}\n\tint lca(int u, int v) const {\n\
     \t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif\
     \ (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
-    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
-    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n\
-    \ */"
+    \ clear() {\n\t\tvec.clear(), size.clear(), par.clear(), head.clear(), label.clear(),\
+    \ last.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n */"
   dependsOn:
   - other/template.hpp
   isVerificationFile: false
   path: graph/HeavyLightDecomposition.hpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-03-22 00:26:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/vertex_add_path_sum.test.cpp
-  - test/yosupo/lca.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
   - test/yosupo/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/vertex_add_path_sum.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/lca.test.cpp
 documentation_of: graph/HeavyLightDecomposition.hpp
 layout: document
 redirect_from:

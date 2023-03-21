@@ -433,16 +433,16 @@ data:
   isVerificationFile: false
   path: math/NumberTheoreticTransform.hpp
   requiredBy:
-  - math/FormalPowerSeries.hpp
   - math/Polynomial.hpp
+  - math/FormalPowerSeries.hpp
   timestamp: '2023-01-08 03:21:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/exp_of_formal_power_series.test.cpp
-  - test/yosupo/log_of_formal_power_series.test.cpp
-  - test/yosupo/inv_of_formal_power_series.test.cpp
-  - test/yosupo/convolution_mod_1000000007.test.cpp
   - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/exp_of_formal_power_series.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/inv_of_formal_power_series.test.cpp
+  - test/yosupo/log_of_formal_power_series.test.cpp
 documentation_of: math/NumberTheoreticTransform.hpp
 layout: document
 redirect_from:

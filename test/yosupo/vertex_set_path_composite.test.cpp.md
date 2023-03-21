@@ -267,11 +267,11 @@ data:
     \t\t\t\tbuild_dfs(i);\n\t\t\t}\n\t\t}\n\t\tlast[node] = index;\n\t}\n\n  public:\n\
     \tstd::vector<std::vector<int>> vec;\n\tstd::vector<int> size, par, head, label,\
     \ last;\n\tHeavyLightDecomposition() {}\n\tHeavyLightDecomposition(int m) : n(m)\
-    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n);\n\t\tsize.resize(n);\n\
-    \t\tpar.resize(n);\n\t\thead.resize(n);\n\t\tlabel.resize(n);\n\t\tlast.resize(n);\n\
-    \t}\n\tvoid add_edge(int u, int v) {\n\t\tvec[u].emplace_back(v);\n\t\tvec[v].emplace_back(u);\n\
-    \t}\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root);\n\
-    \t\tbuild_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
+    \ { init(n); }\n\tvoid init(int m) {\n\t\tn = m;\n\t\tvec.resize(n), size.resize(n),\
+    \ par.resize(n), head.resize(n), label.resize(n),\n\t\t\tlast.resize(n);\n\t}\n\
+    \tvoid add_edge(int u, int v) { vec[u].emplace_back(v), vec[v].emplace_back(u);\
+    \ }\n\tvoid build(int root) {\n\t\tstd::fill(all(par), -1);\n\t\tsize_dfs(root),\
+    \ build_dfs(root);\n\t}\n\ttemplate <class F>\n\tvoid each_edge(int u, int v,\
     \ const F& func) const {\n\t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u,\
     \ v);\n\t\t\tif (head[u] == head[v]) {\n\t\t\t\tif (label[u] != label[v]) func(label[u]\
     \ + 1, label[v]);\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tfunc(label[head[v]], label[v]);\n\
@@ -283,31 +283,30 @@ data:
     \ const {\n\t\tfunc(label[u], last[u]);\n\t}\n\tint lca(int u, int v) const {\n\
     \t\twhile (true) {\n\t\t\tif (label[u] > label[v]) std::swap(u, v);\n\t\t\tif\
     \ (head[u] == head[v]) return u;\n\t\t\tv = par[head[v]];\n\t\t}\n\t}\n\tvoid\
-    \ clear() {\n\t\tvec.clear();\n\t\tsize.clear();\n\t\tpar.clear();\n\t\thead.clear();\n\
-    \t\tlabel.clear();\n\t\tlast.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n\
-    \ */\n#line 6 \"test/yosupo/vertex_set_path_composite.test.cpp\"\nusing ModInt\
-    \ = StaticModInt<998244353>;\nusing MP = std::pair<ModInt, ModInt>;\nMP nodef(const\
-    \ MP& lhs, const MP& rhs) {\n\treturn {lhs.first * rhs.first, lhs.second * rhs.first\
-    \ + rhs.second};\n}\nclass MySeg : public SegTree<MP, nodef> {\n\tusing Base =\
-    \ SegTree<MP, nodef>;\n\n  public:\n\tMySeg(int n) : Base(n, MP{1, 0}, MP{1, 0})\
-    \ {}\n};\nint n, q;\nIP a[200010];\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\
-    \trep(i, n) scanf(\"%d%d\", &a[i].first, &a[i].second);\n\tHeavyLightDecomposition\
-    \ hld(n);\n\tMySeg st1(n), st2(n);\n\trep(i, n - 1) {\n\t\tint u, v;\n\t\tscanf(\"\
-    %d%d\", &u, &v);\n\t\thld.add_edge(u, v);\n\t}\n\thld.build(0);\n\trep(i, n) {\n\
-    \t\tst1.update(hld.label[i], a[i]);\n\t\tst2.update(n - 1 - hld.label[i], a[i]);\n\
-    \t}\n\trep(i, q) {\n\t\tint t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\
-    \tint p, c, d;\n\t\t\tscanf(\"%d%d%d\", &p, &c, &d);\n\t\t\ta[p] = {c, d};\n\t\
-    \t\tst1.update(hld.label[p], {c, d});\n\t\t\tst2.update(n - 1 - hld.label[p],\
-    \ {c, d});\n\t\t} else {\n\t\t\tint u, v, x;\n\t\t\tscanf(\"%d%d%d\", &u, &v,\
-    \ &x);\n\t\t\tint t = hld.lca(u, v);\n\t\t\tstd::pair<ModInt, ModInt> f1(1, 0),\
-    \ f2(1, 0);\n\t\t\thld.each_vertex(u, t, [&](int l, int r) {\n\t\t\t\tauto p =\
-    \ st2.query(n - 1 - r, n - 1 - l + 1);\n\t\t\t\tf1 = {f1.first * p.first, f1.second\
-    \ * p.first + p.second};\n\t\t\t});\n\t\t\tf1 = {f1.first / a[t].first,\n\t\t\t\
-    \t  (f1.second - a[t].second) / a[t].first};\n\t\t\thld.each_vertex(t, v, [&](int\
-    \ l, int r) {\n\t\t\t\tauto p = st1.query(l, r + 1);\n\t\t\t\tf2 = {p.first *\
-    \ f2.first, p.second * f2.first + f2.second};\n\t\t\t});\n\t\t\tf1 = {f1.first\
-    \ * f2.first, f1.second * f2.first + f2.second};\n\t\t\tprintf(\"%d\\n\", ModInt(x)\
-    \ * f1.first + f1.second);\n\t\t}\n\t}\n}\n"
+    \ clear() {\n\t\tvec.clear(), size.clear(), par.clear(), head.clear(), label.clear(),\
+    \ last.clear();\n\t}\n};\n\n/**\n * @title Heavy light decomposition\n */\n#line\
+    \ 6 \"test/yosupo/vertex_set_path_composite.test.cpp\"\nusing ModInt = StaticModInt<998244353>;\n\
+    using MP = std::pair<ModInt, ModInt>;\nMP nodef(const MP& lhs, const MP& rhs)\
+    \ {\n\treturn {lhs.first * rhs.first, lhs.second * rhs.first + rhs.second};\n\
+    }\nclass MySeg : public SegTree<MP, nodef> {\n\tusing Base = SegTree<MP, nodef>;\n\
+    \n  public:\n\tMySeg(int n) : Base(n, MP{1, 0}, MP{1, 0}) {}\n};\nint n, q;\n\
+    IP a[200010];\nint main() {\n\tscanf(\"%d%d\", &n, &q);\n\trep(i, n) scanf(\"\
+    %d%d\", &a[i].first, &a[i].second);\n\tHeavyLightDecomposition hld(n);\n\tMySeg\
+    \ st1(n), st2(n);\n\trep(i, n - 1) {\n\t\tint u, v;\n\t\tscanf(\"%d%d\", &u, &v);\n\
+    \t\thld.add_edge(u, v);\n\t}\n\thld.build(0);\n\trep(i, n) {\n\t\tst1.update(hld.label[i],\
+    \ a[i]);\n\t\tst2.update(n - 1 - hld.label[i], a[i]);\n\t}\n\trep(i, q) {\n\t\t\
+    int t;\n\t\tscanf(\"%d\", &t);\n\t\tif (t == 0) {\n\t\t\tint p, c, d;\n\t\t\t\
+    scanf(\"%d%d%d\", &p, &c, &d);\n\t\t\ta[p] = {c, d};\n\t\t\tst1.update(hld.label[p],\
+    \ {c, d});\n\t\t\tst2.update(n - 1 - hld.label[p], {c, d});\n\t\t} else {\n\t\t\
+    \tint u, v, x;\n\t\t\tscanf(\"%d%d%d\", &u, &v, &x);\n\t\t\tint t = hld.lca(u,\
+    \ v);\n\t\t\tstd::pair<ModInt, ModInt> f1(1, 0), f2(1, 0);\n\t\t\thld.each_vertex(u,\
+    \ t, [&](int l, int r) {\n\t\t\t\tauto p = st2.query(n - 1 - r, n - 1 - l + 1);\n\
+    \t\t\t\tf1 = {f1.first * p.first, f1.second * p.first + p.second};\n\t\t\t});\n\
+    \t\t\tf1 = {f1.first / a[t].first,\n\t\t\t\t  (f1.second - a[t].second) / a[t].first};\n\
+    \t\t\thld.each_vertex(t, v, [&](int l, int r) {\n\t\t\t\tauto p = st1.query(l,\
+    \ r + 1);\n\t\t\t\tf2 = {p.first * f2.first, p.second * f2.first + f2.second};\n\
+    \t\t\t});\n\t\t\tf1 = {f1.first * f2.first, f1.second * f2.first + f2.second};\n\
+    \t\t\tprintf(\"%d\\n\", ModInt(x) * f1.first + f1.second);\n\t\t}\n\t}\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/vertex_set_path_composite\"\
     \n#include \"../../math/StaticModInt.hpp\"\n#include \"../../data-structure/SegTree.hpp\"\
     \n#include \"../../graph/HeavyLightDecomposition.hpp\"\n#include \"../../other/template.hpp\"\
@@ -342,7 +341,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/vertex_set_path_composite.test.cpp
   requiredBy: []
-  timestamp: '2023-01-15 02:50:24+09:00'
+  timestamp: '2023-03-22 00:26:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/vertex_set_path_composite.test.cpp

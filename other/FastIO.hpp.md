@@ -141,26 +141,26 @@ data:
     \t\t\ts = \"\";\n\t\t\tdo {\n\t\t\t\tsize_t start = pos;\n\t\t\t\twhile (inbuf[pos]\
     \ > ' ') pos++;\n\t\t\t\ts += std::string(inbuf + start, inbuf + pos);\n\t\t\t\
     \tif (inbuf[pos] != '\\0') break;\n\t\t\t\treload();\n\t\t\t} while (true);\n\t\
-    \t}\n\t\ttemplate <typename T, std::enable_if_t<std::is_integral<T>::value,\n\t\
-    \t\t\t\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\
-    \tchar c = next_nonspace();\n\t\t\tif (__builtin_expect(pos + integer_size >=\
-    \ end, 0)) reload();\n\t\t\tbool minus = false;\n\t\t\tif (c == '-')\n\t\t\t\t\
-    minus = true, x = 0;\n\t\t\telse\n\t\t\t\tx = c & 15;\n\t\t\twhile ((c = next())\
-    \ >= '0') x = x * 10 + (c & 15);\n\t\t\tif (minus) x = -x;\n\t\t}\n\t\ttemplate\
-    \ <typename T, class... Args>\n\t\tvoid scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\
-    \t\t\tscan(args...);\n\t\t}\n\t\ttemplate <typename T>\n\t\tScanner& operator>>(T&\
-    \ x) {\n\t\t\tscan(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\
-    \t\tstatic constexpr size_t block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]>\
-    \ block_str;\n\t\tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\
-    \t\t\t\t\t\t\t\t\t\t  10,\n\t\t\t\t\t\t\t\t\t\t  100,\n\t\t\t\t\t\t\t\t\t\t  1000,\n\
-    \t\t\t\t\t\t\t\t\t\t  10000,\n\t\t\t\t\t\t\t\t\t\t  100000,\n\t\t\t\t\t\t\t\t\t\
-    \t  1000000,\n\t\t\t\t\t\t\t\t\t\t  10000000,\n\t\t\t\t\t\t\t\t\t\t  100000000,\n\
-    \t\t\t\t\t\t\t\t\t\t  1000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000,\n\t\t\t\t\
-    \t\t\t\t\t\t  100000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000,\n\t\t\t\t\t\t\
-    \t\t\t\t  10000000000000,\n\t\t\t\t\t\t\t\t\t\t  100000000000000,\n\t\t\t\t\t\t\
-    \t\t\t\t  1000000000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000000000,\n\t\t\t\t\
-    \t\t\t\t\t\t  100000000000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000000000};\n\
-    \n\t\tstatic std::unique_ptr<char[]> precompute() {\n\t\t\tstd::unique_ptr<char[]>\
+    \t}\n\t\ttemplate <typename T,\n\t\t\t\t  std::enable_if_t<std::is_integral<T>::value,\
+    \ std::nullptr_t> = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\tchar c = next_nonspace();\n\
+    \t\t\tif (__builtin_expect(pos + integer_size >= end, 0)) reload();\n\t\t\tbool\
+    \ minus = false;\n\t\t\tif (c == '-')\n\t\t\t\tminus = true, x = 0;\n\t\t\telse\n\
+    \t\t\t\tx = c & 15;\n\t\t\twhile ((c = next()) >= '0') x = x * 10 + (c & 15);\n\
+    \t\t\tif (minus) x = -x;\n\t\t}\n\t\ttemplate <typename T, class... Args>\n\t\t\
+    void scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\t\t\tscan(args...);\n\t\t}\n\
+    \t\ttemplate <typename T>\n\t\tScanner& operator>>(T& x) {\n\t\t\tscan(x);\n\t\
+    \t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\t\tstatic constexpr size_t\
+    \ block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]> block_str;\n\t\
+    \tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\t\t\t\t\t\t\t\t\
+    \t\t  10,\n\t\t\t\t\t\t\t\t\t\t  100,\n\t\t\t\t\t\t\t\t\t\t  1000,\n\t\t\t\t\t\
+    \t\t\t\t\t  10000,\n\t\t\t\t\t\t\t\t\t\t  100000,\n\t\t\t\t\t\t\t\t\t\t  1000000,\n\
+    \t\t\t\t\t\t\t\t\t\t  10000000,\n\t\t\t\t\t\t\t\t\t\t  100000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  1000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000,\n\t\t\t\t\t\t\t\t\t\t\
+    \  100000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000,\n\t\t\t\t\t\t\t\t\t\t \
+    \ 10000000000000,\n\t\t\t\t\t\t\t\t\t\t  100000000000000,\n\t\t\t\t\t\t\t\t\t\t\
+    \  1000000000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000000000,\n\t\t\t\t\t\t\t\
+    \t\t\t  100000000000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000000000};\n\n\t\
+    \tstatic std::unique_ptr<char[]> precompute() {\n\t\t\tstd::unique_ptr<char[]>\
     \ res(new char[block_size * 4]);\n\t\t\trep(i, block_size) {\n\t\t\t\tsize_t j\
     \ = 4, k = i;\n\t\t\t\twhile (j--) {\n\t\t\t\t\tres[i * 4 + j] = k % 10 + '0';\n\
     \t\t\t\t\tk /= 10;\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn res;\n\t\t}\n\t\ttemplate\
@@ -183,17 +183,19 @@ data:
     \ = c;\n\t\t\tif (__builtin_expect(pos == buf_size, 0)) flush();\n\t\t}\n\t\t\
     void print(char* s) {\n\t\t\twhile (*s != 0) {\n\t\t\t\toutbuf[pos++] = *s++;\n\
     \t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename\
-    \ T, std::enable_if_t<std::is_integral<T>::value,\n\t\t\t\t\t\t\t\t\t\t\t   std::nullptr_t>\
-    \ = nullptr>\n\t\tvoid print(T x) {\n\t\t\tif (__builtin_expect(pos + integer_size\
+    \ T,\n\t\t\t\t  std::enable_if_t<std::is_integral<T>::value, std::nullptr_t> =\
+    \ nullptr>\n\t\tvoid print(T x) {\n\t\t\tif (__builtin_expect(pos + integer_size\
     \ >= buf_size, 0)) flush();\n\t\t\tif (x < 0) print('-'), x = -x;\n\t\t\tsize_t\
     \ digit = integer_digits(x);\n\t\t\tsize_t len = digit;\n\t\t\twhile (len >= 4)\
-    \ {\n\t\t\t\tlen -= 4;\n\t\t\t\tmemcpy(outbuf + pos + len,\n\t\t\t\t\t   block_str.get()\
-    \ + (x % block_size) * 4, 4);\n\t\t\t\tx /= 10000;\n\t\t\t}\n\t\t\tmemcpy(outbuf\
-    \ + pos, block_str.get() + x * 4 + 4 - len, len);\n\t\t\tpos += digit;\n\t\t}\n\
-    \t\ttemplate <typename T, class... Args>\n\t\tvoid print(const T& x, const Args&...\
-    \ args) {\n\t\t\tprint(x);\n\t\t\tprint(' ');\n\t\t\tprint(args...);\n\t\t}\n\t\
-    \ttemplate <class... Args>\n\t\tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\
-    \t\t\tprint('\\n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const\
+    \ {\n\t\t\t\tlen -= 4;\n\t\t\t\tmemcpy(outbuf + pos + len, block_str.get() + (x\
+    \ % block_size) * 4, 4);\n\t\t\t\tx /= 10000;\n\t\t\t}\n\t\t\tmemcpy(outbuf +\
+    \ pos, block_str.get() + x * 4 + 4 - len, len);\n\t\t\tpos += digit;\n\t\t}\n\t\
+    \tvoid print(const std::string& x) {\n\t\t\tfor (char c : x) {\n\t\t\t\toutbuf[pos++]\
+    \ = c;\n\t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename\
+    \ T, class... Args>\n\t\tvoid print(const T& x, const Args&... args) {\n\t\t\t\
+    print(x);\n\t\t\tprint(' ');\n\t\t\tprint(args...);\n\t\t}\n\t\ttemplate <class...\
+    \ Args>\n\t\tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\t\t\t\
+    print('\\n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const\
     \ T& x) {\n\t\t\tprint(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]>\
     \ Printer::block_str = Printer::precompute();\n};\t// namespace FastIO\n\n/**\n\
     \ * @title Fast IO library\n */\n"
@@ -213,26 +215,26 @@ data:
     \ {\n\t\t\tignore_space();\n\t\t\ts = \"\";\n\t\t\tdo {\n\t\t\t\tsize_t start\
     \ = pos;\n\t\t\t\twhile (inbuf[pos] > ' ') pos++;\n\t\t\t\ts += std::string(inbuf\
     \ + start, inbuf + pos);\n\t\t\t\tif (inbuf[pos] != '\\0') break;\n\t\t\t\treload();\n\
-    \t\t\t} while (true);\n\t\t}\n\t\ttemplate <typename T, std::enable_if_t<std::is_integral<T>::value,\n\
-    \t\t\t\t\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\t\tvoid scan(T& x) {\n\t\
-    \t\tchar c = next_nonspace();\n\t\t\tif (__builtin_expect(pos + integer_size >=\
-    \ end, 0)) reload();\n\t\t\tbool minus = false;\n\t\t\tif (c == '-')\n\t\t\t\t\
-    minus = true, x = 0;\n\t\t\telse\n\t\t\t\tx = c & 15;\n\t\t\twhile ((c = next())\
-    \ >= '0') x = x * 10 + (c & 15);\n\t\t\tif (minus) x = -x;\n\t\t}\n\t\ttemplate\
-    \ <typename T, class... Args>\n\t\tvoid scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\
-    \t\t\tscan(args...);\n\t\t}\n\t\ttemplate <typename T>\n\t\tScanner& operator>>(T&\
-    \ x) {\n\t\t\tscan(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\
-    \t\tstatic constexpr size_t block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]>\
-    \ block_str;\n\t\tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\
-    \t\t\t\t\t\t\t\t\t\t  10,\n\t\t\t\t\t\t\t\t\t\t  100,\n\t\t\t\t\t\t\t\t\t\t  1000,\n\
-    \t\t\t\t\t\t\t\t\t\t  10000,\n\t\t\t\t\t\t\t\t\t\t  100000,\n\t\t\t\t\t\t\t\t\t\
-    \t  1000000,\n\t\t\t\t\t\t\t\t\t\t  10000000,\n\t\t\t\t\t\t\t\t\t\t  100000000,\n\
-    \t\t\t\t\t\t\t\t\t\t  1000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000,\n\t\t\t\t\
-    \t\t\t\t\t\t  100000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000,\n\t\t\t\t\t\t\
-    \t\t\t\t  10000000000000,\n\t\t\t\t\t\t\t\t\t\t  100000000000000,\n\t\t\t\t\t\t\
-    \t\t\t\t  1000000000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000000000,\n\t\t\t\t\
-    \t\t\t\t\t\t  100000000000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000000000};\n\
-    \n\t\tstatic std::unique_ptr<char[]> precompute() {\n\t\t\tstd::unique_ptr<char[]>\
+    \t\t\t} while (true);\n\t\t}\n\t\ttemplate <typename T,\n\t\t\t\t  std::enable_if_t<std::is_integral<T>::value,\
+    \ std::nullptr_t> = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\tchar c = next_nonspace();\n\
+    \t\t\tif (__builtin_expect(pos + integer_size >= end, 0)) reload();\n\t\t\tbool\
+    \ minus = false;\n\t\t\tif (c == '-')\n\t\t\t\tminus = true, x = 0;\n\t\t\telse\n\
+    \t\t\t\tx = c & 15;\n\t\t\twhile ((c = next()) >= '0') x = x * 10 + (c & 15);\n\
+    \t\t\tif (minus) x = -x;\n\t\t}\n\t\ttemplate <typename T, class... Args>\n\t\t\
+    void scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\t\t\tscan(args...);\n\t\t}\n\
+    \t\ttemplate <typename T>\n\t\tScanner& operator>>(T& x) {\n\t\t\tscan(x);\n\t\
+    \t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\t\tstatic constexpr size_t\
+    \ block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]> block_str;\n\t\
+    \tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\t\t\t\t\t\t\t\t\
+    \t\t  10,\n\t\t\t\t\t\t\t\t\t\t  100,\n\t\t\t\t\t\t\t\t\t\t  1000,\n\t\t\t\t\t\
+    \t\t\t\t\t  10000,\n\t\t\t\t\t\t\t\t\t\t  100000,\n\t\t\t\t\t\t\t\t\t\t  1000000,\n\
+    \t\t\t\t\t\t\t\t\t\t  10000000,\n\t\t\t\t\t\t\t\t\t\t  100000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  1000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000,\n\t\t\t\t\t\t\t\t\t\t\
+    \  100000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000,\n\t\t\t\t\t\t\t\t\t\t \
+    \ 10000000000000,\n\t\t\t\t\t\t\t\t\t\t  100000000000000,\n\t\t\t\t\t\t\t\t\t\t\
+    \  1000000000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000000000,\n\t\t\t\t\t\t\t\
+    \t\t\t  100000000000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000000000};\n\n\t\
+    \tstatic std::unique_ptr<char[]> precompute() {\n\t\t\tstd::unique_ptr<char[]>\
     \ res(new char[block_size * 4]);\n\t\t\trep(i, block_size) {\n\t\t\t\tsize_t j\
     \ = 4, k = i;\n\t\t\t\twhile (j--) {\n\t\t\t\t\tres[i * 4 + j] = k % 10 + '0';\n\
     \t\t\t\t\tk /= 10;\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn res;\n\t\t}\n\t\ttemplate\
@@ -255,17 +257,19 @@ data:
     \ = c;\n\t\t\tif (__builtin_expect(pos == buf_size, 0)) flush();\n\t\t}\n\t\t\
     void print(char* s) {\n\t\t\twhile (*s != 0) {\n\t\t\t\toutbuf[pos++] = *s++;\n\
     \t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename\
-    \ T, std::enable_if_t<std::is_integral<T>::value,\n\t\t\t\t\t\t\t\t\t\t\t   std::nullptr_t>\
-    \ = nullptr>\n\t\tvoid print(T x) {\n\t\t\tif (__builtin_expect(pos + integer_size\
+    \ T,\n\t\t\t\t  std::enable_if_t<std::is_integral<T>::value, std::nullptr_t> =\
+    \ nullptr>\n\t\tvoid print(T x) {\n\t\t\tif (__builtin_expect(pos + integer_size\
     \ >= buf_size, 0)) flush();\n\t\t\tif (x < 0) print('-'), x = -x;\n\t\t\tsize_t\
     \ digit = integer_digits(x);\n\t\t\tsize_t len = digit;\n\t\t\twhile (len >= 4)\
-    \ {\n\t\t\t\tlen -= 4;\n\t\t\t\tmemcpy(outbuf + pos + len,\n\t\t\t\t\t   block_str.get()\
-    \ + (x % block_size) * 4, 4);\n\t\t\t\tx /= 10000;\n\t\t\t}\n\t\t\tmemcpy(outbuf\
-    \ + pos, block_str.get() + x * 4 + 4 - len, len);\n\t\t\tpos += digit;\n\t\t}\n\
-    \t\ttemplate <typename T, class... Args>\n\t\tvoid print(const T& x, const Args&...\
-    \ args) {\n\t\t\tprint(x);\n\t\t\tprint(' ');\n\t\t\tprint(args...);\n\t\t}\n\t\
-    \ttemplate <class... Args>\n\t\tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\
-    \t\t\tprint('\\n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const\
+    \ {\n\t\t\t\tlen -= 4;\n\t\t\t\tmemcpy(outbuf + pos + len, block_str.get() + (x\
+    \ % block_size) * 4, 4);\n\t\t\t\tx /= 10000;\n\t\t\t}\n\t\t\tmemcpy(outbuf +\
+    \ pos, block_str.get() + x * 4 + 4 - len, len);\n\t\t\tpos += digit;\n\t\t}\n\t\
+    \tvoid print(const std::string& x) {\n\t\t\tfor (char c : x) {\n\t\t\t\toutbuf[pos++]\
+    \ = c;\n\t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename\
+    \ T, class... Args>\n\t\tvoid print(const T& x, const Args&... args) {\n\t\t\t\
+    print(x);\n\t\t\tprint(' ');\n\t\t\tprint(args...);\n\t\t}\n\t\ttemplate <class...\
+    \ Args>\n\t\tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\t\t\t\
+    print('\\n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const\
     \ T& x) {\n\t\t\tprint(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]>\
     \ Printer::block_str = Printer::precompute();\n};\t// namespace FastIO\n\n/**\n\
     \ * @title Fast IO library\n */"
@@ -274,15 +278,15 @@ data:
   isVerificationFile: false
   path: other/FastIO.hpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-03-22 00:26:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/convolution_mod_1000000007.test.cpp
-  - test/yosupo/bipartitematching.test.cpp
-  - test/yosupo/shortest_path.test.cpp
-  - test/yosupo/range_kth_smallest.test.cpp
-  - test/yosupo/predecessor_problem.test.cpp
   - test/yosupo/many_aplusb.test.cpp
+  - test/yosupo/bipartitematching.test.cpp
+  - test/yosupo/predecessor_problem.test.cpp
+  - test/yosupo/range_kth_smallest.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/shortest_path.test.cpp
 documentation_of: other/FastIO.hpp
 layout: document
 redirect_from:
