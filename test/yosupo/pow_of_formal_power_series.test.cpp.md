@@ -2,58 +2,47 @@
 data:
   _extendedDependsOn:
   - icon: ':x:'
+    path: math/FormalPowerSeries.hpp
+    title: math/FormalPowerSeries.hpp
+  - icon: ':x:'
+    path: math/NumberTheoreticTransform.hpp
+    title: NumberTheoreticTransform
+  - icon: ':x:'
     path: math/StaticModInt.hpp
     title: StaticModInt
+  - icon: ':question:'
+    path: other/FastIO.hpp
+    title: Fast IO library
   - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   - icon: ':x:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
-  _extendedRequiredBy:
-  - icon: ':x:'
-    path: math/FormalPowerSeries.hpp
-    title: math/FormalPowerSeries.hpp
-  _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/yosupo/convolution_mod.test.cpp
-    title: test/yosupo/convolution_mod.test.cpp
-  - icon: ':x:'
-    path: test/yosupo/convolution_mod_1000000007.test.cpp
-    title: test/yosupo/convolution_mod_1000000007.test.cpp
-  - icon: ':x:'
-    path: test/yosupo/convolution_mod_large.test.cpp
-    title: test/yosupo/convolution_mod_large.test.cpp
-  - icon: ':x:'
-    path: test/yosupo/exp_of_formal_power_series.test.cpp
-    title: test/yosupo/exp_of_formal_power_series.test.cpp
-  - icon: ':x:'
-    path: test/yosupo/inv_of_formal_power_series.test.cpp
-    title: test/yosupo/inv_of_formal_power_series.test.cpp
-  - icon: ':x:'
-    path: test/yosupo/log_of_formal_power_series.test.cpp
-    title: test/yosupo/log_of_formal_power_series.test.cpp
-  - icon: ':x:'
-    path: test/yosupo/pow_of_formal_power_series.test.cpp
-    title: test/yosupo/pow_of_formal_power_series.test.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: true
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':x:'
   attributes:
-    document_title: NumberTheoreticTransform
-    links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
-    #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
-    \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
-    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
-    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
-    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
-    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
-    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
-    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
-    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/pow_of_formal_power_series
+    links:
+    - https://judge.yosupo.jp/problem/pow_of_formal_power_series
+  bundledCode: "#line 1 \"test/yosupo/pow_of_formal_power_series.test.cpp\"\n#define\
+    \ PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series\"\n#line\
+    \ 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n\
+    #pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n\
+    #include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
+    #include <cassert>\n#include <cfloat>\n#include <chrono>\n#include <climits>\n\
+    #include <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include\
+    \ <fstream>\n#include <functional>\n#include <iomanip>\n#include <iostream>\n\
+    #include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n#include\
+    \ <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include <string>\n\
+    #include <unordered_map>\n#include <unordered_set>\n#include <utility>\n#include\
+    \ <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define REP(i,\
+    \ n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\n\
+    using i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
     using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
     \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
     constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON * 10;\n\
@@ -135,14 +124,92 @@ data:
     \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
-    }\n#line 3 \"other/type_traits.hpp\"\n\nclass ModInt__Base {};\nclass StaticModInt__Base\
-    \ : ModInt__Base {};\nclass DynamicModInt__Base : ModInt__Base {};\n\ntemplate\
-    \ <class T>\nclass is_ModInt : public std::is_base_of<ModInt__Base, T> {};\ntemplate\
-    \ <class T>\nconstexpr bool is_ModInt_v = is_ModInt<T>::value;\n\ntemplate <class\
-    \ T>\nclass is_StaticModInt : public std::is_base_of<StaticModInt__Base, T> {};\n\
-    template <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
-    \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
-    \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
+    }\n#line 3 \"other/FastIO.hpp\"\nnamespace FastIO {\n\tstatic constexpr size_t\
+    \ buf_size = 1 << 18;\n\tstatic constexpr size_t integer_size = 19;\n\n\tstatic\
+    \ char inbuf[buf_size + 1] = {};\n\tstatic char outbuf[buf_size + 1] = {};\n\n\
+    \tclass Scanner {\n\t\tsize_t pos = 0, end = buf_size;\n\t\tvoid load() {\n\t\t\
+    \tend = fread(inbuf, 1, buf_size, stdin);\n\t\t\tinbuf[end] = '\\0';\n\t\t}\n\t\
+    \tvoid ignore_space() {\n\t\t\twhile (inbuf[pos] <= ' ') {\n\t\t\t\tif (__builtin_expect(++pos\
+    \ == end, 0)) reload();\n\t\t\t}\n\t\t}\n\t\tchar next() { return inbuf[pos++];\
+    \ }\n\t\tchar next_nonspace() {\n\t\t\tignore_space();\n\t\t\treturn inbuf[pos++];\n\
+    \t\t}\n\n\t  public:\n\t\tScanner() { load(); }\n\t\tvoid reload() {\n\t\t\tsize_t\
+    \ length = end - pos;\n\t\t\tmemmove(inbuf, inbuf + pos, length);\n\t\t\tend =\
+    \ length + fread(inbuf + length, 1, buf_size - length, stdin);\n\t\t\tinbuf[end]\
+    \ = '\\0';\n\t\t\tpos = 0;\n\t\t}\n\t\tvoid scan() {}\n\t\tvoid scan(char& c)\
+    \ { c = next_nonspace(); }\n\t\tvoid scan(std::string& s) {\n\t\t\tignore_space();\n\
+    \t\t\ts = \"\";\n\t\t\tdo {\n\t\t\t\tsize_t start = pos;\n\t\t\t\twhile (inbuf[pos]\
+    \ > ' ') pos++;\n\t\t\t\ts += std::string(inbuf + start, inbuf + pos);\n\t\t\t\
+    \tif (inbuf[pos] != '\\0') break;\n\t\t\t\treload();\n\t\t\t} while (true);\n\t\
+    \t}\n\t\ttemplate <typename T, std::enable_if_t<std::is_integral_v<T>, std::nullptr_t>\
+    \ = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\tchar c = next_nonspace();\n\t\t\tif\
+    \ (__builtin_expect(pos + integer_size >= end, 0)) reload();\n\t\t\tbool minus\
+    \ = false;\n\t\t\tif (c == '-')\n\t\t\t\tminus = true, x = 0;\n\t\t\telse\n\t\t\
+    \t\tx = c & 15;\n\t\t\twhile ((c = next()) >= '0') x = x * 10 + (c & 15);\n\t\t\
+    \tif (minus) x = -x;\n\t\t}\n\t\ttemplate <typename T, class... Args>\n\t\tvoid\
+    \ scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\t\t\tscan(args...);\n\t\t}\n\t\
+    \ttemplate <typename T,\n\t\t\t\t  std::enable_if_t<std::is_same_v<T, char> ||\
+    \ std::is_same_v<T, std::string> ||\n\t\t\t\t\t\t\t\t\t   std::is_integral_v<T>,\n\
+    \t\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\t\tScanner& operator>>(T& x) {\n\
+    \t\t\tscan(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\t\tstatic\
+    \ constexpr size_t block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]>\
+    \ block_str;\n\t\tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\
+    \t\t\t\t\t\t\t\t\t\t  10,\n\t\t\t\t\t\t\t\t\t\t  100,\n\t\t\t\t\t\t\t\t\t\t  1000,\n\
+    \t\t\t\t\t\t\t\t\t\t  10000,\n\t\t\t\t\t\t\t\t\t\t  100000,\n\t\t\t\t\t\t\t\t\t\
+    \t  1000000,\n\t\t\t\t\t\t\t\t\t\t  10000000,\n\t\t\t\t\t\t\t\t\t\t  100000000,\n\
+    \t\t\t\t\t\t\t\t\t\t  1000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000,\n\t\t\t\t\
+    \t\t\t\t\t\t  100000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  10000000000000,\n\t\t\t\t\t\t\t\t\t\t  100000000000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  1000000000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000000000,\n\t\t\t\t\
+    \t\t\t\t\t\t  100000000000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000000000};\n\
+    \n\t\tstatic std::unique_ptr<char[]> precompute() {\n\t\t\tstd::unique_ptr<char[]>\
+    \ res(new char[block_size * 4]);\n\t\t\trep(i, block_size) {\n\t\t\t\tsize_t j\
+    \ = 4, k = i;\n\t\t\t\twhile (j--) {\n\t\t\t\t\tres[i * 4 + j] = k % 10 + '0';\n\
+    \t\t\t\t\tk /= 10;\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn res;\n\t\t}\n\t\ttemplate\
+    \ <typename T>\n\t\tsize_t integer_digits(T n) {\n\t\t\tif (n >= powers[9]) {\n\
+    \t\t\t\tif (n >= powers[13]) {\n\t\t\t\t\tif (n >= powers[16]) {\n\t\t\t\t\t\t\
+    if (n >= powers[17]) {\n\t\t\t\t\t\t\tif (n >= powers[18]) return 19;\n\t\t\t\t\
+    \t\t\treturn 18;\n\t\t\t\t\t\t}\n\t\t\t\t\t\treturn 17;\n\t\t\t\t\t}\n\t\t\t\t\
+    \tif (n >= powers[14]) {\n\t\t\t\t\t\tif (n >= powers[15]) return 16;\n\t\t\t\t\
+    \t\treturn 15;\n\t\t\t\t\t}\n\t\t\t\t\treturn 14;\n\t\t\t\t}\n\t\t\t\tif (n >=\
+    \ powers[11]) {\n\t\t\t\t\tif (n >= powers[12]) return 13;\n\t\t\t\t\treturn 12;\n\
+    \t\t\t\t}\n\t\t\t\tif (n >= powers[10]) return 11;\n\t\t\t\treturn 10;\n\t\t\t\
+    }\n\t\t\tif (n >= powers[4]) {\n\t\t\t\tif (n >= powers[7]) {\n\t\t\t\t\tif (n\
+    \ >= powers[8]) return 9;\n\t\t\t\t\treturn 8;\n\t\t\t\t}\n\t\t\t\tif (n >= powers[5])\
+    \ {\n\t\t\t\t\tif (n >= powers[6]) return 7;\n\t\t\t\t\treturn 6;\n\t\t\t\t}\n\
+    \t\t\t\treturn 5;\n\t\t\t}\n\t\t\tif (n >= powers[2]) {\n\t\t\t\tif (n >= powers[3])\
+    \ return 4;\n\t\t\t\treturn 3;\n\t\t\t}\n\t\t\tif (n >= powers[1]) return 2;\n\
+    \t\t\treturn 1;\n\t\t}\n\n\t  public:\n\t\tPrinter() = default;\n\t\t~Printer()\
+    \ { flush(); }\n\t\tvoid flush() {\n\t\t\tfwrite(outbuf, 1, pos, stdout);\n\t\t\
+    \tpos = 0;\n\t\t}\n\t\tvoid print() {}\n\t\tvoid print(char c) {\n\t\t\toutbuf[pos++]\
+    \ = c;\n\t\t\tif (__builtin_expect(pos == buf_size, 0)) flush();\n\t\t}\n\t\t\
+    void print(char* s) {\n\t\t\twhile (*s != 0) {\n\t\t\t\toutbuf[pos++] = *s++;\n\
+    \t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\tvoid print(const std::string&\
+    \ x) {\n\t\t\tfor (char c : x) {\n\t\t\t\toutbuf[pos++] = c;\n\t\t\t\tif (pos\
+    \ == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename T,\n\t\t\t\t \
+    \ std::enable_if_t<std::is_integral<T>::value, std::nullptr_t> = nullptr>\n\t\t\
+    void print(T x) {\n\t\t\tif (__builtin_expect(pos + integer_size >= buf_size,\
+    \ 0)) flush();\n\t\t\tif (x < 0) print('-'), x = -x;\n\t\t\tsize_t digit = integer_digits(x);\n\
+    \t\t\tsize_t len = digit;\n\t\t\twhile (len >= 4) {\n\t\t\t\tlen -= 4;\n\t\t\t\
+    \tmemcpy(outbuf + pos + len, block_str.get() + (x % block_size) * 4, 4);\n\t\t\
+    \t\tx /= 10000;\n\t\t\t}\n\t\t\tmemcpy(outbuf + pos, block_str.get() + x * 4 +\
+    \ 4 - len, len);\n\t\t\tpos += digit;\n\t\t}\n\t\ttemplate <typename T, class...\
+    \ Args>\n\t\tvoid print(const T& x, const Args&... args) {\n\t\t\tprint(x);\n\t\
+    \t\tprint(' ');\n\t\t\tprint(args...);\n\t\t}\n\t\ttemplate <class... Args>\n\t\
+    \tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\t\t\tprint('\\\
+    n');\n\t\t}\n\t\ttemplate <typename T,\n\t\t\t\t  std::enable_if_t<std::is_same_v<T,\
+    \ char> || std::is_same_v<T, char*> ||\n\t\t\t\t\t\t\t\t\t   std::is_same_v<T,\
+    \ std::string> || std::is_integral_v<T>,\n\t\t\t\t\t\t\t\t   std::nullptr_t> =\
+    \ nullptr>\n\t\tPrinter& operator<<(const T& x) {\n\t\t\tprint(x);\n\t\t\treturn\
+    \ *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]> Printer::block_str = Printer::precompute();\n\
+    };\t// namespace FastIO\n\n/**\n * @title Fast IO library\n */\n#line 3 \"other/type_traits.hpp\"\
+    \n\nclass ModInt__Base {};\nclass StaticModInt__Base : ModInt__Base {};\nclass\
+    \ DynamicModInt__Base : ModInt__Base {};\n\ntemplate <class T>\nclass is_ModInt\
+    \ : public std::is_base_of<ModInt__Base, T> {};\ntemplate <class T>\nconstexpr\
+    \ bool is_ModInt_v = is_ModInt<T>::value;\n\ntemplate <class T>\nclass is_StaticModInt\
+    \ : public std::is_base_of<StaticModInt__Base, T> {};\ntemplate <class T>\nconstexpr\
+    \ bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\ntemplate <class T>\n\
+    class is_DynamicModInt : public std::is_base_of<DynamicModInt__Base, T> {};\n\
+    template <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
     #line 4 \"math/StaticModInt.hpp\"\ntemplate <int modulo>\nclass StaticModInt :\
     \ StaticModInt__Base {\n\tuint value;\n\tstatic constexpr int inv1000000007[]\
     \ = {0,\t\t   1,\t\t  500000004, 333333336,\n\t\t\t\t\t\t\t\t\t\t\t250000002,\
@@ -279,103 +346,95 @@ data:
     \ mul1 = internal_convolution<T, mod1>(f, g);\n\t\tstd::vector<StaticModInt<mod2>>\
     \ mul2 = internal_convolution<T, mod2>(f, g);\n\t\tstd::vector<lint> res(mul1.size());\n\
     \t\trep(i, mul1.size()) res[i] = ChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\
-    \t\treturn res;\n\t}\n};\n\n/**\n * @title NumberTheoreticTransform\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"StaticModInt.hpp\"\
-    \n// 1012924417, 5, 2^21\n// 924844033, 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769,\
-    \ 3, 2^24\n// 167772161, 3, 2^25\n// 1107296257, 10, 2^25\n// 469762049, 3, 2^26\n\
-    class NumberTheoreticTransform {\n\tstatic int constexpr friendly_limit(int p)\
-    \ { return __builtin_ffs(p - 1) - 1; }\n\n  public:\n\ttemplate <int modulo>\n\
-    \tstatic void ntt(std::vector<StaticModInt<modulo>>& a, bool inverse,\n\t\t\t\t\
-    \tint size = -1) {  // size should be one of powers of two\n\t\tif (size == -1)\
-    \ size = a.size();\n\t\tif (size == 1) return;\n\t\ta.resize(size);\n\t\tconst\
-    \ StaticModInt<modulo> root = StaticModInt<modulo>::primitive_root().pow(\n\t\t\
-    \tinverse ? modulo - 1 - (modulo - 1) / size : (modulo - 1) / size);\n\n\t\tstd::vector<StaticModInt<modulo>>\
-    \ b(size);\n\t\tStaticModInt<modulo> r_p = root;\n\t\tfor (int i = size >> 1,\
-    \ w = 1; w < size; i >>= 1, w <<= 1) {\n\t\t\tStaticModInt<modulo> r_pp = 1;\n\
-    \t\t\tfor (int j = 0; j < i; j++, r_pp *= r_p) {\n\t\t\t\tfor (int k = 0; k <\
-    \ w; k++) {\n\t\t\t\t\tb[k + ((w * j) << 1)] = a[k + w * j] + a[k + w * j + (size\
-    \ >> 1)];\n\t\t\t\t\tb[k + ((w * j) << 1) + w] = r_pp * (a[k + w * j] - a[k +\
-    \ w * j + (size >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a, b);\n\t\t\tr_p\
-    \ *= r_p;\n\t\t}\n\t}\n\n  private:\n\ttemplate <class T, int modulo>\n\tstatic\
-    \ std::vector<StaticModInt<modulo>> internal_convolution(const std::vector<T>&\
-    \ f_,\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  const std::vector<T>& g_) {\n\t\tstd::vector<StaticModInt<modulo>>\
-    \ f(f_.size()), g(g_.size());\n\t\trep(i, f_.size()) f[i] = f_[i];\n\t\trep(i,\
-    \ g_.size()) g[i] = g_[i];\n\t\treturn internal_convolution(std::move(f), std::move(g));\n\
-    \t}\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>> internal_convolution(\n\
-    \t\tconst std::vector<StaticModInt<modulo>>& f, const std::vector<StaticModInt<modulo>>&\
-    \ g) {\n\t\tauto f_ = f, g_ = g;\n\t\treturn internal_convolution(std::move(f_),\
-    \ std::move(g_));\n\t}\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>>\
-    \ internal_convolution(\n\t\tconst std::vector<StaticModInt<modulo>>& f, std::vector<StaticModInt<modulo>>&&\
-    \ g) {\n\t\tauto f_ = f;\n\t\treturn internal_convolution(std::move(f_), std::move(g));\n\
-    \t}\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>> internal_convolution(\n\
-    \t\tstd::vector<StaticModInt<modulo>>& f, const std::vector<StaticModInt<modulo>>&&\
-    \ g) {\n\t\tauto g_ = g;\n\t\treturn internal_convolution(std::move(f), std::move(g_));\n\
-    \t}\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>> internal_convolution(\n\
-    \t\tstd::vector<StaticModInt<modulo>>&& f, std::vector<StaticModInt<modulo>>&&\
-    \ g) {\n\t\tsize_t target_size = f.size() + g.size() - 1, sz = 1;\n\t\twhile (sz\
-    \ < target_size) sz <<= 1;\n\t\tf.resize(sz), g.resize(sz);\n\t\tntt(f, false),\
-    \ ntt(g, false);\n\t\trep(i, f.size()) f[i] *= g[i];\n\t\tntt(f, true);\n\t\t\
-    StaticModInt<modulo> inv = StaticModInt<modulo>(sz).inv();\n\t\trep(i, f.size())\
-    \ f[i] *= inv;\n\t\tf.resize(target_size);\n\t\treturn std::move(f);\n\t}\n\n\
-    \  public:\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>>\
-    \ convolution(\n\t\tconst std::vector<StaticModInt<modulo>>& f, const std::vector<StaticModInt<modulo>>&\
-    \ g) {\n\t\tif (1 << friendly_limit(modulo) >= f.size() + g.size() - 1) {\n\t\t\
-    \tauto f_ = f, g_ = g;\n\t\t\treturn internal_convolution<modulo>(std::move(f_),\
-    \ std::move(g_));\n\t\t} else if (1 << friendly_limit(modulo) + 2 >= f.size()\
-    \ + g.size() - 1) {\n\t\t\tint sz = 1 << friendly_limit(modulo) - 1;\n\t\t\tstd::vector<std::vector<StaticModInt<modulo>>>\
-    \ f_, g_;\n\t\t\tfor (int i = 0; i * sz < f.size(); i++)\n\t\t\t\tf_.emplace_back(f.begin()\
-    \ + i * sz,\n\t\t\t\t\t\t\t\tf.begin() + std::min((int)f.size(), (i + 1) * sz));\n\
-    \t\t\tfor (int i = 0; i * sz < g.size(); i++)\n\t\t\t\tg_.emplace_back(g.begin()\
-    \ + i * sz,\n\t\t\t\t\t\t\t\tg.begin() + std::min((int)g.size(), (i + 1) * sz));\n\
-    \t\t\tstd::vector<StaticModInt<modulo>> res(f.size() + g.size() - 1);\n\t\t\t\
-    rep(i, f_.size()) {\n\t\t\t\trep(j, g_.size()) {\n\t\t\t\t\tauto tmp =\n\t\t\t\
-    \t\t\tinternal_convolution<modulo>(j == g_.size() - 1 ? std::move(f_[i]) : f_[i],\n\
-    \t\t\t\t\t\t\t\t\t\t\t\t\t i == f_.size() - 1 ? std::move(g_[j]) : g_[j]);\n\t\
-    \t\t\t\trep(k, tmp.size()) res[(i + j) * sz + k] += tmp[k];\n\t\t\t\t}\n\t\t\t\
-    }\n\t\t\treturn res;\n\t\t}\n\t\tconstexpr int base1 = 167772161, base2 = 1107296257,\
-    \ base3 = 469762049;\n\t\tauto re1 = internal_convolution<StaticModInt<modulo>,\
-    \ base1>(f, g);\n\t\tauto re2 = internal_convolution<StaticModInt<modulo>, base2>(f,\
-    \ g);\n\t\tauto re3 = internal_convolution<StaticModInt<modulo>, base3>(f, g);\n\
-    \t\tstd::vector<StaticModInt<modulo>> res(re1.size());\n\t\tconstexpr int r12\
-    \ = StaticModInt<base2>(base1).inv();\n\t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\
-    \t\tconstexpr int r23 = StaticModInt<base3>(base2).inv();\n\t\trep(i, re1.size())\
-    \ {\n\t\t\tre2[i] = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i]\
-    \ = (StaticModInt<base3>(re3[i] - re1[i]) * r13 - re2[i]) * r23;\n\t\t\tres[i]\
-    \ = StaticModInt<modulo>(re1[i]) + StaticModInt<modulo>(re2[i]) * base1 +\n\t\t\
-    \t\t\t StaticModInt<modulo>(re3[i]) * base1 * base2;\n\t\t}\n\t\treturn res;\n\
-    \t}\n\ttemplate <int modulo, class T>\n\tstatic std::vector<StaticModInt<modulo>>\
-    \ convolution(const std::vector<T>& f,\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t const std::vector<T>&\
-    \ g) {\n\t\tstd::vector<StaticModInt<modulo>> f_(f.size()), g_(g.size());\n\t\t\
-    rep(i, f.size()) f_[i] = f[i];\n\t\trep(i, g.size()) g_[i] = g[i];\n\t\treturn\
-    \ convolution(f_, g_);\n\t}\n\ttemplate <class T>\n\tstatic std::vector<lint>\
-    \ convolution_plain(const std::vector<T>& f, const std::vector<T>& g) {\n\t\t\
-    const int mod1 = 998244353, mod2 = 1224736769;\n\t\tstd::vector<StaticModInt<mod1>>\
-    \ mul1 = internal_convolution<T, mod1>(f, g);\n\t\tstd::vector<StaticModInt<mod2>>\
-    \ mul2 = internal_convolution<T, mod2>(f, g);\n\t\tstd::vector<lint> res(mul1.size());\n\
-    \t\trep(i, mul1.size()) res[i] = ChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\
-    \t\treturn res;\n\t}\n};\n\n/**\n * @title NumberTheoreticTransform\n */"
+    \t\treturn res;\n\t}\n};\n\n/**\n * @title NumberTheoreticTransform\n */\n#line\
+    \ 4 \"math/FormalPowerSeries.hpp\"\n\ntemplate <class T, std::enable_if_t<is_ModInt_v<T>,\
+    \ std::nullptr_t> = nullptr>\nclass FormalPowerSeries : public std::vector<T>\
+    \ {\n  private:\n\tusing NTT = NumberTheoreticTransform;\n\tusing FPS = FormalPowerSeries<T>;\n\
+    \tusing std::vector<T>::vector;\n\n  public:\n\tFormalPowerSeries(const std::vector<T>&\
+    \ vec) : std::vector<T>(vec) {}\n\n\tFPS operator-() const {\n\t\tFPS res(*this);\n\
+    \t\tfor (T& i : res) i = -i;\n\t\treturn res;\n\t}\n\n\ttemplate <class U>\n\t\
+    FPS& operator+=(const U& v) {\n\t\tif (this->empty())\n\t\t\tthis->emplace_back(v);\n\
+    \t\telse\n\t\t\t(*this)[0] += v;\n\t\treturn *this;\n\t}\n\ttemplate <class U>\n\
+    \tFPS operator+(const U& v) const {\n\t\tFPS res(*this);\n\t\treturn res += v;\n\
+    \t}\n\tFPS operator+=(const FPS& f) {\n\t\tthis->resize(std::max(this->size(),\
+    \ f.size()));\n\t\trep(i, this->size())(*this)[i] += f[i];\n\t\treturn *this;\n\
+    \t}\n\tFPS operator+(const FPS& f) const {\n\t\tFPS res(*this);\n\t\treturn res\
+    \ += f;\n\t}\n\n\ttemplate <class U>\n\tFPS& operator-=(const U& v) {\n\t\tif\
+    \ (this->empty())\n\t\t\tthis->emplace_back(-v);\n\t\telse\n\t\t\t(*this)[0] -=\
+    \ v;\n\t\treturn *this;\n\t}\n\ttemplate <class U>\n\tFPS operator-(const U& v)\
+    \ const {\n\t\tFPS res(*this);\n\t\treturn res -= v;\n\t}\n\tFPS operator-=(const\
+    \ FPS& f) {\n\t\tthis->resize(std::max(this->size(), f.size()));\n\t\trep(i, std::min(this->size(),\
+    \ f.size()))(*this)[i] -= f[i];\n\t\treturn *this;\n\t}\n\tFPS operator-(const\
+    \ FPS& f) const {\n\t\tFPS res(*this);\n\t\treturn res -= f;\n\t}\n\n\ttemplate\
+    \ <class U>\n\tFPS& operator*=(const U& v) {\n\t\tfor (T& i : *this) i *= v;\n\
+    \t\treturn *this;\n\t}\n\ttemplate <class U>\n\tFPS operator*(const U& v) const\
+    \ {\n\t\tFPS res(*this);\n\t\treturn res *= v;\n\t}\n\tFPS operator*=(const FPS&\
+    \ f) {\n\t\t*this = NTT::convolution(*this, f);\n\t\treturn *this;\n\t}\n\tFPS\
+    \ operator*(const FPS& f) const { return NTT::convolution(*this, f); }\n\n\ttemplate\
+    \ <class U>\n\tFPS& operator/=(const U& v) {\n\t\treturn *this *= T(v).inv();\n\
+    \t}\n\ttemplate <class U>\n\tFPS operator/(const U& v) const {\n\t\treturn *this\
+    \ * T(v).inv();\n\t}\n\tFPS operator/=(const FPS& f) {\n\t\t*this = *this * f.inv();\n\
+    \t\treturn *this;\n\t}\n\tFPS operator/(const FPS& f) const { return *this * f.inv();\
+    \ }\n\n\tvoid differentiate() {\n\t\tthis->erase(this->begin());\n\t\tREP(i, this->size())(*this)[i\
+    \ - 1] *= i;\n\t}\n\t[[nodiscard]] FPS differential() {\n\t\tFPS res = *this;\n\
+    \t\tres.differentiate();\n\t\treturn res;\n\t}\n\n\tvoid integrate() {\n\t\tthis->insert(this->begin(),\
+    \ 0);\n\t\tREP(i, this->size() - 1)(*this)[i] /= i;\n\t}\n\t[[nodiscard]] FPS\
+    \ integral() {\n\t\tFPS res = *this;\n\t\tres.integrate();\n\t\treturn res;\n\t\
+    }\n\n\tvoid invert() { invert(this->size()); }\n\tvoid invert(size_t len) { *this\
+    \ = FPS(len); }\n\t[[nodiscard]] FPS inv() const { return inv(this->size()); }\n\
+    \t[[nodiscard]] FPS inv(size_t len) const {\n\t\tFPS res;\n\t\tsize_t n = 1;\n\
+    \t\tres.emplace_back((*this)[0].inv());\n\t\twhile (n < len) {\n\t\t\tn <<= 1;\n\
+    \t\t\tFPS f(n), g(n);\n\t\t\trep(i, std::min(this->size(), n)) f[i] = (*this)[i];\n\
+    \t\t\trep(i, res.size()) g[i] = res[i];\n\t\t\tNTT::ntt(f, false, n);\n\t\t\t\
+    NTT::ntt(g, false, n);\n\t\t\trep(i, n) f[i] *= g[i];\n\t\t\tNTT::ntt(f, true,\
+    \ n);\n\t\t\tT inv = T(n).inv();\n\t\t\trep(i, n >> 1) f[i] = 0, f[i + (n >> 1)]\
+    \ *= inv;\n\t\t\tNTT::ntt(f, false, n);\n\t\t\trep(i, n) f[i] *= g[i];\n\t\t\t\
+    NTT::ntt(f, true, n);\n\t\t\trep(i, n >> 1) f[i + (n >> 1)] *= -inv;\n\t\t\tres.insert(res.end(),\
+    \ f.begin() + (n >> 1), f.begin() + n);\n\t\t}\n\t\tres.resize(len);\n\t\treturn\
+    \ std::move(res);\n\t}\n\n\t[[nodiscard]] FPS log() { return log(this->size());\
+    \ }\n\t[[nodiscard]] FPS log(size_t len) {\n\t\tFPS differentiated = differential();\n\
+    \t\tFPS tmp = differentiated / *this;\n\t\ttmp.resize(len - 1);\n\t\treturn tmp.integral();\n\
+    \t}\n\n\t[[nodiscard]] FPS exp() { return exp(this->size()); }\n\t[[nodiscard]]\
+    \ FPS exp(size_t len) {\n\t\tFPS res(1, 1);\n\t\tsize_t n = 1;\n\t\twhile (n <\
+    \ len) {\n\t\t\tn <<= 1;\n\t\t\tauto tmp = *this + 1;\n\t\t\ttmp -= res.log(n);\n\
+    \t\t\tres *= tmp;\n\t\t\tres.resize(std::min(len, 2 * n));\n\t\t}\n\t\treturn\
+    \ res;\n\t}\n\n\t[[nodiscard]] FPS pow(lint k) { return pow(k, this->size());\
+    \ }\n\t[[nodiscard]] FPS pow(lint k, size_t len) {\n\t\trep(i, len) {\n\t\t\t\
+    if (i && (len < k || len < k * i)) break;\n\t\t\tif ((*this)[i]) {\n\t\t\t\tFPS\
+    \ res = FPS(this->begin() + i, this->end()) / (*this)[i];\n\t\t\t\tres = (res.log()\
+    \ * k).exp();\n\t\t\t\tres.resize(len);\n\t\t\t\tT c = (*this)[i].pow(k);\n\t\t\
+    \t\tfor (int j = len - 1; j >= 0; j--) {\n\t\t\t\t\tif (i && (j < k || j < k *\
+    \ i))\n\t\t\t\t\t\tres[j] = 0;\n\t\t\t\t\telse\n\t\t\t\t\t\tres[j] = res[j - i\
+    \ * k] * c;\n\t\t\t\t}\n\t\t\t\treturn res;\n\t\t\t}\n\t\t}\n\t\tFPS res(len);\n\
+    \t\tif (!k) res[0] = 1;\n\t\treturn res;\n\t}\n};\n#line 6 \"test/yosupo/pow_of_formal_power_series.test.cpp\"\
+    \n\nusing ModInt = StaticModInt<998244353>;\nusing FPS = FormalPowerSeries<ModInt>;\n\
+    FastIO::Scanner cin;\nFastIO::Printer cout;\nint main() {\n\tint N;\n\tlint M;\n\
+    \tcin >> N >> M;\n\tFPS vec(N);\n\trep(i, N) cin >> vec[i];\n\tcout << vec.pow(M)\
+    \ << '\\n';\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series\"\
+    \n#include \"../../other/template.hpp\"\n#include \"../../other/FastIO.hpp\"\n\
+    #include \"../../math/StaticModInt.hpp\"\n#include \"../../math/FormalPowerSeries.hpp\"\
+    \n\nusing ModInt = StaticModInt<998244353>;\nusing FPS = FormalPowerSeries<ModInt>;\n\
+    FastIO::Scanner cin;\nFastIO::Printer cout;\nint main() {\n\tint N;\n\tlint M;\n\
+    \tcin >> N >> M;\n\tFPS vec(N);\n\trep(i, N) cin >> vec[i];\n\tcout << vec.pow(M)\
+    \ << '\\n';\n}"
   dependsOn:
   - other/template.hpp
+  - other/FastIO.hpp
   - math/StaticModInt.hpp
   - other/type_traits.hpp
-  isVerificationFile: false
-  path: math/NumberTheoreticTransform.hpp
-  requiredBy:
   - math/FormalPowerSeries.hpp
+  - math/NumberTheoreticTransform.hpp
+  isVerificationFile: true
+  path: test/yosupo/pow_of_formal_power_series.test.cpp
+  requiredBy: []
   timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_WA
-  verifiedWith:
-  - test/yosupo/convolution_mod_1000000007.test.cpp
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/convolution_mod_large.test.cpp
-  - test/yosupo/pow_of_formal_power_series.test.cpp
-  - test/yosupo/log_of_formal_power_series.test.cpp
-  - test/yosupo/exp_of_formal_power_series.test.cpp
-  - test/yosupo/inv_of_formal_power_series.test.cpp
-documentation_of: math/NumberTheoreticTransform.hpp
+  verificationStatus: TEST_WRONG_ANSWER
+  verifiedWith: []
+documentation_of: test/yosupo/pow_of_formal_power_series.test.cpp
 layout: document
 redirect_from:
-- /library/math/NumberTheoreticTransform.hpp
-- /library/math/NumberTheoreticTransform.hpp.html
-title: NumberTheoreticTransform
+- /verify/test/yosupo/pow_of_formal_power_series.test.cpp
+- /verify/test/yosupo/pow_of_formal_power_series.test.cpp.html
+title: test/yosupo/pow_of_formal_power_series.test.cpp
 ---

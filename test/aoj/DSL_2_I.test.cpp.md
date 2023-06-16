@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: data-structure/IntervalSegTree.hpp
     title: Interval Segment Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: data-structure/SegTree.hpp
     title: Segment Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -22,19 +22,17 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I
   bundledCode: "#line 1 \"test/aoj/DSL_2_I.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_I\"\
     \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n\
-    #ifdef ONLINE_JUDGE\n#ifdef _WIN64\n#pragma GCC target(\"avx2\")\n#else\n#pragma\
-    \ GCC target(\"avx512f\")\n#endif\n#elif defined EVAL\n#else\n#pragma GCC target(\"\
-    avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
-    \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
-    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
-    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
-    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
-    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
-    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
-    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
-    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    #pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n\
+    #include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
+    #include <cassert>\n#include <cfloat>\n#include <chrono>\n#include <climits>\n\
+    #include <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include\
+    \ <fstream>\n#include <functional>\n#include <iomanip>\n#include <iostream>\n\
+    #include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n#include\
+    \ <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include <string>\n\
+    #include <unordered_map>\n#include <unordered_set>\n#include <utility>\n#include\
+    \ <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define REP(i,\
+    \ n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\n\
+    using i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
     using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
     \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
     constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON * 10;\n\
@@ -50,19 +48,19 @@ data:
     \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
     return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
     \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(n,\
-    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U>\n\
-    std::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn ist\
-    \ >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
-    \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
-    }\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
+    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U, class\
+    \ Stream>\nStream& operator>>(Stream& ist, std::pair<T, U>& x) {\n\treturn ist\
+    \ >> x.first >> x.second;\n}\ntemplate <class T, class U, class Stream>\nStream&\
+    \ operator<<(Stream& ost, const std::pair<T, U>& x) {\n\treturn ost << x.first\
+    \ << \" \" << x.second;\n}\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
     \ std::string>::value, std::nullptr_t> = nullptr>\nauto operator>>(std::istream&\
     \ ist, Container& cont)\n\t-> decltype(typename Container::iterator(), std::cin)&\
     \ {\n\tContainer tmp;\n\twhile (true) {\n\t\ttypename Container::value_type t;\n\
     \t\tist >> t;\n\t\ttmp.emplace_back(t);\n\t\tif (getchar() == '\\n') break;\n\t\
-    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\n\
-    \t\t  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t>\
-    \ = nullptr>\nauto operator<<(std::ostream& ost, const Container& cont)\n\t->\
-    \ decltype(typename Container::iterator(), std::cout)& {\n\tfor (auto it = cont.begin();\
+    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\
+    \ class Stream,\n\t\t  std::enable_if_t<!std::is_same<Container, std::string>::value,\
+    \ std::nullptr_t> = nullptr>\nauto operator<<(Stream& ost, const Container& cont)\n\
+    \t-> decltype(typename Container::iterator(), ost)& {\n\tfor (auto it = cont.begin();\
     \ it != cont.end(); it++) {\n\t\tif (it != cont.begin()) ost << ' ';\n\t\tost\
     \ << *it;\n\t}\n\treturn ost;\n}\ntemplate <class Container>\nauto sum(const Container&\
     \ cont) -> decltype(typename Container::iterator(), 0LL) {\n\tlint res = 0;\n\t\
@@ -171,21 +169,20 @@ data:
     \ntemplate <typename T, typename U = void>\nclass RMiQ : public SegTree<T, RMiQ_nodef>\
     \ {\n\tusing Base = SegTree<T, RMiQ_nodef>;\n\n  public:\n\ttemplate <class...\
     \ Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)...) {}\n};\ntemplate\
-    \ <typename T>\nclass RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
-    \ std::nullptr_t>>\n\t: public SegTree<T, RMiQ_nodef> {\n\tusing Base = SegTree<T,\
-    \ RMiQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMiQ(Args&&... args)\
-    \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::max()) {}\n};\n\n\
-    template <typename T, typename U = void>\nclass RMaQ : public SegTree<T, RMaQ_nodef>\
-    \ {\n\tusing Base = SegTree<T, RMaQ_nodef>;\n\n  public:\n\ttemplate <class...\
-    \ Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)...) {}\n};\ntemplate\
-    \ <typename T>\nclass RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized,\
-    \ std::nullptr_t>>\n\t: public SegTree<T, RMaQ_nodef> {\n\tusing Base = SegTree<T,\
+    \ <typename T>\nclass RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized>>\n\
+    \t: public SegTree<T, RMiQ_nodef> {\n\tusing Base = SegTree<T, RMiQ_nodef>;\n\n\
+    \  public:\n\ttemplate <class... Args>\n\tRMiQ(Args&&... args) : Base(std::forward<Args>(args)...,\
+    \ std::numeric_limits<T>::max()) {}\n};\n\ntemplate <typename T, typename U =\
+    \ void>\nclass RMaQ : public SegTree<T, RMaQ_nodef> {\n\tusing Base = SegTree<T,\
     \ RMaQ_nodef>;\n\n  public:\n\ttemplate <class... Args>\n\tRMaQ(Args&&... args)\
-    \ : Base(std::forward<Args>(args)..., std::numeric_limits<T>::min()) {}\n};\n\
-    #line 4 \"data-structure/IntervalSegTree.hpp\"\ntemplate <class T, class U, T\
-    \ (*nodef)(const T&, const T&),\n\t\t  void (*lazyf)(U&, const U&),\n\t\t  void\
-    \ (*updf)(T&, const U&, const unsigned int&)>\nclass IntervalSegTree : public\
-    \ SegTree<T, nodef> {\n\tusing Base = SegTree<T, nodef>;\n\tusing Base::ident;\n\
+    \ : Base(std::forward<Args>(args)...) {}\n};\ntemplate <typename T>\nclass RMaQ<T,\
+    \ std::enable_if_t<std::numeric_limits<T>::is_specialized>>\n\t: public SegTree<T,\
+    \ RMaQ_nodef> {\n\tusing Base = SegTree<T, RMaQ_nodef>;\n\n  public:\n\ttemplate\
+    \ <class... Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)...,\
+    \ std::numeric_limits<T>::min()) {}\n};\n#line 4 \"data-structure/IntervalSegTree.hpp\"\
+    \ntemplate <class T, class U, T (*nodef)(const T&, const T&),\n\t\t  void (*lazyf)(U&,\
+    \ const U&),\n\t\t  void (*updf)(T&, const U&, const unsigned int&)>\nclass IntervalSegTree\
+    \ : public SegTree<T, nodef> {\n\tusing Base = SegTree<T, nodef>;\n\tusing Base::ident;\n\
     \tusing Base::n;\n\tusing Base::node;\n\tusing Base::rank;\n\tstd::vector<U> lazy;\n\
     \tstd::vector<bool> lazyflag;\n\tstd::vector<int> width;\n\tvoid eval(int k) {\n\
     \t\tfor (int i = rank; i > 0; i--) {\n\t\t\tint nk = k >> i;\n\t\t\tif (lazyflag[nk])\
@@ -326,7 +323,7 @@ data:
   isVerificationFile: true
   path: test/aoj/DSL_2_I.test.cpp
   requiredBy: []
-  timestamp: '2023-01-15 02:50:24+09:00'
+  timestamp: '2023-06-16 19:42:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/DSL_2_I.test.cpp

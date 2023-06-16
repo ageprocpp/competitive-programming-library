@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/Tree.hpp
     title: Basic algorithms for tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -19,14 +19,12 @@ data:
     - https://judge.yosupo.jp/problem/tree_diameter
   bundledCode: "#line 1 \"test/yosupo/tree_diameter.test.cpp\"\n#define PROBLEM \"\
     https://judge.yosupo.jp/problem/tree_diameter\"\n#line 2 \"other/template.hpp\"\
-    \n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef\
-    \ _WIN64\n#pragma GCC target(\"avx2\")\n#else\n#pragma GCC target(\"avx512f\"\
-    )\n#endif\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma\
-    \ GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include\
-    \ <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n#include\
-    \ <cassert>\n#include <cfloat>\n#include <chrono>\n#include <climits>\n#include\
-    \ <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n\
-    #include <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    \n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#pragma GCC optimize(\"\
+    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include\
+    \ <algorithm>\n#include <array>\n#include <bitset>\n#include <cassert>\n#include\
+    \ <cfloat>\n#include <chrono>\n#include <climits>\n#include <cmath>\n#include\
+    \ <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
     #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
@@ -48,19 +46,19 @@ data:
     \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
     return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
     \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(n,\
-    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U>\n\
-    std::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn ist\
-    \ >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
-    \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
-    }\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
+    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U, class\
+    \ Stream>\nStream& operator>>(Stream& ist, std::pair<T, U>& x) {\n\treturn ist\
+    \ >> x.first >> x.second;\n}\ntemplate <class T, class U, class Stream>\nStream&\
+    \ operator<<(Stream& ost, const std::pair<T, U>& x) {\n\treturn ost << x.first\
+    \ << \" \" << x.second;\n}\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
     \ std::string>::value, std::nullptr_t> = nullptr>\nauto operator>>(std::istream&\
     \ ist, Container& cont)\n\t-> decltype(typename Container::iterator(), std::cin)&\
     \ {\n\tContainer tmp;\n\twhile (true) {\n\t\ttypename Container::value_type t;\n\
     \t\tist >> t;\n\t\ttmp.emplace_back(t);\n\t\tif (getchar() == '\\n') break;\n\t\
-    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\n\
-    \t\t  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t>\
-    \ = nullptr>\nauto operator<<(std::ostream& ost, const Container& cont)\n\t->\
-    \ decltype(typename Container::iterator(), std::cout)& {\n\tfor (auto it = cont.begin();\
+    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\
+    \ class Stream,\n\t\t  std::enable_if_t<!std::is_same<Container, std::string>::value,\
+    \ std::nullptr_t> = nullptr>\nauto operator<<(Stream& ost, const Container& cont)\n\
+    \t-> decltype(typename Container::iterator(), ost)& {\n\tfor (auto it = cont.begin();\
     \ it != cont.end(); it++) {\n\t\tif (it != cont.begin()) ost << ' ';\n\t\tost\
     \ << *it;\n\t}\n\treturn ost;\n}\ntemplate <class Container>\nauto sum(const Container&\
     \ cont) -> decltype(typename Container::iterator(), 0LL) {\n\tlint res = 0;\n\t\
@@ -159,7 +157,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/tree_diameter.test.cpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
+  timestamp: '2023-06-16 19:42:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/tree_diameter.test.cpp

@@ -15,7 +15,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/DynamicSegTree.hpp
       title: Dynamic Segment Tree
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: data-structure/IntervalSegTree.hpp
       title: Interval Segment Tree
     - icon: ':heavy_check_mark:'
@@ -36,10 +36,10 @@ data:
     - icon: ':warning:'
       path: data-structure/RBSTset.hpp
       title: Set based on Randomized Binary Search Tree
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: data-structure/SWAG.hpp
       title: Sliding Window Aggregation
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: data-structure/SegTree.hpp
       title: Segment Tree
     - icon: ':heavy_check_mark:'
@@ -71,7 +71,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/Graph.hpp
       title: graph/Graph.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: graph/HeavyLightDecomposition.hpp
       title: Heavy light decomposition
     - icon: ':warning:'
@@ -115,25 +115,22 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/FloorSum.hpp
       title: FloorSum
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: math/FormalPowerSeries.hpp
       title: math/FormalPowerSeries.hpp
     - icon: ':heavy_check_mark:'
       path: math/Geometry.hpp
       title: math/Geometry.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: math/Matrix.hpp
       title: Matrix
     - icon: ':warning:'
       path: math/MyComplex.hpp
       title: MyComplex
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: math/NumberTheoreticTransform.hpp
       title: NumberTheoreticTransform
-    - icon: ':warning:'
-      path: math/Polynomial.hpp
-      title: math/Polynomial.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: math/StaticModInt.hpp
       title: StaticModInt
     - icon: ':warning:'
@@ -141,16 +138,16 @@ data:
       title: math/XorConvolution.hpp
   - name: other
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: other/FastIO.hpp
       title: Fast IO library
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: other/template.hpp
       title: other/template.hpp
     - icon: ':warning:'
       path: other/testlib.h
       title: other/testlib.h
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: other/type_traits.hpp
       title: other/type_traits.hpp
   - name: string
@@ -158,10 +155,10 @@ data:
     - icon: ':warning:'
       path: string/EerTree.hpp
       title: EerTree
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: string/HashedString.hpp
       title: Hash library for strings
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: string/RollingHash.hpp
       title: Rolling hash
     - icon: ':heavy_check_mark:'
@@ -184,7 +181,7 @@ data:
   verificationCategories:
   - name: test/aoj
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/aoj/ALDS1_14_B_HashedString.test.cpp
       title: test/aoj/ALDS1_14_B_HashedString.test.cpp
     - icon: ':heavy_check_mark:'
@@ -270,22 +267,25 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/bipartitematching.test.cpp
       title: test/yosupo/bipartitematching.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/convolution_mod.test.cpp
       title: test/yosupo/convolution_mod.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/convolution_mod_1000000007.test.cpp
       title: test/yosupo/convolution_mod_1000000007.test.cpp
+    - icon: ':x:'
+      path: test/yosupo/convolution_mod_large.test.cpp
+      title: test/yosupo/convolution_mod_large.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/counting_primes.test.cpp
       title: test/yosupo/counting_primes.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/exp_of_formal_power_series.test.cpp
       title: test/yosupo/exp_of_formal_power_series.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/factorize.test.cpp
       title: test/yosupo/factorize.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/inv_of_formal_power_series.test.cpp
       title: test/yosupo/inv_of_formal_power_series.test.cpp
     - icon: ':heavy_check_mark:'
@@ -297,31 +297,34 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
       title: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/log_of_formal_power_series.test.cpp
       title: test/yosupo/log_of_formal_power_series.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/many_aplusb.test.cpp
       title: test/yosupo/many_aplusb.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/matrix_det.test.cpp
       title: test/yosupo/matrix_det.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/matrix_product.test.cpp
       title: test/yosupo/matrix_product.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/point_add_range_sum.test.cpp
       title: test/yosupo/point_add_range_sum.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/point_set_range_composite.test.cpp
       title: test/yosupo/point_set_range_composite.test.cpp
+    - icon: ':x:'
+      path: test/yosupo/pow_of_formal_power_series.test.cpp
+      title: test/yosupo/pow_of_formal_power_series.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/predecessor_problem.test.cpp
       title: test/yosupo/predecessor_problem.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/queue_operate_all_composite.test.cpp
       title: test/yosupo/queue_operate_all_composite.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/range_affine_range_sum.test.cpp
       title: test/yosupo/range_affine_range_sum.test.cpp
     - icon: ':heavy_check_mark:'
@@ -369,7 +372,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/vertex_add_subtree_sum.test.cpp
       title: test/yosupo/vertex_add_subtree_sum.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/yosupo/vertex_set_path_composite.test.cpp
       title: test/yosupo/vertex_set_path_composite.test.cpp
   - name: test/yukicoder

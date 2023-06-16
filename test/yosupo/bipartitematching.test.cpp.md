@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/Dinic.hpp
     title: Dinic's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/FastIO.hpp
     title: Fast IO library
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -22,14 +22,12 @@ data:
     - https://judge.yosupo.jp/problem/bipartitematching
   bundledCode: "#line 1 \"test/yosupo/bipartitematching.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.yosupo.jp/problem/bipartitematching\"\n#line 2 \"other/template.hpp\"\
-    \n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef\
-    \ _WIN64\n#pragma GCC target(\"avx2\")\n#else\n#pragma GCC target(\"avx512f\"\
-    )\n#endif\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma\
-    \ GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include\
-    \ <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n#include\
-    \ <cassert>\n#include <cfloat>\n#include <chrono>\n#include <climits>\n#include\
-    \ <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n\
-    #include <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    \n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#pragma GCC optimize(\"\
+    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include\
+    \ <algorithm>\n#include <array>\n#include <bitset>\n#include <cassert>\n#include\
+    \ <cfloat>\n#include <chrono>\n#include <climits>\n#include <cmath>\n#include\
+    \ <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
     #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
@@ -51,19 +49,19 @@ data:
     \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
     return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
     \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(n,\
-    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U>\n\
-    std::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn ist\
-    \ >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
-    \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
-    }\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
+    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U, class\
+    \ Stream>\nStream& operator>>(Stream& ist, std::pair<T, U>& x) {\n\treturn ist\
+    \ >> x.first >> x.second;\n}\ntemplate <class T, class U, class Stream>\nStream&\
+    \ operator<<(Stream& ost, const std::pair<T, U>& x) {\n\treturn ost << x.first\
+    \ << \" \" << x.second;\n}\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
     \ std::string>::value, std::nullptr_t> = nullptr>\nauto operator>>(std::istream&\
     \ ist, Container& cont)\n\t-> decltype(typename Container::iterator(), std::cin)&\
     \ {\n\tContainer tmp;\n\twhile (true) {\n\t\ttypename Container::value_type t;\n\
     \t\tist >> t;\n\t\ttmp.emplace_back(t);\n\t\tif (getchar() == '\\n') break;\n\t\
-    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\n\
-    \t\t  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t>\
-    \ = nullptr>\nauto operator<<(std::ostream& ost, const Container& cont)\n\t->\
-    \ decltype(typename Container::iterator(), std::cout)& {\n\tfor (auto it = cont.begin();\
+    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\
+    \ class Stream,\n\t\t  std::enable_if_t<!std::is_same<Container, std::string>::value,\
+    \ std::nullptr_t> = nullptr>\nauto operator<<(Stream& ost, const Container& cont)\n\
+    \t-> decltype(typename Container::iterator(), ost)& {\n\tfor (auto it = cont.begin();\
     \ it != cont.end(); it++) {\n\t\tif (it != cont.begin()) ost << ' ';\n\t\tost\
     \ << *it;\n\t}\n\treturn ost;\n}\ntemplate <class Container>\nauto sum(const Container&\
     \ cont) -> decltype(typename Container::iterator(), 0LL) {\n\tlint res = 0;\n\t\
@@ -133,26 +131,28 @@ data:
     \t\t\ts = \"\";\n\t\t\tdo {\n\t\t\t\tsize_t start = pos;\n\t\t\t\twhile (inbuf[pos]\
     \ > ' ') pos++;\n\t\t\t\ts += std::string(inbuf + start, inbuf + pos);\n\t\t\t\
     \tif (inbuf[pos] != '\\0') break;\n\t\t\t\treload();\n\t\t\t} while (true);\n\t\
-    \t}\n\t\ttemplate <typename T,\n\t\t\t\t  std::enable_if_t<std::is_integral<T>::value,\
-    \ std::nullptr_t> = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\tchar c = next_nonspace();\n\
-    \t\t\tif (__builtin_expect(pos + integer_size >= end, 0)) reload();\n\t\t\tbool\
-    \ minus = false;\n\t\t\tif (c == '-')\n\t\t\t\tminus = true, x = 0;\n\t\t\telse\n\
-    \t\t\t\tx = c & 15;\n\t\t\twhile ((c = next()) >= '0') x = x * 10 + (c & 15);\n\
-    \t\t\tif (minus) x = -x;\n\t\t}\n\t\ttemplate <typename T, class... Args>\n\t\t\
-    void scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\t\t\tscan(args...);\n\t\t}\n\
-    \t\ttemplate <typename T>\n\t\tScanner& operator>>(T& x) {\n\t\t\tscan(x);\n\t\
-    \t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\t\tstatic constexpr size_t\
-    \ block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]> block_str;\n\t\
-    \tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\t\t\t\t\t\t\t\t\
-    \t\t  10,\n\t\t\t\t\t\t\t\t\t\t  100,\n\t\t\t\t\t\t\t\t\t\t  1000,\n\t\t\t\t\t\
-    \t\t\t\t\t  10000,\n\t\t\t\t\t\t\t\t\t\t  100000,\n\t\t\t\t\t\t\t\t\t\t  1000000,\n\
-    \t\t\t\t\t\t\t\t\t\t  10000000,\n\t\t\t\t\t\t\t\t\t\t  100000000,\n\t\t\t\t\t\t\
-    \t\t\t\t  1000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000,\n\t\t\t\t\t\t\t\t\t\t\
-    \  100000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000,\n\t\t\t\t\t\t\t\t\t\t \
-    \ 10000000000000,\n\t\t\t\t\t\t\t\t\t\t  100000000000000,\n\t\t\t\t\t\t\t\t\t\t\
-    \  1000000000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000000000,\n\t\t\t\t\t\t\t\
-    \t\t\t  100000000000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000000000};\n\n\t\
-    \tstatic std::unique_ptr<char[]> precompute() {\n\t\t\tstd::unique_ptr<char[]>\
+    \t}\n\t\ttemplate <typename T, std::enable_if_t<std::is_integral_v<T>, std::nullptr_t>\
+    \ = nullptr>\n\t\tvoid scan(T& x) {\n\t\t\tchar c = next_nonspace();\n\t\t\tif\
+    \ (__builtin_expect(pos + integer_size >= end, 0)) reload();\n\t\t\tbool minus\
+    \ = false;\n\t\t\tif (c == '-')\n\t\t\t\tminus = true, x = 0;\n\t\t\telse\n\t\t\
+    \t\tx = c & 15;\n\t\t\twhile ((c = next()) >= '0') x = x * 10 + (c & 15);\n\t\t\
+    \tif (minus) x = -x;\n\t\t}\n\t\ttemplate <typename T, class... Args>\n\t\tvoid\
+    \ scan(T& x, Args&... args) {\n\t\t\tscan(x);\n\t\t\tscan(args...);\n\t\t}\n\t\
+    \ttemplate <typename T,\n\t\t\t\t  std::enable_if_t<std::is_same_v<T, char> ||\
+    \ std::is_same_v<T, std::string> ||\n\t\t\t\t\t\t\t\t\t   std::is_integral_v<T>,\n\
+    \t\t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\t\tScanner& operator>>(T& x) {\n\
+    \t\t\tscan(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\n\tclass Printer {\n\t\tstatic\
+    \ constexpr size_t block_size = 10000;\n\t\tstatic const std::unique_ptr<char[]>\
+    \ block_str;\n\t\tsize_t pos = 0;\n\n\t\tstatic constexpr lint powers[] = {1,\n\
+    \t\t\t\t\t\t\t\t\t\t  10,\n\t\t\t\t\t\t\t\t\t\t  100,\n\t\t\t\t\t\t\t\t\t\t  1000,\n\
+    \t\t\t\t\t\t\t\t\t\t  10000,\n\t\t\t\t\t\t\t\t\t\t  100000,\n\t\t\t\t\t\t\t\t\t\
+    \t  1000000,\n\t\t\t\t\t\t\t\t\t\t  10000000,\n\t\t\t\t\t\t\t\t\t\t  100000000,\n\
+    \t\t\t\t\t\t\t\t\t\t  1000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000,\n\t\t\t\t\
+    \t\t\t\t\t\t  100000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  10000000000000,\n\t\t\t\t\t\t\t\t\t\t  100000000000000,\n\t\t\t\t\t\t\
+    \t\t\t\t  1000000000000000,\n\t\t\t\t\t\t\t\t\t\t  10000000000000000,\n\t\t\t\t\
+    \t\t\t\t\t\t  100000000000000000,\n\t\t\t\t\t\t\t\t\t\t  1000000000000000000};\n\
+    \n\t\tstatic std::unique_ptr<char[]> precompute() {\n\t\t\tstd::unique_ptr<char[]>\
     \ res(new char[block_size * 4]);\n\t\t\trep(i, block_size) {\n\t\t\t\tsize_t j\
     \ = 4, k = i;\n\t\t\t\twhile (j--) {\n\t\t\t\t\tres[i * 4 + j] = k % 10 + '0';\n\
     \t\t\t\t\tk /= 10;\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn res;\n\t\t}\n\t\ttemplate\
@@ -174,48 +174,51 @@ data:
     \tpos = 0;\n\t\t}\n\t\tvoid print() {}\n\t\tvoid print(char c) {\n\t\t\toutbuf[pos++]\
     \ = c;\n\t\t\tif (__builtin_expect(pos == buf_size, 0)) flush();\n\t\t}\n\t\t\
     void print(char* s) {\n\t\t\twhile (*s != 0) {\n\t\t\t\toutbuf[pos++] = *s++;\n\
-    \t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename\
-    \ T,\n\t\t\t\t  std::enable_if_t<std::is_integral<T>::value, std::nullptr_t> =\
-    \ nullptr>\n\t\tvoid print(T x) {\n\t\t\tif (__builtin_expect(pos + integer_size\
-    \ >= buf_size, 0)) flush();\n\t\t\tif (x < 0) print('-'), x = -x;\n\t\t\tsize_t\
-    \ digit = integer_digits(x);\n\t\t\tsize_t len = digit;\n\t\t\twhile (len >= 4)\
-    \ {\n\t\t\t\tlen -= 4;\n\t\t\t\tmemcpy(outbuf + pos + len, block_str.get() + (x\
-    \ % block_size) * 4, 4);\n\t\t\t\tx /= 10000;\n\t\t\t}\n\t\t\tmemcpy(outbuf +\
-    \ pos, block_str.get() + x * 4 + 4 - len, len);\n\t\t\tpos += digit;\n\t\t}\n\t\
-    \tvoid print(const std::string& x) {\n\t\t\tfor (char c : x) {\n\t\t\t\toutbuf[pos++]\
-    \ = c;\n\t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename\
-    \ T, class... Args>\n\t\tvoid print(const T& x, const Args&... args) {\n\t\t\t\
-    print(x);\n\t\t\tprint(' ');\n\t\t\tprint(args...);\n\t\t}\n\t\ttemplate <class...\
-    \ Args>\n\t\tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\t\t\t\
-    print('\\n');\n\t\t}\n\t\ttemplate <typename T>\n\t\tPrinter& operator<<(const\
-    \ T& x) {\n\t\t\tprint(x);\n\t\t\treturn *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]>\
-    \ Printer::block_str = Printer::precompute();\n};\t// namespace FastIO\n\n/**\n\
-    \ * @title Fast IO library\n */\n#line 3 \"graph/Dinic.hpp\"\nclass Dinic {\n\t\
-    class edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t};\n\
-    \tint N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int> iter,\
-    \ level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N, -1);\n\t\tlevel[s] =\
-    \ 0;\n\t\tstd::queue<int> que;\n\t\tque.push(s);\n\t\twhile (!que.empty()) {\n\
-    \t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tif (level[node] == level[t])\
-    \ break;\n\t\t\tfor (const auto& i : vec[node]) {\n\t\t\t\tif (i.cap > 0 && level[i.to]\
-    \ == -1) {\n\t\t\t\t\tlevel[i.to] = level[node] + 1;\n\t\t\t\t\tque.push(i.to);\n\
-    \t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn level[t] != -1;\n\t}\n\tlint dfs(int node,\
-    \ int t, lint f) {\n\t\tif (node == t) return f;\n\t\tfor (int& i = iter[node];\
-    \ i < vec[node].size(); i++) {\n\t\t\tedge& e = vec[node][i];\n\t\t\tif (e.cap\
-    \ > 0 && level[node] < level[e.to] && level[e.to] <= level[t]) {\n\t\t\t\tlint\
-    \ d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\tif (d > 0) {\n\t\t\t\t\te.cap\
-    \ -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\t\t\treturn d;\n\t\t\t\t}\n\
-    \t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\tDinic(int n) : N(n) {\n\t\t\
-    vec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\t}\n\tvoid reset()\
-    \ {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1)\
-    \ {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap = 0;\n\t\t\t\t\
-    }\n\t\t\t}\n\t\t}\n\t}\n\tvoid clear() { *this = Dinic(N); }\n\tvoid add_edge(int\
-    \ from, int to, lint cap) {\n\t\tvec[from].push_back({to, cap, (int)vec[to].size(),\
-    \ -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size() - 1, idx++});\n\
-    \t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\tstd::chrono::system_clock::time_point\
-    \ start, end;\n\t\tint sum = 0;\n\t\twhile (true) {\n\t\t\t// start = std::chrono::system_clock::now();\n\
-    \t\t\tbfs(s, t);\n\t\t\tif (level[t] < 0) {\n\t\t\t\t// std::cout << sum << '\\\
-    n';\n\t\t\t\treturn res;\n\t\t\t}\n\t\t\titer.assign(N, 0);\n\t\t\tlint f;\n\t\
-    \t\twhile ((f = dfs(s, t, LINF)) > 0) res += f;\n\t\t\t// end = std::chrono::system_clock::now();\n\
+    \t\t\t\tif (pos == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\tvoid print(const std::string&\
+    \ x) {\n\t\t\tfor (char c : x) {\n\t\t\t\toutbuf[pos++] = c;\n\t\t\t\tif (pos\
+    \ == buf_size) flush();\n\t\t\t}\n\t\t}\n\t\ttemplate <typename T,\n\t\t\t\t \
+    \ std::enable_if_t<std::is_integral<T>::value, std::nullptr_t> = nullptr>\n\t\t\
+    void print(T x) {\n\t\t\tif (__builtin_expect(pos + integer_size >= buf_size,\
+    \ 0)) flush();\n\t\t\tif (x < 0) print('-'), x = -x;\n\t\t\tsize_t digit = integer_digits(x);\n\
+    \t\t\tsize_t len = digit;\n\t\t\twhile (len >= 4) {\n\t\t\t\tlen -= 4;\n\t\t\t\
+    \tmemcpy(outbuf + pos + len, block_str.get() + (x % block_size) * 4, 4);\n\t\t\
+    \t\tx /= 10000;\n\t\t\t}\n\t\t\tmemcpy(outbuf + pos, block_str.get() + x * 4 +\
+    \ 4 - len, len);\n\t\t\tpos += digit;\n\t\t}\n\t\ttemplate <typename T, class...\
+    \ Args>\n\t\tvoid print(const T& x, const Args&... args) {\n\t\t\tprint(x);\n\t\
+    \t\tprint(' ');\n\t\t\tprint(args...);\n\t\t}\n\t\ttemplate <class... Args>\n\t\
+    \tvoid println(const Args&... args) {\n\t\t\tprint(args...);\n\t\t\tprint('\\\
+    n');\n\t\t}\n\t\ttemplate <typename T,\n\t\t\t\t  std::enable_if_t<std::is_same_v<T,\
+    \ char> || std::is_same_v<T, char*> ||\n\t\t\t\t\t\t\t\t\t   std::is_same_v<T,\
+    \ std::string> || std::is_integral_v<T>,\n\t\t\t\t\t\t\t\t   std::nullptr_t> =\
+    \ nullptr>\n\t\tPrinter& operator<<(const T& x) {\n\t\t\tprint(x);\n\t\t\treturn\
+    \ *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]> Printer::block_str = Printer::precompute();\n\
+    };\t// namespace FastIO\n\n/**\n * @title Fast IO library\n */\n#line 3 \"graph/Dinic.hpp\"\
+    \nclass Dinic {\n\tclass edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\t\
+    int rev, id;\n\t};\n\tint N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\
+    \tstd::vector<int> iter, level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N,\
+    \ -1);\n\t\tlevel[s] = 0;\n\t\tstd::queue<int> que;\n\t\tque.push(s);\n\t\twhile\
+    \ (!que.empty()) {\n\t\t\tint node = que.front();\n\t\t\tque.pop();\n\t\t\tif\
+    \ (level[node] == level[t]) break;\n\t\t\tfor (const auto& i : vec[node]) {\n\t\
+    \t\t\tif (i.cap > 0 && level[i.to] == -1) {\n\t\t\t\t\tlevel[i.to] = level[node]\
+    \ + 1;\n\t\t\t\t\tque.push(i.to);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn level[t]\
+    \ != -1;\n\t}\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node == t) return\
+    \ f;\n\t\tfor (int& i = iter[node]; i < vec[node].size(); i++) {\n\t\t\tedge&\
+    \ e = vec[node][i];\n\t\t\tif (e.cap > 0 && level[node] < level[e.to] && level[e.to]\
+    \ <= level[t]) {\n\t\t\t\tlint d = dfs(e.to, t, std::min(f, e.cap));\n\t\t\t\t\
+    if (d > 0) {\n\t\t\t\t\te.cap -= d;\n\t\t\t\t\tvec[e.to][e.rev].cap += d;\n\t\t\
+    \t\t\treturn d;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn 0;\n\t}\n\n  public:\n\t\
+    Dinic(int n) : N(n) {\n\t\tvec.resize(N);\n\t\tlevel.resize(N);\n\t\titer.resize(N);\n\
+    \t}\n\tvoid reset() {\n\t\trep(i, N) {\n\t\t\tfor (auto& j : vec[i]) {\n\t\t\t\
+    \tif (j.id != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\t\t\tj.cap\
+    \ = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tvoid clear() { *this = Dinic(N); }\n\
+    \tvoid add_edge(int from, int to, lint cap) {\n\t\tvec[from].push_back({to, cap,\
+    \ (int)vec[to].size(), -1});\n\t\tvec[to].push_back({from, 0, (int)vec[from].size()\
+    \ - 1, idx++});\n\t}\n\tlint max_flow(int s, int t) {\n\t\tlint res = 0;\n\t\t\
+    std::chrono::system_clock::time_point start, end;\n\t\tint sum = 0;\n\t\twhile\
+    \ (true) {\n\t\t\t// start = std::chrono::system_clock::now();\n\t\t\tbfs(s, t);\n\
+    \t\t\tif (level[t] < 0) {\n\t\t\t\t// std::cout << sum << '\\n';\n\t\t\t\treturn\
+    \ res;\n\t\t\t}\n\t\t\titer.assign(N, 0);\n\t\t\tlint f;\n\t\t\twhile ((f = dfs(s,\
+    \ t, LINF)) > 0) res += f;\n\t\t\t// end = std::chrono::system_clock::now();\n\
     \t\t\t// sum += std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();\n\
     \t\t}\n\t}\n\tstd::vector<lint> restore() const {\n\t\tstd::vector<lint> res(idx);\n\
     \t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1)\
@@ -245,7 +248,7 @@ data:
   isVerificationFile: true
   path: test/yosupo/bipartitematching.test.cpp
   requiredBy: []
-  timestamp: '2023-03-22 00:26:21+09:00'
+  timestamp: '2023-06-16 19:42:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/yosupo/bipartitematching.test.cpp

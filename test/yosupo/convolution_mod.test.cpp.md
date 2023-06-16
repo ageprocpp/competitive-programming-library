@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: math/NumberTheoreticTransform.hpp
     title: NumberTheoreticTransform
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/convolution_mod
@@ -25,14 +25,12 @@ data:
     - https://judge.yosupo.jp/problem/convolution_mod
   bundledCode: "#line 1 \"test/yosupo/convolution_mod.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.yosupo.jp/problem/convolution_mod\"\n#line 2 \"other/template.hpp\"\
-    \n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#ifdef ONLINE_JUDGE\n#ifdef\
-    \ _WIN64\n#pragma GCC target(\"avx2\")\n#else\n#pragma GCC target(\"avx512f\"\
-    )\n#endif\n#elif defined EVAL\n#else\n#pragma GCC target(\"avx2\")\n#endif\n#pragma\
-    \ GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include\
-    \ <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n#include\
-    \ <cassert>\n#include <cfloat>\n#include <chrono>\n#include <climits>\n#include\
-    \ <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n\
-    #include <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
+    \n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n#pragma GCC optimize(\"\
+    O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n#include <string.h>\n#include\
+    \ <algorithm>\n#include <array>\n#include <bitset>\n#include <cassert>\n#include\
+    \ <cfloat>\n#include <chrono>\n#include <climits>\n#include <cmath>\n#include\
+    \ <complex>\n#include <ctime>\n#include <deque>\n#include <fstream>\n#include\
+    \ <functional>\n#include <iomanip>\n#include <iostream>\n#include <iterator>\n\
     #include <list>\n#include <map>\n#include <memory>\n#include <queue>\n#include\
     \ <random>\n#include <set>\n#include <stack>\n#include <string>\n#include <unordered_map>\n\
     #include <unordered_set>\n#include <utility>\n#include <vector>\n\n#define rep(i,\
@@ -54,19 +52,19 @@ data:
     \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
     return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
     \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(n,\
-    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U>\n\
-    std::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn ist\
-    \ >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
-    \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
-    }\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
+    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U, class\
+    \ Stream>\nStream& operator>>(Stream& ist, std::pair<T, U>& x) {\n\treturn ist\
+    \ >> x.first >> x.second;\n}\ntemplate <class T, class U, class Stream>\nStream&\
+    \ operator<<(Stream& ost, const std::pair<T, U>& x) {\n\treturn ost << x.first\
+    \ << \" \" << x.second;\n}\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
     \ std::string>::value, std::nullptr_t> = nullptr>\nauto operator>>(std::istream&\
     \ ist, Container& cont)\n\t-> decltype(typename Container::iterator(), std::cin)&\
     \ {\n\tContainer tmp;\n\twhile (true) {\n\t\ttypename Container::value_type t;\n\
     \t\tist >> t;\n\t\ttmp.emplace_back(t);\n\t\tif (getchar() == '\\n') break;\n\t\
-    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\n\
-    \t\t  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t>\
-    \ = nullptr>\nauto operator<<(std::ostream& ost, const Container& cont)\n\t->\
-    \ decltype(typename Container::iterator(), std::cout)& {\n\tfor (auto it = cont.begin();\
+    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\
+    \ class Stream,\n\t\t  std::enable_if_t<!std::is_same<Container, std::string>::value,\
+    \ std::nullptr_t> = nullptr>\nauto operator<<(Stream& ost, const Container& cont)\n\
+    \t-> decltype(typename Container::iterator(), ost)& {\n\tfor (auto it = cont.begin();\
     \ it != cont.end(); it++) {\n\t\tif (it != cont.begin()) ost << ' ';\n\t\tost\
     \ << *it;\n\t}\n\treturn ost;\n}\ntemplate <class Container>\nauto sum(const Container&\
     \ cont) -> decltype(typename Container::iterator(), 0LL) {\n\tlint res = 0;\n\t\
@@ -129,42 +127,39 @@ data:
     \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
     \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
     #line 4 \"math/StaticModInt.hpp\"\ntemplate <int modulo>\nclass StaticModInt :\
-    \ StaticModInt__Base {\n\tstd::conditional_t<(modulo > (INT_MAX >> 1)), lint,\
-    \ int> value;\n\tstatic constexpr int inv1000000007[] = {0,\t\t   1,\t\t  500000004,\n\
-    \t\t\t\t\t\t\t\t\t\t\t333333336, 250000002, 400000003,\n\t\t\t\t\t\t\t\t\t\t\t\
-    166666668, 142857144, 125000001,\n\t\t\t\t\t\t\t\t\t\t\t111111112, 700000005},\n\
-    \t\t\t\t\t\t inv998244353[] = {0,\t\t  1,\t\t 499122177,\n\t\t\t\t\t\t\t\t\t\t\
-    \   332748118, 748683265, 598946612,\n\t\t\t\t\t\t\t\t\t\t   166374059, 855638017,\
-    \ 873463809,\n\t\t\t\t\t\t\t\t\t\t   443664157, 299473306};\n\n  public:\n\tstatic\
-    \ constexpr int mod_value = modulo;\n\n\tconstexpr StaticModInt() : value(0) {}\n\
-    \ttemplate <class T,\n\t\t\t  std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,\n\
-    \t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\tconstexpr StaticModInt(T value\
-    \ = 0) : value(value % int(modulo)) {\n\t\tif (this->value < 0) this->value +=\
-    \ modulo;\n\t}\n\tinline constexpr StaticModInt inv() const {\n#if __cplusplus\
-    \ >= 201703L\n\t\tif constexpr (modulo == 1000000007) {\n\t\t\tif (*this <= 10)\
-    \ return inv1000000007[*this];\n\t\t} else if constexpr (modulo == 998244353)\
-    \ {\n\t\t\tif (*this <= 10) return inv998244353[*this];\n\t\t}\n#else\n\t\tif\
-    \ (modulo == 1000000007) {\n\t\t\tif (*this <= 10) return inv1000000007[*this];\n\
-    \t\t} else if (modulo == 998244353) {\n\t\t\tif (*this <= 10) return inv998244353[*this];\n\
-    \t\t}\n#endif\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline constexpr operator\
-    \ int() const { return value; }\n\tinline constexpr StaticModInt& operator+=(const\
-    \ StaticModInt& x) {\n\t\tvalue = value + x.value;\n\t\tif (value >= modulo) value\
-    \ -= modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt& operator++()\
-    \ {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\
-    \t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator++(int) {\n\t\t\
-    StaticModInt res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline constexpr\
-    \ StaticModInt operator-() const {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\
-    \tinline constexpr StaticModInt& operator-=(const StaticModInt& x) {\n\t\tif (value\
-    \ < x.value) value += modulo;\n\t\tvalue -= x.value;\n\t\treturn *this;\n\t}\n\
-    \tinline constexpr StaticModInt& operator--() {\n\t\tif (value == 0)\n\t\t\tvalue\
-    \ = modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline constexpr\
-    \ StaticModInt operator--(int) {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\
-    \t\treturn res;\n\t}\n\tinline constexpr StaticModInt& operator*=(const StaticModInt&\
-    \ x) {\n\t\tvalue = (ulint)value * x.value % modulo;\n\t\treturn *this;\n\t}\n\
-    \tinline constexpr StaticModInt& operator/=(const StaticModInt& rhs) {\n\t\treturn\
-    \ *this *= rhs.inv();\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator+(const\
-    \ T& rhs) const {\n\t\treturn StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class\
-    \ T>\n\tconstexpr StaticModInt& operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\
+    \ StaticModInt__Base {\n\tuint value;\n\tstatic constexpr int inv1000000007[]\
+    \ = {0,\t\t   1,\t\t  500000004, 333333336,\n\t\t\t\t\t\t\t\t\t\t\t250000002,\
+    \ 400000003, 166666668, 142857144,\n\t\t\t\t\t\t\t\t\t\t\t125000001, 111111112,\
+    \ 700000005},\n\t\t\t\t\t\t inv998244353[] = {0,\t\t  1,\t\t 499122177, 332748118,\n\
+    \t\t\t\t\t\t\t\t\t\t   748683265, 598946612, 166374059, 855638017,\n\t\t\t\t\t\
+    \t\t\t\t\t   873463809, 443664157, 299473306};\n\n  public:\n\tstatic constexpr\
+    \ int mod_value = modulo;\n\n\tconstexpr StaticModInt() : value(0) {}\n\ttemplate\
+    \ <class T, std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,\n\t\
+    \t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tconstexpr StaticModInt(T value\
+    \ = 0) : value(value % modulo) {\n\t\tif (this->value < 0) this->value += modulo;\n\
+    \t}\n\tinline constexpr StaticModInt inv() const {\n\t\tif constexpr (modulo ==\
+    \ 1000000007) {\n\t\t\tif (*this <= 10) return inv1000000007[*this];\n\t\t} else\
+    \ if constexpr (modulo == 998244353) {\n\t\t\tif (*this <= 10) return inv998244353[*this];\n\
+    \t\t}\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline constexpr StaticModInt\
+    \ pow(lint k) const { return mypow(*this, k); }\n\tinline constexpr operator int()\
+    \ const { return value; }\n\tinline constexpr StaticModInt& operator+=(const StaticModInt&\
+    \ x) {\n\t\tvalue = value + x.value;\n\t\tif (value >= modulo) value -= modulo;\n\
+    \t\treturn *this;\n\t}\n\tinline constexpr StaticModInt& operator++() {\n\t\t\
+    if (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn\
+    \ *this;\n\t}\n\tinline constexpr StaticModInt operator++(int) {\n\t\tStaticModInt\
+    \ res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline constexpr StaticModInt\
+    \ operator-() const { return StaticModInt(0) -= *this; }\n\tinline constexpr StaticModInt&\
+    \ operator-=(const StaticModInt& x) {\n\t\tif (value < x.value) value += modulo;\n\
+    \t\tvalue -= x.value;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator--() {\n\t\tif (value == 0)\n\t\t\tvalue = modulo - 1;\n\t\telse\n\t\
+    \t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator--(int)\
+    \ {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline\
+    \ constexpr StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = (ulint)value\
+    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator/=(const StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\
+    \ttemplate <class T>\n\tconstexpr StaticModInt operator+(const T& rhs) const {\n\
+    \t\treturn StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\
     \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator-(const T& rhs) const\
     \ {\n\t\treturn StaticModInt(*this) -= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
     \ StaticModInt& operator-=(const T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\
@@ -174,9 +169,13 @@ data:
     \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator/(const T& rhs) const\
     \ {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
     \ StaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
-    \t}\n\tstatic int primitive_root() {\n\t\tstatic int p = 0;\n\t\tstatic std::random_device\
-    \ rd;\n\t\tstatic std::mt19937 mt(rd());\n\t\tstatic std::uniform_int_distribution<>\
-    \ uid(1, modulo - 1);\n\t\tif (p) return 0;\n\n\t\t// use naive factorize due\
+    \t}\n\tconstexpr static StaticModInt primitive_root() {\n\t\tif constexpr (modulo\
+    \ == 1012924417) return 5;\n\t\tif constexpr (modulo == 924844033) return 5;\n\
+    \t\tif constexpr (modulo == 998244353) return 3;\n\t\tif constexpr (modulo ==\
+    \ 1224736769) return 3;\n\t\tif constexpr (modulo == 167772161) return 3;\n\t\t\
+    if constexpr (modulo == 469762049) return 3;\n\t\tif constexpr (modulo == 1107296257)\
+    \ return 10;\n\n\t\tint p = 0;\n\t\tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<>\
+    \ uid(1, modulo - 1);\n\t\tif (p) return p;\n\n\t\t// use naive factorize due\
     \ to file size limit\n\t\tstd::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\
     \tfor (int i = 2; i * i <= tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\
     \t\t\t\tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\
@@ -184,127 +183,92 @@ data:
     \ uid(mt);\n\t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\t\
     if (mypow(StaticModInt(p), (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\
     \t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate\
-    \ <int modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
-    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n#if __cplusplus\
-    \ < 201703L\ntemplate <int modulo>\nconstexpr int StaticModInt<modulo>::inv1000000007[];\n\
-    template <int modulo>\nconstexpr int StaticModInt<modulo>::inv998244353[];\n#endif\n\
-    \n/**\n * @title StaticModInt\n */\n#line 4 \"math/NumberTheoreticTransform.hpp\"\
+    \ <int modulo, class Stream>\nStream& operator>>(Stream& ist, StaticModInt<modulo>&\
+    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\ntemplate <int modulo,\
+    \ class Stream>\nStream& operator<<(Stream& ost, const StaticModInt<modulo>& x)\
+    \ {\n\tost << int(x);\n\treturn ost;\n}\n\n#if __cplusplus < 201703L\ntemplate\
+    \ <int modulo>\nconstexpr int StaticModInt<modulo>::inv1000000007[];\ntemplate\
+    \ <int modulo>\nconstexpr int StaticModInt<modulo>::inv998244353[];\n#endif\n\n\
+    /**\n * @title StaticModInt\n */\n#line 4 \"math/NumberTheoreticTransform.hpp\"\
     \n// 1012924417, 5, 2^21\n// 924844033, 5, 2^21\n// 998244353, 3, 2^23\n// 1224736769,\
-    \ 3, 2^24\n// 167772161, 3, 2^25\n// 469762049, 3, 2^26\nclass NumberTheoreticTransform\
-    \ {\n\tstatic constexpr int bases[] = {1012924417, 924844033, 998244353,\n\t\t\
-    \t\t\t\t\t\t\t1224736769, 167772161, 469762049};\n\tstatic constexpr int roots[]\
-    \ = {5, 5, 3, 3, 3, 3};\n\n  private:\n\ttemplate <int modulo>\n\tstatic void\
-    \ ntt(std::vector<StaticModInt<modulo>>& a,\n\t\t\t\t\tStaticModInt<modulo> root)\
-    \ {\n\t\tint sz = a.size();\n\t\tif (sz == 1) return;\n\t\tif (inverse)\n\t\t\t\
-    root = mypow(root, modulo - 1 - (modulo - 1) / sz);\n\t\telse\n\t\t\troot = mypow(root,\
-    \ (modulo - 1) / sz);\n\t\tstd::vector<StaticModInt<modulo>> b(sz), roots((sz\
-    \ >> 1) + 1, 1);\n\t\trep(i, sz >> 1) roots[i + 1] = roots[i] * root;\n\t\tfor\
-    \ (int i = sz >> 1, w = 1; w < sz; i >>= 1, w <<= 1) {\n\t\t\tfor (int j = 0;\
-    \ j < i; j++) {\n\t\t\t\tfor (int k = 0; k < w; k++) {\n\t\t\t\t\tb[k + ((w *\
-    \ j) << 1)] =\n\t\t\t\t\t\ta[k + w * j] + a[k + w * j + (sz >> 1)];\n\t\t\t\t\t\
-    b[k + ((w * j) << 1) + w] =\n\t\t\t\t\t\troots[w * j] *\n\t\t\t\t\t\t(a[k + w\
-    \ * j] - a[k + w * j + (sz >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a, b);\n\
-    \t\t}\n\t}\n\ttemplate <class T, int modulo>\n\tstatic std::vector<StaticModInt<modulo>>\
-    \ internal_convolution(\n\t\tconst std::vector<T>& f_, const std::vector<T>& g_,\n\
-    \t\tStaticModInt<modulo> root) {\n\t\tstd::vector<StaticModInt<modulo>> f(f_.size()),\
-    \ g(g_.size());\n\t\trep(j, f_.size()) f[j] = f_[j];\n\t\trep(j, g_.size()) g[j]\
-    \ = g_[j];\n\t\treturn internal_convolution(f, g, root);\n\t}\n\ttemplate <int\
-    \ modulo>\n\tstatic std::vector<StaticModInt<modulo>> internal_convolution(\n\t\
-    \tstd::vector<StaticModInt<modulo>> f,\n\t\tstd::vector<StaticModInt<modulo>>\
-    \ g, StaticModInt<modulo> root) {\n\t\tsize_t target_size = f.size() + g.size()\
-    \ - 1, sz = 1;\n\t\twhile (sz < f.size() + g.size()) sz <<= 1;\n\t\tf.resize(sz),\
-    \ g.resize(sz);\n\n\t\tinverse = false;\n\t\tntt(f, root), ntt(g, root);\n\t\t\
-    rep(i, f.size()) f[i] *= g[i];\n\t\tinverse = true;\n\t\tntt(f, root);\n\t\tStaticModInt<modulo>\
-    \ inv = StaticModInt<modulo>(f.size()).inv();\n\t\trep(i, f.size()) f[i] *= inv;\n\
-    \t\tf.resize(target_size);\n\t\treturn f;\n\t}\n\n  public:\n\tstatic bool inverse;\n\
-    \n\ttemplate <int modulo, class T>\n\tstatic std::vector<StaticModInt<modulo>>\
-    \ convolution(\n\t\tconst std::vector<T>& f, const std::vector<T>& g) {\n#if __cplusplus\
-    \ >= 201703L\n\t\tif constexpr\n#else\n\t\tif\n#endif\n\t\t\t(modulo == bases[0]\
-    \ || modulo == bases[1] || modulo == bases[2] ||\n\t\t\t modulo == bases[3] ||\
-    \ modulo == bases[4] || modulo == bases[5]) {\n\t\t\tstd::vector<StaticModInt<modulo>>\
-    \ f_(f.size()), g_(g.size());\n\t\t\trep(i, f.size()) f_[i] = f[i];\n\t\t\trep(i,\
-    \ g.size()) g_[i] = g[i];\n#if __cplusplus >= 201703L\n\t\t\tif constexpr (modulo\
-    \ == bases[0]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_,\
-    \ g_, StaticModInt<modulo>(roots[0]));\n\t\t\t} else if constexpr (modulo == bases[1])\
-    \ {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[1]));\n\
-    \t\t\t} else if constexpr (modulo == bases[2]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\
-    \t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[2]));\n\t\t\t} else if constexpr\
-    \ (modulo == bases[3]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\
-    \t\tf_, g_, StaticModInt<modulo>(roots[3]));\n\t\t\t} else if constexpr (modulo\
-    \ == bases[4]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_,\
-    \ g_, StaticModInt<modulo>(roots[4]));\n\t\t\t} else {\n\t\t\t\treturn internal_convolution<modulo>(\n\
-    \t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[5]));\n\t\t\t}\n#else\n\n\t\t\tif\
-    \ (modulo == bases[0]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\
-    \t\tf_, g_, StaticModInt<modulo>(roots[0]));\n\t\t\t} else if (modulo == bases[1])\
-    \ {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[1]));\n\
-    \t\t\t} else if (modulo == bases[2]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\
-    \t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[2]));\n\t\t\t} else if (modulo ==\
-    \ bases[3]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_,\
-    \ StaticModInt<modulo>(roots[3]));\n\t\t\t} else if (modulo == bases[4]) {\n\t\
-    \t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[4]));\n\
-    \t\t\t} else {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_,\
-    \ StaticModInt<modulo>(roots[5]));\n\t\t\t}\n#endif\n\t\t}\n\t\tconstexpr int\
-    \ base1 = 998244353, base2 = 1224736769, base3 = 469762049;\n\t\tauto re1 = internal_convolution<T,\
-    \ base1>(f, g, 3);\n\t\tauto re2 = internal_convolution<T, base2>(f, g, 3);\n\t\
-    \tauto re3 = internal_convolution<T, base3>(f, g, 3);\n\t\tstd::vector<StaticModInt<modulo>>\
-    \ res(re1.size());\n\t\tconstexpr int r12 = StaticModInt<base2>(base1).inv();\n\
-    \t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\t\tconstexpr int r23\
-    \ = StaticModInt<base3>(base2).inv();\n\t\trep(i, re1.size()) {\n\t\t\tre2[i]\
-    \ = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i] =\n\t\t\t\t(StaticModInt<base3>(re3[i]\
-    \ - re1[i]) * r13 - re2[i]) * r23;\n\t\t\tres[i] = (StaticModInt<modulo>(re1[i])\
-    \ +\n\t\t\t\t\t  StaticModInt<modulo>(re2[i]) * base1 +\n\t\t\t\t\t  StaticModInt<modulo>(re3[i])\
-    \ * base1 * base2);\n\t\t}\n\t\treturn res;\n\t}\n\ttemplate <int modulo>\n\t\
-    static std::vector<StaticModInt<modulo>> convolution(\n\t\tstd::vector<StaticModInt<modulo>>\
-    \ f,\n\t\tstd::vector<StaticModInt<modulo>> g) {\n#if __cplusplus >= 201703L\n\
-    \t\tif constexpr\n#else\n\t\tif\n#endif\n\t\t\t(modulo == bases[0] || modulo ==\
-    \ bases[1] || modulo == bases[2] ||\n\t\t\t modulo == bases[3] || modulo == bases[4]\
-    \ || modulo == bases[5]) {\n\t\t\tstd::vector<StaticModInt<modulo>> f_(f.size()),\
-    \ g_(g.size());\n\t\t\trep(i, f.size()) f_[i] = f[i];\n\t\t\trep(i, g.size())\
-    \ g_[i] = g[i];\n#if __cplusplus >= 201703L\n\t\t\tif constexpr (modulo == bases[0])\
-    \ {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[0]));\n\
-    \t\t\t} else if constexpr (modulo == bases[1]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\
-    \t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[1]));\n\t\t\t} else if constexpr\
-    \ (modulo == bases[2]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\
-    \t\tf_, g_, StaticModInt<modulo>(roots[2]));\n\t\t\t} else if constexpr (modulo\
-    \ == bases[3]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_,\
-    \ g_, StaticModInt<modulo>(roots[3]));\n\t\t\t} else if constexpr (modulo == bases[4])\
-    \ {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[4]));\n\
-    \t\t\t} else {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_,\
-    \ StaticModInt<modulo>(roots[5]));\n\t\t\t}\n#else\n\n\t\t\tif (modulo == bases[0])\
-    \ {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[0]));\n\
-    \t\t\t} else if (modulo == bases[1]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\
-    \t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[1]));\n\t\t\t} else if (modulo ==\
-    \ bases[2]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_,\
-    \ StaticModInt<modulo>(roots[2]));\n\t\t\t} else if (modulo == bases[3]) {\n\t\
-    \t\t\treturn internal_convolution<modulo>(\n\t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[3]));\n\
-    \t\t\t} else if (modulo == bases[4]) {\n\t\t\t\treturn internal_convolution<modulo>(\n\
-    \t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[4]));\n\t\t\t} else {\n\t\t\t\treturn\
-    \ internal_convolution<modulo>(\n\t\t\t\t\tf_, g_, StaticModInt<modulo>(roots[5]));\n\
-    \t\t\t}\n#endif\n\t\t}\n\t\tconstexpr int base1 = 998244353, base2 = 1224736769,\
+    \ 3, 2^24\n// 167772161, 3, 2^25\n// 1107296257, 10, 2^25\n// 469762049, 3, 2^26\n\
+    class NumberTheoreticTransform {\n\tstatic int constexpr friendly_limit(int p)\
+    \ { return __builtin_ffs(p - 1) - 1; }\n\n  public:\n\ttemplate <int modulo>\n\
+    \tstatic void ntt(std::vector<StaticModInt<modulo>>& a, bool inverse,\n\t\t\t\t\
+    \tint size = -1) {  // size should be one of powers of two\n\t\tif (size == -1)\
+    \ size = a.size();\n\t\tif (size == 1) return;\n\t\ta.resize(size);\n\t\tconst\
+    \ StaticModInt<modulo> root = StaticModInt<modulo>::primitive_root().pow(\n\t\t\
+    \tinverse ? modulo - 1 - (modulo - 1) / size : (modulo - 1) / size);\n\n\t\tstd::vector<StaticModInt<modulo>>\
+    \ b(size);\n\t\tStaticModInt<modulo> r_p = root;\n\t\tfor (int i = size >> 1,\
+    \ w = 1; w < size; i >>= 1, w <<= 1) {\n\t\t\tStaticModInt<modulo> r_pp = 1;\n\
+    \t\t\tfor (int j = 0; j < i; j++, r_pp *= r_p) {\n\t\t\t\tfor (int k = 0; k <\
+    \ w; k++) {\n\t\t\t\t\tb[k + ((w * j) << 1)] = a[k + w * j] + a[k + w * j + (size\
+    \ >> 1)];\n\t\t\t\t\tb[k + ((w * j) << 1) + w] = r_pp * (a[k + w * j] - a[k +\
+    \ w * j + (size >> 1)]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tstd::swap(a, b);\n\t\t\tr_p\
+    \ *= r_p;\n\t\t}\n\t}\n\n  private:\n\ttemplate <class T, int modulo>\n\tstatic\
+    \ std::vector<StaticModInt<modulo>> internal_convolution(const std::vector<T>&\
+    \ f_,\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  const std::vector<T>& g_) {\n\t\tstd::vector<StaticModInt<modulo>>\
+    \ f(f_.size()), g(g_.size());\n\t\trep(i, f_.size()) f[i] = f_[i];\n\t\trep(i,\
+    \ g_.size()) g[i] = g_[i];\n\t\treturn internal_convolution(std::move(f), std::move(g));\n\
+    \t}\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>> internal_convolution(\n\
+    \t\tconst std::vector<StaticModInt<modulo>>& f, const std::vector<StaticModInt<modulo>>&\
+    \ g) {\n\t\tauto f_ = f, g_ = g;\n\t\treturn internal_convolution(std::move(f_),\
+    \ std::move(g_));\n\t}\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ internal_convolution(\n\t\tconst std::vector<StaticModInt<modulo>>& f, std::vector<StaticModInt<modulo>>&&\
+    \ g) {\n\t\tauto f_ = f;\n\t\treturn internal_convolution(std::move(f_), std::move(g));\n\
+    \t}\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>> internal_convolution(\n\
+    \t\tstd::vector<StaticModInt<modulo>>& f, const std::vector<StaticModInt<modulo>>&&\
+    \ g) {\n\t\tauto g_ = g;\n\t\treturn internal_convolution(std::move(f), std::move(g_));\n\
+    \t}\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>> internal_convolution(\n\
+    \t\tstd::vector<StaticModInt<modulo>>&& f, std::vector<StaticModInt<modulo>>&&\
+    \ g) {\n\t\tsize_t target_size = f.size() + g.size() - 1, sz = 1;\n\t\twhile (sz\
+    \ < target_size) sz <<= 1;\n\t\tf.resize(sz), g.resize(sz);\n\t\tntt(f, false),\
+    \ ntt(g, false);\n\t\trep(i, f.size()) f[i] *= g[i];\n\t\tntt(f, true);\n\t\t\
+    StaticModInt<modulo> inv = StaticModInt<modulo>(sz).inv();\n\t\trep(i, f.size())\
+    \ f[i] *= inv;\n\t\tf.resize(target_size);\n\t\treturn std::move(f);\n\t}\n\n\
+    \  public:\n\ttemplate <int modulo>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ convolution(\n\t\tconst std::vector<StaticModInt<modulo>>& f, const std::vector<StaticModInt<modulo>>&\
+    \ g) {\n\t\tif (1 << friendly_limit(modulo) >= f.size() + g.size() - 1) {\n\t\t\
+    \tauto f_ = f, g_ = g;\n\t\t\treturn internal_convolution<modulo>(std::move(f_),\
+    \ std::move(g_));\n\t\t} else if (1 << friendly_limit(modulo) + 2 >= f.size()\
+    \ + g.size() - 1) {\n\t\t\tint sz = 1 << friendly_limit(modulo) - 1;\n\t\t\tstd::vector<std::vector<StaticModInt<modulo>>>\
+    \ f_, g_;\n\t\t\tfor (int i = 0; i * sz < f.size(); i++)\n\t\t\t\tf_.emplace_back(f.begin()\
+    \ + i * sz,\n\t\t\t\t\t\t\t\tf.begin() + std::min((int)f.size(), (i + 1) * sz));\n\
+    \t\t\tfor (int i = 0; i * sz < g.size(); i++)\n\t\t\t\tg_.emplace_back(g.begin()\
+    \ + i * sz,\n\t\t\t\t\t\t\t\tg.begin() + std::min((int)g.size(), (i + 1) * sz));\n\
+    \t\t\tstd::vector<StaticModInt<modulo>> res(f.size() + g.size() - 1);\n\t\t\t\
+    rep(i, f_.size()) {\n\t\t\t\trep(j, g_.size()) {\n\t\t\t\t\tauto tmp =\n\t\t\t\
+    \t\t\tinternal_convolution<modulo>(j == g_.size() - 1 ? std::move(f_[i]) : f_[i],\n\
+    \t\t\t\t\t\t\t\t\t\t\t\t\t i == f_.size() - 1 ? std::move(g_[j]) : g_[j]);\n\t\
+    \t\t\t\trep(k, tmp.size()) res[(i + j) * sz + k] += tmp[k];\n\t\t\t\t}\n\t\t\t\
+    }\n\t\t\treturn res;\n\t\t}\n\t\tconstexpr int base1 = 167772161, base2 = 1107296257,\
     \ base3 = 469762049;\n\t\tauto re1 = internal_convolution<StaticModInt<modulo>,\
-    \ base1>(\n\t\t\tf, g, StaticModInt<base1>(3));\n\t\tauto re2 = internal_convolution<StaticModInt<modulo>,\
-    \ base2>(\n\t\t\tf, g, StaticModInt<base2>(3));\n\t\tauto re3 = internal_convolution<StaticModInt<modulo>,\
-    \ base3>(\n\t\t\tf, g, StaticModInt<base3>(3));\n\t\tstd::vector<StaticModInt<modulo>>\
-    \ res(re1.size());\n\t\tconstexpr int r12 = StaticModInt<base2>(base1).inv();\n\
-    \t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\t\tconstexpr int r23\
-    \ = StaticModInt<base3>(base2).inv();\n\t\trep(i, re1.size()) {\n\t\t\tre2[i]\
-    \ = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i] =\n\t\t\t\t(StaticModInt<base3>(re3[i]\
-    \ - re1[i]) * r13 - re2[i]) * r23;\n\t\t\tres[i] = (StaticModInt<modulo>(re1[i])\
-    \ +\n\t\t\t\t\t  StaticModInt<modulo>(re2[i]) * base1 +\n\t\t\t\t\t  StaticModInt<modulo>(re3[i])\
-    \ * base1 * base2);\n\t\t}\n\t\treturn res;\n\t}\n\ttemplate <class T>\n\tstatic\
-    \ std::vector<lint> convolution_plain(std::vector<T> f,\n\t\t\t\t\t\t\t\t\t\t\t\
-    \   std::vector<T> g) {\n\t\tconst int mod1 = 998244353, mod2 = 1224736769;\n\t\
-    \tstd::vector<StaticModInt<mod1>> mul1 =\n\t\t\tinternal_convolution<T, mod1>(f,\
-    \ g, StaticModInt<mod1>(3));\n\t\tstd::vector<StaticModInt<mod2>> mul2 =\n\t\t\
-    \tinternal_convolution<T, mod2>(f, g, StaticModInt<mod2>(3));\n\t\tstd::vector<lint>\
-    \ res(mul1.size());\n\t\trep(i, mul1.size()) res[i] =\n\t\t\tChineseRem(mul1[i],\
-    \ mod1, mul2[i], mod2).first;\n\t\treturn res;\n\t}\n};\nbool NumberTheoreticTransform::inverse\
-    \ = false;\n\n/**\n * @title NumberTheoreticTransform\n */\n#line 4 \"test/yosupo/convolution_mod.test.cpp\"\
-    \nint n, m;\nstd::vector<int> a, b;\nint main() {\n\tscanf(\"%d%d\", &n, &m);\n\
-    \ta.resize(n);\n\tb.resize(m);\n\trep(i, n) scanf(\"%d\", a.data() + i);\n\trep(i,\
-    \ m) scanf(\"%d\", b.data() + i);\n\tstd::vector<StaticModInt<998244353>> c =\n\
-    \t\tNumberTheoreticTransform::convolution<998244353>(a, b);\n\trep(i, n + m -\
-    \ 1) printf((i == n + m ? \"%d\\n\" : \"%d \"), c[i]);\n}\n"
+    \ base1>(f, g);\n\t\tauto re2 = internal_convolution<StaticModInt<modulo>, base2>(f,\
+    \ g);\n\t\tauto re3 = internal_convolution<StaticModInt<modulo>, base3>(f, g);\n\
+    \t\tstd::vector<StaticModInt<modulo>> res(re1.size());\n\t\tconstexpr int r12\
+    \ = StaticModInt<base2>(base1).inv();\n\t\tconstexpr int r13 = StaticModInt<base3>(base1).inv();\n\
+    \t\tconstexpr int r23 = StaticModInt<base3>(base2).inv();\n\t\trep(i, re1.size())\
+    \ {\n\t\t\tre2[i] = StaticModInt<base2>(re2[i] - re1[i]) * r12;\n\t\t\tre3[i]\
+    \ = (StaticModInt<base3>(re3[i] - re1[i]) * r13 - re2[i]) * r23;\n\t\t\tres[i]\
+    \ = StaticModInt<modulo>(re1[i]) + StaticModInt<modulo>(re2[i]) * base1 +\n\t\t\
+    \t\t\t StaticModInt<modulo>(re3[i]) * base1 * base2;\n\t\t}\n\t\treturn res;\n\
+    \t}\n\ttemplate <int modulo, class T>\n\tstatic std::vector<StaticModInt<modulo>>\
+    \ convolution(const std::vector<T>& f,\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t const std::vector<T>&\
+    \ g) {\n\t\tstd::vector<StaticModInt<modulo>> f_(f.size()), g_(g.size());\n\t\t\
+    rep(i, f.size()) f_[i] = f[i];\n\t\trep(i, g.size()) g_[i] = g[i];\n\t\treturn\
+    \ convolution(f_, g_);\n\t}\n\ttemplate <class T>\n\tstatic std::vector<lint>\
+    \ convolution_plain(const std::vector<T>& f, const std::vector<T>& g) {\n\t\t\
+    const int mod1 = 998244353, mod2 = 1224736769;\n\t\tstd::vector<StaticModInt<mod1>>\
+    \ mul1 = internal_convolution<T, mod1>(f, g);\n\t\tstd::vector<StaticModInt<mod2>>\
+    \ mul2 = internal_convolution<T, mod2>(f, g);\n\t\tstd::vector<lint> res(mul1.size());\n\
+    \t\trep(i, mul1.size()) res[i] = ChineseRem(mul1[i], mod1, mul2[i], mod2).first;\n\
+    \t\treturn res;\n\t}\n};\n\n/**\n * @title NumberTheoreticTransform\n */\n#line\
+    \ 4 \"test/yosupo/convolution_mod.test.cpp\"\nint n, m;\nstd::vector<int> a, b;\n\
+    int main() {\n\tscanf(\"%d%d\", &n, &m);\n\ta.resize(n);\n\tb.resize(m);\n\trep(i,\
+    \ n) scanf(\"%d\", a.data() + i);\n\trep(i, m) scanf(\"%d\", b.data() + i);\n\t\
+    std::vector<StaticModInt<998244353>> c =\n\t\tNumberTheoreticTransform::convolution<998244353>(a,\
+    \ b);\n\trep(i, n + m - 1) printf((i == n + m ? \"%d\\n\" : \"%d \"), c[i]);\n\
+    }\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod\"\n#include\
     \ \"../../math/NumberTheoreticTransform.hpp\"\n#include \"../../other/template.hpp\"\
     \nint n, m;\nstd::vector<int> a, b;\nint main() {\n\tscanf(\"%d%d\", &n, &m);\n\
@@ -320,8 +284,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/convolution_mod.test.cpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-06-16 19:42:08+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/convolution_mod.test.cpp
 layout: document

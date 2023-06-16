@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: math/Matrix.hpp
     title: Matrix
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/matrix_det
@@ -25,19 +25,17 @@ data:
     - https://judge.yosupo.jp/problem/matrix_det
   bundledCode: "#line 1 \"test/yosupo/matrix_det.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/matrix_det\"\
     \n#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n#ifndef __clang__\n\
-    #ifdef ONLINE_JUDGE\n#ifdef _WIN64\n#pragma GCC target(\"avx2\")\n#else\n#pragma\
-    \ GCC target(\"avx512f\")\n#endif\n#elif defined EVAL\n#else\n#pragma GCC target(\"\
-    avx2\")\n#endif\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
-    )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
-    \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
-    \ <climits>\n#include <cmath>\n#include <complex>\n#include <ctime>\n#include\
-    \ <deque>\n#include <fstream>\n#include <functional>\n#include <iomanip>\n#include\
-    \ <iostream>\n#include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n\
-    #include <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include\
-    \ <string>\n#include <unordered_map>\n#include <unordered_set>\n#include <utility>\n\
-    #include <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define\
-    \ REP(i, n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\
-    \nusing i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
+    #pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\")\n#endif\n\
+    #include <string.h>\n#include <algorithm>\n#include <array>\n#include <bitset>\n\
+    #include <cassert>\n#include <cfloat>\n#include <chrono>\n#include <climits>\n\
+    #include <cmath>\n#include <complex>\n#include <ctime>\n#include <deque>\n#include\
+    \ <fstream>\n#include <functional>\n#include <iomanip>\n#include <iostream>\n\
+    #include <iterator>\n#include <list>\n#include <map>\n#include <memory>\n#include\
+    \ <queue>\n#include <random>\n#include <set>\n#include <stack>\n#include <string>\n\
+    #include <unordered_map>\n#include <unordered_set>\n#include <utility>\n#include\
+    \ <vector>\n\n#define rep(i, n) for (int i = 0; i < int(n); i++)\n#define REP(i,\
+    \ n) for (int i = 1; i <= int(n); i++)\n#define all(V) V.begin(), V.end()\n\n\
+    using i128 = __int128_t;\nusing u128 = __uint128_t;\nusing uint = unsigned int;\n\
     using lint = long long;\nusing ulint = unsigned long long;\nusing IP = std::pair<int,\
     \ int>;\nusing LP = std::pair<lint, lint>;\n\nconstexpr int INF = INT_MAX / 2;\n\
     constexpr lint LINF = LLONG_MAX / 2;\nconstexpr double eps = DBL_EPSILON * 10;\n\
@@ -53,19 +51,19 @@ data:
     \t};\n}\ntemplate <class T>\nconstexpr std::vector<T> make_vec(size_t n) {\n\t\
     return std::vector<T>(n);\n}\ntemplate <class T, class... Args>\nconstexpr auto\
     \ make_vec(size_t n, Args&&... args) {\n\treturn std::vector<decltype(make_vec<T>(args...))>(n,\
-    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U>\n\
-    std::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {\n\treturn ist\
-    \ >> x.first >> x.second;\n}\ntemplate <class T, class U>\nstd::ostream& operator<<(std::ostream&\
-    \ ost, const std::pair<T, U>& x) {\n\treturn ost << x.first << \" \" << x.second;\n\
-    }\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
+    \ make_vec<T>(std::forward<Args>(args)...));\n}\ntemplate <class T, class U, class\
+    \ Stream>\nStream& operator>>(Stream& ist, std::pair<T, U>& x) {\n\treturn ist\
+    \ >> x.first >> x.second;\n}\ntemplate <class T, class U, class Stream>\nStream&\
+    \ operator<<(Stream& ost, const std::pair<T, U>& x) {\n\treturn ost << x.first\
+    \ << \" \" << x.second;\n}\ntemplate <class Container,\n\t\t  std::enable_if_t<!std::is_same<Container,\
     \ std::string>::value, std::nullptr_t> = nullptr>\nauto operator>>(std::istream&\
     \ ist, Container& cont)\n\t-> decltype(typename Container::iterator(), std::cin)&\
     \ {\n\tContainer tmp;\n\twhile (true) {\n\t\ttypename Container::value_type t;\n\
     \t\tist >> t;\n\t\ttmp.emplace_back(t);\n\t\tif (getchar() == '\\n') break;\n\t\
-    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\n\
-    \t\t  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t>\
-    \ = nullptr>\nauto operator<<(std::ostream& ost, const Container& cont)\n\t->\
-    \ decltype(typename Container::iterator(), std::cout)& {\n\tfor (auto it = cont.begin();\
+    }\n\tcont = Container(std::move(tmp));\n\treturn ist;\n}\ntemplate <class Container,\
+    \ class Stream,\n\t\t  std::enable_if_t<!std::is_same<Container, std::string>::value,\
+    \ std::nullptr_t> = nullptr>\nauto operator<<(Stream& ost, const Container& cont)\n\
+    \t-> decltype(typename Container::iterator(), ost)& {\n\tfor (auto it = cont.begin();\
     \ it != cont.end(); it++) {\n\t\tif (it != cont.begin()) ost << ' ';\n\t\tost\
     \ << *it;\n\t}\n\treturn ost;\n}\ntemplate <class Container>\nauto sum(const Container&\
     \ cont) -> decltype(typename Container::iterator(), 0LL) {\n\tlint res = 0;\n\t\
@@ -128,42 +126,39 @@ data:
     \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
     \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n\
     #line 4 \"math/StaticModInt.hpp\"\ntemplate <int modulo>\nclass StaticModInt :\
-    \ StaticModInt__Base {\n\tstd::conditional_t<(modulo > (INT_MAX >> 1)), lint,\
-    \ int> value;\n\tstatic constexpr int inv1000000007[] = {0,\t\t   1,\t\t  500000004,\n\
-    \t\t\t\t\t\t\t\t\t\t\t333333336, 250000002, 400000003,\n\t\t\t\t\t\t\t\t\t\t\t\
-    166666668, 142857144, 125000001,\n\t\t\t\t\t\t\t\t\t\t\t111111112, 700000005},\n\
-    \t\t\t\t\t\t inv998244353[] = {0,\t\t  1,\t\t 499122177,\n\t\t\t\t\t\t\t\t\t\t\
-    \   332748118, 748683265, 598946612,\n\t\t\t\t\t\t\t\t\t\t   166374059, 855638017,\
-    \ 873463809,\n\t\t\t\t\t\t\t\t\t\t   443664157, 299473306};\n\n  public:\n\tstatic\
-    \ constexpr int mod_value = modulo;\n\n\tconstexpr StaticModInt() : value(0) {}\n\
-    \ttemplate <class T,\n\t\t\t  std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,\n\
-    \t\t\t\t\t\t\t   std::nullptr_t> = nullptr>\n\tconstexpr StaticModInt(T value\
-    \ = 0) : value(value % int(modulo)) {\n\t\tif (this->value < 0) this->value +=\
-    \ modulo;\n\t}\n\tinline constexpr StaticModInt inv() const {\n#if __cplusplus\
-    \ >= 201703L\n\t\tif constexpr (modulo == 1000000007) {\n\t\t\tif (*this <= 10)\
-    \ return inv1000000007[*this];\n\t\t} else if constexpr (modulo == 998244353)\
-    \ {\n\t\t\tif (*this <= 10) return inv998244353[*this];\n\t\t}\n#else\n\t\tif\
-    \ (modulo == 1000000007) {\n\t\t\tif (*this <= 10) return inv1000000007[*this];\n\
-    \t\t} else if (modulo == 998244353) {\n\t\t\tif (*this <= 10) return inv998244353[*this];\n\
-    \t\t}\n#endif\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline constexpr operator\
-    \ int() const { return value; }\n\tinline constexpr StaticModInt& operator+=(const\
-    \ StaticModInt& x) {\n\t\tvalue = value + x.value;\n\t\tif (value >= modulo) value\
-    \ -= modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt& operator++()\
-    \ {\n\t\tif (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\
-    \t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator++(int) {\n\t\t\
-    StaticModInt res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline constexpr\
-    \ StaticModInt operator-() const {\n\t\treturn StaticModInt(0) -= *this;\n\t}\n\
-    \tinline constexpr StaticModInt& operator-=(const StaticModInt& x) {\n\t\tif (value\
-    \ < x.value) value += modulo;\n\t\tvalue -= x.value;\n\t\treturn *this;\n\t}\n\
-    \tinline constexpr StaticModInt& operator--() {\n\t\tif (value == 0)\n\t\t\tvalue\
-    \ = modulo - 1;\n\t\telse\n\t\t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline constexpr\
-    \ StaticModInt operator--(int) {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\
-    \t\treturn res;\n\t}\n\tinline constexpr StaticModInt& operator*=(const StaticModInt&\
-    \ x) {\n\t\tvalue = (ulint)value * x.value % modulo;\n\t\treturn *this;\n\t}\n\
-    \tinline constexpr StaticModInt& operator/=(const StaticModInt& rhs) {\n\t\treturn\
-    \ *this *= rhs.inv();\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator+(const\
-    \ T& rhs) const {\n\t\treturn StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class\
-    \ T>\n\tconstexpr StaticModInt& operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\
+    \ StaticModInt__Base {\n\tuint value;\n\tstatic constexpr int inv1000000007[]\
+    \ = {0,\t\t   1,\t\t  500000004, 333333336,\n\t\t\t\t\t\t\t\t\t\t\t250000002,\
+    \ 400000003, 166666668, 142857144,\n\t\t\t\t\t\t\t\t\t\t\t125000001, 111111112,\
+    \ 700000005},\n\t\t\t\t\t\t inv998244353[] = {0,\t\t  1,\t\t 499122177, 332748118,\n\
+    \t\t\t\t\t\t\t\t\t\t   748683265, 598946612, 166374059, 855638017,\n\t\t\t\t\t\
+    \t\t\t\t\t   873463809, 443664157, 299473306};\n\n  public:\n\tstatic constexpr\
+    \ int mod_value = modulo;\n\n\tconstexpr StaticModInt() : value(0) {}\n\ttemplate\
+    \ <class T, std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,\n\t\
+    \t\t\t\t\t\t\t\t\tstd::nullptr_t> = nullptr>\n\tconstexpr StaticModInt(T value\
+    \ = 0) : value(value % modulo) {\n\t\tif (this->value < 0) this->value += modulo;\n\
+    \t}\n\tinline constexpr StaticModInt inv() const {\n\t\tif constexpr (modulo ==\
+    \ 1000000007) {\n\t\t\tif (*this <= 10) return inv1000000007[*this];\n\t\t} else\
+    \ if constexpr (modulo == 998244353) {\n\t\t\tif (*this <= 10) return inv998244353[*this];\n\
+    \t\t}\n\t\treturn mypow(*this, modulo - 2);\n\t}\n\tinline constexpr StaticModInt\
+    \ pow(lint k) const { return mypow(*this, k); }\n\tinline constexpr operator int()\
+    \ const { return value; }\n\tinline constexpr StaticModInt& operator+=(const StaticModInt&\
+    \ x) {\n\t\tvalue = value + x.value;\n\t\tif (value >= modulo) value -= modulo;\n\
+    \t\treturn *this;\n\t}\n\tinline constexpr StaticModInt& operator++() {\n\t\t\
+    if (value == modulo - 1)\n\t\t\tvalue = 0;\n\t\telse\n\t\t\tvalue++;\n\t\treturn\
+    \ *this;\n\t}\n\tinline constexpr StaticModInt operator++(int) {\n\t\tStaticModInt\
+    \ res = *this;\n\t\t++*this;\n\t\treturn res;\n\t}\n\tinline constexpr StaticModInt\
+    \ operator-() const { return StaticModInt(0) -= *this; }\n\tinline constexpr StaticModInt&\
+    \ operator-=(const StaticModInt& x) {\n\t\tif (value < x.value) value += modulo;\n\
+    \t\tvalue -= x.value;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator--() {\n\t\tif (value == 0)\n\t\t\tvalue = modulo - 1;\n\t\telse\n\t\
+    \t\tvalue--;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt operator--(int)\
+    \ {\n\t\tStaticModInt res = *this;\n\t\t--*this;\n\t\treturn res;\n\t}\n\tinline\
+    \ constexpr StaticModInt& operator*=(const StaticModInt& x) {\n\t\tvalue = (ulint)value\
+    \ * x.value % modulo;\n\t\treturn *this;\n\t}\n\tinline constexpr StaticModInt&\
+    \ operator/=(const StaticModInt& rhs) {\n\t\treturn *this *= rhs.inv();\n\t}\n\
+    \ttemplate <class T>\n\tconstexpr StaticModInt operator+(const T& rhs) const {\n\
+    \t\treturn StaticModInt(*this) += rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
+    \ StaticModInt& operator+=(const T& rhs) {\n\t\treturn operator+=(StaticModInt(rhs));\n\
     \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator-(const T& rhs) const\
     \ {\n\t\treturn StaticModInt(*this) -= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
     \ StaticModInt& operator-=(const T& rhs) {\n\t\treturn operator-=(StaticModInt(rhs));\n\
@@ -173,9 +168,13 @@ data:
     \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator/(const T& rhs) const\
     \ {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
     \ StaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
-    \t}\n\tstatic int primitive_root() {\n\t\tstatic int p = 0;\n\t\tstatic std::random_device\
-    \ rd;\n\t\tstatic std::mt19937 mt(rd());\n\t\tstatic std::uniform_int_distribution<>\
-    \ uid(1, modulo - 1);\n\t\tif (p) return 0;\n\n\t\t// use naive factorize due\
+    \t}\n\tconstexpr static StaticModInt primitive_root() {\n\t\tif constexpr (modulo\
+    \ == 1012924417) return 5;\n\t\tif constexpr (modulo == 924844033) return 5;\n\
+    \t\tif constexpr (modulo == 998244353) return 3;\n\t\tif constexpr (modulo ==\
+    \ 1224736769) return 3;\n\t\tif constexpr (modulo == 167772161) return 3;\n\t\t\
+    if constexpr (modulo == 469762049) return 3;\n\t\tif constexpr (modulo == 1107296257)\
+    \ return 10;\n\n\t\tint p = 0;\n\t\tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<>\
+    \ uid(1, modulo - 1);\n\t\tif (p) return p;\n\n\t\t// use naive factorize due\
     \ to file size limit\n\t\tstd::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\
     \tfor (int i = 2; i * i <= tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\
     \t\t\t\tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\
@@ -183,11 +182,13 @@ data:
     \ uid(mt);\n\t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\t\
     if (mypow(StaticModInt(p), (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\
     \t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate\
-    \ <int modulo>\nstd::istream& operator>>(std::istream& ist, StaticModInt<modulo>&\
-    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\n\n#if __cplusplus\
-    \ < 201703L\ntemplate <int modulo>\nconstexpr int StaticModInt<modulo>::inv1000000007[];\n\
-    template <int modulo>\nconstexpr int StaticModInt<modulo>::inv998244353[];\n#endif\n\
-    \n/**\n * @title StaticModInt\n */\n#line 3 \"math/Matrix.hpp\"\n\ntemplate <class\
+    \ <int modulo, class Stream>\nStream& operator>>(Stream& ist, StaticModInt<modulo>&\
+    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\ntemplate <int modulo,\
+    \ class Stream>\nStream& operator<<(Stream& ost, const StaticModInt<modulo>& x)\
+    \ {\n\tost << int(x);\n\treturn ost;\n}\n\n#if __cplusplus < 201703L\ntemplate\
+    \ <int modulo>\nconstexpr int StaticModInt<modulo>::inv1000000007[];\ntemplate\
+    \ <int modulo>\nconstexpr int StaticModInt<modulo>::inv998244353[];\n#endif\n\n\
+    /**\n * @title StaticModInt\n */\n#line 3 \"math/Matrix.hpp\"\n\ntemplate <class\
     \ T, std::enable_if_t<\n#if __cplusplus >= 201703L\n\t\t\t\t\t   std::is_same_v<decltype(T()\
     \ / T()), T>\n#else\n\t\t\t\t\t   std::is_same<decltype(T() / T()), T>::value\n\
     #endif\n\t\t\t\t\t   ,\n\t\t\t\t\t   std::nullptr_t> = nullptr>\nclass Matrix\
@@ -273,8 +274,8 @@ data:
   isVerificationFile: true
   path: test/yosupo/matrix_det.test.cpp
   requiredBy: []
-  timestamp: '2023-01-08 03:21:50+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2023-06-16 19:42:08+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/yosupo/matrix_det.test.cpp
 layout: document
