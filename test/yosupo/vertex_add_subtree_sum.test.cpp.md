@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/BIT.hpp
     title: Binary Indexed Tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: graph/HeavyLightDecomposition.hpp
     title: Heavy light decomposition
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []

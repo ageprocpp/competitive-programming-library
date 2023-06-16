@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/NumberTheoreticTransform.hpp
     title: NumberTheoreticTransform
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution_mod_1000000007.test.cpp
     title: test/yosupo/convolution_mod_1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution_mod_large.test.cpp
     title: test/yosupo/convolution_mod_large.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/exp_of_formal_power_series.test.cpp
     title: test/yosupo/exp_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/inv_of_formal_power_series.test.cpp
     title: test/yosupo/inv_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/log_of_formal_power_series.test.cpp
     title: test/yosupo/log_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/pow_of_formal_power_series.test.cpp
     title: test/yosupo/pow_of_formal_power_series.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -182,12 +182,12 @@ data:
     \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator/(const T& rhs) const\
     \ {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
     \ StaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
-    \t}\n\tconstexpr static StaticModInt primitive_root() {\n\t\tif constexpr (modulo\
-    \ == 1012924417) return 5;\n\t\tif constexpr (modulo == 924844033) return 5;\n\
-    \t\tif constexpr (modulo == 998244353) return 3;\n\t\tif constexpr (modulo ==\
-    \ 1224736769) return 3;\n\t\tif constexpr (modulo == 167772161) return 3;\n\t\t\
-    if constexpr (modulo == 469762049) return 3;\n\t\tif constexpr (modulo == 1107296257)\
-    \ return 10;\n\n\t\tint p = 0;\n\t\tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<>\
+    \t}\n\tstatic StaticModInt primitive_root() {\n\t\tif constexpr (modulo == 1012924417)\
+    \ return 5;\n\t\tif constexpr (modulo == 924844033) return 5;\n\t\tif constexpr\
+    \ (modulo == 998244353) return 3;\n\t\tif constexpr (modulo == 1224736769) return\
+    \ 3;\n\t\tif constexpr (modulo == 167772161) return 3;\n\t\tif constexpr (modulo\
+    \ == 469762049) return 3;\n\t\tif constexpr (modulo == 1107296257) return 10;\n\
+    \n\t\tint p = 0;\n\t\tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<>\
     \ uid(1, modulo - 1);\n\t\tif (p) return p;\n\n\t\t// use naive factorize due\
     \ to file size limit\n\t\tstd::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\
     \tfor (int i = 2; i * i <= tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\
@@ -405,8 +405,8 @@ data:
   isVerificationFile: false
   path: math/FormalPowerSeries.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2023-06-17 00:23:52+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/convolution_mod_1000000007.test.cpp
   - test/yosupo/convolution_mod_large.test.cpp

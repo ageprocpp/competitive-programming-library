@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy: []
@@ -162,12 +162,12 @@ data:
     \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator/(const T& rhs) const\
     \ {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
     \ StaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
-    \t}\n\tconstexpr static StaticModInt primitive_root() {\n\t\tif constexpr (modulo\
-    \ == 1012924417) return 5;\n\t\tif constexpr (modulo == 924844033) return 5;\n\
-    \t\tif constexpr (modulo == 998244353) return 3;\n\t\tif constexpr (modulo ==\
-    \ 1224736769) return 3;\n\t\tif constexpr (modulo == 167772161) return 3;\n\t\t\
-    if constexpr (modulo == 469762049) return 3;\n\t\tif constexpr (modulo == 1107296257)\
-    \ return 10;\n\n\t\tint p = 0;\n\t\tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<>\
+    \t}\n\tstatic StaticModInt primitive_root() {\n\t\tif constexpr (modulo == 1012924417)\
+    \ return 5;\n\t\tif constexpr (modulo == 924844033) return 5;\n\t\tif constexpr\
+    \ (modulo == 998244353) return 3;\n\t\tif constexpr (modulo == 1224736769) return\
+    \ 3;\n\t\tif constexpr (modulo == 167772161) return 3;\n\t\tif constexpr (modulo\
+    \ == 469762049) return 3;\n\t\tif constexpr (modulo == 1107296257) return 10;\n\
+    \n\t\tint p = 0;\n\t\tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<>\
     \ uid(1, modulo - 1);\n\t\tif (p) return p;\n\n\t\t// use naive factorize due\
     \ to file size limit\n\t\tstd::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\
     \tfor (int i = 2; i * i <= tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\
@@ -234,7 +234,7 @@ data:
   isVerificationFile: false
   path: math/Combinatorics.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-17 00:23:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/Combinatorics.hpp

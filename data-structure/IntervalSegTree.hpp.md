@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: Segment Tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []
@@ -27,12 +27,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/DSL_2_I.test.cpp
     title: test/aoj/DSL_2_I.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/range_affine_range_sum.test.cpp
     title: test/yosupo/range_affine_range_sum.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -450,7 +450,7 @@ data:
   path: data-structure/IntervalSegTree.hpp
   requiredBy: []
   timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/range_affine_range_sum.test.cpp
   - test/aoj/DSL_2_H.test.cpp

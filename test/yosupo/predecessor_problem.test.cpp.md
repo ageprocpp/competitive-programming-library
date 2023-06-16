@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/vanEmdeBoasTree.hpp
     title: van Emde Boas Tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/FastIO.hpp
     title: Fast IO library
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
   _extendedRequiredBy: []

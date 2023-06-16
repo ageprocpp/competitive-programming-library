@@ -1,74 +1,74 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/template.hpp
     title: other/template.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: other/type_traits.hpp
     title: other/type_traits.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
     path: math/Combinatorics.hpp
     title: Combinatorics/ModCombinatorics
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/FormalPowerSeries.hpp
     title: math/FormalPowerSeries.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/NumberTheoreticTransform.hpp
     title: NumberTheoreticTransform
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: string/HashedString.hpp
     title: Hash library for strings
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
     title: Rolling hash
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/aoj/ALDS1_14_B_HashedString.test.cpp
     title: test/aoj/ALDS1_14_B_HashedString.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution_mod.test.cpp
     title: test/yosupo/convolution_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution_mod_1000000007.test.cpp
     title: test/yosupo/convolution_mod_1000000007.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/convolution_mod_large.test.cpp
     title: test/yosupo/convolution_mod_large.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/exp_of_formal_power_series.test.cpp
     title: test/yosupo/exp_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/inv_of_formal_power_series.test.cpp
     title: test/yosupo/inv_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/log_of_formal_power_series.test.cpp
     title: test/yosupo/log_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix_det.test.cpp
     title: test/yosupo/matrix_det.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/matrix_product.test.cpp
     title: test/yosupo/matrix_product.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/point_set_range_composite.test.cpp
     title: test/yosupo/point_set_range_composite.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/pow_of_formal_power_series.test.cpp
     title: test/yosupo/pow_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/queue_operate_all_composite.test.cpp
     title: test/yosupo/queue_operate_all_composite.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/range_affine_range_sum.test.cpp
     title: test/yosupo/range_affine_range_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/yosupo/vertex_set_path_composite.test.cpp
     title: test/yosupo/vertex_set_path_composite.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: StaticModInt
     links: []
@@ -216,12 +216,12 @@ data:
     \t}\n\ttemplate <class T>\n\tconstexpr StaticModInt operator/(const T& rhs) const\
     \ {\n\t\treturn StaticModInt(*this) /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr\
     \ StaticModInt& operator/=(const T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\
-    \t}\n\tconstexpr static StaticModInt primitive_root() {\n\t\tif constexpr (modulo\
-    \ == 1012924417) return 5;\n\t\tif constexpr (modulo == 924844033) return 5;\n\
-    \t\tif constexpr (modulo == 998244353) return 3;\n\t\tif constexpr (modulo ==\
-    \ 1224736769) return 3;\n\t\tif constexpr (modulo == 167772161) return 3;\n\t\t\
-    if constexpr (modulo == 469762049) return 3;\n\t\tif constexpr (modulo == 1107296257)\
-    \ return 10;\n\n\t\tint p = 0;\n\t\tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<>\
+    \t}\n\tstatic StaticModInt primitive_root() {\n\t\tif constexpr (modulo == 1012924417)\
+    \ return 5;\n\t\tif constexpr (modulo == 924844033) return 5;\n\t\tif constexpr\
+    \ (modulo == 998244353) return 3;\n\t\tif constexpr (modulo == 1224736769) return\
+    \ 3;\n\t\tif constexpr (modulo == 167772161) return 3;\n\t\tif constexpr (modulo\
+    \ == 469762049) return 3;\n\t\tif constexpr (modulo == 1107296257) return 10;\n\
+    \n\t\tint p = 0;\n\t\tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<>\
     \ uid(1, modulo - 1);\n\t\tif (p) return p;\n\n\t\t// use naive factorize due\
     \ to file size limit\n\t\tstd::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\
     \tfor (int i = 2; i * i <= tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\
@@ -280,28 +280,28 @@ data:
     \ T& rhs) {\n\t\treturn operator*=(StaticModInt(rhs));\n\t}\n\ttemplate <class\
     \ T>\n\tconstexpr StaticModInt operator/(const T& rhs) const {\n\t\treturn StaticModInt(*this)\
     \ /= rhs;\n\t}\n\ttemplate <class T>\n\tconstexpr StaticModInt& operator/=(const\
-    \ T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n\tconstexpr static\
-    \ StaticModInt primitive_root() {\n\t\tif constexpr (modulo == 1012924417) return\
-    \ 5;\n\t\tif constexpr (modulo == 924844033) return 5;\n\t\tif constexpr (modulo\
-    \ == 998244353) return 3;\n\t\tif constexpr (modulo == 1224736769) return 3;\n\
-    \t\tif constexpr (modulo == 167772161) return 3;\n\t\tif constexpr (modulo ==\
-    \ 469762049) return 3;\n\t\tif constexpr (modulo == 1107296257) return 10;\n\n\
-    \t\tint p = 0;\n\t\tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<> uid(1,\
-    \ modulo - 1);\n\t\tif (p) return p;\n\n\t\t// use naive factorize due to file\
-    \ size limit\n\t\tstd::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\tfor (int\
-    \ i = 2; i * i <= tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\
-    \t\t\t\tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\
-    \t}\n\t\tif (tmp != 1) vec.emplace_back(tmp);\n\n\t\twhile (true) {\n\t\t\tp =\
-    \ uid(mt);\n\t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\t\
-    if (mypow(StaticModInt(p), (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\
-    \t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate\
-    \ <int modulo, class Stream>\nStream& operator>>(Stream& ist, StaticModInt<modulo>&\
-    \ x) {\n\tlint a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\ntemplate <int modulo,\
-    \ class Stream>\nStream& operator<<(Stream& ost, const StaticModInt<modulo>& x)\
-    \ {\n\tost << int(x);\n\treturn ost;\n}\n\n#if __cplusplus < 201703L\ntemplate\
-    \ <int modulo>\nconstexpr int StaticModInt<modulo>::inv1000000007[];\ntemplate\
-    \ <int modulo>\nconstexpr int StaticModInt<modulo>::inv998244353[];\n#endif\n\n\
-    /**\n * @title StaticModInt\n */"
+    \ T& rhs) {\n\t\treturn operator/=(StaticModInt(rhs));\n\t}\n\tstatic StaticModInt\
+    \ primitive_root() {\n\t\tif constexpr (modulo == 1012924417) return 5;\n\t\t\
+    if constexpr (modulo == 924844033) return 5;\n\t\tif constexpr (modulo == 998244353)\
+    \ return 3;\n\t\tif constexpr (modulo == 1224736769) return 3;\n\t\tif constexpr\
+    \ (modulo == 167772161) return 3;\n\t\tif constexpr (modulo == 469762049) return\
+    \ 3;\n\t\tif constexpr (modulo == 1107296257) return 10;\n\n\t\tint p = 0;\n\t\
+    \tstd::mt19937 mt(0);\n\t\tstd::uniform_int_distribution<> uid(1, modulo - 1);\n\
+    \t\tif (p) return p;\n\n\t\t// use naive factorize due to file size limit\n\t\t\
+    std::vector<int> vec;\n\t\tint tmp = modulo - 1;\n\t\tfor (int i = 2; i * i <=\
+    \ tmp; i++) {\n\t\t\tif (tmp % i == 0) {\n\t\t\t\tvec.emplace_back(i);\n\t\t\t\
+    \tdo {\n\t\t\t\t\ttmp /= i;\n\t\t\t\t} while (tmp % i == 0);\n\t\t\t}\n\t\t}\n\
+    \t\tif (tmp != 1) vec.emplace_back(tmp);\n\n\t\twhile (true) {\n\t\t\tp = uid(mt);\n\
+    \t\t\tbool f = true;\n\t\t\tfor (const auto& i : vec) {\n\t\t\t\tif (mypow(StaticModInt(p),\
+    \ (modulo - 1) / i) == 1) {\n\t\t\t\t\tf = false;\n\t\t\t\t\tbreak;\n\t\t\t\t\
+    }\n\t\t\t}\n\t\t\tif (f) return p;\n\t\t}\n\t}\n};\ntemplate <int modulo, class\
+    \ Stream>\nStream& operator>>(Stream& ist, StaticModInt<modulo>& x) {\n\tlint\
+    \ a;\n\tist >> a;\n\tx = a;\n\treturn ist;\n}\ntemplate <int modulo, class Stream>\n\
+    Stream& operator<<(Stream& ost, const StaticModInt<modulo>& x) {\n\tost << int(x);\n\
+    \treturn ost;\n}\n\n#if __cplusplus < 201703L\ntemplate <int modulo>\nconstexpr\
+    \ int StaticModInt<modulo>::inv1000000007[];\ntemplate <int modulo>\nconstexpr\
+    \ int StaticModInt<modulo>::inv998244353[];\n#endif\n\n/**\n * @title StaticModInt\n\
+    \ */"
   dependsOn:
   - other/template.hpp
   - other/type_traits.hpp
@@ -313,8 +313,8 @@ data:
   - math/NumberTheoreticTransform.hpp
   - math/Combinatorics.hpp
   - math/FormalPowerSeries.hpp
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2023-06-17 00:23:52+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yosupo/vertex_set_path_composite.test.cpp
   - test/yosupo/convolution_mod_1000000007.test.cpp
