@@ -156,7 +156,7 @@ class RMiQ : public SegTree<T, RMiQ_nodef> {
 	RMiQ(Args&&... args) : Base(std::forward<Args>(args)...) {}
 };
 template <typename T>
-class RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized, std::nullptr_t>>
+class RMiQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized>>
 	: public SegTree<T, RMiQ_nodef> {
 	using Base = SegTree<T, RMiQ_nodef>;
 
@@ -174,7 +174,7 @@ class RMaQ : public SegTree<T, RMaQ_nodef> {
 	RMaQ(Args&&... args) : Base(std::forward<Args>(args)...) {}
 };
 template <typename T>
-class RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized, std::nullptr_t>>
+class RMaQ<T, std::enable_if_t<std::numeric_limits<T>::is_specialized>>
 	: public SegTree<T, RMaQ_nodef> {
 	using Base = SegTree<T, RMaQ_nodef>;
 

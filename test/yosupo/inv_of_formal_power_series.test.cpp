@@ -5,9 +5,10 @@
 
 using ModInt = StaticModInt<998244353>;
 using FPS = FormalPowerSeries<ModInt>;
+
 int main() {
 	int N;
-	std::vector<ModInt> vec;
-	std::cin >> N >> vec;
-	std::cout << FPS(std::move(vec)).inverse() << std::endl;
+	FPS fps;
+	std::cin >> N >> fps;
+	std::cout << fps.inv() << std::endl;
 }

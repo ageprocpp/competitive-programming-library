@@ -3,42 +3,32 @@
 #include "../other/type_traits.hpp"
 template <int modulo>
 class StaticModInt : StaticModInt__Base {
-	std::conditional_t<(modulo > (INT_MAX >> 1)), lint, int> value;
-	static constexpr int inv1000000007[] = {0,		   1,		  500000004,
-											333333336, 250000002, 400000003,
-											166666668, 142857144, 125000001,
-											111111112, 700000005},
-						 inv998244353[] = {0,		  1,		 499122177,
-										   332748118, 748683265, 598946612,
-										   166374059, 855638017, 873463809,
-										   443664157, 299473306};
+	uint value;
+	static constexpr int inv1000000007[] = {0,		   1,		  500000004, 333333336,
+											250000002, 400000003, 166666668, 142857144,
+											125000001, 111111112, 700000005},
+						 inv998244353[] = {0,		  1,		 499122177, 332748118,
+										   748683265, 598946612, 166374059, 855638017,
+										   873463809, 443664157, 299473306};
 
   public:
 	static constexpr int mod_value = modulo;
 
 	constexpr StaticModInt() : value(0) {}
-	template <class T,
-			  std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,
-							   std::nullptr_t> = nullptr>
-	constexpr StaticModInt(T value = 0) : value(value % int(modulo)) {
+	template <class T, std::enable_if_t<!std::is_convertible<T, StaticModInt>::value,
+										std::nullptr_t> = nullptr>
+	constexpr StaticModInt(T value = 0) : value(value % modulo) {
 		if (this->value < 0) this->value += modulo;
 	}
 	inline constexpr StaticModInt inv() const {
-#if __cplusplus >= 201703L
 		if constexpr (modulo == 1000000007) {
 			if (*this <= 10) return inv1000000007[*this];
 		} else if constexpr (modulo == 998244353) {
 			if (*this <= 10) return inv998244353[*this];
 		}
-#else
-		if (modulo == 1000000007) {
-			if (*this <= 10) return inv1000000007[*this];
-		} else if (modulo == 998244353) {
-			if (*this <= 10) return inv998244353[*this];
-		}
-#endif
 		return mypow(*this, modulo - 2);
 	}
+	inline constexpr StaticModInt pow(lint k) const { return mypow(*this, k); }
 	inline constexpr operator int() const { return value; }
 	inline constexpr StaticModInt& operator+=(const StaticModInt& x) {
 		value = value + x.value;
@@ -57,9 +47,7 @@ class StaticModInt : StaticModInt__Base {
 		++*this;
 		return res;
 	}
-	inline constexpr StaticModInt operator-() const {
-		return StaticModInt(0) -= *this;
-	}
+	inline constexpr StaticModInt operator-() const { return StaticModInt(0) -= *this; }
 	inline constexpr StaticModInt& operator-=(const StaticModInt& x) {
 		if (value < x.value) value += modulo;
 		value -= x.value;
@@ -116,12 +104,19 @@ class StaticModInt : StaticModInt__Base {
 	constexpr StaticModInt& operator/=(const T& rhs) {
 		return operator/=(StaticModInt(rhs));
 	}
-	static int primitive_root() {
-		static int p = 0;
-		static std::random_device rd;
-		static std::mt19937 mt(rd());
-		static std::uniform_int_distribution<> uid(1, modulo - 1);
-		if (p) return 0;
+	constexpr static StaticModInt primitive_root() {
+		if constexpr (modulo == 1012924417) return 5;
+		if constexpr (modulo == 924844033) return 5;
+		if constexpr (modulo == 998244353) return 3;
+		if constexpr (modulo == 1224736769) return 3;
+		if constexpr (modulo == 167772161) return 3;
+		if constexpr (modulo == 469762049) return 3;
+		if constexpr (modulo == 1107296257) return 10;
+
+		int p = 0;
+		std::mt19937 mt(0);
+		std::uniform_int_distribution<> uid(1, modulo - 1);
+		if (p) return p;
 
 		// use naive factorize due to file size limit
 		std::vector<int> vec;
@@ -149,12 +144,17 @@ class StaticModInt : StaticModInt__Base {
 		}
 	}
 };
-template <int modulo>
-std::istream& operator>>(std::istream& ist, StaticModInt<modulo>& x) {
+template <int modulo, class Stream>
+Stream& operator>>(Stream& ist, StaticModInt<modulo>& x) {
 	lint a;
 	ist >> a;
 	x = a;
 	return ist;
+}
+template <int modulo, class Stream>
+Stream& operator<<(Stream& ost, const StaticModInt<modulo>& x) {
+	ost << int(x);
+	return ost;
 }
 
 #if __cplusplus < 201703L

@@ -3,33 +3,27 @@
 #include "NumberTheoreticTransform.hpp"
 
 template <class T, std::enable_if_t<is_ModInt_v<T>, std::nullptr_t> = nullptr>
-class FormalPowerSeries {
+class FormalPowerSeries : public std::vector<T> {
   private:
-	std::vector<T> vec;
-
 	using NTT = NumberTheoreticTransform;
 	using FPS = FormalPowerSeries<T>;
+	using std::vector<T>::vector;
 
   public:
-	template <class... Args>
-	FormalPowerSeries(Args&&... args) : vec(std::forward<Args>(args)...) {}
-
-	operator std::vector<T>() { return vec; }
-	operator std::vector<T>() const { return vec; }
-	size_t size() const noexcept { return vec.size(); }
+	FormalPowerSeries(const std::vector<T>& vec) : std::vector<T>(vec) {}
 
 	FPS operator-() const {
 		FPS res(*this);
-		for (T& i : res.vec) i = -i;
+		for (T& i : res) i = -i;
 		return res;
 	}
 
 	template <class U>
 	FPS& operator+=(const U& v) {
-		if (vec.empty())
-			vec.emplace_back(v);
+		if (this->empty())
+			this->emplace_back(v);
 		else
-			vec[0] += v;
+			(*this)[0] += v;
 		return *this;
 	}
 	template <class U>
@@ -38,8 +32,8 @@ class FormalPowerSeries {
 		return res += v;
 	}
 	FPS operator+=(const FPS& f) {
-		vec.resize(std::max(size(), f.size()));
-		rep(i, vec.size()) vec[i] += f.vec[i];
+		this->resize(std::max(this->size(), f.size()));
+		rep(i, this->size())(*this)[i] += f[i];
 		return *this;
 	}
 	FPS operator+(const FPS& f) const {
@@ -49,10 +43,10 @@ class FormalPowerSeries {
 
 	template <class U>
 	FPS& operator-=(const U& v) {
-		if (vec.empty())
-			vec.emplace_bcak(-v);
+		if (this->empty())
+			this->emplace_back(-v);
 		else
-			vec[0] -= v;
+			(*this)[0] -= v;
 		return *this;
 	}
 	template <class U>
@@ -61,8 +55,8 @@ class FormalPowerSeries {
 		return res -= v;
 	}
 	FPS operator-=(const FPS& f) {
-		vec.resize(std::max(size(), f.size()));
-		rep(i, std::min(size(), f.size())) vec[i] -= f.vec[i];
+		this->resize(std::max(this->size(), f.size()));
+		rep(i, std::min(this->size(), f.size()))(*this)[i] -= f[i];
 		return *this;
 	}
 	FPS operator-(const FPS& f) const {
@@ -72,52 +66,37 @@ class FormalPowerSeries {
 
 	template <class U>
 	FPS& operator*=(const U& v) {
-		for (const T& i : vec) i *= v;
+		for (T& i : *this) i *= v;
 		return *this;
 	}
 	template <class U>
-	FPS operator*(const U& v) {
+	FPS operator*(const U& v) const {
 		FPS res(*this);
 		return res *= v;
 	}
 	FPS operator*=(const FPS& f) {
-		vec = NTT::convolution(vec, f.vec);
+		*this = NTT::convolution(*this, f);
 		return *this;
 	}
-	FPS operator*(const FPS& f) {
-		FPS res(*this);
-		return res *= f;
-	}
+	FPS operator*(const FPS& f) const { return NTT::convolution(*this, f); }
 
 	template <class U>
 	FPS& operator/=(const U& v) {
-		for (const T& i : vec) i /= v;
-		return *this;
+		return *this *= T(v).inv();
 	}
 	template <class U>
-	FPS operator/(const U& v) {
-		FPS res(*this);
-		return res /= v;
+	FPS operator/(const U& v) const {
+		return *this * T(v).inv();
 	}
 	FPS operator/=(const FPS& f) {
-		vec = NTT::convolution(vec, f.inverse().vec);
+		*this = *this * f.inv();
 		return *this;
 	}
-	FPS operator/(const FPS& f) {
-		FPS res(*this);
-		return res /= f;
-	}
-
-	template <class U>
-
-	[[nodiscard]] size_t size() const {
-		return vec.size();
-	}
-	void resize(size_t n) { vec.resize(n); }
+	FPS operator/(const FPS& f) const { return *this * f.inv(); }
 
 	void differentiate() {
-		vec.erase(vec.begin());
-		REP(i, vec.size()) vec[i - 1] *= i;
+		this->erase(this->begin());
+		REP(i, this->size())(*this)[i - 1] *= i;
 	}
 	[[nodiscard]] FPS differential() {
 		FPS res = *this;
@@ -126,8 +105,8 @@ class FormalPowerSeries {
 	}
 
 	void integrate() {
-		vec.insert(vec.begin(), 0);
-		REP(i, vec.size() - 1) vec[i] /= i;
+		this->insert(this->begin(), 0);
+		REP(i, this->size() - 1)(*this)[i] /= i;
 	}
 	[[nodiscard]] FPS integral() {
 		FPS res = *this;
@@ -135,31 +114,35 @@ class FormalPowerSeries {
 		return res;
 	}
 
-	void invert() { invert(vec.size()); }
+	void invert() { invert(this->size()); }
 	void invert(size_t len) { *this = FPS(len); }
-	[[nodiscard]] FPS inverse() const { return inverse(vec.size()); }
-	[[nodiscard]] FPS inverse(size_t len) const {
-		std::vector<T> res;
+	[[nodiscard]] FPS inv() const { return inv(this->size()); }
+	[[nodiscard]] FPS inv(size_t len) const {
+		FPS res;
 		size_t n = 1;
-		res.emplace_back(T(1) / vec[0]);
-		std::vector<T> vec_shortened = {vec[0]};
-		vec_shortened.reserve(len);
+		res.emplace_back((*this)[0].inv());
 		while (n < len) {
 			n <<= 1;
-			vec_shortened.insert(vec_shortened.end(),
-								 vec.begin() + vec_shortened.size(),
-								 vec.begin() + std::min(vec.size(), n));
-			auto tmp = NTT::convolution(res, vec_shortened);
-			tmp.resize(std::min(n, len));
-			for (T& i : tmp) i = -i;
-			tmp[0] += 2;
-			res = NTT::convolution(res, tmp);
-			res.resize(std::min(n, len));
+			FPS f(n), g(n);
+			rep(i, std::min(this->size(), n)) f[i] = (*this)[i];
+			rep(i, res.size()) g[i] = res[i];
+			NTT::ntt(f, false, n);
+			NTT::ntt(g, false, n);
+			rep(i, n) f[i] *= g[i];
+			NTT::ntt(f, true, n);
+			T inv = T(n).inv();
+			rep(i, n >> 1) f[i] = 0, f[i + (n >> 1)] *= inv;
+			NTT::ntt(f, false, n);
+			rep(i, n) f[i] *= g[i];
+			NTT::ntt(f, true, n);
+			rep(i, n >> 1) f[i + (n >> 1)] *= -inv;
+			res.insert(res.end(), f.begin() + (n >> 1), f.begin() + n);
 		}
-		return FPS(std::move(res));
+		res.resize(len);
+		return std::move(res);
 	}
 
-	[[nodiscard]] FPS log() { return log(size()); }
+	[[nodiscard]] FPS log() { return log(this->size()); }
 	[[nodiscard]] FPS log(size_t len) {
 		FPS differentiated = differential();
 		FPS tmp = differentiated / *this;
@@ -167,7 +150,7 @@ class FormalPowerSeries {
 		return tmp.integral();
 	}
 
-	[[nodiscard]] FPS exp() { return exp(size()); }
+	[[nodiscard]] FPS exp() { return exp(this->size()); }
 	[[nodiscard]] FPS exp(size_t len) {
 		FPS res(1, 1);
 		size_t n = 1;
@@ -181,12 +164,26 @@ class FormalPowerSeries {
 		return res;
 	}
 
-	template <class U>
-	friend std::ostream& operator<<(std::ostream&, const FormalPowerSeries<U>&);
+	[[nodiscard]] FPS pow(lint k) { return pow(k, this->size()); }
+	[[nodiscard]] FPS pow(lint k, size_t len) {
+		rep(i, len) {
+			if (i && (len < k || len < k * i)) break;
+			if ((*this)[i]) {
+				FPS res = FPS(this->begin() + i, this->end()) / (*this)[i];
+				res = (res.log() * k).exp();
+				res.resize(len);
+				T c = (*this)[i].pow(k);
+				for (int j = len - 1; j >= 0; j--) {
+					if (i && (j < k || j < k * i))
+						res[j] = 0;
+					else
+						res[j] = res[j - i * k] * c;
+				}
+				return res;
+			}
+		}
+		FPS res(len);
+		if (!k) res[0] = 1;
+		return res;
+	}
 };
-
-template <class T>
-std::ostream& operator<<(std::ostream& ost, const FormalPowerSeries<T>& fps) {
-	ost << fps.vec;
-	return ost;
-}

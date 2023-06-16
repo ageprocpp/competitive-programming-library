@@ -46,8 +46,7 @@ namespace FastIO {
 				reload();
 			} while (true);
 		}
-		template <typename T,
-				  std::enable_if_t<std::is_integral<T>::value, std::nullptr_t> = nullptr>
+		template <typename T, std::enable_if_t<std::is_integral_v<T>, std::nullptr_t> = nullptr>
 		void scan(T& x) {
 			char c = next_nonspace();
 			if (__builtin_expect(pos + integer_size >= end, 0)) reload();
@@ -64,7 +63,10 @@ namespace FastIO {
 			scan(x);
 			scan(args...);
 		}
-		template <typename T>
+		template <typename T,
+				  std::enable_if_t<std::is_same_v<T, char> || std::is_same_v<T, std::string> ||
+									   std::is_integral_v<T>,
+								   std::nullptr_t> = nullptr>
 		Scanner& operator>>(T& x) {
 			scan(x);
 			return *this;
@@ -168,6 +170,12 @@ namespace FastIO {
 				if (pos == buf_size) flush();
 			}
 		}
+		void print(const std::string& x) {
+			for (char c : x) {
+				outbuf[pos++] = c;
+				if (pos == buf_size) flush();
+			}
+		}
 		template <typename T,
 				  std::enable_if_t<std::is_integral<T>::value, std::nullptr_t> = nullptr>
 		void print(T x) {
@@ -183,12 +191,6 @@ namespace FastIO {
 			memcpy(outbuf + pos, block_str.get() + x * 4 + 4 - len, len);
 			pos += digit;
 		}
-		void print(const std::string& x) {
-			for (char c : x) {
-				outbuf[pos++] = c;
-				if (pos == buf_size) flush();
-			}
-		}
 		template <typename T, class... Args>
 		void print(const T& x, const Args&... args) {
 			print(x);
@@ -200,7 +202,10 @@ namespace FastIO {
 			print(args...);
 			print('\n');
 		}
-		template <typename T>
+		template <typename T,
+				  std::enable_if_t<std::is_same_v<T, char> || std::is_same_v<T, char*> ||
+									   std::is_same_v<T, std::string> || std::is_integral_v<T>,
+								   std::nullptr_t> = nullptr>
 		Printer& operator<<(const T& x) {
 			print(x);
 			return *this;

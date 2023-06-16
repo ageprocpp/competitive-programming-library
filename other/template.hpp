@@ -1,16 +1,6 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #ifndef __clang__
-#ifdef ONLINE_JUDGE
-#ifdef _WIN64
-#pragma GCC target("avx2")
-#else
-#pragma GCC target("avx512f")
-#endif
-#elif defined EVAL
-#else
-#pragma GCC target("avx2")
-#endif
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 #endif
@@ -91,12 +81,12 @@ template <class T, class... Args>
 constexpr auto make_vec(size_t n, Args&&... args) {
 	return std::vector<decltype(make_vec<T>(args...))>(n, make_vec<T>(std::forward<Args>(args)...));
 }
-template <class T, class U>
-std::istream& operator>>(std::istream& ist, std::pair<T, U>& x) {
+template <class T, class U, class Stream>
+Stream& operator>>(Stream& ist, std::pair<T, U>& x) {
 	return ist >> x.first >> x.second;
 }
-template <class T, class U>
-std::ostream& operator<<(std::ostream& ost, const std::pair<T, U>& x) {
+template <class T, class U, class Stream>
+Stream& operator<<(Stream& ost, const std::pair<T, U>& x) {
 	return ost << x.first << " " << x.second;
 }
 template <class Container,
@@ -113,10 +103,10 @@ auto operator>>(std::istream& ist, Container& cont)
 	cont = Container(std::move(tmp));
 	return ist;
 }
-template <class Container,
+template <class Container, class Stream,
 		  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t> = nullptr>
-auto operator<<(std::ostream& ost, const Container& cont)
-	-> decltype(typename Container::iterator(), std::cout)& {
+auto operator<<(Stream& ost, const Container& cont)
+	-> decltype(typename Container::iterator(), ost)& {
 	for (auto it = cont.begin(); it != cont.end(); it++) {
 		if (it != cont.begin()) ost << ' ';
 		ost << *it;

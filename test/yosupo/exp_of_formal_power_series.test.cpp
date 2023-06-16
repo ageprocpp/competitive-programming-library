@@ -7,7 +7,7 @@ using ModInt = StaticModInt<998244353>;
 using FPS = FormalPowerSeries<ModInt>;
 int main() {
 	int N;
-	std::vector<ModInt> vec;
+	FPS vec;
 	std::cin >> N >> vec;
-	std::cout << FPS(std::move(vec)).exp() << std::endl;
+	std::cout << vec.exp() << std::endl;
 }
