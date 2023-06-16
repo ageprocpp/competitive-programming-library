@@ -104,7 +104,7 @@ class StaticModInt : StaticModInt__Base {
 	constexpr StaticModInt& operator/=(const T& rhs) {
 		return operator/=(StaticModInt(rhs));
 	}
-	constexpr static StaticModInt primitive_root() {
+	static StaticModInt primitive_root() {
 		if constexpr (modulo == 1012924417) return 5;
 		if constexpr (modulo == 924844033) return 5;
 		if constexpr (modulo == 998244353) return 3;
