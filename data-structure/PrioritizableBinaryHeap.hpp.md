@@ -1,17 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: graph/Dijkstra.hpp
     title: Dijkstra's algorithm
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/shortest_path.test.cpp
+    title: test/yosupo/shortest_path.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Prioritizable Binary Heap
     links: []
@@ -173,8 +176,9 @@ data:
   requiredBy:
   - graph/Dijkstra.hpp
   timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/shortest_path.test.cpp
 documentation_of: data-structure/PrioritizableBinaryHeap.hpp
 layout: document
 redirect_from:

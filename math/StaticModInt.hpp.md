@@ -1,32 +1,74 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/type_traits.hpp
     title: basic/type_traits.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
     path: math/Combinatorics.hpp
     title: Combinatorics/ModCombinatorics
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/FormalPowerSeries.hpp
     title: math/FormalPowerSeries.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/NumberTheoreticTransform.hpp
     title: NumberTheoreticTransform
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: string/HashedString.hpp
     title: Hash library for strings
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
     title: Rolling hash
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
+    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution_mod.test.cpp
+    title: test/yosupo/convolution_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution_mod_1000000007.test.cpp
+    title: test/yosupo/convolution_mod_1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution_mod_large.test.cpp
+    title: test/yosupo/convolution_mod_large.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/exp_of_formal_power_series.test.cpp
+    title: test/yosupo/exp_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/inv_of_formal_power_series.test.cpp
+    title: test/yosupo/inv_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/log_of_formal_power_series.test.cpp
+    title: test/yosupo/log_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/matrix_det.test.cpp
+    title: test/yosupo/matrix_det.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/matrix_product.test.cpp
+    title: test/yosupo/matrix_product.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/point_set_range_composite.test.cpp
+    title: test/yosupo/point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/pow_of_formal_power_series.test.cpp
+    title: test/yosupo/pow_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/queue_operate_all_composite.test.cpp
+    title: test/yosupo/queue_operate_all_composite.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/range_affine_range_sum.test.cpp
+    title: test/yosupo/range_affine_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/vertex_set_path_composite.test.cpp
+    title: test/yosupo/vertex_set_path_composite.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: StaticModInt
     links: []
@@ -272,8 +314,22 @@ data:
   - string/HashedString.hpp
   - string/RollingHash.hpp
   timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/pow_of_formal_power_series.test.cpp
+  - test/yosupo/point_set_range_composite.test.cpp
+  - test/yosupo/exp_of_formal_power_series.test.cpp
+  - test/yosupo/convolution_mod_large.test.cpp
+  - test/yosupo/range_affine_range_sum.test.cpp
+  - test/yosupo/inv_of_formal_power_series.test.cpp
+  - test/yosupo/log_of_formal_power_series.test.cpp
+  - test/yosupo/matrix_product.test.cpp
+  - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/queue_operate_all_composite.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/matrix_det.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/aoj/ALDS1_14_B_HashedString.test.cpp
 documentation_of: math/StaticModInt.hpp
 layout: document
 redirect_from:

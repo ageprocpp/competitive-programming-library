@@ -1,17 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/SegTree.hpp
     title: Segment Tree
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_D.test.cpp
+    title: test/aoj/DSL_2_D.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_E.test.cpp
+    title: test/aoj/DSL_2_E.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_F.test.cpp
+    title: test/aoj/DSL_2_F.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_G.test.cpp
+    title: test/aoj/DSL_2_G.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_H.test.cpp
+    title: test/aoj/DSL_2_H.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/DSL_2_I.test.cpp
+    title: test/aoj/DSL_2_I.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/range_affine_range_sum.test.cpp
+    title: test/yosupo/range_affine_range_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -429,8 +450,15 @@ data:
   path: data-structure/IntervalSegTree.hpp
   requiredBy: []
   timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/range_affine_range_sum.test.cpp
+  - test/aoj/DSL_2_H.test.cpp
+  - test/aoj/DSL_2_F.test.cpp
+  - test/aoj/DSL_2_I.test.cpp
+  - test/aoj/DSL_2_E.test.cpp
+  - test/aoj/DSL_2_G.test.cpp
+  - test/aoj/DSL_2_D.test.cpp
 documentation_of: data-structure/IntervalSegTree.hpp
 layout: document
 title: Interval Segment Tree

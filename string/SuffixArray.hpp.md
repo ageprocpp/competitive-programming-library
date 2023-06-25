@@ -1,14 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
+    title: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/suffixarray.test.cpp
+    title: test/yosupo/suffixarray.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Suffix array
     links: []
@@ -227,8 +233,10 @@ data:
   path: string/SuffixArray.hpp
   requiredBy: []
   timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/suffixarray.test.cpp
+  - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
 documentation_of: string/SuffixArray.hpp
 layout: document
 redirect_from:

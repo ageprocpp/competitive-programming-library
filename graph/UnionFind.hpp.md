@@ -1,17 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
     path: graph/PersistentUnionFind.hpp
     title: Partially persistent disjoint set
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/unionfind.test.cpp
+    title: test/yosupo/unionfind.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Disjoint set
     links: []
@@ -138,8 +141,9 @@ data:
   requiredBy:
   - graph/PersistentUnionFind.hpp
   timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/unionfind.test.cpp
 documentation_of: graph/UnionFind.hpp
 layout: document
 redirect_from:

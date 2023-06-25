@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/type_traits.hpp
     title: basic/type_traits.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/StaticModInt.hpp
     title: StaticModInt
   _extendedRequiredBy: []

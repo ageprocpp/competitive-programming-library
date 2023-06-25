@@ -1,23 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/type_traits.hpp
     title: basic/type_traits.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: string/RollingHash.hpp
     title: Rolling hash
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
+    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Hash library for strings
     links: []
@@ -231,8 +234,9 @@ data:
   path: string/HashedString.hpp
   requiredBy: []
   timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/ALDS1_14_B_HashedString.test.cpp
 documentation_of: string/HashedString.hpp
 layout: document
 redirect_from:

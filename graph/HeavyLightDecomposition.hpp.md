@@ -1,14 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/lca.test.cpp
+    title: test/yosupo/lca.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/vertex_add_path_sum.test.cpp
+    title: test/yosupo/vertex_add_path_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/vertex_add_subtree_sum.test.cpp
+    title: test/yosupo/vertex_add_subtree_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/vertex_set_path_composite.test.cpp
+    title: test/yosupo/vertex_set_path_composite.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Heavy light decomposition
     links: []
@@ -167,8 +179,12 @@ data:
   path: graph/HeavyLightDecomposition.hpp
   requiredBy: []
   timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/lca.test.cpp
+  - test/yosupo/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/vertex_add_path_sum.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
 documentation_of: graph/HeavyLightDecomposition.hpp
 layout: document
 redirect_from:

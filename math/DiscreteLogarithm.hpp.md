@@ -1,10 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: test/yosupo/discrete_logarithm_mod.cpp
+    title: test/yosupo/discrete_logarithm_mod.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -139,7 +142,8 @@ data:
   - basic/template.hpp
   isVerificationFile: false
   path: math/DiscreteLogarithm.hpp
-  requiredBy: []
+  requiredBy:
+  - test/yosupo/discrete_logarithm_mod.cpp
   timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

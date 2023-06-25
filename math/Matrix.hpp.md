@@ -1,14 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/matrix_det.test.cpp
+    title: test/yosupo/matrix_det.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/matrix_product.test.cpp
+    title: test/yosupo/matrix_product.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Matrix
     links: []
@@ -249,8 +255,10 @@ data:
   path: math/Matrix.hpp
   requiredBy: []
   timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/matrix_product.test.cpp
+  - test/yosupo/matrix_det.test.cpp
 documentation_of: math/Matrix.hpp
 layout: document
 redirect_from:

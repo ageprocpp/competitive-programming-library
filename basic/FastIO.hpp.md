@@ -1,14 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/bipartitematching.test.cpp
+    title: test/yosupo/bipartitematching.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution_mod_1000000007.test.cpp
+    title: test/yosupo/convolution_mod_1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/convolution_mod_large.test.cpp
+    title: test/yosupo/convolution_mod_large.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/many_aplusb.test.cpp
+    title: test/yosupo/many_aplusb.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/pow_of_formal_power_series.test.cpp
+    title: test/yosupo/pow_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/predecessor_problem.test.cpp
+    title: test/yosupo/predecessor_problem.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/range_kth_smallest.test.cpp
+    title: test/yosupo/range_kth_smallest.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/shortest_path.test.cpp
+    title: test/yosupo/shortest_path.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Fast IO library
     links: []
@@ -267,8 +291,16 @@ data:
   path: basic/FastIO.hpp
   requiredBy: []
   timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/yosupo/predecessor_problem.test.cpp
+  - test/yosupo/pow_of_formal_power_series.test.cpp
+  - test/yosupo/range_kth_smallest.test.cpp
+  - test/yosupo/bipartitematching.test.cpp
+  - test/yosupo/convolution_mod_large.test.cpp
+  - test/yosupo/shortest_path.test.cpp
+  - test/yosupo/many_aplusb.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
 documentation_of: basic/FastIO.hpp
 layout: document
 redirect_from:
