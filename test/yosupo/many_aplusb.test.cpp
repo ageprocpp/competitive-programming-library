@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/many_aplusb"
-#include "../../other/template.hpp"
-#include "../../other/FastIO.hpp"
+#include "../../basic/template.hpp"
+#include "../../basic/FastIO.hpp"
 FastIO::Scanner cin;
 FastIO::Printer cout;
 int main() {

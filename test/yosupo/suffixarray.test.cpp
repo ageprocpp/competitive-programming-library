@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/suffixarray"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../string/SuffixArray.hpp"
 int main() {
 	std::string s;

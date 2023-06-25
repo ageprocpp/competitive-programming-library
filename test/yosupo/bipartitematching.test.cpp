@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/bipartitematching"
-#include "../../other/template.hpp"
-#include "../../other/FastIO.hpp"
+#include "../../basic/template.hpp"
+#include "../../basic/FastIO.hpp"
 #include "../../graph/Dinic.hpp"
 FastIO::Scanner cin;
 FastIO::Printer cout;

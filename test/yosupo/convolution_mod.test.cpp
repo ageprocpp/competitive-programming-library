@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/convolution_mod"
 #include "../../math/NumberTheoreticTransform.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, m;
 std::vector<int> a, b;
 int main() {

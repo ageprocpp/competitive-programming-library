@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_kth_smallest"
-#include "../../other/template.hpp"
-#include "../../other/FastIO.hpp"
+#include "../../basic/template.hpp"
+#include "../../basic/FastIO.hpp"
 #include "../../data-structure/WaveletMatrix.hpp"
 FastIO::Scanner cin;
 FastIO::Printer cout;

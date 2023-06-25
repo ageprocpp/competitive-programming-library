@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/line_add_get_min"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../data-structure/ConvexHullTrick.hpp"
 int N, Q;
 int main() {

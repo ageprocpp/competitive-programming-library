@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/set_xor_min"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../string/Trie.hpp"
 int Q, t, x;
 int main() {

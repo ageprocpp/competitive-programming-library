@@ -2,7 +2,7 @@
 #include "../../math/StaticModInt.hpp"
 #include "../../data-structure/SegTree.hpp"
 #include "../../graph/HeavyLightDecomposition.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 using ModInt = StaticModInt<998244353>;
 using MP = std::pair<ModInt, ModInt>;
 MP nodef(const MP& lhs, const MP& rhs) {

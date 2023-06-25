@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/lca"
 #include "../../graph/HeavyLightDecomposition.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, q;
 int main() {
 	scanf("%d%d", &n, &q);

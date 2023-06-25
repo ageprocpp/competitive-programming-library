@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/factorize"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../math/FastFactorize.hpp"
 int main() {
 	int Q;

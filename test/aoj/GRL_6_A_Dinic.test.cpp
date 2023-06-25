@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A"
 #include "../../graph/Dinic.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int v, e;
 int main() {
 	scanf("%d%d", &v, &e);

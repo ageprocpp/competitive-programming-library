@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/static_range_sum"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, q, l, r;
 lint a[500010];
 int main() {

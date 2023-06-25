@@ -1,5 +1,5 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_4_B"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../math/Geometry.hpp"
 int main() {
 	int n;

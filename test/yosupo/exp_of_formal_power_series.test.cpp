@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/exp_of_formal_power_series"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../math/StaticModInt.hpp"
 #include "../../math/FormalPowerSeries.hpp"
 

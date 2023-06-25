@@ -1,5 +1,5 @@
 #define PROBLEM "https://yukicoder.me/problems/no/789"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../data-structure/DynamicSegTree.hpp"
 int nodef(const int& a, const int& b) { return a + b; }
 int ident() { return 0; }

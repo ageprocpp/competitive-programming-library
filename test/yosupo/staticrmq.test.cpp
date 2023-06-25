@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
 #include "../../data-structure/SparseTable.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, q, l, r;
 std::vector<int> vec;
 int main() {

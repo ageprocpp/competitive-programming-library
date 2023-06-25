@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/unionfind"
 #include "../../graph/UnionFind.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, q, t, u, v;
 int main() {
 	scanf("%d%d", &n, &q);

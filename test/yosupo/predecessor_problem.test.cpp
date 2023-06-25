@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/predecessor_problem"
-#include "../../other/template.hpp"
-#include "../../other/FastIO.hpp"
+#include "../../basic/template.hpp"
+#include "../../basic/FastIO.hpp"
 #include "../../data-structure/vanEmdeBoasTree.hpp"
 FastIO::Scanner cin;
 FastIO::Printer cout;

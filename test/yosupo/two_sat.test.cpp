@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/two_sat"
 #include "../../graph/TwoSat.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int N, M;
 int main() {
 	scanf("p cnf %d%d", &N, &M);

@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_B"
 #include "../../graph/PrimalDual.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, m, f;
 int main() {
 	scanf("%d%d%d", &n, &m, &f);

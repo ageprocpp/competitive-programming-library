@@ -1,5 +1,5 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../string/SuffixArray.hpp"
 std::string t, p;
 int main() {

@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/vertex_add_path_sum"
 #include "../../data-structure/BIT.hpp"
 #include "../../graph/HeavyLightDecomposition.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, q, a[500010];
 int main() {
 	scanf("%d%d", &n, &q);

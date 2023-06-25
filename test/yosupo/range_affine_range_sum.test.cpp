@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
 #include "../../math/StaticModInt.hpp"
 #include "../../data-structure/IntervalSegTree.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 using ModInt = StaticModInt<998244353>;
 using MP = std::pair<ModInt, ModInt>;
 ModInt nodef(const ModInt& a, const ModInt& b) { return a + b; }

@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/tree_diameter"
 #include "../../graph/Tree.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int N;
 int main() {
 	scanf("%d", &N);

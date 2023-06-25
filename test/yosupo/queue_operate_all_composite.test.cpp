@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/queue_operate_all_composite"
 #include "../../math/StaticModInt.hpp"
 #include "../../data-structure/SWAG.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 using ModInt = StaticModInt<998244353>;
 using MP = std::pair<ModInt, ModInt>;
 MP op(const MP& lhs, const MP& rhs) {

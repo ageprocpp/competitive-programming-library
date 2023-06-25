@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_E"
 #include "../../data-structure/IntervalSegTree.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, q;
 int main() {
 	scanf("%d%d", &n, &q);

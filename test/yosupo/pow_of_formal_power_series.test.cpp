@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/pow_of_formal_power_series"
-#include "../../other/template.hpp"
-#include "../../other/FastIO.hpp"
+#include "../../basic/template.hpp"
+#include "../../basic/FastIO.hpp"
 #include "../../math/StaticModInt.hpp"
 #include "../../math/FormalPowerSeries.hpp"
 

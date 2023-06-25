@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/problems/CGL_2_D"
 #define ERROR "1e-8"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../math/Geometry.hpp"
 int main() {
 	int q;

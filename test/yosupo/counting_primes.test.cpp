@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/counting_primes"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 #include "../../math/CountPrime.hpp"
 int main() {
 	lint N;

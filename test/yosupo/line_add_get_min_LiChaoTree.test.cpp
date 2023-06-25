@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/line_add_get_min"
 #include "../../data-structure/LiChaoTree.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, q;
 lint a[200010], b[200010];
 std::vector<std::pair<int, lint>> vec;

@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/convolution_mod_1000000007"
-#include "../../other/template.hpp"
-#include "../../other/FastIO.hpp"
+#include "../../basic/template.hpp"
+#include "../../basic/FastIO.hpp"
 #include "../../math/FormalPowerSeries.hpp"
 using FPS = FormalPowerSeries<StaticModInt<1000000007>>;
 FastIO::Scanner cin;

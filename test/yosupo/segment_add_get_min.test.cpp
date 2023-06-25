@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/segment_add_get_min"
 #include "../../data-structure/LiChaoTree.hpp"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int n, q, l[200010], r[200010], a[200010];
 lint b[200010];
 std::vector<std::pair<IP, std::pair<int, lint>>> vec;

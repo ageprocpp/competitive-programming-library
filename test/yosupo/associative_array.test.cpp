@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/associative_array"
-#include "../../other/template.hpp"
+#include "../../basic/template.hpp"
 int main() {
 	int q, type;
 	lint k, v;
