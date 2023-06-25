@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 namespace FastFactorize {
 	// safe multiplication for modulo
 	inline static lint mul(lint a, lint b, lint n) { return i128(a) * b % n; }

@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 #include "RBST.hpp"
 template <class T>
 class RBSTset {

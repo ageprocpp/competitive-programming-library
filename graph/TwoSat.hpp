@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 #include "StronglyConnectedComponents.hpp"
 class TwoSat {
 	int N;

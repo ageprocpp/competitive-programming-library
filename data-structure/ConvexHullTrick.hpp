@@ -1,4 +1,4 @@
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 template <class T, bool isMin>
 class ConvexHullTrick {
 	static constexpr double DBL_INF = DBL_MAX;

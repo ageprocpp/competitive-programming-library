@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 std::vector<int> ZAlgorithm(const std::string& S) {
 	int c = 0, n = S.size();
 	std::vector<int> res(n, 0);

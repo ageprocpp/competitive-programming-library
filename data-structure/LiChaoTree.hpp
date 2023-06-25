@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 template <bool isMin>
 class LiChaoTree {
 	int n, id;

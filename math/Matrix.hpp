@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 
 template <class T, std::enable_if_t<
 #if __cplusplus >= 201703L

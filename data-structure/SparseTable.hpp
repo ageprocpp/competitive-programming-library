@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 template <class T, bool withindex = false>
 class SparseTable {
 	using U = std::conditional_t<withindex, std::pair<T, int>, T>;

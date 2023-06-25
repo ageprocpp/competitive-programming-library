@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 class StronglyConnectedComponents {
 	int N;
 	std::vector<std::vector<int>> vec, rvec;

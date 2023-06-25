@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 #include "SuccinctBitVector.hpp"
 template <typename T>
 constexpr static int8_t bit_count() {

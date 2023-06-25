@@ -1,4 +1,4 @@
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 lint floor_sum(lint N, lint M, lint A, lint B) {
 	lint ans = 0;
 	if (A >= M) {

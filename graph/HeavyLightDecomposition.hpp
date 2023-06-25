@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 class HeavyLightDecomposition {
 	int n, index = 0;
 	void size_dfs(int node) {

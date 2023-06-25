@@ -1,4 +1,4 @@
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 static bool equal(double lhs, double rhs) { return std::abs(lhs - rhs) < eps; }
 
 class Point2D : public std::complex<double> {

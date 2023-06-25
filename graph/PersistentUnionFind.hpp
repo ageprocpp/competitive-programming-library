@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 #include "UnionFind.hpp"
 class PersistentUnionFind {
 	std::vector<IP> notparent;

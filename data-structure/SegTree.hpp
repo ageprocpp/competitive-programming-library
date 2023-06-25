@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 template <class T, T (*nodef)(const T&, const T&)>
 class SegTree {
   protected:

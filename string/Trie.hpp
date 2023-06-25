@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 template <int char_size, int base>
 class Trie {
 	class Node {

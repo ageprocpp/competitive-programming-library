@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 class Tree {
 	using ET = std::pair<int, lint>;
 

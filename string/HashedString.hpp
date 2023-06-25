@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 #include "RollingHash.hpp"
 class HashedString {
 	using M = StaticModInt<1000000007>;

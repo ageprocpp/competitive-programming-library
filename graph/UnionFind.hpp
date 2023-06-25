@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 class UnionFind {
   protected:
 	std::vector<int> par_vec, size_vec;

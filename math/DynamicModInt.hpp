@@ -1,6 +1,6 @@
 #pragma once
-#include "../other/template.hpp"
-#include "../other/type_traits.hpp"
+#include "../basic/template.hpp"
+#include "../basic/type_traits.hpp"
 class DynamicModInt : DynamicModInt__Base {
 	static uint modulo;
 	int value;

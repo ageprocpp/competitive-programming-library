@@ -1,6 +1,6 @@
 #pragma once
-#include "../other/template.hpp"
-#include "../other/type_traits.hpp"
+#include "../basic/template.hpp"
+#include "../basic/type_traits.hpp"
 template <int modulo>
 class StaticModInt : StaticModInt__Base {
 	uint value;

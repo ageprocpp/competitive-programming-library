@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 class SuccinctBitVector {
 	std::vector<bool> v;
 	using u8 = uint_least8_t;

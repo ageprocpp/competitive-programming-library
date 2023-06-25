@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 
 // assign priorities to indexed nodes
 template <class T, class Compare = std::less<>>

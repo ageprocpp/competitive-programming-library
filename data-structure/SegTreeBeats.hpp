@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 class SegTreeBeats {
 	unsigned int n;
 	std::vector<lint> width, min[2], minc, max[2], maxc, sum, lazy;

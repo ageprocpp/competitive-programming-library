@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 #include "SegTree.hpp"
 template <class T, class U, T (*nodef)(const T&, const T&),
 		  void (*lazyf)(U&, const U&),

@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 #include "../math/StaticModInt.hpp"
 template <unsigned int mod, unsigned int base>
 class RollingHash {

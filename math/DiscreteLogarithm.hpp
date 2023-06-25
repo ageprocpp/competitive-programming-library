@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 int DiscreteLogarithm(int X, int Y, int M) {
 	if (Y == 0 && M == 1) return 0;
 	if (X == 0) {

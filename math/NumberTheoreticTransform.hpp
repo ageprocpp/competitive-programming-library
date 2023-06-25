@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 #include "StaticModInt.hpp"
 // 1012924417, 5, 2^21
 // 924844033, 5, 2^21

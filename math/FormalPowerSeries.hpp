@@ -1,5 +1,5 @@
-#include "../other/template.hpp"
-#include "../other/type_traits.hpp"
+#include "../basic/template.hpp"
+#include "../basic/type_traits.hpp"
 #include "NumberTheoreticTransform.hpp"
 
 template <class T, std::enable_if_t<is_ModInt_v<T>, std::nullptr_t> = nullptr>

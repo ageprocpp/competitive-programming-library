@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 class SuffixArray {
 	std::string S;
 	std::vector<int> SA;

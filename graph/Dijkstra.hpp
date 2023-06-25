@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 #include "Graph.hpp"
 #include "../data-structure/PrioritizableBinaryHeap.hpp"
 template <typename W>

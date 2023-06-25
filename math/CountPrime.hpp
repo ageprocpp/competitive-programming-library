@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 
 lint count_prime(lint x) {
 	static constexpr int table[] = {

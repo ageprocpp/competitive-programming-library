@@ -1,5 +1,5 @@
 #pragma once
-#include "../other/template.hpp"
+#include "../basic/template.hpp"
 template <class T, class Compare = std::less<>>
 class BinaryHeap {
 	std::vector<T> heap;
