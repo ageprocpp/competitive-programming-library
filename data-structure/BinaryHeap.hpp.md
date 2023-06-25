@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -11,7 +11,7 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -125,7 +125,7 @@ data:
     }\n\n\tvoid push(const T& x) {\n\t\theap.push_back(x);\n\t\tup_heap();\n\t}\n\t\
     template <class... Args>\n\tvoid emplace(Args&&... args) {\n\t\theap.emplace_back(std::forward<Args...>(args...));\n\
     \t\tup_heap();\n\t}\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, class\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\ntemplate <class T, class\
     \ Compare = std::less<>>\nclass BinaryHeap {\n\tstd::vector<T> heap;\n\tCompare\
     \ comp;\n\n\tvoid up_heap() {\n\t\tsize_t id = heap.size() - 1;\n\t\twhile (id\
     \ > 1) {\n\t\t\tif (comp(heap[id >> 1], heap[id])) {\n\t\t\t\tstd::swap(heap[id\
@@ -147,11 +147,11 @@ data:
     template <class... Args>\n\tvoid emplace(Args&&... args) {\n\t\theap.emplace_back(std::forward<Args...>(args...));\n\
     \t\tup_heap();\n\t}\n};"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: data-structure/BinaryHeap.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/BinaryHeap.hpp

@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -11,7 +11,7 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -118,7 +118,7 @@ data:
     \twhile (tmp < nf.size() || tmp < ng.size()) tmp <<= 1;\n\t\tnf.resize(tmp), ng.resize(tmp);\n\
     \t\tfwt(f), fwt(g);\n\t\trep(i, nf.size()) nf[i] *= ng[i];\n\t\tifwt(f);\n\t\t\
     return nf;\n\t}\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass XorConvolution {\n\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass XorConvolution {\n\
     \  private:\n\ttemplate <typename T>\n\tstatic void fwt(std::vector<T>& f) {\n\
     \t\tsize_t n = f.size();\n\t\tfor (int i = 1; i < n; i <<= 1) {\n\t\t\trep(j,\
     \ n) {\n\t\t\t\tif ((j & i) == 0) {\n\t\t\t\t\tT x = f[j], y = f[j | i];\n\t\t\
@@ -133,11 +133,11 @@ data:
     \ ng.resize(tmp);\n\t\tfwt(f), fwt(g);\n\t\trep(i, nf.size()) nf[i] *= ng[i];\n\
     \t\tifwt(f);\n\t\treturn nf;\n\t}\n};"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: math/XorConvolution.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/XorConvolution.hpp

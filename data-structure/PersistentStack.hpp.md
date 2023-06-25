@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -12,7 +12,7 @@ data:
   attributes:
     document_title: Persistent Stack
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -115,7 +115,7 @@ data:
     \ }\n\tbool empty() const noexcept { return !last.get(); }\n\tbool operator<(const\
     \ PersistentStack<T>& ps) const noexcept {\n\t\treturn false;\n\t}\n};\n\n/**\n\
     \ * @title Persistent Stack\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T>\nclass\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\ntemplate <class T>\nclass\
     \ PersistentStack {\n\tclass Node;\n\tusing ptr = std::shared_ptr<Node>;\n\tclass\
     \ Node {\n\t  public:\n\t\tT value;\n\t\tptr prev;\n\t};\n\tptr last = nullptr;\n\
     \tPersistentStack(const ptr& p) : last(p) {}\n\n  public:\n\texplicit PersistentStack()\
@@ -126,11 +126,11 @@ data:
     \ }\n\tbool operator<(const PersistentStack<T>& ps) const noexcept {\n\t\treturn\
     \ false;\n\t}\n};\n\n/**\n * @title Persistent Stack\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: data-structure/PersistentStack.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/PersistentStack.hpp

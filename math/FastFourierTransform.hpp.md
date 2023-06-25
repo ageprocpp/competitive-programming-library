@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
+  - icon: ':warning:'
     path: math/MyComplex.hpp
     title: MyComplex
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -15,7 +15,7 @@ data:
   attributes:
     document_title: FastFourierTransform
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -157,7 +157,7 @@ data:
     \ *= ng[i];\n\t\tinverse = true;\n\t\tdft(nf);\n\t\tstd::vector<double> res(sz);\n\
     \t\trep(i, sz) res[i] = nf[i].real() / sz;\n\t\treturn res;\n\t}\n};\n\nbool FastFourierTransform::inverse\
     \ = false;\n\n/**\n * @title FastFourierTransform\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"MyComplex.hpp\"\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n#include \"MyComplex.hpp\"\
     \nclass FastFourierTransform {\n  private:\n\tstatic void dft(std::vector<MyComplex>&\
     \ a) {\n\t\tint sz = a.size();\n\t\tif (sz == 1) return;\n\t\tMyComplex root =\n\
     \t\t\tstd::polar(1.0, (inverse ? -1 : 1) * 2.0 * acos(-1) / sz);\n\t\tstd::vector<MyComplex>\
@@ -178,12 +178,12 @@ data:
     };\n\nbool FastFourierTransform::inverse = false;\n\n/**\n * @title FastFourierTransform\n\
     \ */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   - math/MyComplex.hpp
   isVerificationFile: false
   path: math/FastFourierTransform.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/FastFourierTransform.hpp

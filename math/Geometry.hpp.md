@@ -1,53 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_1_A.test.cpp
-    title: test/aoj/CGL_1_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_1_B.test.cpp
-    title: test/aoj/CGL_1_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_1_C.test.cpp
-    title: test/aoj/CGL_1_C.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_2_A.test.cpp
-    title: test/aoj/CGL_2_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_2_B.test.cpp
-    title: test/aoj/CGL_2_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_2_C.test.cpp
-    title: test/aoj/CGL_2_C.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_2_D.test.cpp
-    title: test/aoj/CGL_2_D.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_3_A.test.cpp
-    title: test/aoj/CGL_3_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_3_B.test.cpp
-    title: test/aoj/CGL_3_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_3_C.test.cpp
-    title: test/aoj/CGL_3_C.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_4_A.test.cpp
-    title: test/aoj/CGL_4_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_4_B.test.cpp
-    title: test/aoj/CGL_4_B.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -224,7 +188,7 @@ data:
     \ x, y;\n\tist >> x >> y;\n\tp = Point2D(x, y);\n\treturn ist;\n}\n\nstd::ostream&\
     \ operator<<(std::ostream& ost, const Point2D& p) {\n\tost << p.get_x() << ' '\
     \ << p.get_y();\n\treturn ost;\n}\n"
-  code: "#include \"../other/template.hpp\"\nstatic bool equal(double lhs, double\
+  code: "#include \"../basic/template.hpp\"\nstatic bool equal(double lhs, double\
     \ rhs) { return std::abs(lhs - rhs) < eps; }\n\nclass Point2D : public std::complex<double>\
     \ {\n\tusing C = std::complex<double>;\n\n  public:\n\tPoint2D() = default;\n\t\
     Point2D(double x, double y) : C(x, y) {}\n\tPoint2D(const std::complex<double>&\
@@ -309,25 +273,13 @@ data:
     \ operator<<(std::ostream& ost, const Point2D& p) {\n\tost << p.get_x() << ' '\
     \ << p.get_y();\n\treturn ost;\n}"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: math/Geometry.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/CGL_2_A.test.cpp
-  - test/aoj/CGL_1_A.test.cpp
-  - test/aoj/CGL_3_B.test.cpp
-  - test/aoj/CGL_4_A.test.cpp
-  - test/aoj/CGL_2_B.test.cpp
-  - test/aoj/CGL_1_C.test.cpp
-  - test/aoj/CGL_3_A.test.cpp
-  - test/aoj/CGL_3_C.test.cpp
-  - test/aoj/CGL_1_B.test.cpp
-  - test/aoj/CGL_4_B.test.cpp
-  - test/aoj/CGL_2_C.test.cpp
-  - test/aoj/CGL_2_D.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: math/Geometry.hpp
 layout: document
 redirect_from:

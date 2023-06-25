@@ -1,24 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
-    title: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/suffixarray.test.cpp
-    title: test/yosupo/suffixarray.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Suffix array
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -169,7 +163,7 @@ data:
     \ = true;\n\t\trep(i, S.size() + 1) {\n\t\t\tif (v[i]) res.emplace_back(i);\n\t\
     \t}\n\t\treturn res;\n\t}\n\toperator std::vector<int>() const { return SA; }\n\
     };\n\n/**\n * @title Suffix array\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass SuffixArray {\n\t\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass SuffixArray {\n\t\
     std::string S;\n\tstd::vector<int> SA;\n\tstd::vector<int> InducedSorting(const\
     \ std::vector<int> &S, int count) {\n\t\tstd::vector<int> SA(S.size(), -1);\n\t\
     \tstd::vector<char> type = AssignType(S);\n\t\tstd::vector<int> bucket = GetBucket(S,\
@@ -228,15 +222,13 @@ data:
     \t}\n\t\treturn res;\n\t}\n\toperator std::vector<int>() const { return SA; }\n\
     };\n\n/**\n * @title Suffix array\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: string/SuffixArray.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/suffixarray.test.cpp
-  - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: string/SuffixArray.hpp
 layout: document
 redirect_from:

@@ -1,21 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/queue_operate_all_composite.test.cpp
-    title: test/yosupo/queue_operate_all_composite.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Sliding Window Aggregation
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -128,7 +125,7 @@ data:
     \ <class T>\nclass minSWAG : public SWAG<T, minSWAG_op> {};\ntemplate <class T>\n\
     class maxSWAG : public SWAG<T, maxSWAG_op> {};\n\n/**\n * @title Sliding Window\
     \ Aggregation\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, T (*op)(const\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\ntemplate <class T, T (*op)(const\
     \ T&, const T&)>\nclass SWAG {\n\tstd::stack<std::pair<T, T>> front, back;\n\n\
     \  public:\n\tSWAG() {}\n\tSWAG(const std::vector<T> vec) {\n\t\tfor (const T&\
     \ i : vec) {\n\t\t\tback.emplace(i, op(back.top().second, i));\n\t\t}\n\t}\n\t\
@@ -149,14 +146,13 @@ data:
     \ <class T>\nclass maxSWAG : public SWAG<T, maxSWAG_op> {};\n\n/**\n * @title\
     \ Sliding Window Aggregation\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: data-structure/SWAG.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/queue_operate_all_composite.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: data-structure/SWAG.hpp
 layout: document
 redirect_from:

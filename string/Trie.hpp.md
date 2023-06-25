@@ -1,21 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/set_xor_min.test.cpp
-    title: test/yosupo/set_xor_min.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Trie
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -145,7 +142,7 @@ data:
     \t\t\t\tnodes[nodes[node_id].next[1 - c]].cnt == 0) {\n\t\t\t\tnode_id = nodes[node_id].next[c];\n\
     \t\t\t} else {\n\t\t\t\tres += 1 << (bit - i - 1);\n\t\t\t\tnode_id = nodes[node_id].next[1\
     \ - c];\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Trie\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <int char_size,\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\ntemplate <int char_size,\
     \ int base>\nclass Trie {\n\tclass Node {\n\t  public:\n\t\tstd::vector<int> next;\n\
     \t\tint c, cnt = 0, lastcnt = 0;\n\t\tNode(int c_) : c(c_) { next.assign(char_size,\
     \ -1); }\n\t};\n\n  protected:\n\tstd::vector<Node> nodes;\n\n  public:\n\tTrie()\
@@ -183,14 +180,13 @@ data:
     \t\t\t} else {\n\t\t\t\tres += 1 << (bit - i - 1);\n\t\t\t\tnode_id = nodes[node_id].next[1\
     \ - c];\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Trie\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: string/Trie.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/set_xor_min.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: string/Trie.hpp
 layout: document
 redirect_from:

@@ -1,15 +1,15 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
+  - icon: ':warning:'
+    path: basic/type_traits.hpp
+    title: basic/type_traits.hpp
+  - icon: ':warning:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  - icon: ':heavy_check_mark:'
-    path: other/type_traits.hpp
-    title: other/type_traits.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -18,7 +18,7 @@ data:
   attributes:
     document_title: Combinatorics/ModCombinatorics
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -111,7 +111,7 @@ data:
     \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
-    }\n#line 3 \"other/type_traits.hpp\"\n\nclass ModInt__Base {};\nclass StaticModInt__Base\
+    }\n#line 3 \"basic/type_traits.hpp\"\n\nclass ModInt__Base {};\nclass StaticModInt__Base\
     \ : ModInt__Base {};\nclass DynamicModInt__Base : ModInt__Base {};\n\ntemplate\
     \ <class T>\nclass is_ModInt : public std::is_base_of<ModInt__Base, T> {};\ntemplate\
     \ <class T>\nconstexpr bool is_ModInt_v = is_ModInt<T>::value;\n\ntemplate <class\
@@ -204,7 +204,7 @@ data:
     \t\treturn factorial[a] * inv[a - b];\n\t}\n};\n/**\n * @title Combinatorics/ModCombinatorics\n\
     \ */\ntemplate <typename T>\nstd::vector<T> ModCombinatorics<T>::inv = std::vector<T>(1,\
     \ 1);\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../other/type_traits.hpp\"\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n#include \"../basic/type_traits.hpp\"\
     \n#include \"StaticModInt.hpp\"\ntemplate <typename T>\nclass Combinatorics {\n\
     \  protected:\n\tstatic std::vector<T> factorial;\n\tstatic void append(int n)\
     \ noexcept {\n\t\twhile (factorial.size() <= n) {\n\t\t\tfactorial.emplace_back(factorial.back()\
@@ -228,13 +228,13 @@ data:
     \ */\ntemplate <typename T>\nstd::vector<T> ModCombinatorics<T>::inv = std::vector<T>(1,\
     \ 1);"
   dependsOn:
-  - other/template.hpp
-  - other/type_traits.hpp
+  - basic/template.hpp
+  - basic/type_traits.hpp
   - math/StaticModInt.hpp
   isVerificationFile: false
   path: math/Combinatorics.hpp
   requiredBy: []
-  timestamp: '2023-06-17 00:23:52+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/Combinatorics.hpp

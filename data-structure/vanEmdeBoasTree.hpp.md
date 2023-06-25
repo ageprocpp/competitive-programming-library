@@ -1,20 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/predecessor_problem.test.cpp
-    title: test/yosupo/predecessor_problem.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -151,7 +148,7 @@ data:
     \ x) {\n\t\tif (min == max) {\n\t\t\tif (x == min) min = max = -1;\n\t\t\treturn;\n\
     \t\t}\n\t\tif (x == 0)\n\t\t\tmin = max = 1;\n\t\telse\n\t\t\tmin = max = 0;\n\
     \t}\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n\ntemplate <uint bit>\n\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n\ntemplate <uint bit>\n\
     class vanEmdeBoasTree {\n\tint min = -1, max = -1;\n\tstatic int upper(int x)\
     \ { return x >> bit / 2; }\n\tstatic int lower(int x) { return x & (1 << bit /\
     \ 2) - 1; }\n\tstatic int index(int x, int y) { return (x << bit / 2) | y; }\n\
@@ -196,14 +193,13 @@ data:
     if (x == min) min = max = -1;\n\t\t\treturn;\n\t\t}\n\t\tif (x == 0)\n\t\t\tmin\
     \ = max = 1;\n\t\telse\n\t\t\tmin = max = 0;\n\t}\n};"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: data-structure/vanEmdeBoasTree.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/predecessor_problem.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: data-structure/vanEmdeBoasTree.hpp
 layout: document
 title: van Emde Boas Tree

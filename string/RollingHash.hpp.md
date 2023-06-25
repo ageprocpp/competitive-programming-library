@@ -1,30 +1,27 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
+  - icon: ':warning:'
+    path: basic/type_traits.hpp
+    title: basic/type_traits.hpp
+  - icon: ':warning:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  - icon: ':heavy_check_mark:'
-    path: other/type_traits.hpp
-    title: other/type_traits.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: string/HashedString.hpp
     title: Hash library for strings
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
-    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Rolling hash
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -117,7 +114,7 @@ data:
     \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
-    }\n#line 3 \"other/type_traits.hpp\"\n\nclass ModInt__Base {};\nclass StaticModInt__Base\
+    }\n#line 3 \"basic/type_traits.hpp\"\n\nclass ModInt__Base {};\nclass StaticModInt__Base\
     \ : ModInt__Base {};\nclass DynamicModInt__Base : ModInt__Base {};\n\ntemplate\
     \ <class T>\nclass is_ModInt : public std::is_base_of<ModInt__Base, T> {};\ntemplate\
     \ <class T>\nconstexpr bool is_ModInt_v = is_ModInt<T>::value;\n\ntemplate <class\
@@ -206,7 +203,7 @@ data:
     \ = t[i - n];\n\t\t\t\thas[i] += has[i - 1] * base;\n\t\t\t\tpower[i] = power[i\
     \ - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\t\t}\n\t\treturn *this;\n\t}\n\
     };\n\n/**\n * @title Rolling hash\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"../math/StaticModInt.hpp\"\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n#include \"../math/StaticModInt.hpp\"\
     \ntemplate <unsigned int mod, unsigned int base>\nclass RollingHash {\n\tusing\
     \ M = StaticModInt<mod>;\n\tstd::string s;\n\tint n;\n\tstd::vector<M> has, power;\n\
     \n  public:\n\tRollingHash() {}\n\tRollingHash(const std::string& s) { init(s);\
@@ -225,17 +222,16 @@ data:
     \ * base;\n\t\t\t\tpower[i] = power[i - 1] * base;\n\t\t\t}\n\t\t\tn += t.size();\n\
     \t\t}\n\t\treturn *this;\n\t}\n};\n\n/**\n * @title Rolling hash\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   - math/StaticModInt.hpp
-  - other/type_traits.hpp
+  - basic/type_traits.hpp
   isVerificationFile: false
   path: string/RollingHash.hpp
   requiredBy:
   - string/HashedString.hpp
-  timestamp: '2023-06-17 00:23:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/ALDS1_14_B_HashedString.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: string/RollingHash.hpp
 layout: document
 redirect_from:

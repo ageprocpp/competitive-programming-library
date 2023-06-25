@@ -1,44 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
+  - icon: ':warning:'
+    path: basic/type_traits.hpp
+    title: basic/type_traits.hpp
+  - icon: ':warning:'
     path: math/NumberTheoreticTransform.hpp
     title: NumberTheoreticTransform
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: math/StaticModInt.hpp
     title: StaticModInt
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  - icon: ':heavy_check_mark:'
-    path: other/type_traits.hpp
-    title: other/type_traits.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod_1000000007.test.cpp
-    title: test/yosupo/convolution_mod_1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod_large.test.cpp
-    title: test/yosupo/convolution_mod_large.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/exp_of_formal_power_series.test.cpp
-    title: test/yosupo/exp_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/inv_of_formal_power_series.test.cpp
-    title: test/yosupo/inv_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/log_of_formal_power_series.test.cpp
-    title: test/yosupo/log_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/pow_of_formal_power_series.test.cpp
-    title: test/yosupo/pow_of_formal_power_series.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -131,7 +113,7 @@ data:
     \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
-    }\n#line 3 \"other/type_traits.hpp\"\n\nclass ModInt__Base {};\nclass StaticModInt__Base\
+    }\n#line 3 \"basic/type_traits.hpp\"\n\nclass ModInt__Base {};\nclass StaticModInt__Base\
     \ : ModInt__Base {};\nclass DynamicModInt__Base : ModInt__Base {};\n\ntemplate\
     \ <class T>\nclass is_ModInt : public std::is_base_of<ModInt__Base, T> {};\ntemplate\
     \ <class T>\nconstexpr bool is_ModInt_v = is_ModInt<T>::value;\n\ntemplate <class\
@@ -336,7 +318,7 @@ data:
     \ i))\n\t\t\t\t\t\tres[j] = 0;\n\t\t\t\t\telse\n\t\t\t\t\t\tres[j] = res[j - i\
     \ * k] * c;\n\t\t\t\t}\n\t\t\t\treturn res;\n\t\t\t}\n\t\t}\n\t\tFPS res(len);\n\
     \t\tif (!k) res[0] = 1;\n\t\treturn res;\n\t}\n};\n"
-  code: "#include \"../other/template.hpp\"\n#include \"../other/type_traits.hpp\"\
+  code: "#include \"../basic/template.hpp\"\n#include \"../basic/type_traits.hpp\"\
     \n#include \"NumberTheoreticTransform.hpp\"\n\ntemplate <class T, std::enable_if_t<is_ModInt_v<T>,\
     \ std::nullptr_t> = nullptr>\nclass FormalPowerSeries : public std::vector<T>\
     \ {\n  private:\n\tusing NTT = NumberTheoreticTransform;\n\tusing FPS = FormalPowerSeries<T>;\n\
@@ -398,22 +380,16 @@ data:
     \ * k] * c;\n\t\t\t\t}\n\t\t\t\treturn res;\n\t\t\t}\n\t\t}\n\t\tFPS res(len);\n\
     \t\tif (!k) res[0] = 1;\n\t\treturn res;\n\t}\n};"
   dependsOn:
-  - other/template.hpp
-  - other/type_traits.hpp
+  - basic/template.hpp
+  - basic/type_traits.hpp
   - math/NumberTheoreticTransform.hpp
   - math/StaticModInt.hpp
   isVerificationFile: false
   path: math/FormalPowerSeries.hpp
   requiredBy: []
-  timestamp: '2023-06-17 00:23:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/convolution_mod_1000000007.test.cpp
-  - test/yosupo/convolution_mod_large.test.cpp
-  - test/yosupo/pow_of_formal_power_series.test.cpp
-  - test/yosupo/log_of_formal_power_series.test.cpp
-  - test/yosupo/exp_of_formal_power_series.test.cpp
-  - test/yosupo/inv_of_formal_power_series.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: math/FormalPowerSeries.hpp
 layout: document
 redirect_from:

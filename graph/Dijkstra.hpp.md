@@ -1,27 +1,24 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
+  - icon: ':warning:'
     path: data-structure/PrioritizableBinaryHeap.hpp
     title: Prioritizable Binary Heap
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/Graph.hpp
     title: graph/Graph.hpp
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/shortest_path.test.cpp
-    title: test/yosupo/shortest_path.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Dijkstra's algorithm
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -184,7 +181,7 @@ data:
     \ (t != s) res_vec.emplace_back(t = from[t]);\n\t\tstd::reverse(all(res_vec));\n\
     \t\treturn {res_dist, res_vec};\n\t}\n};\n\n/**\n * @title Dijkstra's algorithm\n\
     \ */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"Graph.hpp\"\n\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n#include \"Graph.hpp\"\n\
     #include \"../data-structure/PrioritizableBinaryHeap.hpp\"\ntemplate <typename\
     \ W>\nclass Dijkstra {\n\tGraph<true, W> G;\n\n  public:\n\tDijkstra() {}\n\t\
     Dijkstra(const Graph<true, W>& G_) : G(G_) {}\n\tDijkstra(Graph<true, W>&& G_)\
@@ -213,16 +210,15 @@ data:
     \t\treturn {res_dist, res_vec};\n\t}\n};\n\n/**\n * @title Dijkstra's algorithm\n\
     \ */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   - graph/Graph.hpp
   - data-structure/PrioritizableBinaryHeap.hpp
   isVerificationFile: false
   path: graph/Dijkstra.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/shortest_path.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: graph/Dijkstra.hpp
 layout: document
 redirect_from:

@@ -1,24 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/matrix_det.test.cpp
-    title: test/yosupo/matrix_det.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/matrix_product.test.cpp
-    title: test/yosupo/matrix_product.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Matrix
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -180,7 +174,7 @@ data:
     \t\t}\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\n\tconstexpr static FixedSquareMatrix<T,\
     \ N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\
     \t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n\ntemplate <class T, std::enable_if_t<\n\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n\ntemplate <class T, std::enable_if_t<\n\
     #if __cplusplus >= 201703L\n\t\t\t\t\t   std::is_same_v<decltype(T() / T()), T>\n\
     #else\n\t\t\t\t\t   std::is_same<decltype(T() / T()), T>::value\n#endif\n\t\t\t\
     \t\t   ,\n\t\t\t\t\t   std::nullptr_t> = nullptr>\nclass Matrix {\n  protected:\n\
@@ -250,15 +244,13 @@ data:
     \ N> ident() {\n\t\tFixedSquareMatrix<T, N> res;\n\t\trep(i, N) res[i][i] = 1;\n\
     \t\treturn res;\n\t}\n};\n\n/**\n * @title Matrix\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: math/Matrix.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/matrix_product.test.cpp
-  - test/yosupo/matrix_det.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: math/Matrix.hpp
 layout: document
 redirect_from:

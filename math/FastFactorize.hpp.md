@@ -1,22 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/factorize.test.cpp
-    title: test/yosupo/factorize.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: FastFactorize
     links:
     - http://ceur-ws.org/Vol-1326/020-Forisek.pdf
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -2273,7 +2270,7 @@ data:
     \ f);\n\t\t\t\t\tself(self, m / f);\n\t\t\t\t\tbreak;\n\t\t\t\t}\n\t\t\t}\n\t\t\
     })(n);\n\t\tstd::sort(all(res));\n\t\treturn res;\n\t}\n\n};\t// namespace FastFactorize\n\
     \n/**\n * @title FastFactorize\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nnamespace FastFactorize\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nnamespace FastFactorize\
     \ {\n\t// safe multiplication for modulo\n\tinline static lint mul(lint a, lint\
     \ b, lint n) { return i128(a) * b % n; }\n\n\t// refers to http://ceur-ws.org/Vol-1326/020-Forisek.pdf\n\
     \t// determine if x is a prime for x < 2 ^ 64\n\tinline bool is_prime(lint x)\
@@ -4438,14 +4435,13 @@ data:
     })(n);\n\t\tstd::sort(all(res));\n\t\treturn res;\n\t}\n\n};\t// namespace FastFactorize\n\
     \n/**\n * @title FastFactorize\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: math/FastFactorize.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/factorize.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: math/FastFactorize.hpp
 layout: document
 redirect_from:

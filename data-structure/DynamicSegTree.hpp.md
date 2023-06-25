@@ -1,20 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yukicoder/0789.test.cpp
-    title: test/yukicoder/0789.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -134,7 +131,7 @@ data:
     \ {\n\t\t\tcur = cur->get_parent();\n\t\t\tcur->eval();\n\t\t}\n\t}\n\tT query(lint\
     \ l, lint r) const { return query(l, r, 0, n, root); }\n\tconst T &operator[](const\
     \ lint &x) { return ptr_from_id(x)->get(); }\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, T (*nodef)(const\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\ntemplate <class T, T (*nodef)(const\
     \ T &, const T &), T (*ident)(), T (*init)() = ident>\nclass DynamicSegTree {\n\
     \tclass Node {\n\t\tNode *par;\n\t\tstd::shared_ptr<Node> left = nullptr, right\
     \ = nullptr;\n\n\t  public:\n\t\tT value;\n\t\tNode() : value(init()) {}\n\t\t\
@@ -162,14 +159,13 @@ data:
     \ l, lint r) const { return query(l, r, 0, n, root); }\n\tconst T &operator[](const\
     \ lint &x) { return ptr_from_id(x)->get(); }\n};"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: data-structure/DynamicSegTree.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yukicoder/0789.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: data-structure/DynamicSegTree.hpp
 layout: document
 title: Dynamic Segment Tree

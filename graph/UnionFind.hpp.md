@@ -1,24 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
     path: graph/PersistentUnionFind.hpp
     title: Partially persistent disjoint set
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/unionfind.test.cpp
-    title: test/yosupo/unionfind.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Disjoint set
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -122,7 +119,7 @@ data:
     \t}\n\tbool same(int n, int m) { return find(n) == find(m); }\n\tint get_size(int\
     \ n) { return size_vec[find(n)]; }\n\tbool is_root(int n) { return find(n) ==\
     \ n; }\n};\n\n/**\n * @title Disjoint set\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass UnionFind {\n  protected:\n\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass UnionFind {\n  protected:\n\
     \tstd::vector<int> par_vec, size_vec;\n\n  public:\n\tUnionFind() {}\n\tUnionFind(int\
     \ size) { init(size); }\n\tsize_t size() const { return par_vec.size(); }\n\t\
     void init(int size) {\n\t\tpar_vec.resize(size);\n\t\tthis->size_vec.resize(size,\
@@ -135,15 +132,14 @@ data:
     \ }\n\tbool is_root(int n) { return find(n) == n; }\n};\n\n/**\n * @title Disjoint\
     \ set\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: graph/UnionFind.hpp
   requiredBy:
   - graph/PersistentUnionFind.hpp
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/unionfind.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: graph/UnionFind.hpp
 layout: document
 redirect_from:

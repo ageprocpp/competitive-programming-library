@@ -1,24 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
+  - icon: ':warning:'
     path: graph/StronglyConnectedComponents.hpp
     title: Strongly connected components
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/two_sat.test.cpp
-    title: test/yosupo/two_sat.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Two-sat solver
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -141,7 +138,7 @@ data:
     \t\trep(i, N) {\n\t\t\tif (ids[2 * i] == ids[2 * i + 1]) return false;\n\t\t\t\
     ans[i] = ids[2 * i] < ids[2 * i + 1];\n\t\t}\n\t\treturn true;\n\t}\n\tstd::vector<int>\
     \ answer() { return ans; }\n};\n\n/**\n * @title Two-sat solver\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"StronglyConnectedComponents.hpp\"\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n#include \"StronglyConnectedComponents.hpp\"\
     \nclass TwoSat {\n\tint N;\n\tStronglyConnectedComponents scc;\n\tstd::vector<int>\
     \ ans;\n\n  public:\n\tTwoSat(int N_) : N(N_), scc(2 * N_), ans(N_) {}\n\tvoid\
     \ add_clause(int i, bool f, int j, bool g) {\n\t\tscc.add_edge(2 * i + int(!f),\
@@ -151,15 +148,14 @@ data:
     ans[i] = ids[2 * i] < ids[2 * i + 1];\n\t\t}\n\t\treturn true;\n\t}\n\tstd::vector<int>\
     \ answer() { return ans; }\n};\n\n/**\n * @title Two-sat solver\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   - graph/StronglyConnectedComponents.hpp
   isVerificationFile: false
   path: graph/TwoSat.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/two_sat.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: graph/TwoSat.hpp
 layout: document
 redirect_from:

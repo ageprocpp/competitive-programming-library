@@ -1,21 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
-    title: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Segment Tree Beats
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -181,7 +178,7 @@ data:
     eval(k);\n\t\tlint vl = query_max(a, b, 2 * k + 1, l, (l + r) / 2);\n\t\tlint\
     \ vr = query_max(a, b, 2 * k + 2, (l + r) / 2, r);\n\t\treturn std::max(vl, vr);\n\
     \t}\n};\n\n/**\n * @title Segment Tree Beats\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass SegTreeBeats {\n\t\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass SegTreeBeats {\n\t\
     unsigned int n;\n\tstd::vector<lint> width, min[2], minc, max[2], maxc, sum, lazy;\n\
     \tvoid eval(int k) {\n\t\tif (n - 1 <= k) return;\n\t\tif (lazy[k]) {\n\t\t\t\
     update_node_add(2 * k + 1, lazy[k]);\n\t\t\tupdate_node_add(2 * k + 2, lazy[k]);\n\
@@ -255,14 +252,13 @@ data:
     \ vr = query_max(a, b, 2 * k + 2, (l + r) / 2, r);\n\t\treturn std::max(vl, vr);\n\
     \t}\n};\n\n/**\n * @title Segment Tree Beats\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: data-structure/SegTreeBeats.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: data-structure/SegTreeBeats.hpp
 layout: document
 redirect_from:

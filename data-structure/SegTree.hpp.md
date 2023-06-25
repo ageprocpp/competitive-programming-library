@@ -1,53 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/IntervalSegTree.hpp
     title: Interval Segment Tree
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_A.test.cpp
-    title: test/aoj/DSL_2_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_B.test.cpp
-    title: test/aoj/DSL_2_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_D.test.cpp
-    title: test/aoj/DSL_2_D.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_E.test.cpp
-    title: test/aoj/DSL_2_E.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_F.test.cpp
-    title: test/aoj/DSL_2_F.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_G.test.cpp
-    title: test/aoj/DSL_2_G.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_H.test.cpp
-    title: test/aoj/DSL_2_H.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_I.test.cpp
-    title: test/aoj/DSL_2_I.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/point_set_range_composite.test.cpp
-    title: test/yosupo/point_set_range_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_affine_range_sum.test.cpp
-    title: test/yosupo/range_affine_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_set_path_composite.test.cpp
-    title: test/yosupo/vertex_set_path_composite.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -206,7 +173,7 @@ data:
     \ RMaQ_nodef> {\n\tusing Base = SegTree<T, RMaQ_nodef>;\n\n  public:\n\ttemplate\
     \ <class... Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)...,\
     \ std::numeric_limits<T>::min()) {}\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <class T, T (*nodef)(const\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\ntemplate <class T, T (*nodef)(const\
     \ T&, const T&)>\nclass SegTree {\n  protected:\n\tunsigned int n = 1, m = 1,\
     \ rank = 0;\n\tstd::vector<T> node;\n\tT ident;\n\n  public:\n\tSegTree(T e_)\
     \ : ident(e_) {}\n\tSegTree(unsigned int m_, T e_) : m(m_), ident(e_) {\n\t\t\
@@ -273,25 +240,14 @@ data:
     \ <class... Args>\n\tRMaQ(Args&&... args) : Base(std::forward<Args>(args)...,\
     \ std::numeric_limits<T>::min()) {}\n};"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: data-structure/SegTree.hpp
   requiredBy:
   - data-structure/IntervalSegTree.hpp
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/aoj/DSL_2_B.test.cpp
-  - test/aoj/DSL_2_H.test.cpp
-  - test/aoj/DSL_2_I.test.cpp
-  - test/aoj/DSL_2_A.test.cpp
-  - test/aoj/DSL_2_E.test.cpp
-  - test/aoj/DSL_2_G.test.cpp
-  - test/aoj/DSL_2_F.test.cpp
-  - test/aoj/DSL_2_D.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: data-structure/SegTree.hpp
 layout: document
 title: Segment Tree

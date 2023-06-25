@@ -1,21 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/GRL_6_A_FordFulkerson.test.cpp
-    title: test/aoj/GRL_6_A_FordFulkerson.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Ford-Fulkerson algorithm
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -127,7 +124,7 @@ data:
     \ const {\n\t\tstd::vector<lint> res(idx);\n\t\trep(i, N) {\n\t\t\tfor (const\
     \ auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\
     \t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Ford-Fulkerson algorithm\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass FordFulkerson {\n\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass FordFulkerson {\n\
     \tclass edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t\
     };\n\tint N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<bool>\
     \ used;\n\tlint dfs(int node, int t, lint f) {\n\t\tif (node == t) return f;\n\
@@ -147,14 +144,13 @@ data:
     \ auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1) res[j.id] = j.cap;\n\t\t\t}\n\t\
     \t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title Ford-Fulkerson algorithm\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: graph/FordFulkerson.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/GRL_6_A_FordFulkerson.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: graph/FordFulkerson.hpp
 layout: document
 redirect_from:

@@ -1,20 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  _extendedRequiredBy:
   - icon: ':warning:'
-    path: test/yosupo/zalgorithm.cpp
-    title: test/yosupo/zalgorithm.cpp
+    path: basic/template.hpp
+    title: basic/template.hpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -113,19 +110,18 @@ data:
     \ res[l];\n\t\telse {\n\t\t\tint j = std::max(0, c + res[c] - i);\n\t\t\twhile\
     \ (i + j < n && S[j] == S[i + j]) j++;\n\t\t\tres[i] = j;\n\t\t\tc = i;\n\t\t\
     }\n\t}\n\tres[0] = n;\n\treturn res;\n}\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nstd::vector<int> ZAlgorithm(const\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nstd::vector<int> ZAlgorithm(const\
     \ std::string& S) {\n\tint c = 0, n = S.size();\n\tstd::vector<int> res(n, 0);\n\
     \tREP(i, S.size() - 1) {\n\t\tint l = i - c;\n\t\tif (i + res[l] < c + res[c])\n\
     \t\t\tres[i] = res[l];\n\t\telse {\n\t\t\tint j = std::max(0, c + res[c] - i);\n\
     \t\t\twhile (i + j < n && S[j] == S[i + j]) j++;\n\t\t\tres[i] = j;\n\t\t\tc =\
     \ i;\n\t\t}\n\t}\n\tres[0] = n;\n\treturn res;\n}"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: string/ZAlgorithm.hpp
-  requiredBy:
-  - test/yosupo/zalgorithm.cpp
-  timestamp: '2023-06-16 19:42:08+09:00'
+  requiredBy: []
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: string/ZAlgorithm.hpp

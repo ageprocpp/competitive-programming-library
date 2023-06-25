@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -12,7 +12,7 @@ data:
   attributes:
     document_title: Convex Hull Trick for monotone queries
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -140,7 +140,7 @@ data:
     \ x), deq.back().second};\n\t}\n\tbool empty() const { return deq.empty(); }\n\
     \tvoid clear() {\n\t\tdeq.clear();\n\t\tindex = 0;\n\t}\n};\n\n/**\n * @title\
     \ Convex Hull Trick for monotone queries\n */\n"
-  code: "#include \"../other/template.hpp\"\ntemplate <class T, bool isMin>\nclass\
+  code: "#include \"../basic/template.hpp\"\ntemplate <class T, bool isMin>\nclass\
     \ MonotoneConvexHullTrick {\n\tstatic constexpr double INF = DBL_MAX;\n\tusing\
     \ TP = std::pair<std::pair<T, T>, int>;\n\tint index = 0;\n\tstd::deque<TP> deq;\n\
     \tinline int sgn(T x) { return x == 0 ? 0 : (x < 0 ? -1 : 1); }\n\tinline T eval(const\
@@ -175,11 +175,11 @@ data:
     \ { return deq.empty(); }\n\tvoid clear() {\n\t\tdeq.clear();\n\t\tindex = 0;\n\
     \t}\n};\n\n/**\n * @title Convex Hull Trick for monotone queries\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: data-structure/MonotoneConvexHullTrick.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/MonotoneConvexHullTrick.hpp

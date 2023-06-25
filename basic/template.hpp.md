@@ -2,22 +2,28 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: basic/FastIO.hpp
+    title: Fast IO library
+  - icon: ':warning:'
+    path: basic/type_traits.hpp
+    title: basic/type_traits.hpp
+  - icon: ':warning:'
     path: data-structure/BIT.hpp
     title: Binary Indexed Tree
   - icon: ':warning:'
     path: data-structure/BinaryHeap.hpp
     title: Binary Heap
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/ConvexHullTrick.hpp
     title: Convex Hull Trick
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/DynamicSegTree.hpp
     title: Dynamic Segment Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/IntervalSegTree.hpp
     title: Interval Segment Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/LiChaoTree.hpp
     title: Li Chao Tree
   - icon: ':warning:'
@@ -26,7 +32,7 @@ data:
   - icon: ':warning:'
     path: data-structure/PersistentStack.hpp
     title: Persistent Stack
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/PrioritizableBinaryHeap.hpp
     title: Prioritizable Binary Heap
   - icon: ':warning:'
@@ -35,64 +41,64 @@ data:
   - icon: ':warning:'
     path: data-structure/RBSTset.hpp
     title: Set based on Randomized Binary Search Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/SWAG.hpp
     title: Sliding Window Aggregation
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/SegTree.hpp
     title: Segment Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/SegTreeBeats.hpp
     title: Segment Tree Beats
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/SparseTable.hpp
     title: Sparse Table
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/SuccinctBitVector.hpp
     title: Succinct Bit Vector
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/WaveletMatrix.hpp
     title: Wavelet Matrix
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: data-structure/vanEmdeBoasTree.hpp
     title: van Emde Boas Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/Dijkstra.hpp
     title: Dijkstra's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/Dinic.hpp
     title: Dinic's algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/FordFulkerson.hpp
     title: Ford-Fulkerson algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/Graph.hpp
     title: graph/Graph.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/HeavyLightDecomposition.hpp
     title: Heavy light decomposition
   - icon: ':warning:'
     path: graph/PersistentUnionFind.hpp
     title: Partially persistent disjoint set
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/PrimalDual.hpp
     title: Primal-dual algorithm
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/StronglyConnectedComponents.hpp
     title: Strongly connected components
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/Tree.hpp
     title: Basic algorithms for tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/TwoSat.hpp
     title: Two-sat solver
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/UnionFind.hpp
     title: Disjoint set
   - icon: ':warning:'
     path: math/Combinatorics.hpp
     title: Combinatorics/ModCombinatorics
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: math/CountPrime.hpp
     title: math/CountPrime.hpp
   - icon: ':warning:'
@@ -101,268 +107,61 @@ data:
   - icon: ':warning:'
     path: math/DynamicModInt.hpp
     title: DynamicModInt
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: math/FastFactorize.hpp
     title: FastFactorize
   - icon: ':warning:'
     path: math/FastFourierTransform.hpp
     title: FastFourierTransform
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: math/FloorSum.hpp
     title: FloorSum
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: math/FormalPowerSeries.hpp
     title: math/FormalPowerSeries.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: math/Geometry.hpp
     title: math/Geometry.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: math/Matrix.hpp
     title: Matrix
   - icon: ':warning:'
     path: math/MyComplex.hpp
     title: MyComplex
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: math/NumberTheoreticTransform.hpp
     title: NumberTheoreticTransform
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: math/StaticModInt.hpp
     title: StaticModInt
   - icon: ':warning:'
     path: math/XorConvolution.hpp
     title: math/XorConvolution.hpp
-  - icon: ':heavy_check_mark:'
-    path: other/FastIO.hpp
-    title: Fast IO library
-  - icon: ':heavy_check_mark:'
-    path: other/type_traits.hpp
-    title: other/type_traits.hpp
   - icon: ':warning:'
     path: string/EerTree.hpp
     title: EerTree
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: string/HashedString.hpp
     title: Hash library for strings
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: string/RollingHash.hpp
     title: Rolling hash
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: string/SuffixArray.hpp
     title: Suffix array
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: string/Trie.hpp
     title: Trie
   - icon: ':warning:'
     path: string/ZAlgorithm.hpp
     title: string/ZAlgorithm.hpp
-  - icon: ':warning:'
-    path: test/yosupo/discrete_logarithm_mod.cpp
-    title: test/yosupo/discrete_logarithm_mod.cpp
-  - icon: ':warning:'
-    path: test/yosupo/zalgorithm.cpp
-    title: test/yosupo/zalgorithm.cpp
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
-    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
-    title: test/aoj/ALDS1_14_B_SuffixArray.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_1_A.test.cpp
-    title: test/aoj/CGL_1_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_1_B.test.cpp
-    title: test/aoj/CGL_1_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_1_C.test.cpp
-    title: test/aoj/CGL_1_C.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_2_A.test.cpp
-    title: test/aoj/CGL_2_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_2_B.test.cpp
-    title: test/aoj/CGL_2_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_2_C.test.cpp
-    title: test/aoj/CGL_2_C.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_2_D.test.cpp
-    title: test/aoj/CGL_2_D.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_3_A.test.cpp
-    title: test/aoj/CGL_3_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_3_B.test.cpp
-    title: test/aoj/CGL_3_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_3_C.test.cpp
-    title: test/aoj/CGL_3_C.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_4_A.test.cpp
-    title: test/aoj/CGL_4_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/CGL_4_B.test.cpp
-    title: test/aoj/CGL_4_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_A.test.cpp
-    title: test/aoj/DSL_2_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_B.test.cpp
-    title: test/aoj/DSL_2_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_D.test.cpp
-    title: test/aoj/DSL_2_D.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_E.test.cpp
-    title: test/aoj/DSL_2_E.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_F.test.cpp
-    title: test/aoj/DSL_2_F.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_G.test.cpp
-    title: test/aoj/DSL_2_G.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_H.test.cpp
-    title: test/aoj/DSL_2_H.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/DSL_2_I.test.cpp
-    title: test/aoj/DSL_2_I.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/GRL_6_A_Dinic.test.cpp
-    title: test/aoj/GRL_6_A_Dinic.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/GRL_6_A_FordFulkerson.test.cpp
-    title: test/aoj/GRL_6_A_FordFulkerson.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/GRL_6_B.test.cpp
-    title: test/aoj/GRL_6_B.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/aplusb.test.cpp
-    title: test/yosupo/aplusb.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/associative_array.test.cpp
-    title: test/yosupo/associative_array.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/bipartitematching.test.cpp
-    title: test/yosupo/bipartitematching.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod.test.cpp
-    title: test/yosupo/convolution_mod.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod_1000000007.test.cpp
-    title: test/yosupo/convolution_mod_1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod_large.test.cpp
-    title: test/yosupo/convolution_mod_large.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/counting_primes.test.cpp
-    title: test/yosupo/counting_primes.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/exp_of_formal_power_series.test.cpp
-    title: test/yosupo/exp_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/factorize.test.cpp
-    title: test/yosupo/factorize.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/inv_of_formal_power_series.test.cpp
-    title: test/yosupo/inv_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/lca.test.cpp
-    title: test/yosupo/lca.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-    title: test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-    title: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/log_of_formal_power_series.test.cpp
-    title: test/yosupo/log_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/many_aplusb.test.cpp
-    title: test/yosupo/many_aplusb.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/matrix_det.test.cpp
-    title: test/yosupo/matrix_det.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/matrix_product.test.cpp
-    title: test/yosupo/matrix_product.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/point_add_range_sum.test.cpp
-    title: test/yosupo/point_add_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/point_set_range_composite.test.cpp
-    title: test/yosupo/point_set_range_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/pow_of_formal_power_series.test.cpp
-    title: test/yosupo/pow_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/predecessor_problem.test.cpp
-    title: test/yosupo/predecessor_problem.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/queue_operate_all_composite.test.cpp
-    title: test/yosupo/queue_operate_all_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_affine_range_sum.test.cpp
-    title: test/yosupo/range_affine_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
-    title: test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_kth_smallest.test.cpp
-    title: test/yosupo/range_kth_smallest.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/scc.test.cpp
-    title: test/yosupo/scc.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/segment_add_get_min.test.cpp
-    title: test/yosupo/segment_add_get_min.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/set_xor_min.test.cpp
-    title: test/yosupo/set_xor_min.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/shortest_path.test.cpp
-    title: test/yosupo/shortest_path.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/static_range_sum.test.cpp
-    title: test/yosupo/static_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/staticrmq.test.cpp
-    title: test/yosupo/staticrmq.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/suffixarray.test.cpp
-    title: test/yosupo/suffixarray.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/sum_of_floor_of_linear.test.cpp
-    title: test/yosupo/sum_of_floor_of_linear.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/tree_diameter.test.cpp
-    title: test/yosupo/tree_diameter.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/two_sat.test.cpp
-    title: test/yosupo/two_sat.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/unionfind.test.cpp
-    title: test/yosupo/unionfind.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_add_path_sum.test.cpp
-    title: test/yosupo/vertex_add_path_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_add_subtree_sum.test.cpp
-    title: test/yosupo/vertex_add_subtree_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_set_path_composite.test.cpp
-    title: test/yosupo/vertex_set_path_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yukicoder/0789.test.cpp
-    title: test/yukicoder/0789.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -552,133 +351,66 @@ data:
     }"
   dependsOn: []
   isVerificationFile: false
-  path: other/template.hpp
+  path: basic/template.hpp
   requiredBy:
-  - string/EerTree.hpp
-  - string/SuffixArray.hpp
-  - string/ZAlgorithm.hpp
-  - string/HashedString.hpp
-  - string/RollingHash.hpp
-  - string/Trie.hpp
-  - data-structure/LiChaoTree.hpp
   - data-structure/SegTreeBeats.hpp
-  - data-structure/BIT.hpp
-  - data-structure/RBST.hpp
-  - data-structure/MonotoneConvexHullTrick.hpp
-  - data-structure/IntervalSegTree.hpp
-  - data-structure/PersistentStack.hpp
   - data-structure/SegTree.hpp
-  - data-structure/vanEmdeBoasTree.hpp
-  - data-structure/RBSTset.hpp
-  - data-structure/PrioritizableBinaryHeap.hpp
-  - data-structure/ConvexHullTrick.hpp
-  - data-structure/SparseTable.hpp
-  - data-structure/SWAG.hpp
-  - data-structure/DynamicSegTree.hpp
-  - data-structure/WaveletMatrix.hpp
-  - data-structure/BinaryHeap.hpp
+  - data-structure/IntervalSegTree.hpp
   - data-structure/SuccinctBitVector.hpp
-  - other/FastIO.hpp
-  - other/type_traits.hpp
-  - math/MyComplex.hpp
-  - math/DynamicModInt.hpp
-  - math/StaticModInt.hpp
-  - math/DiscreteLogarithm.hpp
+  - data-structure/SparseTable.hpp
+  - data-structure/MonotoneConvexHullTrick.hpp
+  - data-structure/RBST.hpp
+  - data-structure/WaveletMatrix.hpp
+  - data-structure/SWAG.hpp
+  - data-structure/vanEmdeBoasTree.hpp
+  - data-structure/BinaryHeap.hpp
+  - data-structure/PersistentStack.hpp
+  - data-structure/PrioritizableBinaryHeap.hpp
+  - data-structure/LiChaoTree.hpp
+  - data-structure/DynamicSegTree.hpp
+  - data-structure/BIT.hpp
+  - data-structure/RBSTset.hpp
+  - data-structure/ConvexHullTrick.hpp
+  - math/CountPrime.hpp
+  - math/FloorSum.hpp
   - math/NumberTheoreticTransform.hpp
+  - math/MyComplex.hpp
+  - math/Combinatorics.hpp
   - math/Geometry.hpp
+  - math/XorConvolution.hpp
+  - math/DynamicModInt.hpp
+  - math/DiscreteLogarithm.hpp
+  - math/FormalPowerSeries.hpp
+  - math/StaticModInt.hpp
+  - math/Matrix.hpp
   - math/FastFactorize.hpp
   - math/FastFourierTransform.hpp
-  - math/CountPrime.hpp
-  - math/Combinatorics.hpp
-  - math/FloorSum.hpp
-  - math/FormalPowerSeries.hpp
-  - math/XorConvolution.hpp
-  - math/Matrix.hpp
-  - test/yosupo/zalgorithm.cpp
-  - test/yosupo/discrete_logarithm_mod.cpp
-  - graph/PersistentUnionFind.hpp
+  - string/Trie.hpp
+  - string/HashedString.hpp
+  - string/EerTree.hpp
+  - string/ZAlgorithm.hpp
+  - string/RollingHash.hpp
+  - string/SuffixArray.hpp
+  - basic/FastIO.hpp
+  - basic/type_traits.hpp
   - graph/TwoSat.hpp
   - graph/UnionFind.hpp
+  - graph/PrimalDual.hpp
+  - graph/Dijkstra.hpp
+  - graph/StronglyConnectedComponents.hpp
+  - graph/Dinic.hpp
+  - graph/PersistentUnionFind.hpp
+  - graph/FordFulkerson.hpp
   - graph/Graph.hpp
   - graph/Tree.hpp
   - graph/HeavyLightDecomposition.hpp
-  - graph/FordFulkerson.hpp
-  - graph/Dinic.hpp
-  - graph/Dijkstra.hpp
-  - graph/StronglyConnectedComponents.hpp
-  - graph/PrimalDual.hpp
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yukicoder/0789.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/associative_array.test.cpp
-  - test/yosupo/range_kth_smallest.test.cpp
-  - test/yosupo/set_xor_min.test.cpp
-  - test/yosupo/convolution_mod_1000000007.test.cpp
-  - test/yosupo/predecessor_problem.test.cpp
-  - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-  - test/yosupo/shortest_path.test.cpp
-  - test/yosupo/staticrmq.test.cpp
-  - test/yosupo/scc.test.cpp
-  - test/yosupo/point_add_range_sum.test.cpp
-  - test/yosupo/static_range_sum.test.cpp
-  - test/yosupo/counting_primes.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/queue_operate_all_composite.test.cpp
-  - test/yosupo/matrix_product.test.cpp
-  - test/yosupo/factorize.test.cpp
-  - test/yosupo/bipartitematching.test.cpp
-  - test/yosupo/unionfind.test.cpp
-  - test/yosupo/matrix_det.test.cpp
-  - test/yosupo/sum_of_floor_of_linear.test.cpp
-  - test/yosupo/aplusb.test.cpp
-  - test/yosupo/suffixarray.test.cpp
-  - test/yosupo/lca.test.cpp
-  - test/yosupo/convolution_mod_large.test.cpp
-  - test/yosupo/pow_of_formal_power_series.test.cpp
-  - test/yosupo/log_of_formal_power_series.test.cpp
-  - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-  - test/yosupo/two_sat.test.cpp
-  - test/yosupo/exp_of_formal_power_series.test.cpp
-  - test/yosupo/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/vertex_add_path_sum.test.cpp
-  - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
-  - test/yosupo/many_aplusb.test.cpp
-  - test/yosupo/inv_of_formal_power_series.test.cpp
-  - test/yosupo/tree_diameter.test.cpp
-  - test/yosupo/segment_add_get_min.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/aoj/DSL_2_B.test.cpp
-  - test/aoj/CGL_2_A.test.cpp
-  - test/aoj/DSL_2_H.test.cpp
-  - test/aoj/DSL_2_I.test.cpp
-  - test/aoj/GRL_6_A_FordFulkerson.test.cpp
-  - test/aoj/DSL_2_A.test.cpp
-  - test/aoj/CGL_1_A.test.cpp
-  - test/aoj/DSL_2_E.test.cpp
-  - test/aoj/CGL_3_B.test.cpp
-  - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
-  - test/aoj/DSL_2_G.test.cpp
-  - test/aoj/CGL_4_A.test.cpp
-  - test/aoj/DSL_2_F.test.cpp
-  - test/aoj/CGL_2_B.test.cpp
-  - test/aoj/CGL_1_C.test.cpp
-  - test/aoj/CGL_3_A.test.cpp
-  - test/aoj/CGL_3_C.test.cpp
-  - test/aoj/CGL_1_B.test.cpp
-  - test/aoj/DSL_2_D.test.cpp
-  - test/aoj/ALDS1_14_B_HashedString.test.cpp
-  - test/aoj/GRL_6_B.test.cpp
-  - test/aoj/CGL_4_B.test.cpp
-  - test/aoj/GRL_6_A_Dinic.test.cpp
-  - test/aoj/CGL_2_C.test.cpp
-  - test/aoj/CGL_2_D.test.cpp
-documentation_of: other/template.hpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: basic/template.hpp
 layout: document
 redirect_from:
-- /library/other/template.hpp
-- /library/other/template.hpp.html
-title: other/template.hpp
+- /library/basic/template.hpp
+- /library/basic/template.hpp.html
+title: basic/template.hpp
 ---

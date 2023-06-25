@@ -1,21 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/GRL_6_B.test.cpp
-    title: test/aoj/GRL_6_B.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Primal-dual algorithm
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -146,7 +143,7 @@ data:
     \ {\n\t\t\t\tif (j.id != -1) {\n\t\t\t\t\tvec[j.to][j.rev].cap += j.cap;\n\t\t\
     \t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n};\n\n/**\n * @title Primal-dual\
     \ algorithm\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass PrimalDualDemandOver\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass PrimalDualDemandOver\
     \ {};\nclass PrimalDual {\n\tclass edge {\n\t  public:\n\t\tint to, cap;\n\t\t\
     lint cost;\n\t\tint rev, id;\n\t};\n\tint n, idx = 0, s, t;\n\tlint curres = 0;\n\
     \tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int> prevv, preve;\n\tstd::vector<lint>\
@@ -185,14 +182,13 @@ data:
     \t\t\tj.cap = 0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n};\n\n/**\n * @title Primal-dual\
     \ algorithm\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: graph/PrimalDual.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/GRL_6_B.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: graph/PrimalDual.hpp
 layout: document
 redirect_from:

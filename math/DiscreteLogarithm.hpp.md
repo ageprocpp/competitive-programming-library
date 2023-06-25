@@ -1,13 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
-  _extendedRequiredBy:
   - icon: ':warning:'
-    path: test/yosupo/discrete_logarithm_mod.cpp
-    title: test/yosupo/discrete_logarithm_mod.cpp
+    path: basic/template.hpp
+    title: basic/template.hpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -15,7 +12,7 @@ data:
   attributes:
     document_title: Discrete Logarithm
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -123,7 +120,7 @@ data:
     \ mp[cur] - i, M) == Y) chmin(res, mp[cur] - i);\n\t\t}\n\t\tcur = lint(cur) *\
     \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}\n\n/**\n * @title Discrete Logarithm\n\
     \ */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nint DiscreteLogarithm(int\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nint DiscreteLogarithm(int\
     \ X, int Y, int M) {\n\tif (Y == 0 && M == 1) return 0;\n\tif (X == 0) {\n\t\t\
     if (Y == 0) return 1;\n\t\tif (Y == 1) return 0;\n\t\treturn -1;\n\t}\n\tif (Y\
     \ == 1) return 0;\n\tif (Y == 0) {\n\t\tint inf_p = 1, tmp = M, cur = 1;\n\t\t\
@@ -139,12 +136,11 @@ data:
     \ X % M;\n\t}\n\treturn res == INF ? -1 : res;\n}\n\n/**\n * @title Discrete Logarithm\n\
     \ */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: math/DiscreteLogarithm.hpp
-  requiredBy:
-  - test/yosupo/discrete_logarithm_mod.cpp
-  timestamp: '2023-06-16 19:42:08+09:00'
+  requiredBy: []
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/DiscreteLogarithm.hpp

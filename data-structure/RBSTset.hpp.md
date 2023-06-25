@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
+  - icon: ':warning:'
     path: data-structure/RBST.hpp
     title: Randomized Binary Search Tree
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -15,7 +15,7 @@ data:
   attributes:
     document_title: Set based on Randomized Binary Search Tree
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -164,7 +164,7 @@ data:
     \ { rbst.clear(); }\n\tint size() const { return rbst.size(); }\n\tbool empty()\
     \ const { return rbst.empty(); }\n};\n\n/**\n * @title Set based on Randomized\
     \ Binary Search Tree\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"RBST.hpp\"\n\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n#include \"RBST.hpp\"\n\
     template <class T>\nclass RBSTset {\n\tRBST<int> rbst;\n\n  public:\n\tRBSTset()\
     \ {}\n\tconst T& quantile(int idx) const { return rbst.find(idx); }\n\tbool contains(const\
     \ T& val) const {\n\t\treturn rbst.lower_bound(val) != rbst.upper_bound(val);\n\
@@ -174,12 +174,12 @@ data:
     \ const { return rbst.empty(); }\n};\n\n/**\n * @title Set based on Randomized\
     \ Binary Search Tree\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   - data-structure/RBST.hpp
   isVerificationFile: false
   path: data-structure/RBSTset.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/RBSTset.hpp

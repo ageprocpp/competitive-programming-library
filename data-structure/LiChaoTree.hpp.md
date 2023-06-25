@@ -1,24 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-    title: test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/segment_add_get_min.test.cpp
-    title: test/yosupo/segment_add_get_min.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Li Chao Tree
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -150,7 +144,7 @@ data:
     \ res.first = -res.first;\n\t\treturn res;\n\t}\n\tvoid clear() {\n\t\tid = 0;\n\
     \t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t}\n};\n\n/**\n * @title Li Chao Tree\n\
     \ */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <bool isMin>\n\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\ntemplate <bool isMin>\n\
     class LiChaoTree {\n\tint n, id;\n\tstd::vector<std::tuple<lint, lint, lint>>\
     \ interval;\n\tstd::vector<std::pair<LP, int>> node;\n\tstd::vector<lint> cord;\n\
     \tstatic lint calc(std::pair<LP, int> l, lint x) { return l.first.first * x +\
@@ -191,15 +185,13 @@ data:
     \t\tnode.assign(2 * n, {{0, LINF}, -1});\n\t}\n};\n\n/**\n * @title Li Chao Tree\n\
     \ */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: data-structure/LiChaoTree.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-  - test/yosupo/segment_add_get_min.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: data-structure/LiChaoTree.hpp
 layout: document
 title: Li Chao Tree

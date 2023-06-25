@@ -1,42 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/bipartitematching.test.cpp
-    title: test/yosupo/bipartitematching.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod_1000000007.test.cpp
-    title: test/yosupo/convolution_mod_1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod_large.test.cpp
-    title: test/yosupo/convolution_mod_large.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/many_aplusb.test.cpp
-    title: test/yosupo/many_aplusb.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/pow_of_formal_power_series.test.cpp
-    title: test/yosupo/pow_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/predecessor_problem.test.cpp
-    title: test/yosupo/predecessor_problem.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_kth_smallest.test.cpp
-    title: test/yosupo/range_kth_smallest.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/shortest_path.test.cpp
-    title: test/yosupo/shortest_path.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Fast IO library
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -129,7 +105,7 @@ data:
     \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
-    }\n#line 3 \"other/FastIO.hpp\"\nnamespace FastIO {\n\tstatic constexpr size_t\
+    }\n#line 3 \"basic/FastIO.hpp\"\nnamespace FastIO {\n\tstatic constexpr size_t\
     \ buf_size = 1 << 18;\n\tstatic constexpr size_t integer_size = 19;\n\n\tstatic\
     \ char inbuf[buf_size + 1] = {};\n\tstatic char outbuf[buf_size + 1] = {};\n\n\
     \tclass Scanner {\n\t\tsize_t pos = 0, end = buf_size;\n\t\tvoid load() {\n\t\t\
@@ -286,25 +262,17 @@ data:
     \ *this;\n\t\t}\n\t};\n\tconst std::unique_ptr<char[]> Printer::block_str = Printer::precompute();\n\
     };\t// namespace FastIO\n\n/**\n * @title Fast IO library\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
-  path: other/FastIO.hpp
+  path: basic/FastIO.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/range_kth_smallest.test.cpp
-  - test/yosupo/convolution_mod_1000000007.test.cpp
-  - test/yosupo/predecessor_problem.test.cpp
-  - test/yosupo/shortest_path.test.cpp
-  - test/yosupo/bipartitematching.test.cpp
-  - test/yosupo/convolution_mod_large.test.cpp
-  - test/yosupo/pow_of_formal_power_series.test.cpp
-  - test/yosupo/many_aplusb.test.cpp
-documentation_of: other/FastIO.hpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: basic/FastIO.hpp
 layout: document
 redirect_from:
-- /library/other/FastIO.hpp
-- /library/other/FastIO.hpp.html
+- /library/basic/FastIO.hpp
+- /library/basic/FastIO.hpp.html
 title: Fast IO library
 ---

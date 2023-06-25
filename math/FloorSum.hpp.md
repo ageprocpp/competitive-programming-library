@@ -1,21 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/sum_of_floor_of_linear.test.cpp
-    title: test/yosupo/sum_of_floor_of_linear.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: FloorSum
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -114,21 +111,20 @@ data:
     lint ymax = (A * N + B) / M, xmax = ymax * M - B;\n\tif (ymax == 0) return ans;\n\
     \tans += (N - (xmax + A - 1) / A) * ymax;\n\tans += floor_sum(ymax, A, M, (A -\
     \ xmax % A) % A);\n\treturn ans;\n}\n\n/**\n * @title FloorSum\n */\n"
-  code: "#include \"../other/template.hpp\"\nlint floor_sum(lint N, lint M, lint A,\
+  code: "#include \"../basic/template.hpp\"\nlint floor_sum(lint N, lint M, lint A,\
     \ lint B) {\n\tlint ans = 0;\n\tif (A >= M) {\n\t\tans += (N - 1) * N / 2 * (A\
     \ / M);\n\t\tA %= M;\n\t}\n\tif (B >= M) {\n\t\tans += B / M * N;\n\t\tB %= M;\n\
     \t}\n\tlint ymax = (A * N + B) / M, xmax = ymax * M - B;\n\tif (ymax == 0) return\
     \ ans;\n\tans += (N - (xmax + A - 1) / A) * ymax;\n\tans += floor_sum(ymax, A,\
     \ M, (A - xmax % A) % A);\n\treturn ans;\n}\n\n/**\n * @title FloorSum\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: math/FloorSum.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/sum_of_floor_of_linear.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: math/FloorSum.hpp
 layout: document
 redirect_from:

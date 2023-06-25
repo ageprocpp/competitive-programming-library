@@ -9,7 +9,7 @@ data:
   attributes:
     links:
     - https://github.com/MikeMirzayanov/testlib/
-  bundledCode: "#line 1 \"other/testlib.h\"\n/* \n * It is strictly recommended to\
+  bundledCode: "#line 1 \"basic/testlib.h\"\n/* \n * It is strictly recommended to\
     \ include \"testlib.h\" before any other include \n * in your code. In this case\
     \ testlib overrides compiler specific \"random()\".\n *\n * If you can't compile\
     \ your code and compiler outputs something about \n * ambiguous call of \"random_shuffle\"\
@@ -4183,15 +4183,15 @@ data:
     }\n#endif\n#endif"
   dependsOn: []
   isVerificationFile: false
-  path: other/testlib.h
+  path: basic/testlib.h
   requiredBy: []
-  timestamp: '2021-01-06 23:31:25+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: other/testlib.h
+documentation_of: basic/testlib.h
 layout: document
 redirect_from:
-- /library/other/testlib.h
-- /library/other/testlib.h.html
-title: other/testlib.h
+- /library/basic/testlib.h
+- /library/basic/testlib.h.html
+title: basic/testlib.h
 ---

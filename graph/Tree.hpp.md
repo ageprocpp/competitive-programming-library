@@ -1,21 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/tree_diameter.test.cpp
-    title: test/yosupo/tree_diameter.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Basic algorithms for tree
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -133,7 +130,7 @@ data:
     \t\tself(self, e.first);\n\t\t\t\t\tif (f) break;\n\t\t\t\t}\n\t\t\t}\n\t\t\t\
     if (f) res.push_back(node);\n\t\t})(x);\n\t\tstd::reverse(all(res));\n\t\treturn\
     \ {res, dist};\n\t}\n};\n\n/**\n * @title Basic algorithms for tree\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass Tree {\n\tusing ET\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass Tree {\n\tusing ET\
     \ = std::pair<int, lint>;\n\n  private:\n\tint N;\n\tstd::vector<std::vector<ET>>\
     \ vec;\n\n  public:\n\ttemplate <class T>\n\tTree(int M, const std::vector<std::pair<T,\
     \ T>> es) : N(M) {\n\t\tvec.resize(N + 1);\n\t\tfor (const auto& e : es) {\n\t\
@@ -159,14 +156,13 @@ data:
     if (f) res.push_back(node);\n\t\t})(x);\n\t\tstd::reverse(all(res));\n\t\treturn\
     \ {res, dist};\n\t}\n};\n\n/**\n * @title Basic algorithms for tree\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: graph/Tree.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/tree_diameter.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: graph/Tree.hpp
 layout: document
 redirect_from:

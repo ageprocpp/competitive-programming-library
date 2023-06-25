@@ -1,24 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/GRL_6_A_Dinic.test.cpp
-    title: test/aoj/GRL_6_A_Dinic.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/bipartitematching.test.cpp
-    title: test/yosupo/bipartitematching.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Dinic's algorithm
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -142,7 +136,7 @@ data:
     \t\trep(i, N) {\n\t\t\tfor (const auto& j : vec[i]) {\n\t\t\t\tif (j.id != -1)\
     \ res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title\
     \ Dinic's algorithm\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass Dinic {\n\tclass\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass Dinic {\n\tclass\
     \ edge {\n\t  public:\n\t\tint to;\n\t\tlint cap;\n\t\tint rev, id;\n\t};\n\t\
     int N, idx = 0;\n\tstd::vector<std::vector<edge>> vec;\n\tstd::vector<int> iter,\
     \ level;\n\tbool bfs(int s, int t) {\n\t\tlevel.assign(N, -1);\n\t\tlevel[s] =\
@@ -174,15 +168,13 @@ data:
     \ res[j.id] = j.cap;\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n};\n\n/**\n * @title\
     \ Dinic's algorithm\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: graph/Dinic.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/bipartitematching.test.cpp
-  - test/aoj/GRL_6_A_Dinic.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: graph/Dinic.hpp
 layout: document
 redirect_from:

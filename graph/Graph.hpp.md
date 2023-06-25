@@ -1,23 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/Dijkstra.hpp
     title: Dijkstra's algorithm
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/shortest_path.test.cpp
-    title: test/yosupo/shortest_path.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -125,7 +122,7 @@ data:
     \t\t\t\tif constexpr (weighted)\n#else\n\t\t\t\tif (weighted)\n#endif\n\t\t\t\t\
     \tres.vec[j.first].emplace_back(i, j.second);\n\t\t\t\telse\n\t\t\t\t\tres.vec[j].emplace_back(i);\n\
     \t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\n\tfriend Dijkstra<W>;\n};\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\ntemplate <typename>\nclass\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\ntemplate <typename>\nclass\
     \ Dijkstra;\n\ntemplate <bool weighted, typename W = std::conditional_t<weighted,\
     \ int, void>>\nclass Graph {\n\tsize_t N;\n\tstd::vector<\n\t\tstd::vector<std::conditional_t<weighted,\
     \ std::pair<int, W>, int>>>\n\t\tvec;\n\tusing weight_type = W;\n\n  public:\n\
@@ -141,15 +138,14 @@ data:
     \tres.vec[j.first].emplace_back(i, j.second);\n\t\t\t\telse\n\t\t\t\t\tres.vec[j].emplace_back(i);\n\
     \t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\n\tfriend Dijkstra<W>;\n};"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: graph/Graph.hpp
   requiredBy:
   - graph/Dijkstra.hpp
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/shortest_path.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: graph/Graph.hpp
 layout: document
 redirect_from:

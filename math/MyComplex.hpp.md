@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
     path: math/FastFourierTransform.hpp
@@ -15,7 +15,7 @@ data:
   attributes:
     document_title: MyComplex
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -138,7 +138,7 @@ data:
     \ operator/(const T& rhs) const {\n\t\treturn MyComplex(*this) /= rhs;\n\t}\n\t\
     template <class T>\n\tMyComplex& operator/=(const T& rhs) const {\n\t\treturn\
     \ operator/=(MyComplex(rhs));\n\t}\n};\n\n/**\n * @title MyComplex\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass MyComplex {\n\tdouble\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass MyComplex {\n\tdouble\
     \ realvalue, imagvalue;\n\n  public:\n\tMyComplex() : realvalue(0), imagvalue(0)\
     \ {}\n\ttemplate <class T, class U>\n\tMyComplex(const T& realvalue, const U&\
     \ imagvalue)\n\t\t: realvalue(realvalue), imagvalue(imagvalue) {}\n\ttemplate\
@@ -170,12 +170,12 @@ data:
     \ {\n\t\treturn operator/=(MyComplex(rhs));\n\t}\n};\n\n/**\n * @title MyComplex\n\
     \ */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: math/MyComplex.hpp
   requiredBy:
   - math/FastFourierTransform.hpp
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/MyComplex.hpp

@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -12,7 +12,7 @@ data:
   attributes:
     document_title: EerTree
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -127,7 +127,7 @@ data:
     \ count_end_with(int idx) {\n\t\tsize_t res = 0;\n\t\tfor (Node* node = last[idx];\
     \ node != root[0] && node != root[1];\n\t\t\t node = node->suffix_link)\n\t\t\t\
     res++;\n\t\treturn res;\n\t}\n};\n\n/**\n * @title EerTree\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass EerTree {\n\tclass\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass EerTree {\n\tclass\
     \ Node {\n\t  public:\n\t\tint len;\n\t\tNode* suffix_link;\n\t\tstd::map<char,\
     \ Node*> edges;\n\t\tNode(int len) : len(len), suffix_link(nullptr) {}\n\t};\n\
     \tstd::vector<Node*> last;\n\tNode* root[2];\n\tstd::string s;\n\tsize_t size_\
@@ -150,11 +150,11 @@ data:
     \ node = last[idx]; node != root[0] && node != root[1];\n\t\t\t node = node->suffix_link)\n\
     \t\t\tres++;\n\t\treturn res;\n\t}\n};\n\n/**\n * @title EerTree\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: string/EerTree.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: string/EerTree.hpp

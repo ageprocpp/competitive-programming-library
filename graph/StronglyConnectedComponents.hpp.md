@@ -1,27 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: graph/TwoSat.hpp
     title: Two-sat solver
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/scc.test.cpp
-    title: test/yosupo/scc.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/two_sat.test.cpp
-    title: test/yosupo/two_sat.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Strongly connected components
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -136,7 +130,7 @@ data:
     \t\tstd::vector<int> res(N);\n\t\trep(i, scc.size()) for (const auto& j : scc[i])\
     \ res[j] = i;\n\t\treturn res;\n\t}\n\tsize_t size() const { return N; }\n};\n\
     \n/**\n * @title Strongly connected components\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\nclass StronglyConnectedComponents\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\nclass StronglyConnectedComponents\
     \ {\n\tint N;\n\tstd::vector<std::vector<int>> vec, rvec;\n\tstd::vector<std::vector<int>>\
     \ scc;\n\n  public:\n\tStronglyConnectedComponents() {}\n\tStronglyConnectedComponents(int\
     \ N_) : N(N_) { vec.resize(N), rvec.resize(N); }\n\tvoid add_edge(int from, int\
@@ -159,16 +153,14 @@ data:
     \ res[j] = i;\n\t\treturn res;\n\t}\n\tsize_t size() const { return N; }\n};\n\
     \n/**\n * @title Strongly connected components\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   isVerificationFile: false
   path: graph/StronglyConnectedComponents.hpp
   requiredBy:
   - graph/TwoSat.hpp
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/scc.test.cpp
-  - test/yosupo/two_sat.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: graph/StronglyConnectedComponents.hpp
 layout: document
 redirect_from:

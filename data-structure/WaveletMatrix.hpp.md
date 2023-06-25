@@ -1,24 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
+  - icon: ':warning:'
     path: data-structure/SuccinctBitVector.hpp
     title: Succinct Bit Vector
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_kth_smallest.test.cpp
-    title: test/yosupo/range_kth_smallest.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     document_title: Wavelet Matrix
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -161,7 +158,7 @@ data:
     \t\t\tl = r = zero_cnt[i];\n\t\t\t\tl += o_l;\n\t\t\t\tr += o_r;\n\t\t\t\tk -=\
     \ z_r - z_l;\n\t\t\t\tres |= (1 << i);\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\
     };\n\n/**\n * @title Wavelet Matrix\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"SuccinctBitVector.hpp\"\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n#include \"SuccinctBitVector.hpp\"\
     \ntemplate <typename T>\nconstexpr static int8_t bit_count() {\n\tint8_t res =\
     \ 0;\n\tstd::make_unsigned_t<T> x = ~0;\n\twhile (x) {\n\t\tres++;\n\t\tx >>=\
     \ 1;\n\t}\n\treturn res;\n}\ntemplate <typename T, int8_t word_size = bit_count<T>()>\n\
@@ -189,15 +186,14 @@ data:
     \ z_r - z_l;\n\t\t\t\tres |= (1 << i);\n\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n\
     };\n\n/**\n * @title Wavelet Matrix\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   - data-structure/SuccinctBitVector.hpp
   isVerificationFile: false
   path: data-structure/WaveletMatrix.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/yosupo/range_kth_smallest.test.cpp
+  timestamp: '2023-06-25 16:21:20+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: data-structure/WaveletMatrix.hpp
 layout: document
 redirect_from:

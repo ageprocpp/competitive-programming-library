@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: basic/template.hpp
+    title: basic/template.hpp
+  - icon: ':warning:'
     path: graph/UnionFind.hpp
     title: Disjoint set
-  - icon: ':heavy_check_mark:'
-    path: other/template.hpp
-    title: other/template.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -15,7 +15,7 @@ data:
   attributes:
     document_title: Partially persistent disjoint set
     links: []
-  bundledCode: "#line 2 \"other/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
+  bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
     #ifndef __clang__\n#pragma GCC optimize(\"O3\")\n#pragma GCC optimize(\"unroll-loops\"\
     )\n#endif\n#include <string.h>\n#include <algorithm>\n#include <array>\n#include\
     \ <bitset>\n#include <cassert>\n#include <cfloat>\n#include <chrono>\n#include\
@@ -135,7 +135,7 @@ data:
     \ std::lower_bound(all(sizevec[n]), std::make_pair(t, 0));\n\t\tif (ite == sizevec[n].end())\
     \ ite--;\n\t\tif (t < (*ite).first) ite--;\n\t\treturn (*ite).second;\n\t}\n};\n\
     \n/**\n * @title Partially persistent disjoint set\n */\n"
-  code: "#pragma once\n#include \"../other/template.hpp\"\n#include \"UnionFind.hpp\"\
+  code: "#pragma once\n#include \"../basic/template.hpp\"\n#include \"UnionFind.hpp\"\
     \nclass PersistentUnionFind {\n\tstd::vector<IP> notparent;\n\tstd::vector<std::vector<std::pair<int,\
     \ int>>> sizevec;\n\tint opcount = 0;\n\n  public:\n\tPersistentUnionFind(unsigned\
     \ int size) {\n\t\tnotparent.resize(size);\n\t\tsizevec.resize(size);\n\t\trep(i,\
@@ -153,12 +153,12 @@ data:
     \ ite--;\n\t\tif (t < (*ite).first) ite--;\n\t\treturn (*ite).second;\n\t}\n};\n\
     \n/**\n * @title Partially persistent disjoint set\n */"
   dependsOn:
-  - other/template.hpp
+  - basic/template.hpp
   - graph/UnionFind.hpp
   isVerificationFile: false
   path: graph/PersistentUnionFind.hpp
   requiredBy: []
-  timestamp: '2023-06-16 19:42:08+09:00'
+  timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: graph/PersistentUnionFind.hpp
