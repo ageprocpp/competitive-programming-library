@@ -121,6 +121,9 @@ data:
       path: math/DynamicModInt.hpp
       title: DynamicModInt
     - icon: ':heavy_check_mark:'
+      path: math/Factorize.hpp
+      title: math/Factorize.hpp
+    - icon: ':heavy_check_mark:'
       path: math/FastFactorize.hpp
       title: FastFactorize
     - icon: ':warning:'
@@ -135,6 +138,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/Geometry.hpp
       title: math/Geometry.hpp
+    - icon: ':warning:'
+      path: math/Interpolation.hpp
+      title: math/Interpolation.hpp
     - icon: ':heavy_check_mark:'
       path: math/Matrix.hpp
       title: Matrix
@@ -150,6 +156,11 @@ data:
     - icon: ':warning:'
       path: math/XorConvolution.hpp
       title: math/XorConvolution.hpp
+  - name: other
+    pages:
+    - icon: ':warning:'
+      path: other/Sudoku.hpp
+      title: other/Sudoku.hpp
   - name: string
     pages:
     - icon: ':warning:'
@@ -285,6 +296,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/yosupo/factorize.test.cpp
       title: test/yosupo/factorize.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/yosupo/factorize_fast.test.cpp
+      title: test/yosupo/factorize_fast.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/yosupo/inv_of_formal_power_series.test.cpp
       title: test/yosupo/inv_of_formal_power_series.test.cpp

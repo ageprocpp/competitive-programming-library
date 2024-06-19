@@ -235,8 +235,8 @@ data:
   timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/suffixarray.test.cpp
   - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
+  - test/yosupo/suffixarray.test.cpp
 documentation_of: string/SuffixArray.hpp
 layout: document
 redirect_from:

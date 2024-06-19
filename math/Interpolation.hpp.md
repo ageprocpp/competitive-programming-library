@@ -4,74 +4,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: basic/template.hpp
     title: basic/template.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: math/Combinatorics.hpp
-    title: Combinatorics/ModCombinatorics
-  - icon: ':warning:'
-    path: math/DynamicModInt.hpp
-    title: DynamicModInt
-  - icon: ':heavy_check_mark:'
-    path: math/FormalPowerSeries.hpp
-    title: math/FormalPowerSeries.hpp
-  - icon: ':heavy_check_mark:'
-    path: math/NumberTheoreticTransform.hpp
-    title: NumberTheoreticTransform
-  - icon: ':heavy_check_mark:'
-    path: math/StaticModInt.hpp
-    title: StaticModInt
-  - icon: ':heavy_check_mark:'
-    path: string/HashedString.hpp
-    title: Hash library for strings
-  - icon: ':heavy_check_mark:'
-    path: string/RollingHash.hpp
-    title: Rolling hash
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/ALDS1_14_B_HashedString.test.cpp
-    title: test/aoj/ALDS1_14_B_HashedString.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod.test.cpp
-    title: test/yosupo/convolution_mod.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod_1000000007.test.cpp
-    title: test/yosupo/convolution_mod_1000000007.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/convolution_mod_large.test.cpp
-    title: test/yosupo/convolution_mod_large.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/exp_of_formal_power_series.test.cpp
-    title: test/yosupo/exp_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/inv_of_formal_power_series.test.cpp
-    title: test/yosupo/inv_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/log_of_formal_power_series.test.cpp
-    title: test/yosupo/log_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/matrix_det.test.cpp
-    title: test/yosupo/matrix_det.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/matrix_product.test.cpp
-    title: test/yosupo/matrix_product.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/point_set_range_composite.test.cpp
-    title: test/yosupo/point_set_range_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/pow_of_formal_power_series.test.cpp
-    title: test/yosupo/pow_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/queue_operate_all_composite.test.cpp
-    title: test/yosupo/queue_operate_all_composite.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/range_affine_range_sum.test.cpp
-    title: test/yosupo/range_affine_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/yosupo/vertex_set_path_composite.test.cpp
-    title: test/yosupo/vertex_set_path_composite.test.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "#line 2 \"basic/template.hpp\"\n#define _CRT_SECURE_NO_WARNINGS\n\
@@ -167,84 +104,30 @@ data:
     \ r);\n}\ntemplate <class T>\nstd::vector<T> xor_bases(const std::vector<T>& vec)\
     \ {\n\tstd::vector<T> res;\n\tfor (T i : vec) {\n\t\tfor (T j : res) {\n\t\t\t\
     chmin(i, i ^ j);\n\t\t}\n\t\tif (i) res.emplace_back(i);\n\t}\n\treturn res;\n\
-    }\n#line 3 \"basic/type_traits.hpp\"\n\nclass ModInt__Base {};\nclass StaticModInt__Base\
-    \ : ModInt__Base {};\nclass DynamicModInt__Base : ModInt__Base {};\n\ntemplate\
-    \ <class T>\nclass is_ModInt : public std::is_base_of<ModInt__Base, T> {};\ntemplate\
-    \ <class T>\nconstexpr bool is_ModInt_v = is_ModInt<T>::value;\n\ntemplate <class\
-    \ T>\nclass is_StaticModInt : public std::is_base_of<StaticModInt__Base, T> {};\n\
-    template <class T>\nconstexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;\n\
-    \ntemplate <class T>\nclass is_DynamicModInt : public std::is_base_of<DynamicModInt__Base,\
-    \ T> {};\ntemplate <class T>\nconstexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;\n"
-  code: '#pragma once
-
-    #include "template.hpp"
-
-
-    class ModInt__Base {};
-
-    class StaticModInt__Base : ModInt__Base {};
-
-    class DynamicModInt__Base : ModInt__Base {};
-
-
-    template <class T>
-
-    class is_ModInt : public std::is_base_of<ModInt__Base, T> {};
-
-    template <class T>
-
-    constexpr bool is_ModInt_v = is_ModInt<T>::value;
-
-
-    template <class T>
-
-    class is_StaticModInt : public std::is_base_of<StaticModInt__Base, T> {};
-
-    template <class T>
-
-    constexpr bool is_StaticModInt_v = is_StaticModInt<T>::value;
-
-
-    template <class T>
-
-    class is_DynamicModInt : public std::is_base_of<DynamicModInt__Base, T> {};
-
-    template <class T>
-
-    constexpr bool is_DynamicModInt_v = is_DynamicModInt<T>::value;'
+    }\n#line 3 \"math/Interpolation.hpp\"\ntemplate <class T>\nT arithmetic_interpolation(const\
+    \ T& a, const T& d, const std::vector<T>& y, const T& t) {\n\tconst int n = y.size()\
+    \ - 1;\n\tT res = 0, ft = 1;\n\trep(i, n + 1) ft *= t - (a + d * i);\n\tT f =\
+    \ 1;\n\tREP(i, n) f *= -d * i;\n\tres += y[0] * ft / (t - a) / f;\n\trep(i, n)\
+    \ {\n\t\tf *= i + 1;\n\t\tf /= i - n;\n\t\tres += y[i + 1] * ft / (t - (a + d\
+    \ * (i + 1))) / f;\n\t}\n\treturn res;\n}\n"
+  code: "#pragma once\n#include \"../basic/template.hpp\"\ntemplate <class T>\nT arithmetic_interpolation(const\
+    \ T& a, const T& d, const std::vector<T>& y, const T& t) {\n\tconst int n = y.size()\
+    \ - 1;\n\tT res = 0, ft = 1;\n\trep(i, n + 1) ft *= t - (a + d * i);\n\tT f =\
+    \ 1;\n\tREP(i, n) f *= -d * i;\n\tres += y[0] * ft / (t - a) / f;\n\trep(i, n)\
+    \ {\n\t\tf *= i + 1;\n\t\tf /= i - n;\n\t\tres += y[i + 1] * ft / (t - (a + d\
+    \ * (i + 1))) / f;\n\t}\n\treturn res;\n}"
   dependsOn:
   - basic/template.hpp
   isVerificationFile: false
-  path: basic/type_traits.hpp
-  requiredBy:
-  - string/HashedString.hpp
-  - string/RollingHash.hpp
-  - math/DynamicModInt.hpp
-  - math/Combinatorics.hpp
-  - math/StaticModInt.hpp
-  - math/FormalPowerSeries.hpp
-  - math/NumberTheoreticTransform.hpp
-  timestamp: '2023-06-25 16:21:20+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/ALDS1_14_B_HashedString.test.cpp
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/log_of_formal_power_series.test.cpp
-  - test/yosupo/queue_operate_all_composite.test.cpp
-  - test/yosupo/matrix_product.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/convolution_mod_large.test.cpp
-  - test/yosupo/matrix_det.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/yosupo/convolution_mod_1000000007.test.cpp
-  - test/yosupo/pow_of_formal_power_series.test.cpp
-  - test/yosupo/inv_of_formal_power_series.test.cpp
-  - test/yosupo/exp_of_formal_power_series.test.cpp
-documentation_of: basic/type_traits.hpp
+  path: math/Interpolation.hpp
+  requiredBy: []
+  timestamp: '2024-06-19 15:49:33+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: math/Interpolation.hpp
 layout: document
 redirect_from:
-- /library/basic/type_traits.hpp
-- /library/basic/type_traits.hpp.html
-title: basic/type_traits.hpp
+- /library/math/Interpolation.hpp
+- /library/math/Interpolation.hpp.html
+title: math/Interpolation.hpp
 ---

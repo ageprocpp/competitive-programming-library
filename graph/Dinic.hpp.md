@@ -181,8 +181,8 @@ data:
   timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/bipartitematching.test.cpp
   - test/aoj/GRL_6_A_Dinic.test.cpp
+  - test/yosupo/bipartitematching.test.cpp
 documentation_of: graph/Dinic.hpp
 layout: document
 redirect_from:

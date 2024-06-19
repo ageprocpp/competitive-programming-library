@@ -408,12 +408,12 @@ data:
   timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yosupo/pow_of_formal_power_series.test.cpp
-  - test/yosupo/exp_of_formal_power_series.test.cpp
-  - test/yosupo/convolution_mod_large.test.cpp
-  - test/yosupo/inv_of_formal_power_series.test.cpp
   - test/yosupo/log_of_formal_power_series.test.cpp
+  - test/yosupo/convolution_mod_large.test.cpp
   - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/pow_of_formal_power_series.test.cpp
+  - test/yosupo/inv_of_formal_power_series.test.cpp
+  - test/yosupo/exp_of_formal_power_series.test.cpp
 documentation_of: math/FormalPowerSeries.hpp
 layout: document
 redirect_from:

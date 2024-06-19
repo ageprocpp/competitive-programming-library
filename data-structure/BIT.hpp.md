@@ -147,9 +147,9 @@ data:
   timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yosupo/point_add_range_sum.test.cpp
   - test/yosupo/vertex_add_subtree_sum.test.cpp
   - test/yosupo/vertex_add_path_sum.test.cpp
-  - test/yosupo/point_add_range_sum.test.cpp
 documentation_of: data-structure/BIT.hpp
 layout: document
 title: Binary Indexed Tree

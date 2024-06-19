@@ -108,6 +108,9 @@ data:
     path: math/DynamicModInt.hpp
     title: DynamicModInt
   - icon: ':heavy_check_mark:'
+    path: math/Factorize.hpp
+    title: math/Factorize.hpp
+  - icon: ':heavy_check_mark:'
     path: math/FastFactorize.hpp
     title: FastFactorize
   - icon: ':warning:'
@@ -122,6 +125,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: math/Geometry.hpp
     title: math/Geometry.hpp
+  - icon: ':warning:'
+    path: math/Interpolation.hpp
+    title: math/Interpolation.hpp
   - icon: ':heavy_check_mark:'
     path: math/Matrix.hpp
     title: Matrix
@@ -137,6 +143,9 @@ data:
   - icon: ':warning:'
     path: math/XorConvolution.hpp
     title: math/XorConvolution.hpp
+  - icon: ':warning:'
+    path: other/Sudoku.hpp
+    title: other/Sudoku.hpp
   - icon: ':warning:'
     path: string/EerTree.hpp
     title: EerTree
@@ -264,6 +273,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yosupo/factorize.test.cpp
     title: test/yosupo/factorize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/yosupo/factorize_fast.test.cpp
+    title: test/yosupo/factorize_fast.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/yosupo/inv_of_formal_power_series.test.cpp
     title: test/yosupo/inv_of_formal_power_series.test.cpp
@@ -554,127 +566,131 @@ data:
   isVerificationFile: false
   path: basic/template.hpp
   requiredBy:
-  - data-structure/SegTreeBeats.hpp
-  - data-structure/SegTree.hpp
-  - data-structure/IntervalSegTree.hpp
+  - data-structure/BIT.hpp
   - data-structure/SuccinctBitVector.hpp
-  - data-structure/SparseTable.hpp
-  - data-structure/MonotoneConvexHullTrick.hpp
-  - data-structure/RBST.hpp
-  - data-structure/WaveletMatrix.hpp
+  - data-structure/RBSTset.hpp
+  - data-structure/PersistentStack.hpp
+  - data-structure/SegTree.hpp
   - data-structure/SWAG.hpp
+  - data-structure/WaveletMatrix.hpp
   - data-structure/vanEmdeBoasTree.hpp
   - data-structure/BinaryHeap.hpp
-  - data-structure/PersistentStack.hpp
-  - data-structure/PrioritizableBinaryHeap.hpp
-  - data-structure/LiChaoTree.hpp
   - data-structure/DynamicSegTree.hpp
-  - data-structure/BIT.hpp
-  - data-structure/RBSTset.hpp
+  - data-structure/LiChaoTree.hpp
   - data-structure/ConvexHullTrick.hpp
-  - math/CountPrime.hpp
-  - math/FloorSum.hpp
-  - math/NumberTheoreticTransform.hpp
-  - math/MyComplex.hpp
-  - math/Combinatorics.hpp
-  - math/Geometry.hpp
-  - math/XorConvolution.hpp
-  - math/DynamicModInt.hpp
-  - math/DiscreteLogarithm.hpp
-  - math/FormalPowerSeries.hpp
-  - math/StaticModInt.hpp
-  - math/Matrix.hpp
-  - math/FastFactorize.hpp
-  - math/FastFourierTransform.hpp
-  - string/Trie.hpp
-  - string/HashedString.hpp
-  - string/EerTree.hpp
-  - string/ZAlgorithm.hpp
-  - string/RollingHash.hpp
-  - string/SuffixArray.hpp
-  - test/yosupo/zalgorithm.cpp
+  - data-structure/MonotoneConvexHullTrick.hpp
+  - data-structure/SegTreeBeats.hpp
+  - data-structure/RBST.hpp
+  - data-structure/PrioritizableBinaryHeap.hpp
+  - data-structure/SparseTable.hpp
+  - data-structure/IntervalSegTree.hpp
   - test/yosupo/discrete_logarithm_mod.cpp
+  - test/yosupo/zalgorithm.cpp
   - basic/FastIO.hpp
   - basic/type_traits.hpp
-  - graph/TwoSat.hpp
   - graph/UnionFind.hpp
-  - graph/PrimalDual.hpp
   - graph/Dijkstra.hpp
-  - graph/StronglyConnectedComponents.hpp
+  - graph/PrimalDual.hpp
   - graph/Dinic.hpp
-  - graph/PersistentUnionFind.hpp
-  - graph/FordFulkerson.hpp
+  - graph/HeavyLightDecomposition.hpp
   - graph/Graph.hpp
   - graph/Tree.hpp
-  - graph/HeavyLightDecomposition.hpp
+  - graph/FordFulkerson.hpp
+  - graph/StronglyConnectedComponents.hpp
+  - graph/TwoSat.hpp
+  - graph/PersistentUnionFind.hpp
+  - string/HashedString.hpp
+  - string/RollingHash.hpp
+  - string/SuffixArray.hpp
+  - string/Trie.hpp
+  - string/EerTree.hpp
+  - string/ZAlgorithm.hpp
+  - math/DynamicModInt.hpp
+  - math/FastFactorize.hpp
+  - math/FloorSum.hpp
+  - math/Geometry.hpp
+  - math/CountPrime.hpp
+  - math/Combinatorics.hpp
+  - math/Matrix.hpp
+  - math/Factorize.hpp
+  - math/XorConvolution.hpp
+  - math/StaticModInt.hpp
+  - math/FormalPowerSeries.hpp
+  - math/DiscreteLogarithm.hpp
+  - math/MyComplex.hpp
+  - math/FastFourierTransform.hpp
+  - math/NumberTheoreticTransform.hpp
+  - math/Interpolation.hpp
+  - other/Sudoku.hpp
   timestamp: '2023-06-25 16:21:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/0789.test.cpp
-  - test/yosupo/predecessor_problem.test.cpp
-  - test/yosupo/suffixarray.test.cpp
-  - test/yosupo/counting_primes.test.cpp
-  - test/yosupo/static_range_sum.test.cpp
-  - test/yosupo/aplusb.test.cpp
-  - test/yosupo/factorize.test.cpp
-  - test/yosupo/pow_of_formal_power_series.test.cpp
-  - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
-  - test/yosupo/set_xor_min.test.cpp
-  - test/yosupo/point_set_range_composite.test.cpp
-  - test/yosupo/lca.test.cpp
-  - test/yosupo/two_sat.test.cpp
-  - test/yosupo/range_kth_smallest.test.cpp
-  - test/yosupo/vertex_add_subtree_sum.test.cpp
-  - test/yosupo/exp_of_formal_power_series.test.cpp
-  - test/yosupo/bipartitematching.test.cpp
-  - test/yosupo/convolution_mod_large.test.cpp
-  - test/yosupo/staticrmq.test.cpp
-  - test/yosupo/range_affine_range_sum.test.cpp
-  - test/yosupo/scc.test.cpp
-  - test/yosupo/shortest_path.test.cpp
-  - test/yosupo/segment_add_get_min.test.cpp
-  - test/yosupo/inv_of_formal_power_series.test.cpp
-  - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
-  - test/yosupo/log_of_formal_power_series.test.cpp
-  - test/yosupo/associative_array.test.cpp
-  - test/yosupo/matrix_product.test.cpp
-  - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
-  - test/yosupo/many_aplusb.test.cpp
-  - test/yosupo/sum_of_floor_of_linear.test.cpp
-  - test/yosupo/convolution_mod.test.cpp
-  - test/yosupo/vertex_add_path_sum.test.cpp
-  - test/yosupo/queue_operate_all_composite.test.cpp
-  - test/yosupo/point_add_range_sum.test.cpp
-  - test/yosupo/tree_diameter.test.cpp
-  - test/yosupo/unionfind.test.cpp
-  - test/yosupo/vertex_set_path_composite.test.cpp
-  - test/yosupo/matrix_det.test.cpp
-  - test/yosupo/convolution_mod_1000000007.test.cpp
-  - test/aoj/DSL_2_H.test.cpp
   - test/aoj/DSL_2_F.test.cpp
-  - test/aoj/GRL_6_B.test.cpp
-  - test/aoj/GRL_6_A_FordFulkerson.test.cpp
   - test/aoj/DSL_2_I.test.cpp
-  - test/aoj/ALDS1_14_B_HashedString.test.cpp
-  - test/aoj/CGL_4_B.test.cpp
-  - test/aoj/CGL_4_A.test.cpp
-  - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
-  - test/aoj/CGL_2_A.test.cpp
+  - test/aoj/CGL_2_C.test.cpp
+  - test/aoj/GRL_6_A_Dinic.test.cpp
+  - test/aoj/CGL_3_A.test.cpp
+  - test/aoj/CGL_2_D.test.cpp
+  - test/aoj/CGL_3_C.test.cpp
   - test/aoj/DSL_2_A.test.cpp
   - test/aoj/DSL_2_E.test.cpp
+  - test/aoj/GRL_6_B.test.cpp
+  - test/aoj/GRL_6_A_FordFulkerson.test.cpp
+  - test/aoj/ALDS1_14_B_SuffixArray.test.cpp
+  - test/aoj/CGL_1_A.test.cpp
+  - test/aoj/DSL_2_H.test.cpp
+  - test/aoj/ALDS1_14_B_HashedString.test.cpp
+  - test/aoj/CGL_2_A.test.cpp
+  - test/aoj/CGL_2_B.test.cpp
   - test/aoj/DSL_2_G.test.cpp
-  - test/aoj/CGL_2_C.test.cpp
-  - test/aoj/DSL_2_B.test.cpp
-  - test/aoj/CGL_3_A.test.cpp
   - test/aoj/CGL_1_C.test.cpp
   - test/aoj/DSL_2_D.test.cpp
-  - test/aoj/CGL_1_B.test.cpp
-  - test/aoj/GRL_6_A_Dinic.test.cpp
-  - test/aoj/CGL_3_C.test.cpp
-  - test/aoj/CGL_1_A.test.cpp
-  - test/aoj/CGL_2_D.test.cpp
-  - test/aoj/CGL_2_B.test.cpp
+  - test/aoj/DSL_2_B.test.cpp
+  - test/aoj/CGL_4_B.test.cpp
+  - test/aoj/CGL_4_A.test.cpp
   - test/aoj/CGL_3_B.test.cpp
+  - test/aoj/CGL_1_B.test.cpp
+  - test/yukicoder/0789.test.cpp
+  - test/yosupo/convolution_mod.test.cpp
+  - test/yosupo/line_add_get_min_ConvexHullTrick.test.cpp
+  - test/yosupo/point_add_range_sum.test.cpp
+  - test/yosupo/log_of_formal_power_series.test.cpp
+  - test/yosupo/static_range_sum.test.cpp
+  - test/yosupo/queue_operate_all_composite.test.cpp
+  - test/yosupo/unionfind.test.cpp
+  - test/yosupo/staticrmq.test.cpp
+  - test/yosupo/associative_array.test.cpp
+  - test/yosupo/matrix_product.test.cpp
+  - test/yosupo/counting_primes.test.cpp
+  - test/yosupo/many_aplusb.test.cpp
+  - test/yosupo/vertex_set_path_composite.test.cpp
+  - test/yosupo/factorize_fast.test.cpp
+  - test/yosupo/aplusb.test.cpp
+  - test/yosupo/factorize.test.cpp
+  - test/yosupo/vertex_add_subtree_sum.test.cpp
+  - test/yosupo/convolution_mod_large.test.cpp
+  - test/yosupo/two_sat.test.cpp
+  - test/yosupo/suffixarray.test.cpp
+  - test/yosupo/matrix_det.test.cpp
+  - test/yosupo/range_chmin_chmax_add_range_sum.test.cpp
+  - test/yosupo/range_affine_range_sum.test.cpp
+  - test/yosupo/point_set_range_composite.test.cpp
+  - test/yosupo/convolution_mod_1000000007.test.cpp
+  - test/yosupo/pow_of_formal_power_series.test.cpp
+  - test/yosupo/line_add_get_min_LiChaoTree.test.cpp
+  - test/yosupo/inv_of_formal_power_series.test.cpp
+  - test/yosupo/vertex_add_path_sum.test.cpp
+  - test/yosupo/exp_of_formal_power_series.test.cpp
+  - test/yosupo/set_xor_min.test.cpp
+  - test/yosupo/sum_of_floor_of_linear.test.cpp
+  - test/yosupo/shortest_path.test.cpp
+  - test/yosupo/range_kth_smallest.test.cpp
+  - test/yosupo/tree_diameter.test.cpp
+  - test/yosupo/lca.test.cpp
+  - test/yosupo/predecessor_problem.test.cpp
+  - test/yosupo/segment_add_get_min.test.cpp
+  - test/yosupo/bipartitematching.test.cpp
+  - test/yosupo/scc.test.cpp
 documentation_of: basic/template.hpp
 layout: document
 redirect_from:
