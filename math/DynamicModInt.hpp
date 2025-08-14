@@ -1,17 +1,21 @@
 #pragma once
 #include "../basic/template.hpp"
+#include "../math/BarrettReduction.hpp"
 #include "../basic/type_traits.hpp"
 class DynamicModInt : DynamicModInt__Base {
 	static uint modulo;
+	static BarrettReduction br;
 	int value;
 
   public:
-	static void setMod(uint mod) { modulo = mod; }
+	static void setMod(uint mod) {
+		modulo = mod;
+		br = BarrettReduction(modulo);
+	}
 	constexpr DynamicModInt() : value(0) {}
 	template <class T>
 	DynamicModInt(T value = 0) : value(value) {
-		this->value =
-			(value < 0 ? -(-value % modulo) + modulo : lint(value)) % modulo;
+		this->value = (value < 0 ? -(-value % modulo) + modulo : lint(value)) % modulo;
 	}
 
 	inline DynamicModInt inv() const { return mypow(*this, modulo - 2); }
@@ -52,12 +56,10 @@ class DynamicModInt : DynamicModInt__Base {
 		return res;
 	}
 	inline DynamicModInt& operator*=(const DynamicModInt& x) {
-		value = (lint)value * x.value % modulo;
+		value = br.mul(value, x.value);
 		return *this;
 	}
-	inline DynamicModInt& operator/=(const DynamicModInt& rhs) {
-		return *this *= rhs.inv();
-	}
+	inline DynamicModInt& operator/=(const DynamicModInt& rhs) { return *this *= rhs.inv(); }
 	template <class T>
 	DynamicModInt operator+(const T& rhs) const {
 		return DynamicModInt(*this) += rhs;
@@ -124,12 +126,18 @@ class DynamicModInt : DynamicModInt__Base {
 	}
 };
 uint DynamicModInt::modulo = 1000000007;
+BarrettReduction DynamicModInt::br(DynamicModInt::modulo);
 
 std::istream& operator>>(std::istream& ist, DynamicModInt& x) {
 	lint a;
 	ist >> a;
 	x = a;
 	return ist;
+}
+template <class Stream>
+Stream& operator<<(Stream& ost, const DynamicModInt& x) {
+	ost << int(x);
+	return ost;
 }
 
 /**

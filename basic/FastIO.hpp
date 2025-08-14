@@ -33,7 +33,9 @@ namespace FastIO {
 			inbuf[end] = '\0';
 			pos = 0;
 		}
-		void scan() {}
+		int getchar() { return next(); }
+		void back() { pos--; }
+		void scan() const {}
 		void scan(char& c) { c = next_nonspace(); }
 		void scan(std::string& s) {
 			ignore_space();
@@ -45,6 +47,7 @@ namespace FastIO {
 				if (inbuf[pos] != '\0') break;
 				reload();
 			} while (true);
+			back();
 		}
 		template <typename T, std::enable_if_t<std::is_integral_v<T>, std::nullptr_t> = nullptr>
 		void scan(T& x) {
@@ -57,6 +60,7 @@ namespace FastIO {
 				x = c & 15;
 			while ((c = next()) >= '0') x = x * 10 + (c & 15);
 			if (minus) x = -x;
+			back();
 		}
 		template <typename T, class... Args>
 		void scan(T& x, Args&... args) {
@@ -213,6 +217,23 @@ namespace FastIO {
 	};
 	const std::unique_ptr<char[]> Printer::block_str = Printer::precompute();
 };	// namespace FastIO
+
+template <class Container,
+		  std::enable_if_t<!std::is_same<Container, std::string>::value, std::nullptr_t> = nullptr>
+auto operator>>(FastIO::Scanner& ist, Container& cont)
+	-> decltype(std::declval<Container>().emplace_back(
+					std::declval<typename Container::value_type>()),
+				ist)& {
+	Container tmp;
+	while (true) {
+		typename Container::value_type t;
+		ist >> t;
+		tmp.emplace_back(t);
+		if (ist.getchar() == '\n') break;
+	}
+	cont = Container(std::move(tmp));
+	return ist;
+}
 
 /**
  * @title Fast IO library

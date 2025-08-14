@@ -3,7 +3,7 @@
 #include "../basic/template.hpp"
 namespace Factorize {
 	inline static lint mul(lint a, lint b, lint n) { return i128(a) * b % n; }
-	inline static lint safemodpow(lint a, lint b, lint n) noexcept {
+	inline static lint modpow(lint a, lint b, lint n) noexcept {
 		a %= n;
 		lint res(1);
 		while (b) {
@@ -21,7 +21,7 @@ namespace Factorize {
 		for (lint i : test) {
 			if (i % n == 0) continue;
 			lint t = d;
-			lint y = safemodpow(i, t, n);
+			lint y = modpow(i, t, n);
 			while (t != n - 1 && y != 1 && y != n - 1) {
 				y = mul(y, y, n), t *= 2;
 			}

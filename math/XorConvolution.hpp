@@ -17,7 +17,7 @@ class XorConvolution {
 
 	template <typename T>
 	static void ifwt(std::vector<T>& f) {
-		int n = f.size();
+		size_t n = f.size();
 		for (int i = 1; i < n; i <<= 1) {
 			rep(j, n) {
 				if ((j & i) == 0) {
@@ -28,16 +28,16 @@ class XorConvolution {
 		}
 	}
 
+  public:
 	template <typename T>
-	static std::vector<T> convolution(const std::vector<T>& f,
-									  const std::vector<T>& g) {
+	static std::vector<T> convolution(const std::vector<T>& f, const std::vector<T>& g) {
 		auto nf = f, ng = g;
 		int tmp = 1;
 		while (tmp < nf.size() || tmp < ng.size()) tmp <<= 1;
 		nf.resize(tmp), ng.resize(tmp);
-		fwt(f), fwt(g);
+		fwt(nf), fwt(ng);
 		rep(i, nf.size()) nf[i] *= ng[i];
-		ifwt(f);
+		ifwt(nf);
 		return nf;
 	}
 };

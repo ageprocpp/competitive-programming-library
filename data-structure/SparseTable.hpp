@@ -1,10 +1,15 @@
 #pragma once
 #include "../basic/template.hpp"
-template <class T, bool withindex = false>
+template <class T, bool withindex = false, class Compare = std::less<>>
 class SparseTable {
 	using U = std::conditional_t<withindex, std::pair<T, int>, T>;
 	std::vector<std::vector<U>> table;
 	std::vector<int> logtable;
+
+	U get_m(const U& lhs, const U& rhs) {
+		if (Compare()(lhs, rhs)) return lhs;
+		return rhs;
+	}
 
   public:
 	SparseTable() {}
@@ -22,8 +27,7 @@ class SparseTable {
 		}
 		REP(i, maxlength) {
 			rep(j, vec.size() - (1 << i) + 1) {
-				table[i][j] =
-					std::min(table[i - 1][j], table[i - 1][j + (1 << (i - 1))]);
+				table[i][j] = get_m(table[i - 1][j], table[i - 1][j + (1 << (i - 1))]);
 			}
 		}
 		logtable[1] = 0;
@@ -41,8 +45,8 @@ class SparseTable {
 	}
 	U query(int l, int r) {
 		int length = r - l;
-		return std::min(table[logtable[length]][l],
-						table[logtable[length]][r - (1 << logtable[length])]);
+		return get_m(table[logtable[length]][l],
+					 table[logtable[length]][r - (1 << logtable[length])]);
 	}
 };
 

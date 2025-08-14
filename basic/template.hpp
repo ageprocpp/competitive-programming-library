@@ -35,6 +35,7 @@
 #include <vector>
 
 #define rep(i, n) for (int i = 0; i < int(n); i++)
+#define rrep(i, n) for (int i = n - 1; i >= 0; i--)
 #define REP(i, n) for (int i = 1; i <= int(n); i++)
 #define all(V) V.begin(), V.end()
 
